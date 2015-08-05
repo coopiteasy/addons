@@ -1,0 +1,14 @@
+<openerp>
+	<data>
+		<record id="default_report_view" model="ir.ui.view">
+            <field name="name">ir.actions.report.xml</field>
+            <field name="model">ir.actions.report.xml</field>
+            <field name="inherit_id" ref="base.act_report_xml_view" />
+            <field name="arch" type="xml">
+	            <xpath expr="//field[@name='attachment']" position='after'>
+	        		<field name="is_default" />
+				</xpath>
+            </field>
+        </record>
+	</data>
+</openerp>
