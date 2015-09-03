@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+	<template id="question_media" inherit_id="survey.page" customize_show="True" name="Product attributes">
+ 		<xpath expr="//div[@t-field='question.description']" position="before">
+  			<t t-if="question.image">
+  				<span itemprop="image" t-field="question.image" t-field-options='{"widget": "image", "class": "product_detail_img", "alt-field": "name"}'/>
+  			</t>
+  			<t t-if="question.video_url">
+	  			<div class="embed-responsive embed-responsive-16by9">
+	            	<iframe width="560" height="315" t-att-src="question.video_url" frameborder="0" />
+	            </div>
+            </t>
+  		</xpath>
+	</template>
+
+	</data>
+</openerp>

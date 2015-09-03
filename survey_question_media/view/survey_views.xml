@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+        <record model="ir.ui.view" id="survey_question_form_inherit">
+            <field name="name">Form view for survey question</field>
+            <field name="model">survey.question</field>
+            <field name="inherit_id" ref="survey.survey_question_form" />
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='type']" position='before'>
+	        		<field name="image" widget="image" class="oe_avatar oe_left"/>
+	        		<field name="video_url" />
+				</xpath>
+            </field>
+        </record>
+    </data>
+</openerp>
