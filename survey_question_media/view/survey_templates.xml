@@ -2,7 +2,7 @@
 <openerp>
 	<data>
 
-	<template id="question_media" inherit_id="survey.page" customize_show="True" name="Product attributes">
+	<template id="question_media" inherit_id="survey.page">
  		<xpath expr="//div[@t-field='question.description']" position="before">
   			<t t-if="question.image">
   				<span itemprop="image" t-field="question.image" t-field-options='{"widget": "image", "class": "product_detail_img", "alt-field": "name"}'/>
