@@ -1,0 +1,29 @@
+<openerp>
+	<data>
+	
+		<record id="view_add_calls_wizard" model="ir.ui.view">
+            <field name="name">Add calls to respondents</field>
+            <field name="model">add.calls.wizard</field>
+            <field name="arch" type="xml">
+	            <form string="Task control" version="7.0">
+					<separator string="Task control"/>
+					<label string="Select between task or task description"/>
+					<group>
+						<field name="message" default_focus="1" />
+						<button name="add_message" string="Add message" type="object" class="oe_highlight"/>
+					</group>
+	            </form>
+            </field>
+        </record>
+        
+     	<act_window name="Add calls to respondents"
+            res_model="add.calls.wizard"
+            src_model="res.partner"
+            view_mode="form"
+            target="new"
+            multi="True"
+            key2="client_action_multi"
+            id="action_add_calls_wizard"/>
+            
+	</data>
+</openerp>
