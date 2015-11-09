@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    BOSS, Business Open Source Solution
-#    Copyright (C) 2013-2014 BOSS Consulting SPRL.
+#    Copyright (C) 2013-2014 Open Architects Consulting SPRL.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -23,7 +23,7 @@
     'description': 'Default Report',
     'category': 'report',
     'version': '1.0',
-    'author': 'Easy-My',
+    'author': 'Houssine BAKKALI',
     'depends': ['base',],
     'data': [
         'view/ir_report.xml',
