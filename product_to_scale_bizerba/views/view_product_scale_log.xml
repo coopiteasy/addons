@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (C) 2016-Today: GRAP (http://www.grap.coop)
+@author Sylvain LE GAL (https://twitter.com/legalsylvain)
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<openerp><data>
+
+    <record id="view_product_scale_log_tree" model="ir.ui.view">
+        <field name="model">product.scale.log</field>
+        <field name="arch" type="xml">
+            <tree string="Scale Log" colors="gray:sent == True;">
+                <field name="log_date"/>
+                <field name="sent"/>
+                <field name="scale_system_id"/>
+                <field name="product_id"/>
+                <field name="action"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_product_scale_log_form" model="ir.ui.view">
+        <field name="model">product.scale.log</field>
+        <field name="arch" type="xml">
+            <form string="Scale Log" version="7.0">
+                <header />
+                <sheet>
+                    <group>
+                        <group>
+                            <group>
+                                <field name="log_date"/>
+                                <field name="sent"/>
+                            </group>
+                            <group>
+                                <field name="scale_system_id"/>
+                                <field name="product_id"/>
+                                <field name="action"/>
+                            </group>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="product_log_line" colspan="4"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</data></openerp>

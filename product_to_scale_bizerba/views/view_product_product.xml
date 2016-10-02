@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (C) 2016-Today: GRAP (http://www.grap.coop)
+@author Sylvain LE GAL (https://twitter.com/legalsylvain)
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<openerp><data>
+
+    <record id="product_normal_form_view" model="ir.ui.view">
+        <field name="name">product.normal.form.inherit</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="Scale">
+                    <group>
+                        <group string="Scale Communication">
+                            <field name="scale_group_id"/>
+                            <button name="send_scale_create" type="object" string="Resend Creation To the Scale System"
+                                colspan="2"/>
+                            <button name="send_scale_write" type="object" string="Resend Update To the Scale System"
+                                colspan="2"/>
+                            <button name="send_scale_unlink" type="object" string="Manual Deletion in the Scale System"
+                                colspan="2"/>
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+</data></openerp>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (C) 2016-Today: GRAP (http://www.grap.coop)
+@author Sylvain LE GAL (https://twitter.com/legalsylvain)
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<openerp><data>
+
+<!--    <record id="view_product_scale_group_form" model="ir.ui.view">-->
+<!--        <field name="model">product.scale.group</field>-->
+<!--        <field name="arch" type="xml">-->
+
+<!--                    <notebook>-->
+<!--                        <page string="Products">-->
+<!--                            <group>-->
+<!--                                <separator string="Products" colspan="4"/>-->
+<!--                                <field name="period_ids" nolabel="1" />-->
+<!--                            </group>-->
+<!--                        </page>-->
+<!--                    </notebook>-->
+
+
+<!--        </field>-->
+<!--    </record>-->
+
+</data></openerp>
