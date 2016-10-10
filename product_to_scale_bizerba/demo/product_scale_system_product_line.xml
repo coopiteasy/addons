@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (C) 2016-Today: GRAP (http://www.grap.coop)
+@author Sylvain LE GAL (https://twitter.com/legalsylvain)
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<openerp><data>
+
+    <record id="demo_scale_system_product_line_1" model="product.scale.system.product.line">
+        <field name="scale_system_id" ref="demo_scale_system"/>
+        <field name="name">ABEZ</field>
+        <field name="sequence">1</field>
+        <field name="type">char</field>
+        <field name="field_id" ref="product.field_product_template_name"/>
+        <field name="multiline_length">40</field>
+        <field name="multiline_separator">@0A</field>
+        <field name="delimiter">#</field>
+    </record>
+
+    <record id="demo_scale_system_product_line_2" model="product.scale.system.product.line">
+        <field name="scale_system_id" ref="demo_scale_system"/>
+        <field name="name">Z-COST</field>
+        <field name="sequence">2</field>
+        <field name="type">numeric</field>
+        <field name="field_id" ref="product.field_product_template_list_price"/>
+        <field name="numeric_coefficient">100</field>
+        <field name="numeric_round">1</field>
+        <field name="delimiter">#</field>
+    </record>
+
+    <record id="demo_scale_system_product_line_2" model="product.scale.system.product.line">
+        <field name="scale_system_id" ref="demo_scale_system"/>
+        <field name="name">Z-NUM</field>
+        <field name="sequence">2</field>
+        <field name="type">numeric</field>
+        <field name="field_id" ref="product.field_product_template_list_price"/>
+        <field name="numeric_coefficient">100</field>
+        <field name="numeric_round">1</field>
+        <field name="delimiter">#</field>
+    </record>
+
+    <record id="demo_scale_system_product_line_3" model="product.scale.system.product.line">
+        <field name="scale_system_id" ref="demo_scale_system"/>
+        <field name="name">DEMO-CONSTANT</field>
+        <field name="sequence">3</field>
+        <field name="type">constant</field>
+        <field name="constant_value">CONSTANT</field>
+        <field name="delimiter">#</field>
+    </record>
+
+    <record id="demo_scale_system_product_line_4" model="product.scale.system.product.line">
+        <field name="scale_system_id" ref="demo_scale_system"/>
+        <field name="name">DEMO-ONE2MANY-1</field>
+        <field name="sequence">4</field>
+        <field name="type">one2many</field>
+        <field name="field_id" ref="product.field_product_template_seller_ids"/>
+        <field name="one2many_range">0</field>
+        <field name="delimiter">#</field>
+    </record>
+
+    <record id="demo_scale_system_product_line_5" model="product.scale.system.product.line">
+        <field name="scale_system_id" ref="demo_scale_system"/>
+        <field name="name">DEMO-ONE2MANY-2</field>
+        <field name="sequence">5</field>
+        <field name="type">one2many</field>
+        <field name="field_id" ref="product.field_product_template_seller_ids"/>
+        <field name="one2many_range">1</field>
+        <field name="delimiter">#</field>
+    </record>
+
+</data></openerp>

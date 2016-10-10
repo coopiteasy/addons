@@ -20,6 +20,9 @@ class product_product(Model):
 
     # Custom Section
     def _send_to_scale_bizerba(self, cr, uid, action, product, context=None):
+        print ">>>>>>>>>>>>>>>>>>>>>>>>>"
+        print product.name
+        print ">>>>>>>>>>>>>>>>>>>>>>>>>"
         log_obj = self.pool['product.scale.log']
         log_obj.create(cr, uid, {
             'log_date': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
@@ -36,6 +39,8 @@ class product_product(Model):
 
     # Overload Section
     def create(self, cr, uid, vals, context=None):
+        print ">>>>>>>>>>>>>>>>>"
+        print "CREATE"
         if vals.get('scale_group_id', False):
             send_to_scale = True
         res = super(product_product, self).create(
@@ -46,15 +51,19 @@ class product_product(Model):
         return res
 
     def write(self, cr, uid, ids, vals, context=None):
+        print ">>>>>>>>>>>>>>>>>"
+        print "WRITE"
         defered = {}
         for product in self.browse(cr, uid, ids, context=context):
             ignore = not product.scale_group_id\
                 and not 'scale_group_id' in vals.keys()
+            
             if not ignore:
                 if not product.scale_group_id:
                     # (the product is new on this group)
-                    defered[product] = 'create'
+                    defered[product.id] = 'create'
                 else:
+                    import pdb; pdb.set_trace()
                     if vals.get('scale_group_id', False) and (
                             vals.get('scale_group_id', False)
                                 != product.scale_group_id):
@@ -63,22 +72,25 @@ class product_product(Model):
                             self._send_to_scale_bizerba(
                                 cr, uid, 'unlink', product, context=context)
                             # Create in the new group
-                            defered[product] = 'create'
+                            defered[product.id] = 'create'
                     elif self._check_vals_scale_bizerba(
                             cr, uid, vals, product, context=context):
                         # Data related to the scale 
-                        defered[product] = 'write'
+                        defered[product.id] = 'write'
 
         res = super(product_product, self).write(
-            cr, uid, vals, context=context)
+            cr, uid, ids, vals, context=context)
 
-        for product, action in defered.iteritems():
+        for product_id, action in defered.iteritems():
+            product = self.browse(cr, uid, product_id, context=context)
             self._send_to_scale_bizerba(
                 cr, uid, action, product, context=context)
 
         return res
 
     def unlink(self, cr, uid, ids, context=None):
+        print ">>>>>>>>>>>>>>>>>"
+        print "UNLINK"
         for product in self.browse(cr, uid, ids, context=context):
             if product.scale_group_id:
                 self._send_to_scale_bizerba(

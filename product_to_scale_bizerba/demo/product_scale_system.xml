@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (C) 2016-Today: GRAP (http://www.grap.coop)
+@author Sylvain LE GAL (https://twitter.com/legalsylvain)
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<openerp><data>
+
+    <record id="demo_scale_system" model="product.scale.system">
+        <field name="name">Bizerba Demo System</field>
+        <field name="ftp_url">xxx.xxx.xxx.xxx</field>
+        <field name="csv_relative_path">/</field>
+        <field name="image_relative_path">/</field>
+    </record>
+
+</data></openerp>

@@ -11,6 +11,8 @@ class product_scale_log(Model):
     _name = 'product.scale.log'
     _inherit = 'ir.needaction_mixin'
 
+    _DELIMITER = '#'
+
     _ACTION_SELECTION = [
         ('create', 'Creation'),
         ('write', 'Update'),
@@ -27,27 +29,34 @@ class product_scale_log(Model):
         res = {}
         for log in self.browse(cr, uid, ids, context):
             group = log.product_id.scale_group_id
+
+            # Set action code
             if log.action in ['create', 'write']:
-                var_list = ['C']
+                current_line = 'C' + self._DELIMITER
             else:
-                var_list = ['S']
-            var_list.append(group.external_id)
-            var_list.append(product.id)
+                current_line = 'S' + self._DELIMITER
+
+            # Set product and group ID
+            current_line += group.external_identity + self._DELIMITER
+            current_line += str(log.product_id.id) + self._DELIMITER
+
+            # Set custom fields
             for product_line in group.scale_system_id.product_lines:
                 if product_line.type == 'constant':
-                    var_list.append(product_line.constant_value)
+                    current_line += product_line.constant_value
                 else:
                     value = getattr(log.product_id, product_line.field_id.name)
                     if product_line.type == 'numeric':
-                        var_list.append(value)
+                        current_line += str(value)
                         # TODO manage round and coefficient
                     if product_line.type == 'char':
-                        var_list.append(value)
+                        current_line += value
                         # TODO manage split method
                     if product_line.type == 'one2many':
                         pass
                         # TODO
-            res[log.id] = '#'.join(var_list)
+                    current_line += product_line.delimiter
+            res[log.id] = current_line
         return res
 
     # Column Section

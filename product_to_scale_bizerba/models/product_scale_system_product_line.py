@@ -57,6 +57,8 @@ class product_scale_system_product_line(Model):
             string='Rounding Method', help="Used if type is"
             " 'Numeric Field', to mention how the value should be rounded.\n"
             " Set to 0, to avoid to apply rounding method."),
+        'delimiter': fields.char(
+            string='Delimiter Char', help="Used to finish the column"),
     }
 
     _defaults = {
@@ -65,4 +67,5 @@ class product_scale_system_product_line(Model):
         'multiline_separator': '\n',
         'numeric_coefficient': 1,
         'numeric_round': 0,
+        'delimiter': '#',
     }

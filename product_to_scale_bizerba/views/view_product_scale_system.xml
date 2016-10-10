@@ -55,6 +55,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                                             attrs="{'invisible': [('type', 'not in', ['numeric'])]}"/>
                                         <field name="numeric_round"
                                             attrs="{'invisible': [('type', 'not in', ['numeric'])]}"/>
+                                        <field name="delimiter"/>
                                     </tree>
                                 </field>
                             </group>

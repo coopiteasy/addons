@@ -20,7 +20,7 @@ class product_scale_group(Model):
         'company_id': fields.many2one(
             'res.company', string='Company', select=True),
         'scale_system_id': fields.many2one(
-            'product.scale.system', string='Scale System'),
+            'product.scale.system', string='Scale System', required=True),
         'product_ids': fields.one2many(
             'product.product', 'scale_group_id', 'Products', readonly=True),
     }
