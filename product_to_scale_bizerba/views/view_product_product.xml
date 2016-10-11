@@ -7,8 +7,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 <openerp><data>
 
-    <record id="product_normal_form_view" model="ir.ui.view">
-        <field name="name">product.normal.form.inherit</field>
+    <record id="view_product_product_form" model="ir.ui.view">
         <field name="model">product.product</field>
         <field name="inherit_id" ref="product.product_normal_form_view"/>
         <field name="arch" type="xml">
@@ -18,7 +17,6 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                         <group string="Scale Communication">
                             <field name="scale_group_id"/>
                             <field name="scale_sequence"/>
-                            <field name="scale_uom_type"/>
                             <field name="scale_tare_weight"/>
                             <button name="send_scale_create" type="object" string="Resend Creation To the Scale System"
                                 colspan="2"/>

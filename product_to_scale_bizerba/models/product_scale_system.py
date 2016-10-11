@@ -16,7 +16,7 @@ class product_scale_system(Model):
         for id in ids:
             res.setdefault(id, [])
         for system in self.browse(cr, uid, ids, context=context):
-            for product_line in system.product_lines:
+            for product_line in system.product_line_ids:
                 if product_line.field_id: 
                     res[system.id].append(product_line.field_id.id)
         print res
@@ -39,7 +39,7 @@ class product_scale_system(Model):
             string='Relative Path for CSV', required=True),
         'image_relative_path': fields.char(
             string='Relative Path for Product Images', required=True),
-        'product_lines': fields.one2many(
+        'product_line_ids': fields.one2many(
             'product.scale.system.product.line', 'scale_system_id',
             'Product Lines'),
         'field_ids': fields.function(

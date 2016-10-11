@@ -11,6 +11,10 @@ class product_scale_log(Model):
     _name = 'product.scale.log'
     _inherit = 'ir.needaction_mixin'
 
+    _EXTERNAL_SIZE_ID_LEFT = 6
+
+    _EXTERNAL_SIZE_ID_RIGHT = 6
+
     _DELIMITER = '#'
 
     _ACTION_SELECTION = [
@@ -20,27 +24,28 @@ class product_scale_log(Model):
     ]
 
     # Compute Section
-    def _get_product_log_line(
+    def _compute_action_code(
+            self, cr, uid, ids, field_names, arg=None, context=None):
+        res = {}
+        for log in self.browse(cr, uid, ids, context=context):
+            if log.action in ['create', 'write']:
+                res[log.id] = 'C'
+            elif log.action in ['unlink']:
+                res[log.id] = 'S'
+        return res
+
+    def _compute_product_text(
             self, cr, uid, ids, field_name, arg, context=None):
         res = {}
         for log in self.browse(cr, uid, ids, context):
+            if not log.product_id:
+                res[log.id] = False
+                continue
             group = log.product_id.scale_group_id
-
-            # Set action code
-            if log.action in ['create', 'write']:
-                current_line = 'C' + self._DELIMITER
-            elif log.action in ['unlink']:
-                current_line = 'S' + self._DELIMITER
-            else:
-                # TODO RAISE
-                pass
-
-#            # Set product and group ID
-#            current_line += group.external_identity + self._DELIMITER
-#            current_line += str(log.product_id.id) + self._DELIMITER
+            current_line = log.action_code + self._DELIMITER
 
             # Set custom fields
-            for product_line in group.scale_system_id.product_lines:
+            for product_line in group.scale_system_id.product_line_ids:
                 print ">>>>>>>>>>>>>>>>>>>>"
                 print product_line.type
                 print product_line.code
@@ -50,7 +55,6 @@ class product_scale_log(Model):
                 elif product_line.type == 'id':
                     current_line += str(log.product_id.id)
                 else:
-#                    value = ''
                     value = getattr(log.product_id, product_line.field_id.name)
                     if product_line.type == 'numeric':
                         current_line += str(value)
@@ -65,6 +69,18 @@ class product_scale_log(Model):
             res[log.id] = current_line
         return res
 
+
+    def _compute_external_text(
+            self, cr, uid, ids, field_name, arg, context=None):
+        res = {}
+        for log in self.browse(cr, uid, ids, context):
+            if not log.product_line_id:
+                res[log.id] = False
+                continue
+                # TODO, manage external_text on product
+            current_line = log.action_code + self._DELIMITER
+            
+
     # Column Section
     _columns = {
         'log_date': fields.datetime('Log Date', required=True),
@@ -72,13 +88,23 @@ class product_scale_log(Model):
             'product.scale.system', string='Scale System', required=True),
         'product_id': fields.many2one(
             'product.product', string='Product'),
-        'action': fields.selection(
-            _ACTION_SELECTION, string='Action', required=True),
-        'product_log_line': fields.function(
-            _get_product_log_line, type='text', string='Product Log Line',
+        'product_text': fields.function(
+            _compute_product_text, type='text', string='Product Text',
             store={'product.scale.log': (
                 lambda self, cr, uid, ids, context=None:
                     ids, ['scale_system_id', 'product_id'], 10)}),
+        'scale_product_line_id': fields.many2one(
+            'product.scale.system.product.line', string='Scale product Line'),
+        'external_text': fields.function(
+            _compute_external_text, type='text',
+            string='External Text', store={'product.scale.log': (
+                lambda self, cr, uid, ids, context=None:
+                    ids, ['scale_system_id', 'scale_product_line_id',
+                        'product_id'], 10)}),
+        'action': fields.selection(
+            _ACTION_SELECTION, string='Action', required=True),
+        'action_code': fields.function(
+            _compute_action_code, string='Action Code'),
         'sent': fields.boolean(string='Is Sent'),
     }
 

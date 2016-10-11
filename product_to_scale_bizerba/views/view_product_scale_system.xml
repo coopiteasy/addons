@@ -36,7 +36,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                     <notebook>
                         <page string="Line Settings">
                             <group>
-                                <field name="product_lines" nolabel="1">
+                                <field name="product_line_ids" nolabel="1">
                                     <tree editable="bottom">
                                         <field name="sequence" widget="handle"/>
                                         <field name="code"/>
