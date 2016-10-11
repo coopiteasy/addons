@@ -19,10 +19,6 @@ class product_scale_log(Model):
         ('unlink', 'Deletion'),
     ]
 
-    def _needaction_count(self, cr, uid, domain=None, context=None):
-        return len(
-            self.search(cr, uid, [('sent', '=', False)], context=context))
-
     # Compute Section
     def _get_product_log_line(
             self, cr, uid, ids, field_name, arg, context=None):
@@ -33,8 +29,11 @@ class product_scale_log(Model):
             # Set action code
             if log.action in ['create', 'write']:
                 current_line = 'C' + self._DELIMITER
-            else:
+            elif log.action in ['unlink']:
                 current_line = 'S' + self._DELIMITER
+            else:
+                # TODO RAISE
+                pass
 
             # Set product and group ID
             current_line += group.external_identity + self._DELIMITER
@@ -65,7 +64,7 @@ class product_scale_log(Model):
         'scale_system_id': fields.many2one(
             'product.scale.system', string='Scale System', required=True),
         'product_id': fields.many2one(
-            'product.product', string='Product', required=True),
+            'product.product', string='Product'),
         'action': fields.selection(
             _ACTION_SELECTION, string='Action', required=True),
         'product_log_line': fields.function(
@@ -75,6 +74,11 @@ class product_scale_log(Model):
                     ids, ['scale_system_id', 'product_id'], 10)}),
         'sent': fields.boolean(string='Is Sent'),
     }
+
+    # View Section
+    def _needaction_count(self, cr, uid, domain=None, context=None):
+        return len(
+            self.search(cr, uid, [('sent', '=', False)], context=context))
 
     # Custom Section
     def send_log(self, cr, uid, context=None):

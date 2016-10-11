@@ -17,6 +17,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                     <group>
                         <group string="Scale Communication">
                             <field name="scale_group_id"/>
+                            <field name="scale_sequence"/>
                             <button name="send_scale_create" type="object" string="Resend Creation To the Scale System"
                                 colspan="2"/>
                             <button name="send_scale_write" type="object" string="Resend Update To the Scale System"

@@ -7,10 +7,16 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 <openerp><data>
 
-    <record id="demo_scale_group" model="product.scale.group">
-        <field name="name">Bizerba Demo Group</field>
+    <record id="demo_scale_group_fruits" model="product.scale.group">
+        <field name="name">Fruits</field>
         <field name="scale_system_id" ref="demo_scale_system" />
-        <field name="external_identity">EXT</field>
+        <field name="external_identity">FRU</field>
+    </record>
+
+    <record id="demo_scale_group_vegetables" model="product.scale.group">
+        <field name="name">Végetables</field>
+        <field name="scale_system_id" ref="demo_scale_system" />
+        <field name="external_identity">VEG</field>
     </record>
 
 </data></openerp>

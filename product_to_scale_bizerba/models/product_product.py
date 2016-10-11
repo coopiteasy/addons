@@ -11,18 +11,17 @@ from openerp.osv.orm import Model
 
 class product_product(Model):
     _inherit = 'product.product'
+    _order = 'scale_sequence, default_code, name_template'
 
     _columns = {
         'scale_group_id': fields.many2one(
             'product.scale.group', string='Scale Group'),
-        # TODO Add Extra fields
+        'scale_sequence': fields.integer(
+            string='Scale Sequence'),
     }
 
     # Custom Section
     def _send_to_scale_bizerba(self, cr, uid, action, product, context=None):
-        print ">>>>>>>>>>>>>>>>>>>>>>>>>"
-        print product.name
-        print ">>>>>>>>>>>>>>>>>>>>>>>>>"
         log_obj = self.pool['product.scale.log']
         log_obj.create(cr, uid, {
             'log_date': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
@@ -33,14 +32,12 @@ class product_product(Model):
 
     def _check_vals_scale_bizerba(self, cr, uid, vals, product, context=None):
         system = product.scale_group_id.scale_system_id
-        system_fields = [x.name for x in system.fields_ids]
+        system_fields = [x.name for x in system.field_ids]
         vals_fields = vals.keys()
         return set(system_fields).intersection(vals_fields)
 
     # Overload Section
     def create(self, cr, uid, vals, context=None):
-        print ">>>>>>>>>>>>>>>>>"
-        print "CREATE"
         if vals.get('scale_group_id', False):
             send_to_scale = True
         res = super(product_product, self).create(
@@ -51,8 +48,6 @@ class product_product(Model):
         return res
 
     def write(self, cr, uid, ids, vals, context=None):
-        print ">>>>>>>>>>>>>>>>>"
-        print "WRITE"
         defered = {}
         for product in self.browse(cr, uid, ids, context=context):
             ignore = not product.scale_group_id\
@@ -63,7 +58,6 @@ class product_product(Model):
                     # (the product is new on this group)
                     defered[product.id] = 'create'
                 else:
-                    import pdb; pdb.set_trace()
                     if vals.get('scale_group_id', False) and (
                             vals.get('scale_group_id', False)
                                 != product.scale_group_id):
@@ -89,8 +83,6 @@ class product_product(Model):
         return res
 
     def unlink(self, cr, uid, ids, context=None):
-        print ">>>>>>>>>>>>>>>>>"
-        print "UNLINK"
         for product in self.browse(cr, uid, ids, context=context):
             if product.scale_group_id:
                 self._send_to_scale_bizerba(

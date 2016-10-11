@@ -15,11 +15,11 @@ class product_scale_system(Model):
         res = {}
         for id in ids:
             res.setdefault(id, [])
-        # TODO
-#        for system in self.browse(cr, uid, ids, context=context):
-#            for line in system.product_field_lines:
-#                if line.field_id: 
-#                    res[system.id].append(line.field_id.id)
+        for system in self.browse(cr, uid, ids, context=context):
+            for product_line in system.product_lines:
+                if product_line.field_id: 
+                    res[system.id].append(product_line.field_id.id)
+        print res
         return res
 
     _columns = {

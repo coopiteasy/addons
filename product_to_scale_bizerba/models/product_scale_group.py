@@ -10,6 +10,15 @@ from openerp.osv.orm import Model
 class product_scale_group(Model):
     _name = 'product.scale.group'
 
+    # Compute Section
+    def _compute_product_qty(
+            self, cr, uid, ids, field_name, arg, context=None):
+        res = {}
+        for group in self.browse(cr, uid, ids, context):
+            res[group.id] = len(group.product_ids)
+        return res
+
+    # Column Section
     _columns = {
         'name': fields.char(
             string='Name', required=True),
@@ -22,7 +31,9 @@ class product_scale_group(Model):
         'scale_system_id': fields.many2one(
             'product.scale.system', string='Scale System', required=True),
         'product_ids': fields.one2many(
-            'product.product', 'scale_group_id', 'Products', readonly=True),
+            'product.product', 'scale_group_id', 'Products'),
+        'product_qty': fields.function(
+            _compute_product_qty, type='integer', string='Products Quantity'),
     }
 
     _defaults = {
