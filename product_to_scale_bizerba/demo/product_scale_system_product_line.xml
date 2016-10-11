@@ -7,10 +7,32 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 <openerp><data>
 
-    <record id="demo_scale_system_product_line_1" model="product.scale.system.product.line">
+    <record id="demo_scale_system_product_line_ABNR" model="product.scale.system.product.line">
         <field name="scale_system_id" ref="demo_scale_system"/>
-        <field name="name">ABEZ</field>
-        <field name="sequence">1</field>
+        <field name="code">ABNR</field>
+        <field name="name">Bizerba Shelf ID</field>
+        <field name="sequence">2</field>
+        <field name="type">many2one</field>
+        <field name="field_id" ref="product_to_scale_bizerba.field_product_product_scale_group_id"/>
+        <field name="related_field_id" ref="product_to_scale_bizerba.field_product_scale_group_external_identity"/>
+        <field name="delimiter">#</field>
+    </record>
+
+
+    <record id="demo_scale_system_product_line_PLNR" model="product.scale.system.product.line">
+        <field name="scale_system_id" ref="demo_scale_system"/>
+        <field name="code">PLNR</field>
+        <field name="name">Product ID</field>
+        <field name="sequence">3</field>
+        <field name="type">id</field>
+        <field name="delimiter">#</field>
+    </record>
+
+    <record id="demo_scale_system_product_line_ABEZ" model="product.scale.system.product.line">
+        <field name="scale_system_id" ref="demo_scale_system"/>
+        <field name="code">ABEZ</field>
+        <field name="name">Product Name</field>
+        <field name="sequence">4</field>
         <field name="type">char</field>
         <field name="field_id" ref="product.field_product_template_name"/>
         <field name="multiline_length">40</field>
@@ -18,55 +40,131 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="delimiter">#</field>
     </record>
 
-    <record id="demo_scale_system_product_line_2" model="product.scale.system.product.line">
+    <record id="demo_scale_system_product_line_PREI" model="product.scale.system.product.line">
         <field name="scale_system_id" ref="demo_scale_system"/>
-        <field name="name">Z-COST</field>
-        <field name="sequence">2</field>
-        <field name="type">numeric</field>
-        <field name="field_id" ref="product.field_product_template_list_price"/>
-        <field name="numeric_coefficient">100</field>
-        <field name="numeric_round">1</field>
-        <field name="delimiter">#</field>
-    </record>
-
-    <record id="demo_scale_system_product_line_2" model="product.scale.system.product.line">
-        <field name="scale_system_id" ref="demo_scale_system"/>
-        <field name="name">Z-NUM</field>
-        <field name="sequence">2</field>
-        <field name="type">numeric</field>
-        <field name="field_id" ref="product.field_product_template_list_price"/>
-        <field name="numeric_coefficient">100</field>
-        <field name="numeric_round">1</field>
-        <field name="delimiter">#</field>
-    </record>
-
-    <record id="demo_scale_system_product_line_3" model="product.scale.system.product.line">
-        <field name="scale_system_id" ref="demo_scale_system"/>
-        <field name="name">DEMO-CONSTANT</field>
-        <field name="sequence">3</field>
-        <field name="type">constant</field>
-        <field name="constant_value">CONSTANT</field>
-        <field name="delimiter">#</field>
-    </record>
-
-    <record id="demo_scale_system_product_line_4" model="product.scale.system.product.line">
-        <field name="scale_system_id" ref="demo_scale_system"/>
-        <field name="name">DEMO-ONE2MANY-1</field>
-        <field name="sequence">4</field>
-        <field name="type">one2many</field>
-        <field name="field_id" ref="product.field_product_template_seller_ids"/>
-        <field name="one2many_range">0</field>
-        <field name="delimiter">#</field>
-    </record>
-
-    <record id="demo_scale_system_product_line_5" model="product.scale.system.product.line">
-        <field name="scale_system_id" ref="demo_scale_system"/>
-        <field name="name">DEMO-ONE2MANY-2</field>
+        <field name="code">PREI</field>
+        <field name="name">Public Price (x 100)</field>
         <field name="sequence">5</field>
-        <field name="type">one2many</field>
-        <field name="field_id" ref="product.field_product_template_seller_ids"/>
-        <field name="one2many_range">1</field>
+        <field name="type">char</field>
+        <field name="field_id" ref="product.field_product_template_name"/>
+        <field name="multiline_length">40</field>
+        <field name="multiline_separator">@0A</field>
         <field name="delimiter">#</field>
     </record>
+
+    <record id="demo_scale_system_product_line_HAL1" model="product.scale.system.product.line">
+        <field name="scale_system_id" ref="demo_scale_system"/>
+        <field name="code">HAL1</field>
+        <field name="name">Days before Sale End</field>
+        <field name="sequence">6</field>
+        <field name="type">constant</field> <!-- Set custom value -->
+        <field name="constant_value">7</field>
+        <field name="delimiter">#</field>
+    </record>
+
+    <record id="demo_scale_system_product_line_HAL2" model="product.scale.system.product.line">
+        <field name="scale_system_id" ref="demo_scale_system"/>
+        <field name="code">HAL2</field>
+        <field name="name">Days before Consumption End</field>
+        <field name="sequence">7</field>
+        <field name="type">constant</field> <!-- Set custom value -->
+        <field name="constant_value">14</field>
+        <field name="delimiter">#</field>
+    </record>
+
+    <record id="demo_scale_system_product_line_EAN1" model="product.scale.system.product.line">
+        <field name="scale_system_id" ref="demo_scale_system"/>
+        <field name="code">EAN1</field>
+        <field name="name">Product EAN13</field>
+        <field name="sequence">8</field>
+        <field name="type">char</field>
+        <field name="field_id" ref="product.field_product_product_ean13"/>
+        <field name="delimiter">#</field>
+    </record>
+
+<!--    <record id="demo_scale_system_product_line_EAN1" model="product.scale.system.product.line">-->
+<!--        <field name="scale_system_id" ref="demo_scale_system"/>-->
+<!--        <field name="code">EAN1</field>-->
+<!--        <field name="name">Product EAN13</field>-->
+<!--        <field name="sequence">8</field>-->
+<!--        <field name="type">char</field>-->
+<!--        <field name="field_id" ref="product.field_product_template_name"/>-->
+<!--        <field name="delimiter">#</field>-->
+<!--    </record>-->
+
+<!--    <record id="demo_scale_system_product_line_2" model="product.scale.system.product.line">-->
+<!--        <field name="scale_system_id" ref="demo_scale_system"/>-->
+<!--        <field name="name">Z-COST</field>-->
+<!--        <field name="sequence">2</field>-->
+<!--        <field name="type">numeric</field>-->
+<!--        <field name="field_id" ref="product.field_product_template_list_price"/>-->
+<!--        <field name="numeric_coefficient">100</field>-->
+<!--        <field name="numeric_round">1</field>-->
+<!--        <field name="delimiter">#</field>-->
+<!--    </record>-->
+
+
+
+<!--    <record id="demo_scale_system_product_line_1" model="product.scale.system.product.line">-->
+<!--        <field name="scale_system_id" ref="demo_scale_system"/>-->
+<!--        <field name="name">ABEZ</field>-->
+<!--        <field name="sequence">1</field>-->
+<!--        <field name="type">char</field>-->
+<!--        <field name="field_id" ref="product.field_product_template_name"/>-->
+<!--        <field name="multiline_length">40</field>-->
+<!--        <field name="multiline_separator">@0A</field>-->
+<!--        <field name="delimiter">#</field>-->
+<!--    </record>-->
+
+<!--    <record id="demo_scale_system_product_line_2" model="product.scale.system.product.line">-->
+<!--        <field name="scale_system_id" ref="demo_scale_system"/>-->
+<!--        <field name="name">Z-COST</field>-->
+<!--        <field name="sequence">2</field>-->
+<!--        <field name="type">numeric</field>-->
+<!--        <field name="field_id" ref="product.field_product_template_list_price"/>-->
+<!--        <field name="numeric_coefficient">100</field>-->
+<!--        <field name="numeric_round">1</field>-->
+<!--        <field name="delimiter">#</field>-->
+<!--    </record>-->
+
+<!--    <record id="demo_scale_system_product_line_2" model="product.scale.system.product.line">-->
+<!--        <field name="scale_system_id" ref="demo_scale_system"/>-->
+<!--        <field name="name">Z-NUM</field>-->
+<!--        <field name="sequence">2</field>-->
+<!--        <field name="type">numeric</field>-->
+<!--        <field name="field_id" ref="product.field_product_template_list_price"/>-->
+<!--        <field name="numeric_coefficient">100</field>-->
+<!--        <field name="numeric_round">1</field>-->
+<!--        <field name="delimiter">#</field>-->
+<!--    </record>-->
+
+<!--    <record id="demo_scale_system_product_line_3" model="product.scale.system.product.line">-->
+<!--        <field name="scale_system_id" ref="demo_scale_system"/>-->
+<!--        <field name="name">DEMO-CONSTANT</field>-->
+<!--        <field name="sequence">3</field>-->
+<!--        <field name="type">constant</field>-->
+<!--        <field name="constant_value">CONSTANT</field>-->
+<!--        <field name="delimiter">#</field>-->
+<!--    </record>-->
+
+<!--    <record id="demo_scale_system_product_line_4" model="product.scale.system.product.line">-->
+<!--        <field name="scale_system_id" ref="demo_scale_system"/>-->
+<!--        <field name="name">DEMO-ONE2MANY-1</field>-->
+<!--        <field name="sequence">4</field>-->
+<!--        <field name="type">one2many</field>-->
+<!--        <field name="field_id" ref="product.field_product_template_seller_ids"/>-->
+<!--        <field name="one2many_range">0</field>-->
+<!--        <field name="delimiter">#</field>-->
+<!--    </record>-->
+
+<!--    <record id="demo_scale_system_product_line_5" model="product.scale.system.product.line">-->
+<!--        <field name="scale_system_id" ref="demo_scale_system"/>-->
+<!--        <field name="name">DEMO-ONE2MANY-2</field>-->
+<!--        <field name="sequence">5</field>-->
+<!--        <field name="type">one2many</field>-->
+<!--        <field name="field_id" ref="product.field_product_template_seller_ids"/>-->
+<!--        <field name="one2many_range">1</field>-->
+<!--        <field name="delimiter">#</field>-->
+<!--    </record>-->
 
 </data></openerp>

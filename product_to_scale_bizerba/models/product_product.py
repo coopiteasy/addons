@@ -13,11 +13,36 @@ class product_product(Model):
     _inherit = 'product.product'
     _order = 'scale_sequence, default_code, name_template'
 
+    _SCALE_UOM_TYPE_WEIGHTABLE = 'P'
+    _SCALE_UOM_TYPE_FIXED = 'F'
+
+    # Compute Section
+    def _compute_scale_uom_type(
+            self, cr, uid, ids, field_name, arg, context=None):
+        res = {}
+        for product in self.browse(cr, uid, ids, context):
+            if product.uom_id.category_id.scale_weight:
+                res[product.id] = self._SCALE_UOM_TYPE_WEIGHTABLE
+            else:
+                res[product.id] = self._SCALE_UOM_TYPE_FIXED
+        return res
+
+    # Column Section
     _columns = {
         'scale_group_id': fields.many2one(
             'product.scale.group', string='Scale Group'),
         'scale_sequence': fields.integer(
             string='Scale Sequence'),
+        'scale_uom_type': fields.function(
+            _compute_scale_uom_type, type='char', help="Technical field used"
+            " to indicate that the product has a fixed weight (F)"
+            " or not (P).\nThis field is computed based on the UoM of the"
+            " product", string='Scale UoM Type'),
+        'scale_tare_weight': fields.float(
+            string='Scale Tare Weight', help="Set here Constant tare weight"
+            " for the given product. This tare will be substracted when"
+            " the product is weighted. Usefull only for weightable product.\n"
+            "The tare is defined with kg uom."),
     }
 
     # Custom Section

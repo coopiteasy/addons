@@ -35,26 +35,33 @@ class product_scale_log(Model):
                 # TODO RAISE
                 pass
 
-            # Set product and group ID
-            current_line += group.external_identity + self._DELIMITER
-            current_line += str(log.product_id.id) + self._DELIMITER
+#            # Set product and group ID
+#            current_line += group.external_identity + self._DELIMITER
+#            current_line += str(log.product_id.id) + self._DELIMITER
 
             # Set custom fields
             for product_line in group.scale_system_id.product_lines:
+                print ">>>>>>>>>>>>>>>>>>>>"
+                print product_line.type
+                print product_line.code
+                print product_line.name
                 if product_line.type == 'constant':
                     current_line += product_line.constant_value
+                elif product_line.type == 'id':
+                    current_line += str(log.product_id.id)
                 else:
+#                    value = ''
                     value = getattr(log.product_id, product_line.field_id.name)
                     if product_line.type == 'numeric':
                         current_line += str(value)
                         # TODO manage round and coefficient
                     if product_line.type == 'char':
-                        current_line += value
+                        current_line += str(value)
                         # TODO manage split method
                     if product_line.type == 'one2many':
                         pass
                         # TODO
-                    current_line += product_line.delimiter
+                current_line += product_line.delimiter
             res[log.id] = current_line
         return res
 

@@ -16,23 +16,30 @@ class product_scale_system_product_line(Model):
         ('numeric', 'Numeric Field'),
         ('char', 'Char Field'),
         ('one2many', 'One2Many Field'),
+        ('many2one', 'ManyOne Field'),
+        ('id', 'Product ID'),
     ]
 
     _columns = {
-    
         'scale_system_id': fields.many2one(
             'product.scale.system', 'Scale System', required=True,
             ondelete='cascade', select=True),
         'company_id': fields.related(
             'scale_system_id', 'company_id', type='many2one', string='Company',
             relation='res.company', store=True),
-        'name': fields.char(string='Bizerba Name', required=True),
+        'code': fields.char(string='Bizerba Code', required=True),
+        'name': fields.char(string='Name', required=True),
         'sequence': fields.integer(string='Sequence', required=True),
         'type': fields.selection(
             _TYPE_SELECTION, string='Type', help="TODO WRITE ME."),
         'field_id': fields.many2one(
-            'ir.model.fields', string='Product Fields', domain="["
+            'ir.model.fields', string='Product Field', domain="["
             "('model', 'in', ['product.product', 'product.template'])]"),
+        'related_field_id': fields.many2one(
+            'ir.model.fields', string='O2M / M2O Field', help="Used only"
+            " for the x2x fields. Set here the field of the related model"
+            " that you want to send to the scale. Let empty to send the ID."),
+            # TODO Improve. Set domain, depending on the other field
         'one2many_range': fields.integer(
             string='range of the One2Many Fields', help="Used if type is"
                 " 'One2Many Field', to mention the range of the field"
