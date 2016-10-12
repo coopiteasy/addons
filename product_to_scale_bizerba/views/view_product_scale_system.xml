@@ -30,7 +30,9 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                             <field name="ftp_login"/>
                             <field name="ftp_password"/>
                             <field name="csv_relative_path"/>
-                            <field name="image_relative_path"/>
+                            <field name="product_image_relative_path"/>
+                            <field name="product_text_file_pattern"/>
+                            <field name="external_text_file_pattern"/>
                         </group>
                     </group>
                     <notebook>
@@ -43,17 +45,19 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                                         <field name="name"/>
                                         <field name="type"/>
                                         <field name="field_id"
-                                            attrs="{'invisible': [('type', 'not in', ['numeric', 'char', 'one2many'])]}"/>
+                                            attrs="{'invisible': [('type', 'not in', ['numeric', 'char', 'many2many', 'product_image'])]}"/>
                                         <field name="related_field_id"
-                                            attrs="{'invisible': [('type', 'not in', ['one2many', 'many2one'])]}"/>
-                                        <field name="one2many_range"
-                                            attrs="{'invisible': [('type', 'not in', ['one2many'])]}"/>
+                                            attrs="{'invisible': [('type', 'not in', ['many2many', 'many2one'])]}"/>
+                                        <field name="x2many_range"
+                                            attrs="{'invisible': [('type', 'not in', ['many2many'])]}"/>
                                         <field name="constant_value"
                                             attrs="{'invisible': [('type', 'not in', ['constant'])]}"/>
                                         <field name="multiline_length"
                                             attrs="{'invisible': [('type', 'not in', ['char'])]}"/>
                                         <field name="multiline_separator"
                                             attrs="{'invisible': [('type', 'not in', ['char'])]}"/>
+                                        <field name="suffix"
+                                            attrs="{'invisible': [('type', 'not in', ['external_text'])]}"/>
                                         <field name="numeric_coefficient"
                                             attrs="{'invisible': [('type', 'not in', ['numeric'])]}"/>
                                         <field name="numeric_round"

@@ -40,7 +40,8 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                         </group>
                     </group>
                     <group>
-                        <field name="product_log_line" colspan="4"/>
+                        <field name="product_text" colspan="4"/>
+                        <field name="external_text" colspan="4"/>
                     </group>
                 </sheet>
             </form>

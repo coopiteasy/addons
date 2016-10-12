@@ -12,13 +12,14 @@ class product_scale_system_product_line(Model):
     _order = 'scale_system_id, sequence'
 
     _TYPE_SELECTION = [
-        ('external_constant', 'External Constant Text'),
         ('constant', 'Constant Value'),
         ('numeric', 'Numeric Field'),
+        ('external_text', 'External Text Field'),
         ('char', 'Char Field'),
-        ('one2many', 'One2Many Field'),
+        ('many2many', 'Many2Many Field'),
         ('many2one', 'ManyOne Field'),
         ('id', 'Product ID'),
+        ('product_image', 'Product Image'),
     ]
 
     # Column Section
@@ -42,15 +43,15 @@ class product_scale_system_product_line(Model):
             " for the x2x fields. Set here the field of the related model"
             " that you want to send to the scale. Let empty to send the ID."),
             # TODO Improve. Set domain, depending on the other field
-        'one2many_range': fields.integer(
-            string='range of the One2Many Fields', help="Used if type is"
-                " 'One2Many Field', to mention the range of the field"
-                " to send. Begin by 0. (used for exemple for product"
-                " logos)"),
+        'x2many_range': fields.integer(
+            string='range of the x2Many Fields', help="Used if type is"
+                " 'Many2Many Field' or a 'One2Many Field', to mention the"
+                " range of the field  to send. Begin by 0. (used for exemple"
+                " for product logos)"),
         'constant_value': fields.char(
             string='Constante Value', help="Used if type is 'constant',"
             " to send allways the same value."),
-        'multiline_length': fields.char(
+        'multiline_length': fields.integer(
             string='Length for Multiline',
             help="Used if type is 'Char Field', to indicate"
             " the max length of a line. Set 0 to avoid to split the value."),
@@ -58,6 +59,13 @@ class product_scale_system_product_line(Model):
             string='Separator for Multiline', help="Used if type is"
             " 'Char Field', to indicate wich text will be used to mention"
             " break lines."),
+        'suffix': fields.char(
+            string='Suffix', help="Used if type is"
+            " 'External Text Field', to indicate how to suffix the field.\n"
+            " Make sure to have a uniq value by Scale System, and all with the"
+            " same size.\n\n Used if type is Product Image to mention the end"
+            " of the file. Exemple : '_01.jpg'."),
+            # TODO Improve. Set contrains.
         'numeric_coefficient': fields.float(
             string='Numeric Coefficient', help="Used if type is"
             " 'Numeric Field', to mention with with coefficient numeric"
@@ -78,71 +86,3 @@ class product_scale_system_product_line(Model):
         'numeric_round': 0,
         'delimiter': '#',
     }
-
-    # Overload Section
-    def create(self, cr, uid, vals, context=None):
-        if vals.get('type') == 'external_constant':
-            send_to_scale = True
-        res = super(product_scale_system_product_line, self).create(
-            cr, uid, vals, context=context)
-        product_line = self.browse(cr, uid, res, context=context)
-        if send_to
-        self._send_to_scale_bizerba(
-            cr, uid, 'create', product_line, context=context)
-        return res
-
-    def write(self, cr, uid, ids, vals, context=None):
-        defered = {}
-        for product_line in self.browse(cr, uid, ids, context=context):
-            # TODO
-#            ignore = not product.scale_group_id\
-#                and not 'scale_group_id' in vals.keys()
-#            
-#            if not ignore:
-#                if not product.scale_group_id:
-#                    # (the product is new on this group)
-#                    defered[product.id] = 'create'
-#                else:
-#                    if vals.get('scale_group_id', False) and (
-#                            vals.get('scale_group_id', False)
-#                                != product.scale_group_id):
-#                            # (the product has moved from a group to another)
-#                            # Remove from obsolete group
-#                            self._send_to_scale_bizerba(
-#                                cr, uid, 'unlink', product, context=context)
-#                            # Create in the new group
-#                            defered[product.id] = 'create'
-#                    elif self._check_vals_scale_bizerba(
-#                            cr, uid, vals, product, context=context):
-#                        # Data related to the scale 
-#                        defered[product.id] = 'write'
-
-        res = super(product_product, self).write(
-            cr, uid, ids, vals, context=context)
-
-        for product_line_id, action in defered.iteritems():
-            product_line = self.browse(
-                cr, uid, product_line_id, context=context)
-            self._send_to_scale_bizerba(
-                cr, uid, action, product_line, context=context)
-
-        return res
-
-    def unlink(self, cr, uid, ids, context=None):
-        for product_line in self.browse(cr, uid, ids, context=context):
-            if product_line.type == 'external_constant':
-                self._send_to_scale_bizerba(
-                    cr, uid, 'unlink', product_line, context=context)
-        return super(product_product, self).unlink(
-            cr, uid, ids, context=context)
-
-    # Custom Section
-    def _send_to_scale_bizerba(
-            self, cr, uid, action, product_line_id, context=None):
-        log_obj = self.pool['product.scale.log']
-        log_obj.create(cr, uid, {
-            'log_date': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-            'scale_system_id': product_line_id.scale_system_id.id,
-            'product_line_id': product_line_id.id,
-            'action': action,
-            }, context=context)

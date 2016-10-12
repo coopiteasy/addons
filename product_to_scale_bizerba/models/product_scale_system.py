@@ -37,8 +37,16 @@ class product_scale_system(Model):
             string='FTP Password'),
         'csv_relative_path': fields.char(
             string='Relative Path for CSV', required=True),
-        'image_relative_path': fields.char(
+        'product_image_relative_path': fields.char(
             string='Relative Path for Product Images', required=True),
+        'product_text_file_pattern': fields.char(
+            string='Product Text File Pattern', required=True, help="Pattern"
+            " of the Product file. Use % to include dated information.\n"
+            " Ref: https://docs.python.org/2/library/time.html#time.strftime"),
+        'external_text_file_pattern': fields.char(
+            string='External Text File Pattern', required=True, help="Pattern"
+            " of the External Text file. Use % to include dated information.\n"
+            " Ref: https://docs.python.org/2/library/time.html#time.strftime"),
         'product_line_ids': fields.one2many(
             'product.scale.system.product.line', 'scale_system_id',
             'Product Lines'),
@@ -53,5 +61,7 @@ class product_scale_system(Model):
             _company_default_get(cr, uid, 'product.template', context=c),
         'ftp_url': 'xxx.xxx.xxx.xxx',
         'csv_relative_path': '/',
-        'image_relative_path': '/',
+        'product_image_relative_path': '/',
+        'product_text_file_pattern': 'product.csv',
+        'external_text_file_pattern': 'external_text.csv',
     }

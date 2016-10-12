@@ -40,13 +40,24 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="delimiter">#</field>
     </record>
 
+    <record id="demo_scale_system_product_line_WGNR" model="product.scale.system.product.line">
+        <field name="scale_system_id" ref="demo_scale_system"/>
+        <field name="code">WGNR</field>
+        <field name="name">PoS Category ID</field>
+        <field name="sequence">5</field>
+        <!-- TODO Set Dynamic value -->
+        <field name="type">constant</field>
+        <field name="constant_value">0</field>
+        <field name="delimiter">#</field>
+    </record>
+
     <record id="demo_scale_system_product_line_PREI" model="product.scale.system.product.line">
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">PREI</field>
         <field name="name">Public Price (x 100)</field>
-        <field name="sequence">5</field>
-        <field name="type">char</field>
-        <field name="field_id" ref="product.field_product_template_name"/>
+        <field name="sequence">6</field>
+        <field name="type">numeric</field>
+        <field name="field_id" ref="product.field_product_template_list_price"/>
         <field name="numeric_coefficient">100</field>
         <field name="numeric_round">1</field>
         <field name="delimiter">#</field>
@@ -56,8 +67,9 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">HAL1</field>
         <field name="name">Days before Sale End</field>
-        <field name="sequence">6</field>
-        <field name="type">constant</field> <!-- Set custom value -->
+        <field name="sequence">7</field>
+        <!-- TODO Set Dynamic value -->
+        <field name="type">constant</field>
         <field name="constant_value">7</field>
         <field name="delimiter">#</field>
     </record>
@@ -66,8 +78,9 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">HAL2</field>
         <field name="name">Days before Consumption End</field>
-        <field name="sequence">7</field>
-        <field name="type">constant</field> <!-- Set custom value -->
+        <field name="sequence">8</field>
+        <!-- TODO Set Dynamic value -->
+        <field name="type">constant</field>
         <field name="constant_value">14</field>
         <field name="delimiter">#</field>
     </record>
@@ -76,7 +89,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">EAN1</field>
         <field name="name">Product EAN13</field>
-        <field name="sequence">8</field>
+        <field name="sequence">9</field>
         <field name="type">char</field>
         <field name="field_id" ref="product.field_product_product_ean13"/>
         <field name="delimiter">#</field>
@@ -86,7 +99,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">AART</field>
         <field name="name">To Weight ('P' / 'F')</field>
-        <field name="sequence">9</field>
+        <field name="sequence">10</field>
         <field name="type">many2one</field>
         <field name="field_id" ref="product.field_product_template_uom_id"/>
         <field name="related_field_id" ref="product_to_scale_bizerba.field_product_uom_scale_type"/>
@@ -97,7 +110,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">TARA</field>
         <field name="name">Tare Weight</field>
-        <field name="sequence">10</field>
+        <field name="sequence">11</field>
         <field name="type">numeric</field>
         <field name="field_id" ref="product_to_scale_bizerba.field_product_product_scale_tare_weight"/>
         <field name="numeric_coefficient">1000</field>
@@ -109,7 +122,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">FIXG</field>
         <field name="name">Fixed Weight</field>
-        <field name="sequence">11</field>
+        <field name="sequence">12</field>
         <field name="type">char</field>
         <field name="field_id" ref="product.field_product_template_weight_net"/>
         <field name="numeric_coefficient">1000</field>
@@ -121,9 +134,9 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">LOG1</field>
         <field name="name">Logo #1</field>
-        <field name="sequence">12</field>
-        <field name="type">constant</field> <!-- Set custom value -->
-        <field name="constant_value">0</field>
+        <field name="sequence">13</field>
+        <field name="type">constant</field>
+        <field name="constant_value">999</field>
         <field name="delimiter">#</field>
     </record>
 
@@ -131,8 +144,9 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">LOG1</field>
         <field name="name">Logo #2</field>
-        <field name="sequence">13</field>
-        <field name="type">constant</field> <!-- Set custom value -->
+        <field name="sequence">14</field>
+        <!-- TODO Change with Many2many -->
+        <field name="type">constant</field>
         <field name="constant_value">0</field>
         <field name="delimiter">#</field>
     </record>
@@ -141,18 +155,44 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">LOG3</field>
         <field name="name">Logo #3</field>
-        <field name="sequence">14</field>
-        <field name="type">constant</field> <!-- Set custom value -->
+        <field name="sequence">15</field>
+        <!-- TODO Change with Many2many -->
+        <field name="type">constant</field>
         <field name="constant_value">0</field>
         <field name="delimiter">#</field>
     </record>
 
+    <record id="demo_scale_system_product_line_LOG4" model="product.scale.system.product.line">
+        <field name="scale_system_id" ref="demo_scale_system"/>
+        <field name="code">LOG4</field>
+        <field name="name">Logo #4</field>
+        <field name="sequence">16</field>
+        <!-- TODO Change with Many2many -->
+        <field name="type">constant</field>
+        <field name="constant_value">0</field>
+        <field name="delimiter">#</field>
+    </record>
+
+    <record id="demo_scale_system_product_line_LOG5" model="product.scale.system.product.line">
+        <field name="scale_system_id" ref="demo_scale_system"/>
+        <field name="code">LOG5</field>
+        <field name="name">Logo #5</field>
+        <field name="sequence">17</field>
+        <!-- TODO Change with Many2many -->
+        <field name="type">constant</field>
+        <field name="constant_value">0</field>
+        <field name="delimiter">#</field>
+    </record>
+
+    
     <record id="demo_scale_system_product_line_ZUT1" model="product.scale.system.product.line">
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">ZUT1</field>
         <field name="name">Ingredients (#1)</field>
-        <field name="sequence">15</field>
-        <field name="type">constant</field> <!-- Set external char value -->
+        <field name="sequence">18</field>
+        <!-- TODO Set Dynamic value -->
+        <field name="type">constant</field>
+        <field name="constant_value">0</field>
         <field name="delimiter">#</field>
     </record>
 
@@ -160,8 +200,10 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">ZUT2</field>
         <field name="name">Ingredients (#2)</field>
-        <field name="sequence">16</field>
-        <field name="type">constant</field> <!-- Set external char value -->
+        <field name="sequence">19</field>
+        <!-- TODO Set Dynamic value -->
+        <field name="type">constant</field>
+        <field name="constant_value">0</field>
         <field name="delimiter">#</field>
     </record>
 
@@ -169,8 +211,10 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">ZUT3</field>
         <field name="name">Ingredients (#3)</field>
-        <field name="sequence">17</field>
-        <field name="type">constant</field> <!-- Set external char value -->
+        <field name="sequence">20</field>
+        <!-- TODO Set Dynamic value -->
+        <field name="type">constant</field>
+        <field name="constant_value">0</field>
         <field name="delimiter">#</field>
     </record>
 
@@ -178,8 +222,10 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">ZUT4</field>
         <field name="name">Ingredients (#4)</field>
-        <field name="sequence">18</field>
-        <field name="type">constant</field> <!-- Set external char value -->
+        <field name="sequence">21</field>
+        <!-- TODO Set Dynamic value -->
+        <field name="type">constant</field>
+        <field name="constant_value">0</field>
         <field name="delimiter">#</field>
     </record>
 
@@ -187,8 +233,8 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">TX01</field>
         <field name="name">Text (#01)</field>
-        <field name="sequence">19</field>
-        <field name="type">external_constant</field>
+        <field name="sequence">22</field>
+        <field name="type">constant</field>
         <field name="constant_value">Packed</field>
         <field name="delimiter">#</field>
     </record>
@@ -197,8 +243,8 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">TX02</field>
         <field name="name">Text (#02)</field>
-        <field name="sequence">20</field>
-        <field name="type">external_constant</field>
+        <field name="sequence">23</field>
+        <field name="type">constant</field>
         <field name="constant_value">Best Before</field>
         <field name="delimiter">#</field>
     </record>
@@ -207,8 +253,10 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">TX03</field>
         <field name="name">Text (#03)</field>
-        <field name="sequence">21</field>
-        <field name="type">constant</field> <!-- Set external char value -->
+        <field name="sequence">24</field>
+        <!-- TODO Set Dynamic value -->
+        <field name="type">constant</field>
+        <field name="constant_value">TODO - Conservation Text</field>
         <field name="delimiter">#</field>
     </record>
 
@@ -216,8 +264,10 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">TX04</field>
         <field name="name">Text (#04)</field>
-        <field name="sequence">22</field>
-        <field name="type">constant</field> <!-- Set external char value -->
+        <field name="sequence">25</field>
+        <!-- TODO Set Dynamic value -->
+        <field name="type">constant</field>
+        <field name="constant_value">TODO - Freeze Text</field>
         <field name="delimiter">#</field>
     </record>
 
@@ -225,8 +275,8 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">TX05</field>
         <field name="name">Text (#05)</field>
-        <field name="sequence">23</field>
-        <field name="type">external_constant</field>
+        <field name="sequence">26</field>
+        <field name="type">constant</field>
         <field name="constant_value">For Sale Before</field>
         <field name="delimiter">#</field>
     </record>
@@ -235,8 +285,8 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">TX06</field>
         <field name="name">Text (#06)</field>
-        <field name="sequence">24</field>
-        <field name="type">external_constant</field>
+        <field name="sequence">27</field>
+        <field name="type">constant</field>
         <field name="constant_value">Unit Price</field>
         <field name="delimiter">#</field>
     </record>
@@ -245,8 +295,8 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">TX07</field>
         <field name="name">Text (#07)</field>
-        <field name="sequence">25</field>
-        <field name="type">external_constant</field>
+        <field name="sequence">28</field>
+        <field name="type">constant</field>
         <field name="constant_value">Net Weight</field>
         <field name="delimiter">#</field>
     </record>
@@ -255,8 +305,8 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">TX08</field>
         <field name="name">Text (#08)</field>
-        <field name="sequence">26</field>
-        <field name="type">external_constant</field>
+        <field name="sequence">29</field>
+        <field name="type">constant</field>
         <field name="constant_value">Price</field>
         <field name="delimiter">#</field>
     </record>
@@ -265,8 +315,9 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">TX09</field>
         <field name="name">Unused Text (#09)</field>
-        <field name="sequence">27</field>
+        <field name="sequence">30</field>
         <field name="type">constant</field>
+        <field name="constant_value">UNUSED</field>
         <field name="delimiter">#</field>
     </record>
 
@@ -274,9 +325,23 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">TX10</field>
         <field name="name">Text (#10)</field>
-        <field name="sequence">28</field>
+        <field name="sequence">31</field>
         <field name="type">constant</field>
+        <field name="constant_value">UNUSED</field>
         <field name="delimiter">#</field>
     </record>
+
+    <record id="demo_scale_system_product_line_MDAT" model="product.scale.system.product.line">
+        <field name="scale_system_id" ref="demo_scale_system"/>
+        <field name="code">MDAT</field>
+        <field name="name">Main Image</field>
+        <field name="sequence">32</field>
+        <field name="type">product_image</field>
+        <field name="field_id" ref="product.field_product_product_image"/>
+        <field name="image_extension">.PNG</field>
+        <field name="delimiter">#</field>
+    </record>
+
+
 
 </data></openerp>

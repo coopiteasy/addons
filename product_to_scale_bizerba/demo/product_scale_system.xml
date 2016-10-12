@@ -9,9 +9,11 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
     <record id="demo_scale_system" model="product.scale.system">
         <field name="name">Bizerba Demo System</field>
-        <field name="ftp_url">xxx.xxx.xxx.xxx</field>
-        <field name="csv_relative_path">/</field>
-        <field name="image_relative_path">/</field>
+        <field name="ftp_url">192.168.0.1</field>
+        <field name="csv_relative_path">/IMPORT/</field>
+        <field name="product_image_relative_path">/IMAGE_IMPORT/</field>
+        <field name="product_text_file_pattern">TEXT_MAG_0000_%Y%m%d_%H%M%S.CSV</field>
+        <field name="external_text_file_pattern">ARTI_MAG_0000_%Y%m%d_%H%M%S.CSV</field>
     </record>
 
 </data></openerp>

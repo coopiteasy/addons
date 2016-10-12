@@ -26,6 +26,25 @@ class product_product(Model):
             "The tare is defined with kg uom."),
     }
 
+    # View Section
+    def send_scale_create(self, cr, uid, ids, context=None):
+        for product in self.browse(cr, uid, ids, context=context):
+            self._send_to_scale_bizerba(
+                cr, uid, 'create', product, context=context)
+        return True
+
+    def send_scale_write(self, cr, uid, ids, context=None):
+        for product in self.browse(cr, uid, ids, context=context):
+            self._send_to_scale_bizerba(
+                cr, uid, 'write', product, context=context)
+        return True
+
+    def send_scale_unlink(self, cr, uid, ids, context=None):
+        for product in self.browse(cr, uid, ids, context=context):
+            self._send_to_scale_bizerba(
+                cr, uid, 'unlink', product, context=context)
+        return True
+
     # Custom Section
     def _send_to_scale_bizerba(self, cr, uid, action, product, context=None):
         log_obj = self.pool['product.scale.log']
