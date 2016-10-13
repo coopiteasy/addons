@@ -24,6 +24,8 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                             <field name="company_id" groups="base.group_multi_company"/>
                             <field name="active"/>
                             <field name="field_ids" widget="many2many_tags"/>
+                            <field name="product_text_file_pattern"/>
+                            <field name="external_text_file_pattern"/>
                         </group>
                         <group string="FTP Connexion">
                             <field name="ftp_url"/>
@@ -31,8 +33,6 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                             <field name="ftp_password"/>
                             <field name="csv_relative_path"/>
                             <field name="product_image_relative_path"/>
-                            <field name="product_text_file_pattern"/>
-                            <field name="external_text_file_pattern"/>
                         </group>
                     </group>
                     <notebook>
@@ -45,7 +45,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                                         <field name="name"/>
                                         <field name="type"/>
                                         <field name="field_id"
-                                            attrs="{'invisible': [('type', 'not in', ['numeric', 'char', 'many2many', 'product_image'])]}"/>
+                                            attrs="{'invisible': [('type', 'not in', ['external_text', 'numeric', 'char', 'many2many', 'product_image'])]}"/>
                                         <field name="related_field_id"
                                             attrs="{'invisible': [('type', 'not in', ['many2many', 'many2one'])]}"/>
                                         <field name="x2many_range"
@@ -57,7 +57,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                                         <field name="multiline_separator"
                                             attrs="{'invisible': [('type', 'not in', ['char'])]}"/>
                                         <field name="suffix"
-                                            attrs="{'invisible': [('type', 'not in', ['external_text'])]}"/>
+                                            attrs="{'invisible': [('type', 'not in', ['external_text', 'product_image'])]}"/>
                                         <field name="numeric_coefficient"
                                             attrs="{'invisible': [('type', 'not in', ['numeric'])]}"/>
                                         <field name="numeric_round"

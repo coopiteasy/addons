@@ -44,5 +44,6 @@ Roadmap / Know Issues
         'demo/product_scale_system_product_line.xml',
         'demo/product_scale_group.xml',
         'demo/product_product.xml',
+        'demo/decimal_precision.xml',
     ],
 }

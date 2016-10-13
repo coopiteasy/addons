@@ -7,6 +7,7 @@ from datetime import datetime
 
 from openerp.osv import fields
 from openerp.osv.orm import Model
+import openerp.addons.decimal_precision as dp
 
 
 class product_product(Model):
@@ -20,7 +21,8 @@ class product_product(Model):
         'scale_sequence': fields.integer(
             string='Scale Sequence'),
         'scale_tare_weight': fields.float(
-            string='Scale Tare Weight', help="Set here Constant tare weight"
+            digits_compute=dp.get_precision('Stock Weight'),
+            string='Scale Tare Weight',  help="Set here Constant tare weight"
             " for the given product. This tare will be substracted when"
             " the product is weighted. Usefull only for weightable product.\n"
             "The tare is defined with kg uom."),

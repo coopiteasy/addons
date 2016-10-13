@@ -12,6 +12,7 @@ from openerp.osv.orm import Model
 class product_scale_log(Model):
     _name = 'product.scale.log'
     _inherit = 'ir.needaction_mixin'
+    _order = 'log_date desc, id desc'
 
     _EXTERNAL_ID_PRODUCT_SIZE = 8
 
@@ -35,6 +36,11 @@ class product_scale_log(Model):
 
     _EXTERNAL_TEXT_DELIMITER = '#'
 
+    def _clean_value(self, value, product_line):
+        if not value:
+            return ''
+        return str(value).replace(product_line.delimiter, '')
+
     # Compute Section
     def _compute_action_code(
             self, cr, uid, ids, field_names, arg=None, context=None):
@@ -54,10 +60,6 @@ class product_scale_log(Model):
 
             # Set custom fields
             for product_line in group.scale_system_id.product_line_ids:
-                print ">>>>>>>>>>>>>>>>>>>>"
-                print product_line.type
-                print product_line.code
-                print product_line.name
                 if product_line.field_id:
                     value = getattr(log.product_id, product_line.field_id.name)
 
@@ -76,7 +78,7 @@ class product_scale_log(Model):
 
                 elif product_line.type == 'char':
                     if product_line.multiline_length:
-                        current_val = value
+                        current_val = self._clean_value(value, product_line)
                         while current_val:
                             product_text +=\
                                 current_val[:product_line.multiline_length]
@@ -86,7 +88,7 @@ class product_scale_log(Model):
                                 product_text +=\
                                     product_line.multiline_separator
                     else:
-                        product_text += str(value)
+                        product_text += self._clean_value(value, product_line)
 
                 elif product_line.type == 'many2one':
                     # If the many2one is defined
@@ -107,16 +109,16 @@ class product_scale_log(Model):
                                 item, product_line.related_field_id.name)
                         else:
                             item_value = item.id
-                        product_text +=\
-                            item_value and str(item_value) or ''
+                        product_text += self._clean_value(
+                            item_value, product_line)
 
                 elif product_line.type == 'external_text':
-                    external_id = str(log.product_id.id) + product_line.suffix
+                    external_id = str(log.product_id.id)\
+                        + (product_line.suffix and product_line.suffix or '')
 
                     # IMPROVE ME. Some hardcoded design
                     # WALO Code
-                    delimiter = '#'
-                    external_text +=\
+                    external_text =\
                         self._EXTERNAL_TEXT_ACTION_CODE\
                         + self._EXTERNAL_TEXT_DELIMITER
                     # ABNR Code
@@ -127,14 +129,15 @@ class product_scale_log(Model):
                     external_text +=\
                         external_id + self._EXTERNAL_TEXT_DELIMITER
                     # TEXT Code
-                    external_text += value + self._EXTERNAL_TEXT_DELIMITER
+                    external_text += self._clean_value(value, product_line)\
+                        + self._EXTERNAL_TEXT_DELIMITER
                     external_texts.append(external_text)
 
                     product_text += external_id
 
                 elif product_line.type == 'product_image':
-                    product_text += str(log.product_id.id) #+\
-                        # product_line.suffix
+                    product_text += str(log.product_id.id) +\
+                        product_line.suffix
 
                 product_text += product_line.delimiter
             res[log.id] = {
@@ -181,6 +184,7 @@ class product_scale_log(Model):
             print "TODO : Send %s"
             # TODO
             # GROUP BY scale_system_id
+            # First Push Images
             # Send data to the correct FTP, based on scale_system_id
             # Clean attachment, once managed
             self.write(cr, uid, [log.id], {'sent': True}, context=context)
