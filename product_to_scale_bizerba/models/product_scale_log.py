@@ -3,10 +3,17 @@
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp import tools
+import logging
 
+from openerp import tools
 from openerp.osv import fields
 from openerp.osv.orm import Model
+
+_logger = logging.getLogger(__name__)
+try:
+    import ftplib
+except ImportError:
+    _logger.info("Cannot import 'ftplib' Python Librairy.")
 
 
 class product_scale_log(Model):
@@ -192,6 +199,34 @@ class product_scale_log(Model):
             self.search(cr, uid, [('sent', '=', False)], context=context))
 
     # Custom Section
+    def ftp_connection_open(self, cr, uid, log, context=None):
+        """Return a new FTP connection with found parameters."""
+        _logger.info("Trying to connect to ftp://%s@%s" % (
+            log.scale_system_id.ftp_login, log.scale_system_id.ftp_password))
+        # TODO Try Catch me
+        ftp = FTP(log.scale_system_id.ftp_url)
+        if log.scale_system_id.ftp_login:
+            ftp.login(
+                log.scale_system_id.ftp_login,
+                log.scale_system_id.ftp_password)
+        else:
+            ftp.login()
+        return ftp
+
+    def ftp_connection_close(self, cr, uid, ftp, context=None):
+        _logger.info("Trying to disconnect from ftp://%s@%s" % (ftp.host)
+        ftp.quit()
+
+    def ftp_connection_push_text_file(
+            self, cr, uid, ftp, directory, pattern, lines, context=None):
+        ftp.dir(directory)
+        # Make temporary File
+        # TODO
+        text_file = open('myfile', 'w')
+        # Delete Temporary File
+        # TODO
+        ftp.dir('/')
+
     def send_log(self, cr, uid, context=None):
         log_ids = self.search(
             cr, uid, [('sent', '=', False)], order='log_date', context=context)
