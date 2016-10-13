@@ -36,10 +36,33 @@ class product_scale_log(Model):
 
     _EXTERNAL_TEXT_DELIMITER = '#'
 
+    # Private Section
     def _clean_value(self, value, product_line):
         if not value:
             return ''
-        return str(value).replace(product_line.delimiter, '')
+        elif product_line.multiline_length:
+            res = ''
+            current_val = value
+            while current_val:
+                res += current_val[:product_line.multiline_length]
+                current_val = current_val[product_line.multiline_length:]
+                if current_val:
+                    res += product_line.multiline_separator
+        else:
+            res = value
+        return str(res).replace(product_line.delimiter, '')
+
+    def _generate_external_text(self, value, product_line, external_id, log):
+        # TODO: IMPROVE ME. Some hardcoded design
+        # 
+        external_text_list = [
+            self._EXTERNAL_TEXT_ACTION_CODE,                    # WALO Code
+            log.product_id.scale_group_id.external_identity,    # ABNR Code
+            external_id,                                        # TXNR Code
+            self._clean_value(value, product_line),             # TEXT Code
+            '',
+        ]
+        return self._EXTERNAL_TEXT_DELIMITER.join(external_text_list)
 
     # Compute Section
     def _compute_action_code(
@@ -63,11 +86,7 @@ class product_scale_log(Model):
                 if product_line.field_id:
                     value = getattr(log.product_id, product_line.field_id.name)
 
-                if product_line.type == 'constant':
-                    print product_line.constant_value
-                    product_text += product_line.constant_value
-
-                elif product_line.type == 'id':
+                if product_line.type == 'id':
                     product_text += str(log.product_id.id)
 
                 elif product_line.type == 'numeric':
@@ -76,19 +95,29 @@ class product_scale_log(Model):
                         precision_rounding=product_line.numeric_round)
                     product_text += str(value).replace('.0', '')
 
-                elif product_line.type == 'char':
-                    if product_line.multiline_length:
-                        current_val = self._clean_value(value, product_line)
-                        while current_val:
-                            product_text +=\
-                                current_val[:product_line.multiline_length]
-                            current_val =\
-                                current_val[product_line.multiline_length:]
-                            if current_val:
-                                product_text +=\
-                                    product_line.multiline_separator
-                    else:
-                        product_text += self._clean_value(value, product_line)
+                elif product_line.type == 'text':
+                    product_text += self._clean_value(value, product_line)
+
+                elif product_line.type == 'external_text':
+                    external_id = str(log.product_id.id) + str(product_line.id)
+                    external_texts.append(self._generate_external_text(
+                        value, product_line, external_id, log))
+                    product_text += external_id
+
+                elif product_line.type == 'constant':
+                    product_text += self._clean_value(
+                        product_line.constant_value, product_line)
+
+                elif product_line.type == 'external_constant':
+                    # Constant Value are like product ID = 0
+                    external_id = str(product_line.id)
+#                    product_text += self._clean_value(
+#                        product_line.constant_value, product_line)
+
+                    external_texts.append(self._generate_external_text(
+                        product_line.constant_value, product_line, external_id,
+                        log))
+                    product_text += external_id
 
                 elif product_line.type == 'many2one':
                     # If the many2one is defined
@@ -112,29 +141,6 @@ class product_scale_log(Model):
                         product_text += self._clean_value(
                             item_value, product_line)
 
-                elif product_line.type == 'external_text':
-                    external_id = str(log.product_id.id)\
-                        + (product_line.suffix and product_line.suffix or '')
-
-                    # IMPROVE ME. Some hardcoded design
-                    # WALO Code
-                    external_text =\
-                        self._EXTERNAL_TEXT_ACTION_CODE\
-                        + self._EXTERNAL_TEXT_DELIMITER
-                    # ABNR Code
-                    external_text +=\
-                        log.product_id.scale_group_id.external_identity\
-                        + self._EXTERNAL_TEXT_DELIMITER
-                    # TXNR Code
-                    external_text +=\
-                        external_id + self._EXTERNAL_TEXT_DELIMITER
-                    # TEXT Code
-                    external_text += self._clean_value(value, product_line)\
-                        + self._EXTERNAL_TEXT_DELIMITER
-                    external_texts.append(external_text)
-
-                    product_text += external_id
-
                 elif product_line.type == 'product_image':
                     product_text += str(log.product_id.id) +\
                         product_line.suffix
@@ -143,7 +149,10 @@ class product_scale_log(Model):
             res[log.id] = {
                 'product_text': product_text,
                 'external_text': '\n'.join(external_texts),
+                'external_text_display': '\n'.join(
+                    [x.replace('\n', '') for x in external_texts]),
             }
+            import pdb; pdb.set_trace()
         return res
 
     # Column Section
@@ -160,6 +169,12 @@ class product_scale_log(Model):
                     ids, ['scale_system_id', 'product_id'], 10)}),
         'external_text': fields.function(
             _compute_text, type='text', string='External Text',
+            multi='compute_text', store={'product.scale.log': (
+                lambda self, cr, uid, ids, context=None:
+                    ids, ['scale_system_id', 'product_id',
+                        'product_id'], 10)}),
+        'external_text_display': fields.function(
+            _compute_text, type='text', string='External Text (Display)',
             multi='compute_text', store={'product.scale.log': (
                 lambda self, cr, uid, ids, context=None:
                     ids, ['scale_system_id', 'product_id',

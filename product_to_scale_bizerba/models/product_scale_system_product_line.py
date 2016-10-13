@@ -12,13 +12,14 @@ class product_scale_system_product_line(Model):
     _order = 'scale_system_id, sequence'
 
     _TYPE_SELECTION = [
-        ('constant', 'Constant Value'),
-        ('numeric', 'Numeric Field'),
-        ('external_text', 'External Text Field'),
-        ('char', 'Char Field'),
-        ('many2many', 'Many2Many Field'),
-        ('many2one', 'ManyOne Field'),
         ('id', 'Product ID'),
+        ('numeric', 'Numeric Field'),
+        ('text', 'Char / Text Field'),
+        ('external_text', 'External Text Field'),
+        ('constant', 'Constant Value'),
+        ('external_constant', 'External Constant Text Value'),
+        ('many2one', 'ManyOne Field'),
+        ('many2many', 'Many2Many Field'),
         ('product_image', 'Product Image'),
     ]
 
@@ -53,12 +54,13 @@ class product_scale_system_product_line(Model):
             " to send allways the same value."),
         'multiline_length': fields.integer(
             string='Length for Multiline',
-            help="Used if type is 'Char Field', to indicate"
-            " the max length of a line. Set 0 to avoid to split the value."),
+            help="Used if type is 'Text Field' or 'External Text Constant'"
+            ", to indicate the max length of a line. Set 0 to avoid to split"
+            " the value."),
         'multiline_separator': fields.char(
             string='Separator for Multiline', help="Used if type is"
-            " 'Char Field', to indicate wich text will be used to mention"
-            " break lines."),
+            " 'Text Field' or 'External Text Constant', to indicate wich text"
+            " will be used to mention break lines."),
         'suffix': fields.char(
             string='Suffix', help="Used if type is"
             " 'External Text Field', to indicate how to suffix the field.\n"

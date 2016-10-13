@@ -33,7 +33,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="code">ABEZ</field>
         <field name="name">Product Name</field>
         <field name="sequence">4</field>
-        <field name="type">char</field>
+        <field name="type">text</field>
         <field name="field_id" ref="product.field_product_template_name"/>
         <field name="multiline_length">40</field>
         <field name="multiline_separator">@0A</field>
@@ -90,7 +90,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="code">EAN1</field>
         <field name="name">Product EAN13</field>
         <field name="sequence">9</field>
-        <field name="type">char</field>
+        <field name="type">text</field>
         <field name="field_id" ref="product.field_product_product_ean13"/>
         <field name="delimiter">#</field>
     </record>
@@ -184,15 +184,13 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="delimiter">#</field>
     </record>
 
-    
     <record id="demo_scale_system_product_line_ZUT1" model="product.scale.system.product.line">
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">ZUT1</field>
         <field name="name">Ingredients (#1)</field>
         <field name="sequence">18</field>
-        <!-- TODO Set Dynamic value -->
-        <field name="type">constant</field>
-        <field name="constant_value">0</field>
+        <field name="type">external_constant</field>
+        <field name="constant_value">TODO - Ingredient #1</field>
         <field name="delimiter">#</field>
     </record>
 
@@ -201,9 +199,8 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="code">ZUT2</field>
         <field name="name">Ingredients (#2)</field>
         <field name="sequence">19</field>
-        <!-- TODO Set Dynamic value -->
-        <field name="type">constant</field>
-        <field name="constant_value">0</field>
+        <field name="type">external_constant</field>
+        <field name="constant_value">TODO - Ingredient #2</field>
         <field name="delimiter">#</field>
     </record>
 
@@ -212,9 +209,8 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="code">ZUT3</field>
         <field name="name">Ingredients (#3)</field>
         <field name="sequence">20</field>
-        <!-- TODO Set Dynamic value -->
-        <field name="type">constant</field>
-        <field name="constant_value">0</field>
+        <field name="type">external_constant</field>
+        <field name="constant_value">TODO - Ingredient #3</field>
         <field name="delimiter">#</field>
     </record>
 
@@ -223,9 +219,8 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="code">ZUT4</field>
         <field name="name">Ingredients (#4)</field>
         <field name="sequence">21</field>
-        <!-- TODO Set Dynamic value -->
-        <field name="type">constant</field>
-        <field name="constant_value">0</field>
+        <field name="type">external_constant</field>
+        <field name="constant_value">TODO - Ingredient #4</field>
         <field name="delimiter">#</field>
     </record>
 
@@ -244,7 +239,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="code">TX02</field>
         <field name="name">Text (#02)</field>
         <field name="sequence">23</field>
-        <field name="type">constant</field>
+        <field name="type">external_constant</field>
         <field name="constant_value">Best Before</field>
         <field name="delimiter">#</field>
     </record>
@@ -255,7 +250,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="name">Text (#03)</field>
         <field name="sequence">24</field>
         <!-- TODO Set Dynamic value -->
-        <field name="type">constant</field>
+        <field name="type">external_constant</field>
         <field name="constant_value">TODO - Conservation Text</field>
         <field name="delimiter">#</field>
     </record>
@@ -266,7 +261,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="name">Text (#04)</field>
         <field name="sequence">25</field>
         <!-- TODO Set Dynamic value -->
-        <field name="type">constant</field>
+        <field name="type">external_constant</field>
         <field name="constant_value">TODO - Freeze Text</field>
         <field name="delimiter">#</field>
     </record>
@@ -276,7 +271,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="code">TX05</field>
         <field name="name">Text (#05)</field>
         <field name="sequence">26</field>
-        <field name="type">constant</field>
+        <field name="type">external_constant</field>
         <field name="constant_value">For Sale Before</field>
         <field name="delimiter">#</field>
     </record>
@@ -286,7 +281,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="code">TX06</field>
         <field name="name">Text (#06)</field>
         <field name="sequence">27</field>
-        <field name="type">constant</field>
+        <field name="type">external_constant</field>
         <field name="constant_value">Unit Price</field>
         <field name="delimiter">#</field>
     </record>
@@ -296,7 +291,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="code">TX07</field>
         <field name="name">Text (#07)</field>
         <field name="sequence">28</field>
-        <field name="type">constant</field>
+        <field name="type">external_constant</field>
         <field name="constant_value">Net Weight</field>
         <field name="delimiter">#</field>
     </record>
@@ -306,7 +301,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="code">TX08</field>
         <field name="name">Text (#08)</field>
         <field name="sequence">29</field>
-        <field name="type">constant</field>
+        <field name="type">external_constant</field>
         <field name="constant_value">Price</field>
         <field name="delimiter">#</field>
     </record>
@@ -317,7 +312,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="name">Unused Text (#09)</field>
         <field name="sequence">30</field>
         <field name="type">constant</field>
-        <field name="constant_value">UNUSED</field>
+        <field name="constant_value">0</field>
         <field name="delimiter">#</field>
     </record>
 
@@ -327,7 +322,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="name">Text (#10)</field>
         <field name="sequence">31</field>
         <field name="type">constant</field>
-        <field name="constant_value">UNUSED</field>
+        <field name="constant_value">0</field>
         <field name="delimiter">#</field>
     </record>
 

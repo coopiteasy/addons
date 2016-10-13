@@ -13,19 +13,19 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="arch" type="xml">
             <notebook position="inside">
                 <page string="Scale">
-                    <group>
-                        <group string="Scale Communication">
+                    <group string="Scale Communication">
+                        <group>
                             <field name="scale_group_id"/>
                             <field name="scale_sequence"/>
                             <field name="scale_tare_weight"/>
+                        </group>
+                        <group groups="base.group_no_one">
                             <button name="send_scale_create" type="object" string="Resend Creation To the Scale System"
                                 colspan="2"/>
                             <button name="send_scale_write" type="object" string="Resend Update To the Scale System"
                                 colspan="2"/>
                             <button name="send_scale_unlink" type="object" string="Manual Deletion in the Scale System"
                                 colspan="2"/>
-                        </group>
-                        <group>
                         </group>
                     </group>
                 </page>
