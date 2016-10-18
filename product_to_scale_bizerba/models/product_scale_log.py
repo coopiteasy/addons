@@ -9,11 +9,11 @@ from openerp import tools
 from openerp.osv import fields
 from openerp.osv.orm import Model
 
-_logger = logging.getLogger(__name__)
-try:
-    import ftplib
-except ImportError:
-    _logger.info("Cannot import 'ftplib' Python Librairy.")
+# _logger = logging.getLogger(__name__)
+# try:
+#     import ftplib
+# except ImportError:
+#     _logger.info("Cannot import 'ftplib' Python Librairy.")
 
 
 class product_scale_log(Model):
