@@ -65,8 +65,7 @@ class product_product(Model):
 
     # Overload Section
     def create(self, cr, uid, vals, context=None):
-        if vals.get('scale_group_id', False):
-            send_to_scale = True
+        send_to_scale = vals.get('scale_group_id', False)
         res = super(product_product, self).create(
             cr, uid, vals, context=context)
         if send_to_scale:
