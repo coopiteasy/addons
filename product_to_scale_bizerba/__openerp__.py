@@ -29,7 +29,7 @@ Roadmap / Know Issues
         'product',
     ],
     'data': [
-#        'security/res_groups.xml',
+        #        'security/res_groups.xml',
         'views/view_product_product.xml',
         'views/view_product_uom.xml',
         'views/view_product_scale_system.xml',

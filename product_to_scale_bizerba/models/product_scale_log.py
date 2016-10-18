@@ -61,7 +61,6 @@ class product_scale_log(Model):
 
     def _generate_external_text(self, value, product_line, external_id, log):
         # TODO: IMPROVE ME. Some hardcoded design
-        # 
         external_text_list = [
             self._EXTERNAL_TEXT_ACTION_CODE,                    # WALO Code
             log.product_id.scale_group_id.external_identity,    # ABNR Code
@@ -159,7 +158,6 @@ class product_scale_log(Model):
                 'external_text_display': '\n'.join(
                     [x.replace('\n', '') for x in external_texts]),
             }
-            import pdb; pdb.set_trace()
         return res
 
     # Column Section
@@ -177,15 +175,13 @@ class product_scale_log(Model):
         'external_text': fields.function(
             _compute_text, type='text', string='External Text',
             multi='compute_text', store={'product.scale.log': (
-                lambda self, cr, uid, ids, context=None:
-                    ids, ['scale_system_id', 'product_id',
-                        'product_id'], 10)}),
+                lambda self, cr, uid, ids, context=None: ids, [
+                    'scale_system_id', 'product_id', 'product_id'], 10)}),
         'external_text_display': fields.function(
             _compute_text, type='text', string='External Text (Display)',
             multi='compute_text', store={'product.scale.log': (
-                lambda self, cr, uid, ids, context=None:
-                    ids, ['scale_system_id', 'product_id',
-                        'product_id'], 10)}),
+                lambda self, cr, uid, ids, context=None: ids, [
+                    'scale_system_id', 'product_id', 'product_id'], 10)}),
         'action': fields.selection(
             _ACTION_SELECTION, string='Action', required=True),
         'action_code': fields.function(
@@ -198,40 +194,39 @@ class product_scale_log(Model):
         return len(
             self.search(cr, uid, [('sent', '=', False)], context=context))
 
-    # Custom Section
-    def ftp_connection_open(self, cr, uid, log, context=None):
-        """Return a new FTP connection with found parameters."""
-        _logger.info("Trying to connect to ftp://%s@%s" % (
-            log.scale_system_id.ftp_login, log.scale_system_id.ftp_password))
-        # TODO Try Catch me
-        ftp = FTP(log.scale_system_id.ftp_url)
-        if log.scale_system_id.ftp_login:
-            ftp.login(
-                log.scale_system_id.ftp_login,
-                log.scale_system_id.ftp_password)
-        else:
-            ftp.login()
-        return ftp
+#    # Custom Section
+#    def ftp_connection_open(self, cr, uid, log, context=None):
+#        """Return a new FTP connection with found parameters."""
+#        _logger.info("Trying to connect to ftp://%s@%s" % (
+#            log.scale_system_id.ftp_login, log.scale_system_id.ftp_password))
+#        # TODO Try Catch me
+#        ftp = FTP(log.scale_system_id.ftp_url)
+#        if log.scale_system_id.ftp_login:
+#            ftp.login(
+#                log.scale_system_id.ftp_login,
+#                log.scale_system_id.ftp_password)
+#        else:
+#            ftp.login()
+#        return ftp
 
-    def ftp_connection_close(self, cr, uid, ftp, context=None):
-        _logger.info("Trying to disconnect from ftp://%s@%s" % (ftp.host)
-        ftp.quit()
+#    def ftp_connection_close(self, cr, uid, ftp, context=None):
+#        _logger.info("Trying to disconnect from ftp://%s@%s" % (ftp.host)
+#        ftp.quit()
 
-    def ftp_connection_push_text_file(
-            self, cr, uid, ftp, directory, pattern, lines, context=None):
-        ftp.dir(directory)
-        # Make temporary File
-        # TODO
-        text_file = open('myfile', 'w')
-        # Delete Temporary File
-        # TODO
-        ftp.dir('/')
+#    def ftp_connection_push_text_file(
+#            self, cr, uid, ftp, directory, pattern, lines, context=None):
+#        ftp.dir(directory)
+#        # Make temporary File
+#        # TODO
+#        text_file = open('myfile', 'w')
+#        # Delete Temporary File
+#        # TODO
+#        ftp.dir('/')
 
     def send_log(self, cr, uid, context=None):
         log_ids = self.search(
             cr, uid, [('sent', '=', False)], order='log_date', context=context)
         for log in self.browse(cr, uid, log_ids, context=context):
-            print "TODO : Send %s"
             # TODO
             # GROUP BY scale_system_id
             # First Push Images

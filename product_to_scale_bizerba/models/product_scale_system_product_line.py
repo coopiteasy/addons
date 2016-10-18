@@ -39,16 +39,16 @@ class product_scale_system_product_line(Model):
         'field_id': fields.many2one(
             'ir.model.fields', string='Product Field', domain="["
             "('model', 'in', ['product.product', 'product.template'])]"),
+        # TODO Improve. Set domain, depending on the other field
         'related_field_id': fields.many2one(
             'ir.model.fields', string='O2M / M2O Field', help="Used only"
             " for the x2x fields. Set here the field of the related model"
             " that you want to send to the scale. Let empty to send the ID."),
-            # TODO Improve. Set domain, depending on the other field
         'x2many_range': fields.integer(
             string='range of the x2Many Fields', help="Used if type is"
-                " 'Many2Many Field' or a 'One2Many Field', to mention the"
-                " range of the field  to send. Begin by 0. (used for exemple"
-                " for product logos)"),
+            " 'Many2Many Field' or a 'One2Many Field', to mention the"
+            " range of the field  to send. Begin by 0. (used for exemple"
+            " for product logos)"),
         'constant_value': fields.char(
             string='Constante Value', help="Used if type is 'constant',"
             " to send allways the same value."),
@@ -61,13 +61,13 @@ class product_scale_system_product_line(Model):
             string='Separator for Multiline', help="Used if type is"
             " 'Text Field' or 'External Text Constant', to indicate wich text"
             " will be used to mention break lines."),
+        # TODO Improve. Set contrains.
         'suffix': fields.char(
             string='Suffix', help="Used if type is"
             " 'External Text Field', to indicate how to suffix the field.\n"
             " Make sure to have a uniq value by Scale System, and all with the"
             " same size.\n\n Used if type is Product Image to mention the end"
             " of the file. Exemple : '_01.jpg'."),
-            # TODO Improve. Set contrains.
         'numeric_coefficient': fields.float(
             string='Numeric Coefficient', help="Used if type is"
             " 'Numeric Field', to mention with with coefficient numeric"

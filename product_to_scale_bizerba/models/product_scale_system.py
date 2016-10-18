@@ -11,15 +11,14 @@ class product_scale_system(Model):
     _name = 'product.scale.system'
 
     def _get_field_ids(
-        self, cr, uid, ids, field_names, arg=None, context=None):
+            self, cr, uid, ids, field_names, arg=None, context=None):
         res = {}
         for id in ids:
             res.setdefault(id, [])
         for system in self.browse(cr, uid, ids, context=context):
             for product_line in system.product_line_ids:
-                if product_line.field_id: 
+                if product_line.field_id:
                     res[system.id].append(product_line.field_id.id)
-        print res
         return res
 
     _columns = {
@@ -58,7 +57,7 @@ class product_scale_system(Model):
     _defaults = {
         'active': True,
         'company_id': lambda s, cr, uid, c: s.pool.get('res.company').
-            _company_default_get(cr, uid, 'product.template', context=c),
+        _company_default_get(cr, uid, 'product.template', context=c),
         'ftp_url': 'xxx.xxx.xxx.xxx',
         'csv_relative_path': '/',
         'product_image_relative_path': '/',
