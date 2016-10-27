@@ -3,16 +3,21 @@
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-# import logging
+import os
+import logging
+from datetime import datetime
+
 from openerp import tools
 from openerp.osv import fields
 from openerp.osv.orm import Model
 
-# _logger = logging.getLogger(__name__)
-# try:
-#     import ftplib
-# except ImportError:
-#     _logger.info("Cannot import 'ftplib' Python Librairy.")
+_logger = logging.getLogger(__name__)
+try:
+    from ftplib import FTP
+except ImportError:
+    _logger.warning(
+       "Cannot import 'ftplib' Python Librairy. 'product_to_scale_bizerba'"
+       " module will not work properly.")
 
 
 class product_scale_log(Model):
@@ -186,6 +191,7 @@ class product_scale_log(Model):
         'action_code': fields.function(
             _compute_action_code, string='Action Code'),
         'sent': fields.boolean(string='Is Sent'),
+        'last_send_date': fields.datetime('Last Send Date'),
     }
 
     # View Section
@@ -193,42 +199,99 @@ class product_scale_log(Model):
         return len(
             self.search(cr, uid, [('sent', '=', False)], context=context))
 
-#    # Custom Section
-#    def ftp_connection_open(self, cr, uid, log, context=None):
-#        """Return a new FTP connection with found parameters."""
-#        _logger.info("Trying to connect to ftp://%s@%s" % (
-#            log.scale_system_id.ftp_login, log.scale_system_id.ftp_password))
-#        # TODO Try Catch me
-#        ftp = FTP(log.scale_system_id.ftp_url)
-#        if log.scale_system_id.ftp_login:
-#            ftp.login(
-#                log.scale_system_id.ftp_login,
-#                log.scale_system_id.ftp_password)
-#        else:
-#            ftp.login()
-#        return ftp
+    # Custom Section
+    def ftp_connection_open(self, cr, uid, scale_system, context=None):
+        """Return a new FTP connection with found parameters."""
+        _logger.info("Trying to connect to ftp://%s@%s" % (
+            scale_system.ftp_login, scale_system.ftp_url))
+        try:
+            ftp = FTP(scale_system.ftp_url)
+            if scale_system.ftp_login:
+                ftp.login(
+                    scale_system.ftp_login,
+                    scale_system.ftp_password)
+            else:
+                ftp.login()
+            return ftp
+        except:
+            _logger.error("Connection to ftp://%s@%s failed." % (
+                scale_system.ftp_login, scale_system.ftp_url))
+            return False
 
-#    def ftp_connection_close(self, cr, uid, ftp, context=None):
-#        _logger.info("Trying to disconnect from ftp://%s@%s" % (ftp.host)
-#        ftp.quit()
+    def ftp_connection_close(self, cr, uid, ftp, context=None):
+        try:
+            ftp.quit()
+        except:
+            pass
 
-#    def ftp_connection_push_text_file(
-#            self, cr, uid, ftp, directory, pattern, lines, context=None):
-#        ftp.dir(directory)
-#        # Make temporary File
-#        # TODO
-#        text_file = open('myfile', 'w')
-#        # Delete Temporary File
-#        # TODO
-#        ftp.dir('/')
+    def ftp_connection_push_text_file(
+            self, cr, uid, ftp, distant_folder_path, local_folder_path,
+            pattern, lines, context=None):
+        if lines:
+            # Generate temporary file
+            f_name = datetime.now().strftime(pattern)
+            full_path = os.path.join(local_folder_path, f_name)
+            f = open(full_path, 'w')
+            for line in lines:
+                f.write(line)
+                f.close()
 
-    def send_log(self, cr, uid, context=None):
-        log_ids = self.search(
-            cr, uid, [('sent', '=', False)], order='log_date', context=context)
+            # Send File
+            f = open(full_path, 'r')
+            ftp.storbinary(
+                'STOR ' + os.path.join(distant_folder_path, f_name), f)
+
+            # Delete temporary file
+            os.remove(full_path)
+
+    def send_log(self, cr, uid, ids, context=None):
+        config_obj = self.pool['ir.config_parameter']
+        folder_path = config_obj.get_param(
+            cr, uid, 'bizerba.local_folder_path', context=context)
+
+        log_ids = self.search(cr, uid, [], order='log_date', context=context)
+        system_map = {}
         for log in self.browse(cr, uid, log_ids, context=context):
-            # TODO
-            # GROUP BY scale_system_id
-            # First Push Images
-            # Send data to the correct FTP, based on scale_system_id
-            # Clean attachment, once managed
-            self.write(cr, uid, [log.id], {'sent': True}, context=context)
+            if log.scale_system_id.id in system_map.keys():
+                system_map[log.scale_system_id].append(log)
+            else:
+                system_map[log.scale_system_id] = [log]
+
+        for scale_system, logs in system_map.iteritems():
+
+            # Open FTP Connection
+            ftp = self.ftp_connection_open(
+                cr, uid, logs[0].scale_system_id, context=context)
+            if not ftp:
+                return False
+
+            # Generate and Send Files
+            now = datetime.now()
+            product_text_lst = []
+            external_text_lst = []
+
+            for log in logs:
+                if log.product_text:
+                    product_text_lst.append(log.product_text)
+                if log.external_text:
+                    external_text_lst.append(log.external_text)
+            self.ftp_connection_push_text_file(
+                cr, uid, ftp, scale_system.csv_relative_path,
+                folder_path, scale_system.external_text_file_pattern,
+                external_text_lst, context=context)
+            self.ftp_connection_push_text_file(
+                cr, uid, ftp, scale_system.csv_relative_path,
+                folder_path, scale_system.product_text_file_pattern,
+                product_text_lst, context=context)
+
+            # Close FTP Connection
+            self.ftp_connection_close(cr, uid, ftp, context=context)
+
+            # Mark logs as sent
+            now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            self.write(
+                cr, uid, [log.id for log in logs], {
+                    'sent': True,
+                    'last_send_date': now,
+                }, context=context)
+        return True

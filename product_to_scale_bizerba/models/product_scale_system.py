@@ -29,7 +29,7 @@ class product_scale_system(Model):
         'active': fields.boolean(
             string='Active'),
         'ftp_url': fields.char(
-            string='FTP Server URL', required=True),
+            string='FTP Server URL'),
         'ftp_login': fields.char(
             string='FTP Login'),
         'ftp_password': fields.char(

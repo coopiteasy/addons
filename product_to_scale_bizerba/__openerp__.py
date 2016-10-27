@@ -30,6 +30,7 @@ Roadmap / Know Issues
     ],
     'data': [
         #        'security/res_groups.xml',
+        'data/ir_config_parameter.xml',
         'views/view_product_product.xml',
         'views/view_product_uom.xml',
         'views/view_product_scale_system.xml',

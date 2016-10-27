@@ -31,6 +31,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                             <group>
                                 <field name="log_date"/>
                                 <field name="sent"/>
+                                <button name="send_log" string="Send to FTP Server" type="object"/>
                             </group>
                             <group>
                                 <field name="scale_system_id"/>
