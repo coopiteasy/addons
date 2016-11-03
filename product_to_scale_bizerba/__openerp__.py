@@ -19,7 +19,7 @@ Roadmap / Know Issues
 * It should be great to split this module into many modules, with some generic
   features in a module named product_to_scale and some specifics features
   for each scales system. 'product_to_scale_bizerba',
-  'product_tos_scale_metler_toledo', etc.
+  'product_to_scale_metler_toledo', etc.
 
 """,
     'author': 'GRAP',
@@ -29,8 +29,11 @@ Roadmap / Know Issues
         'product',
     ],
     'data': [
-        #        'security/res_groups.xml',
+        'security/ir_module_category.xml',
+        'security/res_groups.xml',
+        'security/ir.model.access.csv',
         'data/ir_config_parameter.xml',
+        'data/ir_cron.xml',
         'views/view_product_product.xml',
         'views/view_product_uom.xml',
         'views/view_product_scale_system.xml',
