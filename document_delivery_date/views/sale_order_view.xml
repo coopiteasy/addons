@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<template id="report_saleorder_document" inherit_id="sale.report_saleorder_document">
+			<xpath expr="//p[@t-field='doc.date_order']/.." position='after'>
+				<div t-if="doc.commitment_date" class="col-xs-3">
+	                <strong>Commitment Date:</strong>
+	                <p t-field="doc.commitment_date"/>
+	            </div>
+	        </xpath>
+		</template>
+	</data>
+</odoo>

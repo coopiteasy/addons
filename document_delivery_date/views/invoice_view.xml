@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<template id="invoice_delivery_date" inherit_id="account.report_invoice_document">
+			<xpath expr="//p[@t-field='o.date_due']/.." position='after'>
+	        	<div class="col-xs-2" t-if="o.commitment_date and o.type == 'out_invoice' and (o.state == 'open' or o.state == 'paid')">
+		            <strong>Delivery Date:</strong>
+		            <p t-field="o.commitment_date"/>
+		        </div>
+	        </xpath>
+		</template>
+		
+		<record id="invoice_form_delivery_date" model="ir.ui.view">
+	        <field name="name">account.invoice.form</field>
+	        <field name="model">account.invoice</field>
+	        <field name="inherit_id" ref="account.invoice_form"/>
+	        <field name="arch" type="xml">
+	        	<field name="date_due" position="after">
+	        		<field name="commitment_date" groups="base.group_no_one"/>
+	        	</field>
+	        </field>
+	    </record>
+    </data>
+</odoo>

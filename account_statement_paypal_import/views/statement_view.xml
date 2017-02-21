@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+<!--        <record id="bank_statement_view_form" model="ir.ui.view">
+            <field name="name">paypal_account_bank_statement.bank_statement.view_form</field>
+            <field name="model">account.bank.statement</field>
+            <field name="inherit_id" ref="account_statement_base_completion.bank_statement_view_form" />
+            <field name="type">form</field>
+            <field eval="50" name="priority"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="/form/notebook/page/field[@name='line_ids']/form/field[@name='already_completed']" position="after">
+                        <separator string="Paypal Fields" colspan="4"/>
+                        <group name="paypal_fields" colspan="4">
+                            <field name="partner_name" />
+                            <field name="paypal_payment_type" />
+                            <field name="transaction_state"/>
+                            <field name="email_from" />
+                            <field name="email_to" />
+                            <field name="transaction_number" />
+                        </group>
+                    </xpath>
+                </data>
+            </field>
+        </record>-->
+
+<!--        <record id="action_bank_statement_tree" model="ir.actions.act_window">
+            <field name="name">Bank Statements</field>
+            <field name="res_model">account.bank.statement</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,graph</field>
+            <field name="domain">[('journal_id.type', '=', 'bank')]</field>
+            <field name="context">{'journal_type':'bank'}</field>
+            <field name="search_view_id" ref="account.view_bank_statement_search"/>
+            <field name="view_id" ref="account.view_bank_statement_tree"/>
+            <field name="help">A bank statement is a summary of all financial transactions occurring over a given period of time on a deposit account, a credit card or any other type of financial account. The starting balance will be proposed automatically and the closing balance is to be found on your statement. When you are in the Payment column of a line, you can press F1 to open the reconciliation form.</field>
+        </record>-->
+    </data>
+</openerp>
