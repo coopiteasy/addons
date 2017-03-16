@@ -1,0 +1,41 @@
+<odoo>
+	<record id="view_expenses_type_tree" model="ir.ui.view">
+            <field name="name">hr.expense.type.tree</field>
+            <field name="model">hr.expense</field>
+            <field name="inherit_id" ref="hr_expense_v10.view_expenses_tree"/>
+            <field name="arch" type="xml">
+            	<field name="attachment_number" position="after">
+            		<field name="expense_type" invisible="True"/>
+            	</field>
+            </field>
+        </record>
+
+        <record id="hr_expense_type_form_view" model="ir.ui.view">
+            <field name="name">hr.expense.type.form</field>
+            <field name="model">hr.expense</field>
+            <field name="inherit_id" ref="hr_expense_v10.hr_expense_form_view"/>
+            <field name="arch" type="xml">
+            	<field name="product_id" position="after">
+            		<field name="expense_type" />
+            	</field>
+            </field>
+       </record>
+       
+       <record id="view_hr_expense_type_filter" model="ir.ui.view">
+            <field name="name">hr.expense.type.filter</field>
+            <field name="model">hr.expense</field>
+            <field name="inherit_id" ref="hr_expense_v10.view_hr_expense_filter"/>
+            <field name="arch" type="xml">
+	            <filter name="to_report" position="after">
+		            <separator />
+		            <filter domain="[('state', '=', 'draft')]" string="To Submit" name="to_report" help="New Expense"/>
+		            <filter domain="[('state', '=', 'reported')]" string="Reported" name="submitted" help="Confirmed Expenses"/>
+		            <filter domain="[('state', '=', 'refused')]" string="Refused" name="refused" help="Refused Expenses"/>
+		            <filter domain="[('state', '!=', 'cancel')]" string="Not Refused" name="uncancelled" help="Actual expense sheets, not the refused ones"/>
+	            </filter>
+	            <group expand="0" position="inside">
+	                <filter string="Expense type" domain="[]" context="{'group_by': 'expense_type'}"/>
+	            </group>
+            </field>
+        </record>
+</odoo>
