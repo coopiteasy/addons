@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<odoo>
+	<record id="view_bank_statement_form" model="ir.ui.view">
+	    <field name="name">account.bank.statement.form</field>
+	    <field name="model">account.bank.statement</field>
+	    <field name="inherit_id" ref="account.view_bank_statement_form"/>
+	    <field name="arch" type="xml">
+        	<field name="ref" position="before">
+        		<field name="extract_number"/>
+        	</field>
+	    </field>
+	</record>
+	
+	
+	<record id="view_bank_statement_line_form" model="ir.ui.view">
+	    <field name="name">bank.statement.line.form</field>
+	    <field name="model">account.bank.statement.line</field>
+	    <field name="inherit_id" ref="account.view_bank_statement_line_form"/>
+	    <field name="arch" type="xml">
+            <field name="ref" position="before">
+        		<field name="extract_number"/>
+        	</field>
+	    </field>
+	</record>
+        
+	<record id="view_bank_statement_line_tree" model="ir.ui.view">
+	    <field name="name">account.bank.statement.line.tree</field>
+	    <field name="model">account.bank.statement.line</field>
+	    <field name="inherit_id" ref="account.view_bank_statement_line_tree"/>
+	    <field name="arch" type="xml">
+	        <field name="ref" position="before">
+        		<field name="extract_number"/>
+        	</field>
+	    </field>
+	</record>
+</odoo>
