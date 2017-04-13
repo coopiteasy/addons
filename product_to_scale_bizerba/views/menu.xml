@@ -9,7 +9,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
     <menuitem id="menu_scale_root"
         name="Scales"
-        parent="base.menu_base_config" sequence="25"/>
+        parent="base.menu_sale_config" sequence="25"/>
 
     <menuitem id="menu_product_scale_system"
         parent="menu_scale_root" sequence="1"

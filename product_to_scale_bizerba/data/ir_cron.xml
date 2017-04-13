@@ -5,8 +5,7 @@
     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 -->
 
-<openerp><data noupdate="1">
-
+<odoo noupdate="1">
     <record id="ir_cron_send_to_scale" model="ir.cron">
         <field name="name">Send to Scale</field>
         <field name="interval_number">5</field>
@@ -17,5 +16,4 @@
         <field name="function">cron_send_to_scale</field>
         <field name="active" eval="False"/>
     </record>
-
-</data></openerp>
+</odoo>

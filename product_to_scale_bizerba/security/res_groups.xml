@@ -5,7 +5,7 @@
     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 -->
 
-<openerp><data>
+<odoo>
 
     <record model="res.groups" id="group_user">
         <field name="name">Bizerba Scale User</field>
@@ -18,4 +18,4 @@
         <field name="category_id" ref="category_bizerba_scale" />
     </record>
 
-</data></openerp>
+</odoo>
