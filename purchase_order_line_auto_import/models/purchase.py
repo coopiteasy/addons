@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# � 2016 Houssine BAKKALI, Open Architects Consulting SPRL
+# © 2016 Houssine BAKKALI, Open Architects Consulting SPRL
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
