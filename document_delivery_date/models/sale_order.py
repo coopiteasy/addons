@@ -11,4 +11,4 @@ class SaleOrder(models.Model):
        invoice_vals = super(SaleOrder, self)._prepare_invoice()
        invoice_vals['commitment_date'] = self.commitment_date
        
-       return invoice_vals 
+       return invoice_vals
