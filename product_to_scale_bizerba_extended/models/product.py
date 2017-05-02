@@ -6,7 +6,7 @@ from datetime import datetime
 from openerp import api, fields, models, _
 import openerp.addons.decimal_precision as dp
 
-class product_product(models.Model):
+class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
     scale_group_id = fields.Many2one(related="product_variant_ids.scale_group_id", string='Scale Group', store=True)
@@ -21,33 +21,33 @@ class product_product(models.Model):
     @api.multi
     def send_scale_create(self):
         for product in self:
-            self._send_to_scale_bizerba('create', product)
+            product._send_to_scale_bizerba('create')
         return True
 
     @api.multi
     def send_scale_write(self):
         for product in self:
-            self._send_to_scale_bizerba('write', product)
+            product._send_to_scale_bizerba('write')
         return True
 
     @api.multi
     def send_scale_unlink(self):
         for product in self:
-            self._send_to_scale_bizerba('unlink', product)
+            product._send_to_scale_bizerba('unlink')
         return True
 
     # Custom Section
-    def _send_to_scale_bizerba(self, action, product):
+    def _send_to_scale_bizerba(self, action):
         log_obj = self.env['product.scale.log']
         log_obj.create({
             'log_date': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-            'scale_system_id': product.scale_group_id.scale_system_id.id,
-            'product_id': product.id,
+            'scale_system_id': self.scale_group_id.scale_system_id.id,
+            'product_id': self.id,
             'action': action,
             })
 
-    def _check_vals_scale_bizerba(self, vals, product):
-        system = product.scale_group_id.scale_system_id
+    def _check_vals_scale_bizerba(self, vals):
+        system = self.scale_group_id.scale_system_id
         system_fields = [x.name for x in system.field_ids]
         vals_fields = vals.keys()
         return set(system_fields).intersection(vals_fields)
@@ -56,14 +56,14 @@ class product_product(models.Model):
     @api.model
     def create(self, vals):
         send_to_scale = vals.get('scale_group_id', False)
-        res = super(product_product, self).create(vals)
+        res = super(ProductTemplate, self).create(vals)
         if send_to_scale:
             product = self.browse(res)
-            self._send_to_scale_bizerba('create', product)
+            self._send_to_scale_bizerba('create')
         return res
     
     @api.multi
-    def write(self):
+    def write(self, vals):
         defered = {}
         for product in self:
             ignore = not product.scale_group_id\
@@ -78,18 +78,18 @@ class product_product(models.Model):
                             product.scale_group_id):
                         # (the product has moved from a group to another)
                         # Remove from obsolete group
-                        self._send_to_scale_bizerba('unlink', product)
+                        product._send_to_scale_bizerba('unlink')
                         # Create in the new group
                         defered[product.id] = 'create'
-                    elif self._check_vals_scale_bizerba(vals, product):
+                    elif product._check_vals_scale_bizerba(vals):
                         # Data related to the scale
                         defered[product.id] = 'write'
 
-        res = super(product_product, self).write(vals)
+        res = super(ProductTemplate, self).write(vals)
 
         for product_id, action in defered.iteritems():
             product = self.browse(product_id)
-            self._send_to_scale_bizerba(action, product)
+            product._send_to_scale_bizerba(action)
 
         return res
     
@@ -98,4 +98,4 @@ class product_product(models.Model):
         for product in self:
             if product.scale_group_id:
                 self._send_to_scale_bizerba('unlink', product)
-        return super(product_product, self).unlink()
+        return super(ProductTemplate, self).unlink()
