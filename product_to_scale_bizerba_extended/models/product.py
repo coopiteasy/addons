@@ -56,8 +56,7 @@ class product_product(models.Model):
     @api.model
     def create(self, vals):
         send_to_scale = vals.get('scale_group_id', False)
-        res = super(product_product, self).create(
-            cr, uid, vals, context=context)
+        res = super(product_product, self).create(vals)
         if send_to_scale:
             product = self.browse(res)
             self._send_to_scale_bizerba('create', product)
@@ -98,6 +97,5 @@ class product_product(models.Model):
     def unlink(self):
         for product in self:
             if product.scale_group_id:
-                self._send_to_scale_bizerba(
-                    cr, uid, 'unlink', product, context=context)
+                self._send_to_scale_bizerba('unlink', product)
         return super(product_product, self).unlink()
