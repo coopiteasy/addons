@@ -11,4 +11,4 @@ class HrExpense(models.Model):
                     ("transport_ticket", "Transport ticket"),
                     ("miscellaneous","Miscellaneous")], default='car_travel', 
                     states={'done': [('readonly', True)], 'post': [('readonly', True)]}, 
-                    string="Payment By")
+                    string="Expense type")
