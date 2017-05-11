@@ -6,6 +6,11 @@ from datetime import datetime
 from openerp import api, fields, models, _
 import openerp.addons.decimal_precision as dp
 
+class product_scale_group(models.Model):
+    _inherit = 'product.scale.group'
+    
+    product_ids = fields.One2many('product.template', 'scale_group_id', string='Products')
+
 class ProductScaleLog(models.Model):
     _inherit = 'product.scale.log'
     
