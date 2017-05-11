@@ -102,5 +102,5 @@ class ProductTemplate(models.Model):
     def unlink(self):
         for product in self:
             if product.scale_group_id:
-                self._send_to_scale_bizerba('unlink', product)
+                self._send_to_scale_bizerba('unlink')
         return super(ProductTemplate, self).unlink()
