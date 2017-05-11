@@ -11,11 +11,6 @@ class product_scale_group(models.Model):
     
     product_ids = fields.One2many('product.template', 'scale_group_id', string='Products')
 
-class ProductScaleLog(models.Model):
-    _inherit = 'product.scale.log'
-    
-    product_id = fields.Many2one('product.template', string='Product')
-
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
