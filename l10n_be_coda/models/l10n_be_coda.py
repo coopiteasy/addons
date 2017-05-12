@@ -267,7 +267,7 @@ class CodaImport:
                     'name': structured_com or (line.get('communication', '') != '' and line['communication'] or '/'),
                     'date': line['entryDate'],
                     'amount': line['amount'],
-                    'unique_import_id': line['ref'],
+                    'unique_import_id': line['counterpartyNumber'] + '-' + line.get('communication', '') + '-' + line['entryDate'] + '-' + line['entryDate'] + '-' +  line['ref'],
                     'note': "\n".join(note),
                     'ref': line['ref'],
                     'extract_number': extract_number,
