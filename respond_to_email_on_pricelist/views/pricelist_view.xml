@@ -1,0 +1,25 @@
+<odoo>
+	<data>
+		<record id="product_pricelist_view_tree" model="ir.ui.view">
+            <field name="name">product.pricelist.tree</field>
+            <field name="model">product.pricelist</field>
+            <field name="inherit_id" ref="product.product_pricelist_view_tree"/>
+            <field name="arch" type="xml">	
+            	<field name="name" position="after">
+            		<field name="respond_to_email_address"/>
+            	</field>
+            </field>
+        </record>
+        
+        <record id="product_pricelist_view" model="ir.ui.view">
+            <field name="name">product.pricelist.form</field>
+            <field name="model">product.pricelist</field>
+            <field name="inherit_id" ref="product.product_pricelist_view"/>
+            <field name="arch" type="xml">
+            	<field name="currency_id" position="before">
+            		<field name="respond_to_email_address"/>
+            	</field>
+            </field>
+        </record>
+	</data>
+</odoo>
