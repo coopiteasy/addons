@@ -20,7 +20,7 @@
 {
     "name": "Respond to mail on price list",
     "version": "1.0",
-    "depends": ["product",],
+    "depends": ["account","product",],
     "author": "Houssine BAKKALI <houssine.bakkali@gmail.com>",
     "category": "Invoice",
     "description": """
@@ -29,6 +29,7 @@
     """,
     'data': [
         'views/pricelist_view.xml',
+        'views/account_view.xml',
     ],
     'installable': True,
 }
