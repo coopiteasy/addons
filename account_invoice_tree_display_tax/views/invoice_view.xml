@@ -8,7 +8,7 @@
             <field name="arch" type="xml">
             	<field name="amount_total_signed" position="before">
             		<field name="amount_tax" string="Total Tax" sum="Total Tax"/>
-            		<field name="amount_untaxed" sum="Total Untaxed"/>
+            		<field name="amount_untaxed" string="Untaxed Amount" sum="Total Untaxed"/>
             	</field>
             </field>
         </record>
