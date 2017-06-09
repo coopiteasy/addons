@@ -23,7 +23,7 @@
     "version": "1.0",
     "depends": ["account"],
     "author": "Houssine BAKKALI <houssine.bakkali@gmail.com>",
-    "category": "CRM",
+    "category": "Invoicing",
     "description": """
     This module just adds total tax amount on invoice tree view.    
     """,
