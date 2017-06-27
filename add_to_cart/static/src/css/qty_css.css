@@ -1,0 +1,152 @@
+@charset "utf-8";
+
+.text-muted{
+margin-bottom: 5px;
+}
+
+span[data-oe-type="monetary"] {
+  white-space: nowrap;
+}
+.hide_element {
+  visibility: hidden;
+}
+
+.oe_website_spinner {
+  width: 30px;
+  float: right;
+}
+
+.oe_website_sale input.js_quantity {
+min-width: 10px;
+text-align: center;
+}
+
+input.js_quantity.form-control {
+height: 22px;
+padding: 0px;
+min-width: 25px !important;
+max-width: 25px !important;
+margin-left: 0px;
+}
+
+input.js_quantity.form-control_not_in_cart {
+height: 22px !important;
+padding: 0px;
+float: right;
+min-width: 20px;
+max-width: 25px;
+}
+
+input.js_quantity_inherited.form-control {
+height: 22px !important;
+padding: 0px;
+min-width: 25px;
+}
+
+input.js_quantity_inherited2.form-control {
+height: 22px;
+padding: 0px;
+min-width: 25px;
+}
+
+input.js_quantity_inherited.form-control_not_in_cart {
+height: 22px !important;
+padding: 0px;
+float: right;
+min-width: 10px;
+max-width: 25px;
+}
+
+.css_quantity .input-group-addon {
+padding: 0px !important;
+height: 22px;
+width: 20px;
+}
+
+.oe_product .product_price {
+padding: 5px 0;
+position: absolute;
+bottom: 0;
+width: 90% !important;
+}
+
+element.style {
+}
+a.btn.btn-default.btn-xs.fa.fa-shopping-wishlist {
+float: right;
+margin-right: 1px;
+
+}
+
+a.btn.btn-default.btn-xs.fa.fa-shopping-cart.a-submit {
+float: right;
+margin-right: 1px;
+margin-left: -6px;
+}
+
+
+.col-md-9{
+	width:58% 
+}
+
+.oe_cart{
+	/*width:20%;*/
+	float:left;
+}
+
+.oe_cart1{
+	width:20%;
+	float:left;
+}
+
+.set_margin_shoping_cart{
+	margin-top:70px;
+}
+
+.input-group-addon:first-child{
+	padding:1px !important;
+}
+
+.input-group-addon:last-child{
+	padding:1px !important;
+}
+
+h3, .h3{
+	font-size:inherit !important;
+}
+
+.tooltip div
+{
+    border-radius:4px;
+    box-shadow: 5px 5px 8px #CCC;
+}
+
+.col-md-3{
+  width:22%;
+}
+
+.scroll_cart{
+	height:200px;
+	overflow-y: auto;
+	/*overflow-x: hidden;*/
+}
+
+.div_width{
+	width:235px;
+}
+
+.cart_table_color{
+	background-color:#F8F8F8;
+	
+}
+
+.recent_view_pos{
+	margin-bottom:26px;
+}
+
+h4{
+  font-weight:bold !important;
+}
+hr{
+   margin-top: 55px !important;
+}

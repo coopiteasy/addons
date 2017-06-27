@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+	<template id="assets_frontend" inherit_id="website.assets_frontend" name="Shop">
+	  <xpath expr="." position="inside">
+	  	  <link rel='stylesheet' href='/website_sale/static/src/css/website_sale.css'/>
+	      <link rel='stylesheet' href='/website_sale/static/src/css/website_mail.css'/>
+	      <link rel="stylesheet" href="/add_to_cart/static/src/css/qty_css.css"/>
+ 		  <script type="text/javascript" src="/add_to_cart/static/src/js/qty_add.js"></script>
+		  <script type="text/javascript" src="/add_to_cart/static/src/js/product_variant_qty.js"></script>
+	  </xpath>
+	</template>
+	
+	<!-- PRODUCT VIEW ON SHOP FORM AND SHOP-CART FORM-->
+	<template id="products_item_inherited" inherit_id="website_sale.products_item" active="True" customize_show="True" name="Add to Cart with Ease"> 
+		<xpath expr="//form[@action='/shop/cart/update']" method="post" position="replace"> 
+			 <form action="/shop/cart/update_no_redirect" method="get" style="display: inline-block;"> 
+				  <div itemscope="itemscope" itemtype="http://schema.org/Product">
+					  <div class="ribbon-wrapper">
+					    <div class="ribbon btn btn-danger">Offer</div>
+					  </div>
+					  <div class="oe_product_image"> 
+					      <a itemprop="url" t-att-href="keep('/shop/product/%s' % slug(product), page=(pager['page']['num'] if pager['page']['num']>1 else None))"> 
+					          <img itemprop="image" class="img img-responsive" t-att-src="website.image_url(product, 'image', None if product_image_big else '300x300')"/>
+					      </a>
+					  </div>
+					  
+					  <section>
+					      <h5><strong><a itemprop="name" t-att-href="keep('/shop/product/%s' % slug(product), page=(pager['page']['num'] if pager['page']['num']>1 else None))" t-field="product.name"/></strong></h5>
+					      <div itemprop="offers" itemscope="itemscope" itemtype="http://schema.org/Offer" class="product_price" t-if="product.product_variant_ids">
+					      	  	<input name="product_id" t-att-value="product.product_variant_ids[0].id" type="hidden"/>
+			    			 
+								<div name="prod_qty_value_and_buttons">
+									<t t-set="website_sale_order" t-value="website.sale_get_order()"/>
+									<t t-set="int_prod_qty" t-value="website.is_product_in_cart(product.product_variant_ids[0].id)"/>
+	
+								    <a class="btn btn-default btn-xs fa fa-shopping-cart a-submit" t-if="not int_prod_qty" t-att-row="product.product_variant_ids[0].id"/>
+								    <div class="css_quantity input-group oe_website_spinner" t-if="not int_prod_qty">
+								        <input type="text" class="js_quantity form-control" id="cart_quantity_txt_box" data-min="1" name="add_qty" value="1"
+								        	t-if="not int_prod_qty" maxlength="2" onkeydown='allow_numeric_input(event)' t-att-row="product.product_variant_ids[0].id"/> 
+						    		</div>
+						    		
+								    <div class="css_quantity input-group oe_website_spinner" t-if="int_prod_qty">
+								        <span class="input-group-addon" t-if="int_prod_qty"> 
+								            <a t-attf-href="#" class="mb8 js_add_cart_json_inherited">
+								                <i class="fa fa-minus"></i>
+								            </a>
+								        </span>
+								        <input type="text" class="js_quantity_inherited form-control" id="cart_quantity_txt_box" data-min="0" t-att-name="int(product.product_variant_ids[0].id)" 
+								        		t-att-value="int(int_prod_qty)" t-if="int_prod_qty" maxlength="2" readonly="1" onkeydown='allow_numeric_input(event)'/>     
+								        <span class="input-group-addon" t-if="int_prod_qty">
+								            <a t-attf-href="#" class="mb8 float_left js_add_cart_json_inherited">
+								                <i class="fa fa-plus"></i>
+								            </a>
+								        </span>
+						    		</div>
+				    			</div>
+								
+						        <b>
+						              <t t-if="(compute_currency(product.lst_price) - product.price) &gt; 0.1">
+						                <del class="text-danger" style="white-space: nowrap;" t-field="product.lst_price" t-field-options='{
+						                  "widget": "monetary",
+						                  "from_currency": "website.currency_id",
+						                  "display_currency": "user_id.partner_id.property_product_pricelist.currency_id"
+						                }'/>&amp;nbsp;
+						              </t>
+						              <span t-field="product.price" style="white-space: nowrap;"  t-field-options='{
+						                   "widget": "monetary",
+						                   "display_currency": "user_id.partner_id.property_product_pricelist.currency_id"
+						               }'>
+						              </span>
+						              <span itemprop="price" style="display:none;" t-esc="product.price"/>
+						              <span itemprop="priceCurrency" style="display:none;" t-esc="user_id.partner_id.property_product_pricelist.currency_id.name"/>
+						        </b>
+								
+					      		</div>
+					  </section>
+				  </div>
+					  
+			 </form>
+		  </xpath>
+	</template>
+
+	<!-- PRODUCT FORM VIEW -->
+ 	<template id="product_quantity_inherited" inherit_id="website_sale.product_quantity" active="True" customize_show="True" name="Cart1 (Inherited)"> 
+		<xpath expr="//div[@class='css_quantity input-group oe_website_spinner']" position="replace">
+			<div class="css_quantity input-group oe_website_spinner" style="float: left;">
+				<t t-set="website_sale_order" t-value="website.sale_get_order()"/>
+				<t t-set="int_prod_qty" t-value="website.is_product_in_cart(product.product_variant_ids[0].id)"/>
+                <script type="text/javascript" src="/add_to_cart/static/src/js/qty_add.js"></script>
+				
+				<input id="int_current_prod_variant_id" type="hidden"/>
+				
+			    <div id="css_quantity_div" class="css_quantity input-group oe_website_spinner">
+			        <input type="text" class="js_quantity form-control" id="cart_quantity_txt_box" data-min="1" name="add_qty" value="1" 
+			        	maxlength="2" onkeydown='allow_numeric_input(event)' style="height: 45px; margin-top: 8px;"/>   
+	    		</div>
+	    		
+			    <div id="oe_website_spinner_div" class="css_quantity input-group oe_website_spinner" style="height: 38px;">
+			        <span class="input-group-addon"> 
+			            <a t-attf-href="#" class="mb8 js_add_cart_json_inherited2">
+			                <i class="fa fa-minus"></i>
+			            </a>
+			        </span>
+			        
+			        <input type="text" class="oe_product js_quantity_inherited2 form-control" id="cart_qty_text_box" data-min="0" t-att-name="int(product.product_variant_ids[0].id)" 
+			        	maxlength="2" readonly="1" onkeydown='allow_numeric_input(event)' style="height: 38px;"/>   
+
+			        <span class="input-group-addon">
+			            <a t-attf-href="#" class="mb8 float_left js_add_cart_json_inherited2">
+			                <i class="fa fa-plus"></i>
+			            </a>
+			        </span>
+	    		</div>
+			</div>
+		</xpath>
+		<xpath expr="//a[@id='add_to_cart']" position="replace">
+			<a id="add_to_cart" class="btn btn-primary btn-lg mt8 js_check_product a-submit" href="#">Add to Cart</a>
+		</xpath>
+	</template>
+	</data>
+</odoo>
