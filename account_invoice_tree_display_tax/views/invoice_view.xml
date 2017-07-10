@@ -6,8 +6,10 @@
             <field name="model">account.invoice</field>
             <field name="inherit_id" ref="account.invoice_tree"/>
             <field name="arch" type="xml">
-            	<field name="amount_total_signed" position="before">
+            	<field name="origin" position="after">
             		<field name="amount_tax" string="Total Tax" sum="Total Tax"/>
+            	</field>
+            	<field name="amount_total_signed" position="before">
             		<field name="amount_untaxed" string="Untaxed Amount" sum="Total Untaxed"/>
             	</field>
             </field>
