@@ -1,0 +1,17 @@
+<odoo>
+      <record id="invoice_supplier_form" model="ir.ui.view">
+         <field name="name">account.invoice.supplier.form</field>
+         <field name="model">account.invoice</field>
+		 <field name="inherit_id" ref="account.invoice_supplier_form"/>
+         <field name="arch" type="xml">
+         	<button name="action_cancel_draft" position="after">
+         		<button name="propagate_discount_on_lines" type="object" states="draft" string="Apply discount" groups="sale.group_discount_per_so_line, account.group_account_invoice"/>
+         	</button>
+         	<field name="reference" position="after">
+         		<group>
+         			<field name="global_discount" groups="sale.group_discount_per_so_line, account.group_account_invoice"/>
+         		</group>
+         	</field>
+         </field>
+      </record>
+</odoo>
