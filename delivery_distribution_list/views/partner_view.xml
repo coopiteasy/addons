@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<menuitem name="Delivery Distribution" id="menu_delivery_distribution" parent="base.menu_base_partner" sequence="10" groups="delivery_distribution_list.group_distribution_user"/>
+		
+		<record id="view_partner_form_ddl" model="ir.ui.view">
+            <field name="name">res.partner.form.ddl</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="/form/sheet/group" position='before'>
+					<group>
+						<field name="deposit_point" groups="delivery_distribution_list.group_distribution_user"/>
+						<field name="carrier_delivery" groups="delivery_distribution_list.group_distribution_user"/>
+					</group>
+	         	</xpath>
+	         	<xpath expr="/form/sheet/notebook/page[@name='sales_purchases']/group/group[@name='sale']/field[@name='customer']" position="after">
+            		<field name="carrier_id" attrs="{'invisible':[('deposit_point','=',False)]}" groups="delivery_distribution_list.group_distribution_user"/>
+            		<field name="quantity_to_deliver" attrs="{'required':[('deposit_point','=',True)],'invisible':[('deposit_point','=',False)]}" groups="delivery_distribution_list.group_distribution_user"/>
+            	</xpath>
+	        </field>
+	    </record>
+	    
+	    <record id="carries_view_action" model="ir.actions.act_window">
+            <field name="name">Carriers</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="context">{"default_customer":0,"default_supplier":1,"default_carrier_delivery":1}</field>
+            <field name="domain">[('carrier_delivery','=',True)]</field>
+            <field name="view_id" ref="base.view_partner_tree"/>
+        </record>
+	    
+	    <menuitem id="menu_ddl_carriers"  action="carries_view_action" name="Carriers" parent="menu_delivery_distribution" groups="delivery_distribution_list.group_distribution_user" sequence="10"/>
+	</data>
+</odoo>
