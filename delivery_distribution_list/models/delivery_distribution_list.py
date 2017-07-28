@@ -24,6 +24,7 @@ class DeliveryDistributionList(models.Model):
         ('invoiced', 'Invoiced'),
         ('invoice_validated', 'Invoice validated'),
         ('invoice_sent', 'Invoice sent'),
+        ('done', 'Done'),
         ('cancelled', 'Cancelled'),
         ], string='State', readonly=True, copy=False, default='draft')
     
@@ -37,6 +38,10 @@ class DeliveryDistributionList(models.Model):
         self.distribution_lines.write({'state':'draft'})
         self.state = 'draft'
     
+    @api.one
+    def action_done(self):
+        self.state = 'done'
+        
     @api.one
     def action_sale(self):
         self.distribution_lines.generate_sale_order()
@@ -131,7 +136,19 @@ class DeliveryDistributionLine(models.Model):
         if self.state != 'draft':
             raise UserError(_('It is forbidden to modify a distribution list which is not in draft status'))        
         super(DeliveryDistributionLine,self).unlink()
+    
+    @api.multi
+    def action_validate(self):
+        for line in self:
+            if line == 'draft':
+                line.state = 'validated'
 
+    @api.multi
+    def action_draft(self):
+        for line in self:
+            if line == 'validated':
+                line.state = 'draft'
+    
     @api.multi
     def generate_sale_order(self):
         sale_order_obj = self.env['sale.order']
@@ -192,9 +209,11 @@ class DeliveryDistributionLine(models.Model):
             if line.state == 'invoiced':
                 line.sale_order.invoice_ids.signal_workflow('invoice_open')
                 line.state = 'invoice_validated'
+    
     @api.multi
     def send_invoice(self):
         mail_template = self.env.ref('account.email_template_edi_invoice', False)
         for line in self:
-            mail_template.send_mail(line.sale_order.invoice_ids.id, False)
-            line.state = 'sale_sent'
+            if line.state == 'invoice_validated':
+                mail_template.send_mail(line.sale_order.invoice_ids.id, False)
+                line.state = 'sale_sent'
