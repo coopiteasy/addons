@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="view_ddl_form" model="ir.ui.view">
+            <field name="name">delivery.distribution.list.form</field>
+            <field name="model">delivery.distribution.list</field>
+            <field name="arch" type="xml">
+            	<form string="Sales Order">
+	                <header>
+	                    <button name="generate_distribution_list" string="Generate List" type="object" states="draft" class="btn-primary"/>
+	                    <button name="action_validate" string="Validate List" type="object" states="draft"/>
+	                    <button name="action_draft" string="Back to Draft" type="object"/>
+	                    <button name="action_sale" string="Generate Sale Order" type="object" states="validated" class="btn-primary"/>
+	                    <button name="action_send_sale_order" string="Send SO by Email" type="object" states="sale" class="btn-primary"/>
+	                    <button name="action_invoice" string="Generate Invoice" type="object" states="sale,sale_sent" class="btn-primary"/>
+	                    <button name="action_validate_invoice" string="Validate Invoice" type="object" states="invoiced" class="btn-primary"/>
+	                    <button name="action_send_invoice" string="Send Invoice by Email" type="object" states="invoice_validated" class="btn-primary"/>
+	                	<field name="state" widget="statusbar"/>
+	                </header>
+	                <sheet>
+	                	<group>
+	                        <group>
+	                            <field name="distribution_date"/>
+	                            <field name="product_id"/>
+	                        </group>
+	                        <group>
+	                        	<field name="create_date"/>
+	                        	<field name="user_id"/>
+	                        </group>
+	                    </group>
+                        <notebook>
+                        <page string="Distribution Lines">
+                        	<field name="distribution_lines" context="{'default_product_id':product_id}">
+                        		<tree editable="bottom">
+                        			<field name="date" readonly="True"/>
+                        			<field name="partner_id" readonly="True"/>
+                        			<field name="product_id" readonly="True"/>
+                        			<field name="ordered_qty" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        			<field name="product_uom" groups="product.group_uom"/>
+                        			<field name="delivered_qty" attrs="{'readonly': [('state', 'not in', ['draft','validated'])]}"/>
+                        			<field name="returned_qty" attrs="{'readonly': [('state', 'not in', ['draft','validated','sale','sale_sent'])]}"/>
+                        			<field name="sold_qty"/>
+                        			<field name="carrier_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        			<field name="state"/>
+                        		</tree>
+                        		<form>
+                        			<header>
+                        				<field name="state" widget="statusbar"/>
+                        			</header>
+                        			<sheet>
+	                        			<group>
+		                        			<group>
+			                        			<field name="partner_id"/>
+			                        			<field name="product_id"/>
+			                        			<field name="ordered_qty"/>
+			                        			<field name="product_uom" groups="product.group_uom"/>
+			                        			<field name="sold_qty"/>
+			                        			<field name="sale_order"/>
+		                        			</group>
+		                        			<group>
+			                        			<field name="date"/>
+			                        			<field name="carrier_id"/>
+			                        			<field name="delivered_qty"/>
+			                        			<field name="returned_qty"/>
+			                        			<!-- <field name="invoices"/> -->
+		                        			</group>
+	                        			</group>
+                        			</sheet>
+                        		</form>
+                        	</field>
+                        </page>
+                        </notebook>
+	                </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record id="view_ddl_tree" model="ir.ui.view">
+            <field name="name">delivery.distribution.list.tree</field>
+            <field name="model">delivery.distribution.list</field>
+            <field name="arch" type="xml">
+            	<tree>
+        			<field name="distribution_date"/>
+	                <field name="product_id"/>
+                	<field name="user_id"/>
+                    <field name="state"/>
+	            </tree>
+	        </field>
+	    </record>
+        
+        <record id="view_ddl_filter" model="ir.ui.view">
+            <field name="name">delivery.distribution.list.select</field>
+            <field name="model">delivery.distribution.list</field>
+            <field name="arch" type="xml">
+                <search string="Search Sales Order">
+                    <field name="user_id"/>
+                    <field name="product_id"/>
+                    <filter string="My Distribution list" domain="[('user_id','=',uid)]" name="my_distribution_list_filter"/>
+                    <separator/>
+                    <filter string="Draft" name="draft" domain="[('state','=','draft')]" help="Sales Order that haven't yet been confirmed"/>
+                    <filter string="Sale Order Genereated" name="sales" domain="[('state','=','sale')]"/>
+                    <separator/>
+                    <filter string="Invoiced" domain="[('state','=','invoiced')]"/>
+                    <filter string="Invoices validated" domain="[('state','=','invoice_validated')]"/>
+                    <filter string="Invoices Sent" domain="[('state','=','invoice_sent')]"/>
+                    <separator/>
+                    <group expand="0" string="Group By">
+                        <filter string="Responsible" domain="[]" context="{'group_by':'user_id'}"/>
+                        <filter string="Created Month" domain="[]" context="{'group_by':'create_date'}"/>
+                    </group>
+               </search>
+            </field>
+        </record>
+        
+        <record id="action_ddl" model="ir.actions.act_window">
+            <field name="name">Delivery Distribution List</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">delivery.distribution.list</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_ddl_filter"/>
+        </record>
+        
+        <menuitem action="action_ddl" id="menu_ddl" parent="menu_delivery_distribution" groups="delivery_distribution_list.group_distribution_user" sequence="5"/>
+	</data>
+</odoo>
