@@ -9,12 +9,13 @@
 	                <header>
 	                    <button name="generate_distribution_list" string="Generate List" type="object" states="draft" class="btn-primary"/>
 	                    <button name="action_validate" string="Validate List" type="object" states="draft"/>
-	                    <button name="action_draft" string="Back to Draft" type="object"/>
+	                    <button name="action_draft" string="Back to Draft" type="object" states="validated"/>
 	                    <button name="action_sale" string="Generate Sale Order" type="object" states="validated" class="btn-primary"/>
 	                    <button name="action_send_sale_order" string="Send SO by Email" type="object" states="sale" class="btn-primary"/>
 	                    <button name="action_invoice" string="Generate Invoice" type="object" states="sale,sale_sent" class="btn-primary"/>
 	                    <button name="action_validate_invoice" string="Validate Invoice" type="object" states="invoiced" class="btn-primary"/>
 	                    <button name="action_send_invoice" string="Send Invoice by Email" type="object" states="invoice_validated" class="btn-primary"/>
+	                	<button name="action_done" string="Done" type="object" states="invoice_sent"/>
 	                	<field name="state" widget="statusbar"/>
 	                </header>
 	                <sheet>
@@ -30,7 +31,8 @@
 	                    </group>
                         <notebook>
                         <page string="Distribution Lines">
-                        	<field name="distribution_lines" context="{'default_product_id':product_id}">
+                        	<field name="distribution_lines" context="{'default_product_id':product_id}"
+                        		attrs="{'readonly': [('state', '=', 'done')]}">
                         		<tree editable="bottom">
                         			<field name="date" readonly="True"/>
                         			<field name="partner_id" readonly="True"/>
@@ -42,6 +44,14 @@
                         			<field name="sold_qty"/>
                         			<field name="carrier_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                         			<field name="state"/>
+                        			<button type="object" name="action_validate" states="draft" groups="easy_my_coop.group_energiris_user" icon="STOCK_MEDIA_PLAY"/>
+				                    <button type="object" name="action_draft" states="validated" groups="easy_my_coop.group_energiris_user" icon="gtk-cancel"/>
+				                    <button type="object" name="generate_sale_order" states="validated" groups="easy_my_coop.group_energiris_user" icon="gtk-apply"/>
+				                    <button type="object" name="send_sale_order" states="invoice_validated" groups="easy_my_coop.group_energiris_user" icon="terp-mail-message-new"/>
+				                    <button type="object" name="invoice_sale_order" states="sale,sale_sent" groups="easy_my_coop.group_energiris_user" icon="STOCK_MEDIA_PLAY"/>
+				                    <button type="object" name="validate_invoice" states="invoiced" groups="easy_my_coop.group_energiris_user" icon="gtk-apply"/>
+				                    <button type="object" name="send_invoice" states="invoice_validated" groups="easy_my_coop.group_energiris_user" icon="terp-mail-message-new"/>
+				                    
                         		</tree>
                         		<form>
                         			<header>
@@ -62,7 +72,6 @@
 			                        			<field name="carrier_id"/>
 			                        			<field name="delivered_qty"/>
 			                        			<field name="returned_qty"/>
-			                        			<!-- <field name="invoices"/> -->
 		                        			</group>
 	                        			</group>
                         			</sheet>
