@@ -34,6 +34,7 @@
     'data': [
         'security/delivery_distribution_list_security.xml',
         'security/ir.model.access.csv',
+        'data/ddl_data.xml',
         'views/partner_view.xml',
         'views/sale_view.xml',
         'views/delivery_distribution_list_view.xml',
