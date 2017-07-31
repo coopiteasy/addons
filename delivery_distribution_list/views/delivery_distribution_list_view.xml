@@ -19,6 +19,11 @@
 	                	<field name="state" widget="statusbar"/>
 	                </header>
 	                <sheet>
+	                	<div class="oe_title">
+	                        <h1>
+	                            <field name="name" readonly="1"/>
+	                        </h1>
+                   		</div>
 	                	<group>
 	                        <group>
 	                            <field name="distribution_date"/>
@@ -30,54 +35,53 @@
 	                        </group>
 	                    </group>
                         <notebook>
-                        <page string="Distribution Lines">
-                        	<field name="distribution_lines" context="{'default_product_id':product_id}"
-                        		attrs="{'readonly': [('state', '=', 'done')]}">
-                        		<tree editable="bottom">
-                        			<field name="date" readonly="True"/>
-                        			<field name="partner_id" readonly="True"/>
-                        			<field name="product_id" readonly="True"/>
-                        			<field name="ordered_qty" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
-                        			<field name="product_uom" groups="product.group_uom"/>
-                        			<field name="delivered_qty" attrs="{'readonly': [('state', 'not in', ['draft','validated'])]}"/>
-                        			<field name="returned_qty" attrs="{'readonly': [('state', 'not in', ['draft','validated','sale','sale_sent'])]}"/>
-                        			<field name="sold_qty"/>
-                        			<field name="carrier_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
-                        			<field name="state"/>
-                        			<button type="object" name="action_validate" states="draft" groups="easy_my_coop.group_energiris_user" icon="STOCK_MEDIA_PLAY"/>
-				                    <button type="object" name="action_draft" states="validated" groups="easy_my_coop.group_energiris_user" icon="gtk-cancel"/>
-				                    <button type="object" name="generate_sale_order" states="validated" groups="easy_my_coop.group_energiris_user" icon="gtk-apply"/>
-				                    <button type="object" name="send_sale_order" states="invoice_validated" groups="easy_my_coop.group_energiris_user" icon="terp-mail-message-new"/>
-				                    <button type="object" name="invoice_sale_order" states="sale,sale_sent" groups="easy_my_coop.group_energiris_user" icon="STOCK_MEDIA_PLAY"/>
-				                    <button type="object" name="validate_invoice" states="invoiced" groups="easy_my_coop.group_energiris_user" icon="gtk-apply"/>
-				                    <button type="object" name="send_invoice" states="invoice_validated" groups="easy_my_coop.group_energiris_user" icon="terp-mail-message-new"/>
-				                    
-                        		</tree>
-                        		<form>
-                        			<header>
-                        				<field name="state" widget="statusbar"/>
-                        			</header>
-                        			<sheet>
-	                        			<group>
+	                        <page string="Distribution Lines">
+	                        	<field name="distribution_lines" context="{'default_product_id':product_id}"
+	                        		attrs="{'readonly': [('state', 'in', ['done','invoiced','invoice_sent'])]}">
+	                        		<tree editable="bottom">
+	                        			<field name="date" readonly="True"/>
+	                        			<field name="partner_id" readonly="True"/>
+	                        			<field name="product_id" readonly="True"/>
+	                        			<field name="ordered_qty" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+	                        			<field name="product_uom" groups="product.group_uom"/>
+	                        			<field name="delivered_qty" attrs="{'readonly': [('state', 'not in', ['draft','validated'])]}"/>
+	                        			<field name="returned_qty" attrs="{'readonly': [('state', 'not in', ['draft','validated','sale','sale_sent'])]}"/>
+	                        			<field name="sold_qty"/>
+	                        			<field name="carrier_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+	                        			<field name="state"/>
+	                        			<button type="object" name="action_validate" states="draft" groups="easy_my_coop.group_energiris_user" icon="STOCK_MEDIA_PLAY"/>
+					                    <button type="object" name="action_draft" states="validated" groups="easy_my_coop.group_energiris_user" icon="gtk-cancel"/>
+					                    <button type="object" name="generate_sale_order" states="validated" groups="easy_my_coop.group_energiris_user" icon="gtk-apply"/>
+					                    <button type="object" name="send_sale_order" states="invoice_validated" groups="easy_my_coop.group_energiris_user" icon="terp-mail-message-new"/>
+					                    <button type="object" name="invoice_sale_order" states="sale,sale_sent" groups="easy_my_coop.group_energiris_user" icon="STOCK_MEDIA_PLAY"/>
+					                    <button type="object" name="validate_invoice" states="invoiced" groups="easy_my_coop.group_energiris_user" icon="gtk-apply"/>
+					                    <button type="object" name="send_invoice" states="invoice_validated" groups="easy_my_coop.group_energiris_user" icon="terp-mail-message-new"/>
+	                        		</tree>
+	                        		<form>
+	                        			<header>
+	                        				<field name="state" widget="statusbar"/>
+	                        			</header>
+	                        			<sheet>
 		                        			<group>
-			                        			<field name="partner_id"/>
-			                        			<field name="product_id"/>
-			                        			<field name="ordered_qty"/>
-			                        			<field name="product_uom" groups="product.group_uom"/>
-			                        			<field name="sold_qty"/>
-			                        			<field name="sale_order"/>
+			                        			<group>
+				                        			<field name="partner_id"/>
+				                        			<field name="product_id"/>
+				                        			<field name="ordered_qty"/>
+				                        			<field name="product_uom" groups="product.group_uom"/>
+				                        			<field name="sold_qty"/>
+				                        			<field name="sale_order"/>
+			                        			</group>
+			                        			<group>
+				                        			<field name="date"/>
+				                        			<field name="carrier_id"/>
+				                        			<field name="delivered_qty"/>
+				                        			<field name="returned_qty"/>
+			                        			</group>
 		                        			</group>
-		                        			<group>
-			                        			<field name="date"/>
-			                        			<field name="carrier_id"/>
-			                        			<field name="delivered_qty"/>
-			                        			<field name="returned_qty"/>
-		                        			</group>
-	                        			</group>
-                        			</sheet>
-                        		</form>
-                        	</field>
-                        </page>
+	                        			</sheet>
+	                        		</form>
+	                        	</field>
+	                        </page>
                         </notebook>
 	                </sheet>
                 </form>
@@ -89,6 +93,7 @@
             <field name="model">delivery.distribution.list</field>
             <field name="arch" type="xml">
             	<tree>
+            		<field name="name"/>
         			<field name="distribution_date"/>
 	                <field name="product_id"/>
                 	<field name="user_id"/>
@@ -101,17 +106,17 @@
             <field name="name">delivery.distribution.list.select</field>
             <field name="model">delivery.distribution.list</field>
             <field name="arch" type="xml">
-                <search string="Search Sales Order">
+                <search string="Search Distribution List">
                     <field name="user_id"/>
                     <field name="product_id"/>
                     <filter string="My Distribution list" domain="[('user_id','=',uid)]" name="my_distribution_list_filter"/>
                     <separator/>
-                    <filter string="Draft" name="draft" domain="[('state','=','draft')]" help="Sales Order that haven't yet been confirmed"/>
+                    <filter string="Draft" name="draft" domain="[('state','=','draft')]" help="Distribution list that haven't yet been confirmed"/>
                     <filter string="Sale Order Genereated" name="sales" domain="[('state','=','sale')]"/>
                     <separator/>
-                    <filter string="Invoiced" domain="[('state','=','invoiced')]"/>
+                    <filter string="Invoiced" domain="[('state','in',['invoiced','invoice_sent'])]"/>
                     <filter string="Invoices validated" domain="[('state','=','invoice_validated')]"/>
-                    <filter string="Invoices Sent" domain="[('state','=','invoice_sent')]"/>
+                    <!-- <filter string="Invoices Sent" domain="[('state','=','invoice_sent')]"/> -->
                     <separator/>
                     <group expand="0" string="Group By">
                         <filter string="Responsible" domain="[]" context="{'group_by':'user_id'}"/>
@@ -131,5 +136,63 @@
         </record>
         
         <menuitem action="action_ddl" id="menu_ddl" parent="menu_delivery_distribution" groups="delivery_distribution_list.group_distribution_user" sequence="5"/>
+        
+        <record id="view_distribution_line_tree" model="ir.ui.view">
+            <field name="name">delivery.distribution.line.tree</field>
+            <field name="model">delivery.distribution.line</field>
+            <field name="arch" type="xml">
+            	<tree create="false">
+            		<field name="distribution_list_id"/>
+           			<field name="date"/>
+            		<field name="partner_id"/>
+           			<field name="product_id"/>
+           			<field name="product_uom" groups="product.group_uom"/>
+           			<field name="delivered_qty"/>
+           			<field name="returned_qty"/>
+           			<field name="sold_qty"/>
+           			<field name="carrier_id"/>
+           			<field name="sale_order"/>
+           			<field name="state"/>
+	            </tree>
+	        </field>
+	    </record>
+        
+        <record id="view_distribution_line_filter" model="ir.ui.view">
+            <field name="name">delivery.distribution.line.select</field>
+            <field name="model">delivery.distribution.line</field>
+            <field name="arch" type="xml">
+                <search string="Search Distribution Lines">
+                    <field name="product_id"/>
+                    <field name="carrier_id"/>
+                    <field name="partner_id"/>
+                    <field name="distribution_list_id"/>
+                    <separator/>
+                    <filter string="Draft" name="draft" domain="[('state','=','draft')]" help="Distribution list that haven't yet been confirmed"/>
+                    <filter string="Sale Order Genereated" name="sales" domain="[('state','=','sale')]"/>
+                    <separator/>
+                    <filter string="Invoiced" domain="[('state','in',['invoiced','invoice_sent'])]"/>
+                    <filter string="Invoices validated" domain="[('state','=','invoice_validated')]"/>
+                    <!-- <filter string="Invoices Sent" domain="[('state','=','invoice_sent')]"/> -->
+                    <separator/>
+                    <group expand="0" string="Group By">
+                        <filter string="Product" domain="[]" context="{'group_by':'product_id'}"/>
+                        <filter string="Carrier" domain="[]" context="{'group_by':'carrier_id'}"/>
+                        <filter string="Created Month" domain="[]" context="{'group_by':'date'}"/>
+                        <filter string="State" domain="[]" context="{'group_by':'state'}"/>
+                    </group>
+               </search>
+            </field>
+        </record>
+        
+        <record id="action_distribution_line" model="ir.actions.act_window">
+            <field name="name">Delivery Distribution Line</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">delivery.distribution.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_distribution_line_filter"/>
+        </record>
+        
+        <menuitem action="action_distribution_line" id="menu_distribution_line" parent="menu_delivery_distribution" groups="delivery_distribution_list.group_distribution_user" sequence="6"/>
 	</data>
 </odoo>
