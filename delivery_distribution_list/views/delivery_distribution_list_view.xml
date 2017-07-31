@@ -170,9 +170,8 @@
                     <filter string="Draft" name="draft" domain="[('state','=','draft')]" help="Distribution list that haven't yet been confirmed"/>
                     <filter string="Sale Order Genereated" name="sales" domain="[('state','=','sale')]"/>
                     <separator/>
-                    <filter string="Invoiced" domain="[('state','in',['invoiced','invoice_sent'])]"/>
-                    <filter string="Invoices validated" domain="[('state','=','invoice_validated')]"/>
-                    <!-- <filter string="Invoices Sent" domain="[('state','=','invoice_sent')]"/> -->
+                    <filter string="Invoiced" domain="[('state','=','invoiced')]"/>
+                    <filter string="Invoices validated" domain="[('state','in',['invoice_validated','invoice_sent'])]"/>
                     <separator/>
                     <group expand="0" string="Group By">
                         <filter string="Product" domain="[]" context="{'group_by':'product_id'}"/>
