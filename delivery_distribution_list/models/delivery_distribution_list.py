@@ -77,8 +77,10 @@ class DeliveryDistributionList(models.Model):
         
         #delete existing lines if any
         if self.state == 'draft':
+            if not self.name:
+                ddl_seq = self.env.ref('delivery_distribution_list.sequence_ddl', False)
+                self.name = ddl_seq.next_by_id()
             self.distribution_lines.unlink()
-        
             vals = {'distribution_list_id':self.id, 'product_id':self.product_id.id}
             
             for deposit_point in deposit_points:
@@ -99,7 +101,7 @@ class DeliveryDistributionList(models.Model):
 class DeliveryDistributionLine(models.Model):
     _name = 'delivery.distribution.line'
     
-    _order = 'partner_id, date'
+    _order = 'distribution_list_id desc, partner_id, date'
     
     @api.multi
     def _compute_sold_qty(self):
