@@ -156,6 +156,8 @@ class DeliveryDistributionLine(models.Model):
         for line in self:
             vals = {
                 'partner_id':line.partner_id.id,
+                'distribution_list_id':self.distribution_list_id.id,
+                'carrier_id':self.carrier_id,
             }
             order_id = sale_order_obj.create(vals)
             vals_line = {
