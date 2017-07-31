@@ -12,3 +12,12 @@ class StockPicking(models.Model):
     _inherit = 'stock.picking'
     
     carrier_id = fields.Many2one('res.partner', string="Assigned carrier", readonly=True)
+    distribution_list_id = fields.Many2one('delivery.distribution.list', string="Distribution list", readonly=True)
+    
+    @api.multi
+    @api.depends('move_lines')
+    def _compute_carrier(self):
+        for picking in self: 
+            if picking.sale_id:
+                picking.carrier_id = picking.sale_id.carrier_id
+                picking.distribution_list_id = picking.sale_id.distribution_list_id
