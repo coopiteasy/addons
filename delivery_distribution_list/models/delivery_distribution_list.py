@@ -131,7 +131,6 @@ class DeliveryDistributionLine(models.Model):
         ], string='State', readonly=True, copy=False, index=True, default='draft')
     
     sale_order = fields.Many2one('sale.order', string="Sale Order", readonly=True)
-#    invoices = fields.One2many('account.invoice','distribution_line_id', string="Invoice", readonly=True)
     
     @api.one            
     def unlink(self):
@@ -142,13 +141,13 @@ class DeliveryDistributionLine(models.Model):
     @api.multi
     def action_validate(self):
         for line in self:
-            if line == 'draft':
+            if line.state == 'draft':
                 line.state = 'validated'
 
     @api.multi
     def action_draft(self):
         for line in self:
-            if line == 'validated':
+            if line.state == 'validated':
                 line.state = 'draft'
     
     @api.multi
