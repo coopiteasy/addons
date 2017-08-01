@@ -219,4 +219,4 @@ class DeliveryDistributionLine(models.Model):
         for line in self:
             if line.state == 'invoice_validated':
                 mail_template.send_mail(line.sale_order.invoice_ids.id, False)
-                line.state = 'sale_sent'
+                line.state = 'invoice_sent'
