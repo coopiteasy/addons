@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Business Open Source Solution
-#    Copyright (C) 2013-2016 Coop IT Easy SPRL.
+#    Copyright (C) 2013-2016 Coop IT Easy SCRL.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -38,6 +38,9 @@
         'views/partner_view.xml',
         'views/sale_view.xml',
         'views/delivery_distribution_list_view.xml',
+        'views/stock_view.xml',
+        'report/sale_order_report_template.xml',
+        'report/report_deliveryslip.xml',
     ],
     'installable': True,
 }
