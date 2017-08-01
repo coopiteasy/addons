@@ -52,7 +52,7 @@
 	                        			<button type="object" name="action_validate" states="draft" groups="delivery_distribution_list.group_distribution_user" help="Validate" icon="STOCK_MEDIA_PLAY"/>
 					                    <button type="object" name="action_draft" states="validated" groups="delivery_distribution_list.group_distribution_user" help="Draft" icon="gtk-cancel"/>
 					                    <button type="object" name="generate_sale_order" states="validated" groups="delivery_distribution_list.group_distribution_user" help="Generate sale order" icon="gtk-apply"/>
-					                    <button type="object" name="send_sale_order" states="invoice_validated" groups="delivery_distribution_list.group_distribution_user" help="Send sale order" icon="terp-mail-message-new"/>
+					                    <button type="object" name="send_sale_order" states="sale" groups="delivery_distribution_list.group_distribution_user" help="Send sale order" icon="terp-mail-message-new"/>
 					                    <button type="object" name="invoice_sale_order" states="sale,sale_sent" groups="delivery_distribution_list.group_distribution_user" help="Invoice" icon="STOCK_MEDIA_PLAY"/>
 					                    <button type="object" name="validate_invoice" states="invoiced" groups="delivery_distribution_list.group_distribution_user" help="Validate Invoice" icon="gtk-apply"/>
 					                    <button type="object" name="send_invoice" states="invoice_validated" groups="delivery_distribution_list.group_distribution_user" help="Send Invoice" icon="terp-mail-message-new"/>
