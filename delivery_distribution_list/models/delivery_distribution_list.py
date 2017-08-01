@@ -8,7 +8,7 @@ from openerp.exceptions import UserError
 class DeliveryDistributionList(models.Model):
     _name = 'delivery.distribution.list'
     
-    name = fields.Char(string="Name")
+    name = fields.Char(string="Name", copy=False)
     distribution_date = fields.Date(string='Distribution Date', readonly=True, required=True, index=True, states={'draft': [('readonly', False)]})
     create_date = fields.Date(string='Creation Date', readonly=True, help="Date on which distribution list is created.", copy=False, default=fields.Datetime.now)
     
