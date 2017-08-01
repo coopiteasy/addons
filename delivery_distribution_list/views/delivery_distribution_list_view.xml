@@ -5,7 +5,7 @@
             <field name="name">delivery.distribution.list.form</field>
             <field name="model">delivery.distribution.list</field>
             <field name="arch" type="xml">
-            	<form string="Sales Order">
+            	<form string="Distribution list">
 	                <header>
 	                    <button name="generate_distribution_list" string="Generate List" type="object" states="draft" class="btn-primary"/>
 	                    <button name="action_validate" string="Validate List" type="object" states="draft"/>
@@ -40,8 +40,8 @@
 	                        		attrs="{'readonly': [('state', 'in', ['done','invoiced','invoice_sent'])]}">
 	                        		<tree editable="bottom">
 	                        			<field name="date" readonly="True"/>
-	                        			<field name="partner_id" readonly="True"/>
-	                        			<field name="product_id" readonly="True"/>
+	                        			<field name="partner_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+	                        			<field name="product_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
 	                        			<field name="ordered_qty" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
 	                        			<field name="product_uom" groups="product.group_uom"/>
 	                        			<field name="delivered_qty" attrs="{'readonly': [('state', 'not in', ['draft','validated'])]}"/>
@@ -49,37 +49,14 @@
 	                        			<field name="sold_qty"/>
 	                        			<field name="carrier_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
 	                        			<field name="state"/>
-	                        			<button type="object" name="action_validate" states="draft" groups="easy_my_coop.group_energiris_user" icon="STOCK_MEDIA_PLAY"/>
-					                    <button type="object" name="action_draft" states="validated" groups="easy_my_coop.group_energiris_user" icon="gtk-cancel"/>
-					                    <button type="object" name="generate_sale_order" states="validated" groups="easy_my_coop.group_energiris_user" icon="gtk-apply"/>
-					                    <button type="object" name="send_sale_order" states="invoice_validated" groups="easy_my_coop.group_energiris_user" icon="terp-mail-message-new"/>
-					                    <button type="object" name="invoice_sale_order" states="sale,sale_sent" groups="easy_my_coop.group_energiris_user" icon="STOCK_MEDIA_PLAY"/>
-					                    <button type="object" name="validate_invoice" states="invoiced" groups="easy_my_coop.group_energiris_user" icon="gtk-apply"/>
-					                    <button type="object" name="send_invoice" states="invoice_validated" groups="easy_my_coop.group_energiris_user" icon="terp-mail-message-new"/>
+	                        			<button type="object" name="action_validate" states="draft" groups="delivery_distribution_list.group_distribution_user" icon="STOCK_MEDIA_PLAY"/>
+					                    <button type="object" name="action_draft" states="validated" groups="delivery_distribution_list.group_distribution_user" icon="gtk-cancel"/>
+					                    <button type="object" name="generate_sale_order" states="validated" groups="delivery_distribution_list.group_distribution_user" icon="gtk-apply"/>
+					                    <button type="object" name="send_sale_order" states="invoice_validated" groups="delivery_distribution_list.group_distribution_user" icon="terp-mail-message-new"/>
+					                    <button type="object" name="invoice_sale_order" states="sale,sale_sent" groups="delivery_distribution_list.group_distribution_user" icon="STOCK_MEDIA_PLAY"/>
+					                    <button type="object" name="validate_invoice" states="invoiced" groups="delivery_distribution_list.group_distribution_user" icon="gtk-apply"/>
+					                    <button type="object" name="send_invoice" states="invoice_validated" groups="delivery_distribution_list.group_distribution_user" icon="terp-mail-message-new"/>
 	                        		</tree>
-	                        		<form>
-	                        			<header>
-	                        				<field name="state" widget="statusbar"/>
-	                        			</header>
-	                        			<sheet>
-		                        			<group>
-			                        			<group>
-				                        			<field name="partner_id"/>
-				                        			<field name="product_id"/>
-				                        			<field name="ordered_qty"/>
-				                        			<field name="product_uom" groups="product.group_uom"/>
-				                        			<field name="sold_qty"/>
-				                        			<field name="sale_order"/>
-			                        			</group>
-			                        			<group>
-				                        			<field name="date"/>
-				                        			<field name="carrier_id"/>
-				                        			<field name="delivered_qty"/>
-				                        			<field name="returned_qty"/>
-			                        			</group>
-		                        			</group>
-	                        			</sheet>
-	                        		</form>
 	                        	</field>
 	                        </page>
                         </notebook>
@@ -157,6 +134,35 @@
 	        </field>
 	    </record>
         
+        <record id="view_ddline_form" model="ir.ui.view">
+            <field name="name">delivery.distribution.line.form</field>
+            <field name="model">delivery.distribution.line</field>
+            <field name="arch" type="xml">
+            	<form string="Distribution line">
+	                <header>
+	                	<field name="state" widget="statusbar"/>
+	                </header>
+         			<sheet>
+	          			<group>
+		           			<group>
+		            			<field name="partner_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+		            			<field name="product_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+		            			<field name="ordered_qty" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+		            			<field name="product_uom" groups="product.group_uom"/>
+		            			<field name="sold_qty"/>
+		            			<field name="sale_order"/>
+		           			</group>
+		           			<group>
+		            			<field name="date"/>
+		            			<field name="carrier_id" />
+		            			<field name="delivered_qty" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+		            			<field name="returned_qty" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+		           			</group>
+	          			</group>
+         			</sheet>
+	            </form>
+	    	</field>
+	    </record>
         <record id="view_distribution_line_filter" model="ir.ui.view">
             <field name="name">delivery.distribution.line.select</field>
             <field name="model">delivery.distribution.line</field>
