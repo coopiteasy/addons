@@ -16,7 +16,7 @@
 	                    <button name="action_validate_invoice" string="Validate Invoice" type="object" states="invoiced" class="btn-primary"/>
 	                    <button name="action_send_invoice" string="Send Invoice by Email" type="object" states="invoice_validated" class="btn-primary"/>
 	                	<button name="action_done" string="Done" type="object" states="invoice_sent"/>
-	                	<field name="state" widget="statusbar"/>
+	                	<field name="state" widget="statusbar" statusbar_visible="draft,validated,sale,invoiced,done"/>
 	                </header>
 	                <sheet>
 	                	<div class="oe_title">
@@ -49,13 +49,13 @@
 	                        			<field name="sold_qty"/>
 	                        			<field name="carrier_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
 	                        			<field name="state"/>
-	                        			<button type="object" name="action_validate" states="draft" groups="delivery_distribution_list.group_distribution_user" icon="STOCK_MEDIA_PLAY"/>
-					                    <button type="object" name="action_draft" states="validated" groups="delivery_distribution_list.group_distribution_user" icon="gtk-cancel"/>
-					                    <button type="object" name="generate_sale_order" states="validated" groups="delivery_distribution_list.group_distribution_user" icon="gtk-apply"/>
-					                    <button type="object" name="send_sale_order" states="invoice_validated" groups="delivery_distribution_list.group_distribution_user" icon="terp-mail-message-new"/>
-					                    <button type="object" name="invoice_sale_order" states="sale,sale_sent" groups="delivery_distribution_list.group_distribution_user" icon="STOCK_MEDIA_PLAY"/>
-					                    <button type="object" name="validate_invoice" states="invoiced" groups="delivery_distribution_list.group_distribution_user" icon="gtk-apply"/>
-					                    <button type="object" name="send_invoice" states="invoice_validated" groups="delivery_distribution_list.group_distribution_user" icon="terp-mail-message-new"/>
+	                        			<button type="object" name="action_validate" states="draft" groups="delivery_distribution_list.group_distribution_user" help="Validate" icon="STOCK_MEDIA_PLAY"/>
+					                    <button type="object" name="action_draft" states="validated" groups="delivery_distribution_list.group_distribution_user" help="Draft" icon="gtk-cancel"/>
+					                    <button type="object" name="generate_sale_order" states="validated" groups="delivery_distribution_list.group_distribution_user" help="Generate sale order" icon="gtk-apply"/>
+					                    <button type="object" name="send_sale_order" states="invoice_validated" groups="delivery_distribution_list.group_distribution_user" help="Send sale order" icon="terp-mail-message-new"/>
+					                    <button type="object" name="invoice_sale_order" states="sale,sale_sent" groups="delivery_distribution_list.group_distribution_user" help="Invoice" icon="STOCK_MEDIA_PLAY"/>
+					                    <button type="object" name="validate_invoice" states="invoiced" groups="delivery_distribution_list.group_distribution_user" help="Validate Invoice" icon="gtk-apply"/>
+					                    <button type="object" name="send_invoice" states="invoice_validated" groups="delivery_distribution_list.group_distribution_user" help="Send Invoice" icon="terp-mail-message-new"/>
 	                        		</tree>
 	                        	</field>
 	                        </page>
@@ -93,9 +93,8 @@
                     <separator/>
                     <filter string="Invoiced" domain="[('state','in',['invoiced','invoice_sent'])]"/>
                     <filter string="Invoices validated" domain="[('state','=','invoice_validated')]"/>
-                    <!-- <filter string="Invoices Sent" domain="[('state','=','invoice_sent')]"/> -->
                     <separator/>
-                    <group expand="0" string="Group By">
+                    <group string="Group By">
                         <filter string="Responsible" domain="[]" context="{'group_by':'user_id'}"/>
                         <filter string="Created Month" domain="[]" context="{'group_by':'create_date'}"/>
                     </group>
@@ -140,7 +139,7 @@
             <field name="arch" type="xml">
             	<form string="Distribution line">
 	                <header>
-	                	<field name="state" widget="statusbar"/>
+	                	<field name="state" widget="statusbar" statusbar_visible="draft,validated,sale,invoiced,done"/>
 	                </header>
          			<sheet>
 	          			<group>
@@ -163,6 +162,7 @@
 	            </form>
 	    	</field>
 	    </record>
+	    
         <record id="view_distribution_line_filter" model="ir.ui.view">
             <field name="name">delivery.distribution.line.select</field>
             <field name="model">delivery.distribution.line</field>
@@ -179,7 +179,7 @@
                     <filter string="Invoiced" domain="[('state','=','invoiced')]"/>
                     <filter string="Invoices validated" domain="[('state','in',['invoice_validated','invoice_sent'])]"/>
                     <separator/>
-                    <group expand="0" string="Group By">
+                    <group string="Group By">
                         <filter string="Product" domain="[]" context="{'group_by':'product_id'}"/>
                         <filter string="Carrier" domain="[]" context="{'group_by':'carrier_id'}"/>
                         <filter string="Created Month" domain="[]" context="{'group_by':'date'}"/>
