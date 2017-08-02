@@ -8,5 +8,6 @@ class account_invoice(models.Model):
     
     reminder = fields.Selection([('1','Premier rappel'),
                                  ('2','Second rappel'),
-                                 ('3','Troisieme rappel')], string="Rappel")
+                                 ('3','Troisieme rappel'),
+                                 ('4','Recommande')], string="Rappel")
     last_reminder_date = fields.Date(string="Date du dernier rappel")
