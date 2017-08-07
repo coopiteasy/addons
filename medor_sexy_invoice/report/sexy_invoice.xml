@@ -105,7 +105,7 @@
 	                <span t-if="o.type == 'in_refund'">Vendor Refund</span>
 	                <span t-if="o.type == 'in_invoice'">Vendor Bill</span>
 	                <span t-field="o.number"/>
-	                <div style="width:220px;position:relative;top:10px;border-bottom: 4pt solid #e7511e;"/>
+	                <div style="width:220px;position:relative;top:10px;border-bottom: 4pt solid #FFB60A;"/>
 	            </h2>
 	
 	            <div class="row mt32 mb32 easymy-coop-info-title" style="top:102px;">
@@ -271,16 +271,5 @@
 	    </t>
 	</template>
 	
-<!-- 	<template id="report_sexy_invoice">
-	    <t t-call="theme_light.html_container">
-	        <t t-set="data_report_margin_top" t-value="10"/>
-	        <t t-set="data_report_header_spacing" t-value="5"/>
-	        <t t-set="data_report_dpi" t-value="110"/>
-	        
-	        <t t-foreach="docs" t-as="o">
-	            <t t-call="medor_sexy_invoice.theme_invoice_medor_document" t-lang="o.partner_id.lang"/>
-	        </t>    	    	
-	    </t>
-	</template> -->
 </data>
 </openerp>
