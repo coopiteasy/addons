@@ -156,6 +156,7 @@ class product_scale_log(Model):
 
     # Column Section
     _columns = {
+        'send_product_image': fields.boolean(string='Send product image'),
         'product_id': fields.many2one(
             'product.template', string='Product'),
         'product_text': fields.function(
@@ -174,3 +175,82 @@ class product_scale_log(Model):
                 lambda self, cr, uid, ids, context=None: ids, [
                     'scale_system_id', 'product_id', 'product_id'], 10)}),
     }
+    
+    def action_send_product_image(self, cr, uid, ftp, distant_folder_path, local_folder_path, product_lst, context=None):
+        if not ftp:
+            return False
+
+        att_obj = self.pool['ir.attachment']
+        
+        for product in product_lst:
+            f_name = str(product.id) + '.jpg'
+            datas = product.image.decode('base64')
+            local_path = os.path.join(local_folder_path, f_name)
+            distant_path = os.path.join(distant_folder_path, f_name)
+            f = open(local_path, 'wb')
+            f.write(datas)
+            f.close()
+            # Send File by FTP
+            f = open(local_path, 'rb')
+            ftp.storbinary('STOR ' + distant_path, f)
+            f.close()
+            # Delete temporary file
+            os.remove(local_path)
+        return True
+    
+    def send_log(self, cr, uid, ids, context=None):
+        config_obj = self.pool['ir.config_parameter']
+        folder_path = config_obj.get_param(
+            cr, uid, 'bizerba.local_folder_path', context=context)
+
+        system_map = {}
+        for log in self.browse(cr, uid, ids, context=context):
+            if log.scale_system_id in system_map.keys():
+                system_map[log.scale_system_id].append(log)
+            else:
+                system_map[log.scale_system_id] = [log]
+
+        for scale_system, logs in system_map.iteritems():
+
+            # Open FTP Connection
+            ftp = self.ftp_connection_open(
+                cr, uid, logs[0].scale_system_id, context=context)
+            if not ftp:
+                return False
+
+            # Generate and Send Files
+            now = datetime.now()
+            product_image_lst = []
+            product_text_lst = []
+            external_text_lst = []
+
+            for log in logs:
+                if log.send_product_image and log.product_id.image:
+                    product_image_lst.append(log.product_id)
+                if log.product_text:
+                    product_text_lst.append(log.product_text)
+                if log.external_text:
+                    external_text_lst.append(log.external_text)
+            self.action_send_product_image(
+                cr, uid, ftp, scale_system.product_image_relative_path,
+                folder_path, product_image_lst, context=context)
+            self.ftp_connection_push_text_file(
+                cr, uid, ftp, scale_system.csv_relative_path,
+                folder_path, scale_system.external_text_file_pattern,
+                external_text_lst, scale_system.encoding, context=context)
+            self.ftp_connection_push_text_file(
+                cr, uid, ftp, scale_system.csv_relative_path,
+                folder_path, scale_system.product_text_file_pattern,
+                product_text_lst, scale_system.encoding, context=context)
+
+            # Close FTP Connection
+            self.ftp_connection_close(cr, uid, ftp, context=context)
+
+            # Mark logs as sent
+            now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            self.write(
+                cr, uid, [log.id for log in logs], {
+                    'sent': True,
+                    'last_send_date': now,
+                }, context=context)
+        return True

@@ -26,13 +26,13 @@ class ProductTemplate(models.Model):
     @api.multi
     def send_scale_create(self):
         for product in self:
-            product._send_to_scale_bizerba('create')
+            product._send_to_scale_bizerba('create',True)
         return True
 
     @api.multi
     def send_scale_write(self):
         for product in self:
-            product._send_to_scale_bizerba('write')
+            product._send_to_scale_bizerba('write',True)
         return True
 
     @api.multi
@@ -42,13 +42,14 @@ class ProductTemplate(models.Model):
         return True
 
     # Custom Section
-    def _send_to_scale_bizerba(self, action):
+    def _send_to_scale_bizerba(self, action, send_product_image):
         log_obj = self.env['product.scale.log']
         log_obj.create({
             'log_date': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
             'scale_system_id': self.scale_group_id.scale_system_id.id,
             'product_id': self.id,
             'action': action,
+            'send_product_image': send_product_image,
             })
 
     def _check_vals_scale_bizerba(self, vals):
@@ -94,7 +95,7 @@ class ProductTemplate(models.Model):
 
         for product_id, action in defered.iteritems():
             product = self.browse(product_id)
-            product._send_to_scale_bizerba(action)
+            product._send_to_scale_bizerba(action, True)
 
         return res
     
