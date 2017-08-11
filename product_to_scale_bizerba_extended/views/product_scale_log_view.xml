@@ -1,0 +1,13 @@
+<odoo>
+	<data>
+		<record id="view_product_scale_log_form_ext" model="ir.ui.view">
+	        <field name="model">product.scale.log</field>
+	        <field name="inherit_id" ref="product_to_scale_bizerba.view_product_scale_log_form"/>
+	        <field name="arch" type="xml">
+	        	<field name="action" position="after">
+	        		<field name="send_product_image"/>
+	        	</field>
+	        </field>
+        </record>
+	</data>
+</odoo>
