@@ -183,7 +183,7 @@ class product_scale_log(Model):
         att_obj = self.pool['ir.attachment']
         
         for product in product_lst:
-            f_name = str(product.id) + '.jpg'
+            f_name = str(product.id) + '.jpeg'
             datas = product.image.decode('base64')
             local_path = os.path.join(local_folder_path, f_name)
             distant_path = os.path.join(distant_folder_path, f_name)
