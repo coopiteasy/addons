@@ -159,6 +159,7 @@ class DeliveryDistributionLine(models.Model):
                 'partner_id':line.partner_id.id,
                 'distribution_list_id':line.distribution_list_id.id,
                 'carrier_id':line.carrier_id.id,
+                'project_id':line.product_id.analytic_account_id.id,
             }
             order_id = sale_order_obj.create(vals)
             vals_line = {
@@ -203,8 +204,9 @@ class DeliveryDistributionLine(models.Model):
                             backorder_pick = self.env['stock.picking'].search([('backorder_id', '=', picking.id)])
                             backorder_pick.action_cancel()
                             picking.message_post(body=_("Back order <em>%s</em> <b>cancelled</b>.") % (backorder_pick.name))
-                line.sale_order.action_invoice_create()
-                line.state = 'invoiced'
+                if line.sale_order.invoice_status == 'to invoice':
+                    line.sale_order.action_invoice_create()
+                    line.state = 'invoiced'
     
     @api.multi
     def validate_invoice(self):
