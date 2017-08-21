@@ -12,5 +12,17 @@
             	</field>
             </field>
         </record>
+        
+        <record id="view_sales_order_filter" model="ir.ui.view">
+            <field name="name">sale.order.list.select</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+            <field name="arch" type="xml">
+	            <filter name="customer" position="after">
+	            	<filter name="carrier_id" string="Carrier" domain="[]" context="{'group_by':'carrier_id'}"/>
+	            	<filter name="distribution_list_id" string="Distribution List" domain="[]" context="{'group_by':'distribution_list_id'}"/>
+	            </filter>
+            </field>
+        </record>
 	</data>
 </odoo>
