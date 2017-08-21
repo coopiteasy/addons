@@ -24,6 +24,7 @@
     "depends": [
             "sale",
             "account",
+            "sale_stock",
     ],
     "author": "Houssine BAKKALI <houssine@coopiteasy.be>",
     "category": "Sales",
