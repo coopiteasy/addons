@@ -109,7 +109,7 @@ class DeliveryDistributionLine(models.Model):
             line.sold_qty = line.delivered_qty - line.returned_qty
     
     distribution_list_id = fields.Many2one('delivery.distribution.list', string="Distribution list", required=True)
-    partner_id = fields.Many2one('res.partner', string="Customer", domain=[('deposit_point','=',True)])
+    partner_id = fields.Many2one('res.partner', string="Customer", domain=[('deposit_point','=',True)], required=True)
     product_id = fields.Many2one('product.template', string='Product', required=True)
     date = fields.Date(string='Creation Date', readonly=True, help="Date on which distribution line is created.", default=fields.Datetime.now)
     product_uom = fields.Many2one(related='product_id.uom_id', string='Unit of Measure', readonly=True)
@@ -117,7 +117,7 @@ class DeliveryDistributionLine(models.Model):
     delivered_qty = fields.Float(string="Quantity Delivered", digits=dp.get_precision('Product Unit of Measure'), default=0.0, required=True)
     returned_qty = fields.Float(string="Quantity Returned", digits=dp.get_precision('Product Unit of Measure'), default=0.0, required=True)
     sold_qty = fields.Float(string="Quantity Sold", digits=dp.get_precision('Product Unit of Measure'), compute='_compute_sold_qty')
-    carrier_id = fields.Many2one('res.partner', string="Assigned carrier", readonly=True)
+    carrier_id = fields.Many2one('res.partner', string="Assigned carrier", readonly=True, required=True)
     
     state = fields.Selection([
         ('draft', 'Draft'),
@@ -220,3 +220,14 @@ class DeliveryDistributionLine(models.Model):
             if line.state == 'invoice_validated':
                 mail_template.send_mail(line.sale_order.invoice_ids.id, False)
                 line.state = 'invoice_sent'
+    
+    @api.onchange('partner_id')
+    def onchage_partner_id(self):
+        self.delivered_qty = self.partner_id.quantity_to_deliver
+        self.ordered_qty = self.partner_id.quantity_to_deliver
+        self.carrier_id = self.partner_id.carrier_id.id
+        
+    @api.onchange('ordered_qty')
+    def onchage_orderer_qty(self):
+        self.delivered_qty = self.ordered_qty
+        
