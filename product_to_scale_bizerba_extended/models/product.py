@@ -42,7 +42,7 @@ class ProductTemplate(models.Model):
         return True
 
     # Custom Section
-    def _send_to_scale_bizerba(self, action, send_product_image):
+    def _send_to_scale_bizerba(self, action, send_product_image=False):
         log_obj = self.env['product.scale.log']
         log_obj.create({
             'log_date': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
