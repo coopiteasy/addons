@@ -26,7 +26,7 @@ class PurchaseOrder(models.Model):
     def create_order_line(self):
         res = []
         fpos = self.fiscal_position_id
-        for supplier_info in self.env['product.supplierinfo'].search([('name','=',self.partner_id.id)]):
+        for supplier_info in self.env['product.supplierinfo'].search([('name','=',self.partner_id.id),('product_tmpl_id.active','=',True)]):
             values = {}
             values['order_id'] = self.id
             values['product_id'] = supplier_info.product_tmpl_id.product_variant_ids.id
