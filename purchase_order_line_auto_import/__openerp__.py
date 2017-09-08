@@ -13,5 +13,8 @@
     'version': '9.0.1.0.0',
     'license': 'AGPL-3',
     'depends': ['purchase',],
-    'data': [],
+    'data': [
+        'views/purchase_order_view.xml',
+    ],
 }
+
