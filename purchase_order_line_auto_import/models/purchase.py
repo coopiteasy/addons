@@ -16,6 +16,8 @@ UNIT = dp.get_precision('Product Unit of Measure')
 class PurchaseOrder(models.Model):
     _inherit = "purchase.order"
     
+    autoload_all_products = fields.Boolean(string="Auto-load all products", default=True)
+    
     @api.onchange('partner_id', 'company_id')
     def onchange_partner_id(self):
         super(PurchaseOrder, self).onchange_partner_id()
@@ -25,27 +27,28 @@ class PurchaseOrder(models.Model):
     @api.model
     def create_order_line(self):
         res = []
-        fpos = self.fiscal_position_id
-        for supplier_info in self.env['product.supplierinfo'].search([('name','=',self.partner_id.id),('product_tmpl_id.active','=',True)]):
-            values = {}
-            values['order_id'] = self.id
-            values['product_id'] = supplier_info.product_tmpl_id.product_variant_ids.id
-            values['product_qty'] = supplier_info.min_qty
-            values['product_uom'] = supplier_info.product_uom.id
-            values['price_unit'] = supplier_info.price
-            values['name'] = supplier_info.product_tmpl_id.with_context({
-                                'lang': self.partner_id.lang,
-                                'partner_id': self.partner_id.id
-                                }).display_name
-            if self.date_order:
-                values['date_planned'] = datetime.strptime(self.date_order, DEFAULT_SERVER_DATETIME_FORMAT) + relativedelta(days=supplier_info.delay if supplier_info else 0)
-            else:
-                values['date_planned'] = datetime.today() + relativedelta(days=supplier_info.delay if supplier_info else 0)
-            if self.env.uid == SUPERUSER_ID:
-                company_id = self.env.user.company_id.id
-                values['taxes_id'] = fpos.map_tax(supplier_info.product_tmpl_id.supplier_taxes_id.filtered(lambda r: r.company_id.id == company_id))
-            else:
-                values['taxes_id'] = fpos.map_tax(supplier_info.product_tmpl_id.supplier_taxes_id)
-
-            res.append(values)
+        if self.autoload_all_products:
+            fpos = self.fiscal_position_id
+            for supplier_info in self.env['product.supplierinfo'].search([('name','=',self.partner_id.id),('product_tmpl_id.active','=',True)]):
+                values = {}
+                values['order_id'] = self.id
+                values['product_id'] = supplier_info.product_tmpl_id.product_variant_ids.id
+                values['product_qty'] = supplier_info.min_qty
+                values['product_uom'] = supplier_info.product_uom.id
+                values['price_unit'] = supplier_info.price
+                values['name'] = supplier_info.product_tmpl_id.with_context({
+                                    'lang': self.partner_id.lang,
+                                    'partner_id': self.partner_id.id
+                                    }).display_name
+                if self.date_order:
+                    values['date_planned'] = datetime.strptime(self.date_order, DEFAULT_SERVER_DATETIME_FORMAT) + relativedelta(days=supplier_info.delay if supplier_info else 0)
+                else:
+                    values['date_planned'] = datetime.today() + relativedelta(days=supplier_info.delay if supplier_info else 0)
+                if self.env.uid == SUPERUSER_ID:
+                    company_id = self.env.user.company_id.id
+                    values['taxes_id'] = fpos.map_tax(supplier_info.product_tmpl_id.supplier_taxes_id.filtered(lambda r: r.company_id.id == company_id))
+                else:
+                    values['taxes_id'] = fpos.map_tax(supplier_info.product_tmpl_id.supplier_taxes_id)
+    
+                res.append(values)
         return res
