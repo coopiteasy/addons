@@ -34,6 +34,7 @@ class product_scale_log(Model):
 
     _ENCODING_MAPPING = {
         'iso-8859-1': '\n',
+        'utf-8': '\n',
     }
 
     _EXTERNAL_TEXT_ACTION_CODE = 'C'
