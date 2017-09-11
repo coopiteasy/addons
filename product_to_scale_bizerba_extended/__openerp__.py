@@ -13,6 +13,7 @@
     'depends': ['product','product_to_scale_bizerba'],
     'data': [
         'views/product_view.xml', 
-        'views/product_scale_log_view.xml',        
+        'views/product_scale_log_view.xml',   
+        'views/product_scale_group_view.xml',   
     ],
 }
