@@ -231,7 +231,6 @@ class product_scale_log(Model):
             distant_path = os.path.join(distant_folder_path, f_name)
             f = open(local_path, 'w')
             for line in lines:
-                print line
                 f.write(line.encode(encoding))
             f.close()
 
