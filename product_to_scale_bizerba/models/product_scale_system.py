@@ -13,6 +13,7 @@ class product_scale_system(Model):
     # Constant section
     _ENCODING_SELECTION = [
         ('iso-8859-1', 'Latin 1 (iso-8859-1)'),
+        ('cp1252', 'Latin 1 (cp1252)'),
         ('utf-8', 'UTF-8'),
     ]
 
