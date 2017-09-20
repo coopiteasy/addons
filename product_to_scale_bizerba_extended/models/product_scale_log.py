@@ -33,7 +33,7 @@ class product_scale_log(Model):
     }
 
     _ENCODING_MAPPING = {
-        'iso-8859-1': '\n',
+        'iso-8859-1': '\r\n',
         'cp1252': '\n',
         'utf-8': '\n',
     }
