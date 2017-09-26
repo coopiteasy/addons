@@ -13,8 +13,9 @@ class DeliveryDistributionList(models.Model):
     create_date = fields.Date(string='Creation Date', readonly=True, help="Date on which distribution list is created.", copy=False, default=fields.Datetime.now)
     
     user_id = fields.Many2one('res.users', string='Distribution responsible', index=True, copy=False, default=lambda self: self.env.user)
-    product_id = fields.Many2one('product.template', string='Product', required=True, readonly=True, states={'draft': [('readonly', False)]})
+    product_id = fields.Many2one('product.template', string='Product', domain=[('sale_ok','=',True)], required=True, readonly=True, states={'draft': [('readonly', False)]})
     distribution_lines = fields.One2many('delivery.distribution.line','distribution_list_id', string="Distribution lines", copy=False)
+    journal_id = fields.Many2one('account.journal', string="Journal", domain=[('type','=','sale')], required=True)
     
     state = fields.Selection([
         ('draft', 'Draft'),
@@ -206,6 +207,7 @@ class DeliveryDistributionLine(models.Model):
                             picking.message_post(body=_("Back order <em>%s</em> <b>cancelled</b>.") % (backorder_pick.name))
                 if line.sale_order.invoice_status == 'to invoice':
                     line.sale_order.action_invoice_create()
+                    line.sale_order.invoice_ids.journal_id = line.distribution_list_id.journal_id
                     line.state = 'invoiced'
     
     @api.multi
