@@ -118,7 +118,7 @@ class DeliveryDistributionLine(models.Model):
     delivered_qty = fields.Float(string="Quantity Delivered", digits=dp.get_precision('Product Unit of Measure'), default=0.0, required=True)
     returned_qty = fields.Float(string="Quantity Returned", digits=dp.get_precision('Product Unit of Measure'), default=0.0, required=True)
     sold_qty = fields.Float(string="Quantity Sold", digits=dp.get_precision('Product Unit of Measure'), compute='_compute_sold_qty')
-    carrier_id = fields.Many2one('res.partner', string="Assigned carrier", readonly=True, required=True)
+    carrier_id = fields.Many2one('res.partner', string="Assigned carrier", domain=[('carrier_delivery','=',True)],readonly=True, required=True)
     
     state = fields.Selection([
         ('draft', 'Draft'),
