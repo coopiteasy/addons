@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<template id="attendee_template">
+	        <table itemprop="offers" class="table table-striped">
+	            <thead>
+	                <tr>
+	                    <th>Attendee Name</th>
+	                    <th>Email</th>
+	                    <th>State</th>
+	                </tr>
+	            </thead>
+	            <tbody>
+	                <t t-foreach="event.registration_ids" t-as="registration">
+	                	<tr>
+	                		<td><t t-esc="registration.name"/></td>
+	                		<td><t t-esc="registration.email"/></td>
+	                		<td><t t-esc="registration.state"/></td>
+	                	</tr>
+	                </t>
+	            </tbody>
+	        </table>
+		</template>
+		
+		<template id="event_attendance">
+		    <t t-call="website_event.event_details">
+		        <div class="col-md-8">
+		            <t t-call="website_event_attendance.attendee_template"/>
+		            <div class="clearfix"/>
+		            <hr/>
+		            <div itemprop="description" t-field="event.description"></div>
+		            <div class="clearfix"/>
+		            <ul class="media-list" id="comment">
+		                <li t-foreach="event.website_message_ids" t-as="comment" class="media">
+		                    <div class="media-body">
+		                        <t t-call="website.publish_management">
+		                            <t t-set="object" t-value="comment"/>
+		                            <t t-set="publish_edit" t-value="True"/>
+		                        </t>
+		                        <t t-raw="comment.body"/>
+		                        <small class="pull-right muted text-right">
+		                            <div t-field="comment.author_id"/>
+		                            <div t-field="comment.date" t-field-options='{"hide_seconds":"True"}'/>
+		                        </small>
+		                    </div>
+		                </li>
+		            </ul>
+		        </div>
+		        <div class="col-md-4 css_noprint">
+		            <div class="clearfix"/>
+		
+		            <div class="panel panel-default" t-if="event.address_id">
+		                <div class="panel-heading">
+		                    <h4>Where</h4>
+		                </div>
+		                <div class="panel-body">
+		                    <!-- FORWARD-PORT UP TO SAAS-12 -->
+		                    <t t-if="'key=' in event.google_map_img()">
+		                        <a t-att-href="event.google_map_link()" target="_BLANK">
+		                           <img class="thumbnail img-responsive" t-att-src="event.google_map_img()" />
+		                        </a>
+		                    </t>
+		                    <t t-if="'key=' not in event.google_map_img()">
+		                        <a t-att-href="event.google_map_link()" target="_BLANK">Visualize on Google Maps</a>
+		                    </t>
+		                    <div itemprop="location" class="mt16 mb8" t-field="event.address_id" t-field-options='{
+		                        "widget": "contact",
+		                        "fields": ["name", "address", "phone", "mobile", "fax", "email"]
+		                        }'/>
+		                </div>
+		            </div>
+		
+		            <div class="panel panel-default">
+		                <div class="panel-heading">
+		                    <h4>When</h4>
+		                </div>
+		                <div class="panel-body">
+		                    <i class="fa fa-clock-o"></i> From <span t-field="event.with_context(tz=event.date_tz).date_begin" t-field-options='{"hide_seconds":"True"}'> </span><br/>
+		                    <i class="fa fa-clock-o"></i> To <span t-field="event.with_context(tz=event.date_tz).date_end" t-field-options='{"hide_seconds":"True"}'> </span>
+		                </div>
+		            </div>
+		
+		            <div class="panel panel-default" t-if="event.organizer_id">
+		                <div class="panel-heading">
+		                    <h4>Organizer</h4>
+		                </div>
+		                <div class="panel-body" t-field="event.organizer_id" t-field-options='{
+		                    "widget": "contact",
+		                    "fields": ["name", "phone", "mobile", "fax", "email"]
+		                    }'/>
+		            </div>
+		
+		            <div class="panel panel-default">
+		                <div class="panel-heading">
+		                    <h4>Social Stream</h4>
+		                </div>
+		                <div class="panel-body">
+		                    <t t-call="website_mail.follow"><t t-set="object" t-value="event"/></t>
+		                    <div t-if="event.twitter_hashtag" class="mt16">
+		                        <p><strong>Participate on Twitter</strong></p>
+		                        <p class="text-muted">
+		                            Find out what people see and say about this event,
+		                            and join the conversation.
+		                        </p>
+		                        <p><strong>Use this tag:
+		                            <a t-att-href="'http://twitter.com/search?q=%23'+event.twitter_hashtag" target="_blank" class="label label-primary">#<span t-field="event.twitter_hashtag"/></a>
+		                        </strong></p>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		    </t>
+		</template>
+		
+		<template id="event_attendance_error" name="Error">
+		    <t t-call="website.layout">
+		      <div id="wrap">
+		        <div class="oe_structure"/>
+		        <div class="container">
+		            <h1>Error!</h1>
+		            <div class="row">
+		                <div class="col-md-8">
+		                    <div class="alert alert-danger">
+		                        The event attendance can not be displayed.
+		                        <button type="button" class="close" data-dismiss="alert">&amp;times;</button>
+		                    </div>
+		                    <p>
+		                        Please contact the website administrator at res_company.email. <t t-att-value="res_company.email"/>
+		                    </p>
+		                </div>
+		                <div class="col-md-4">
+		                    <t t-call="website.company_description"/>
+		                </div>
+		            </div>
+		        </div>
+		        <div class="oe_structure"/>
+		      </div>
+		    </t>
+		</template>
+	</data>
+</odoo>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record model="ir.ui.view" id="view_event_token_form">
+            <field name="name">event.event.form</field>
+            <field name="model">event.event</field>
+			<field name="inherit_id" ref="event.view_event_form"/>
+            <field name="arch" type="xml">
+		
+				<field name="company_id" position="after">
+					<field name="token"/>
+					<field name="event_attendance_url"/>
+				</field>
+			</field>
+		</record>
+	</data>
+</odoo>
