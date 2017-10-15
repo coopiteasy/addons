@@ -85,6 +85,13 @@ class ProductTemplate(models.Model):
                     elif product._check_vals_scale_bizerba(vals):
                         # Data related to the scale
                         defered[product.id] = 'write'
+                # ticking and unticking the "can be sold" checkbox
+                # trigger the corresponding product_scale_log 
+                if 'sale_ok' in vals.keys():
+                    if product.sale_ok and not vals.get('sale_ok', False):
+                        product._send_to_scale_bizerba('unlink')
+                    elif vals.get('sale_ok', False) and vals.get('sale_ok', False):
+                        defered[product.id] = 'create'
 
         res = super(ProductTemplate, self).write(vals)
 
