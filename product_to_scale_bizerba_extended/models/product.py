@@ -6,7 +6,7 @@ from datetime import datetime
 from openerp import api, fields, models, _
 import openerp.addons.decimal_precision as dp
 
-ADDITIONAL_FIELDS = ['list_price']
+ADDITIONAL_FIELDS = ['list_price', 'active','scale_category','image_medium']
 
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
