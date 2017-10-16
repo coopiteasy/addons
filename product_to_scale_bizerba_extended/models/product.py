@@ -6,6 +6,8 @@ from datetime import datetime
 from openerp import api, fields, models, _
 import openerp.addons.decimal_precision as dp
 
+ADDITIONAL_FIELDS = ['list_price']
+
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
@@ -50,6 +52,9 @@ class ProductTemplate(models.Model):
     def _check_vals_scale_bizerba(self, vals):
         system = self.scale_group_id.scale_system_id
         system_fields = [x.name for x in system.field_ids]
+        for product_field in ADDITIONAL_FIELDS:
+            if product_field not in system_fields:
+                system_fields.append(product_field)
         vals_fields = vals.keys()
         return set(system_fields).intersection(vals_fields)
 
