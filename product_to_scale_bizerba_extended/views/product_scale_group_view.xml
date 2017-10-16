@@ -5,12 +5,10 @@
 	        <field name="model">product.scale.group</field>
 	        <field name="inherit_id" ref="product_to_scale_bizerba.view_product_scale_group_form"/>
 	        <field name="arch" type="xml">
-	        	<!-- <page name="products" position="inside"> -->
-	        	<xpath expr="//field[@name='product_ids']" position="before">
-	        		<group colspan="4">
-	        			<button name="send_all_to_scale_create" type="object" string="Resend Creation All To the Scale System"/>
-	        			<button name="send_all_to_scale_write" type="object" string="Resend Update All To the Scale System"/>
-	        		</group>
+	        	<xpath expr="//header" position="inside">
+        			<button name="send_all_to_scale_create" type="object" string="Resend Creation All To the Scale System" groups="product_to_scale_bizerba.group_manager"/>
+        			<button name="send_all_to_scale_write" type="object" string="Resend Update All To the Scale System" groups="product_to_scale_bizerba.group_manager"/>
+        			<button name="send_all_to_scale_unlink" type="object" string="Send Delete All To the Scale System" groups="product_to_scale_bizerba.group_manager"/>
 	        	</xpath>
 	        </field>
         </record>
