@@ -9,7 +9,8 @@
 	                <page string="Scale">
 	                    <group string="Scale Communication">
 	                        <group>
-	                            <field name="scale_group_id" attrs="{'required':[('to_weight','=',True)]}"/>
+	                            <!-- <field name="scale_group_id" attrs="{'required':[('to_weight','=',True)]}"/> -->
+	                            <field name="scale_group_id"/>
 	                            <field name="scale_sequence"/>
 	                            <field name="scale_tare_weight"/>
 	                        </group>
