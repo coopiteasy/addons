@@ -6,7 +6,7 @@ from datetime import datetime
 from openerp import api, fields, models, _
 import openerp.addons.decimal_precision as dp
 
-ADDITIONAL_FIELDS = ['list_price', 'active','scale_category','image_medium']
+ADDITIONAL_FIELDS = ['list_price', 'scale_category','image_medium']
 
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
@@ -87,15 +87,18 @@ class ProductTemplate(models.Model):
                         product._send_to_scale_bizerba('unlink')
                         # Create in the new group
                         defered[product.id] = 'create'
-                    elif product._check_vals_scale_bizerba(vals):
-                        # Data related to the scale
-                        defered[product.id] = 'write'
+                    elif product._check_vals_scale_bizerba(vals) and\
+                        self.active and self.sale_ok:
+                            # Data related to the scale
+                            defered[product.id] = 'write'
                 # ticking and unticking the "can be sold" checkbox
                 # trigger the corresponding product_scale_log 
-                if 'sale_ok' in vals.keys():
-                    if product.sale_ok and not vals.get('sale_ok', False):
+                if 'sale_ok' in vals.keys() or 'active' in vals.keys():
+                    if (product.sale_ok and product.active) and\
+                        (not vals.get('sale_ok', False) or not vals.get('active', False)):
                         product._send_to_scale_bizerba('unlink')
-                    elif vals.get('sale_ok', False) and vals.get('sale_ok', False):
+                    elif (product.sale_ok and vals.get('active', False)) or\
+                         (product.active and vals.get('sale_ok', False)):
                         defered[product.id] = 'create'
 
         res = super(ProductTemplate, self).write(vals)
