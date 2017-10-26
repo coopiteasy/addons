@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<template id="extend_external_layout_header" inherit_id="report.external_layout_header">
+			<xpath expr="//div[@name='company_address']" position="after">
+					<div class="col-xs-3" name="company_vat">
+		                <strong>N° de TVA:</strong>
+		                <p t-field="company.vat"/>
+		            </div>
+		            <div class="col-xs-3" name="account_number">
+		                <strong>Compte bancaire:</strong>
+		                <t t-foreach="company.bank_journal_ids" t-as="journal">
+		            		<t t-set="b" t-value="journal.bank_account_id"/>
+				            <t t-if="journal.display_on_footer">
+				            	<p t-field="b.acc_number"/>
+				            </t>
+						</t>
+		            </div>
+	            <br/>
+            </xpath>
+		</template>
+		
+		<template id="sale_order_report" inherit_id="sale.report_saleorder_document">
+			<div class="page" position="attributes">
+				<attribute name="style">top:30px;</attribute>
+			</div>
+		</template>
+	</data>
+</odoo>

@@ -1,0 +1,754 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mrp_brewing
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-04-18 14:57+0000\n"
+"PO-Revision-Date: 2017-04-18 22:09+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: fr_BE\n"
+"X-Generator: Poedit 1.6.5\n"
+
+#. module: mrp_brewing
+#: selection:stock.report,report_name:0
+msgid " Brew Register Report"
+msgstr "Registre de brassage"
+
+#. module: mrp_brewing
+#: model:ir.model.fields,field_description:mrp_brewing.field_brew_order_dry_extract
+#: model:ir.ui.view,arch_db:mrp_brewing.brew_register
+msgid "% dry extract"
+msgstr "% extrait sec"
+
+#. module: mrp_brewing
+#: model:ir.ui.view,arch_db:mrp_brewing.certicys_label
+msgid ""
+"<strong>Toutes les bières de la Brasserie du Renard sont certifiées bio par "
+"certisys BE-BIO-01</strong>"
+msgstr ""
+"<strong>Toutes les bières de la Brasserie du Renard sont certifiées bio par "
+"certisys BE-BIO-01</strong>"
+
+#. module: mrp_brewing
+#: model:ir.ui.view,arch_db:mrp_brewing.stock_finished_products
+#: model:ir.ui.view,arch_db:mrp_brewing.stock_raw_materials
+msgid "A. Inputs"
+msgstr "A. Entrées"
+
+#. module: mrp_brewing
+#: model:ir.ui.view,arch_db:mrp_brewing.brew_register
+#: model:ir.ui.view,arch_db:mrp_brewing.stock_finished_products
+#: model:ir.ui.view,arch_db:mrp_brewing.stock_raw_materials
+msgid "Authorized warehousekeeper n°"
+msgstr "Entrepositaire agréé n°"
+
+#. module: mrp_brewing
+#: model:ir.ui.view,arch_db:mrp_brewing.stock_finished_products
+#: model:ir.ui.view,arch_db:mrp_brewing.stock_raw_materials
+msgid "B. Outputs"
+msgstr "B. Sorties"
+
+#. module: mrp_brewing
+#: model:ir.model.fields,field_description:mrp_brewing.field_brew_order_product_id
+msgid "Beer"
+msgstr "Bière"
+
+#. module: mrp_brewing
+#: model:ir.model.fields,field_description:mrp_brewing.field_brew_order_bom
+msgid "Bill of material"
+msgstr "Recette"
+
+#. module: mrp_brewing
+#: model:ir.ui.view,arch_db:mrp_brewing.brew_register
+msgid "Bom id"
+msgstr "Identification recette"
+
+#. module: mrp_brewing
+#: model:ir.actions.act_window,name:mrp_brewing.brew_declaration_action
+#: model:ir.ui.menu,name:mrp_brewing.menu_brew_declaration_action
+#: model:ir.ui.view,arch_db:mrp_brewing.brew_register
+#: model:ir.ui.view,arch_db:mrp_brewing.view_declaration_form
+msgid "Brew Declaration"
+msgstr "Déclaration de brassage"
+
+#. module: mrp_brewing
+#: model:ir.ui.view,arch_db:mrp_brewing.view_declaration_tree
+msgid "Brew Declarations"
+msgstr "Déclarations de brassage"
+
+#. module: mrp_brewing
+#: model:ir.model.fields,field_description:mrp_brewing.field_mrp_production_brew_number
+#: model:ir.ui.view,arch_db:mrp_brewing.stock_raw_materials
+msgid "Brew Number"
+msgstr "Numéro de brassin"
+
+#. module: mrp_brewing
+#: model:ir.model.fields,field_description:mrp_brewing.field_mrp_production_brew_orders
+#: model:ir.ui.view,arch_db:mrp_brewing.view_order_form
+msgid "Brew Order"
+msgstr "Ordre de brassage"
+
+#. module: mrp_brewing
+#: model:ir.actions.act_window,name:mrp_brewing.brew_order_action
+#: model:ir.model.fields,field_description:mrp_brewing.field_brew_declaration_brew_orders
+#: model:ir.ui.menu,name:mrp_brewing.menu_brew_order_action
+#: model:ir.ui.view,arch_db:mrp_brewing.view_brew_tree
+msgid "Brew Orders"
+msgstr "Ordres de brassage"
+
+#. module: mrp_brewing
+#: model:ir.ui.view,arch_db:mrp_brewing.brew_register
+msgid "Brew Register Report"
+msgstr "Registre de brassage"
+
+#. module: mrp_brewing
+#: model:ir.model.fields,field_description:mrp_brewing.field_brew_order_brew_beer_number
+msgid "Brew beer number"
+msgstr "Numéro de brassage"
+
+#. module: mrp_brewing
+#: model:ir.ui.view,arch_db:mrp_brewing.brew_register
+msgid "Brew date"
+msgstr "Date de la confection des brassins"
+
+#. module: mrp_brewing
+#: model:ir.model.fields,field_description:mrp_brewing.field_brew_order_brew_declaration_id
+msgid "Brew declaration"
+msgstr "Déclaration pour brasser"
+
+#. module: mrp_brewing
+#: model:ir.model.fields,field_description:mrp_brewing.field_brew_declaration_brew_declaration_number
+#: model:ir.ui.view,arch_db:mrp_brewing.view_brew_declaration_filter
+msgid "Brew declaration number"
+msgstr "Numéro de déclaration de brassage"
+
+#. module: mrp_brewing
+#: model:ir.model.fields,field_description:mrp_brewing.field_brew_order_brew_number
+#: model:ir.model.fields,field_description:mrp_brewing.field_stock_move_brew_number
+#: model:ir.ui.view,arch_db:mrp_brewing.brew_register
+msgid "Brew number"
+msgstr "Numéro de brassin"
+
+#. module: mrp_brewing
+#: model:ir.model.fields,field_description:mrp_brewing.field_brew_order_name
+#: model:ir.ui.view,arch_db:mrp_brewing.view_brew_order_filter
+msgid "Brew order"
+msgstr "Ordre de brassage"
+
+#. module: mrp_brewing
+#: model:ir.model.fields,field_description:mrp_brewing.field_mrp_production_brew_order_name
+msgid "Brew order name"
+msgstr "Brew order name"
+
+#. module: mrp_brewing
+#: model:ir.model.fields,field_description:mrp_brewing.field_product_template_brew_product_sequence
+msgid "Brew product sequence"
+msgstr "Séquence du produit brassé"
+
+#. module: mrp_brewing
+#: model:ir.actions.report.xml,name:mrp_brewing.action_brew_register_report
+msgid "Brew register report"
+msgstr "Registre de brassage"
+
+#. module: mrp_brewing
+#: model:ir.ui.view,arch_db:mrp_brewing.stock_finished_products
+#: model:ir.ui.view,arch_db:mrp_brewing.stock_raw_materials
+msgid "C. Stock"
+msgstr "C. Stock"
+
+#. module: mrp_brewing
+#: model:ir.ui.view,arch_db:mrp_brewing.raw_materials_report_view
+#: model:ir.ui.view,arch_db:mrp_brewing.view_declaration_form
+#: model:ir.ui.view,arch_db:mrp_brewing.view_order_form
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: mrp_brewing
+#: selection:brew.declaration,state:0 selection:brew.order,state:0
+#: model:ir.ui.view,arch_db:mrp_brewing.view_brew_declaration_filter
+#: model:ir.ui.view,arch_db:mrp_brewing.view_brew_order_filter
+#: selection:sale.order,delivery_status:0
+msgid "Cancelled"
+msgstr "Annulé"
+
+#. module: mrp_brewing
+#: model:ir.model.fields,field_description:mrp_brewing.field_brew_order_child_brew_orders
+msgid "Child brew order"
+msgstr "Odres de brassage enfants"
+
+#. module: mrp_brewing
+#: model:ir.model.fields,field_description:mrp_brewing.field_mrp_production_child_mo_ids
+msgid "Childs production order"
+msgstr "Ordres de production enfants"
+
+#. module: mrp_brewing
+#: model:ir.actions.act_window,help:mrp_brewing.brew_declaration_action
+#: model:ir.actions.act_window,help:mrp_brewing.brew_order_action
+msgid "Click to create a brew order."
+msgstr "Cliquez pour créer un ordre de brassage."
+
+#. module: mrp_brewing
+#: model:ir.model.fields,field_description:mrp_brewing.field_brew_order_collecting_vessels
+#: model:ir.ui.view,arch_db:mrp_brewing.brew_register
+msgid "Collecting vessels"
+msgstr "Collecting vessels"
+
+#. module: mrp_brewing
+#: model:ir.ui.view,arch_db:mrp_brewing.view_brew_declaration_filter
+msgid "Confirm"
+msgstr "Confirmer"
+
+#. module: mrp_brewing
+#: model:ir.ui.view,arch_db:mrp_brewing.view_order_form
+msgid "Confirm Brew"
+msgstr "Confirmer le brassage"
+
+#. module: mrp_brewing
+#: model:ir.ui.view,arch_db:mrp_brewing.view_declaration_form
+msgid "Confirm Declaration"
+msgstr "Confirm Declaration"
+
+#. module: mrp_brewing
+#: model:ir.model.fields,field_description:mrp_brewing.field_brew_order_consumed_lines
+msgid "Consumed lines"
+msgstr "Poduits consommés"
+
+#. module: mrp_brewing
+#: model:ir.model.fields,field_description:mrp_brewing.field_brew_declaration_create_uid
+#: model:ir.model.fields,field_description:mrp_brewing.field_brew_order_create_uid
+#: model:ir.model.fields,field_description:mrp_brewing.field_stock_report_create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: mrp_brewing
+#: model:ir.model.fields,field_description:mrp_brewing.field_brew_declaration_create_date
+#: model:ir.model.fields,field_description:mrp_brewing.field_brew_order_create_date
+#: model:ir.model.fields,field_description:mrp_brewing.field_stock_report_create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: mrp_brewing
+#: model:ir.model.fields,help:mrp_brewing.field_stock_warehouse_orderpoint_qty_available
+msgid ""
+"Current quantity of products.\n"
+"In a context with a single Stock Location, this includes goods stored at "
+"this Location, or any of its children.\n"
+"In a context with a single Warehouse, this includes goods stored in the "
+"Stock Location of this Warehouse, or any of its children.\n"
+"stored in the Stock Location of the Warehouse of this Shop, or any of its "
+"children.\n"
+"Otherwise, this includes goods stored in any Stock Location with 'internal' "
+"type."
+msgstr ""
+"Quantité actuelle d'articles en stock.\n"
+"Dans le contexte d'un seul emplacement de stock, ceci inclue les "
+"marchandises stockées dans cet emplacement et ses enfants.\n"
+"Dans le contexte d'un seul entrepôt, ceci inclue les marchandises stockées "
+"dans l'emplacement de l'entrepôt et ses enfants.\n"
+"Dans le contexte d'un magasin, ceci inclue les marchandises stockées dans "
+"l'entrepôt de ce magasin et ses enfants.\n"
+"Dans les autres contextes, ceci inclue les marchandises stockées dans "
+"n'importe quel emplacement de type 'interne'."
+
+#. module: mrp_brewing
+#: model:ir.ui.view,arch_db:mrp_brewing.brew_register
+#: model:ir.ui.view,arch_db:mrp_brewing.stock_finished_products
+#: model:ir.ui.view,arch_db:mrp_brewing.stock_raw_materials
+msgid "Date"
+msgstr "Date"
+
+#. module: mrp_brewing
+#: selection:sale.order,delivery_status:0
+msgid "Delivered"
+msgstr "Livré"
+
+#. module: mrp_brewing
+#: model:ir.model.fields,field_description:mrp_brewing.field_sale_order_delivery_done_date
+msgid "Delivery done date"
+msgstr "Date effective de livraison"
+
+#. module: mrp_brewing
+#: model:ir.model.fields,field_description:mrp_brewing.field_sale_order_delivery_status
+msgid "Delivery status"
+msgstr "Statut de livraison"
+
+#. module: mrp_brewing
+#: model:ir.model.fields,field_description:mrp_brewing.field_brew_declaration_display_name
+#: model:ir.model.fields,field_description:mrp_brewing.field_brew_order_display_name
+#: model:ir.model.fields,field_description:mrp_brewing.field_report_mrp_brewing_brew_register_display_name
+#: model:ir.model.fields,field_description:mrp_brewing.field_report_mrp_brewing_stock_finished_products_display_name
+#: model:ir.model.fields,field_description:mrp_brewing.field_report_mrp_brewing_stock_raw_materials_display_name
+#: model:ir.model.fields,field_description:mrp_brewing.field_stock_report_display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: mrp_brewing
+#: selection:brew.order,state:0
+#: model:ir.ui.view,arch_db:mrp_brewing.view_brew_order_filter
+msgid "Done"
+msgstr "Terminé"
+
+#. module: mrp_brewing
+#: model:ir.ui.view,arch_db:mrp_brewing.view_brew_declaration_filter
+#: model:ir.ui.view,arch_db:mrp_brewing.view_brew_order_filter
+msgid "Draf"
+msgstr "Brouillon"
+
+#. module: mrp_brewing
+#: selection:brew.declaration,state:0 selection:brew.order,state:0
+msgid "Draft"
+msgstr "Brouillon"
+
+#. module: mrp_brewing
+#: model:ir.model.fields,field_description:mrp_brewing.field_stock_report_date_to
+msgid "End Date"
+msgstr "Date de fin"
+
+#. module: mrp_brewing
+#: model:ir.model.fields,field_description:mrp_brewing.field_brew_order_end_date
+msgid "End date"
+msgstr "Date de fin"
+
+#. module: mrp_brewing
+#: selection:stock.report,report_name:0
+msgid "Finished Product Report"
+msgstr "Rapport de produits finis"
+
+#. module: mrp_brewing
+#: model:ir.ui.view,arch_db:mrp_brewing.stock_finished_products
+msgid "Finished Products Stock Report"
+msgstr "Rapport de produits finis"
+
+#. module: mrp_brewing
+#: model:ir.ui.view,arch_db:mrp_brewing.view_brew_declaration_filter
+#: model:ir.ui.view,arch_db:mrp_brewing.view_brew_order_filter
+msgid "Group By..."
+msgstr "Regrouper par..."
+
+#. module: mrp_brewing
+#: model:ir.ui.view,arch_db:mrp_brewing.brew_register
+msgid "Hl noted by the agents"
+msgstr "Hl Plato constaté par les agents"
+
+#. module: mrp_brewing
+#: model:ir.ui.view,arch_db:mrp_brewing.brew_register
+msgid "Hl noted by the brewer"
+msgstr "Hl Plato constaté par le brasseur"
+
+#. module: mrp_brewing
+#: model:ir.model.fields,field_description:mrp_brewing.field_brew_order_hl_plato_agent
+msgid "Hl plato noted by the agents"
+msgstr "Hl Plato constaté par les agents"
+
+#. module: mrp_brewing
+#: model:ir.model.fields,field_description:mrp_brewing.field_brew_order_hl_plato_brewer
+msgid "Hl plato noted by the brewer"
+msgstr "Hl Plato constaté par le brasseur"
+
+#. module: mrp_brewing
+#: model:ir.model.fields,field_description:mrp_brewing.field_brew_declaration_id
+#: model:ir.model.fields,field_description:mrp_brewing.field_brew_order_id
+#: model:ir.model.fields,field_description:mrp_brewing.field_report_mrp_brewing_brew_register_id
+#: model:ir.model.fields,field_description:mrp_brewing.field_report_mrp_brewing_stock_finished_products_id
+#: model:ir.model.fields,field_description:mrp_brewing.field_report_mrp_brewing_stock_raw_materials_id
+#: model:ir.model.fields,field_description:mrp_brewing.field_stock_report_id
+msgid "ID"
+msgstr "ID"
+
+#. module: mrp_brewing
+#: model:ir.model.fields,field_description:mrp_brewing.field_product_template_is_brewable
+msgid "Is brewable"
+msgstr "Est brassable"
+
+#. module: mrp_brewing
+#: model:ir.model.fields,field_description:mrp_brewing.field_product_template_finished_product
+msgid "Is finished product"
+msgstr "Est un produit fini"
+
+#. module: mrp_brewing
+#: model:ir.model.fields,field_description:mrp_brewing.field_product_template_raw_material
+msgid "Is raw material"
+msgstr "Est une matière première"
+
+#. module: mrp_brewing
+#: model:ir.model.fields,field_description:mrp_brewing.field_brew_declaration___last_update
+#: model:ir.model.fields,field_description:mrp_brewing.field_brew_order___last_update
+#: model:ir.model.fields,field_description:mrp_brewing.field_report_mrp_brewing_brew_register___last_update
+#: model:ir.model.fields,field_description:mrp_brewing.field_report_mrp_brewing_stock_finished_products___last_update
+#: model:ir.model.fields,field_description:mrp_brewing.field_report_mrp_brewing_stock_raw_materials___last_update
+#: model:ir.model.fields,field_description:mrp_brewing.field_stock_report___last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: mrp_brewing
+#: model:ir.model.fields,field_description:mrp_brewing.field_brew_declaration_write_uid
+#: model:ir.model.fields,field_description:mrp_brewing.field_brew_order_write_uid
+#: model:ir.model.fields,field_description:mrp_brewing.field_stock_report_write_uid
+msgid "Last Updated by"
+msgstr "Derniere fois mis à jour par"
+
+#. module: mrp_brewing
+#: model:ir.model.fields,field_description:mrp_brewing.field_brew_declaration_write_date
+#: model:ir.model.fields,field_description:mrp_brewing.field_brew_order_write_date
+#: model:ir.model.fields,field_description:mrp_brewing.field_stock_report_write_date
+msgid "Last Updated on"
+msgstr "Dernière mis à jour le"
+
+#. module: mrp_brewing
+#: model:ir.ui.view,arch_db:mrp_brewing.quant_search_view
+msgid "Lot"
+msgstr "Lot"
+
+#. module: mrp_brewing
+#: model:ir.model.fields,field_description:mrp_brewing.field_mrp_production_lot_number
+#: model:ir.ui.view,arch_db:mrp_brewing.brew_register
+#: model:ir.ui.view,arch_db:mrp_brewing.stock_finished_products
+#: model:ir.ui.view,arch_db:mrp_brewing.stock_raw_materials
+msgid "Lot Number"
+msgstr "Numéro de lot"
+
+#. module: mrp_brewing
+#: model:ir.model,name:mrp_brewing.model_mrp_production
+msgid "Manufacturing Order"
+msgstr "Ordre de fabrication"
+
+#. module: mrp_brewing
+#: model:ir.model.fields,field_description:mrp_brewing.field_mrp_production_master_mo_id
+msgid "Master production order"
+msgstr "Ordre de production maitre"
+
+#. module: mrp_brewing
+#: model:ir.model,name:mrp_brewing.model_stock_warehouse_orderpoint
+msgid "Minimum Inventory Rule"
+msgstr "Règle de stock minimum."
+
+#. module: mrp_brewing
+#: model:ir.model.fields,field_description:mrp_brewing.field_brew_order_notes
+msgid "Notes"
+msgstr "Notes"
+
+#. module: mrp_brewing
+#: model:ir.ui.view,arch_db:mrp_brewing.brew_register
+msgid "Number"
+msgstr "Numéro"
+
+#. module: mrp_brewing
+#: model:ir.ui.view,arch_db:mrp_brewing.stock_finished_products
+#: model:ir.ui.view,arch_db:mrp_brewing.stock_raw_materials
+msgid "Origin"
+msgstr "Origine"
+
+#. module: mrp_brewing
+#: model:ir.model.fields,field_description:mrp_brewing.field_brew_order_output_beer
+msgid "Output beer"
+msgstr "Sortie de bières en vrac Hl"
+
+#. module: mrp_brewing
+#: model:ir.ui.view,arch_db:mrp_brewing.brew_register
+msgid "Output beer (Hl)"
+msgstr "Sortie de bières en vrac Hl"
+
+#. module: mrp_brewing
+#: model:ir.model.fields,field_description:mrp_brewing.field_brew_order_output_wort
+msgid "Output wort"
+msgstr "Sortie de moûts Hl"
+
+#. module: mrp_brewing
+#: model:ir.ui.view,arch_db:mrp_brewing.brew_register
+msgid "Output wort (Hl)"
+msgstr "Sortie de moûts Hl"
+
+#. module: mrp_brewing
+#: model:ir.model.fields,field_description:mrp_brewing.field_product_pricelist_particular_conditions
+msgid "Particular Conditions"
+msgstr "Conditions particulières"
+
+#. module: mrp_brewing
+#: model:ir.model.fields,field_description:mrp_brewing.field_brew_order_start_date
+msgid "Planned date"
+msgstr "Date plannifiée"
+
+#. module: mrp_brewing
+#: model:ir.model,name:mrp_brewing.model_product_pricelist
+msgid "Pricelist"
+msgstr "Liste de prix"
+
+#. module: mrp_brewing
+#: model:ir.ui.view,arch_db:mrp_brewing.raw_materials_report_view
+msgid "Print"
+msgstr "Imprimer"
+
+#. module: mrp_brewing
+#: model:ir.ui.view,arch_db:mrp_brewing.stock_finished_products
+#: model:ir.ui.view,arch_db:mrp_brewing.stock_raw_materials
+#: model:ir.ui.view,arch_db:mrp_brewing.view_brew_order_filter
+msgid "Product"
+msgstr "Article"
+
+#. module: mrp_brewing
+#: model:ir.model,name:mrp_brewing.model_mrp_product_produce
+msgid "Product Produce"
+msgstr "Production d'articles"
+
+#. module: mrp_brewing
+#: model:ir.model.fields,field_description:mrp_brewing.field_brew_order_product_qty
+msgid "Product Quantity"
+msgstr "Quantité d'article"
+
+#. module: mrp_brewing
+#: model:ir.model,name:mrp_brewing.model_product_template
+msgid "Product Template"
+msgstr "Modèle d'article"
+
+#. module: mrp_brewing
+#: model:ir.model.fields,field_description:mrp_brewing.field_brew_order_product_uom
+msgid "Product Unit of Measure"
+msgstr "Unité de mesure d'article"
+
+#. module: mrp_brewing
+#: model:ir.ui.view,arch_db:mrp_brewing.brew_register
+msgid "Product code"
+msgstr "Code produit"
+
+#. module: mrp_brewing
+#: model:ir.model.fields,field_description:mrp_brewing.field_brew_order_production_order_id
+msgid "Production Order"
+msgstr "Ordre de fabrication"
+
+#. module: mrp_brewing
+#: model:ir.model.fields,field_description:mrp_brewing.field_stock_move_quantity_after_move
+#: model:ir.ui.view,arch_db:mrp_brewing.brew_register
+#: model:ir.ui.view,arch_db:mrp_brewing.stock_finished_products
+#: model:ir.ui.view,arch_db:mrp_brewing.stock_raw_materials
+msgid "Quantity"
+msgstr "Quantité"
+
+#. module: mrp_brewing
+#: model:ir.model.fields,field_description:mrp_brewing.field_stock_warehouse_orderpoint_qty_available
+msgid "Quantity On Hand"
+msgstr "Quantité en stock"
+
+#. module: mrp_brewing
+#: model:ir.ui.view,arch_db:mrp_brewing.stock_finished_products
+#: model:ir.ui.view,arch_db:mrp_brewing.stock_raw_materials
+msgid "Quantity left"
+msgstr "Quantité restante"
+
+#. module: mrp_brewing
+#: selection:stock.report,report_name:0
+msgid "Raw Material Report"
+msgstr "Rapport des matières premières"
+
+#. module: mrp_brewing
+#: model:ir.actions.act_window,name:mrp_brewing.action_report_raw_materials
+#: model:ir.ui.menu,name:mrp_brewing.menu_raw_materials_report
+msgid "Raw Materials Report"
+msgstr "Rapport des matières premières"
+
+#. module: mrp_brewing
+#: model:ir.ui.view,arch_db:mrp_brewing.stock_raw_materials
+msgid "Raw Materials Stock Report"
+msgstr "Rapport de stock des matières premières"
+
+#. module: mrp_brewing
+#: model:ir.actions.report.xml,name:mrp_brewing.action_finished_products_report
+#: model:ir.actions.report.xml,name:mrp_brewing.action_raw_materials_report
+msgid "Raw materials stock report"
+msgstr "Rapport de stock des matières premières"
+
+#. module: mrp_brewing
+#: model:ir.model.fields,field_description:mrp_brewing.field_brew_order_real_bulk_wort
+#: model:ir.ui.view,arch_db:mrp_brewing.brew_register
+msgid "Real bulk of wort"
+msgstr "Volume réel des moûts"
+
+#. module: mrp_brewing
+#: model:ir.ui.view,arch_db:mrp_brewing.brew_register
+msgid "Remark"
+msgstr "Observations"
+
+#. module: mrp_brewing
+#: model:ir.ui.view,arch_db:mrp_brewing.view_warehouse_orderpoint_tree
+msgid "Reordering Rules"
+msgstr "Règles de réapprovisionnement"
+
+#. module: mrp_brewing
+#: model:ir.ui.view,arch_db:mrp_brewing.raw_materials_report_view
+msgid "Report Options"
+msgstr "Options du rapport"
+
+#. module: mrp_brewing
+#: model:ir.model.fields,field_description:mrp_brewing.field_brew_declaration_request_date
+msgid "Request date"
+msgstr "Date de la demande"
+
+#. module: mrp_brewing
+#: model:ir.model,name:mrp_brewing.model_sale_order
+msgid "Sales Order"
+msgstr "Bon de commande"
+
+#. module: mrp_brewing
+#: model:ir.ui.view,arch_db:mrp_brewing.view_brew_declaration_filter
+#: model:ir.ui.view,arch_db:mrp_brewing.view_brew_order_filter
+msgid "Scheduled Date by Month"
+msgstr "Date planifiée, par mois"
+
+#. module: mrp_brewing
+#: model:ir.ui.view,arch_db:mrp_brewing.view_brew_declaration_filter
+#: model:ir.ui.view,arch_db:mrp_brewing.view_brew_order_filter
+msgid "Scheduled Month"
+msgstr "Mois planifié"
+
+#. module: mrp_brewing
+#: model:ir.ui.view,arch_db:mrp_brewing.view_brew_order_filter
+msgid "Search Brew Order"
+msgstr "Recherche Ordre de brassage"
+
+#. module: mrp_brewing
+#: model:ir.ui.view,arch_db:mrp_brewing.view_brew_declaration_filter
+msgid "Search Brews Declaration"
+msgstr "Recherche déclaration de brassage"
+
+#. module: mrp_brewing
+#: model:ir.ui.view,arch_db:mrp_brewing.view_declaration_form
+#: model:ir.ui.view,arch_db:mrp_brewing.view_order_form
+msgid "Set to Draft"
+msgstr "Marquer comme brouillon"
+
+#. module: mrp_brewing
+#: model:ir.ui.view,arch_db:mrp_brewing.brew_register
+msgid "Species"
+msgstr "Espèces"
+
+#. module: mrp_brewing
+#: model:ir.model.fields,field_description:mrp_brewing.field_stock_report_date_from
+msgid "Start Date"
+msgstr "Date de début"
+
+#. module: mrp_brewing
+#: model:ir.model.fields,field_description:mrp_brewing.field_brew_declaration_state
+#: model:ir.model.fields,field_description:mrp_brewing.field_brew_order_state
+#: model:ir.ui.view,arch_db:mrp_brewing.view_brew_declaration_filter
+#: model:ir.ui.view,arch_db:mrp_brewing.view_brew_order_filter
+msgid "Status"
+msgstr "Statut"
+
+#. module: mrp_brewing
+#: model:ir.model,name:mrp_brewing.model_stock_move
+msgid "Stock Move"
+msgstr "Mouvement de stock"
+
+#. module: mrp_brewing
+#: model:ir.actions.act_window,name:mrp_brewing.sale_product_open_quants
+#: model:ir.ui.menu,name:mrp_brewing.menu_sale_product_open_quants_action
+msgid "Stock On Hand"
+msgstr "Stock disponible"
+
+#. module: mrp_brewing
+#: model:ir.model,name:mrp_brewing.model_stock_report
+msgid "Stock Report"
+msgstr "Rapport de stock"
+
+#. module: mrp_brewing
+#: model:ir.model.fields,field_description:mrp_brewing.field_brew_order_sugar_quantity
+#: model:ir.ui.view,arch_db:mrp_brewing.brew_register
+msgid "Sugar"
+msgstr "Sucre"
+
+#. module: mrp_brewing
+#: model:ir.ui.view,arch_db:mrp_brewing.stock_raw_materials
+msgid "Supplier Ref"
+msgstr "Référence fournisseur"
+
+#. module: mrp_brewing
+#: selection:sale.order,delivery_status:0
+msgid "To deliver"
+msgstr "A livrer"
+
+#. module: mrp_brewing
+#: model:ir.ui.view,arch_db:mrp_brewing.brew_register
+#: model:ir.ui.view,arch_db:mrp_brewing.stock_finished_products
+#: model:ir.ui.view,arch_db:mrp_brewing.stock_raw_materials
+msgid "UoM"
+msgstr "UdM"
+
+#. module: mrp_brewing
+#: model:ir.ui.view,arch_db:mrp_brewing.brew_register
+msgid "Used raw material quantity"
+msgstr "Quantité de matières premières utilisées"
+
+#. module: mrp_brewing
+#: model:ir.model.fields,field_description:mrp_brewing.field_brew_order_used_vessels_tank
+#: model:ir.ui.view,arch_db:mrp_brewing.brew_register
+msgid "Used vessels for work in tank"
+msgstr "Salle de brassage - cuves"
+
+#. module: mrp_brewing
+#: model:ir.model.fields,field_description:mrp_brewing.field_brew_order_green_beer_volume
+#: model:ir.ui.view,arch_db:mrp_brewing.brew_register
+msgid "Volume of green Beer"
+msgstr "Volume de bière verte"
+
+#. module: mrp_brewing
+#: model:ir.model.fields,field_description:mrp_brewing.field_brew_order_wort_gathering_date
+msgid "Wort gathering date"
+msgstr "Date de réunion des moûts"
+
+#. module: mrp_brewing
+#: code:addons/mrp_brewing/models/brew.py:125
+#, python-format
+msgid "You must first confirm the parent brew order."
+msgstr "Vous devez d'abord confirmer l'ordre de brassage parent"
+
+#. module: mrp_brewing
+#: model:ir.model,name:mrp_brewing.model_brew_declaration
+msgid "brew.declaration"
+msgstr "Déclarations de brassage"
+
+#. module: mrp_brewing
+#: model:ir.model,name:mrp_brewing.model_brew_order
+msgid "brew.order"
+msgstr "Ordres de brassage"
+
+#. module: mrp_brewing
+#: selection:brew.declaration,state:0
+msgid "confirm"
+msgstr "confirmer"
+
+#. module: mrp_brewing
+#: model:ir.ui.view,arch_db:mrp_brewing.raw_materials_report_view
+msgid "or"
+msgstr "ou"
+
+#. module: mrp_brewing
+#: model:ir.model.fields,field_description:mrp_brewing.field_brew_order_parent_brew_order_id
+msgid "parent brew order"
+msgstr "Ordre de brassage parent"
+
+#. module: mrp_brewing
+#: model:ir.model.fields,field_description:mrp_brewing.field_stock_report_report_name
+msgid "report Name"
+msgstr "Nom du rapport"
+
+#. module: mrp_brewing
+#: model:ir.model,name:mrp_brewing.model_report_mrp_brewing_brew_register
+msgid "report.mrp_brewing.brew_register"
+msgstr "report.mrp_brewing.brew_register"
+
+#. module: mrp_brewing
+#: model:ir.model,name:mrp_brewing.model_report_mrp_brewing_stock_finished_products
+msgid "report.mrp_brewing.stock_finished_products"
+msgstr "report.mrp_brewing.stock_finished_products"
+
+#. module: mrp_brewing
+#: model:ir.model,name:mrp_brewing.model_report_mrp_brewing_stock_raw_materials
+msgid "report.mrp_brewing.stock_raw_materials"
+msgstr "report.mrp_brewing.stock_raw_materials"
