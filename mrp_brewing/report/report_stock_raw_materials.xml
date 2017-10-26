@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<template id="mrp_brewing.stock_raw_materials">
+    <t t-call="report.html_container">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="report.internal_layout">
+                <div class="page">
+                    <h2 style="text-align:center"> Raw Materials Stock Report</h2>
+					<br/>
+					<h3 style="text-align:center"> Authorized warehousekeeper n°</h3>
+
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th colspan='6'>A. Inputs</th>
+                                <th colspan='6'>B. Outputs</th>
+                                <th>C. Stock</th>
+                            </tr>
+                            <tr>
+                                <td>Supplier Ref</td>
+                                <td>Origin</td>
+                                <td>Date</td>
+                                <td>Product</td>
+                                <td>Quantity</td>
+                                <td>UoM</td>
+                                <td>Lot Number</td>
+								<td>Brew Number</td>
+                                <td>Origin</td>
+                                <td>Date</td>
+                                <td>Product</td>
+                                <td>Quantity</td>
+                                <td>UoM</td>
+                                <td>Quantity left</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="get_stock_moves" t-as="a">
+                                <t t-if="a.location_id.usage == 'supplier'">
+                                   <td>
+                                        <span t-esc="a.purchase_line_id.order_id.partner_ref"/>
+                                    </td>
+                                   <td>
+                                        <span t-esc="a.origin"/>
+                                    </td>
+                                    <td>
+                                        <span t-att-style="style" t-esc="a.date" />
+                                    </td>
+                                    <td>
+                                        <span t-att-style="style" t-esc="a.product_id.name" />
+                                    </td>
+                                    <td>
+                                        <span t-att-style="style" t-esc="a.product_uom_qty" />
+                                    </td>
+                                    <td>
+                                        <span t-att-style="style" t-esc="a.product_uom.name" />
+                                    </td>
+                                    <td/>
+                                    <td/>
+                                    <td/>
+                                    <td/>
+                                    <td/>
+                                    <td/>
+                                    <td/>
+                                    <td>
+                                        <span t-att-style="style" t-esc="a.quantity_after_move" />
+                                    </td>
+                                </t>
+                                <t t-if="a.location_dest_id.usage in ['production','inventory']">
+                                    <td/>
+                                    <td/>
+                                    <td/>
+                                    <td/>
+                                    <td/>
+                                    <td/>
+                                     <td>
+                                        <span t-esc="a.raw_material_production_id.brew_order_name"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="a.raw_material_production_id.brew_number"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="a.origin"/>
+                                    </td>
+                                    <td>
+                                        <span t-att-style="style" t-esc="a.date" />
+                                    </td>
+                                    <td>
+                                        <span t-att-style="style" t-esc="a.product_id.name" />
+                                    </td>
+                                    <td>
+                                        <span t-att-style="style" t-esc="a.product_uom_qty" />
+                                    </td>
+                                    <td>
+                                        <span t-att-style="style" t-esc="a.product_uom.name" />
+                                    </td>
+                                    <td>
+                                        <span t-att-style="style" t-esc="a.quantity_after_move" />
+                                    </td>
+                                </t>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </t>
+</template>
+</odoo>
