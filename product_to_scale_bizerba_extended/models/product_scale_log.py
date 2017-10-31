@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 # Copyright (C) 2014 GRAP (http://www.grap.coop)
+# © 2017 Coop IT Easy (http://www.coopiteasy.be)
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+# @author: Houssine BAKKALI (https://github.com/houssine78)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 import os
