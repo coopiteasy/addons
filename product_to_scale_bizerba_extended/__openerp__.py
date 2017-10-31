@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-# © 2017 Houssine BAKKALI, Coop IT Easy
+# © 2017 Coop IT Easy (http://www.coopiteasy.be)
+# @author: Houssine BAKKALI (https://github.com/houssine78)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 {
     'name': "Product to scale bizerba extended",
