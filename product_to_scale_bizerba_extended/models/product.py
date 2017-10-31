@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
-# © 2017 Houssine BAKKALI, Coop IT Easy
+# Copyright (C) 2014 GRAP (http://www.grap.coop)
+# © 2017 Coop IT Easy (http://www.coopiteasy.be)
+# @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+# @author: Houssine BAKKALI (https://github.com/houssine78)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 from datetime import datetime
 
@@ -57,11 +60,22 @@ class ProductTemplate(models.Model):
                 system_fields.append(product_field)
         vals_fields = vals.keys()
         return set(system_fields).intersection(vals_fields)
-
+    
+    # we tell to ignore the update or creation if 
+    # there is no scale group or active or can be sold 
+    # is False or not defined
+    def ignore(self, product, vals):
+        ignore = (not product.scale_group_id and 'scale_group_id' not in vals.keys())\
+                or (not product.sale_ok and 'sale_ok' not in vals.keys())\
+                or (not product.active and 'active' not in vals.keys())
+        
+        return ignore
+            
+    
     # Overload Section
     @api.model
     def create(self, vals):
-        send_to_scale = vals.get('scale_group_id', False)
+        send_to_scale = vals.get('scale_group_id', False) 
         res = super(ProductTemplate, self).create(vals)
         if send_to_scale:
             product = self.browse(res)
@@ -72,8 +86,7 @@ class ProductTemplate(models.Model):
     def write(self, vals):
         defered = {}
         for product in self:
-            ignore = not product.scale_group_id\
-                and 'scale_group_id' not in vals.keys()
+            ignore = self.ignore(product, vals)
             if not ignore:
                 if not product.scale_group_id:
                     # (the product is new on this group)
