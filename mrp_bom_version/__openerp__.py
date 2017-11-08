@@ -31,6 +31,6 @@
         "views/res_config_view.xml",
         "views/mrp_bom_view.xml",
     ],
-    "installable": False,
+    "installable": True,
     "post_init_hook": "set_active_bom_active_state",
 }
