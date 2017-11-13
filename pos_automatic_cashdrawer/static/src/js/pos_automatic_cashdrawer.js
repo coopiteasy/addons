@@ -31,7 +31,7 @@ odoo.define('pos_automatic_cashdrawer.pos_automatic_cashdrawer', function (requi
     // unauthorized function after cashier changed
     var _set_cashier_ = models.PosModel.prototype.set_cashier;
     models.PosModel.prototype.set_cashier = function(user){
-        this.gui.display_access_right_cashlogy(user);
+    	this.gui.display_access_right_cashlogy(user);
         _set_cashier_.call(this, user);
     };
 
@@ -53,20 +53,22 @@ odoo.define('pos_automatic_cashdrawer.pos_automatic_cashdrawer', function (requi
     });
 
     gui.Gui.prototype.display_access_right_cashlogy = function(user){
-        if (user.groups_id.indexOf(this.pos.config.group_pos_automatic_cashlogy[0]) != -1){
-            $('.js_auto_cashdrawer_init').removeClass('oe_hidden');
-        }
-        else {
-            $('.js_auto_cashdrawer_init').addClass('oe_hidden');
-        }
-        console.log(this.pos.config);
-        if (user.groups_id.indexOf(this.pos.config.group_pos_automatic_cashlogy_config[0]) != -1){
-            
-            $('.js_auto_cashdrawer_config').removeClass('oe_hidden');
-        }
-        else {
-            $('.js_auto_cashdrawer_config').addClass('oe_hidden');
-        }
+//    	if (user.groups_id !== undefined){
+//	    	alert(user.groups_id);
+//    		if (user.groups_id.indexOf(this.pos.config.group_pos_automatic_cashlogy[0]) != -1){
+	        $('.js_auto_cashdrawer_init').removeClass('oe_hidden');
+//	        }
+//	        else {
+//	            $('.js_auto_cashdrawer_init').addClass('oe_hidden');
+//	        }
+	        console.log(this.pos.config);
+//	        if (user.groups_id.indexOf(this.pos.config.group_pos_automatic_cashlogy_config[0]) != -1){
+	            $('.js_auto_cashdrawer_config').removeClass('oe_hidden');
+//	        }
+//	        else {
+//	            $('.js_auto_cashdrawer_config').addClass('oe_hidden');
+//	        }
+//    	}
     };
     
     devices.ProxyDevice.include({
@@ -176,6 +178,9 @@ odoo.define('pos_automatic_cashdrawer.pos_automatic_cashdrawer', function (requi
         // at the beginning of the session, based on current user
         start: function() {
             this._super();
+//            alert('before call');
+//            alert(this.pos.get_cashier().groups_id);
+//            alert('after call');
             this.gui.display_access_right_cashlogy(this.pos.get_cashier());
         },
     });
