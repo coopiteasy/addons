@@ -12,10 +12,12 @@
     "application": False,
     "installable": True,
     "depends": [
+#        'mrp',        
         'mrp_byproduct',
     ],
     "data": [
         "views/mrp_bom.xml",
+        "views/mrp_production.xml",
         "views/product_template.xml",
         "views/res_config.xml",
         "wizards/dismantling_product_choice.xml",
