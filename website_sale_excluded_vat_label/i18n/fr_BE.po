@@ -1,0 +1,23 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* website_sale_excluded_vat_label
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-11-21 16:00+0000\n"
+"PO-Revision-Date: 2017-11-21 16:00+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_sale_excluded_vat_label
+#: model:ir.ui.view,arch_db:website_sale_excluded_vat_label.product_price_vat_excluded
+#: model:ir.ui.view,arch_db:website_sale_excluded_vat_label.products_item_vat_excluded
+msgid "excl tax"
+msgstr "HTVA"
+

@@ -1,0 +1,19 @@
+<odoo>
+	<data>
+		<template id="products_item_vat_excluded" inherit_id="website_sale.products_item" name="Products VAT Excluded">
+			<span itemprop="priceCurrency" position="after">
+				<span>
+					<label>excl tax</label>
+				</span>
+			</span>
+		</template>
+		
+		<template id="product_price_vat_excluded"  inherit_id="website_sale.product_price" name="Product VAT Excluded">
+			<span itemprop="priceCurrency" position="after">
+				<span>
+					<label>excl tax</label>
+				</span>
+			</span>
+		</template>
+	</data>
+</odoo>

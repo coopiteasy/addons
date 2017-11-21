@@ -1,0 +1,11 @@
+<odoo>
+	<data>
+		<template id="payment_delivery_vat_excluded" inherit_id="website_sale_delivery.payment_delivery" name="Delivery Method VAT Excluded">
+			<span t-field="delivery.price" position="after">
+				<span class="badge" >
+					<label>excl tax</label>
+				</span>
+			</span>
+		</template>
+	</data>
+</odoo>
