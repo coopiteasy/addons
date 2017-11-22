@@ -51,7 +51,6 @@ class SaleOrder(models.Model):
                     else:
                         done_date = None
                         delivery_status = 'to_deliver'
-                    break
                 
                 sale_order.delivery_done_date = done_date
                 sale_order.delivery_status = delivery_status
