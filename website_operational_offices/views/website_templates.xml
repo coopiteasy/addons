@@ -1,0 +1,20 @@
+<odoo>
+	<data>
+		
+		<template id="company_operational_offices" inherit_id="website.company_description" name="Company Description">
+		    <address itemscope="itemscope" position="before">
+			    <div>
+			    	<label>Operational site</label>
+			    </div>
+			    <address itemscope="itemscope" itemtype="http://schema.org/Organization">
+			        <div t-field="res_company.operational_site" t-field-options='{
+			                "widget": "contact",
+			                "fields": ["name", "address", "phone", "mobile", "fax", "email"]}'/>
+			    </address>
+			    <div>
+			    	<label>Head office</label>
+			    </div>
+		    </address>
+		</template>
+	</data>
+</odoo>
