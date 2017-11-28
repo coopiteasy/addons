@@ -98,8 +98,9 @@
             <field name="inherit_id" ref="account.view_account_analytic_line_form" />
             <field name="type">form</field>
             <field name="arch" type="xml">
-                <field name="unit_amount" select="2" position="after">
-                    <field name="activity" select="2" context="account_id=account_id"/>
+                <field name="company_id" select="2" position="after">
+                    <field name="parent_activity"/>
+                    <field name="activity" select="2" context="'account_id':account_id"/>
                 </field>
             </field>
         </record>
@@ -110,7 +111,8 @@
             <field name="type">tree</field>
             <field name="arch" type="xml">
                 <field name="unit_amount" sum="Total quantity" on_change="on_change_unit_amount(product_id, unit_amount, product_uom_id)" position="after">
-                    <field name="activity" select="2" context="account_id=account_id"/>
+                    <field name="parent_activity"/>
+                    <field name="activity" select="2" context="'account_id':account_id"/>
                 </field>
             </field>
         </record>
@@ -121,7 +123,8 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <field name="account_id" groups="base.group_extended" position="after">
-                    <field name="activity" select="2" context="account_id=account_id"/>
+                    <field name="parent_activity"/>
+                    <field name="activity" select="2" context="'account_id':account_id"/>
                 </field>
             </field>
         </record>
@@ -133,10 +136,12 @@
             <field name="type">search</field>
             <field name="arch" type="xml">
                 <xpath expr="/search/field[@name='date']" position="after">
-                    <field name="activity" />
+                    <field name="activity"/>
+                    <field name="parent_activity"/>
                 </xpath>
                 <xpath expr="/search/group/filter[@string='Fin. Account']" position="after">
                     <filter string="Activity" context="{'group_by':'activity'}" groups="base.group_extended"/>
+                    <filter string="Parent Activity" context="{'group_by':'parent_activity'}" groups="base.group_extended"/>
                 </xpath>
             </field>
         </record>
