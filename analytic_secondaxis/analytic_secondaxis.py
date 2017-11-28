@@ -339,5 +339,5 @@ class account_analytic_line(osv.osv):
 
     _columns = {
         'activity': fields.many2one('project.activity_al', store=True, string='Activity'),
-        'parent_activity': fields.related('activity','parent_id',relation='project.activity_al', type="many2one", string="Parent activity"),
+        'parent_activity': fields.related('activity','parent_id',relation='project.activity_al', store=True, type="many2one", string="Parent activity"),
     }
