@@ -122,7 +122,7 @@
             <field name="inherit_id" ref="account.account_analytic_line_extended_form" />
             <field name="type">form</field>
             <field name="arch" type="xml">
-                <field name="account_id" groups="base.group_extended" position="after">
+                <field name="account_id" position="after">
                     <field name="parent_activity"/>
                     <field name="activity" select="2" context="'account_id':account_id"/>
                 </field>
@@ -140,8 +140,8 @@
                     <field name="parent_activity"/>
                 </xpath>
                 <xpath expr="/search/group/filter[@string='Fin. Account']" position="after">
-                    <filter string="Activity" context="{'group_by':'activity'}" groups="base.group_extended"/>
-                    <filter string="Parent Activity" context="{'group_by':'parent_activity'}" groups="base.group_extended"/>
+                    <filter string="Activity" context="{'group_by':'activity'}"/>
+                    <filter string="Parent Activity" context="{'group_by':'parent_activity'}"/>
                 </xpath>
             </field>
         </record>
