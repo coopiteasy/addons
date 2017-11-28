@@ -14,11 +14,12 @@
                     <field name="to_date"/>
                     <newline/>
                     <label string="(Keep empty to open the current situation)" align="0.0" colspan="3"/>
-                    <separator colspan="4"/>
-                    <group colspan="4" col="6">
-                        <button special="cancel" string="Cancel"/>
-                        <button name="analytic_activities_chart_open_window" string="Open Charts" type="object"/>
-                    </group>
+                    <!-- <separator colspan="4"/> -->
+                    <footer>
+	                    <button name="analytic_activities_chart_open_window" string="Open Charts" type="object" class="oe_highlight"/>
+	                   or
+	                    <button special="cancel" string="Cancel"/>
+	                </footer>
                 </form>
             </field>
         </record>
