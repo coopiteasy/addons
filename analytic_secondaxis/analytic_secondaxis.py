@@ -49,10 +49,6 @@ class project_activity_al(osv.osv):
         acc_ids = []
         if context is None:
             context = {}
-#         if context.get('from_date', False):
-#             args.append(['date', '>=', context['from_date']])
-#         if context.get('to_date', False):
-#             args.append(['date', '<=', context['to_date']])
 
         if context.get('account_id', False):
             aa_obj = self.pool.get('account.analytic.account')
