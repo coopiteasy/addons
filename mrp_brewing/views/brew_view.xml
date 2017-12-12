@@ -56,7 +56,7 @@
             <field name="arch" type="xml">
                 <search string="Search Brews Declaration">
                     <field name="brew_declaration_number" string="Brew declaration number"/>
-                    <filter string="Draf" name="draft" domain="[('state','=','draft')]"/>
+                    <filter string="Draft" name="draft" domain="[('state','=','draft')]"/>
                     <filter string="Confirm" name="confirm" domain="[('state','=','confirm')]"/>
                     <filter string="Cancelled" name="cancelled" domain="[('state','=','cancel')]"/>
                     <separator/>
