@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="view_product_release_list_tree" model="ir.ui.view">
+            <field name="name">product.release.list.tree</field>
+            <field name="model">product.release.list</field>
+            <field name="arch" type="xml">
+            	<tree string="Product release list">
+	            	<field name="name"/>
+	       			<field name="release_date"/>
+	       			<field name="create_date"/>
+	       			<field name="user_id"/>
+		            <field name="product_id"/>
+		            <field name="state"/>
+	            </tree>
+            </field>
+        </record>
+        
+		<record id="view_product_release_list_form" model="ir.ui.view">
+            <field name="name">product.release.list.form</field>
+            <field name="model">product.release.list</field>
+            <field name="arch" type="xml">
+                <form string="Product release list">
+                	<header>
+		            	<field name="state" widget="statusbar"/>
+		            </header>
+		            <sheet>
+	                	<group>
+	                		<group>
+	                			<field name="name"/>
+	                			<field name="release_date"/>
+	                			<field name="create_date"/>
+	                		</group>
+	                		<group>
+	                			<field name="user_id"/>
+	                			<field name="product_id"/>
+	                			<field name="release_qty"/>
+	                			<field name="journal_id"/>
+	                		</group>
+	                	</group>
+	                	<notebook>
+	                        <page string="Lines">
+				               	<field name="product_release_lines"/>
+		                    </page>
+		                </notebook>
+                	</sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_product_release" model="ir.actions.act_window">
+            <field name="name">Product release</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.release.list</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <menuitem action="action_product_release" id="product_release_menu" parent="menu_subscription" sequence="20"/>
+	</data>
+</odoo>

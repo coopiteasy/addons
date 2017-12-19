@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<menuitem name="Subscription" id="menu_subscription" parent="base.menu_base_partner" sequence="15"/>
+
+		<record id="view_subscription_object_tree" model="ir.ui.view">
+            <field name="name">product.subscription.object.tree</field>
+            <field name="model">product.subscription.object</field>
+            <field name="arch" type="xml">
+                <tree string="Subscription Object">
+                    <field name="subscriber"/>
+                    <field name="counter"/>
+                    <field name="subscribed_on"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_subscription_object_form" model="ir.ui.view">
+            <field name="name">product.subscription.object.form</field>
+            <field name="model">product.subscription.object</field>
+            <field name="arch" type="xml">
+                <form string="Subscription Object">
+		            <header>
+		            	<field name="state" widget="statusbar"/>
+		            </header>
+		            <sheet>
+		            	<group>
+			            	<group>
+			                    <field name="subscriber"/>
+			                    <field name="subscribed_on"/>
+			                </group>
+			                <group>
+			                    <field name="counter"/>
+			               	</group>
+		               	</group>
+		               	<notebook>
+	                        <page string="Subscription requests">
+				               	<field name="subscription_requests">
+		                        	<!-- <tree>
+		                        		<field name="number"/>
+		                        		<field name="date_invoice"/>
+					                    <field name="partner_id"/>
+					                    <field name="state"/>
+		                        	</tree> -->
+		                        </field>
+		                    </page>
+		                </notebook>
+		            </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record id="view_subscription_object_filter" model="ir.ui.view">
+            <field name="name">product.subscription.object.search</field>
+            <field name="model">product.subscription.object</field>
+            <field name="arch" type="xml">
+                <search string="Search Subscription Object">
+                    <field name="subscriber" string="Subscriber"/>
+                    <filter string="waiting" name="waiting" domain="[('state','=','waiting')]"/>
+                    <filter string="Ongoing" name="ongoing" domain="[('state','=','ongoing')]"/>
+                    <filter string="Need to renew" name="renew" domain="[('state','=','renew')]"/>
+                    <filter string="Terminated" name="terminated" domain="[('state','=','terminated')]"/>
+                    <separator/>
+                    <group string="Group By...">
+                        <filter string="Status" domain="[]" context="{'group_by':'state'}"/>
+                        <filter string="Counter" domain="[]" context="{'group_by':'counter'}"/>
+                    </group>
+               </search>
+            </field>
+        </record>
+
+        
+        <record id="action_subscription_object" model="ir.actions.act_window">
+            <field name="name">Subscriptions</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.subscription.object</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <menuitem action="action_subscription_object" id="subscription_object_menu" parent="menu_subscription" sequence="5"/>
+                
+		<record id="view_subscription_template_tree" model="ir.ui.view">
+            <field name="name">product.subscription.template.tree</field>
+            <field name="model">product.subscription.template</field>
+            <field name="arch" type="xml">
+                <tree string="Subscription Template">
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="product"/>
+                    <field name="price"/>
+                    <field name="product_qty"/>
+                    <field name="publish"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_subscription_template_form" model="ir.ui.view">
+            <field name="name">product.subscription.template.form</field>
+            <field name="model">product.subscription.template</field>
+            <field name="arch" type="xml">
+                <form string="Subscription Template">
+		            <sheet>
+		            	<group>
+			            	<group>
+			                    <field name="publish"/>
+			                    <field name="product"/>
+			                    <field name="name"/>
+			                </group>
+			                <group>
+			                    <field name="price"/>
+			                    <field name="product_qty"/>
+			                    <field name="description"/>
+			               	</group>
+		               	</group>
+		            </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_subscription_template" model="ir.actions.act_window">
+            <field name="name">Subscription Templates</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.subscription.template</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <menuitem action="action_subscription_template" id="subscription_template_menu" parent="menu_subscription" sequence="40"/>	
+        
+        <record id="view_subscription_request_tree" model="ir.ui.view">
+            <field name="name">product.subscription.request.tree</field>
+            <field name="model">product.subscription.request</field>
+            <field name="arch" type="xml">
+                <tree string="Subscription Request">
+                    <field name="subscriber"/>
+                    <field name="sponsor"/>
+                    <field name="gift"/>
+                    <field name="subscription_date"/>
+                    <field name="payment_date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_subscription_request_form" model="ir.ui.view">
+            <field name="name">product.subscription.request.form</field>
+            <field name="model">product.subscription.request</field>
+            <field name="arch" type="xml">
+                <form string="Subscription Request">
+		            <header>
+		            	<button name="validate_request" string="Validate request" type="object" states="draft" class="btn-primary"/>
+		            	<field name="state" widget="statusbar"/>
+		            </header>
+		            <sheet>
+		            	<group>
+			            	<group>
+			                    <field name="gift"/>
+			                    <field name="subscriber"/>
+			                    <field name="subscription_template"/>
+			                    <field name="subscription"/>
+			                </group>
+			                <group>
+			                    <field name="sponsor"/>
+			                    <field name="subscription_date"/>
+			                    <field name="payment_date"/>
+				               	<field name="invoice"/>
+			               	</group>
+		                </group>
+		            </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record id="view_subscription_request_filter" model="ir.ui.view">
+            <field name="name">product.subscription.request.search</field>
+            <field name="model">product.subscription.request</field>
+            <field name="arch" type="xml">
+                <search string="Search Subscription Request">
+                    <field name="subscriber" string="Subscriber"/>
+                    <field name="sponsor" string="Sponsor"/>
+                    <field name="subscription_date" string="Subscription date"/>
+                    <field name="payment_date" string="Payment date"/>
+                    <filter string="Draft" name="draft" domain="[('state','=','draft')]"/>
+                    <filter string="Sent" name="sent" domain="[('state','=','sent')]"/>
+                    <filter string="Paid" name="paid" domain="[('state','=','paid')]"/>
+                    <separator/>
+                    <group string="Group By...">
+                        <filter string="Status" domain="[]" context="{'group_by':'state'}"/>
+                        <filter string="Subscription Month" domain="[]" context="{'group_by':'subscription_date'}"/>
+                    </group>
+               </search>
+            </field>
+        </record>
+        
+        <record id="action_subscription_request" model="ir.actions.act_window">
+            <field name="name">Subscription Requests</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.subscription.request</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_subscription_request_filter"/>
+        </record>
+        
+        <menuitem action="action_subscription_request" id="subscription_request_menu" parent="menu_subscription" sequence="10"/>	
+	</data>
+</odoo>

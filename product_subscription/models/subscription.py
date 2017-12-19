@@ -1,0 +1,123 @@
+# -*- coding: utf-8 -*-
+
+from openerp import models, fields, api
+
+class ResPartner(models.Model):
+    _inherit = "res.partner"
+    
+    subscriber = fields.Boolean(string="Subscriber")
+    old_subscriber = fields.Boolean(string="Subscriber")
+    subscriptions = fields.One2many('product.subscription.object','subscriber', string="Subscription")
+    
+class ProductTemplate(models.Model):
+    _inherit = "product.template"
+    
+    subscription = fields.Boolean(string="Subscription")
+    product_qty = fields.Integer(string="Product quantity")
+    
+class SubscriptionTemplate(models.Model):
+    _name = "product.subscription.template"
+    
+    name = fields.Char(string="Subscription name", copy=False, required=True)
+    description = fields.Char(string="Description")
+    product_qty = fields.Integer(string="Subscription quantity", required=True, help="This is the quantity of product that will be allocated by this subscription")
+    price = fields.Float(related='product.lst_price', string="Subscription price", readonly=True)
+    publish = fields.Boolean(string="Publish on website")
+    product = fields.Many2one('product.template', string='Product', 
+                              domain=[('subscription','=',True)],required=True)
+
+class SubscriptionRequest(models.Model):
+    _name = "product.subscription.request"
+    
+    gift  = fields.Boolean(string="Gift?")
+    sponsor = fields.Many2one('res.partner', string="Sponsor")
+    subscriber = fields.Many2one('res.partner', string="Subscriber", required=True)
+    subscription_date = fields.Date(string='Subscription request date', default=fields.Date.today())
+    payment_date = fields.Date(string="Payment date")
+    invoice = fields.Many2one('account.invoice', string="Invoice", readonly=True)
+    state = fields.Selection([('draft','Draft'),
+                              ('sent','Sent'),
+                              ('paid','Paid'),
+                              ('cancel','Cancelled')], string="State", default="draft")
+    subscription = fields.Many2one('product.subscription.object', string="Subscription")
+    subscription_template = fields.Many2one('product.subscription.template',string="Subscription template",required=True)
+
+    def _prepare_invoice_line(self, product, partner, qty):
+        self.ensure_one()
+        res = {}
+        account = product.property_account_income_id or product.categ_id.property_account_income_categ_id
+        if not account:
+            raise UserError(_('Please define income account for this product: "%s" (id:%d) - or for its category: "%s".') % \
+                            (product.name, product.id, product.categ_id.name))
+
+        fpos = partner.property_account_position_id
+        if fpos:
+            account = fpos.map_account(account)
+
+        res = {
+            'name': product.name,
+            'account_id': account.id,
+            'price_unit': product.lst_price,
+            'quantity': qty,
+            'uom_id': product.uom_id.id,
+            'product_id': product.id or False,
+        }
+        return res
+    
+    def send_invoice(self, invoice):
+        invoice_email_template = self.env.ref('account.email_template_edi_invoice', False)
+        
+        # we send the email with invoice in attachment 
+        invoice_email_template.send_mail(invoice.id)
+        invoice.sent = True
+        
+    def create_invoice(self, partner):
+        # creating invoice and invoice lines
+        invoice = self.env['account.invoice'].create({'partner_id':partner.id, 
+                                                      'subscription':True,
+                                                      'type': 'out_invoice',
+                                                      'product_subscription_request':self.id})
+        vals = self._prepare_invoice_line(self.subscription_template.product, partner, 1)
+        vals['invoice_id'] = invoice.id
+        line = self.env['account.invoice.line'].create(vals)
+
+        invoice.signal_workflow('invoice_open')
+
+        self.send_invoice(invoice)
+        
+        return invoice 
+    
+    @api.model
+    def create(self,vals):
+        prod_sub_req_seq = self.env.ref('product_subscription.sequence_product_subscription_request', False)
+        
+        prod_sub_num = prod_sub_req_seq.next_by_id()
+        vals['name'] = prod_sub_num
+        
+        super(SubscriptionRequest,self).create(vals)
+    
+    @api.one
+    def validate_request(self):
+        partner = self.subscriber
+        # if it's a gift then the sponsor is set on the invoice
+        if self.gift:
+            partner = self.sponsor
+        
+        invoice = self.create_invoice(partner)
+        
+        self.write({'state':'sent','invoice':invoice.id})
+        
+        
+class SubscriptionObject(models.Model):
+    _name = "product.subscription.object"
+    
+    name = fields.Char(string="Name", copy=False, required=True)
+    subscriber = fields.Many2one('res.partner', string="Subscriber", required=True)
+    counter = fields.Float(string="Counter")
+    subscribed_on = fields.Date(string="First subscription date")
+    state = fields.Selection([('draft','Draft'),
+                              ('waiting','Waiting'),
+                              ('ongoing','Ongoing'),
+                              ('renew','Need to Renew'),
+                              ('terminated','Terminated')],string="State", default="draft")
+    subscription_requests = fields.One2many('product.subscription.request','subscription', string="Subscription request")
