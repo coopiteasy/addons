@@ -10,11 +10,11 @@ class ProductRelease(models.Model):
         warehouse_ids = self.env['stock.warehouse'].search([('company_id', '=', company)], limit=1)
         return warehouse_ids
     
-#     @api.multi
-#     def _compute_picking_ids(self):
-#         for product_release in self:
-#             #product_release.picking_ids = self.env['stock.picking'].search([('group_id', '=', order.procurement_group_id.id)]) if order.procurement_group_id else []
-#             product_release.delivery_count = len(order.picking_ids)
+    @api.multi
+    def _compute_picking_ids(self):
+        for product_release in self:
+            product_release.picking_ids = self.product_release_lines.picking
+            product_release.delivery_count = len(product_release.picking_ids)
                 
     name = fields.Char(string="Name", copy=False)
     release_date = fields.Date(string='Product Release Date', readonly=True, required=True, index=True, states={'draft': [('readonly', False)]})
@@ -38,8 +38,39 @@ class ProductRelease(models.Model):
         ('one', 'Deliver all products at once')],
         string='Shipping Policy', required=True, readonly=True, default='direct',
         states={'draft': [('readonly', False)], 'sent': [('readonly', False)]})
-    #picking_ids = fields.Many2many('stock.picking', compute='_compute_picking_ids', string='Picking associated to this release')
-    #delivery_count = fields.Integer(string='Delivery Orders', compute='_compute_picking_ids')
+    picking_ids = fields.Many2many('stock.picking', compute='_compute_picking_ids', string='Picking associated to this release')
+    delivery_count = fields.Integer(string='Delivery Orders', compute='_compute_picking_ids')
+    
+    @api.multi
+    def action_view_delivery(self):
+        '''
+        This function returns an action that display existing delivery orders
+        of given sales order ids. It can either be a in a list or in a form
+        view, if there is only one delivery order to show.
+        '''
+        action = self.env.ref('stock.action_picking_tree_all')
+
+        result = {
+            'name': action.name,
+            'help': action.help,
+            'type': action.type,
+            'view_type': action.view_type,
+            'view_mode': action.view_mode,
+            'target': action.target,
+            'context': action.context,
+            'res_model': action.res_model,
+        }
+
+        pick_ids = sum([order.picking_ids.ids for order in self], [])
+
+        if len(pick_ids) > 1:
+            result['domain'] = "[('id','in',["+','.join(map(str, pick_ids))+"])]"
+        elif len(pick_ids) == 1:
+            form = self.env.ref('stock.view_picking_form', False)
+            form_id = form.id if form else False
+            result['views'] = [(form_id, 'form')]
+            result['res_id'] = pick_ids[0]
+        return result
     
     @api.one
     def action_draft(self):

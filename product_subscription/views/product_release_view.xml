@@ -29,6 +29,15 @@
 		            	<field name="state" widget="statusbar"/>
 		            </header>
 		            <sheet>
+		            	<div class="oe_button_box" name="button_box">
+			            	<button type="object"
+	                           name="action_view_delivery"
+	                           class="oe_stat_button"
+	                           icon="fa-truck"
+	                           attrs="{'invisible': [('delivery_count', '=', 0)]}" groups="base.group_user">
+	                           <field name="delivery_count" widget="statinfo" string="Delivery"/>
+	                        </button>
+                        </div>
 	                	<group>
 	                		<group>
 	                			<field name="name"/>
