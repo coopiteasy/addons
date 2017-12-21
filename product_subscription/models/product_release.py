@@ -4,12 +4,6 @@ from openerp import models, fields, api
 class ProductRelease(models.Model):
     _name = "product.release.list"
 
-    @api.model
-    def _default_warehouse_id(self):
-        company = self.env.user.company_id.id
-        warehouse_ids = self.env['stock.warehouse'].search([('company_id', '=', company)], limit=1)
-        return warehouse_ids
-    
     @api.multi
     def _compute_picking_ids(self):
         for product_release in self:
