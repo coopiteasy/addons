@@ -22,6 +22,10 @@
             <field name="arch" type="xml">
                 <form string="Product release list">
                 	<header>
+                		<button name="action_validate" string="Validate" type="object" states="draft"/>
+                		<button name="action_cancel" string="Cancel" type="object" states="draft"/>
+                		<button name="action_draft" string="Set to draft" type="object" states="validated,cancelled"/>
+                		<button name="action_done" string="Proceed" type="object" states="validated"/>
 		            	<field name="state" widget="statusbar"/>
 		            </header>
 		            <sheet>
@@ -35,12 +39,19 @@
 	                			<field name="user_id"/>
 	                			<field name="product_id"/>
 	                			<field name="release_qty"/>
-	                			<field name="journal_id"/>
+	                			<!-- <field name="journal_id"/> -->
 	                		</group>
 	                	</group>
 	                	<notebook>
 	                        <page string="Lines">
-				               	<field name="product_release_lines"/>
+				               	<field name="product_release_lines">
+					               	 <tree delete="false" create="false">
+					               	 	<field name="subscriber"/>
+					               	 	<field name="product_id"/>
+					               	 	<field name="product_subscription"/>
+					               	 	<field name="counter"/>
+					               	 </tree>
+				               	</field>
 		                    </page>
 		                </notebook>
                 	</sheet>

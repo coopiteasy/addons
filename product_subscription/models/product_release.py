@@ -23,7 +23,7 @@ class ProductRelease(models.Model):
     user_id = fields.Many2one('res.users', string='Release responsible', copy=False, default=lambda self: self.env.user)
     product_id = fields.Many2one('product.product', string='Product', domain=[('sale_ok','=',True)], required=True, readonly=True, states={'draft': [('readonly', False)]})
     product_release_lines = fields.One2many('product.release.line','product_release_list', string="Product release lines", copy=False)
-    journal_id = fields.Many2one('account.journal', string="Journal", domain=[('type','=','sale')], required=True)
+#    journal_id = fields.Many2one('account.journal', string="Journal", domain=[('type','=','sale')], required=True)
     release_qty = fields.Integer(string="Product release quantity", required=True, default=1)
     
     state = fields.Selection([
