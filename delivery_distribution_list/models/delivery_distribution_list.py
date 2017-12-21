@@ -195,6 +195,8 @@ class DeliveryDistributionLine(models.Model):
                     if picking.state not in ['cancel','done']:
                         if picking.state != 'assigned':
                             picking.recheck_availability()
+                            if picking.state != 'assigned':
+                                raise UserError(_('Not enough stock to deliver! Please check that there is sufficient product available'))
                         for pack_operation in picking.pack_operation_ids:
                             if pack_operation.product_id.id == line.product_id.product_variant_ids.id:
                                 pack_operation.qty_done = line.sold_qty
