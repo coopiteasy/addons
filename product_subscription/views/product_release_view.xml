@@ -50,6 +50,7 @@
 					               	 	<field name="product_id"/>
 					               	 	<field name="product_subscription"/>
 					               	 	<field name="counter"/>
+					               	 	<field name="picking"/>
 					               	 </tree>
 				               	</field>
 		                    </page>
