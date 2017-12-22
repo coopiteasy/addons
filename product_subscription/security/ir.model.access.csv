@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_product_release_list_manager,product.release.list,model_product_release_list,base.group_sale_salesman_all_leads,1,1,1,0
+access_product_release_line_manager,product.release.line,model_product_release_line,base.group_sale_salesman_all_leads,1,1,1,1
+access_product_subscription_template_manager,product.subscription.template,model_product_subscription_template,base.group_sale_salesman_all_leads,1,1,1,0
+access_product_subscription_request_manager,product.subscription.request,model_product_subscription_request,base.group_sale_salesman_all_leads,1,1,1,0
+access_product_subscription_object_manager,product.subscription.object,model_product_subscription_object,base.group_sale_salesman_all_leads,1,1,1,0
