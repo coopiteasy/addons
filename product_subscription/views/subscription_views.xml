@@ -36,14 +36,7 @@
 		               	</group>
 		               	<notebook>
 	                        <page string="Subscription requests">
-				               	<field name="subscription_requests">
-		                        	<!-- <tree>
-		                        		<field name="number"/>
-		                        		<field name="date_invoice"/>
-					                    <field name="partner_id"/>
-					                    <field name="state"/>
-		                        	</tree> -->
-		                        </field>
+				               	<field name="subscription_requests"/>
 		                    </page>
 		                </notebook>
 		            </sheet>
