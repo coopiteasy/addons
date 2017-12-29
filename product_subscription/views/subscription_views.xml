@@ -25,6 +25,9 @@
 		            	<field name="state" widget="statusbar"/>
 		            </header>
 		            <sheet>
+			            <h1 class="mt0">
+	                  		<field name="name" readonly="1" class="oe_inline"/>
+	                   	</h1>
 		            	<group>
 			            	<group>
 			                    <field name="subscriber"/>
@@ -127,6 +130,7 @@
             <field name="model">product.subscription.request</field>
             <field name="arch" type="xml">
                 <tree string="Subscription Request">
+                    <field name="name"/>
                     <field name="subscriber"/>
                     <field name="sponsor"/>
                     <field name="gift"/>
@@ -147,6 +151,9 @@
 		            	<field name="state" widget="statusbar"/>
 		            </header>
 		            <sheet>
+		            	<h1 class="mt0">
+                       		<field name="name" readonly="1" class="oe_inline"/>
+                    	</h1>
 		            	<group>
 			            	<group>
 			                    <field name="gift"/>
