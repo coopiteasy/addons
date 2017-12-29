@@ -38,6 +38,7 @@ class AccountInvoice(models.Model):
                      'state':'ongoing'}
             subscription = self.env['product.subscription.object'].create(sub_vals)
             req_vals['subscription'] = subscription.id
+            subscriber.write({'subscriber':True})
         sub_req.write(req_vals)
         return True
     
