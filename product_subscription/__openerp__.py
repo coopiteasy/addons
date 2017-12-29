@@ -33,6 +33,7 @@
     developed for a magazine that publish a new edition every 3 months.
     """,
     'data': [
+        'security/ir.model.access.csv',
         'data/product_subscription_data.xml',
         'views/subscription_views.xml',
         'views/product_views.xml',
