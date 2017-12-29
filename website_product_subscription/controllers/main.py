@@ -117,15 +117,16 @@ class WebsiteProductSubscription(http.Controller):
             subscriber_vals["name"] = firstname + " " + lastname
             subscriber_vals["lastname"] = lastname
             subscriber_vals["firstname"] = firstname
-            subscriber_vals["email"] = kwargs.get("email").title()
+            subscriber_vals["email"] = kwargs.get("email")
+            
             if gift:
-                receiver_vals= self.get_receiver(kwargs)
+                receiver_vals = self.get_receiver(kwargs)
                 receiver_vals.update(self.get_address(kwargs))
                 subscriber = partner_obj.sudo().create(receiver_vals)
                 sponsor = partner_obj.sudo().create(subscriber_vals)
             else:
                 subscriber_vals.update(self.get_address(kwargs))
-            subscriber = partner_obj.sudo().create(subscriber_vals)
+                subscriber = partner_obj.sudo().create(subscriber_vals)
             values['subscriber'] = subscriber.id
             if sponsor:
                 values['sponsor'] = sponsor.id
