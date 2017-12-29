@@ -5,6 +5,8 @@ from openerp import models, fields, api
 class ResPartner(models.Model):
     _inherit = "res.partner"
     
+    firstname = fields.Char('First Name')
+    lastname = fields.Char('Last Name')
     subscriber = fields.Boolean(string="Subscriber")
     old_subscriber = fields.Boolean(string="Subscriber")
     subscriptions = fields.One2many('product.subscription.object','subscriber', string="Subscription")
@@ -29,17 +31,18 @@ class SubscriptionTemplate(models.Model):
 class SubscriptionRequest(models.Model):
     _name = "product.subscription.request"
     
+    name = fields.Char(string="Name", copy=False)
     gift  = fields.Boolean(string="Gift?")
     sponsor = fields.Many2one('res.partner', string="Sponsor")
     subscriber = fields.Many2one('res.partner', string="Subscriber", required=True)
     subscription_date = fields.Date(string='Subscription request date', default=fields.Date.today())
-    payment_date = fields.Date(string="Payment date")
+    payment_date = fields.Date(string="Payment date", readonly=True)
     invoice = fields.Many2one('account.invoice', string="Invoice", readonly=True)
     state = fields.Selection([('draft','Draft'),
                               ('sent','Sent'),
                               ('paid','Paid'),
                               ('cancel','Cancelled')], string="State", default="draft")
-    subscription = fields.Many2one('product.subscription.object', string="Subscription")
+    subscription = fields.Many2one('product.subscription.object', string="Subscription", readonly=True)
     subscription_template = fields.Many2one('product.subscription.template',string="Subscription template",required=True)
 
     def _prepare_invoice_line(self, product, partner, qty):
@@ -74,9 +77,7 @@ class SubscriptionRequest(models.Model):
     def create_invoice(self, partner):
         # creating invoice and invoice lines
         invoice = self.env['account.invoice'].create({'partner_id':partner.id, 
-                                                      'subscription':True,
-                                                      'type': 'out_invoice',
-                                                      'product_subscription_request':self.id})
+                                                      'subscription':True,                                       'type': 'out_invoice'})
         vals = self._prepare_invoice_line(self.subscription_template.product, partner, 1)
         vals['invoice_id'] = invoice.id
         line = self.env['account.invoice.line'].create(vals)
@@ -94,7 +95,7 @@ class SubscriptionRequest(models.Model):
         prod_sub_num = prod_sub_req_seq.next_by_id()
         vals['name'] = prod_sub_num
         
-        super(SubscriptionRequest,self).create(vals)
+        return super(SubscriptionRequest,self).create(vals)
     
     @api.one
     def validate_request(self):
