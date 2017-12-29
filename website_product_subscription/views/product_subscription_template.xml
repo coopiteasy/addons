@@ -7,12 +7,40 @@
 			</xpath>
 		</template>
 		
+
 		<record id="menu_becomesubscriber" model="website.menu">
 		    <field name="name">Become subscriber</field>
 		    <field name="url">/page/become_subscriber</field>
 		    <field name="parent_id" ref="website.main_menu"/>
 		    <field name="sequence" type="int">50</field>
 		</record>
+
+		<template id="website_product_subscription.product_subscription_thanks" name="Product Subscription Thanks" page="True">
+		    <t t-call="website.layout">
+		      <div id="wrap">
+		        <div class="oe_structure"/>
+		        <div class="container">
+		            <h1>Thank you!</h1>
+		            <div class="row">
+		                <div class="col-md-8">
+		                    <div class="alert alert-success">
+		                        Your subscription has been successfully registered.
+		                        <button type="button" class="close" data-dismiss="alert">&amp;times;</button>
+		                    </div>
+		                    <ul class="list-unstyled">
+		                        <li><i class="fa fa-phone"></i> : <span t-field="res_company.phone"/></li>
+		                        <li><i class="fa fa-envelope"></i> : <span t-field="res_company.email"/></li>
+		                    </ul>
+		                </div>
+		                <div class="col-md-4">
+		                    <t t-call="website.company_description"/>
+		                </div>
+		            </div>
+		        </div>
+		        <div class="oe_structure"/>
+		      </div>
+		    </t>
+		</template>
 
 		<template id="website_product_subscription.becomesubscriber" name="Become Subscriber" page="True">
 			 <t t-call="website.layout">
