@@ -86,15 +86,15 @@ class WebsiteProductSubscription(http.Controller):
            return request.website.render(redirect, values)
         
         logged = kwargs.get("logged")=='on'
-        if logged and kwargs.get("email") != kwargs.get("email_confirmation"):
+        gift = kwargs.get("gift") == 'on'
+
+        if not logged and kwargs.get("email") != kwargs.get("email_confirmation"):
             values = self.fill_values(values)
             values.update(kwargs)
             values["error_msg"] = "email and confirmation email doesn't match"
             return request.website.render(redirect, values)
         
-        gift = False
-        if kwargs.get("gift") == 'on':
-            gift = True
+        if gift:
             values["gift"] = gift
 
         subscriber = False
@@ -107,30 +107,31 @@ class WebsiteProductSubscription(http.Controller):
                sponsor = request.env.user.partner_id
                subscriber_vals.update(self.get_receiver(kwargs))
                subscriber_vals.update(address)
-               subscriber = partner_obj.create(subscriber_vals)
+               subscriber = partner_obj.sudo().create(subscriber_vals)
            else:
-                subscriber.write(address) 
+                subscriber.sudo().write(address) 
         else:
             lastname = kwargs.get("lastname").upper()
             firstname = kwargs.get("firstname").title()
             
-            subvalues["name"] = firstname + " " + lastname
+            subscriber_vals["name"] = firstname + " " + lastname
             subscriber_vals["lastname"] = lastname
             subscriber_vals["firstname"] = firstname
             subscriber_vals["email"] = kwargs.get("email").title()
             if gift:
                 receiver_vals= self.get_receiver(kwargs)
                 receiver_vals.update(self.get_address(kwargs))
-                subscriber = partner_obj.create(receiver_vals)
-                sponsor = partner_obj.create(subscriber_vals)
+                subscriber = partner_obj.sudo().create(receiver_vals)
+                sponsor = partner_obj.sudo().create(subscriber_vals)
             else:
                 subscriber_vals.update(self.get_address(kwargs))
-            subscriber = partner_obj.create(subscriber_vals)
-            values['subscriber'] = subscriber
-            values['sponsor'] = sponsor
+            subscriber = partner_obj.sudo().create(subscriber_vals)
+            values['subscriber'] = subscriber.id
+            if sponsor:
+                values['sponsor'] = sponsor.id
             
         values["subscription_template"] = int(kwargs.get("product_subscription_id"))
         
         request.env['product.subscription.request'].sudo().create(values)
 
-        return self.get_subscription_response(values, kwargs)
+        return request.website.render('website_product_subscription.product_subscription_thanks',values)
