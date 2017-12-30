@@ -122,7 +122,7 @@ class ProductRelease(models.Model):
                 picking_vals = self.get_picking_vals(picking_type)
                 stock_move_vals = self.get_stock_move_vals(picking_type)
                 line.create_picking(picking_vals,stock_move_vals)
-                line.product_subscription.counter = line.product_subscription.counter - 1
+                line.product_subscription.counter = line.product_subscription.counter - self.release_qty
 
         subs_terminated = self.product_release_lines.filtered(lambda record: record.product_subscription.counter == 0)
         subs_renew = self.product_release_lines.filtered(lambda record: record.product_subscription.counter == 1)
