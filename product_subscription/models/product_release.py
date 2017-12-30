@@ -118,7 +118,7 @@ class ProductRelease(models.Model):
         picking_type = self.env['stock.picking.type'].search([('code','=','outgoing')])
 
         for line in self.product_release_lines:
-            if line.product_subscription.counter > 0:
+            if line.product_subscription.counter - self.release_qty >= 0:
                 picking_vals = self.get_picking_vals(picking_type)
                 stock_move_vals = self.get_stock_move_vals(picking_type)
                 line.create_picking(picking_vals,stock_move_vals)
