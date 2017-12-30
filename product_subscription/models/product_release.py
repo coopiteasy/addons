@@ -98,28 +98,31 @@ class ProductRelease(models.Model):
             release_line_obj.create(line_vals)
         self.write(vals)
     
-    @api.one
-    def action_done(self):
-        picking_type = self.env['stock.picking.type'].search([('code','=','outgoing')])
-        
-        vals = {'picking_type_code':'outgoing',
+    def get_picking_vals(self, picking_type):
+        return {'picking_type_code':'outgoing',
                 'origin':self.name,
                 'move_type':self.picking_policy,
                 'picking_type_id':picking_type.id,
                 'location_id': picking_type.default_location_src_id.id,
                 'location_dest_id':picking_type.default_location_dest_id.id}
-
-        stock_move_vals = {
-            'name':'/',
+        
+    def get_stock_move_vals(self, picking_type):
+        return {'name':'/',
             'product_id':self.product_id.id,
             'product_uom':self.product_id.uom_id.id,
             'product_uom_qty':self.release_qty,
             'location_id': picking_type.default_location_src_id.id,
             'location_dest_id':picking_type.default_location_dest_id.id}
-        
+    
+    @api.one
+    def action_done(self):
+        picking_type = self.env['stock.picking.type'].search([('code','=','outgoing')])
+
         for line in self.product_release_lines:
             if line.product_subscription.counter > 0:
-                picking = line.create_picking(vals,stock_move_vals)
+                picking_vals = self.get_picking_vals(picking_type)
+                stock_move_vals = self.get_stock_move_vals(picking_type)
+                line.create_picking(picking_vals,stock_move_vals)
                 line.product_subscription.counter = line.product_subscription.counter - 1
 
         subs_terminated = self.product_release_lines.filtered(lambda record: record.product_subscription.counter == 0)
@@ -129,7 +132,7 @@ class ProductRelease(models.Model):
         subs_terminated.subscriber.write({'subscriber':False,'old_subscriber':True})
         subs_renew.write({'state':'renew'})
         
-        for picking in self.product_release_lines.picking:
+        for picking in self.product_release_lines.mapped('picking'):
             if picking.state not in ['cancel','done']:
                 if picking.state != 'assigned':
                     picking.recheck_availability()
@@ -165,4 +168,4 @@ class ProductReleaseLine(models.Model):
         stock_move_obj.create(stock_move_vals)
         
         self.picking = picking
-        
+        return picking
