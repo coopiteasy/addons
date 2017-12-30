@@ -7,7 +7,7 @@ class ProductRelease(models.Model):
     @api.multi
     def _compute_picking_ids(self):
         for product_release in self:
-            product_release.picking_ids = self.product_release_lines.picking
+            product_release.picking_ids = product_release.product_release_lines.mapped('picking')
             product_release.delivery_count = len(product_release.picking_ids)
                 
     name = fields.Char(string="Name", copy=False)
@@ -121,6 +121,13 @@ class ProductRelease(models.Model):
             if line.product_subscription.counter > 0:
                 picking = line.create_picking(vals,stock_move_vals)
                 line.product_subscription.counter = line.product_subscription.counter - 1
+
+        subs_terminated = self.product_release_lines.filtered(lambda record: record.product_subscription.counter == 0)
+        subs_renew = self.product_release_lines.filtered(lambda record: record.product_subscription.counter == 1)
+        
+        subs_terminated.write({'state':'terminated'})
+        subs_terminated.subscriber.write({'subscriber':False,'old_subscriber':True})
+        subs_renew.write({'state':'renew'})
         
         for picking in self.product_release_lines.picking:
             if picking.state not in ['cancel','done']:
