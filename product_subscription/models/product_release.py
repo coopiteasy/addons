@@ -157,14 +157,12 @@ class ProductReleaseLine(models.Model):
     @api.model    
     def create_picking(self, vals, stock_move_vals):
         picking_obj = self.env['stock.picking']
-        pack_op_obj = self.env['stock.pack.operation']
-        stock_move_obj = self.env['stock.move']
          
         vals['partner_id'] = self.subscriber.id
         
         picking = picking_obj.create(vals)
         stock_move_vals['picking_id'] = picking.id
-        stock_move_obj.create(stock_move_vals)
+        self.env['stock.move'].create(stock_move_vals)
         
         self.picking = picking
         return picking
