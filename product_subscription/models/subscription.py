@@ -27,6 +27,7 @@ class SubscriptionTemplate(models.Model):
     publish = fields.Boolean(string="Publish on website")
     product = fields.Many2one('product.template', string='Product', 
                               domain=[('subscription','=',True)],required=True)
+    analytic_distribution = fields.Many2one('account.analytic.distribution', string="Analytic distribution")
 
 class SubscriptionRequest(models.Model):
     _name = "product.subscription.request"
@@ -80,6 +81,8 @@ class SubscriptionRequest(models.Model):
                                                       'subscription':True,                                       'type': 'out_invoice'})
         vals = self._prepare_invoice_line(self.subscription_template.product, partner, 1)
         vals['invoice_id'] = invoice.id
+        if self.subscription_template.analytic_distribution:
+            vals['analytic_distribution_id'] = self.subscription_template.analytic_distribution.id
         line = self.env['account.invoice.line'].create(vals)
 
         invoice.signal_workflow('invoice_open')

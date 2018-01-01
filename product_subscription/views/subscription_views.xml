@@ -103,6 +103,7 @@
 			                    <field name="publish"/>
 			                    <field name="product"/>
 			                    <field name="name"/>
+			                    <field name="analytic_distribution"/>
 			                </group>
 			                <group>
 			                    <field name="price"/>

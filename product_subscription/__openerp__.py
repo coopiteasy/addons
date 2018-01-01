@@ -23,6 +23,7 @@
     "version": "1.0",
     "depends": [
         "sale",
+        "account_analytic_distribution",
     ],
     "author": "Houssine BAKKALI <houssine@coopiteasy.be>",
     "category": "Sales",
