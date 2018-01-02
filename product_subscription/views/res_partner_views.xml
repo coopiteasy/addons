@@ -35,5 +35,16 @@
         </record>
 	    
 	    <menuitem id="menu_subscribers"  action="action_subscribers_view" name="Subscribers" parent="menu_subscription" sequence="5"/>	
+	    
+	    <record id="action_old_subscribers_view" model="ir.actions.act_window">
+            <field name="name">Old Subscribers</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="context">{"default_customer":1,"default_supplier":0}</field>
+            <field name="domain">[('subscriber','=',False),('old_subscriber','=',True)]</field>
+            <field name="view_id" ref="base.view_partner_tree"/>
+        </record>
+        
+	    <menuitem id="menu_old_subscribers"  action="action_old_subscribers_view" name="Old Subscribers" parent="menu_subscription" sequence="100"/>
 	</data>
 </odoo>
