@@ -28,6 +28,7 @@ class WebsiteProductSubscription(http.Controller):
     
     def fill_values(self, values, load_from_user=False):
         if load_from_user:
+            # the subscriber is not connected
             if request.env.user.login != 'public':
                 values['logged'] = 'on'
                 partner = request.env.user.partner_id
@@ -75,6 +76,7 @@ class WebsiteProductSubscription(http.Controller):
     @http.route(['/product_subscription/subscribe'], type='http', auth="public", website=True)
     def share_subscription(self, **kwargs):
         partner_obj = request.env['res.partner']
+        user_obj = request.env['res.users']
         values = {}
         redirect = "website_product_subscription.becomesubscriber"
         
@@ -93,6 +95,15 @@ class WebsiteProductSubscription(http.Controller):
             values.update(kwargs)
             values["error_msg"] = "email and confirmation email doesn't match"
             return request.website.render(redirect, values)
+        
+        if not logged and kwargs.has_key('email'):
+           user = user_obj.sudo().search([('login','=',kwargs.get("email"))])
+           if user:
+               values = self.fill_values(values)
+               values.update(kwargs)
+               values["error_msg"] = "There is an existing account for this mail address. Please login before fill in the form"
+               
+               return request.website.render(redirect, values)
         
         if gift:
             values["gift"] = gift
