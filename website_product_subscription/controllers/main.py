@@ -140,11 +140,16 @@ class WebsiteProductSubscription(http.Controller):
                 subscriber = partner_obj.sudo().create(subscriber_vals)
         
         values['subscriber'] = subscriber.id
+        user_values={'partner_id': subscriber.id, 'login':subscriber.email}
         if sponsor:
             values['sponsor'] = sponsor.id
+            user_values['partner_id'] = sponsor.id
+            user_values['login'] = sponsor.email 
             
         values["subscription_template"] = int(kwargs.get("product_subscription_id"))
         
         request.env['product.subscription.request'].sudo().create(values)
-
+        if not logged:
+            user_obj.sudo()._signup_create_user(user_values)
+            user_obj.sudo().action_reset_password
         return request.website.render('website_product_subscription.product_subscription_thanks',values)
