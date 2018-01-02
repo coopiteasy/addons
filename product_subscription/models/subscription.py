@@ -119,7 +119,8 @@ class SubscriptionObject(models.Model):
     def _compute_subscriber(self):
         subscribers = self.search([('state','=','terminated')]).mapped('subscriber')
         to_deactivate = subscribers.filtered('subscriber')
-        to_deactivate.write({'subscriber':False, 'old_subscriber':True})
+        if len(to_deactivate) > 0:
+            to_deactivate.write({'subscriber':False, 'old_subscriber':True})
         
     name = fields.Char(string="Name", copy=False, required=True)
     subscriber = fields.Many2one('res.partner', string="Subscriber", required=True)
