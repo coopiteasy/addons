@@ -162,7 +162,7 @@
 			                    <div name="box_container" t-attf-class="form-group #{error and 'box' in error and 'has-error' or ''}">
 					                <label class="col-md-3 col-sm-4 control-label" for="address">Box</label>
 					                <div class="col-md-7 col-sm-8">
-					                    <input type="text" class="form-control" name="box"  required="True" t-attf-value="#{box or ''}"/>
+					                    <input type="text" class="form-control" name="box" t-attf-value="#{box or ''}"/>
 					                </div>
 					            </div>
 					                  			            	
