@@ -107,7 +107,7 @@ class WebsiteProductSubscription(http.Controller):
         
         if gift:
             values["gift"] = gift
-
+        
         subscriber = False
         sponsor = False
         subscriber_vals = {}
@@ -144,12 +144,17 @@ class WebsiteProductSubscription(http.Controller):
         if sponsor:
             values['sponsor'] = sponsor.id
             user_values['partner_id'] = sponsor.id
-            user_values['login'] = sponsor.email 
+            user_values['login'] = sponsor.email
             
         values["subscription_template"] = int(kwargs.get("product_subscription_id"))
         
         request.env['product.subscription.request'].sudo().create(values)
+        
         if not logged:
             user_obj.sudo()._signup_create_user(user_values)
             user_obj.sudo().action_reset_password
+            if kwargs.has_key("company"):
+                company_vals = {'name':kwargs.get("company"), 'email':subscriber.email}
+                company = partner_obj.sudo().create(company_vals)
+                subscriber.sudo().write({'parent_id':company.id})
         return request.website.render('website_product_subscription.product_subscription_thanks',values)
