@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 	<data noupdate="1">
+		<record id="ir_cron_update_subscriber" model="ir.cron">
+            <field name="name">Update Subscriber status base on the subscription state</field>
+            <field name="interval_number">24</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False" />
+            <field name="model">product.subscription.object</field>
+            <field name="function">_compute_subscriber</field>
+            <field name="args">()</field>
+        </record>
+        
 		<record id="sequence_product_subscription" model="ir.sequence">
             <field name="name">Product Subscription</field>
             <field name="code">product.subscription</field>

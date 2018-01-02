@@ -115,6 +115,12 @@ class SubscriptionRequest(models.Model):
 class SubscriptionObject(models.Model):
     _name = "product.subscription.object"
     
+    @api.model
+    def _compute_subscriber(self):
+        subscribers = self.search([('state','=','terminated')]).mapped('subscriber')
+        to_deactivate = subscribers.filtered('subscriber')
+        to_deactivate.write({'subscriber':False, 'old_subscriber':True})
+        
     name = fields.Char(string="Name", copy=False, required=True)
     subscriber = fields.Many2one('res.partner', string="Subscriber", required=True)
     counter = fields.Float(string="Counter")
