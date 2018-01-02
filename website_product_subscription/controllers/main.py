@@ -138,9 +138,10 @@ class WebsiteProductSubscription(http.Controller):
             else:
                 subscriber_vals.update(self.get_address(kwargs))
                 subscriber = partner_obj.sudo().create(subscriber_vals)
-            values['subscriber'] = subscriber.id
-            if sponsor:
-                values['sponsor'] = sponsor.id
+        
+        values['subscriber'] = subscriber.id
+        if sponsor:
+            values['sponsor'] = sponsor.id
             
         values["subscription_template"] = int(kwargs.get("product_subscription_id"))
         
