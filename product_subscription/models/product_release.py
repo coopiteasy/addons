@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 from openerp import models, fields, api
 
+from openerp.exceptions import UserError
+
+
 class ProductRelease(models.Model):
     _name = "product.release.list"
 
