@@ -24,6 +24,7 @@
     "depends": [
         "sale",
         "account_analytic_distribution",
+        "l10n_be_invoice_bba"
     ],
     "author": "Houssine BAKKALI <houssine@coopiteasy.be>",
     "category": "Sales",

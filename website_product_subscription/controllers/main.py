@@ -129,6 +129,8 @@ class WebsiteProductSubscription(http.Controller):
             subscriber_vals["lastname"] = lastname
             subscriber_vals["firstname"] = firstname
             subscriber_vals["email"] = kwargs.get("email")
+            subscriber_vals["out_inv_comm_type"] = 'bba'
+            subscriber_vals["out_inv_comm_algorithm"] = 'random'
             
             if gift:
                 receiver_vals = self.get_receiver(kwargs)
