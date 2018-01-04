@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
+from openerp import models, fields, api, _
 
-from openerp import models, fields, api
+from openerp.exceptions import UserError
+
 
 class ResPartner(models.Model):
     _inherit = "res.partner"
