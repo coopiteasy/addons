@@ -33,7 +33,6 @@
     to subscribe online for a subscription template.
     """,
     'data': [
-        #'data/website_data.xml',
         'views/product_subscription_template.xml',
     ],
     'installable': True,
