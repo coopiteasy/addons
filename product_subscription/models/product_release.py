@@ -10,7 +10,7 @@ class ProductRelease(models.Model):
             product_release.picking_ids = product_release.product_release_lines.mapped('picking')
             product_release.delivery_count = len(product_release.picking_ids)
                 
-    name = fields.Char(string="Name", copy=False)
+    name = fields.Char(string="Name", readonly=True, copy=False)
     release_date = fields.Date(string='Product Release Date', readonly=True, required=True, index=True, states={'draft': [('readonly', False)]})
     create_date = fields.Date(string='Creation Date', readonly=True, help="Date on which product release list is created.", copy=False, default=fields.Datetime.now)
     
