@@ -8,7 +8,7 @@ class ResPartner(models.Model):
     firstname = fields.Char('First Name')
     lastname = fields.Char('Last Name')
     subscriber = fields.Boolean(string="Subscriber")
-    old_subscriber = fields.Boolean(string="Subscriber")
+    old_subscriber = fields.Boolean(string="Old subscriber")
     subscriptions = fields.One2many('product.subscription.object','subscriber', string="Subscription")
     
 class ProductTemplate(models.Model):
