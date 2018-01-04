@@ -153,7 +153,8 @@ class WebsiteProductSubscription(http.Controller):
         request.env['product.subscription.request'].sudo().create(values)
         
         if not logged:
-            user = user_obj.sudo()._signup_create_user(user_values)
+            user_id = user_obj.sudo()._signup_create_user(user_values)
+            user = user_obj.browse(user_id)
             user.sudo().action_reset_password
             if kwargs.has_key("company"):
                 company_vals = {'name':kwargs.get("company"), 'email':subscriber.email}
