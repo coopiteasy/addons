@@ -149,6 +149,8 @@
                 <form string="Subscription Request">
 		            <header>
 		            	<button name="validate_request" string="Validate request" type="object" states="draft" class="btn-primary"/>
+		            	<button name="cancel_request" string="Cancel request" type="object" states="draft"/>
+		            	<button name="action_draft" string="Set to draft" type="object" states="cancel"/>
 		            	<field name="state" widget="statusbar"/>
 		            </header>
 		            <sheet>

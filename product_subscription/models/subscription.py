@@ -114,7 +114,14 @@ class SubscriptionRequest(models.Model):
         invoice = self.create_invoice(partner)
         
         self.write({'state':'sent','invoice':invoice.id})
+
+    @api.one
+    def cancel_request(self):
+        self.state = 'cancel'
         
+    @api.one
+    def action_draft(self):
+        self.state = 'draft'
         
 class SubscriptionObject(models.Model):
     _name = "product.subscription.object"
