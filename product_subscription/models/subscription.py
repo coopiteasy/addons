@@ -85,13 +85,15 @@ class SubscriptionRequest(models.Model):
         vals['invoice_id'] = invoice.id
         if self.subscription_template.analytic_distribution:
             vals['analytic_distribution_id'] = self.subscription_template.analytic_distribution.id
+        
         line = self.env['account.invoice.line'].create(vals)
-
+        line._set_taxes()
+        
         invoice.signal_workflow('invoice_open')
 
         self.send_invoice(invoice)
         
-        return invoice 
+        return invoice
     
     @api.model
     def create(self,vals):
