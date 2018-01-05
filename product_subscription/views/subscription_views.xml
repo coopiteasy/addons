@@ -163,7 +163,7 @@
 			                    <field name="subscription"/>
 			                </group>
 			                <group>
-			                    <field name="sponsor"/>
+			                    <field name="sponsor" attrs="{'required':[('gift','=',True)]}"/>
 			                    <field name="subscription_date"/>
 			                    <field name="payment_date"/>
 				               	<field name="invoice"/>
