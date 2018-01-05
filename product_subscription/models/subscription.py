@@ -40,12 +40,12 @@ class SubscriptionRequest(models.Model):
     subscriber = fields.Many2one('res.partner', string="Subscriber", required=True)
     subscription_date = fields.Date(string='Subscription request date', default=fields.Date.today())
     payment_date = fields.Date(string="Payment date", readonly=True)
-    invoice = fields.Many2one('account.invoice', string="Invoice", readonly=True)
+    invoice = fields.Many2one('account.invoice', string="Invoice", readonly=True, copy=False)
     state = fields.Selection([('draft','Draft'),
                               ('sent','Sent'),
                               ('paid','Paid'),
                               ('cancel','Cancelled')], string="State", default="draft")
-    subscription = fields.Many2one('product.subscription.object', string="Subscription", readonly=True)
+    subscription = fields.Many2one('product.subscription.object', string="Subscription", readonly=True, copy=False)
     subscription_template = fields.Many2one('product.subscription.template',string="Subscription template",required=True)
 
     def _prepare_invoice_line(self, product, partner, qty):
