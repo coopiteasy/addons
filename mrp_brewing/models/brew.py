@@ -36,11 +36,6 @@ class BrewDeclaration(models.Model):
 class BrewOrder(models.Model):
     _name = "brew.order"
     
-#     @api.onchange('bom')
-#     def onchange_bom(self):
-#        if self.bom:
-#           self.product_uom = self.bom.
-         
     @api.onchange('product_id')
     def onchange_product(self):
        if self.product_id:
