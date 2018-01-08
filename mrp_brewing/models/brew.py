@@ -3,10 +3,11 @@
 
 from openerp import api, fields, models, _
 
-import datetime
+from datetime import datetime, date
 import openerp.addons.decimal_precision as dp
 
 from openerp.exceptions import UserError, ValidationError
+from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
 class BrewDeclaration(models.Model):
     _name = "brew.declaration"
@@ -65,9 +66,11 @@ class BrewOrder(models.Model):
             
              
     @api.multi
-    @api.depends('product_id','brew_number','brew_beer_number','state')
+    @api.depends('product_id','brew_number','brew_beer_number','state','start_date')
     def compute_display_name(self):
-        year = datetime.date.today().year
+        year = date.today().year
+        if self.start_date:
+            year = datetime.strptime(self.start_date, DEFAULT_SERVER_DATETIME_FORMAT).year
         for order in self:
             if order.state in ["done","cancel"]:
                 order.name = u'%s_%s_%s' % (order.product_id.code, year, order.brew_beer_number)
@@ -132,7 +135,6 @@ class BrewOrder(models.Model):
         vals['product_uom'] = self.product_uom.id
         vals['date_planned'] = self.start_date
         vals['origin'] = self.name
-        #vals['brew_order_id'] = self.id
         vals['bom_id'] = bom_id
 
         prod_order_id = self.env['mrp.production'].create(vals)
