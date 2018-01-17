@@ -67,6 +67,7 @@ class SubscriptionRequest(models.Model):
             'quantity': qty,
             'uom_id': product.uom_id.id,
             'product_id': product.id or False,
+            'invoice_line_tax_ids': [(6, 0, product.taxes_id.ids)]
         }
         return res
     
@@ -88,6 +89,7 @@ class SubscriptionRequest(models.Model):
         
         line = self.env['account.invoice.line'].create(vals)
         line._set_taxes()
+        invoice.compute_taxes()
         
         invoice.signal_workflow('invoice_open')
 
