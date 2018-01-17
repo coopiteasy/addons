@@ -87,12 +87,12 @@ class DeliveryDistributionList(models.Model):
             for deposit_point in deposit_points:
                 if deposit_point.quantity_to_deliver > 0.0:
                     vals['partner_id'] = deposit_point.id
-                    vals['carrier_id'] = deposit_point.carrier_id.id
+                    vals['distribution_carrier_id'] = deposit_point.carrier_id.id
                     vals['ordered_qty'] = deposit_point.quantity_to_deliver
                     vals['delivered_qty'] = deposit_point.quantity_to_deliver
                     self.env['delivery.distribution.line'].create(vals)
     
-    @api.multi            
+    @api.multi
     def unlink(self):
         for distri_list in self:
             if distri_list.state != 'draft':
@@ -159,7 +159,7 @@ class DeliveryDistributionLine(models.Model):
             vals = {
                 'partner_id':line.partner_id.id,
                 'distribution_list_id':line.distribution_list_id.id,
-                'carrier_id':line.carrier_id.id,
+                'distribution_carrier_id':line.carrier_id.id,
                 'project_id':line.product_id.analytic_account_id.id,
             }
             order_id = sale_order_obj.create(vals)
@@ -231,7 +231,7 @@ class DeliveryDistributionLine(models.Model):
     def onchage_partner_id(self):
         self.delivered_qty = self.partner_id.quantity_to_deliver
         self.ordered_qty = self.partner_id.quantity_to_deliver
-        self.carrier_id = self.partner_id.carrier_id.id
+        self.distribution_carrier_id = self.partner_id.carrier_id.id
         
     @api.onchange('ordered_qty')
     def onchage_orderer_qty(self):
