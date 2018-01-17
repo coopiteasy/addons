@@ -17,7 +17,7 @@ class StockPicking(models.Model):
     @api.multi
     @api.depends('move_lines')
     def _compute_distribution_fields(self):
-        for picking in self: 
+        for picking in self:
             if picking.sale_id:
-                picking.carrier_id = picking.sale_id.carrier_id
+                picking.distribution_carrier_id = picking.sale_id.distribution_carrier_id
                 picking.distribution_list_id = picking.sale_id.distribution_list_id
