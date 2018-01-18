@@ -21,7 +21,7 @@ class AccountInvoice(models.Model):
         # allocate the product quantity to the subscriber
         if len(subscriber.subscriptions) > 0:
             # there is an existing subscription
-            subscription = subscriber.subscritions[0]
+            subscription = subscriber.subscriptions[0]
             sub_vals = {'state':'ongoing',
                         'counter':subscription.counter + sub_template.product_qty}
             subscription.write(sub_vals)
