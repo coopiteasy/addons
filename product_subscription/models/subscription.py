@@ -130,6 +130,11 @@ class SubscriptionObject(models.Model):
     
     @api.model
     def _compute_subscriber(self):
+        sub_to_renew = self.search([('counter','=',1),('state','!=','renew')])
+        sub_to_renew.write({'state':'renew'})
+        sub_to_terminate = self.search([('counter','=',0),('state','!=','terminated')])
+        sub_to_terminate.write({'state':'terminated'})
+        
         subscribers = self.search([('state','=','terminated')]).mapped('subscriber')
         to_deactivate = subscribers.filtered('subscriber')
         if len(to_deactivate) > 0:
