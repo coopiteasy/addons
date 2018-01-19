@@ -10,10 +10,10 @@
             <field name="inherit_id" ref="hr_timesheet_sheet.hr_timesheet_sheet_form"/>
             <field name="arch" type="xml">
                 <xpath expr="/form/sheet/notebook/page[@string='Details']/field[@name='timesheet_ids']/tree[@string='Timesheet Activities']/field[@name='name']" position="before">
-                     <field name="activity" context="{'account_id':account_id}" widget='selection' required="True"/>
+                     <field name="activity" context="{'account_id':account_id}" options="{'no_create': True}" required="True"/>
                 </xpath>
                 <xpath expr="/form/sheet/notebook/page[@string='Details']/field[@name='timesheet_ids']/form[@string='Timesheet Activities']/field[@name='name']" position="before">
-                     <field name="activity" context="{'account_id':account_id}" widget='selection' required="True"/>
+                     <field name="activity" context="{'account_id':account_id}" options="{'no_create': True}" required="True"/>
                 </xpath>
             </field>
         </record>  
@@ -28,7 +28,7 @@
             <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_form"/>
             <field name="arch" type="xml">
                 <xpath expr="/form/sheet/notebook/page[@string='Information']/group/group[@string='Accounting']/field[@name='account_id']" position="after">
-                    <field name="activity" context="{'account_id':account_id}" widget='selection' required="True"/>
+                    <field name="activity" context="{'account_id':account_id}" options="{'no_create': True}" required="True"/>
                 </xpath>
             </field>
         </record>
@@ -40,7 +40,7 @@
             <field name="type">tree</field>
             <field name="arch" type="xml">
                 <xpath expr="/tree/field[@name='account_id']" position="after">
-                    <field name="activity" context="{'account_id':account_id}" widget='selection' required="True"/>
+                    <field name="activity" context="{'account_id':account_id}" options="{'no_create': True}" required="True"/>
                 </xpath>
             </field>
         </record>
