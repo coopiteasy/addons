@@ -334,6 +334,6 @@ class account_analytic_line(osv.osv):
     _inherit = "account.analytic.line"
 
     _columns = {
-        'activity': fields.many2one('project.activity_al', store=True, string='Activity'),
+        'activity': fields.many2one('project.activity_al', string='Activity'),
         'parent_activity': fields.related('activity','parent_id',relation='project.activity_al', store=True, type="many2one", string="Parent activity"),
     }
