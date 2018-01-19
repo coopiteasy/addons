@@ -134,7 +134,8 @@ class ProductRelease(models.Model):
         subs_renew = self.product_release_lines.filtered(lambda record: record.product_subscription.counter == 1)
         
         subs_terminated.write({'state':'terminated'})
-        subs_terminated.subscriber.write({'subscriber':False,'old_subscriber':True})
+        subscribers_terminated = subs_terminated.mapped('subscriber')
+        subscribers_terminated.write({'subscriber':False,'old_subscriber':True})
         subs_renew.write({'state':'renew'})
         
         for picking in self.product_release_lines.mapped('picking'):
