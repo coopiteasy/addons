@@ -19,6 +19,14 @@
         			<field name="firstname" attrs="{'invisible':[('is_company','=',True)]}"/>
         			<field name="lastname" attrs="{'invisible':[('is_company','=',True)]}"/>
         		</field>
+        		
+        		<xpath expr="/form/sheet/group" position='before'>
+        			<group>
+	        			<field name="subscriber" readonly="True" attrs="{'invisible':[('is_company','=',True)]}"/>
+	        			<field name="old_subscriber" readonly="True" attrs="{'invisible':[('is_company','=',True)]}"/>
+        			</group>
+        		</xpath>
+
         		<xpath expr="//page[@name='sales_purchases']" position='after'>
             		<page string="Subscription" name="subscription">
 		         		<field name="subscriptions">
