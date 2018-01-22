@@ -74,7 +74,7 @@ class WebsiteProductSubscription(http.Controller):
         return vals
 
     @http.route(['/product_subscription/subscribe'], type='http', auth="public", website=True)
-    def share_subscription(self, **kwargs):
+    def product_subscription(self, **kwargs):
         partner_obj = request.env['res.partner']
         user_obj = request.env['res.users']
         values = {}
