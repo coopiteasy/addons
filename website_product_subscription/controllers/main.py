@@ -19,7 +19,7 @@ class WebsiteProductSubscription(http.Controller):
 
         values = self.fill_values(values, True)
         
-        for field in ['email','firstname','lastname','birthdate','iban','share_product_id','no_registre','address','city','zip_code','country_id','phone','lang','nb_parts','total_parts','error_msg']:
+        for field in ['email','firstname','lastname','address','city','zip_code','country_id','error_msg']:
             if kwargs.get(field):
                 values[field] = kwargs.pop(field)
         
