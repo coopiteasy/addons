@@ -53,22 +53,21 @@ odoo.define('pos_automatic_cashdrawer.pos_automatic_cashdrawer', function (requi
     });
 
     gui.Gui.prototype.display_access_right_cashlogy = function(user){
-//    	if (user.groups_id !== undefined){
-//	    	alert(user.groups_id);
-//    		if (user.groups_id.indexOf(this.pos.config.group_pos_automatic_cashlogy[0]) != -1){
-	        $('.js_auto_cashdrawer_init').removeClass('oe_hidden');
-//	        }
-//	        else {
-//	            $('.js_auto_cashdrawer_init').addClass('oe_hidden');
-//	        }
-	        console.log(this.pos.config);
-//	        if (user.groups_id.indexOf(this.pos.config.group_pos_automatic_cashlogy_config[0]) != -1){
-	            $('.js_auto_cashdrawer_config').removeClass('oe_hidden');
-//	        }
-//	        else {
-//	            $('.js_auto_cashdrawer_config').addClass('oe_hidden');
-//	        }
-//    	}
+    	//alert(this.pos.config.iface_automatic_cashdrawer);
+	    //alert('troll');
+//    	if (user.groups_id.indexOf(this.pos.config.group_pos_automatic_cashlogy[0]) != -1){
+    	$('.js_auto_cashdrawer_init').removeClass('oe_hidden');
+//	    }
+//	    else {
+//	        $('.js_auto_cashdrawer_init').addClass('oe_hidden');
+//	    }
+	    console.log(this.pos.config);
+//	    if (user.groups_id.indexOf(this.pos.config.group_pos_automatic_cashlogy_config[0]) != -1){
+	        $('.js_auto_cashdrawer_config').removeClass('oe_hidden');
+//	    }
+//	    else {
+//	        $('.js_auto_cashdrawer_config').addClass('oe_hidden');
+//	    }
     };
     
     devices.ProxyDevice.include({
@@ -178,9 +177,6 @@ odoo.define('pos_automatic_cashdrawer.pos_automatic_cashdrawer', function (requi
         // at the beginning of the session, based on current user
         start: function() {
             this._super();
-//            alert('before call');
-//            alert(this.pos.get_cashier().groups_id);
-//            alert('after call');
             this.gui.display_access_right_cashlogy(this.pos.get_cashier());
         },
     });
@@ -309,6 +305,7 @@ odoo.define('pos_automatic_cashdrawer.pos_automatic_cashdrawer', function (requi
         start: function(){
             var self = this;
             this.$el.click(function(){
+            	//alert('alllloohhh');
                 //self.pos.proxy.automatic_cashdrawer_connection_check();
                 self.pos.proxy.automatic_cashdrawer_connection_init();
             });
@@ -319,6 +316,7 @@ odoo.define('pos_automatic_cashdrawer.pos_automatic_cashdrawer', function (requi
         start: function(){
             var self = this;
             this.$el.click(function(){
+            	//alert('heeeeeyyyyy');
                 self.pos.proxy.automatic_cashdrawer_connection_display_backoffice();
             });
         },
