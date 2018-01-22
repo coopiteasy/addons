@@ -28,7 +28,7 @@ class WebsiteProductSubscription(http.Controller):
     
     def fill_values(self, values, load_from_user=False):
         if load_from_user:
-            # the subscriber is not connected
+            # the subscriber is connected
             if request.env.user.login != 'public':
                 values['logged'] = 'on'
                 partner = request.env.user.partner_id
