@@ -23,6 +23,7 @@
     "version": "1.0",
     "depends": [
         "sale",
+        "partner_firstname",
         "account_analytic_distribution",
         "l10n_be_invoice_bba"
     ],
