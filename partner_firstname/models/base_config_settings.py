@@ -20,9 +20,9 @@ class BaseConfigSettings(models.TransientModel):
 
     def _partner_names_order_selection(self):
         return [
+            ('first_last', 'Firstname Lastname'),
             ('last_first', 'Lastname Firstname'),
             ('last_first_comma', 'Lastname, Firstname'),
-            ('first_last', 'Firstname Lastname'),
         ]
 
     def _partner_names_order_default(self):
