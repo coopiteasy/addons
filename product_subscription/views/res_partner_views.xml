@@ -15,11 +15,6 @@
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="arch" type="xml">
-        		<!-- <field name="type" position="before">
-        			<field name="firstname" attrs="{'invisible':[('is_company','=',True)]}"/>
-        			<field name="lastname" attrs="{'invisible':[('is_company','=',True)]}"/>
-        		</field> -->
-        		
         		<xpath expr="/form/sheet/group" position='before'>
         			<group>
 	        			<field name="subscriber" readonly="True" attrs="{'invisible':[('is_company','=',True)]}"/>
