@@ -26,6 +26,7 @@
         "partner_firstname",
         "account_analytic_distribution",
         "l10n_be_invoice_bba"
+        "email_template_config",
     ],
     "author": "Houssine BAKKALI <houssine@coopiteasy.be>",
     "category": "Sales",
