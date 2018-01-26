@@ -128,6 +128,8 @@ class SubscriptionRequest(models.Model):
 class SubscriptionObject(models.Model):
     _name = "product.subscription.object"
     
+    _order = "subscribed_on desc, id desc"
+    
     @api.model
     def _compute_subscriber(self):
         sub_to_renew = self.search([('counter','=',1),('state','!=','renew')])
