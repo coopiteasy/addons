@@ -87,9 +87,9 @@ class SubscriptionRequest(models.Model):
         
     def create_invoice(self, partner, vals={}):
         # creating invoice and invoice lines
-        vals = {'partner_id':partner.id, 
+        vals.update({'partner_id':partner.id, 
                 'subscription':True,
-                'type': 'out_invoice'}
+                'type': 'out_invoice'})
         
         invoice = self.env['account.invoice'].create(vals)
         
@@ -120,7 +120,7 @@ class SubscriptionRequest(models.Model):
         if self.gift:
             partner = self.sponsor
         
-        invoice = self.create_invoice(partner)
+        invoice = self.create_invoice(partner,{})
         invoice.compute_taxes()
         
         invoice.signal_workflow('invoice_open')
