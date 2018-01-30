@@ -100,7 +100,6 @@ class SubscriptionRequest(models.Model):
             vals['analytic_distribution_id'] = self.subscription_template.analytic_distribution.id
         
         line = self.env['account.invoice.line'].create(vals)
-        line._set_taxes()
         
         return invoice
     
