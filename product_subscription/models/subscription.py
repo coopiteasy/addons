@@ -49,11 +49,8 @@ class SubscriptionRequest(models.Model):
                               ('cancel','Cancelled')], string="State", default="draft")
     subscription = fields.Many2one('product.subscription.object', string="Subscription", readonly=True, copy=False)
     subscription_template = fields.Many2one('product.subscription.template',string="Subscription template",required=True)
-    
-    
-    def _prepare_invoice_line(self, product, partner, qty):
-        self.ensure_one()
-        res = {}
+
+    def _get_account(self, partner, product):
         account = product.property_account_income_id or product.categ_id.property_account_income_categ_id
         if not account:
             raise UserError(_('Please define income account for this product: "%s" (id:%d) - or for its category: "%s".') % \
@@ -62,6 +59,13 @@ class SubscriptionRequest(models.Model):
         fpos = partner.property_account_position_id
         if fpos:
             account = fpos.map_account(account)
+        return account
+
+    def _prepare_invoice_line(self, product, partner, qty):
+        self.ensure_one()
+        res = {}
+        
+        account = self._get_account(partner, product)
 
         res = {
             'name': product.name,
@@ -81,22 +85,22 @@ class SubscriptionRequest(models.Model):
         invoice_email_template.send_mail(invoice.id)
         invoice.sent = True
         
-    def create_invoice(self, partner):
+    def create_invoice(self, partner, vals={}):
         # creating invoice and invoice lines
-        invoice = self.env['account.invoice'].create({'partner_id':partner.id, 
-                                                      'subscription':True,                                       'type': 'out_invoice'})
+        vals = {'partner_id':partner.id, 
+                'subscription':True,
+                'type': 'out_invoice'}
+        
+        invoice = self.env['account.invoice'].create(vals)
+        
         vals = self._prepare_invoice_line(self.subscription_template.product, partner, 1)
         vals['invoice_id'] = invoice.id
+        
         if self.subscription_template.analytic_distribution:
             vals['analytic_distribution_id'] = self.subscription_template.analytic_distribution.id
         
         line = self.env['account.invoice.line'].create(vals)
         line._set_taxes()
-        invoice.compute_taxes()
-        
-        invoice.signal_workflow('invoice_open')
-
-        self.send_invoice(invoice)
         
         return invoice
     
@@ -117,6 +121,11 @@ class SubscriptionRequest(models.Model):
             partner = self.sponsor
         
         invoice = self.create_invoice(partner)
+        invoice.compute_taxes()
+        
+        invoice.signal_workflow('invoice_open')
+        
+        self.send_invoice(invoice)
         
         self.write({'state':'sent','invoice':invoice.id})
 
