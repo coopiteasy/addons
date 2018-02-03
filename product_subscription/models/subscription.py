@@ -135,7 +135,18 @@ class SubscriptionRequest(models.Model):
     @api.one
     def action_draft(self):
         self.state = 'draft'
+    
+    @api.model
+    def _validate_pending_request(self):
+        pending_request_list = self.search([('state','=','draft')])
         
+        for pending_request in pending_request_list:
+            try:
+                pending_request.validate_request()
+            except UserError:
+                continue
+
+
 class SubscriptionObject(models.Model):
     _name = "product.subscription.object"
     

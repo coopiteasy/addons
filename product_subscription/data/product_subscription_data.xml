@@ -12,6 +12,17 @@
             <field name="args">()</field>
         </record>
         
+        <record id="ir_cron_validate_prod_sub_req" model="ir.cron">
+            <field name="name">Validate product subscription request</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False" />
+            <field name="model">product.subscription.request</field>
+            <field name="function">_validate_pending_request</field>
+            <field name="args">()</field>
+        </record>
+        
 		<record id="sequence_product_subscription" model="ir.sequence">
             <field name="name">Product Subscription</field>
             <field name="code">product.subscription</field>
