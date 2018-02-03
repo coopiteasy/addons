@@ -27,8 +27,8 @@
     "author": "Houssine BAKKALI <houssine@coopiteasy.be>",
     "category": "CRM",
     "description": """
-    This module extends the email in order to allow force have some behaviours
-    configured in the mail template(e.g. force send mail).
+    This module extends the email in order to force some behaviours
+    configured in the mail template(e.g. force send mail or not).
     """,
     'data': [
         'views/mail_template_views.xml',
