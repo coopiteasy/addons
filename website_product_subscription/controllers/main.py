@@ -65,7 +65,10 @@ class WebsiteProductSubscription(http.Controller):
         vals = {'zip':kwargs.get("zip_code"),
                 'city':kwargs.get("city"),
                 'country_id':kwargs.get("country_id")}
-        vals['street'] = kwargs.get("street") +', ' + kwargs.get("street_number") +', ' + kwargs.get("box") 
+        address = kwargs.get("street") +', ' + kwargs.get("street_number")
+        if kwargs.get("box").strip() != '':
+            address = address + ', ' + kwargs.get("box").strip()
+        vals['street'] = address 
         return vals
     
     def get_receiver(self, kwargs):
