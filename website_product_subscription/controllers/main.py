@@ -13,6 +13,11 @@ from openerp.tools.translate import _
 
 class WebsiteProductSubscription(http.Controller):
     
+    @http.route(['/page/login_subscriber','/login_subscriber'], type='http', auth="user", website=True)
+    def login_subscriber(self, **kwargs):
+
+        return request.redirect("/page/become_subscriber")
+    
     @http.route(['/page/become_subscriber','/become_subscriber'], type='http', auth="public", website=True)
     def display_subscription_page(self, **kwargs):
         values = {}
