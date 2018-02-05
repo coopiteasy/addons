@@ -7,5 +7,5 @@ class WebsiteProductSubscription(WebsiteProductSubscription):
     
     def get_countries(self):
         countries = super(WebsiteProductSubscription,self).get_countries()
-        shipping_countries = request.env['delivery.carrier']._get_shipping_country(countries)
+        shipping_countries = request.env['delivery.carrier'].sudo()._get_shipping_country(countries)
         return shipping_countries
