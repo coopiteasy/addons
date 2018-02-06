@@ -2,7 +2,8 @@
 ##############################################################################
 #
 #    Business Open Source Solution
-#    Copyright (C) 2013-2016 Coop IT Easy SCRL.
+#    Copyright (C) 2013-2017 Open Architects Consulting SPRL.
+#    Copyright (C) 2017-2018 Coop IT Easy SCRL.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -27,12 +28,14 @@
     ],
     "author": "Houssine BAKKALI <houssine@coopiteasy.be>",
     "category": "Sales",
+    "website": "www.coopiteasy.be",
     "description": """
     This module allows to manager delivery method on production subscription to have
     it set on the invoice without passing by the sale order..
     """,
     'data': [
         'views/subscription_views.xml',
+        'views/invoice_views.xml',
     ],
     'installable': True,
 }

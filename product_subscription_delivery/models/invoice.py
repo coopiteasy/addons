@@ -7,7 +7,11 @@ from openerp.exceptions import UserError
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
     
-    carrier_id = fields.Many2one('delivery.carrier', string="Delivery Method")
+    carrier_id = fields.Many2one('delivery.carrier',string="Delivery Method")
+    address_shipping_id = fields.Many2one('res.partner',string="Shipping Address",
+            readonly=True,
+            states={'draft': [('readonly', False)],'sent': [('readonly', False)]},
+            help="Delivery address for current invoice.")
     
     @api.multi
     def _delivery_unset(self):
@@ -26,7 +30,7 @@ class AccountInvoice(models.Model):
                     raise UserError(_('The invoice state have to be draft to add delivery lines.'))
 
                 # The delivery type is based on fixed price
-                carrier = invoice.carrier_id.verify_carrier(invoice.partner_id)
+                carrier = invoice.carrier_id.verify_carrier(invoice.address_shipping_id)
                 if not carrier:
                     raise UserError(_('No carrier matching.'))
                 price_unit = carrier.get_price_available_invoice(invoice)
@@ -49,7 +53,7 @@ class AccountInvoice(models.Model):
         if self.partner_id and self.fiscal_position_id:
             taxes_ids = self.fiscal_position_id.map_tax(taxes).ids
         
-        account = self.env['product.subscription.request']._get_account(self.partner_id, carrier.product_id)
+        account = self.env['product.subscription.request']._get_account(self.address_shipping_id, carrier.product_id)
         
         # Create the sale order line
         values = {

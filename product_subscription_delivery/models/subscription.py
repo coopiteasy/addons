@@ -38,6 +38,7 @@ class SubscriptionRequest(models.Model):
             if available_carriers:
                 self.carrier_id = available_carriers[0]
                 vals['carrier_id']= self.carrier_id.id
+        vals['address_shipping_id'] = self.subscriber.id
         invoice = super(SubscriptionRequest, self).create_invoice(partner, vals)
         invoice.delivery_set(self.subscription_template.product_qty)
         
