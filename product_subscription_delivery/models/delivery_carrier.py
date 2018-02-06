@@ -16,8 +16,8 @@ class DeliveryCarrier(models.Model):
 
         delivery_carriers = self.search([('shipping_enabled', '=', True)])
         for carrier in delivery_carriers:
-            if not carrier.country_ids and not carrier.state_ids:
-                return values
+            if not carrier.country_ids:
+                return False
             # Authorized shipping countries
             country_ids = country_ids|set(carrier.country_ids.ids)
 
