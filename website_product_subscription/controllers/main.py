@@ -72,7 +72,8 @@ class WebsiteProductSubscription(http.Controller):
         return vals
     
     def get_receiver(self, kwargs):
-        vals = {'email': kwargs.get("subscriber_email")}
+        vals = {'email': kwargs.get("subscriber_email"),'out_inv_comm_type':'bba',
+                'out_inv_comm_algorithm':'random'}
         firstname = kwargs.get("subscriber_firstname").title()
         lastname = kwargs.get("subscriber_lastname").upper()
         vals['name'] =  firstname + ' ' + lastname
