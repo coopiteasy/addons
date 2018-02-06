@@ -165,7 +165,8 @@ class WebsiteProductSubscription(http.Controller):
             user = user_obj.browse(user_id)
             user.sudo().with_context({'create_user': True}).action_reset_password()
             if kwargs.has_key("company") and kwargs.get("company").strip() != '':
-                company_vals = {'name':kwargs.get("company"), 'email':subscriber.email}
+                company_vals = {'name':kwargs.get("company"), 'email':subscriber.email,
+                                'out_inv_comm_type':'bba', 'out_inv_comm_algorithm':'random'}
                 company = partner_obj.sudo().create(company_vals)
                 subscriber.sudo().write({'parent_id':company.id})
         return request.website.render('website_product_subscription.product_subscription_thanks',values)
