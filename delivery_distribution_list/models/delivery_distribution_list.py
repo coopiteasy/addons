@@ -87,7 +87,7 @@ class DeliveryDistributionList(models.Model):
             for deposit_point in deposit_points:
                 if deposit_point.quantity_to_deliver > 0.0:
                     vals['partner_id'] = deposit_point.id
-                    vals['distribution_carrier_id'] = deposit_point.carrier_id.id
+                    vals['carrier_id'] = deposit_point.carrier_id.id
                     vals['ordered_qty'] = deposit_point.quantity_to_deliver
                     vals['delivered_qty'] = deposit_point.quantity_to_deliver
                     self.env['delivery.distribution.line'].create(vals)
