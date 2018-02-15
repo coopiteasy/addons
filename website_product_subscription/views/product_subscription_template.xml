@@ -6,7 +6,6 @@
 				<script type="text/javascript" src="/website_product_subscription/static/src/js/product_subscription.js"></script>
 			</xpath>
 		</template>
-		
 
 		<record id="menu_becomesubscriber" model="website.menu">
 		    <field name="name">Become subscriber</field>
@@ -59,6 +58,12 @@
 					              <br/>
 					           </div>
 					           
+					           <div t-attf-class="form-group">
+									<label>
+										If the delivery address is outside Belgium, the shipping will be invoiced.
+									</label>
+								</div>
+								
 					           <div t-attf-class="form-group" style="display: none;">
 									<label>
 										<input type="checkbox" t-att-checked="logged" name="logged"/>
