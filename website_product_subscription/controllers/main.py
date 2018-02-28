@@ -79,6 +79,7 @@ class WebsiteProductSubscription(http.Controller):
         vals['name'] =  firstname + ' ' + lastname
         vals['firstname'] = firstname
         vals['lastname'] = lastname
+        subscriber_vals["customer"] = True
         
         return vals
 
@@ -140,6 +141,7 @@ class WebsiteProductSubscription(http.Controller):
             subscriber_vals["email"] = kwargs.get("email")
             subscriber_vals["out_inv_comm_type"] = 'bba'
             subscriber_vals["out_inv_comm_algorithm"] = 'random'
+            subscriber_vals["customer"] = True
             
             if gift:
                 receiver_vals = self.get_receiver(kwargs)
