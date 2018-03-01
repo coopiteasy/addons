@@ -79,7 +79,7 @@ class WebsiteProductSubscription(http.Controller):
         vals['name'] =  firstname + ' ' + lastname
         vals['firstname'] = firstname
         vals['lastname'] = lastname
-        subscriber_vals["customer"] = True
+        vals["customer"] = True
         
         return vals
 
