@@ -4,9 +4,6 @@ from openerp import models, fields, api, _
 from openerp.exceptions import UserError
 
 
-from openerp.exceptions import UserError
-
-
 class ProductRelease(models.Model):
     _name = "product.release.list"
 
