@@ -9,9 +9,9 @@ class AllocateResourceWizard(models.TransientModel):
     date_start = fields.Datetime(string="Date Start", required=True)
     date_end = fields.Datetime(string="Date end", required=True)
     resources = fields.Many2many('resource.resource', string="Resources")
-    allocation_type = fields.Selection([('booked','Booked'),
+    allocation_type = fields.Selection([('booked','Book'),
                                        ('option','Option')],
-                                       string="Allocation type")
+                                       string="Allocation type", required=True)
     resource_type = fields.Selection([('resource','Resource'),
                                       ('category','Category')],
                                       string="Allocate on", default="resource", required=True)
@@ -39,7 +39,7 @@ class AllocateResourceWizard(models.TransientModel):
     @api.model
     def default_get(self, fields):
         result = super(AllocateResourceWizard, self).default_get(fields)
-        result['resources'] = self._context['active_ids']
+        result['resources'] = self._context.get('active_ids')
          
         return result
 

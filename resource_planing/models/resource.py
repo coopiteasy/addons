@@ -49,7 +49,7 @@ class Resource(models.Model):
 
         date_start = datetime.strptime(date_start, DTF)
         date_end = datetime.strptime(date_end, DTF)
-        domain = [('resource_id', 'in', self.ids)]
+        domain = [('resource_id', 'in', available_resources)]
         domain.append(('state', '!=', 'cancel'))
         domain.append(('date_end', '>=', fields.Datetime.now()))
         domain.append('|')
@@ -64,11 +64,13 @@ class Resource(models.Model):
         domain.append(('date_start', '<=', date_start.strftime(DTF)))
         domain.append(('date_end', '>=', date_end.strftime(DTF)))
         
+        #for matching_allocation in self.env['resource.allocation'].search(domain):
         matching_allocations = self.env['resource.allocation'].search(domain)
-        if matching_allocations and matching_allocations.resource_id:
+        resource_ids = matching_allocations.mapped('resource_id.id')
+        
             #unavailable_resources = matching_allocations.resource_id.ids
-            for resource_id in matching_allocations.resource_id.ids:
-                available_resources.remove(resource_id)
+        for resource_id in resource_ids:
+            available_resources.remove(resource_id)
         return available_resources
     
     @api.multi
