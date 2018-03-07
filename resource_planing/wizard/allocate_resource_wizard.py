@@ -39,7 +39,7 @@ class AllocateResourceWizard(models.TransientModel):
     @api.model
     def default_get(self, fields):
         result = super(AllocateResourceWizard, self).default_get(fields)
-        result['resources'] = self._context.get('active_ids')
+        result['resources'] = self._context.get('active_ids',False)
          
         return result
 
