@@ -19,6 +19,13 @@ class AllocateResourceWizard(models.TransientModel):
     checked_resources = fields.Boolean(string="Checked ressources")
     partner_id = fields.Many2one('res.partner', string="Allocate to", required=True)
     date_lock = fields.Date(string="Date lock")
+
+    @api.model
+    def default_get(self, fields):
+        result = super(AllocateResourceWizard, self).default_get(fields)
+        result['resources'] = self._context.get('active_ids',False)
+         
+        return result
     
     @api.onchange('resource_category_id')
     def onchange_resource_category(self):
@@ -35,13 +42,6 @@ class AllocateResourceWizard(models.TransientModel):
         if self.checked_resources and self.date_start and self.date_end:
             self.checked_resources = True
             self.search_resource()
-
-    @api.model
-    def default_get(self, fields):
-        result = super(AllocateResourceWizard, self).default_get(fields)
-        result['resources'] = self._context.get('active_ids',False)
-         
-        return result
 
     @api.model
     def search_resource(self):
