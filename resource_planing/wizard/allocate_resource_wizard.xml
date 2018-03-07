@@ -14,7 +14,7 @@
                         	<field name="date_start"/>
                         	<field name="partner_id"/>
                         	<field name="resource_type"/>
-                        	<field name="resource_category_id" attrs="{'invisible':[('resource_type','=','resource')]}" widget="selection"/>
+                        	<field name="resource_category_id" attrs="{'invisible':[('resource_type','=','resource')],'required':[('resource_type','=','category')]}" widget="selection"/>
                         </group>
                         <group>
 	                        <field name="date_end"/>
@@ -28,7 +28,7 @@
                     	</page>
                     </notebook>
                     <footer>
-                        <label for="checked_resources" attrs="{'invisible':[('checked_resources','=',True)]}" string="Search Resouces" class="btn btn-primary" style="margin-right: 10px"/>
+                        <label for="checked_resources" string="Search Resouces" class="btn btn-primary" style="margin-right: 10px"/>
 						<field name="checked_resources" invisible="1" />
                         <button name="book_resource" attrs="{'invisible':[('checked_resources','=',False)]}" string="Book resource" type="object" class="btn-primary"/>
                         <button string="Cancel" class="btn-default" special="cancel"/>
@@ -46,6 +46,8 @@
             <field name="target">new</field>
 <!--             <field name="groups_id" eval="[(4,ref('base.group_sale_salesman'))]"/> -->
         </record>
+		
+		<menuitem action="action_view_allocate_resource" id="allocate_resource_menu" parent="menu_main_resource" sequence="20"/>
 
         <!-- TODO: check if we need this -->
         <record model="ir.values" id="allocate_resource">
