@@ -22,12 +22,15 @@
     "name": "Resource Planning",
     "version": "1.0",
     "depends": [
+        "base",
+        "mail",
         "resource",
         "web_gantt8",
     ],
     "author": "Houssine BAKKALI <houssine@coopiteasy.be>",
     "category": "Resource",
     "website": "www.coopiteasy.be",
+    "license": "AGPL-3",
     "description": """
     This module manages the planning of the resources. It aims to provide an api in
     in order to be able to tie a resource with any other model.

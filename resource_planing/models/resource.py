@@ -20,8 +20,9 @@ class ResourceCategory(models.Model):
 
 
 class Resource(models.Model):
-    _inherit = 'resource.resource'
-    
+    _name = 'resource.resource'
+    _inherit = ['resource.resource', 'mail.thread']
+
     category_id = fields.Many2one('resource.category', string="Category")
     state = fields.Selection([('available','Available'),
                               ('unavailable','Unavailable')],
@@ -89,7 +90,9 @@ class Resource(models.Model):
             res_alloc.create(vals)
 
 class ResourceAllocation(models.Model):
-    _name = 'resource.allocation'
+    _name = "resource.allocation"
+    
+    _inherit = ['mail.thread']
     
     name = fields.Many2one(related="partner_id")
     serial_number = fields.Char(related="resource_id.serial_number", string="Serial number")
