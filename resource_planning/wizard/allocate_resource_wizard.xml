@@ -1,0 +1,62 @@
+<odoo>
+	<data>
+		
+		<record id="view_allocate_resource_wizard" model="ir.ui.view">
+            <field name="name">Allocate resources</field>
+            <field name="model">allocate.resource.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Resource allocation">
+                    <p class="oe_grey">
+                        Resource Allocations will be created for the selected resources.
+                    </p>
+                    <group>
+                        <group>
+                        	<field name="date_start"/>
+                        	<field name="partner_id"/>
+                        	<field name="resource_type"/>
+                        	<field name="resource_category_id" attrs="{'invisible':[('resource_type','=','resource')],'required':[('resource_type','=','category')]}" widget="selection"/>
+                        </group>
+                        <group>
+	                        <field name="date_end"/>
+	                        <field name="allocation_type"/>
+	                        <field name="date_lock" attrs="{'invisible':[('allocation_type','!=','option')]}"/>
+                        </group>
+                    </group>
+                    <notebook>
+                    	<page name="resource" string="Resources">
+                    		<field name="resources"/>
+                    	</page>
+                    </notebook>
+                    <footer>
+                        <label for="checked_resources" string="Search Resouces" class="btn btn-primary" style="margin-right: 10px"/>
+						<field name="checked_resources" invisible="1" />
+                        <button name="book_resource" attrs="{'invisible':[('checked_resources','=',False)]}" string="Book resource" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+		<record id="action_view_allocate_resource" model="ir.actions.act_window">
+            <field name="name">Allocate Resource</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">allocate.resource.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+<!--             <field name="groups_id" eval="[(4,ref('base.group_sale_salesman'))]"/> -->
+        </record>
+		
+		<menuitem action="action_view_allocate_resource" id="allocate_resource_menu" parent="menu_main_resource" sequence="20"/>
+
+        <!-- TODO: check if we need this -->
+        <record model="ir.values" id="allocate_resource">
+            <field name="model_id" ref="resource.model_resource_resource" />
+            <field name="name">Allocate Resources</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.act_window,' + str(ref('action_view_allocate_resource'))" />
+            <field name="key">action</field>
+            <field name="model">resource.resource</field>
+        </record>
+	</data>
+</odoo>
