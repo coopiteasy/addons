@@ -46,7 +46,7 @@ class Resource(models.Model):
     def check_availabilities(self, date_start, date_end):
         if not date_start or not date_end:
             raise ValidationError((_("Error. Date start or date end aren't set")))
-        available_resources = self.ids
+        available_resources = self.filtered(lambda r: r.state == 'available').ids
 
         date_start = datetime.strptime(date_start, DTF)
         date_end = datetime.strptime(date_end, DTF)
