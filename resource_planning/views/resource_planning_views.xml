@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 	<data>
-		<menuitem name="Resource Planing" id="menu_main_resource_planing" sequence="40" />
-		<menuitem name="Resource" id="menu_main_resource" parent="menu_main_resource_planing" sequence="10" />
+		<menuitem name="Resource Planning" id="menu_main_resource_planning" sequence="40" />
+		<menuitem name="Resource" id="menu_main_resource" parent="menu_main_resource_planning" sequence="10" />
 		<menuitem action="resource.action_resource_resource_tree" id="menu_resource_resource" parent="menu_main_resource" sequence="5"/>
 		
 		<record id="resource_resource_tree" model="ir.ui.view">
