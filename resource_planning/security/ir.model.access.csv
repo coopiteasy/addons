@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_res_partner_manager,res.partner,base.model_res_partner,group_resource_manager,1,1,1,0
+access_resource_resource_manager,resource.resource,model_resource_resource,group_resource_manager,1,1,1,0
+access_resource_category_manager,resource.category,model_resource_category,group_resource_manager,1,1,1,0
+access_resource_allocation_manager,resource.allocation,model_resource_allocation,group_resource_manager,1,1,1,0
+access_res_partner_user,res.partner,base.model_res_partner,group_resource_user,1,1,1,0
+access_resource_resource_user,resource.resource,model_resource_resource,group_resource_user,1,1,1,0
+access_resource_category_user,resource.category,model_resource_category,group_resource_user,1,1,1,0
+access_resource_allocation_user,resource.allocation,model_resource_allocation,group_resource_user,1,1,1,0

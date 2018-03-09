@@ -36,6 +36,8 @@
     in order to be able to tie a resource with any other model.
     """,
     'data': [
+        'security/resource_planning_security.xml',
+        'security/ir.model.access.csv',
         'views/resource_planning_views.xml',
         'wizard/allocate_resource_wizard.xml',
     ],
