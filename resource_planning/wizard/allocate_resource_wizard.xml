@@ -9,6 +9,10 @@
                     <p class="oe_grey">
                         Resource Allocations will be created for the selected resources.
                     </p>
+
+                    <p class="oe_grey" style="color:red;" attrs="{'invisible':[('display_error','=',False)]}">
+                        Please correct the start date and the end date.
+                    </p>
                     <group>
                         <group>
                         	<field name="date_start"/>
@@ -20,6 +24,7 @@
 	                        <field name="date_end"/>
 	                        <field name="allocation_type"/>
 	                        <field name="date_lock" attrs="{'invisible':[('allocation_type','!=','option')]}"/>
+                        	<field name="display_error" invisible="1" />
                         </group>
                     </group>
                     <notebook>

@@ -12,7 +12,6 @@ from openerp.exceptions import ValidationError, UserError
 
 
 class ResourceCategory(models.Model):
-
     _name = 'resource.category'
 
     name = fields.Char(string="Category name", required=True)
@@ -41,11 +40,16 @@ class Resource(models.Model):
     def action_available(self):
         for resource in self:
             resource.state = 'available'
-    
-    @api.multi        
-    def check_availabilities(self, date_start, date_end):
+
+    def check_dates(self, date_start, date_end):
         if not date_start or not date_end:
             raise ValidationError((_("Error. Date start or date end aren't set")))
+        elif date_end < date_start:
+            raise ValidationError((_("Error. End date is preceding start date. Please choose an end date after a start date ")))
+
+    @api.multi        
+    def check_availabilities(self, date_start, date_end):
+        self.check_dates(date_start, date_end)
         available_resources = self.filtered(lambda r: r.state == 'available').ids
 
         date_start = datetime.strptime(date_start, DTF)
@@ -76,6 +80,7 @@ class Resource(models.Model):
     
     @api.multi
     def allocate_resource(self, allocation_type, date_start, date_end, partner_id, date_lock=False):
+        self.check_dates(date_start, date_end)
         res_alloc = self.env['resource.allocation']
         vals = {
             'date_start':date_start,

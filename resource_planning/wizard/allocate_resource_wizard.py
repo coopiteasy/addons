@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from openerp import api, fields, models, _
-from openerp.exceptions import UserError
+from openerp.exceptions import ValidationError, UserError
 
 class AllocateResourceWizard(models.TransientModel):
     _name = "allocate.resource.wizard"
@@ -19,7 +19,8 @@ class AllocateResourceWizard(models.TransientModel):
     checked_resources = fields.Boolean(string="Checked ressources")
     partner_id = fields.Many2one('res.partner', string="Allocate to", required=True)
     date_lock = fields.Date(string="Date lock")
-
+    display_error = fields.Boolean(string="Display error")
+    
     @api.model
     def default_get(self, fields):
         result = super(AllocateResourceWizard, self).default_get(fields)
@@ -39,14 +40,21 @@ class AllocateResourceWizard(models.TransientModel):
             
     @api.onchange('checked_resources')
     def onchange_checked_resources(self):
-        if self.checked_resources and self.date_start and self.date_end:
-            self.checked_resources = True
-            self.search_resource()
+        try:
+            if self.checked_resources and self.date_start and self.date_end:
+                self.env['resource.resource'].check_dates(self.date_start, self.date_end)
+                self.search_resource()
+                self.checked_resources = True
+                self.display_error = False
+        except ValidationError:
+            self.checked_resources = False
+            self.display_error = True
 
     @api.model
     def search_resource(self):
         resource_obj = self.env['resource.resource']
         res = []
+        
         if self.resource_type == 'resource':
             res = self.resources.check_availabilities(self.date_start, self.date_end)
         else:
