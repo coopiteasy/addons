@@ -52,7 +52,7 @@
 <!--             <field name="groups_id" eval="[(4,ref('base.group_sale_salesman'))]"/> -->
         </record>
 		
-		<menuitem action="action_view_allocate_resource" id="allocate_resource_menu" parent="menu_main_resource" sequence="20"/>
+		<menuitem action="action_view_allocate_resource" id="allocate_resource_menu" parent="menu_main_resource" sequence="50"/>
 
         <!-- TODO: check if we need this -->
         <record model="ir.values" id="allocate_resource">
