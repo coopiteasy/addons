@@ -3,8 +3,10 @@
 	<data>
 		<menuitem name="Resource Planning" id="menu_main_resource_planning" sequence="40" />
 		<menuitem name="Resource" id="menu_main_resource" parent="menu_main_resource_planning" sequence="10" />
-		<menuitem action="resource.action_resource_resource_tree" id="menu_resource_resource" parent="menu_main_resource" sequence="5"/>
+		<menuitem name="Configuration" id="menu_resource_configuration" parent="menu_main_resource_planning" sequence="150" groups="group_resource_manager,base.group_configuration"/>
 		
+		<menuitem action="resource.action_resource_resource_tree" id="menu_resource_resource" parent="menu_main_resource" sequence="5"/>
+
 		<record id="resource_resource_tree" model="ir.ui.view">
             <field name="name">resource.resource.tree</field>
             <field name="model">resource.resource</field>
@@ -13,6 +15,7 @@
             	<field name="name" position="after">
             		<field name="serial_number"/>
             		<field name="category_id"/>
+            		<field name="location" groups="resource_planning.group_multi_location"/>
             	</field>
             	<field name="time_efficiency" position="attributes">
             		<attribute name="invisible">True</attribute>
@@ -43,9 +46,6 @@
 				          			<field name="date_lock"/>
 				          			<field name="state"/>
             					</tree>
-            					<!-- <gantt8 date_start="date_start" date_stop="date_end">
-            					
-            					</gantt8> -->
             				</field>
             			</page>
             		</notebook>
@@ -57,6 +57,7 @@
                     </div>
             	</xpath>
             	<field name="resource_type" position="before">
+            		<field name="location" groups="resource_planning.group_multi_location"/>
             		<field name="category_id" widget="selection"/>
             	</field>
             	<field name="name" position="after">
@@ -76,6 +77,7 @@
 	                <field name="resource_id"/>
 	                <field name="serial_number"/>
 	                <field name="resource_category_id"/>
+	                <field name="location" groups="resource_planning.group_multi_location"/>
           			<field name="partner_id"/>
 	                <field name="date_start"/>
 	                <field name="date_end"/>
@@ -101,6 +103,7 @@
 			            	<group>
 			                    <field name="resource_id"/>
 			                    <field name="resource_category_id"/>
+			                    <field name="location" groups="resource_planning.group_multi_location"/>
 			                </group>
 			                <group>
 			                    <field name="date_start"/>
@@ -124,6 +127,7 @@
                 <search string="Search Subscription Object">
                     <field name="resource_id" string="Resource"/>
                     <field name="partner_id" string="Partner"/>
+                    <field name="location" string="location" groups="resource_planning.group_multi_location"/>
                     <filter string="Option" name="option" domain="[('state','=','option')]"/>
                     <filter string="Booked" name="booked" domain="[('state','=','booked')]"/>
                     <separator/>
@@ -201,7 +205,7 @@
             <field name="view_mode">tree,form</field>
         </record>
         
-        <menuitem action="action_resource_category" id="resource_category_menu" parent="menu_main_resource" sequence="15"/>
+        <menuitem action="action_resource_category" id="resource_category_menu" parent="menu_resource_configuration" sequence="20"/>
                 
 	</data>
 </odoo>

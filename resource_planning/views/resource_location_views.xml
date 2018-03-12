@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		
+		<record id="resource_location_tree" model="ir.ui.view">
+            <field name="name">resource.location.tree</field>
+            <field name="model">resource.location</field>
+            <field name="arch" type="xml">
+            	<tree>
+            		<field name="name"/>
+            		<field name="address"/>
+            	</tree>
+            </field>
+        </record>
+        
+        <record id="resource_location_form" model="ir.ui.view">
+            <field name="name">resource.location.form</field>
+            <field name="model">resource.location</field>
+            <field name="arch" type="xml">
+            	<form>
+            		<field name="name"/>
+            		<field name="address"/>
+            	</form>
+            </field>
+        </record>
+	</data>
+</odoo>

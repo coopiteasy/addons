@@ -30,7 +30,8 @@ class Resource(models.Model):
                                       string="Resource Type", required=True, default="material")
     allocations = fields.One2many('resource.allocation', 'resource_id', string="Booking lines")
     serial_number = fields.Char(string="Serial number")
-
+    location = fields.Many2one('resource.location', string="Location")
+        
     @api.multi
     def action_unavailable(self):
         for resource in self:
@@ -112,6 +113,7 @@ class ResourceAllocation(models.Model):
     date_lock = fields.Date(string="Lock date",
                             help="If the booking type is option, it should be confirmed before the lock date expire")
     partner_id = fields.Many2one('res.partner', string="Partner")
+    location = fields.Many2one('resource.location', string="Location")
 
     @api.multi
     def action_confirm(self):
