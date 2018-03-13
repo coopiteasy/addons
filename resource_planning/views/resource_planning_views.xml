@@ -39,7 +39,7 @@
             		<notebook>
             			<page name="allocations" string="Allocations">
             				<field name="allocations">
-            					<tree>
+            					<tree delete="false" create="false">
             						<field name="partner_id"/>
 					                <field name="date_start"/>
 					                <field name="date_end"/>
@@ -57,8 +57,8 @@
                     </div>
             	</xpath>
             	<field name="resource_type" position="before">
-            		<field name="location" groups="resource_planning.group_multi_location"/>
             		<field name="category_id" widget="selection"/>
+            		<field name="location" attrs="{'readonly':[('state','!=','draft')]}" widget="selection" groups="resource_planning.group_multi_location"/>
             	</field>
             	<field name="name" position="after">
             		<field name="serial_number"/>
@@ -103,7 +103,7 @@
 			            	<group>
 			                    <field name="resource_id"/>
 			                    <field name="resource_category_id"/>
-			                    <field name="location" groups="resource_planning.group_multi_location"/>
+			                    <field name="location" readonly="True" groups="resource_planning.group_multi_location"/>
 			                </group>
 			                <group>
 			                    <field name="date_start"/>
@@ -174,8 +174,6 @@
             <field name="model">resource.category</field>
             <field name="arch" type="xml">
                 <form string="Resource Category">
-		            <header>
-		            </header>
 		            <sheet>
 		            	<group>
 		                    <field name="name"/>
