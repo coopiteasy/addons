@@ -23,7 +23,8 @@ class Resource(models.Model):
     _inherit = ['resource.resource', 'mail.thread']
 
     category_id = fields.Many2one('resource.category', string="Category")
-    state = fields.Selection([('available','Available'),
+    state = fields.Selection([('draft','Draft'),
+                              ('available','Available'),
                               ('unavailable','Unavailable')],
                              string="State", default='available')
     resource_type = fields.Selection([('user','Human'),('material','Material')],
