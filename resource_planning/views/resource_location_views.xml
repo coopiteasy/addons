@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 	<data>
+		<menuitem name="Locations" id="menu_resource_location" parent="menu_main_resource_planning" sequence="30" groups="resource_planning.group_multi_location"/>
 		
 		<record id="resource_location_tree" model="ir.ui.view">
             <field name="name">resource.location.tree</field>
@@ -40,6 +41,6 @@
             <field name="view_mode">tree,form</field>
         </record>
         
-        <menuitem action="action_resource_location" id="resource_location_menu" parent="menu_main_resource" sequence="20"/>
+        <menuitem action="action_resource_location" id="resource_location_menu" parent="menu_resource_location" sequence="10" groups="resource_planning.group_multi_location"/>
 	</data>
 </odoo>
