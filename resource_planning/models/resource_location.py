@@ -5,6 +5,10 @@
 from openerp import _, api, fields, models
 from openerp.exceptions import ValidationError, UserError
 
+class ResPartner(models.Model):
+    _inherit='res.partner'
+    
+    resource_location = fields.Many2one('resource.location', string="Location")
 
 class ResourceLocation(models.Model):
     _name = 'resource.location'
