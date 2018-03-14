@@ -40,6 +40,7 @@
         'security/ir.model.access.csv',
         'views/resource_planning_views.xml',
         'views/resource_location_views.xml',
+        'views/partner_views.xml',
         'views/res_config_view.xml',
         'wizard/allocate_resource_wizard.xml',
     ],

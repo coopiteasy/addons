@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="view_partner_location_form" model="ir.ui.view">
+            <field name="name">res.partner.location.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+				<field name="function" position="before">
+					<field name="resource_location" widget="selection"/>
+				</field>
+            </field>
+        </record>
+	</data>
+</odoo>
