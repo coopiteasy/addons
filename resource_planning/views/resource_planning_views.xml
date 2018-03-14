@@ -23,49 +23,53 @@
             </field>
         </record>
         
-		<record id="resource_planing_form" model="ir.ui.view">
-            <field name="name">resource.planing.form</field>
+        
+        <record id="resource.resource_resource_form" model="ir.ui.view">
+            <field name="name">resource.resource.form</field>
             <field name="model">resource.resource</field>
-            <field name="inherit_id" ref="resource.resource_resource_form"/>
             <field name="arch" type="xml">
-            	<xpath expr="//field[@name='name']/../.." position="before">
-            		<header>
+                <form string="Resource">
+               		<header>
             			<button name="action_unavailable" string="Set unavailable" type="object" states="available"/>
             			<button name="action_available" string="Set available" type="object" states="unavailable"/>
             			<field name="state" widget="statusbar"/>
             		</header>
-            	</xpath>
-            	<xpath expr="//field[@name='name']/../.." position="after">
-            		<notebook>
-            			<page name="allocations" string="Allocations">
-            				<field name="allocations">
-            					<tree delete="false" create="false">
-            						<field name="partner_id"/>
-					                <field name="date_start"/>
-					                <field name="date_end"/>
-				          			<field name="date_lock"/>
-				          			<field name="state"/>
-            					</tree>
-            				</field>
-            			</page>
-            		</notebook>
-            	</xpath>
-            	<xpath expr="//field[@name='name']/../../.." position="inside">
-            		<div class="oe_chatter">
+                	<sheet>
+                		<group>
+		                    <group>
+			                    <field name="name"/>
+			                    <field name="serial_number"/>
+			                    <field name="user_id" attrs="{'required':[('resource_type','=','user')], 'readonly':[('resource_type','=','material')]}"/>
+			                    <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
+			                    <field name="active"/>
+		                    </group>
+		                	<group>
+		                		<field name="category_id" widget="selection"/>
+            					<field name="location" attrs="{'readonly':[('state','!=','draft')]}" widget="selection" groups="resource_planning.group_multi_location"/>
+								<field name="resource_type" />
+								<field name="calendar_id"/>
+								<field name="time_efficiency" invisible="True"/>
+		                	</group>
+                    	</group>
+                    	<notebook>
+	            			<page name="allocations" string="Allocations">
+	            				<field name="allocations">
+	            					<tree delete="false" create="false">
+	            						<field name="partner_id"/>
+						                <field name="date_start"/>
+						                <field name="date_end"/>
+					          			<field name="date_lock"/>
+					          			<field name="state"/>
+	            					</tree>
+	            				</field>
+	            			</page>
+	            		</notebook>
+                	</sheet>
+                 	<div class="oe_chatter">
 	                    <field name="message_follower_ids" widget="mail_followers"/>
 	                    <field name="message_ids" widget="mail_thread"/>
                     </div>
-            	</xpath>
-            	<field name="resource_type" position="before">
-            		<field name="category_id" widget="selection"/>
-            		<field name="location" attrs="{'readonly':[('state','!=','draft')]}" widget="selection" groups="resource_planning.group_multi_location"/>
-            	</field>
-            	<field name="name" position="after">
-            		<field name="serial_number"/>
-            	</field>
-            	<field name="time_efficiency" position="attributes">
-            		<attribute name="invisible">True</attribute>
-            	</field>
+                </form>
             </field>
         </record>
 		
