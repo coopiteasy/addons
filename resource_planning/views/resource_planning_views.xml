@@ -30,6 +30,9 @@
             <field name="arch" type="xml">
                 <form string="Resource">
                		<header>
+               			<button name="%(action_view_allocate_resource)d" string="Schedule Maintenance" 
+               					context="{'default_active_id': active_id,'default_allocation_type': 'maintenance'}"
+               					type="action" states="available"/>
             			<button name="action_unavailable" string="Set unavailable" type="object" states="available"/>
             			<button name="action_available" string="Set available" type="object" states="unavailable"/>
             			<field name="state" widget="statusbar"/>
