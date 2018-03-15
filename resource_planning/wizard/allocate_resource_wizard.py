@@ -10,8 +10,9 @@ class AllocateResourceWizard(models.TransientModel):
     date_end = fields.Datetime(string="Date end", required=True)
     resources = fields.Many2many('resource.resource', string="Resources")
     allocation_type = fields.Selection([('booked','Book'),
-                                       ('option','Option')],
-                                       string="Allocation type", required=True)
+                                        ('option','Option'),
+                                        ('maintenance','Maintenance')],
+                                        string="Allocation type", required=True)
     resource_type = fields.Selection([('resource','Resource'),
                                       ('category','Category')],
                                       string="Allocate on", default="resource", required=True)
@@ -20,12 +21,13 @@ class AllocateResourceWizard(models.TransientModel):
     partner_id = fields.Many2one('res.partner', string="Allocate to", required=True)
     date_lock = fields.Date(string="Date lock")
     display_error = fields.Boolean(string="Display error")
+    location = fields.Many2one('resource.location', string="Location")
     
     @api.model
     def default_get(self, fields):
         result = super(AllocateResourceWizard, self).default_get(fields)
         result['resources'] = self._context.get('active_ids',False)
-         
+
         return result
     
     @api.onchange('resource_category_id')
@@ -56,9 +58,9 @@ class AllocateResourceWizard(models.TransientModel):
         res = []
         
         if self.resource_type == 'resource':
-            res = self.resources.check_availabilities(self.date_start, self.date_end)
+            res = self.resources.check_availabilities(self.date_start, self.date_end, self.location)
         else:
-            res = self.resource_category_id.resources.check_availabilities(self.date_start, self.date_end)
+            res = self.resource_category_id.resources.check_availabilities(self.date_start, self.date_end, self.location)
         if res:
             self.resources = resource_obj.browse(res)
         else:
@@ -67,4 +69,4 @@ class AllocateResourceWizard(models.TransientModel):
     @api.multi
     def book_resource(self):
         if self.resources:
-            self.resources.allocate_resource(self.allocation_type, self.date_start, self.date_end, self.partner_id, self.date_lock)
+            self.resources.allocate_resource(self.allocation_type, self.date_start, self.date_end, self.partner_id, self.location, self.date_lock)
