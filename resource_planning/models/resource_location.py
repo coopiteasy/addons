@@ -15,4 +15,5 @@ class ResourceLocation(models.Model):
     
     name = fields.Char(string="Name")
     address = fields.Many2one('res.partner', string="Address")
-
+    customers = fields.One2many('res.partner','resource_location', domain=[('customer','=',True)], string="Customers")
+    resources = fields.One2many('resource.resource','location', string="Resources")

@@ -28,6 +28,25 @@
 		            			<field name="address"/>
 	            			</group>
 	            		</group>
+	            		<notebook>
+	            			<page name="resources" string="Resources">
+	            				<field name="resources">
+		            				<tree delete="false" create="false">
+		            					<field name="name"/>
+		            					<field name="serial_number"/>
+		            					<field name="category_id"/>
+		            					<field name="state"/>
+		            				</tree>
+		            			</field>
+	            			</page>
+	            			<page name="customers" string="Customers">
+	            				<field name="customers">
+		            				<tree delete="false" create="false">
+		            					<field name="name"/>
+		            				</tree>
+		            			</field>
+	            			</page>
+	            		</notebook>
 	            	</sheet>
             	</form>
             </field>
