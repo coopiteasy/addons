@@ -131,7 +131,7 @@
             <field name="name">resource.allocation.search</field>
             <field name="model">resource.allocation</field>
             <field name="arch" type="xml">
-                <search string="Search Subscription Object">
+                <search string="Search Resource Allocation">
                     <field name="resource_id" string="Resource"/>
                     <field name="partner_id" string="Partner"/>
                     <field name="location" string="location" groups="resource_planning.group_multi_location"/>
