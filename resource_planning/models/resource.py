@@ -25,7 +25,7 @@ class Resource(models.Model):
     state = fields.Selection([('draft','Draft'),
                               ('available','Available'),
                               ('unavailable','Unavailable')],
-                             string="State", default='available')
+                             string="State", default='draft')
     resource_type = fields.Selection([('user','Human'),('material','Material')],
                                       string="Resource Type", required=True, default="material")
     allocations = fields.One2many('resource.allocation', 'resource_id', string="Booking lines")
