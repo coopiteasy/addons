@@ -73,6 +73,18 @@
             </field>
         </record>
         
+        <record id="view_resource_activity_calendar" model="ir.ui.view">
+            <field name="name">resource.activity.calendar</field>
+            <field name="model">resource.activity</field>
+            <field name="type">calendar</field>
+            <field name="arch" type="xml">
+                <calendar date_start="date_start" date_stop="date_end" string="Activities" color="state">
+                	<field name="name"/>
+                    <field name="location_id"/>
+                </calendar>
+            </field>
+        </record>
+        
         <record id="view_resource_activity_filter" model="ir.ui.view">
             <field name="name">resource.activity.search</field>
             <field name="model">resource.activity</field>
@@ -87,7 +99,6 @@
                     <separator/>
                     <group string="Group By...">
                         <filter string="Location" domain="[]" context="{'group_by':'location_id'}"/>
-                    <!--     <filter string="Resource Category" domain="[]" context="{'group_by':'resource_category_id'}"/>-->
                     </group>
                </search>
             </field>
