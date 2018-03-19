@@ -16,8 +16,7 @@ class ResourceCategory(models.Model):
 
     name = fields.Char(string="Category name", required=True)
     resources = fields.One2many('resource.resource', 'category_id', string="Resources")
-
-
+    
 class Resource(models.Model):
     _name = 'resource.resource'
     _inherit = ['resource.resource', 'mail.thread']
@@ -84,6 +83,7 @@ class Resource(models.Model):
     def allocate_resource(self, allocation_type, date_start, date_end, partner_id, location, date_lock=False):
         self.check_dates(date_start, date_end)
         res_alloc = self.env['resource.allocation']
+        
         vals = {
             'date_start':date_start,
             'date_end':date_end,
@@ -93,9 +93,17 @@ class Resource(models.Model):
             'location':location.id
         }
         
-        for resource in self:
+        # we check again the availabilities in case in has been booked 
+        # between the search and the allocation request  
+        allocation_ids = []
+        available_resource_ids = self.check_availabilities(date_start, date_end, location)
+        
+        for resource in self.browse(available_resource_ids):
             vals['resource_id'] = resource.id
-            res_alloc.create(vals)
+            allocation = res_alloc.create(vals)
+            allocation_ids.append(allocation.id)
+        return allocation_ids
+
 
 class ResourceAllocation(models.Model):
     _name = "resource.allocation"
