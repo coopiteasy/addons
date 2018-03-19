@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<menuitem name="Activities" id="menu_resource_activity" parent="resource_planning.menu_main_resource_planning" sequence="20"/>
+		
+		<record id="view_resource_activity_tree" model="ir.ui.view">
+            <field name="name">resource.activity.tree</field>
+            <field name="model">resource.activity</field>
+            <field name="arch" type="xml">
+				<tree>
+					<field name="name"/>
+					<field name="date_start"/>
+					<field name="date_end"/>
+					<field name="location_id"/>
+					<field name="state"/>
+				</tree>
+            </field>
+        </record>
+		
+		<record id="view_resource_activity_form" model="ir.ui.view">
+            <field name="name">resource.activity.form</field>
+            <field name="model">resource.activity</field>
+            <field name="arch" type="xml">
+				<form>
+					<header>
+						<button name="action_confirm" string="Confirm" type="object" states="draft"/>
+						<button name="action_draft" string="Draft" type="object" states="confirmed"/>
+						<button name="action_done" string="Done" type="object" states="confirmed"/>
+						<button name="action_cancel" string="Cancel" type="object" states="cancelled"/>
+						<field name="state" widget="statusbar"/>
+					</header>
+					<sheet>
+						<h1 class="mt0">
+	                  		<field name="name" readonly="1" class="oe_inline"/>
+	                   	</h1>
+						<group>
+							<group>
+								<field name="location_id"/>
+								<field name="registrations_max"/>
+								<field name="registrations_min"/>
+								<field name="registrations_option"/>
+								<field name="registrations_booked"/>
+							</group>
+							<group>
+								<field name="date_start"/>
+								<field name="date_end"/>
+								<field name="registrations_expected"/>
+								<field name="registrations_available"/>
+								<field name="registrations_unconfirmed"/>
+							</group>
+						</group>
+						<notebook>
+	            			<page name="registration" string="Registrations">
+	            				<field name="registrations">
+	            					<tree>
+	            						<field name="attendee_id"/>
+	            						<field name="resources"/>
+	            						<field name="booking_type"/>
+	            						<field name="state"/>
+	            						<button type="object" name="action_book" states="option" help="Book" icon="STOCK_MEDIA_PLAY"/>
+					                    <button type="object" name="action_allocate" states="draft" help="Allocate resource" icon="gtk-apply"/>
+					                    <button type="object" name="action_cancel" states="draft,waiting,booked,option," help="Cancel" icon="gtk-cancel"/>
+	            					</tree>
+	            				</field>
+	            			</page>
+	            		</notebook>
+					</sheet>
+					<div class="oe_chatter">
+	                    <field name="message_follower_ids" widget="mail_followers"/>
+	                    <field name="message_ids" widget="mail_thread"/>
+                    </div>
+				</form>
+            </field>
+        </record>
+        
+        <record id="view_resource_activity_filter" model="ir.ui.view">
+            <field name="name">resource.activity.search</field>
+            <field name="model">resource.activity</field>
+            <field name="arch" type="xml">
+                <search string="Search Activity">
+                    <!-- <field name="resource_id" string="Resource"/>
+                    <field name="partner_id" string="Partner"/> -->
+                    <field name="location_id" string="location" groups="resource_planning.group_multi_location"/>
+                    <filter string="Draft" name="draft" domain="[('state','=','draft')]"/>
+                    <filter string="Option" name="option" domain="[('state','=','option')]"/>
+                    <filter string="Booked" name="booked" domain="[('state','=','booked')]"/>
+                    <separator/>
+                    <group string="Group By...">
+                        <filter string="Location" domain="[]" context="{'group_by':'location_id'}"/>
+                    <!--     <filter string="Resource Category" domain="[]" context="{'group_by':'resource_category_id'}"/>-->
+                    </group>
+               </search>
+            </field>
+        </record>
+        
+        <record id="action_resource_activity" model="ir.actions.act_window">
+            <field name="name">Resource activities</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">resource.activity</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar</field>
+        </record>
+        
+        <menuitem action="action_resource_activity" id="resource_activity_menu" parent="menu_resource_activity" sequence="10"/>
+        
+        <record id="view_activity_registration_form" model="ir.ui.view">
+            <field name="name">activity.registration.form</field>
+            <field name="model">resource.activity.registration</field>
+            <field name="arch" type="xml">
+				<form>
+					<header>
+						<field name="state" widget="statusbar"/>
+					</header>
+					<sheet>
+						<group>
+							<group>
+								<field name="attendee_id"/>
+							</group>
+							<group>
+								<field name="booking_type"/>
+								<field name="date_lock" attrs="{'invisible':[('booking_type','!=','option')]}"/>
+							</group>
+						</group>
+						<notebook>
+							<page string="Resources">
+								<field name="resources">
+									<tree>
+										<field name="name"/>
+										<field name="serial_number"/>
+										<field name="category_id"/>
+										<field name="location"/>
+										<field name="state"/>
+									</tree>
+								</field>
+							</page>
+							<page string="Resource Allocations">
+								<field name="allocations">
+									<tree>
+										<field name="name"/>
+										<field name="serial_number"/>
+										<field name="resource_id"/>
+										<field name="resource_category_id"/>
+										<field name="date_start"/>
+										<field name="date_end"/>
+										<field name="state"/>
+									</tree>
+								</field>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+            </field>
+        </record>
+	</data>
+</odoo>
