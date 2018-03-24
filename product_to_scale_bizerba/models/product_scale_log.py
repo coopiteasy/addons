@@ -7,7 +7,7 @@ import os
 import logging
 from datetime import datetime
 
-from openerp import tools
+from openerp import tools, api
 from openerp.osv import fields
 from openerp.osv.orm import Model
 
@@ -164,6 +164,12 @@ class product_scale_log(Model):
                 'external_text_display': '\n'.join(
                     [x.replace('\n', '') for x in external_texts]),
             }
+        return res
+
+    @api.noguess
+    def _auto_init(self, cr, context=None):
+        cr.execute("DELETE FROM product_scale_log")
+        res = super(product_scale_log, self)._auto_init(cr, context=context)
         return res
 
     # Column Section
