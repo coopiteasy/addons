@@ -8,7 +8,7 @@ from openerp import _, api, fields, models
 class ResourceAllocation(models.Model):
     _inherit = 'resource.allocation'
     
-    activity_registration_id = fields.Many2one('activity.registration', string="Activity registration")
+    activity_registration_id = fields.Many2one('resource.activity.registration', string="Activity registration")
 
 class ResourceActivity(models.Model):
     _name = 'resource.activity'
