@@ -9,7 +9,7 @@ import os
 import logging
 from datetime import datetime
 
-from openerp import tools
+from openerp import tools, api
 from openerp.osv import fields
 from openerp.osv.orm import Model
 
@@ -43,6 +43,12 @@ class product_scale_log(Model):
     _EXTERNAL_TEXT_ACTION_CODE = 'C'
 
     _EXTERNAL_TEXT_DELIMITER = '#'
+
+    @api.noguess
+    def _auto_init(self, cr, context=None):
+        cr.execute("DELETE FROM product_scale_log")
+        res = super(product_scale_log, self)._auto_init(cr, context=context)
+        return res
 
     # Private Section
     def _clean_value(self, value, product_line):
