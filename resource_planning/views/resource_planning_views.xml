@@ -77,6 +77,17 @@
             </field>
         </record>
 		
+		<record id="view_resource_resource_search" model="ir.ui.view">
+            <field name="name">resource.resource.search</field>
+            <field name="model">resource.resource</field>
+            <field name="inherit_id" ref="resource.view_resource_resource_search"/>
+            <field name="arch" type="xml">
+                <group expand="0" position="inside">
+                	<filter name="resource_category" string="Resource category" domain="[]" context="{'group_by':'category_id'}"/>
+                </group>
+            </field>
+        </record>
+		
 		<record id="resouce_allocation_tree" model="ir.ui.view">
             <field name="name">resource.allocation.tree</field>
             <field name="model">resource.allocation</field>
