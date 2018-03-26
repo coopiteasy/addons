@@ -34,6 +34,7 @@
     This allows to manage sale activities on your resources.
     """,
     'data': [
+        'security/ir.model.access.csv',
         'data/resource_activity_data.xml',
         'views/partner_views.xml',
         'views/resource_activity_views.xml',
