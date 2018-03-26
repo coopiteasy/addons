@@ -42,6 +42,11 @@ class Resource(models.Model):
         for resource in self:
             resource.state = 'available'
 
+    @api.multi
+    def action_draft(self):
+        for resource in self:
+            resource.state = 'draft'
+
     def check_dates(self, date_start, date_end):
         if not date_start or not date_end:
             raise ValidationError((_("Error. Date start or date end aren't set")))

@@ -35,6 +35,7 @@
                					type="action" states="available"/>
             			<button name="action_unavailable" string="Set unavailable" type="object" states="available"/>
             			<button name="action_available" string="Set available" type="object" states="unavailable"/>
+            			<button name="action_draft" string="Set to draft" type="object" states="available"/>
             			<field name="state" widget="statusbar"/>
             		</header>
                 	<sheet>
