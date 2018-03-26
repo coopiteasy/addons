@@ -43,6 +43,7 @@
         'views/partner_views.xml',
         'views/res_config_view.xml',
         'wizard/allocate_resource_wizard.xml',
+        'wizard/check_resource_availabilities_wizard.xml',
     ],
     'installable': True,
     'application': True,

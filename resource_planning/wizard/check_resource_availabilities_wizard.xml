@@ -1,0 +1,38 @@
+<odoo>
+	<data>
+		<record id="view_check_resource_wizard" model="ir.ui.view">
+            <field name="name">Check resources availabilities</field>
+            <field name="model">check.resource.availabilities.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Check resource availibilities">
+                    <group>
+                        <group>
+                        	<field name="date_start"/>
+                        </group>
+                        <group>
+	                        <field name="date_end"/>
+                        	<field name="location" widget="selection"/>
+                        </group>
+                    </group>
+                   	<field name="multi_resource_category_id"/>
+                    <footer>
+                        <button name="check_resource_availabilities" string="Check resources availabilies" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+		<record id="action_view_check_resource" model="ir.actions.act_window">
+            <field name="name">Check Resources availabilities</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">check.resource.availabilities.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+		
+		<menuitem action="action_view_check_resource" id="check_resource_menu" parent="menu_main_resource" sequence="60"/>
+
+	</data>
+</odoo>
