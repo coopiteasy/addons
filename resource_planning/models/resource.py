@@ -56,13 +56,15 @@ class Resource(models.Model):
     @api.multi        
     def check_availabilities(self, date_start, date_end, location):
         self.check_dates(date_start, date_end)
-        available_resources = self.filtered(lambda r: r.state == 'available').ids
-
+        available_resources = self.filtered(lambda r: r.state == 'available')
+        if location:
+            available_resources = available_resources.filtered(lambda r: r.location.id ==  location.id)
+        available_resources_ids = available_resources.ids
+        
         date_start = datetime.strptime(date_start, DTF)
         date_end = datetime.strptime(date_end, DTF)
-        domain = [('resource_id', 'in', available_resources)]
-        if location:
-            domain.append(('location', '=', location.id))
+        
+        domain = [('resource_id', 'in', available_resources_ids)]
         domain.append(('state', '!=', 'cancel'))
         domain.append(('date_end', '>=', fields.Datetime.now()))
         domain.append('|')
@@ -81,8 +83,8 @@ class Resource(models.Model):
         resource_ids = matching_allocations.mapped('resource_id.id')
         
         for resource_id in resource_ids:
-            available_resources.remove(resource_id)
-        return available_resources
+            available_resources_ids.remove(resource_id)
+        return available_resources_ids
     
     @api.multi
     def allocate_resource(self, allocation_type, date_start, date_end, partner_id, location, date_lock=False):
