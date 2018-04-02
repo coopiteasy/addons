@@ -40,14 +40,14 @@
             		</header>
                 	<sheet>
                 		<group>
-		                    <group>
+		                    <group name="general">
 			                    <field name="name"/>
 			                    <field name="serial_number"/>
 			                    <field name="user_id" attrs="{'required':[('resource_type','=','user')], 'readonly':[('resource_type','=','material')]}"/>
 			                    <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
 			                    <field name="active"/>
 		                    </group>
-		                	<group>
+		                	<group name="category">
 		                		<field name="category_id" widget="selection"/>
             					<field name="location" attrs="{'readonly':[('state','!=','draft')]}" widget="selection" groups="resource_planning.group_multi_location"/>
 								<field name="resource_type" />
@@ -178,7 +178,7 @@
         
         <menuitem action="action_resource_allocation" id="resource_allocation_menu" parent="menu_main_resource" sequence="10"/>
         
-        <record id="resouce_category_tree" model="ir.ui.view">
+        <record id="resource_category_tree" model="ir.ui.view">
             <field name="name">resource.category.tree</field>
             <field name="model">resource.category</field>
             <field name="arch" type="xml">
@@ -195,8 +195,11 @@
                 <form string="Resource Category">
 		            <sheet>
 		            	<group>
-		                    <field name="name"/>
-		               	</group>
+			            	<group name="name">
+			                    <field name="name"/>
+			               	</group>
+		            	</group>
+		            	
 		               	<notebook>
 		               		<page string="Resources">
 				               	<field name="resources">
