@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="resource_category_tree" model="ir.ui.view">
+            <field name="name">resource.category.tree</field>
+            <field name="model">resource.category</field>
+            <field name="inherit_id" ref="resource_planning.resource_category_tree"/>
+            <field name="arch" type="xml">
+	        	<field name="name" position="after">
+	        		<field name="vehicule" invisible="True"/>
+	        	</field>
+            </field>
+        </record>
+        
+        <record id="view_resource_category_form" model="ir.ui.view">
+            <field name="name">resource.category.form</field>
+            <field name="model">resource.category</field>
+            <field name="inherit_id" ref="resource_planning.view_resource_category_form"/>
+            <field name="arch" type="xml">
+		    	<group name="name" position="after">
+		    		<group>
+			    		<field name="vehicule"/>
+			    		<field name="vehicule_type" attrs="{'invisible':[('vehicule','!=',True)]}"/>
+		    		</group>
+		    	</group>
+		    </field>
+		</record>
+		
+		<record id="resource_vehicule_form" model="ir.ui.view">
+            <field name="name">resource.resource.form</field>
+            <field name="model">resource.resource</field>
+            <field name="inherit_id" ref="resource.resource_resource_form"/>
+            <field name="arch" type="xml">
+            	<group name="category" position="after">
+					<group name="vehicule" string="Vehicule Info" attrs="{'invisible':[('vehicule_type','!=','bike')]}">
+						<field name="vehicule_type" invisible="True"/>
+						<field name="id_number"/>
+						<field name="chassis_number"/>
+						<field name="color" widget="selection"/>
+						<field name="brand_id" widget="selection"/>
+						<field name="model_id" widget="selection"/>
+						<field name="gearbox" widget="selection"/>
+					</group>
+            	</group>
+           	</field>
+        </record>
+        
+        <record id="resource_brand_tree" model="ir.ui.view">
+            <field name="name">resource.brand.tree</field>
+            <field name="model">resource.brand</field>
+            <field name="arch" type="xml">
+                <tree string="Resource brand" delete="false">
+	                <field name="name"/>
+	                <field name="code"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_resource_brand_form" model="ir.ui.view">
+            <field name="name">resource.brand.form</field>
+            <field name="model">resource.brand</field>
+            <field name="arch" type="xml">
+                <form string="Resource Brand">
+		            <sheet>
+		            	<group>
+			            	<group>
+			                    <field name="name"/>
+			               	</group>
+			               	<group>
+			               		<field name="code"/>
+			               	</group>
+		            	</group>
+		        	</sheet>
+		        </form>
+		    </field>
+		</record>
+		
+		<record id="action_resource_brand" model="ir.actions.act_window">
+            <field name="name">Resource brands</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">resource.brand</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <menuitem action="action_resource_brand" id="resource_brand_menu" parent="resource_planning.menu_resource_configuration" sequence="30"/>
+        
+        <record id="resource_model_tree" model="ir.ui.view">
+            <field name="name">resource.model.tree</field>
+            <field name="model">resource.model</field>
+            <field name="arch" type="xml">
+                <tree string="Resource model" delete="false">
+	                <field name="name"/>
+	                <field name="code"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_resource_model_form" model="ir.ui.view">
+            <field name="name">resource.model.form</field>
+            <field name="model">resource.model</field>
+            <field name="arch" type="xml">
+                <form string="Resource Model">
+		            <sheet>
+		            	<group>
+			            	<group>
+			                    <field name="name"/>
+			               	</group>
+			               	<group>
+			               		<field name="code"/>
+			               	</group>
+		            	</group>
+		        	</sheet>
+		        </form>
+		    </field>
+		</record>
+		
+		<record id="action_resource_model" model="ir.actions.act_window">
+            <field name="name">Resource models</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">resource.model</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <menuitem action="action_resource_model" id="resource_model_menu" parent="resource_planning.menu_resource_configuration" sequence="30"/>
+        
+        <record id="resource_gearbox_tree" model="ir.ui.view">
+            <field name="name">resource.gearbox.tree</field>
+            <field name="model">resource.gearbox</field>
+            <field name="arch" type="xml">
+                <tree string="Resource gearbox" delete="false">
+	                <field name="name"/>
+	                <field name="code"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_resource_gearbox_form" model="ir.ui.view">
+            <field name="name">resource.gearbox.form</field>
+            <field name="model">resource.gearbox</field>
+            <field name="arch" type="xml">
+                <form string="Resource Gearbox">
+		            <sheet>
+		            	<group>
+			            	<group>
+			                    <field name="name"/>
+			               	</group>
+			               	<group>
+			               		<field name="code"/>
+			               	</group>
+		            	</group>
+		        	</sheet>
+		        </form>
+		    </field>
+		</record>
+		
+		<record id="action_resource_gearbox" model="ir.actions.act_window">
+            <field name="name">Resource gearboxes</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">resource.gearbox</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <menuitem action="action_resource_gearbox" id="resource_gearbox_menu" parent="resource_planning.menu_resource_configuration" sequence="50"/>
+        
+        <record id="resource_color_tree" model="ir.ui.view">
+            <field name="name">resource.color.tree</field>
+            <field name="model">resource.color</field>
+            <field name="arch" type="xml">
+                <tree string="Resource color" delete="false">
+	                <field name="name"/>
+	                <field name="code"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_resource_color_form" model="ir.ui.view">
+            <field name="name">resource.color.form</field>
+            <field name="model">resource.color</field>
+            <field name="arch" type="xml">
+                <form string="Resource Color">
+		            <sheet>
+		            	<group>
+			            	<group>
+			                    <field name="name"/>
+			               	</group>
+			               	<group>
+			               		<field name="code"/>
+			               	</group>
+		            	</group>
+		        	</sheet>
+		        </form>
+		    </field>
+		</record>
+		
+		<record id="action_resource_color" model="ir.actions.act_window">
+            <field name="name">Resource colors</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">resource.color</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <menuitem action="action_resource_color" id="resource_color_menu" parent="resource_planning.menu_resource_configuration" sequence="60"/>
+	</data>
+</odoo>

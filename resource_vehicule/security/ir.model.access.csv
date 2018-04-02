@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_resource_brand_manager,resource.brand manager,resource_vehicule.model_resource_brand,resource_planning.group_resource_manager,1,1,1,0
+access_resource_model_manager,resource.model manager,resource_vehicule.model_resource_model,resource_planning.group_resource_manager,1,1,1,0
+access_resource_color_manager,resource.color manager,resource_vehicule.model_resource_color,resource_planning.group_resource_manager,1,1,1,0
+access_resource_gearbox_manager,resource.gearbox manager,resource_vehicule.model_resource_gearbox,resource_planning.group_resource_manager,1,1,1,0
+access_resource_brand_user,resource.brand user,resource_vehicule.model_resource_brand,resource_planning.group_resource_user,1,0,0,0
+access_resource_model_user,resource.model user,resource_vehicule.model_resource_model,resource_planning.group_resource_user,1,0,0,0
+access_resource_color_user,resource.color user,resource_vehicule.model_resource_color,resource_planning.group_resource_user,1,0,0,0
+access_resource_gearbox_user,resource.gearbox user,resource_vehicule.model_resource_gearbox,resource_planning.group_resource_user,1,0,0,0
