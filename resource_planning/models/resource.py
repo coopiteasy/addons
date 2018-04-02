@@ -16,7 +16,7 @@ class ResourceCategory(models.Model):
 
     name = fields.Char(string="Category name", required=True)
     resources = fields.One2many('resource.resource', 'category_id', string="Resources")
-    
+
 class Resource(models.Model):
     _name = 'resource.resource'
     _inherit = ['resource.resource', 'mail.thread']
@@ -31,7 +31,8 @@ class Resource(models.Model):
     allocations = fields.One2many('resource.allocation', 'resource_id', string="Booking lines")
     serial_number = fields.Char(string="Serial number")
     location = fields.Many2one('resource.location', string="Location")
-        
+
+
     @api.multi
     def action_unavailable(self):
         for resource in self:
@@ -52,6 +53,7 @@ class Resource(models.Model):
             raise ValidationError((_("Error. Date start or date end aren't set")))
         elif date_end < date_start:
             raise ValidationError((_("Error. End date is preceding start date. Please choose an end date after a start date ")))
+        #elif date_start < fields.Datetime.now():
 
     @api.multi        
     def check_availabilities(self, date_start, date_end, location):
@@ -90,7 +92,7 @@ class Resource(models.Model):
     def allocate_resource(self, allocation_type, date_start, date_end, partner_id, location, date_lock=False):
         self.check_dates(date_start, date_end)
         res_alloc = self.env['resource.allocation']
-        
+
         vals = {
             'date_start':date_start,
             'date_end':date_end,
@@ -99,12 +101,12 @@ class Resource(models.Model):
             'partner_id':partner_id.id,
             'location':location.id
         }
-        
+
         # we check again the availabilities in case in has been booked 
         # between the search and the allocation request  
         allocation_ids = []
         available_resource_ids = self.check_availabilities(date_start, date_end, location)
-        
+
         for resource in self.browse(available_resource_ids):
             vals['resource_id'] = resource.id
             allocation = res_alloc.create(vals)
