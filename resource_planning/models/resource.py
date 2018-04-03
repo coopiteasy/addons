@@ -122,7 +122,7 @@ class ResourceAllocation(models.Model):
     name = fields.Many2one(related="partner_id")
     serial_number = fields.Char(related="resource_id.serial_number", string="Serial number")
     resource_id = fields.Many2one('resource.resource', string="Resource", required=True)
-    resource_category_id = fields.Many2one(related='resource_id.category_id', string="Resource Category")
+    resource_category_id = fields.Many2one(related='resource_id.category_id', string="Resource Category", store=True)
     date_start = fields.Datetime(string="Date start")
     date_end = fields.Datetime(string="Date end")
     state = fields.Selection([('booked','Booked'),
