@@ -9,6 +9,7 @@
             <field name="arch" type="xml">
 				<tree>
 					<field name="name"/>
+					<field name="partner_id"/>
 					<field name="date_start"/>
 					<field name="date_end"/>
 					<field name="location_id"/>
@@ -26,7 +27,7 @@
 						<button name="action_confirm" string="Confirm" type="object" states="draft"/>
 						<button name="action_draft" string="Draft" type="object" states="confirmed"/>
 						<button name="action_done" string="Done" type="object" states="confirmed"/>
-						<button name="action_cancel" string="Cancel" type="object" states="cancelled"/>
+						<button name="action_cancel" string="Cancel" type="object" states="draft, confirmed" confirm="Are you sure you want to cancel this activity?"/>
 						<field name="state" widget="statusbar"/>
 					</header>
 					<sheet>
@@ -35,6 +36,7 @@
 	                   	</h1>
 						<group>
 							<group>
+								<field name="partner_id"/>
 								<field name="location_id"/>
 								<field name="registrations_max"/>
 								<field name="registrations_min"/>
@@ -52,13 +54,16 @@
 						<notebook>
 	            			<page name="registration" string="Registrations">
 	            				<field name="registrations">
-	            					<tree>
+	            					<tree delete="false">
+										<button type="object" icon="STOCK_FIND" name="view_registration_form" />
 	            						<field name="attendee_id"/>
+	            						<field name="quantity"/>
+	            						<field name="quantity_allocated"/>
+	            						<field name="resource_category"/>
 	            						<field name="resources"/>
 	            						<field name="booking_type"/>
 	            						<field name="state"/>
-	            						<button type="object" name="action_book" states="option" help="Book" icon="STOCK_MEDIA_PLAY"/>
-					                    <button type="object" name="action_allocate" states="draft" help="Allocate resource" icon="gtk-apply"/>
+					                    <button type="object" name="search_resources" states="draft" help="Search resources" icon="gtk-apply"/>
 					                    <button type="object" name="action_cancel" states="draft,waiting,booked,option," help="Cancel" icon="gtk-cancel"/>
 	            					</tree>
 	            				</field>
@@ -120,12 +125,17 @@
             <field name="arch" type="xml">
 				<form>
 					<header>
+						<button type="object" name="search_resources" states="draft" help="Search resources" icon="gtk-apply"/>
+						<button name="action_cancel" string="Cancel" type="object" states="draft, booked, option" confirm="Are you sure you want to cancel this registration?"/>
 						<field name="state" widget="statusbar"/>
 					</header>
 					<sheet>
 						<group>
 							<group>
 								<field name="attendee_id"/>
+								<field name="resource_category"/>
+								<field name="quantity"/>
+								<field name="quantity_allocated"/>
 							</group>
 							<group>
 								<field name="booking_type"/>
@@ -141,6 +151,17 @@
 										<field name="category_id"/>
 										<field name="location"/>
 										<field name="state"/>
+									</tree>
+								</field>
+							</page>
+							<page string="Resources available">
+								<button type="object" name="action_refresh" string="Refresh" help="refresh"/>
+								<field name="resources_available" options="{'no_open':True,'no_create':True}">
+									<tree>
+										<field name="resource_id"/>
+										<field name="state"/>
+										<button type="object" name="action_reserve" states="free" help="Book" icon="STOCK_MEDIA_PLAY"/>
+										<button type="object" name="action_cancel" states="selected" help="Cancel" icon="gtk-cancel"/>
 									</tree>
 								</field>
 							</page>
