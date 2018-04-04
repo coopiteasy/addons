@@ -127,23 +127,27 @@ class ActivityRegistration(models.Model):
                                        'registration_id':registration.id,
                                        'state':'free'})
 
+    
     @api.multi
     def search_resources(self):
         resource_available = self.env['resource.available']
         registrations = self.filtered(lambda record: record.state in ['draft','waiting'])
         for registration in registrations:
-            if registration.resources or registration.resource_category: 
-                # first we try with the choosen resources
-                if registration.resources:
-                    resource_ids = registration.resources.check_availabilities(registration.date_start, registration.date_end, registration.location_id)
-                    self.create_resource_available(resource_ids, registration)
-                # then we complete with the group resources
-                if len(resource_ids) < quantity and registration.resource_category:
-                    cat_resource_ids = registration.resource_category.resources.check_availabilities(registration.date_start, registration.date_end, registration.location_id)
-                    self.create_resource_available(cat_resource_ids, registration)
-                
-                if len(resource_ids) + len(cat_resource_ids) >= registration.quantity:
-                    registration.state = 'available'
+            if registration.quantity_allocated < registration.quantity:
+                res_to_delete = registration.resources_available.filtered(lambda record: record.state in ['free','not_free'])
+                res_to_delete.unlink()
+                if registration.resources or registration.resource_category: 
+                    # first we try with the choosen resources
+                    if registration.resources:
+                        resource_ids = registration.resources.check_availabilities(registration.date_start, registration.date_end, registration.location_id)
+                        self.create_resource_available(resource_ids, registration)
+                    # then we complete with the group resources
+                    if len(resource_ids) < quantity and registration.resource_category:
+                        cat_resource_ids = registration.resource_category.resources.check_availabilities(registration.date_start, registration.date_end, registration.location_id)
+                        self.create_resource_available(cat_resource_ids, registration)
+                    
+                    if len(resource_ids) + len(cat_resource_ids) >= registration.quantity:
+                        registration.state = 'available'
 
         return True
     
