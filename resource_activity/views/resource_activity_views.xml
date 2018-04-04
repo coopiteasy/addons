@@ -40,10 +40,12 @@
 								<field name="partner_id"/>
 								<field name="location_id" widget="selection"/>
 								<field name="departure"/>
-								<field name="delivery_place"/>
-								<field name="delivery_time"/>
+								<field name="need_delivery"/>
+								<field name="delivery_place" attrs="{'invisible':[('need_delivery','=',False)]}"/>
+								<field name="delivery_time" attrs="{'invisible':[('need_delivery','=',False)]}"/>
 								<field name="registrations_max"/>
 								<field name="registrations_min"/>
+								<field name="registrations_expected"/>
 							</group>
 							<group>
 								<field name="activity_type" widget="selection"/>
@@ -52,7 +54,6 @@
 								<field name="date_end"/>
 								<field name="arrival"/>
 								<field name="langs" options="{'no_create': True}" widget='many2many_tags'/>
-								<field name="registrations_expected"/>
 							</group>
 						</group>
 						<notebook>

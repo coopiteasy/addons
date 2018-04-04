@@ -52,6 +52,7 @@ class ResourceActivity(models.Model):
     trainers = fields.Many2many('res.partner', string="Trainer", domain=[('is_trainer','=',True)])
     langs = fields.Many2many('resource.activity.lang', string="Langs")
     activity_theme = fields.Many2one('resource.activity.theme', string="Activity theme")
+    need_delivery = fields.Boolean(string="Need delivery?")
     delivery_place = fields.Char(string="Delivery place")
     delivery_time = fields.Char(string="Delivery time")
     registrations_max = fields.Integer(string="Maximum registration")
