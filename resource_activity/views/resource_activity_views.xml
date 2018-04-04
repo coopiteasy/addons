@@ -36,37 +36,46 @@
 	                   	</h1>
 						<group>
 							<group>
+								<field name="description"/>
 								<field name="partner_id"/>
-								<field name="location_id"/>
+								<field name="location_id" widget="selection"/>
+								<field name="departure"/>
+								<field name="delivery_place"/>
+								<field name="delivery_time"/>
 								<field name="registrations_max"/>
 								<field name="registrations_min"/>
-								<field name="registrations_option"/>
-								<field name="registrations_booked"/>
 							</group>
 							<group>
+								<field name="activity_type" widget="selection"/>
+								<field name="activity_theme" widget="selection"/>
 								<field name="date_start"/>
 								<field name="date_end"/>
+								<field name="arrival"/>
+								<field name="langs" options="{'no_create': True}" widget='many2many_tags'/>
 								<field name="registrations_expected"/>
-								<field name="registrations_available"/>
-								<field name="registrations_unconfirmed"/>
 							</group>
 						</group>
 						<notebook>
 	            			<page name="registration" string="Registrations">
 	            				<field name="registrations">
-	            					<tree delete="false">
+	            					<tree delete="false" editable="bottom">
 										<button type="object" icon="STOCK_FIND" name="view_registration_form" />
 	            						<field name="attendee_id"/>
 	            						<field name="quantity"/>
 	            						<field name="quantity_allocated"/>
 	            						<field name="resource_category"/>
-	            						<field name="resources"/>
 	            						<field name="booking_type"/>
 	            						<field name="state"/>
 					                    <button type="object" name="search_resources" states="draft" help="Search resources" icon="gtk-apply"/>
-					                    <button type="object" name="action_cancel" states="draft,waiting,booked,option," help="Cancel" icon="gtk-cancel"/>
+					                    <button type="object" name="action_cancel" states="draft" help="Cancel" icon="gtk-cancel"/>
 	            					</tree>
 	            				</field>
+	            			</page>
+	            			<page name="guides" string="Guides">
+	            				<field name="guides"/>
+	            			</page>
+	            			<page name="trainers" string="Trainers">
+	            				<field name="trainers"/>
 	            			</page>
 	            		</notebook>
 					</sheet>
@@ -125,7 +134,7 @@
             <field name="arch" type="xml">
 				<form>
 					<header>
-						<button type="object" name="search_resources" string="Search" states="draft, waiting, available" help="Search resources"/>
+						<button type="object" name="search_resources" string="Search" states="draft,waiting,available" help="Search resources"/>
 						<button name="action_cancel" string="Cancel" type="object" states="draft, booked, option" confirm="Are you sure you want to cancel this registration?"/>
 						<field name="state" widget="statusbar"/>
 					</header>
@@ -143,21 +152,11 @@
 							</group>
 						</group>
 						<notebook>
-							<page string="Resources">
-								<field name="resources">
-									<tree>
-										<field name="name"/>
-										<field name="serial_number"/>
-										<field name="category_id"/>
-										<field name="location"/>
-										<field name="state"/>
-									</tree>
-								</field>
-							</page>
-							<page string="Resources available">
+							<page string="Search result">
 								<button type="object" name="action_refresh" string="Refresh" help="refresh"/>
 								<field name="resources_available" options="{'no_open':True,'no_create':True}">
 									<tree>
+										<field name="name"/>
 										<field name="resource_id"/>
 										<field name="state"/>
 										<button type="object" name="action_reserve" states="free" help="Book" icon="STOCK_MEDIA_PLAY"/>
@@ -183,5 +182,125 @@
 				</form>
             </field>
         </record>
+
+        <record id="resource_activity_type_tree" model="ir.ui.view">
+            <field name="name">resource.activity.type.tree</field>
+            <field name="model">resource.activity.type</field>
+            <field name="arch" type="xml">
+                <tree string="Resource activity type" delete="false">
+	                <field name="name"/>
+	                <field name="code"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_resource_activity_type_form" model="ir.ui.view">
+            <field name="name">resource.activity.type.form</field>
+            <field name="model">resource.activity.type</field>
+            <field name="arch" type="xml">
+                <form string="Resource activity type">
+		            <sheet>
+		            	<group>
+			            	<group>
+			                    <field name="name"/>
+			               	</group>
+			               	<group>
+			               		<field name="code"/>
+			               	</group>
+		            	</group>
+		        	</sheet>
+		        </form>
+		    </field>
+		</record>
+		
+		<record id="action_resource_activity_type" model="ir.actions.act_window">
+            <field name="name">Resource activity type</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">resource.activity.type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <menuitem action="action_resource_activity_type" id="resource_activity_type_menu" parent="resource_planning.menu_resource_configuration" sequence="70"/>
+       
+        <record id="resource_activity_lang_tree" model="ir.ui.view">
+            <field name="name">resource.activity.lang.tree</field>
+            <field name="model">resource.activity.lang</field>
+            <field name="arch" type="xml">
+                <tree string="Resource activity lang" delete="false">
+	                <field name="name"/>
+	                <field name="code"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_resource_activity_lang_form" model="ir.ui.view">
+            <field name="name">resource.activity.lang.form</field>
+            <field name="model">resource.activity.lang</field>
+            <field name="arch" type="xml">
+                <form string="Resource activity lang">
+		            <sheet>
+		            	<group>
+			            	<group>
+			                    <field name="name"/>
+			               	</group>
+			               	<group>
+			               		<field name="code"/>
+			               	</group>
+		            	</group>
+		        	</sheet>
+		        </form>
+		    </field>
+		</record>
+		
+		<record id="action_resource_activity_lang" model="ir.actions.act_window">
+            <field name="name">Resource activity lang</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">resource.activity.lang</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <menuitem action="action_resource_activity_lang" id="resource_activity_lang_menu" parent="resource_planning.menu_resource_configuration" sequence="80"/>
+
+        <record id="resource_activity_theme_tree" model="ir.ui.view">
+            <field name="name">resource.activity.theme.tree</field>
+            <field name="model">resource.activity.theme</field>
+            <field name="arch" type="xml">
+                <tree string="Resource activity theme" delete="false">
+	                <field name="name"/>
+	                <field name="code"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_resource_activity_theme_form" model="ir.ui.view">
+            <field name="name">resource.activity.theme.form</field>
+            <field name="model">resource.activity.theme</field>
+            <field name="arch" type="xml">
+                <form string="Resource activity theme">
+		            <sheet>
+		            	<group>
+			            	<group>
+			                    <field name="name"/>
+			               	</group>
+			               	<group>
+			               		<field name="code"/>
+			               	</group>
+		            	</group>
+		        	</sheet>
+		        </form>
+		    </field>
+		</record>
+		
+		<record id="action_resource_activity_theme" model="ir.actions.act_window">
+            <field name="name">Resource activity theme</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">resource.activity.theme</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <menuitem action="action_resource_activity_theme" id="resource_activity_theme_menu" parent="resource_planning.menu_resource_configuration" sequence="90"/>
 	</data>
 </odoo>

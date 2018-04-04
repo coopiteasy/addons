@@ -10,6 +10,24 @@ class ResourceAllocation(models.Model):
     
     activity_registration_id = fields.Many2one('resource.activity.registration', string="Activity registration")
 
+class ResourceActivityType(models.Model):
+    _name = 'resource.activity.type'
+    
+    name = fields.Char(string="Type", required=True)
+    code = fields.Char(string="Code")
+
+class ResourceActivityTheme(models.Model):
+    _name = 'resource.activity.theme'
+    
+    name = fields.Char(string="Type", required=True)
+    code = fields.Char(string="Code")
+
+class ResourceActivityLang(models.Model):
+    _name = 'resource.activity.lang'
+    
+    name = fields.Char(string="Lang", required=True)
+    code = fields.Char(string="Code")
+    
 class ResourceActivity(models.Model):
     _name = 'resource.activity'
 
@@ -25,7 +43,17 @@ class ResourceActivity(models.Model):
                               ('option','Option'),
                               ('confirmed','Confirmed'),
                               ('done','Done'),
-                              ('cancel','cancel')], string="State", default='draft')
+                              ('cancelled','Cancelled')], string="State", default='draft')
+    departure = fields.Char(string="Departure")
+    arrival = fields.Char(string="Arrival")
+    description = fields.Char(string="Description")
+    activity_type = fields.Many2one('resource.activity.type', string="Activity type")
+    guides = fields.Many2many('res.partner', string="Guide", domain=[('is_guide','=',True)])
+    trainers = fields.Many2many('res.partner', string="Trainer", domain=[('is_trainer','=',True)])
+    langs = fields.Many2many('resource.activity.lang', string="Langs")
+    activity_theme = fields.Many2one('resource.activity.theme', string="Activity theme")
+    delivery_place = fields.Char(string="Delivery place")
+    delivery_time = fields.Char(string="Delivery time")
     registrations_max = fields.Integer(string="Maximum registration")
     registrations_min = fields.Integer(string="Minimum registration")
     registrations_booked = fields.Integer(string="Registration booked",
@@ -99,11 +127,10 @@ class ActivityRegistration(models.Model):
     _name = 'resource.activity.registration'
     
     resource_activity_id = fields.Many2one('resource.activity',string="Activity")
-    attendee_id = fields.Many2one('res.partner', string="Attendee")
+    attendee_id = fields.Many2one('res.partner', string="Attendee", domain=[('customer','=',True)])
     quantity = fields.Integer(string="Quantity needed", default=1)
     quantity_allocated = fields.Integer(string="Quantity allocated", readonly=True)
-    resource_category = fields.Many2one('resource.category', string="Category")
-    resources = fields.Many2many('resource.resource')
+    resource_category = fields.Many2one('resource.category', string="Category", required=True)
     resources_available = fields.One2many('resource.available','registration_id',string="Resource available")
     allocations = fields.One2many('resource.allocation', 'activity_registration_id',
                                   string="Activity registration")
@@ -116,41 +143,37 @@ class ActivityRegistration(models.Model):
                               ('option','Option'),
                               ('booked','Booked'),
                               ('cancelled','Cancelled')],
-                             string="State", default='draft')
+                             string="State", default='draft', readonly=True)
     date_start = fields.Datetime(related='resource_activity_id.date_start', string="Date start")
     date_end = fields.Datetime(related='resource_activity_id.date_end', string="Date end")
     location_id = fields.Many2one(related='resource_activity_id.location_id', string="Location")
 
+
     def create_resource_available(self, resource_ids, registration):
         for resource_id in resource_ids:
-            resource_available.create({'resource_id':resource_id,
-                                       'registration_id':registration.id,
-                                       'state':'free'})
+            self.env['resource.available'].create({'resource_id':resource_id,
+                                                  'registration_id':registration.id,
+                                                  'state':'free'})
 
-    
+
     @api.multi
     def search_resources(self):
-        resource_available = self.env['resource.available']
         registrations = self.filtered(lambda record: record.state in ['draft','waiting'])
         for registration in registrations:
             if registration.quantity_allocated < registration.quantity:
+                # delete free and unfree resource when running.
                 res_to_delete = registration.resources_available.filtered(lambda record: record.state in ['free','not_free'])
                 res_to_delete.unlink()
-                if registration.resources or registration.resource_category: 
-                    # first we try with the choosen resources
-                    if registration.resources:
-                        resource_ids = registration.resources.check_availabilities(registration.date_start, registration.date_end, registration.location_id)
-                        self.create_resource_available(resource_ids, registration)
-                    # then we complete with the group resources
-                    if len(resource_ids) < quantity and registration.resource_category:
-                        cat_resource_ids = registration.resource_category.resources.check_availabilities(registration.date_start, registration.date_end, registration.location_id)
-                        self.create_resource_available(cat_resource_ids, registration)
+                if registration.resource_category: 
+                    # we complete with the group resources
+                    cat_resource_ids = registration.resource_category.resources.check_availabilities(registration.date_start, registration.date_end, registration.location_id)
+                    self.create_resource_available(cat_resource_ids, registration)
                     
-                    if len(resource_ids) + len(cat_resource_ids) >= registration.quantity:
+                    if len(registration.resources_available) >= registration.quantity:
                         registration.state = 'available'
 
         return True
-    
+
     @api.multi
     def action_refresh(self):
         for registration in self:
@@ -164,9 +187,10 @@ class ActivityRegistration(models.Model):
     @api.multi
     def action_cancel(self):
         for registration in self:
-            registration.resources_available.action_cancel()
+            for resource_available in registration.resources_available:
+                resource_available.action_cancel()
             registration.state = 'cancelled'
-    
+
     @api.multi
     @api.depends('quantity','quantity_allocated')
     def compute_state(self):
@@ -196,14 +220,14 @@ class ActivityRegistration(models.Model):
 
 class ResourceAvailable(models.Model):
     _name = 'resource.available'
-    
-    #name = fields.Char(related='resource_id.name',string='Name')
+
+    name = fields.Char(related='resource_id.serial_number',string='Name')
     resource_id = fields.Many2one('resource.resource', string="Resource", required=True)
     registration_id = fields.Many2one('resource.activity.registration', string="Registration")
     state = fields.Selection([('free','Free'),
                               ('not_free','Not free'),
                               ('selected','Selected'),
-                              ('cancelled','Cancelled')], string="State")
+                              ('cancelled','Cancelled')], string="State", readonly=True)
 
     @api.multi
     def action_reserve(self):
