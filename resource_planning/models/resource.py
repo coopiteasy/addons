@@ -29,7 +29,7 @@ class Resource(models.Model):
     resource_type = fields.Selection([('user','Human'),('material','Material')],
                                       string="Resource Type", required=True, default="material")
     allocations = fields.One2many('resource.allocation', 'resource_id', string="Booking lines")
-    serial_number = fields.Char(string="Serial number")
+    serial_number = fields.Char(string="ID number")
     location = fields.Many2one('resource.location', string="Location")
     
     _sql_constraints = [
