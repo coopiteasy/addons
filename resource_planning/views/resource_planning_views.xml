@@ -45,7 +45,7 @@
 			                    <field name="serial_number"/>
 			                    <field name="user_id" attrs="{'required':[('resource_type','=','user')], 'readonly':[('resource_type','=','material')]}"/>
 			                    <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
-			                    <field name="active"/>
+			                    <field name="active" invisible="True"/>
 		                    </group>
 		                	<group name="category">
 		                		<field name="category_id" widget="selection"/>
