@@ -31,7 +31,10 @@ class Resource(models.Model):
     allocations = fields.One2many('resource.allocation', 'resource_id', string="Booking lines")
     serial_number = fields.Char(string="Serial number")
     location = fields.Many2one('resource.location', string="Location")
-
+    
+    _sql_constraints = [
+        ('name_uniq', 'unique (name)', 'The name of the resource must be unique !')
+    ]
 
     @api.multi
     def action_unavailable(self):
