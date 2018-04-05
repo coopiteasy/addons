@@ -15,8 +15,9 @@ class ResourceCategory(models.Model):
 class ResourceResource(models.Model):
     _inherit = 'resource.resource'
     
-    id_number = fields.Char(string="ID number")
-    chassis_number = fields.Char(string="Chassis number", copy=False)
+    purchase_price = fields.Float(string="Purchase price")
+    catalog_price = fields.Float(string="Catalog price")
+    insurance = fields.Char(string="Insurance")
     brand_id = fields.Many2one('resource.brand', string="Brand")
     color = fields.Many2one('resource.color', string="Color")
     model_id = fields.Many2one('resource.model', string="Model")

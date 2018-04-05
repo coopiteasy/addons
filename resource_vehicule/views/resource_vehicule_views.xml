@@ -34,8 +34,9 @@
             	<group name="category" position="after">
 					<group name="vehicule" string="Vehicule Info" attrs="{'invisible':[('vehicule_type','!=','bike')]}">
 						<field name="vehicule_type" invisible="True"/>
-						<field name="id_number"/>
-						<field name="chassis_number"/>
+						<field name="purchase_price"/>
+						<field name="catalog_price"/>
+						<field name="insurance"/>
 						<field name="color" widget="selection"/>
 						<field name="brand_id" widget="selection"/>
 						<field name="model_id" widget="selection"/>
