@@ -108,7 +108,7 @@
                     <filter name="end_today" string="End today"
                         domain="[('date_end', '&gt;=', time.strftime('%Y-%m-%d 00:00:00')),('date_end', '&lt;=', time.strftime('%Y-%m-%d 23:59:59'))]"/>
                     <filter name="today" string="Today"
-                    	domain="[('date_start','&lt;=', time.strftime('%Y-%m-%d %H:%M:%S')), ('date_end','&gt;=', time.strftime('%Y-%m-%d %H:%M:%S'))]" help="Bookings processed Today or planned for Today"/>
+                    	domain="[('date_start','&lt;=', time.strftime('%Y-%m-%d %H:%M:%S')), ('date_end','&gt;=', time.strftime('%Y-%m-%d %H:%M:%S'))]"/>
                     <field name="partner_id" string="Partner"/>
                     <field name="location_id" string="location" groups="resource_planning.group_multi_location"/>
                     <filter string="Draft" name="draft" domain="[('state','=','draft')]"/>
