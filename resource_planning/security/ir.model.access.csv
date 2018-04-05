@@ -8,3 +8,4 @@ access_resource_resource_user,resource.resource,model_resource_resource,group_re
 access_resource_category_user,resource.category,model_resource_category,group_resource_user,1,1,1,0
 access_resource_allocation_user,resource.allocation,model_resource_allocation,group_resource_user,1,1,1,0
 access_resource_location_user,resource.location.base.user,model_resource_location,base.group_user,1,0,0,0
+access_resource_location_manager,resource.location.manager,model_resource_location,group_resource_manager,1,1,1,0
