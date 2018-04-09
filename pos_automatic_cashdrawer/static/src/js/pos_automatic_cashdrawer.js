@@ -40,7 +40,6 @@ odoo.define('pos_automatic_cashdrawer.pos_automatic_cashdrawer', function (requi
     models.PosModel = models.PosModel.extend({
         after_load_server_data: function(session, attributes) {
             if (this.config.iface_automatic_cashdrawer) {
-            	alert('ouh');
                 this.config.use_proxy = true;
             }
             return after_load_server_data_original.call(this);
