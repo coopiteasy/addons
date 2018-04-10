@@ -3,6 +3,31 @@
 	<data>
 		<menuitem name="Activities" id="menu_resource_activity" parent="resource_planning.menu_main_resource_planning" sequence="20"/>
 		
+		
+		<record id="resource_location_form" model="ir.ui.view">
+            <field name="name">resource.location.form</field>
+            <field name="model">resource.location</field>
+            <field name="inherit_id" ref="resource_planning.resource_location_form"/>
+            <field name="arch" type="xml">
+            	<page name="users" position="after">
+           			<page name="guides" string="Guides">
+           				<field name="guides">
+            				<tree delete="false" create="false">
+            					<field name="name"/>
+            				</tree>
+            			</field>
+           			</page>
+            		<page name="trainers" string="Trainers">
+           				<field name="trainers">
+            				<tree delete="false" create="false">
+            					<field name="name"/>
+            				</tree>
+            			</field>
+           			</page>
+           		</page>
+            </field>
+        </record>
+
 		<record id="view_resource_activity_tree" model="ir.ui.view">
             <field name="name">resource.activity.tree</field>
             <field name="model">resource.activity</field>

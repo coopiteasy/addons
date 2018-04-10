@@ -10,6 +10,11 @@ class ResPartner(models.Model):
     
     resource_location = fields.Many2one('resource.location', string="Location")
 
+class ResUsers(models.Model):
+    _inherit='res.users'
+
+    resource_location = fields.Many2one('resource.location', string="Location")
+
 class ResourceLocation(models.Model):
     _name = 'resource.location'
     
@@ -17,3 +22,4 @@ class ResourceLocation(models.Model):
     address = fields.Many2one('res.partner', string="Address")
     customers = fields.One2many('res.partner','resource_location', domain=[('customer','=',True)], string="Customers")
     resources = fields.One2many('resource.resource','location', string="Resources")
+    users = fields.One2many('res.users','resource_location', string="Users")

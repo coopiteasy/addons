@@ -4,6 +4,11 @@
 
 from openerp import _, api, fields, models
 
+class ResourceLocation(models.Model):
+    _inherit = 'resource.location'
+    
+    guides = fields.One2many('res.partner','resource_location', domain=[('is_guide','=',True)], string="Guides")
+    trainers = fields.One2many('res.partner','resource_location', domain=[('is_trainer','=',True)], string="Trainers")
 
 class ResourceAllocation(models.Model):
     _inherit = 'resource.allocation'
