@@ -38,11 +38,12 @@
     'data': [
         'security/resource_planning_security.xml',
         'security/ir.model.access.csv',
+        'views/menu_item.xml',
+        'wizard/allocate_resource_wizard.xml',
         'views/resource_planning_views.xml',
         'views/resource_location_views.xml',
         'views/partner_views.xml',
         'views/res_config_view.xml',
-        'wizard/allocate_resource_wizard.xml',
         'wizard/check_resource_availabilities_wizard.xml',
     ],
     'installable': True,

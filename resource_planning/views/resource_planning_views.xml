@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 	<data>
-		<menuitem name="Resource Planning" id="menu_main_resource_planning" sequence="40" groups="group_resource_user,base.group_configuration"/>
-		<menuitem name="Resource" id="menu_main_resource" parent="menu_main_resource_planning" sequence="10" />
-		<menuitem name="Configuration" id="menu_resource_configuration" parent="menu_main_resource_planning" sequence="150" groups="group_resource_manager,base.group_configuration"/>
-		
-		<menuitem action="resource.action_resource_resource_tree" id="menu_resource_resource" parent="menu_main_resource" sequence="5"/>
-
 		<record id="resource_resource_tree" model="ir.ui.view">
             <field name="name">resource.resource.tree</field>
             <field name="model">resource.resource</field>
