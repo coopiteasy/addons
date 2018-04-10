@@ -128,6 +128,7 @@
             <field name="res_model">resource.activity</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form,calendar</field>
+            <field name="context">{"search_default_today":1}</field>
         </record>
         
         <menuitem action="action_resource_activity" id="resource_activity_menu" parent="menu_resource_activity" sequence="10"/>
