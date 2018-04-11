@@ -33,6 +33,7 @@
             <field name="model">resource.activity</field>
             <field name="arch" type="xml">
 				<tree>
+					<field name="description"/>
 					<field name="name"/>
 					<field name="partner_id"/>
 					<field name="date_start"/>
@@ -52,7 +53,7 @@
 						<button name="action_confirm" string="Confirm" type="object" states="draft"/>
 						<button name="action_draft" string="Draft" type="object" states="confirmed"/>
 						<button name="action_done" string="Done" type="object" states="confirmed"/>
-						<button name="action_cancel" string="Cancel" type="object" states="draft, confirmed" confirm="Are you sure you want to cancel this activity?"/>
+						<button name="action_cancel" string="Cancel" type="object" states="draft,confirmed" confirm="Are you sure you want to cancel this activity?"/>
 						<field name="state" widget="statusbar"/>
 					</header>
 					<sheet>
@@ -64,19 +65,21 @@
 								<field name="description"/>
 								<field name="partner_id"/>
 								<field name="location_id" widget="selection"/>
-								<field name="departure"/>
-								<field name="need_delivery"/>
-								<field name="delivery_place" attrs="{'invisible':[('need_delivery','=',False)]}"/>
-								<field name="delivery_time" attrs="{'invisible':[('need_delivery','=',False)]}"/>
 								<field name="registrations_max"/>
 								<field name="registrations_min"/>
 								<field name="registrations_expected"/>
+								<field name="need_delivery"/>
+								<field name="delivery_place" attrs="{'invisible':[('need_delivery','=',False)]}"/>
+								<field name="delivery_time" attrs="{'invisible':[('need_delivery','=',False)]}"/>
 							</group>
 							<group>
-								<field name="activity_type" widget="selection"/>
-								<field name="activity_theme" widget="selection"/>
 								<field name="date_start"/>
 								<field name="date_end"/>
+								<field name="booking_type"/>
+								<field name="date_lock" attrs="{'invisible':[('booking_type','!=','option')]}"/>
+								<field name="activity_type" widget="selection"/>
+								<field name="activity_theme" widget="selection"/>
+								<field name="departure"/>
 								<field name="arrival"/>
 								<field name="langs" options="{'no_create': True}" widget='many2many_tags'/>
 							</group>

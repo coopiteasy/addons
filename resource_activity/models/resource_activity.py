@@ -3,6 +3,8 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from openerp import _, api, fields, models
+from datetime import date
+from openerp.exceptions import ValidationError
 
 
 class ResPartner(models.Model):
@@ -13,13 +15,13 @@ class ResPartner(models.Model):
 
 class ResourceLocation(models.Model):
     _inherit = 'resource.location'
-    
+
     guides = fields.One2many('res.partner','resource_location_guide', domain=[('is_guide','=',True)], string="Guides")
     trainers = fields.One2many('res.partner','resource_location_trainer', domain=[('is_trainer','=',True)], string="Trainers")
 
 class ResourceAllocation(models.Model):
     _inherit = 'resource.allocation'
-    
+
     activity_registration_id = fields.Many2one('resource.activity.registration', string="Activity registration")
 
 class ResourceActivityType(models.Model):
@@ -56,6 +58,9 @@ class ResourceActivity(models.Model):
                               ('confirmed','Confirmed'),
                               ('done','Done'),
                               ('cancelled','Cancelled')], string="State", default='draft')
+    date_lock = fields.Date(string="Date lock")
+    booking_type = fields.Selection([('option','Option'),
+                                    ('booked','Booking')], string="Booking type", default='option')
     departure = fields.Char(string="Departure")
     arrival = fields.Char(string="Arrival")
     description = fields.Char(string="Description")
@@ -79,6 +84,14 @@ class ResourceActivity(models.Model):
                         store=True, readonly=True, compute='_compute_registrations')
     registrations_unconfirmed = fields.Integer(string="Unconfirmed registrations",
                         store=True, readonly=True, compute='_compute_registrations')
+
+    @api.one
+    @api.constrains('date_start','date_end')
+    def _check_date(self):
+        if self.date_start < fields.Date().today() or self.date_end < fields.Date().today():
+            raise ValidationError("Date can't be in the past: %s %s" % (self.date_start,self.date_end))
+        if  self.date_end < self.date_start:
+            raise ValidationError("Date end can't be before date start: %s %s" % (self.date_start,self.date_end))
 
     @api.multi
     @api.depends('registrations_max', 'registrations.state')
@@ -139,6 +152,14 @@ class ResourceActivity(models.Model):
 class ActivityRegistration(models.Model):
     _name = 'resource.activity.registration'
     
+    def _get_activity_booking_type(self):
+        if self.resource_activity_id.booking_type:
+            self.booking_type = self.resource_activity_id.booking_type
+
+    def _get_activity_activity_date_lock(self):
+        if self.resource_activity_id.booking_type:
+            self.booking_type = self.resource_activity_id.booking_type
+        
     resource_activity_id = fields.Many2one('resource.activity',string="Activity")
     attendee_id = fields.Many2one('res.partner', string="Attendee", domain=[('customer','=',True)])
     quantity = fields.Integer(string="Quantity needed", default=1)
@@ -147,9 +168,9 @@ class ActivityRegistration(models.Model):
     resources_available = fields.One2many('resource.available','registration_id',string="Resource available")
     allocations = fields.One2many('resource.allocation', 'activity_registration_id',
                                   string="Activity registration")
-    date_lock = fields.Date(string="Date lock")
+    date_lock = fields.Date(string="Date lock", default=_get_activity_activity_date_lock)
     booking_type = fields.Selection([('option','Option'),
-                                    ('booked','Booked')], string="Booking type", default='option')
+                                    ('booked','Booking')], string="Booking type", default=_get_activity_booking_type)
     state = fields.Selection([('draft','Draft'),
                               ('waiting','Waiting'),
                               ('available','Available'),
@@ -168,7 +189,7 @@ class ActivityRegistration(models.Model):
                                                   'registration_id':registration.id,
                                                   'state':'free'})
 
-
+    
     @api.multi
     def search_resources(self):
         registrations = self.filtered(lambda record: record.state in ['draft','waiting'])
