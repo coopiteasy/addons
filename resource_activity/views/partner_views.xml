@@ -9,7 +9,9 @@
 				<group name="purchase" position="after">
 					<group string="Tour" name="Tour">
 						<field name="is_guide"/>
+						<field name="resource_location_guide"  attrs="{'invisible':[('is_guide','=',False)],'required':[('is_guide','=',True)]}"/>
 						<field name="is_trainer"/>
+						<field name="resource_location_trainer" attrs="{'invisible':[('is_trainer','=',False)],'required':[('is_trainer','=',True)]}"/>
 					</group>
 				</group>
             </field>

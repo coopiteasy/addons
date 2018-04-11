@@ -4,11 +4,18 @@
 
 from openerp import _, api, fields, models
 
+
+class ResPartner(models.Model):
+    _inherit = 'res.partner'
+
+    resource_location_guide = fields.Many2one('resource.location', string="Guide Location")
+    resource_location_trainer = fields.Many2one('resource.location', string="Trainer location")
+
 class ResourceLocation(models.Model):
     _inherit = 'resource.location'
     
-    guides = fields.One2many('res.partner','resource_location', domain=[('is_guide','=',True)], string="Guides")
-    trainers = fields.One2many('res.partner','resource_location', domain=[('is_trainer','=',True)], string="Trainers")
+    guides = fields.One2many('res.partner','resource_location_guide', domain=[('is_guide','=',True)], string="Guides")
+    trainers = fields.One2many('res.partner','resource_location_trainer', domain=[('is_trainer','=',True)], string="Trainers")
 
 class ResourceAllocation(models.Model):
     _inherit = 'resource.allocation'
