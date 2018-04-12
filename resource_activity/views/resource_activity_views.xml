@@ -99,8 +99,9 @@
 	            					<tree delete="false" editable="bottom">
 										<button type="object" icon="STOCK_FIND" name="view_registration_form" />
 	            						<field name="attendee_id"/>
-	            						<field name="quantity"/>
-	            						<field name="quantity_allocated"/>
+	            						<field name="quantity" sum="Total participant"/>
+	            						<field name="quantity_needed" sum="Total needed"/>
+	            						<field name="quantity_allocated" sum="Total allocated"/>
 	            						<field name="resource_category"/>
 	            						<field name="booking_type"/>
 	            						<field name="state"/>

@@ -167,10 +167,16 @@ class ActivityRegistration(models.Model):
     def _get_activity_activity_date_lock(self):
         if self.resource_activity_id.booking_type:
             self.booking_type = self.resource_activity_id.booking_type
-        
+    
+    @api.onchange('quantity')
+    def onchange_quantity(self):
+        self.quantity_needed = self.quantity
+
+
     resource_activity_id = fields.Many2one('resource.activity',string="Activity")
     attendee_id = fields.Many2one('res.partner', string="Attendee", domain=[('customer','=',True)])
-    quantity = fields.Integer(string="Quantity needed", default=1)
+    quantity = fields.Integer(string="Participant number", default=1)
+    quantity_needed = fields.Integer(string="Quantity needed", default=1)
     quantity_allocated = fields.Integer(string="Quantity allocated", readonly=True)
     resource_category = fields.Many2one('resource.category', string="Category", required=True)
     resources_available = fields.One2many('resource.available','registration_id',string="Resource available")
