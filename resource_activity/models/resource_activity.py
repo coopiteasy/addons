@@ -178,7 +178,7 @@ class ActivityRegistration(models.Model):
     quantity = fields.Integer(string="Number of participant", default=1)
     quantity_needed = fields.Integer(string="Quantity needed", default=1)
     quantity_allocated = fields.Integer(string="Quantity allocated", readonly=True)
-    resource_category = fields.Many2one('resource.category', string="Category", required=True)
+    resource_category = fields.Many2one('resource.category', string="Category")
     resources_available = fields.One2many('resource.available','registration_id',string="Resource available")
     allocations = fields.One2many('resource.allocation', 'activity_registration_id',
                                   string="Activity registration")
@@ -195,7 +195,7 @@ class ActivityRegistration(models.Model):
     date_start = fields.Datetime(related='resource_activity_id.date_start', string="Date start")
     date_end = fields.Datetime(related='resource_activity_id.date_end', string="Date end")
     location_id = fields.Many2one(related='resource_activity_id.location_id', string="Location")
-
+    bring_bike = fields.Boolean(string="Bring his bike")
 
     def create_resource_available(self, resource_ids, registration):
         for resource_id in resource_ids:
