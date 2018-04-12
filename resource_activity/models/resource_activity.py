@@ -175,7 +175,7 @@ class ActivityRegistration(models.Model):
 
     resource_activity_id = fields.Many2one('resource.activity',string="Activity")
     attendee_id = fields.Many2one('res.partner', string="Attendee", domain=[('customer','=',True)])
-    quantity = fields.Integer(string="Participant number", default=1)
+    quantity = fields.Integer(string="Number of participant", default=1)
     quantity_needed = fields.Integer(string="Quantity needed", default=1)
     quantity_allocated = fields.Integer(string="Quantity allocated", readonly=True)
     resource_category = fields.Many2one('resource.category', string="Category", required=True)
