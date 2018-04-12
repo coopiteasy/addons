@@ -60,10 +60,11 @@ class ResourceActivity(models.Model):
                               ('cancelled','Cancelled')], string="State", default='draft')
     date_lock = fields.Date(string="Date lock")
     booking_type = fields.Selection([('option','Option'),
-                                    ('booked','Booking')], string="Booking type", default='option')
+                                    ('booked','Booking')], string="Booking type", default='booked')
     departure = fields.Char(string="Departure")
     arrival = fields.Char(string="Arrival")
     description = fields.Char(string="Description")
+    comment = fields.Char(string="Comment")
     activity_type = fields.Many2one('resource.activity.type', string="Activity type")
     guides = fields.Many2many('res.partner', string="Guide", domain=[('is_guide','=',True)])
     trainers = fields.Many2many('res.partner', string="Trainer", domain=[('is_trainer','=',True)])

@@ -83,6 +83,7 @@
 								<field name="departure"/>
 								<field name="arrival"/>
 								<field name="langs" options="{'no_create': True}" widget='many2many_tags'/>
+								<field name="comment"/>
 							</group>
 						</group>
 						<notebook>
