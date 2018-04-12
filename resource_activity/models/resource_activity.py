@@ -61,6 +61,7 @@ class ResourceActivity(models.Model):
     date_lock = fields.Date(string="Date lock")
     booking_type = fields.Selection([('option','Option'),
                                     ('booked','Booking')], string="Booking type", default='booked')
+    active = fields.Boolean('Active')
     departure = fields.Char(string="Departure")
     arrival = fields.Char(string="Arrival")
     description = fields.Char(string="Description")
