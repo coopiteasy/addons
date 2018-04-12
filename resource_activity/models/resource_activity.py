@@ -86,6 +86,12 @@ class ResourceActivity(models.Model):
                         store=True, readonly=True, compute='_compute_registrations')
     registrations_unconfirmed = fields.Integer(string="Unconfirmed registrations",
                         store=True, readonly=True, compute='_compute_registrations')
+    
+    @api.onchange('location_id')
+    def onchange_location_id(self):
+        if self.location_id and self.location_id.address:
+            self.departure = self.location_id.address._display_address(self.location_id.address)
+            self.arrival = self.location_id.address._display_address(self.location_id.address)
 
     @api.one
     @api.constrains('date_start','date_end')
