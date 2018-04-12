@@ -208,7 +208,7 @@ class ActivityRegistration(models.Model):
     def search_resources(self):
         registrations = self.filtered(lambda record: record.state in ['draft','waiting'])
         for registration in registrations:
-            if registration.quantity_allocated < registration.quantity:
+            if registration.quantity_allocated < registration.quantity_needed:
                 # delete free and unfree resource when running.
                 res_to_delete = registration.resources_available.filtered(lambda record: record.state in ['free','not_free'])
                 res_to_delete.unlink()
@@ -217,7 +217,7 @@ class ActivityRegistration(models.Model):
                     cat_resource_ids = registration.resource_category.resources.check_availabilities(registration.date_start, registration.date_end, registration.location_id)
                     self.create_resource_available(cat_resource_ids, registration)
                     
-                    if len(registration.resources_available) >= registration.quantity:
+                    if len(registration.resources_available) >= registration.quantity_needed:
                         registration.state = 'available'
 
         return True
@@ -299,6 +299,7 @@ class ResourceAvailable(models.Model):
     def action_cancel(self):
         allocation = self.registration_id.allocations.filtered(lambda record: record.resource_id.id == self.resource_id.id)
         allocation.action_cancel()
-        self.registration_id.quantity_allocated -= 1
+        if self.state == 'selected':
+            self.registration_id.quantity_allocated -= 1
         self.state = 'cancelled'
 
