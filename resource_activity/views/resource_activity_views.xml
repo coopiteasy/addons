@@ -36,6 +36,7 @@
 					<field name="description"/>
 					<field name="name"/>
 					<field name="partner_id"/>
+					<field name="activity_type"/>
 					<field name="date_start"/>
 					<field name="date_end"/>
 					<field name="location_id"/>
@@ -119,10 +120,13 @@
         <record id="view_resource_activity_calendar" model="ir.ui.view">
             <field name="name">resource.activity.calendar</field>
             <field name="model">resource.activity</field>
-            <field name="type">calendar</field>
+            <field eval="3" name="priority"/>
             <field name="arch" type="xml">
-                <calendar date_start="date_start" date_stop="date_end" string="Activities" color="state">
-                	<field name="name"/>
+                <calendar color="activity_type" date_start="date_start" display="[description]"
+                		date_stop="date_end" quick_add="false" string="Activities">
+                    <field name="description"/>
+                    <field name="booking_type"/>
+                    <field name="partner_id"/>
                     <field name="location_id"/>
                 </calendar>
             </field>
@@ -142,21 +146,37 @@
                     <filter string="Draft" name="draft" domain="[('state','=','draft')]"/>
                     <filter string="Option" name="option" domain="[('state','=','option')]"/>
                     <filter string="Booked" name="booked" domain="[('state','=','booked')]"/>
+                    <filter string="Not cancelled" name="not_cancelled" domain="[('state','!=','cancelled')]"/>
                     <separator/>
                     <group string="Group By...">
-                        <filter string="Location" domain="[]" context="{'group_by':'location_id'}"/>
+                        <filter name="location" string="Location" domain="[]" context="{'group_by':'location_id'}"/>
+                        <filter name="activity_type" string="Activity Type" domain="[]" context="{'group_by':'activity_type'}"/>
+                        <filter name="customer" string="Customer" domain="[]" context="{'group_by':'activity_type'}"/>
                     </group>
                </search>
             </field>
         </record>
         
+        <record id="view_resource_activity_calendar" model="ir.ui.view">
+            <field name="name">resource.activity.calendar</field>
+            <field name="model">resource.activity</field>
+            <field eval="3" name="priority"/>
+            <field name="arch" type="xml">
+                <calendar color="activity_type" date_start="date_start" date_stop="date_end" string="Activities">
+                    <field name="description"/>
+                    <field name="booking_type"/>
+                    <field name="partner_id"/>
+                </calendar>
+            </field>
+        </record>
+
         <record id="action_resource_activity" model="ir.actions.act_window">
             <field name="name">Resource activities</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">resource.activity</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form,calendar</field>
-            <field name="context">{"search_default_today":1}</field>
+            <field name="context">{"search_default_today":1,"search_default_not_cancelled":1}</field>
         </record>
         
         <menuitem action="action_resource_activity" id="resource_activity_menu" parent="menu_resource_activity" sequence="10"/>
