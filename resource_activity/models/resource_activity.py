@@ -61,7 +61,7 @@ class ResourceActivity(models.Model):
     date_lock = fields.Date(string="Date lock")
     booking_type = fields.Selection([('option','Option'),
                                     ('booked','Booking')], string="Booking type", default='booked')
-    active = fields.Boolean('Active')
+    active = fields.Boolean('Active', default=True)
     departure = fields.Char(string="Departure")
     arrival = fields.Char(string="Arrival")
     description = fields.Char(string="Description")
@@ -163,7 +163,7 @@ class ActivityRegistration(models.Model):
     def _get_activity_booking_type(self):
         if self.resource_activity_id.booking_type:
             self.booking_type = self.resource_activity_id.booking_type
-
+ 
     def _get_activity_activity_date_lock(self):
         if self.resource_activity_id.booking_type:
             self.booking_type = self.resource_activity_id.booking_type
@@ -185,6 +185,10 @@ class ActivityRegistration(models.Model):
     date_lock = fields.Date(string="Date lock", default=_get_activity_activity_date_lock)
     booking_type = fields.Selection([('option','Option'),
                                     ('booked','Booking')], string="Booking type", default=_get_activity_booking_type)
+
+#     date_lock = fields.Date(string="Date lock", related='resource_activity_id.date_lock',store=True)
+#     booking_type = fields.Selection([('option','Option'),
+#                                      ('booked','Booking')],string="Booking type", related='resource_activity_id.booking_type', store=True)
     state = fields.Selection([('draft','Draft'),
                               ('waiting','Waiting'),
                               ('available','Available'),
