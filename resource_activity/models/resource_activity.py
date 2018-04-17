@@ -54,7 +54,6 @@ class ResourceActivity(models.Model):
     registrations = fields.One2many('resource.activity.registration', 'resource_activity_id', string="Registration")
     location_id = fields.Many2one('resource.location', string="Location", required=True)
     state = fields.Selection([('draft','Draft'),
-                              ('option','Option'),
                               ('confirmed','Confirmed'),
                               ('done','Done'),
                               ('cancelled','Cancelled')], string="State", default='draft')
