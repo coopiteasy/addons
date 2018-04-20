@@ -85,6 +85,9 @@ class ResourceActivity(models.Model):
                         store=True, readonly=True, compute='_compute_registrations')
     registrations_unconfirmed = fields.Integer(string="Unconfirmed registrations",
                         store=True, readonly=True, compute='_compute_registrations')
+    company_id = fields.Many2one('res.company', string='Company', required=True, 
+                        change_default=True, readonly=True,
+                        default=lambda self: self.env['res.company']._company_default_get())
     
     @api.onchange('location_id')
     def onchange_location_id(self):
@@ -199,6 +202,7 @@ class ActivityRegistration(models.Model):
     date_end = fields.Datetime(related='resource_activity_id.date_end', string="Date end")
     location_id = fields.Many2one(related='resource_activity_id.location_id', string="Location")
     bring_bike = fields.Boolean(string="Bring his bike")
+
 
     def create_resource_available(self, resource_ids, registration):
         for resource_id in resource_ids:
