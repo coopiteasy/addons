@@ -79,6 +79,7 @@
 								<field name="need_delivery"/>
 								<field name="delivery_place" attrs="{'invisible':[('need_delivery','=',False)]}"/>
 								<field name="delivery_time" attrs="{'invisible':[('need_delivery','=',False)]}"/>
+								<field name="company_id" invisible="True"/>
 							</group>
 							<group>
 								<field name="date_start"/>
