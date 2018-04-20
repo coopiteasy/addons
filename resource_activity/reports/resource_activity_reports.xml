@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data noupdate="0">
+		<report
+			id="action_resource_activity_report" 
+			model="resource.activity" 
+			string="Resource activity report"
+			report_type="qweb-pdf"
+			name="resource_activity.resource_activity_report" 
+			file="resource_activity.resource_activity_report.xml" 
+			menu="True"/>
+<!-- 		multi="True" -->
+	</data>
+</odoo>

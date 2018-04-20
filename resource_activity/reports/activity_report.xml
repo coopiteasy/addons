@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<template id="resource_activity_report_document">
+		    <t t-call="theme_light.invoice_layout_002">
+		        <div class="page">
+		        	<head>
+						<link href="/easy_my_coop_taxshelter_report/static/src/css/coop_report.css" rel="stylesheet"/>
+						
+						<style type="text/css">
+						/* Montserrat */
+						  @font-face {
+						  font-family: 'Montserrat-Regular';
+						  font-style: normal;
+						  src: local('Montserrat Regular'), url('/theme_light/static/font/Montserrat-Regular.ttf') format('truetype');
+						}
+						/* Roboto Regular */
+						  @font-face {
+						  font-family: 'Roboto-Regular';
+						  font-style: normal;
+						  src: local('Roboto Regular'), url('/theme_light/static/font/Roboto-Regular.ttf') format('truetype');
+						}
+						/* Roboto Bold */
+						  @font-face {
+						  font-family: 'Roboto-Bold';
+						  font-style: normal;
+						  src: local('Roboto Bold'), url('/theme_light/static/font/Roboto-Bold.ttf') format('truetype');
+						}
+						/* BEBASNEUE Bold */
+						  @font-face {
+						  font-family: 'Bebasneue-Bold';
+						  font-style: normal;
+						  src: local('Bebasneue-Bold'), url('/theme_light/static/font/BEBASNEUE_BOLD.ttf') format('truetype');
+						}
+						</style>
+					</head>
+		        	<t t-call="theme_light.invoice_header"/>
+		        	
+		            <div class="row">
+		                <div class="col-xs-5 col-xs-offset-7 easymy-coop-address" style="top:40px;" t-if="o.partner_id">
+		                    <strong><span t-field="o.partner_id.name" /><br/></strong>
+			            	<span t-field="o.partner_id.street" /><br/>
+			            	<span>  
+			            		<span t-field="o.partner_id.zip"/>  
+			            		<span t-field="o.partner_id.city"/>
+			            	</span><br/>
+			            	<span t-field="o.partner_id.country_id.name" /><br/>
+		                </div>
+		            </div>
+		
+					<div style="position:absolute; top:300px">
+			            <h2 style="font-family:Bebasneue-Bold;font-size:20pt;line-height:14pt;">
+			            	<div>
+				            	<span>Activity Report</span>		          					          			
+							</div>
+			                <div style="width:125px;position:relative;top:10px;border-bottom: 4pt solid #fcc300;"/>
+			            </h2>
+						
+						<div class="row">
+			                <div class="col-xs-12 pull-left" style="position:relative;top:10px;font-size:16;color:black;font-family:Roboto-Regular;">
+				                <div class="row mt32 mb32 easymy-coop-info-title" style="top:30px;">
+					                <div class="col-xs-2" t-if="o.name">
+					                    <strong>Reference:</strong>
+					                    <p t-field="o.name"/>
+					                </div>
+					                <div class="col-xs-2" t-if="o.name">
+					                    <strong>Description:</strong>
+					                    <p t-field="o.description"/>
+					                </div>
+					                <div class="col-xs-2">
+					                    <strong>Location:</strong>
+					                    <p t-field="o.location_id.name"/>
+					                </div>
+					                <div class="col-xs-2">
+					                    <strong>Date start:</strong>
+					                    <p t-field="o.date_start"/>
+					                </div>
+					                <div class="col-xs-2">
+					                    <strong>Date end:</strong>
+					                    <p t-field="o.date_end"/>
+					                </div>
+					                <div class="col-xs-2">
+					                    <strong>Activity type:</strong>
+					                    <p t-field="o.activity_type"/>
+					                </div>
+					            </div>
+					            <div class="row mt32 mb32 easymy-coop-info-title" style="top:30px;">
+					                <div class="col-xs-2">
+					                    <strong>Activity theme:</strong>
+					                    <p t-field="o.activity_theme"/>
+					                </div>
+					                <div class="col-xs-2">
+					                    <strong>Departure:</strong>
+					                    <p t-field="o.departure"/>
+					                </div>
+					                <div class="col-xs-2">
+					                    <strong>Arrival:</strong>
+					                    <p t-field="o.arrival"/>
+					                </div>
+					                <div class="col-xs-2">
+					                    <strong>Comment:</strong>
+					                    <p t-field="o.comment"/>
+					                </div>
+					                <div name="langs" class="col-xs-2">
+					                    <strong>Languages:</strong>
+					                    <t t-foreach="o.langs" t-as="lang">
+											<t t-if="lang">				 
+							            		<div t-field="lang.name"/>
+											</t>	  		            		
+										</t>
+					                </div>
+					                <div name="guides" class="col-xs-2">
+					                    <strong>Guides:</strong>
+					                    <t t-foreach="o.guides" t-as="guide">
+											<t t-if="guide">				 
+							            		<div t-field="guide.name"/>
+											</t>	  		            		
+										</t>
+					                </div>
+					            </div>
+					            <div class="row mt32 mb32 easymy-coop-info-title" style="top:30px;" t-if="o.need_delivery">
+					            	<div class="col-xs-2">
+					                    <strong>Need delivery:</strong>
+					                    <p t-field="o.need_delivery"/>
+					                </div>
+					                <div class="col-xs-2">
+					                    <strong>Delivery place:</strong>
+					                    <p t-field="o.delivery_place"/>
+					                </div>
+					                <div name="langs" class="col-xs-2">
+					                    <strong>Delivery time:</strong>
+					                    <p t-field="o.delivery_time"/>
+					                </div>
+					            </div>
+								<div style="position:relative;top:10px;">
+									<table class="table border-easymy-coop" style="width:90%;align:center;">
+						            	<thead class="invoice_tbody easymy-coop-normal">
+						                    <tr>
+						                        <th>Attendee</th>
+						                        <th>Number of people</th>
+						                        <th>Quantity needed</th>
+						                        <th>Resource needed</th>
+						                    </tr>
+						                </thead>
+						                <tbody class="invoice_tbody easymy-coop-normal">
+						                    <tr t-foreach="o.registrations" t-as="l">
+						                        <td><span t-field="l.attendee_id.name"/></td>
+						                        <td><span t-field="l.quantity"/></td>
+						                        <td><span t-field="l.quantity_needed"/></td>
+						                        <td><span t-field="l.resource_category.name"/></td>
+						                    </tr>
+						                </tbody>
+						            </table>
+								</div>
+			                </div>
+			            </div>
+			        </div>
+		        </div>
+		    </t>
+		    </template>
+
+			<template id="resource_activity_report">
+			    <t t-call="theme_light.html_container">
+			        <t t-set="data_report_margin_top" t-value="10"/>
+			        <t t-set="data_report_header_spacing" t-value="5"/>
+			        <t t-set="data_report_dpi" t-value="110"/>
+
+			        <t t-foreach="docs" t-as="o">
+			            <t t-call="resource_activity.resource_activity_report_document" t-lang="o.partner_id.lang"/>
+			        </t>
+			    </t>
+			</template>
+	</data>
+</odoo>
