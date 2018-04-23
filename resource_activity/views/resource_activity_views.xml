@@ -96,6 +96,8 @@
 						</group>
 						<notebook>
 	            			<page name="registration" string="Registrations">
+	            				<button type="object" name="search_all_resources" string="Search all"/>
+	            				<button type="object" name="reserve_needed_resource" string="Reserve needed Resources" help="refresh"/>
 	            				<field name="registrations" context="{'default_booking_type':booking_type,'default_date_lock':date_lock}">
 	            					<tree delete="false" editable="bottom">
 										<button type="object" icon="STOCK_FIND" name="view_registration_form" />
@@ -219,6 +221,7 @@
 						<notebook>
 							<page string="Search result">
 								<button type="object" name="action_refresh" string="Refresh" help="refresh"/>
+								<button type="object" name="reserve_needed_resource" string="Reserve needed Resources" help="refresh"/>
 								<field name="resources_available" options="{'no_open':True,'no_create':True}">
 									<tree>
 										<field name="name"/>

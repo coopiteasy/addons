@@ -140,10 +140,15 @@ class ResourceActivity(models.Model):
             activity.write(vals)
 
     @api.multi
-    def action_search(self):
+    def search_all_resources(self):
         for activity in self:
-            activity.mapped()
+            activity.registrations.search_resources()
     
+    @api.multi
+    def reserve_needed_resource(self):
+        for activity in self:
+            activity.registrations.reserve_needed_resource()
+
     @api.multi
     def action_done(self):
         self.state = 'done'          
@@ -157,7 +162,6 @@ class ResourceActivity(models.Model):
         for activity in self:
             activity.registrations.action_cancel()
             activity.state = 'cancelled'
-
 
 class ActivityRegistration(models.Model):
     _name = 'resource.activity.registration'
@@ -191,8 +195,6 @@ class ActivityRegistration(models.Model):
     state = fields.Selection([('draft','Draft'),
                               ('waiting','Waiting'),
                               ('available','Available'),
-                              ('option','Option'),
-                              ('booked','Booked'),
                               ('cancelled','Cancelled')],
                              string="State", default='draft', readonly=True)
     date_start = fields.Datetime(related='resource_activity_id.date_start', string="Date start")
@@ -235,6 +237,18 @@ class ActivityRegistration(models.Model):
                 if resource_available.resource_id.id not in still_avai_res:
                     resource_available.state = 'not_free'
         return True
+    
+    @api.multi
+    def reserve_needed_resource(self):
+        self.action_refresh()
+        for registration in self:
+            qty_needed = registration.quantity_needed
+            for resource_available in registration.resources_available:
+                resource_available.action_reserve()
+                qty_needed -=1
+                if qty_needed == 0:
+                    break
+
 
     @api.multi
     def action_cancel(self):
@@ -283,19 +297,20 @@ class ResourceAvailable(models.Model):
 
     @api.multi
     def action_reserve(self):
-        allocation_ids = self.resource_id.allocate_resource(self.registration_id.booking_type,
-                                                            self.registration_id.date_start,
-                                                            self.registration_id.date_end,
-                                                            self.registration_id.attendee_id,
-                                                            self.registration_id.location_id,
-                                                            self.registration_id.date_lock)
-        if allocation_ids:
-            allocations = self.env['resource.allocation'].browse(allocation_ids)
-            allocations.write({'activity_registration_id': self.registration_id.id})
-            self.registration_id.quantity_allocated += 1
-            self.state = 'selected'
-        else:
-            print "no resource found for : " + str(self.resource_id.ids)
+        for resource_available in self.filtered(lambda record: record.state == 'free'):
+            allocation_ids = resource_available.resource_id.allocate_resource(resource_available.registration_id.booking_type,
+                                                                resource_available.registration_id.date_start,
+                                                                resource_available.registration_id.date_end,
+                                                                resource_available.registration_id.attendee_id,
+                                                                resource_available.registration_id.location_id,
+                                                                resource_available.registration_id.date_lock)
+            if allocation_ids:
+                allocations = self.env['resource.allocation'].browse(allocation_ids)
+                allocations.write({'activity_registration_id': resource_available.registration_id.id})
+                resource_available.registration_id.quantity_allocated += 1
+                resource_available.state = 'selected'
+            else:
+                print "no resource found for : " + str(resource_available.resource_id.ids)
 
         return True
 
