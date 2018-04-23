@@ -85,7 +85,7 @@
 								<field name="date_start"/>
 								<field name="date_end"/>
 								<field name="booking_type"/>
-								<field name="date_lock" attrs="{'invisible':[('booking_type','!=','option')]}"/>
+								<field name="date_lock" attrs="{'invisible':[('booking_type','!=','option')],'required':[('booking_type','=','option')]}"/>
 								<field name="activity_type" widget="selection"/>
 								<field name="activity_theme" widget="selection"/>
 								<field name="departure"/>
@@ -96,7 +96,7 @@
 						</group>
 						<notebook>
 	            			<page name="registration" string="Registrations">
-	            				<field name="registrations">
+	            				<field name="registrations" context="{'default_booking_type':booking_type,'default_date_lock':date_lock}">
 	            					<tree delete="false" editable="bottom">
 										<button type="object" icon="STOCK_FIND" name="view_registration_form" />
 	            						<field name="attendee_id"/>
@@ -106,6 +106,7 @@
 	            						<field name="quantity_allocated" sum="Total allocated"/>
 	            						<field name="resource_category" attrs="{'required':[('bring_bike','=',False)]}"/>
 	            						<field name="booking_type"/>
+	            						<field name="date_lock"/>
 	            						<field name="state"/>
 					                    <button type="object" name="search_resources" states="draft" help="Search resources" icon="gtk-apply"/>
 					                    <button type="object" name="action_cancel" states="draft" help="Cancel" icon="gtk-cancel"/>

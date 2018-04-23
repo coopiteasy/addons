@@ -184,13 +184,10 @@ class ActivityRegistration(models.Model):
     resources_available = fields.One2many('resource.available','registration_id',string="Resource available")
     allocations = fields.One2many('resource.allocation', 'activity_registration_id',
                                   string="Activity registration")
-    date_lock = fields.Date(string="Date lock", default=_get_activity_activity_date_lock)
-    booking_type = fields.Selection([('option','Option'),
-                                    ('booked','Booking')], string="Booking type", default=_get_activity_booking_type)
 
-#     date_lock = fields.Date(string="Date lock", related='resource_activity_id.date_lock',store=True)
-#     booking_type = fields.Selection([('option','Option'),
-#                                      ('booked','Booking')],string="Booking type", related='resource_activity_id.booking_type', store=True)
+    date_lock = fields.Date(string="Date lock")
+    booking_type = fields.Selection([('option','Option'),
+                                      ('booked','Booking')],string="Booking type")
     state = fields.Selection([('draft','Draft'),
                               ('waiting','Waiting'),
                               ('available','Available'),
