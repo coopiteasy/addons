@@ -104,14 +104,14 @@ class ResourceActivity(models.Model):
             raise ValidationError("Date end can't be before date start: %s %s" % (self.date_start,self.date_end))
 
     @api.multi
-    @api.depends('registrations_max', 'registrations.state')
+    @api.depends('registrations_max', 'registrations.state', 'registrations.quantity')
     def _compute_registrations(self):
         for activity in self:
             expected = 0
             available = 0
             for registration in activity.registrations.filtered(lambda record: record.state != 'cancelled'):
                 expected += registration.quantity
-            activity.registration_expected = expected
+            activity.registrations_expected = expected
         
     @api.multi
     def action_confirm(self):
@@ -161,7 +161,15 @@ class ActivityRegistration(models.Model):
     
     @api.onchange('quantity')
     def onchange_quantity(self):
-        self.quantity_needed = self.quantity
+        if not self.bring_bike:
+            self.quantity_needed = self.quantity
+
+    @api.onchange('bring_bike')
+    def onchange_bring_bike(self):
+        if self.bring_bike:
+            self.quantity_needed = 0
+        else:
+            self.quantity_needed = self.quantity 
 
 
     resource_activity_id = fields.Many2one('resource.activity',string="Activity")
@@ -275,6 +283,15 @@ class ActivityRegistration(models.Model):
         if vals.get('registrations_max') < vals.get('registrations_expected') + vals.get('quantity_needed'):
             raise ValidationError("Maximum registration capacity reached")
         return super(ActivityRegistration,self).create(vals)
+    
+    @api.multi
+    def write(self,vals):
+        for registration in self:
+            if vals.get('quantity') and registration.resource_activity_id.registrations_max < (registration.resource_activity_id.registrations_expected 
+                                                                      - registration.quantity
+                                                                      + vals.get('quantity')):
+                raise ValidationError("Maximum registration capacity reached")
+        return super(ActivityRegistration,self).write(vals)
 
 class ResourceAvailable(models.Model):
     _name = 'resource.available'
