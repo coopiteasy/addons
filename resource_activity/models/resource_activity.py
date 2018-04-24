@@ -75,16 +75,16 @@ class ResourceActivity(models.Model):
     delivery_time = fields.Char(string="Delivery time")
     registrations_max = fields.Integer(string="Maximum registration")
     registrations_min = fields.Integer(string="Minimum registration")
-    registrations_booked = fields.Integer(string="Registration booked",
-                        store=True, readonly=True, compute='_compute_registrations')
-    registrations_option = fields.Integer(string="Registration option",
-                        store=True, readonly=True, compute='_compute_registrations')
-    registrations_available = fields.Integer(string="Available registrations",
-                        store=True, readonly=True, compute='_compute_registrations')
+#     registrations_booked = fields.Integer(string="Registration booked",
+#                         store=True, readonly=True, compute='_compute_registrations')
+#     registrations_option = fields.Integer(string="Registration option",
+#                         store=True, readonly=True, compute='_compute_registrations')
+#     registrations_available = fields.Integer(string="Available registrations",
+#                         store=True, readonly=True, compute='_compute_registrations')
     registrations_expected = fields.Integer(string="Expected registrations",
                         store=True, readonly=True, compute='_compute_registrations')
-    registrations_unconfirmed = fields.Integer(string="Unconfirmed registrations",
-                        store=True, readonly=True, compute='_compute_registrations')
+#     registrations_unconfirmed = fields.Integer(string="Unconfirmed registrations",
+#                         store=True, readonly=True, compute='_compute_registrations')
     company_id = fields.Many2one('res.company', string='Company', required=True, 
                         change_default=True, readonly=True,
                         default=lambda self: self.env['res.company']._company_default_get())
@@ -106,28 +106,13 @@ class ResourceActivity(models.Model):
     @api.multi
     @api.depends('registrations_max', 'registrations.state')
     def _compute_registrations(self):
-        # aggregate registrations by activity and by state
-        if self.ids:
-            state_field = {
-                'draft': 'registrations_unconfirmed',
-                'option': 'registrations_option',
-                'booked': 'registrations_booked',
-            }
-            query = """ SELECT resource_activity_id, state, count(resource_activity_id)
-                        FROM resource_activity_registration
-                        WHERE resource_activity_id IN %s AND state IN ('draft', 'option', 'booked')
-                        GROUP BY resource_activity_id, state
-                    """
-            self._cr.execute(query, (tuple(self.ids),))
-            for activity_id, state, num in self._cr.fetchall():
-                activity = self.browse(activity_id)
-                activity[state_field[state]] += num
-        # compute available_registrations
         for activity in self:
-            if activity.registrations_max > 0:
-                activity.registrations_available = activity.registrations_max - (activity.registrations_option + activity.registrations_booked)
-            activity.registrations_expected = activity.registrations_unconfirmed + activity.registrations_option + activity.registrations_booked
-
+            expected = 0
+            available = 0
+            for registration in activity.registrations.filtered(lambda record: record.state != 'cancelled'):
+                expected += registration.quantity
+            activity.registration_expected = expected
+        
     @api.multi
     def action_confirm(self):
         vals = {'state': 'confirmed'}
@@ -202,7 +187,8 @@ class ActivityRegistration(models.Model):
     date_end = fields.Datetime(related='resource_activity_id.date_end', string="Date end")
     location_id = fields.Many2one(related='resource_activity_id.location_id', string="Location")
     bring_bike = fields.Boolean(string="Bring his bike")
-
+    registrations_max = fields.Integer(string="Maximum registration")
+    registrations_expected = fields.Integer(string="Expected registration")
 
     def create_resource_available(self, resource_ids, registration):
         for resource_id in resource_ids:
@@ -284,6 +270,11 @@ class ActivityRegistration(models.Model):
             'context': context,
         }
 
+    @api.model
+    def create(self,vals):
+        if vals.get('registrations_max') < vals.get('registrations_expected') + vals.get('quantity_needed'):
+            raise ValidationError("Maximum registration capacity reached")
+        return super(ActivityRegistration,self).create(vals)
 
 class ResourceAvailable(models.Model):
     _name = 'resource.available'
