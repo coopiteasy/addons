@@ -4,7 +4,7 @@
 
 from openerp import _, api, fields, models
 from datetime import date
-from openerp.exceptions import ValidationError
+from openerp.exceptions import ValidationError, UserError
 
 
 class ResPartner(models.Model):
@@ -75,16 +75,8 @@ class ResourceActivity(models.Model):
     delivery_time = fields.Char(string="Delivery time")
     registrations_max = fields.Integer(string="Maximum registration")
     registrations_min = fields.Integer(string="Minimum registration")
-#     registrations_booked = fields.Integer(string="Registration booked",
-#                         store=True, readonly=True, compute='_compute_registrations')
-#     registrations_option = fields.Integer(string="Registration option",
-#                         store=True, readonly=True, compute='_compute_registrations')
-#     registrations_available = fields.Integer(string="Available registrations",
-#                         store=True, readonly=True, compute='_compute_registrations')
     registrations_expected = fields.Integer(string="Expected registrations",
                         store=True, readonly=True, compute='_compute_registrations')
-#     registrations_unconfirmed = fields.Integer(string="Unconfirmed registrations",
-#                         store=True, readonly=True, compute='_compute_registrations')
     company_id = fields.Many2one('res.company', string='Company', required=True, 
                         change_default=True, readonly=True,
                         default=lambda self: self.env['res.company']._company_default_get())
@@ -220,6 +212,10 @@ class ActivityRegistration(models.Model):
                     
                     if len(registration.resources_available) >= registration.quantity_needed:
                         registration.state = 'available'
+                    else:
+                        self.env.cr.commit()
+                        raise UserError(("Not enough resource found for the registration %s. %s resources found") % 
+                                            (registration.attendee_id.name, len(registration.resources_available)))
 
         return True
 
