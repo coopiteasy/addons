@@ -98,10 +98,12 @@
 	            			<page name="registration" string="Registrations">
 	            				<button type="object" name="search_all_resources" string="Search all"/>
 	            				<button type="object" name="reserve_needed_resource" string="Reserve needed Resources" help="refresh"/>
-	            				<field name="registrations" context="{'default_booking_type':booking_type,'default_date_lock':date_lock}">
+	            				<field name="registrations" context="{'default_booking_type':booking_type,'default_date_lock':date_lock,'default_registrations_max':registrations_max,'default_registrations_expected':registrations_expected}">
 	            					<tree delete="false" editable="bottom">
 										<button type="object" icon="STOCK_FIND" name="view_registration_form" />
 	            						<field name="partner_id" invisible="True"/>
+	            						<field name="registrations_max" invisible="True"/>
+										<field name="registrations_expected" invisible="True"/>
 	            						<field name="attendee_id" attrs="{'required':[('partner_id','=',False)]}"/>
 	            						<field name="bring_bike"/>
 	            						<field name="quantity" sum="Total participant"/>
@@ -211,13 +213,16 @@
 							<group>
 								<field name="partner_id" invisible="True"/>
 								<field name="attendee_id" attrs="{'required':[('partner_id','=',False)]}"/>
-								<field name="resource_category"/>
+								<field name="bring_bike"/>
 								<field name="quantity"/>
 								<field name="quantity_allocated"/>
 							</group>
 							<group>
 								<field name="booking_type"/>
 								<field name="date_lock" attrs="{'invisible':[('booking_type','!=','option')]}"/>
+           						<field name="resource_category" attrs="{'required':[('bring_bike','=',False)]}"/>
+								<field name="registrations_max" invisible="True"/>
+								<field name="registrations_expected" invisible="True"/>
 							</group>
 						</group>
 						<notebook>
