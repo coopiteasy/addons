@@ -59,11 +59,11 @@
 						<div class="row">
 			                <div class="col-xs-12 pull-left" style="position:relative;top:10px;font-size:16;color:black;font-family:Roboto-Regular;">
 				                <div class="row mt32 mb32 easymy-coop-info-title" style="top:30px;">
-					                <div class="col-xs-2" t-if="o.name">
+					                <div class="col-xs-2">
 					                    <strong>Reference:</strong>
 					                    <p t-field="o.name"/>
 					                </div>
-					                <div class="col-xs-2" t-if="o.name">
+					                <div class="col-xs-2">
 					                    <strong>Description:</strong>
 					                    <p t-field="o.description"/>
 					                </div>
@@ -80,11 +80,15 @@
 					                    <p t-field="o.date_end"/>
 					                </div>
 					                <div class="col-xs-2">
-					                    <strong>Activity type:</strong>
-					                    <p t-field="o.activity_type"/>
+					                    <strong>Duration:</strong>
+					                    <p t-field="o.duration"/>
 					                </div>
 					            </div>
 					            <div class="row mt32 mb32 easymy-coop-info-title" style="top:30px;">
+					                <div class="col-xs-2">
+					                    <strong>Activity type:</strong>
+					                    <p t-field="o.activity_type"/>
+					                </div>
 					                <div class="col-xs-2">
 					                    <strong>Activity theme:</strong>
 					                    <p t-field="o.activity_theme"/>
