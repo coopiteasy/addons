@@ -3,7 +3,8 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from openerp import _, api, fields, models
-from datetime import date
+from datetime import date, datetime, timedelta
+from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT as DTF
 from openerp.exceptions import ValidationError, UserError
 
 
@@ -49,8 +50,9 @@ class ResourceActivity(models.Model):
     
     name = fields.Char(string="Name")
     partner_id = fields.Many2one('res.partner', string="Customer", domain=[('customer','=',True)])
-    date_start = fields.Datetime(string="Date start", required=True)
-    date_end = fields.Datetime(string="Date end", required=True)
+    date_start = fields.Datetime(string="Date start", required=True, copy=False)
+    date_end = fields.Datetime(string="Date end", required=True, copy=False)
+    duration = fields.Char(string="Duration", compute="_compute_duration", store=True)
     registrations = fields.One2many('resource.activity.registration', 'resource_activity_id', string="Registration")
     location_id = fields.Many2one('resource.location', string="Location", required=True)
     state = fields.Selection([('draft','Draft'),
@@ -104,7 +106,30 @@ class ResourceActivity(models.Model):
             for registration in activity.registrations.filtered(lambda record: record.state != 'cancelled'):
                 expected += registration.quantity
             activity.registrations_expected = expected
+
+    @api.multi
+    @api.depends('date_end', 'date_start')
+    def _compute_duration(self):
+        period = timedelta(days=1)
+        period_time = timedelta(hours=24)
         
+        for activity in self:
+            datetime_end = datetime.strptime(activity.date_end, DTF)
+            datetime_start = datetime.strptime(activity.date_start, DTF)
+            date_end = datetime_end.date()
+            date_start = datetime_start.date()
+            
+            delta_time = datetime_end - datetime_start
+            
+            if date_end > date_start:
+                delta = date_end - date_start
+                if delta_time > period_time: 
+                    delta += period
+                activity.duration = str(delta.days) + " day(s)"
+    
+            else:
+                activity.duration = str(delta_time.hours) + " hour(s)"
+            
     @api.multi
     def action_confirm(self):
         vals = {'state': 'confirmed'}

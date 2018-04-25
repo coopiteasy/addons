@@ -84,6 +84,7 @@
 							<group>
 								<field name="date_start"/>
 								<field name="date_end"/>
+								<field name="duration"/>
 								<field name="booking_type"/>
 								<field name="date_lock" attrs="{'invisible':[('booking_type','!=','option')],'required':[('booking_type','=','option')]}"/>
 								<field name="activity_type" widget="selection"/>
