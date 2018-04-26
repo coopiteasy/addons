@@ -119,21 +119,22 @@ class ResourceActivity(models.Model):
         period_time = timedelta(hours=24)
         
         for activity in self:
-            datetime_end = datetime.strptime(activity.date_end, DTF)
-            datetime_start = datetime.strptime(activity.date_start, DTF)
-            date_end = datetime_end.date()
-            date_start = datetime_start.date()
-            
-            delta_time = datetime_end - datetime_start
-            
-            if date_end > date_start:
-                delta = date_end - date_start
-                if delta_time > period_time: 
-                    delta += period
-                activity.duration = str(delta.days) + " day(s)"
-    
-            else:
-                activity.duration = str(delta_time.hours) + " hour(s)"
+            if activity.date_start and activity.date_end and activity.date_start < activity.date_end:
+                datetime_end = datetime.strptime(activity.date_end, DTF)
+                datetime_start = datetime.strptime(activity.date_start, DTF)
+                date_end = datetime_end.date()
+                date_start = datetime_start.date()
+                
+                delta_time = datetime_end - datetime_start
+                
+                if date_end > date_start:
+                    delta = date_end - date_start
+                    if delta_time > period_time: 
+                        delta += period
+                    activity.duration = str(delta.days) + " day(s)"
+        
+                else:
+                    activity.duration = str(delta_time.hours) + " hour(s)"
             
     @api.multi
     def action_confirm(self):
@@ -230,7 +231,6 @@ class ActivityRegistration(models.Model):
                                                   'registration_id':registration.id,
                                                   'state':'free'})
 
-    
     @api.multi
     def search_resources(self):
         registrations = self.filtered(lambda record: record.state in ['draft','waiting'])
