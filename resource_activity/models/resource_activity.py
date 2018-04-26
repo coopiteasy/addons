@@ -88,7 +88,12 @@ class ResourceActivity(models.Model):
         if self.location_id and self.location_id.address:
             self.departure = self.location_id.address._display_address(self.location_id.address)
             self.arrival = self.location_id.address._display_address(self.location_id.address)
-
+    
+    @api.onchange('booking_type')
+    def onchange_booking_type(self):
+        if self.booking_type == 'booked':
+            self.date_lock = None
+        
     @api.one
     @api.constrains('date_start','date_end')
     def _check_date(self):
@@ -188,7 +193,11 @@ class ActivityRegistration(models.Model):
         else:
             self.quantity_needed = self.quantity 
 
-
+    @api.onchange('booking_type')
+    def onchange_booking_type(self):
+        if self.booking_type == 'booked':
+            self.date_lock = None
+            
     resource_activity_id = fields.Many2one('resource.activity',string="Activity")
     partner_id = fields.Many2one(related='resource_activity_id.partner_id')
     attendee_id = fields.Many2one('res.partner', string="Attendee", domain=[('customer','=',True)])
