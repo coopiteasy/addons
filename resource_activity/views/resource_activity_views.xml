@@ -112,7 +112,7 @@
 	            						<field name="quantity_allocated" sum="Total allocated"/>
 	            						<field name="resource_category" attrs="{'required':[('bring_bike','=',False)]}"/>
 	            						<field name="booking_type"/>
-	            						<field name="date_lock"/>
+	            						<field name="date_lock" attrs="{'required':[('booking_type','=','option')]}"/>
 	            						<field name="state"/>
 					                    <button type="object" name="search_resources" states="draft" help="Search resources" icon="gtk-apply"/>
 					                    <button type="object" name="action_cancel" states="draft" help="Cancel" icon="gtk-cancel"/>
