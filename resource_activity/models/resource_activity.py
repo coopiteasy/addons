@@ -133,8 +133,9 @@ class ResourceActivity(models.Model):
                         delta += period
                     activity.duration = str(delta.days) + " day(s)"
         
-                else:
-                    activity.duration = str(delta_time.hours) + " hour(s)"
+                elif date_end == date_start:
+                    activity.duration = str(delta_time.seconds / 3600) + " hour(s) " + str(delta_time.seconds % 3600 // 60) +" minute(s)" 
+                    
             
     @api.multi
     def action_confirm(self):
