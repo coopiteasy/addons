@@ -61,7 +61,7 @@ class ResourceActivity(models.Model):
                               ('cancelled','Cancelled')], string="State", default='draft')
     date_lock = fields.Date(string="Date lock")
     booking_type = fields.Selection([('option','Option'),
-                                    ('booked','Booking')], string="Booking type", default='booked')
+                                    ('booked','Booking')], string="Booking type", required=True, default='booked')
     active = fields.Boolean('Active', default=True)
     departure = fields.Char(string="Departure")
     arrival = fields.Char(string="Arrival")
@@ -211,7 +211,7 @@ class ActivityRegistration(models.Model):
 
     date_lock = fields.Date(string="Date lock")
     booking_type = fields.Selection([('option','Option'),
-                                      ('booked','Booking')],string="Booking type")
+                                      ('booked','Booking')],string="Booking type", required=True)
     state = fields.Selection([('draft','Draft'),
                               ('waiting','Waiting'),
                               ('available','Available'),
