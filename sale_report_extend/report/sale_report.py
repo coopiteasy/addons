@@ -10,7 +10,7 @@ class SaleReport(models.Model):
         return  super(SaleReport, self)._select() + ", pcr.category_id as category_id"
     
     def _from(self):
-        return  super(SaleReport, self)._from() + " join res_partner_res_partner_category_rel pcr on (pcr.partner_id=s.partner_id)"
+        return  super(SaleReport, self)._from() + " left join res_partner_res_partner_category_rel pcr on (pcr.partner_id=s.partner_id)"
             
     def _group_by(self):
         return  super(SaleReport, self)._group_by() + ", pcr.category_id"
