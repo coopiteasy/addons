@@ -2,7 +2,7 @@
 # Part of Open Architechts Consulting sprl. See LICENSE file for full copyright and licensing details.
 from datetime import datetime, timedelta
 from openerp import api, fields, models, _, SUPERUSER_ID
-from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
+from openerp.tools import DEFAULT_SERVER_DATE_FORMAT
 
 class SaleOrder(models.Model):
     _inherit = "sale.order"
