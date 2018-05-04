@@ -30,6 +30,12 @@
             <field name="model">sale.order</field>
             <field name="inherit_id" ref="sale.view_order_tree"/>
             <field name="arch" type="xml">
+              <xpath expr="//field[@name='amount_total']" position="attributes">
+                <attribute name="invisible">True</attribute>
+              </xpath>
+              <field name="amount_total" position='after'>
+                <field name="amount_untaxed"/>
+              </field>
             	<field name="invoice_status" position="after">
             		<field name="delivery_done_date"/>
             		<field name="delivery_status"/>
