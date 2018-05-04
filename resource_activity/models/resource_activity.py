@@ -206,6 +206,7 @@ class ActivityRegistration(models.Model):
     quantity = fields.Integer(string="Number of participant", default=1)
     quantity_needed = fields.Integer(string="Quantity needed", default=1)
     quantity_allocated = fields.Integer(string="Quantity allocated", readonly=True)
+    product_id = fields.Many2one('product.product', string="Product")
     resource_category = fields.Many2one('resource.category', string="Category")
     resources_available = fields.One2many('resource.available','registration_id',string="Resource available")
     allocations = fields.One2many('resource.allocation', 'activity_registration_id',

@@ -111,6 +111,7 @@
 	            						<field name="quantity_needed" sum="Total needed"/>
 	            						<field name="quantity_allocated" sum="Total allocated"/>
 	            						<field name="resource_category" attrs="{'required':[('bring_bike','=',False)]}"/>
+	            						<field name="product_id" domain="[('resource_category_id','=',resource_category)]"/>
 	            						<field name="booking_type"/>
 	            						<field name="date_lock" attrs="{'required':[('booking_type','=','option')]}"/>
 	            						<field name="state"/>
