@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="view_sale_order_activity_form" model="ir.ui.view">
+            <field name="name">sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+				<field name="project_id" position="after">
+           			<field name="activity_sale"/>
+            		<field name="activity_id" attrs="{'invisible':[('activity_sale','=',False)]}"/>
+            		<field name="date_start" attrs="{'invisible':[('activity_sale','=',False)]}"/>
+            		<field name="date_end" attrs="{'invisible':[('activity_sale','=',False)]}"/>
+            		<field name="location_id" attrs="{'invisible':[('activity_sale','=',False)]}"/>
+           		</field>
+            	<group name="technical" position="after">
+            		<group name="activity" string="Activity" attrs="{'invisible':[('activity_sale','=',False)]}">
+	            		<field name="departure"/>
+	            		<field name="arrival"/>
+	            		<field name="duration"/>
+	            		<field name="langs" widget='many2many_tags'/>
+	            		<field name="registrations_expected"/>
+	            		<field name="activity_type"/>
+	            		<field name="activity_theme"/>
+	            		<field name="need_delivery" />
+	            		<field name="delivery_place" attrs="{'invisible':[('need_delivery','=',False)]}"/>
+	            		<field name="delivery_time" attrs="{'invisible':[('need_delivery','=',False)]}"/>
+            		</group>
+            	</group>
+            </field>
+        </record>
+	</data>
+</odoo>
