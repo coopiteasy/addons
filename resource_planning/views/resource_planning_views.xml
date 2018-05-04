@@ -193,9 +193,8 @@
 			                    <field name="name"/>
 			               	</group>
 		            	</group>
-		            	
 		               	<notebook>
-		               		<page string="Resources">
+		               		<page name="resources" string="Resources">
 				               	<field name="resources">
 					               	 <tree delete="false" create="false">
 					               	 	<field name="name"/>
