@@ -51,10 +51,11 @@
             <field name="arch" type="xml">
 				<form>
 					<header>
+						<button name="create_sale_order" string="Create Sale order" type="object" states="confirmed"/>
 						<button name="action_confirm" string="Confirm" type="object" states="draft"/>
 						<button name="action_draft" string="Draft" type="object" states="confirmed"/>
 						<button name="action_done" string="Done" type="object" states="confirmed"/>
-						<button name="action_cancel" string="Cancel" type="object" states="draft,confirmed" confirm="Are you sure you want to cancel this activity?"/>
+						<button name="action_cancel" string="Cancel" type="object" states="draft,confirmed,sale" confirm="Are you sure you want to cancel this activity?"/>
 						<field name="state" widget="statusbar"/>
 					</header>
 					<sheet>
@@ -80,6 +81,7 @@
 								<field name="delivery_place" attrs="{'invisible':[('need_delivery','=',False)]}"/>
 								<field name="delivery_time" attrs="{'invisible':[('need_delivery','=',False)]}"/>
 								<field name="company_id" invisible="True"/>
+								<field name="sale_order_id"/>
 							</group>
 							<group>
 								<field name="date_start"/>
@@ -89,6 +91,7 @@
 								<field name="date_lock" attrs="{'invisible':[('booking_type','!=','option')],'required':[('booking_type','=','option')]}"/>
 								<field name="activity_type" widget="selection"/>
 								<field name="activity_theme" widget="selection"/>
+								<field name="analytic_account"/>
 								<field name="departure"/>
 								<field name="arrival"/>
 								<field name="langs" options="{'no_create': True}" widget='many2many_tags'/>
@@ -283,6 +286,7 @@
 			               	</group>
 			               	<group>
 			               		<field name="code"/>
+			               		<field name="analytic_account"/>
 			               	</group>
 		            	</group>
 		        	</sheet>
