@@ -30,6 +30,7 @@ class ResourceActivityType(models.Model):
     
     name = fields.Char(string="Type", required=True)
     code = fields.Char(string="Code")
+    analytic_account = fields.Many2one('account.analytic.account', string="Analytic account", groups="analytic.group_analytic_accounting")
 
 class ResourceActivityTheme(models.Model):
     _name = 'resource.activity.theme'
@@ -55,9 +56,12 @@ class ResourceActivity(models.Model):
     duration = fields.Char(string="Duration", compute="_compute_duration", store=True)
     registrations = fields.One2many('resource.activity.registration', 'resource_activity_id', string="Registration")
     location_id = fields.Many2one('resource.location', string="Location", required=True)
+    sale_order_id = fields.Many2one('sale.order', string="Sale order", readonly=True)
     state = fields.Selection([('draft','Draft'),
                               ('confirmed','Confirmed'),
                               ('done','Done'),
+                              ('quotation','Quotation'),
+                              ('sale','Sale'),
                               ('cancelled','Cancelled')], string="State", default='draft')
     date_lock = fields.Date(string="Date lock")
     booking_type = fields.Selection([('option','Option'),
@@ -68,6 +72,7 @@ class ResourceActivity(models.Model):
     description = fields.Char(string="Description")
     comment = fields.Char(string="Comment")
     activity_type = fields.Many2one('resource.activity.type', string="Activity type")
+    analytic_account = fields.Many2one(related='activity_type.analytic_account', string="Analytic account", readonly=True, groups="analytic.group_analytic_accounting")
     guides = fields.Many2many('res.partner', string="Guide", domain=[('is_guide','=',True)])
     trainers = fields.Many2many('res.partner', string="Trainer", domain=[('is_trainer','=',True)])
     langs = fields.Many2many('resource.activity.lang', string="Langs")
@@ -171,6 +176,32 @@ class ResourceActivity(models.Model):
         for activity in self:
             activity.registrations.action_cancel()
             activity.state = 'cancelled'
+    
+    @api.multi
+    def create_sale_order(self):
+        order_obj = self.env['sale.order']
+        line_obj = self.env['sale.order.line']
+        for activity in self:
+            order_vals = {
+                'partner_id': activity.partner_id.id,
+                'activity_id': activity.id,
+                'activity_sale': True,
+                }
+            order_id = order_obj.create(order_vals)
+            self.write({'sale_order_id': order_id.id, 'state':'sale'})
+            no_bike_qty = 0
+            bike_qty = 0
+            for registration in activity.registrations:
+                line_vals= {
+                    'product_id':registration.product_id.id,
+                    'product_uom_qty':registration.quantity_needed,
+                    'product_uom':registration.product_id.uom_id.id,
+                    'order_id':order_id.id
+                }
+                no_bike_qty += registration.quantity - registration.quantity_needed
+                bike_qty += registration.quantity_needed
+                line_id = line_obj.create(line_vals)
+                registration.order_line_id = line_id
 
 class ActivityRegistration(models.Model):
     _name = 'resource.activity.registration'
@@ -201,6 +232,7 @@ class ActivityRegistration(models.Model):
             self.date_lock = None
             
     resource_activity_id = fields.Many2one('resource.activity',string="Activity")
+    order_line_id = fields.Many2one('sale.order.line', string="Sale order line")
     partner_id = fields.Many2one(related='resource_activity_id.partner_id')
     attendee_id = fields.Many2one('res.partner', string="Attendee", domain=[('customer','=',True)])
     quantity = fields.Integer(string="Number of participant", default=1)
