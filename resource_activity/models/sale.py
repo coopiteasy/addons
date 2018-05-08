@@ -24,4 +24,8 @@ class SaleOrder(models.Model):
     need_delivery = fields.Boolean(related="activity_id.need_delivery", string="Need delivery?", readonly=True)
     delivery_place = fields.Char(related="activity_id.delivery_place", string="Delivery place", readonly=True)
     delivery_time = fields.Char(related="activity_id.delivery_time", string="Delivery time", readonly=True)
+
+class SaleOrderLine(models.Model):
+    _inherit = 'sale.order.line'
     
+    resource_delivery = fields.Boolean(string="Resource Delivery", default=False)
