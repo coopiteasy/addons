@@ -25,7 +25,30 @@ class SaleOrder(models.Model):
     delivery_place = fields.Char(related="activity_id.delivery_place", string="Delivery place", readonly=True)
     delivery_time = fields.Char(related="activity_id.delivery_time", string="Delivery time", readonly=True)
 
+    @api.multi
+    def action_draft(self):
+        if self.activity_sale and not self.env.context.get('activity_action'):
+            raise UserError("You can't set to draft a sale order linked to an activity. Please go to the activity to perform this operation")
+        return super(SaleOrder, self).action_draft()
+
+    @api.multi
+    def action_cancel(self):
+        if self.activity_sale and not self.env.context.get('activity_action'):
+            raise UserError("You can't cancel a sale order linked to an activity. Please go to the activity to perform this operation")
+        return super(SaleOrder, self).action_cancel()
+
+    @api.multi
+    def action_confirm(self):
+        if self.activity_sale and not self.env.context.get('activity_action'):
+            raise UserError("You can't confirm a sale order linked to an activity. Please go to the activity to perform this operation")
+        return super(SaleOrder, self).action_confirm()
+    
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
     
-    resource_delivery = fields.Boolean(string="Resource Delivery", default=False)
+    resource_delivery = fields.Boolean(string="Resource Delivery")
+    
+class ProductTemplate(models.Model):
+    _inherit = 'product.template'
+    
+    is_delivery = fields.Boolean(string='Delivery')

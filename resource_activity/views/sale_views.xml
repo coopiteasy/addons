@@ -33,5 +33,19 @@
             	</group>
             </field>
         </record>
+        
+        <record id="product_template_delivery_view" model="ir.ui.view">
+            <field name="name">product.template.delivery.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//label[@for='sale_ok']/.." position="after">
+                    <div>
+                        <field name="is_delivery"/>
+                    	<label for="is_delivery"/>
+                    </div>
+                </xpath>
+           </field>
+       </record>
 	</data>
 </odoo>

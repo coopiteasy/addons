@@ -52,6 +52,8 @@
 				<form>
 					<header>
 						<button name="create_sale_order" string="Create Sale order" type="object" states="confirmed"/>
+						<button name="action_quotation" string="Set to Quotation" type="object" states="sale"/>
+						<button name="action_sale_order" string="Set to Sale order" type="object" states="quotation"/>
 						<button name="action_confirm" string="Confirm" type="object" states="draft"/>
 						<button name="action_draft" string="Draft" type="object" states="confirmed"/>
 						<button name="action_done" string="Done" type="object" states="confirmed"/>
@@ -78,8 +80,9 @@
 								<field name="registrations_min"/>
 								<field name="registrations_expected"/>
 								<field name="need_delivery"/>
-								<field name="delivery_place" attrs="{'invisible':[('need_delivery','=',False)]}"/>
-								<field name="delivery_time" attrs="{'invisible':[('need_delivery','=',False)]}"/>
+								<field name="delivery_product_id" options="{'no_create': True}" attrs="{'invisible':[('need_delivery','=',False)], 'required':[('need_delivery','=',True)]}"/>
+								<field name="delivery_place" attrs="{'invisible':[('need_delivery','=',False)], 'required':[('need_delivery','=',True)]}"/>
+								<field name="delivery_time" attrs="{'invisible':[('need_delivery','=',False)], 'required':[('need_delivery','=',True)]}"/>
 								<field name="company_id" invisible="True"/>
 								<field name="sale_order_id"/>
 							</group>
@@ -102,7 +105,7 @@
 	            			<page name="registration" string="Registrations">
 	            				<button type="object" name="search_all_resources" string="Search all"/>
 	            				<button type="object" name="reserve_needed_resource" string="Reserve needed Resources" help="refresh"/>
-	            				<field name="registrations" context="{'default_booking_type':booking_type,'default_date_lock':date_lock,'default_registrations_max':registrations_max,'default_registrations_expected':registrations_expected}">
+	            				<field name="registrations" context="{'default_partner_id':partner_id,'default_booking_type':booking_type,'default_date_lock':date_lock,'default_registrations_max':registrations_max,'default_registrations_expected':registrations_expected}">
 	            					<tree delete="false" editable="bottom">
 										<button type="object" icon="STOCK_FIND" name="view_registration_form" />
 	            						<field name="partner_id" invisible="True"/>
@@ -114,7 +117,7 @@
 	            						<field name="quantity_needed" sum="Total needed"/>
 	            						<field name="quantity_allocated" sum="Total allocated"/>
 	            						<field name="resource_category" attrs="{'required':[('bring_bike','=',False)]}"/>
-	            						<field name="product_id" domain="[('resource_category_id','=',resource_category)]"/>
+	            						<field name="product_id" domain="[('resource_category_id','=',resource_category)]" attrs="{'required':[('bring_bike','=',False)]}"/>
 	            						<field name="booking_type"/>
 	            						<field name="date_lock" attrs="{'required':[('booking_type','=','option')]}"/>
 	            						<field name="state"/>

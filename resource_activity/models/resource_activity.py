@@ -51,8 +51,9 @@ class ResourceActivity(models.Model):
     
     name = fields.Char(string="Name")
     partner_id = fields.Many2one('res.partner', string="Customer", domain=[('customer','=',True)])
-    date_start = fields.Datetime(string="Date start", required=True, copy=False)
-    date_end = fields.Datetime(string="Date end", required=True, copy=False)
+    delivery_product_id = fields.Many2one('product.product', string="Product delivery", domain=[('is_delivery','=',True)])
+    date_start = fields.Datetime(string="Date start", required=True)
+    date_end = fields.Datetime(string="Date end", required=True)
     duration = fields.Char(string="Duration", compute="_compute_duration", store=True)
     registrations = fields.One2many('resource.activity.registration', 'resource_activity_id', string="Registration")
     location_id = fields.Many2one('resource.location', string="Location", required=True)
@@ -102,8 +103,8 @@ class ResourceActivity(models.Model):
     @api.one
     @api.constrains('date_start','date_end')
     def _check_date(self):
-        if self.date_start < fields.Date().today() or self.date_end < fields.Date().today():
-            raise ValidationError("Date can't be in the past: %s %s" % (self.date_start,self.date_end))
+#         if self.date_start < fields.Date().today() or self.date_end < fields.Date().today():
+#             raise ValidationError("Date can't be in the past: %s %s" % (self.date_start,self.date_end))
         if  self.date_end < self.date_start:
             raise ValidationError("Date end can't be before date start: %s %s" % (self.date_start,self.date_end))
 
@@ -187,21 +188,46 @@ class ResourceActivity(models.Model):
                 'activity_id': activity.id,
                 'activity_sale': True,
                 }
+            
             order_id = order_obj.create(order_vals)
             self.write({'sale_order_id': order_id.id, 'state':'sale'})
             no_bike_qty = 0
             bike_qty = 0
+            line_vals= {'order_id':order_id.id}
+            
             for registration in activity.registrations:
-                line_vals= {
-                    'product_id':registration.product_id.id,
-                    'product_uom_qty':registration.quantity_needed,
-                    'product_uom':registration.product_id.uom_id.id,
-                    'order_id':order_id.id
-                }
+                line_vals['product_id'] = registration.product_id.id
+                line_vals['product_uom_qty'] = registration.quantity_needed
+                line_vals['product_uom'] = registration.product_id.uom_id.id
+                
                 no_bike_qty += registration.quantity - registration.quantity_needed
                 bike_qty += registration.quantity_needed
+                
                 line_id = line_obj.create(line_vals)
                 registration.order_line_id = line_id
+            
+            if activity.need_delivery:
+                line_vals['product_id'] = activity.delivery_product_id.id
+                line_vals['product_uom_qty'] = bike_qty
+                line_vals['product_uom'] = activity.delivery_product_id.uom_id.id
+                line_vals['resource_delivery'] = True
+                line_obj.create(line_vals)
+            order_id.with_context(activity_action=True).action_confirm()
+
+    @api.multi
+    def action_quotation(self):
+        for activity in self:
+            if activity.sale_order_id:
+                activity.sale_order_id.with_context(activity_action=True).action_cancel()
+                activity.sale_order_id.with_context(activity_action=True).action_draft()
+                activity.state = 'quotation'
+
+    @api.multi        
+    def action_sale_order(self):
+        for activity in self:
+            if activity.sale_order_id:
+                activity.sale_order_id.with_context(activity_action=True).action_confirm()
+                activity.state = 'sale'
 
 class ActivityRegistration(models.Model):
     _name = 'resource.activity.registration'
