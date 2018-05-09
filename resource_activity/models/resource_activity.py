@@ -49,7 +49,7 @@ class ResourceActivity(models.Model):
 
     _inherit = ['mail.thread']
     
-    name = fields.Char(string="Name")
+    name = fields.Char(string="Name", copy=False)
     partner_id = fields.Many2one('res.partner', string="Customer", domain=[('customer','=',True)])
     delivery_product_id = fields.Many2one('product.product', string="Product delivery", domain=[('is_delivery','=',True)])
     date_start = fields.Datetime(string="Date start", required=True)
