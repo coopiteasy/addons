@@ -176,8 +176,8 @@ class ResourceActivity(models.Model):
     def action_cancel(self):
         action = self.env.ref('resource_activity.action_cancel_sale_order')
         for activity in self:
-             activity.registrations.action_cancel()
-             activity.state = 'cancelled'
+            activity.registrations.action_cancel()
+            activity.state = 'cancelled'
             
             return {
                 'name': action.name,
