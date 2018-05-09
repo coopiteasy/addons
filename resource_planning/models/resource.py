@@ -141,7 +141,7 @@ class ResourceAllocation(models.Model):
     @api.multi
     def action_confirm(self):
         for allocation in self:
-            allocation.state = 'booked'
+            allocation.write({'state':'booked', 'date_lock':None})
 
     @api.multi
     def action_cancel(self):
