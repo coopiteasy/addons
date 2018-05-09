@@ -174,9 +174,21 @@ class ResourceActivity(models.Model):
 
     @api.multi
     def action_cancel(self):
+        action = self.env.ref('resource_activity.action_cancel_sale_order')
         for activity in self:
-            activity.registrations.action_cancel()
-            activity.state = 'cancelled'
+             activity.registrations.action_cancel()
+             activity.state = 'cancelled'
+            
+            return {
+                'name': action.name,
+                'help': action.help,
+                'type': action.type,
+                'view_type': action.view_type,
+                'view_mode': action.view_mode,
+                'target': action.target,
+                'context': self._context,
+                'res_model': action.res_model,
+            }
     
     @api.multi
     def create_sale_order(self):
