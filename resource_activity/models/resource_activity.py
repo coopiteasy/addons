@@ -149,6 +149,10 @@ class ResourceActivity(models.Model):
         res_acti_seq = self.env.ref('resource_activity.sequence_resource_activity', False)
         
         for activity in self:
+            options = activity.registrations.filtered(lambda record: record.booking_type in ['option'])
+            options.allocations.action_confirm()
+            options.write({'booking_type':'booked', 'date_lock': None})
+            
             if activity.name == '' or not activity.name:
                 vals['name'] = res_acti_seq.next_by_id()
             
