@@ -103,6 +103,8 @@ odoo.define('pos_automatic_cashdrawer.pos_automatic_cashdrawer', function (requi
                         var answer_type_expression = /[a-zA-Z]+/g;
                         var answer_type = answer_info.match(answer_type_expression);
                         alert(answer_type);
+                        alert(answer_type[0]);
+                    	alert(answer_type[1]);
                         if (answer_type) {
                             // If there is an answer type
                             if (answer_type[0] == "WR" && answer_type[1] == "CANCEL") {
@@ -124,7 +126,29 @@ odoo.define('pos_automatic_cashdrawer.pos_automatic_cashdrawer', function (requi
                             	alert(answer_type[0]);
                             }
                             else if (answer_type[0] == "WR" && answer_type[1] == "LEVEL") {
-                                // Case #WR:LEVEL#b#c#d#e#:
+                            	// Case #WR:LEVEL#b#c#d#e#:
+                                // The return says that a coin or note out of its limit
+                                var amount_expression = /[0-9]+/g;
+                                var amount_expression = answer_info.match(amount_expression);
+                                var amount_in = amount_expression[0] / 100;
+                                var amount_out = amount_expression[1] / 100;
+                                alert('Case amount in');
+                                alert(answer_type[0]);
+                                alert(amount_in);
+                                alert(amount_out);
+                                if (!amount_in == 0) {
+                                    // TODO : Check the amount_out and what is display on screen ?
+                                    line.set_amount(amount_in);
+                                    screen.order_changes();
+                                    screen.render_paymentlines();
+                                    var amount_in_formatted = screen.format_currency_no_symbol(amount_in);
+                                    screen.$('.paymentline.selected .edit').text(amount_in_formatted);
+                                    screen.$('.delete-button').css('display', 'none');
+                                    screen.$('.automatic-cashdrawer-transaction-start').css('display', 'none');
+                                }
+                            }
+                            else {
+                                // Case #0#b#c#d#e#:
                                 // The return says that an amount was correctly given to the cache machine
                                 var amount_expression = /[0-9]+/g;
                                 var amount_expression = answer_info.match(amount_expression);
