@@ -146,30 +146,30 @@ odoo.define('pos_automatic_cashdrawer.pos_automatic_cashdrawer', function (requi
                                     screen.$('.automatic-cashdrawer-transaction-start').css('display', 'none');
                                 }
                             }
-                            else {
-                                // Case #0#b#c#d#e#:
-                                // The return says that an amount was correctly given to the cache machine
-                            	alert('case sans error');
-                            	alert(answer_info);
-                            	var amount_expression = /[0-9]+/g;
-                                var amount_expression = answer_info.match(amount_expression);
-                                alert(amount_expression);
-                                var amount_in = amount_expression[0] / 100;
-                                alert(amount_in);
-                                var amount_out = amount_expression[1] / 100;
-                                alert(amount_out);
-                                alert('Case amount in');
-                                if (!amount_in == 0) {
-                                    // TODO : Check the amount_out and what is display on screen ?
-                                    line.set_amount(amount_in);
-                                    screen.order_changes();
-                                    screen.render_paymentlines();
-                                    var amount_in_formatted = screen.format_currency_no_symbol(amount_in);
-                                    screen.$('.paymentline.selected .edit').text(amount_in_formatted);
-                                    screen.$('.delete-button').css('display', 'none');
-                                    screen.$('.automatic-cashdrawer-transaction-start').css('display', 'none');
-                                }
-                            }
+                        }
+                        else {
+                        	// Case #0#b#c#d#e#:
+                        	// The return says that an amount was correctly given to the cache machine
+                        	alert('case sans error');
+                        	alert(answer_info);
+                        	var amount_expression = /[0-9]+/g;
+                        	var amount_expression = answer_info.match(amount_expression);
+                        	alert(amount_expression);
+                        	var amount_in = amount_expression[0] / 100;
+                        	alert(amount_in);
+                        	var amount_out = amount_expression[1] / 100;
+                        	alert(amount_out);
+                        	alert('Case amount in');
+                        	if (!amount_in == 0) {
+                        		// TODO : Check the amount_out and what is display on screen ?
+                        		line.set_amount(amount_in);
+                        		screen.order_changes();
+                        		screen.render_paymentlines();
+                        		var amount_in_formatted = screen.format_currency_no_symbol(amount_in);
+                        		screen.$('.paymentline.selected .edit').text(amount_in_formatted);
+                        		screen.$('.delete-button').css('display', 'none');
+                        		screen.$('.automatic-cashdrawer-transaction-start').css('display', 'none');
+                        	}
                         }
                     }
                 });
