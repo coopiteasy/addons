@@ -128,7 +128,8 @@ odoo.define('pos_automatic_cashdrawer.pos_automatic_cashdrawer', function (requi
                             else if (answer_type[0] == "WR" && answer_type[1] == "LEVEL") {
                             	// Case #WR:LEVEL#b#c#d#e#:
                                 // The return says that a coin or note out of its limit
-                                var amount_expression = /[0-9]+/g;
+                                alert('Case #WR:LEVEL');
+                            	var amount_expression = /[0-9]+/g;
                                 var amount_expression = answer_info.match(amount_expression);
                                 var amount_in = amount_expression[0] / 100;
                                 var amount_out = amount_expression[1] / 100;
