@@ -87,7 +87,9 @@ odoo.define('pos_automatic_cashdrawer.pos_automatic_cashdrawer', function (requi
         automatic_cashdrawer_transaction_start: function(screen) {
             var order = this.pos.get_order();
             var line = order.selected_paymentline;
+            alert('run transaction start');
             if (line) {
+            	alert('line');
                 var data = {
                         'amount': order.get_due(line),
                         'display_accept_button': this.pos.config.iface_automatic_cashdrawer_display_accept_button,
@@ -96,9 +98,11 @@ odoo.define('pos_automatic_cashdrawer.pos_automatic_cashdrawer', function (requi
                 this.message('automatic_cashdrawer_transaction_start', {'payment_info' : JSON.stringify(data)}).then(function (answer) {
                     // Check if there was any error or a value
                     var answer_info = answer['info'];
+                    alert(answer_info);
                     if (answer_info) {
                         var answer_type_expression = /[a-zA-Z]+/g;
                         var answer_type = answer_info.match(answer_type_expression);
+                        alert(answer_type);
                         if (answer_type) {
                             // If there is an answer type
                             if (answer_type[0] == "WR" && answer_type[1] == "CANCEL") {
@@ -126,10 +130,12 @@ odoo.define('pos_automatic_cashdrawer.pos_automatic_cashdrawer', function (requi
                                 var amount_expression = answer_info.match(amount_expression);
                                 var amount_in = amount_expression[0] / 100;
                                 var amount_out = amount_expression[1] / 100;
+                                alert('Case amount in');
+                                alert(answer_type[0]);
+                                alert(amount_in);
+                                alert(amount_out);
                                 if (!amount_in == 0) {
                                     // TODO : Check the amount_out and what is display on screen ?
-                                	alert('Case amount in');
-                                	alert(answer_type[0]);
                                     line.set_amount(amount_in);
                                     screen.order_changes();
                                     screen.render_paymentlines();
