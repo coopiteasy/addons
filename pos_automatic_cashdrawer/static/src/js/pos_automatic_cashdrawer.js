@@ -104,14 +104,20 @@ odoo.define('pos_automatic_cashdrawer.pos_automatic_cashdrawer', function (requi
                             if (answer_type[0] == "WR" && answer_type[1] == "CANCEL") {
                                 // Case #WR:CANCEL#b#c#d#e# :
                                 // TODO : check what to do here. But I think this should do nothing.
+                            	alert('Case Cancel');
                             }
                             else if (answer_type[0] == "ER" && answer_type[1] == "BUSY") {
                                 // Case #ER:BUSY# : answer_type[0] == "ER"
                                 // TODO : check what to do here. But I think this wont append because the cash drawer wont give back this error.
+                            	alert('Case Busy');
+                            	alert(answer_type[0]);
+                            	alert(answer_type[1]);
                             }
                             else if (answer_type[0] == "ER") {
                                 // Case #ER:xxxx#b#c#d#e# : answer_type[0] == "ER"
                                 // TODO : check what to do here. But I think this wont append because the cash drawer wont give back this error.
+                            	alert('Case ER');
+                            	alert(answer_type[0]);
                             }
                             else if (answer_type[0] == "WR" && answer_type[1] == "LEVEL") {
                                 // Case #WR:LEVEL#b#c#d#e#:
@@ -122,6 +128,8 @@ odoo.define('pos_automatic_cashdrawer.pos_automatic_cashdrawer', function (requi
                                 var amount_out = amount_expression[1] / 100;
                                 if (!amount_in == 0) {
                                     // TODO : Check the amount_out and what is display on screen ?
+                                	alert('Case amount in);
+                                	alert(answer_type[0]);
                                     line.set_amount(amount_in);
                                     screen.order_changes();
                                     screen.render_paymentlines();
