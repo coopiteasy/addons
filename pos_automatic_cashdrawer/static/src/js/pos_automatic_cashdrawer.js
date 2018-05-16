@@ -103,8 +103,6 @@ odoo.define('pos_automatic_cashdrawer.pos_automatic_cashdrawer', function (requi
                         var answer_type_expression = /[a-zA-Z]+/g;
                         var answer_type = answer_info.match(answer_type_expression);
                         alert(answer_type);
-                        alert(answer_type[0]);
-                    	alert(answer_type[1]);
                         if (answer_type) {
                             // If there is an answer type
                             if (answer_type[0] == "WR" && answer_type[1] == "CANCEL") {
@@ -148,7 +146,7 @@ odoo.define('pos_automatic_cashdrawer.pos_automatic_cashdrawer', function (requi
                                     screen.$('.automatic-cashdrawer-transaction-start').css('display', 'none');
                                 }
                             }
-                            /*else {
+                            else {
                                 // Case #0#b#c#d#e#:
                                 // The return says that an amount was correctly given to the cache machine
                             	alert('case sans error');
@@ -171,7 +169,7 @@ odoo.define('pos_automatic_cashdrawer.pos_automatic_cashdrawer', function (requi
                                     screen.$('.delete-button').css('display', 'none');
                                     screen.$('.automatic-cashdrawer-transaction-start').css('display', 'none');
                                 }
-                            }*/
+                            }
                         }
                     }
                 });
