@@ -155,9 +155,6 @@ odoo.define('pos_automatic_cashdrawer.pos_automatic_cashdrawer', function (requi
                                 var amount_in = amount_expression[0] / 100;
                                 var amount_out = amount_expression[1] / 100;
                                 alert('Case amount in');
-                                alert(answer_type[0]);
-                                alert(amount_in);
-                                alert(amount_out);
                                 if (!amount_in == 0) {
                                     // TODO : Check the amount_out and what is display on screen ?
                                     line.set_amount(amount_in);
