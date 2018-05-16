@@ -42,6 +42,12 @@ odoo.define('pos_automatic_cashdrawer.pos_automatic_cashdrawer', function (requi
             if (this.config.iface_automatic_cashdrawer) {
                 this.config.use_proxy = true;
             }
+            // work-around because of issue in odoo code https://github.com/odoo/odoo/commit/e14ab697727d87773dbefba11453b9edca79fc68
+            // this.cashier = self.get_cashier(); appears too early in loading models steps raise some data of cashier/user is missing
+            // reset cashier again here to make sure it has sufficient data
+            this.cashier = null;
+            this.cashier = this.get_cashier();
+            
             return after_load_server_data_original.call(this);
         },
     });
@@ -53,21 +59,19 @@ odoo.define('pos_automatic_cashdrawer.pos_automatic_cashdrawer', function (requi
     });
 
     gui.Gui.prototype.display_access_right_cashlogy = function(user){
-    	//alert(this.pos.config.iface_automatic_cashdrawer);
-	    //alert('troll');
-//    	if (user.groups_id.indexOf(this.pos.config.group_pos_automatic_cashlogy[0]) != -1){
-    	$('.js_auto_cashdrawer_init').removeClass('oe_hidden');
-//	    }
-//	    else {
-//	        $('.js_auto_cashdrawer_init').addClass('oe_hidden');
-//	    }
+    	if (user.groups_id.indexOf(this.pos.config.group_pos_automatic_cashlogy[0]) != -1){
+    		$('.js_auto_cashdrawer_init').removeClass('oe_hidden');
+	    }
+	    else {
+	        $('.js_auto_cashdrawer_init').addClass('oe_hidden');
+	    }
 	    console.log(this.pos.config);
-//	    if (user.groups_id.indexOf(this.pos.config.group_pos_automatic_cashlogy_config[0]) != -1){
+	    if (user.groups_id.indexOf(this.pos.config.group_pos_automatic_cashlogy_config[0]) != -1){
 	        $('.js_auto_cashdrawer_config').removeClass('oe_hidden');
-//	    }
-//	    else {
-//	        $('.js_auto_cashdrawer_config').addClass('oe_hidden');
-//	    }
+	    }
+	    else {
+	        $('.js_auto_cashdrawer_config').addClass('oe_hidden');
+	    }
     };
     
     devices.ProxyDevice.include({
@@ -87,9 +91,7 @@ odoo.define('pos_automatic_cashdrawer.pos_automatic_cashdrawer', function (requi
         automatic_cashdrawer_transaction_start: function(screen) {
             var order = this.pos.get_order();
             var line = order.selected_paymentline;
-            alert('run transaction start');
             if (line) {
-            	alert('line');
                 var data = {
                         'amount': order.get_due(line),
                         'display_accept_button': this.pos.config.iface_automatic_cashdrawer_display_accept_button,
@@ -98,43 +100,30 @@ odoo.define('pos_automatic_cashdrawer.pos_automatic_cashdrawer', function (requi
                 this.message('automatic_cashdrawer_transaction_start', {'payment_info' : JSON.stringify(data)}).then(function (answer) {
                     // Check if there was any error or a value
                     var answer_info = answer['info'];
-                    alert(answer_info);
                     if (answer_info) {
                         var answer_type_expression = /[a-zA-Z]+/g;
                         var answer_type = answer_info.match(answer_type_expression);
-                        alert(answer_type);
                         if (answer_type) {
                             // If there is an answer type
                             if (answer_type[0] == "WR" && answer_type[1] == "CANCEL") {
                                 // Case #WR:CANCEL#b#c#d#e# :
                                 // TODO : check what to do here. But I think this should do nothing.
-                            	alert('Case Cancel');
                             }
                             else if (answer_type[0] == "ER" && answer_type[1] == "BUSY") {
                                 // Case #ER:BUSY# : answer_type[0] == "ER"
                                 // TODO : check what to do here. But I think this wont append because the cash drawer wont give back this error.
-                            	alert('Case Busy');
-                            	alert(answer_type[0]);
-                            	alert(answer_type[1]);
                             }
                             else if (answer_type[0] == "ER") {
                                 // Case #ER:xxxx#b#c#d#e# : answer_type[0] == "ER"
                                 // TODO : check what to do here. But I think this wont append because the cash drawer wont give back this error.
-                            	alert('Case ER');
-                            	alert(answer_type[0]);
                             }
                             else if (answer_type[0] == "WR" && answer_type[1] == "LEVEL") {
                             	// Case #WR:LEVEL#b#c#d#e#:
                                 // The return says that a coin or note out of its limit
-                                alert('Case #WR:LEVEL');
                             	var amount_expression = /[0-9]+/g;
                                 var amount_expression = answer_info.match(amount_expression);
                                 var amount_in = amount_expression[0] / 100;
                                 var amount_out = amount_expression[1] / 100;
-                                alert('Case amount in');
-                                alert(answer_type[0]);
-                                alert(amount_in);
-                                alert(amount_out);
                                 if (!amount_in == 0) {
                                     // TODO : Check the amount_out and what is display on screen ?
                                     line.set_amount(amount_in);
@@ -150,16 +139,10 @@ odoo.define('pos_automatic_cashdrawer.pos_automatic_cashdrawer', function (requi
                         else {
                         	// Case #0#b#c#d#e#:
                         	// The return says that an amount was correctly given to the cache machine
-                        	alert('case sans error');
-                        	alert(answer_info);
                         	var amount_expression = /[0-9]+/g;
                         	var amount_expression = answer_info.match(amount_expression);
-                        	alert(amount_expression);
                         	var amount_in = amount_expression[1] / 100;
-                        	alert(amount_in);
                         	var amount_out = amount_expression[2] / 100;
-                        	alert(amount_out);
-                        	alert('Case amount in');
                         	if (!amount_in == 0) {
                         		// TODO : Check the amount_out and what is display on screen ?
                         		line.set_amount(amount_in);
