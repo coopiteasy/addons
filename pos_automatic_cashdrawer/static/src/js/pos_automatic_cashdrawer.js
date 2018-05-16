@@ -150,7 +150,9 @@ odoo.define('pos_automatic_cashdrawer.pos_automatic_cashdrawer', function (requi
                             else {
                                 // Case #0#b#c#d#e#:
                                 // The return says that an amount was correctly given to the cache machine
-                                var amount_expression = /[0-9]+/g;
+                            	alert('case sans error');
+                            	alert(answer_info);
+                            	var amount_expression = /[0-9]+/g;
                                 var amount_expression = answer_info.match(amount_expression);
                                 alert(amount_expression);
                                 var amount_in = amount_expression[0] / 100;
