@@ -65,5 +65,19 @@
             	</field>
             </field>
         </record>
+
+    <record id="view_article_month_pivot" model="ir.ui.view">
+     <field name="name">sale.article.month.pivot</field>
+     <field name="model">sale.report</field>
+     <field name="arch" type="xml">
+       <pivot string="Sales Analysis" disable_linking="True">
+         <field name="product_id" type="row"/>
+         <field name="date" interval="month" type="col"/>
+         <field name="qty_invoiced" type="measure"/>
+         <field name="price_total" type="measure"/>
+       </pivot>
+     </field>
+    </record>
+
 	</data>
 </odoo>
