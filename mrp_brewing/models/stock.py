@@ -29,7 +29,7 @@ class StockProductionLot(models.Model):
     qty_available = fields.Float(compute="_compute_qty_available", string='Quantity available',store=True)
     
     @api.multi
-    @api.depends('quant_ids')
+    @api.depends('quant_ids.reservation_id')
     def _compute_qty_available(self):
         for lot in self:
             qty_available = 0.0
