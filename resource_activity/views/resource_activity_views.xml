@@ -54,6 +54,7 @@
 						<button name="create_sale_order" string="Create Sale order" type="object" states="confirmed"/>
 						<button name="action_quotation" string="Set to Quotation" type="object" states="sale"/>
 						<button name="action_sale_order" string="Set to Sale order" type="object" states="quotation"/>
+						<button name="push_changes_2_sale_order" string="Push to Sale order" type="object" attrs="{'invisible':[('need_push','=',False)]}" class="btn-primary"/>
 						<button name="action_confirm" string="Confirm" type="object" states="draft"/>
 						<button name="action_draft" string="Draft" type="object" states="confirmed"/>
 						<button name="action_done" string="Done" type="object" states="confirmed"/>
@@ -79,12 +80,14 @@
 								<field name="registrations_max"/>
 								<field name="registrations_min"/>
 								<field name="registrations_expected"/>
+								<field name="without_resource_reg"/>
 								<field name="need_delivery"/>
 								<field name="delivery_product_id" options="{'no_create': True}" attrs="{'invisible':[('need_delivery','=',False)], 'required':[('need_delivery','=',True)]}"/>
 								<field name="delivery_place" attrs="{'invisible':[('need_delivery','=',False)], 'required':[('need_delivery','=',True)]}"/>
 								<field name="delivery_time" attrs="{'invisible':[('need_delivery','=',False)], 'required':[('need_delivery','=',True)]}"/>
 								<field name="company_id" invisible="True"/>
 								<field name="sale_order_id"/>
+								<field name="need_push" invisible="True"/>
 							</group>
 							<group>
 								<field name="date_start"/>

@@ -47,6 +47,18 @@ class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
     
     resource_delivery = fields.Boolean(string="Resource Delivery")
+     
+    @api.multi
+    def update_line(self):
+        onchange_fields = ['name', 'price_unit', 'product_uom', 'tax_id']
+        for line in self: 
+            line.product_id_change()
+                        
+            values = {}
+            for field in onchange_fields:
+                if field not in values:
+                    values[field] = line._fields[field].convert_to_write(line[field])
+            line.write(values) 
     
 class ProductTemplate(models.Model):
     _inherit = 'product.template'

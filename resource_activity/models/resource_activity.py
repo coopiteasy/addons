@@ -49,6 +49,19 @@ class ResourceActivity(models.Model):
 
     _inherit = ['mail.thread']
     
+    @api.multi
+    @api.depends('registrations.need_push')
+    def _compute_push2sale_order(self):
+        # computed field in order to display or not the push to sale order button
+        for activity in self:
+            flag = False
+            if activity.sale_order_id:
+                registrations = activity.registrations.filtered(lambda record: record.need_push == True)
+                if registrations:
+                    flag = True
+
+            activity.need_push = flag
+            
     name = fields.Char(string="Name", copy=False)
     partner_id = fields.Many2one('res.partner', string="Customer", domain=[('customer','=',True)])
     delivery_product_id = fields.Many2one('product.product', string="Product delivery", domain=[('is_delivery','=',True)])
@@ -85,9 +98,12 @@ class ResourceActivity(models.Model):
     registrations_min = fields.Integer(string="Minimum registration")
     registrations_expected = fields.Integer(string="Expected registrations",
                         store=True, readonly=True, compute='_compute_registrations')
+    without_resource_reg = fields.Integer(string="Registrations without resource",
+                        store=True, readonly=True, compute='_compute_registrations')
     company_id = fields.Many2one('res.company', string='Company', required=True, 
                         change_default=True, readonly=True,
                         default=lambda self: self.env['res.company']._company_default_get())
+    need_push = fields.Boolean(string="Need to push to sale order", compute='_compute_push2sale_order', store=True)
     
     @api.onchange('location_id')
     def onchange_location_id(self):
@@ -103,6 +119,7 @@ class ResourceActivity(models.Model):
     @api.one
     @api.constrains('date_start','date_end')
     def _check_date(self):
+        # removing constraint as it doesn't allow to duplicate an old activity
 #         if self.date_start < fields.Date().today() or self.date_end < fields.Date().today():
 #             raise ValidationError("Date can't be in the past: %s %s" % (self.date_start,self.date_end))
         if  self.date_end < self.date_start:
@@ -113,10 +130,13 @@ class ResourceActivity(models.Model):
     def _compute_registrations(self):
         for activity in self:
             expected = 0
-            available = 0
+            qty_without_resource = 0
             for registration in activity.registrations.filtered(lambda record: record.state != 'cancelled'):
                 expected += registration.quantity
+                qty_without_resource += registration.quantity - registration.quantity_needed
             activity.registrations_expected = expected
+            activity.without_resource_reg = qty_without_resource
+#            activity.write({'registrations_expected':expected,'without_resource_reg':qty_without_resource})
 
     @api.multi
     @api.depends('date_end', 'date_start')
@@ -244,6 +264,50 @@ class ResourceActivity(models.Model):
             if activity.sale_order_id:
                 activity.sale_order_id.with_context(activity_action=True).action_confirm()
                 activity.state = 'sale'
+    @api.multi            
+    def push_changes_2_sale_order(self):
+        for activity in self:
+            bike_qty = 0
+            for registration in activity.registrations:
+                bike_qty += registration.quantity_needed
+                if registration.need_push:
+                    line_vals = {}
+                    line_vals['product_uom_qty'] = registration.quantity_needed
+                    line_vals['product_id']= registration.product_id.id
+                    
+                    registration.order_line_id.write(line_vals)
+                    registration.order_line_id.update_line()
+                    registration.need_push = False
+                    
+            delivery_line = activity.sale_order_id.order_line.filtered(lambda record: record.resource_delivery == True)
+            if activity.need_delivery:
+                line_vals = {}
+                line_vals['product_uom_qty'] = bike_qty
+                line_vals['product_id'] = activity.delivery_product_id.id
+                if delivery_line:
+                    delivery_line.write(line_vals)
+                    delivery_line.update_line()
+                else:
+                    line_vals['order_id'] =activity.sale_order_id.id
+                    line_vals['product_uom'] = activity.delivery_product_id.uom_id.id
+                    line_vals['resource_delivery'] = True
+                    self.env['sale.order.line'].create(line_vals)
+            else:
+                if delivery_line:
+                    delivery_line.unlink() 
+            activity.need_push = False
+
+    @api.multi
+    def write(self,vals):
+        for activity in self:
+            if 'need_delivery' in vals:
+                if not vals.get('need_delivery'):
+                    vals['delivery_place'] = ''
+                    vals['delivery_time'] = ''
+                    vals['delivery_product_id'] = False
+                vals['need_push'] = True
+        return super(ResourceActivity,self).write(vals)
+
 
 class ActivityRegistration(models.Model):
     _name = 'resource.activity.registration'
@@ -272,7 +336,14 @@ class ActivityRegistration(models.Model):
     def onchange_booking_type(self):
         if self.booking_type == 'booked':
             self.date_lock = None
-            
+    
+    @api.multi
+    @api.depends('quantity_needed', 'product_id')
+    def _compute_need_push(self):
+        for registration in self:
+            if registration.order_line_id:
+                registration.need_push = True
+        
     resource_activity_id = fields.Many2one('resource.activity',string="Activity")
     order_line_id = fields.Many2one('sale.order.line', string="Sale order line")
     partner_id = fields.Many2one(related='resource_activity_id.partner_id')
@@ -300,6 +371,7 @@ class ActivityRegistration(models.Model):
     bring_bike = fields.Boolean(string="Bring his bike")
     registrations_max = fields.Integer(string="Maximum registration")
     registrations_expected = fields.Integer(string="Expected registration")
+    need_push = fields.Boolean(string="Need to be pushed to sales order", compute='_compute_need_push', store=True)
 
     def create_resource_available(self, resource_ids, registration):
         for resource_id in resource_ids:
@@ -366,7 +438,7 @@ class ActivityRegistration(models.Model):
                 self.state = self.booking_type
             elif self.quantity_allocated < self.quantity:
                 self.state= 'waiting'
-
+    
     @api.multi
     def view_registration_form(self):
         context = dict(self.env.context or {})
