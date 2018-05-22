@@ -85,9 +85,8 @@
 								<field name="delivery_product_id" options="{'no_create': True}" attrs="{'invisible':[('need_delivery','=',False)], 'required':[('need_delivery','=',True)]}"/>
 								<field name="delivery_place" attrs="{'invisible':[('need_delivery','=',False)], 'required':[('need_delivery','=',True)]}"/>
 								<field name="delivery_time" attrs="{'invisible':[('need_delivery','=',False)], 'required':[('need_delivery','=',True)]}"/>
+								<field name="need_guide"/>
 								<field name="company_id" invisible="True"/>
-								<field name="sale_order_id"/>
-								<field name="need_push" invisible="True"/>
 							</group>
 							<group>
 								<field name="date_start"/>
@@ -101,7 +100,9 @@
 								<field name="departure"/>
 								<field name="arrival"/>
 								<field name="langs" options="{'no_create': True}" widget='many2many_tags'/>
+								<field name="sale_order_id"/>
 								<field name="comment"/>
+								<field name="need_push" invisible="True"/>
 							</group>
 						</group>
 						<notebook>
@@ -130,6 +131,13 @@
 	            				</field>
 	            			</page>
 	            			<page name="guides" string="Guides">
+	            				<group>
+	            					<group>
+	            						<field name="guide_product_id" attrs="{'required':[('need_guide','=',True)]}"/>
+	            					</group>
+	            					<group>
+	            					</group>
+	            				</group>
 	            				<field name="guides"/>
 	            			</page>
 	            			<page name="trainers" string="Trainers">

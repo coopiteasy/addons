@@ -65,6 +65,7 @@ class ResourceActivity(models.Model):
     name = fields.Char(string="Name", copy=False)
     partner_id = fields.Many2one('res.partner', string="Customer", domain=[('customer','=',True)])
     delivery_product_id = fields.Many2one('product.product', string="Product delivery", domain=[('is_delivery','=',True)])
+    guide_product_id = fields.Many2one('product.product', string="Product Guide", domain=[('is_guide','=',True)])
     date_start = fields.Datetime(string="Date start", required=True)
     date_end = fields.Datetime(string="Date end", required=True)
     duration = fields.Char(string="Duration", compute="_compute_duration", store=True)
@@ -94,6 +95,7 @@ class ResourceActivity(models.Model):
     need_delivery = fields.Boolean(string="Need delivery?")
     delivery_place = fields.Char(string="Delivery place")
     delivery_time = fields.Char(string="Delivery time")
+    need_guide = fields.Boolean(string="Need guide?")
     registrations_max = fields.Integer(string="Maximum registration")
     registrations_min = fields.Integer(string="Minimum registration")
     registrations_expected = fields.Integer(string="Expected registrations",
@@ -268,6 +270,7 @@ class ResourceActivity(models.Model):
     def push_changes_2_sale_order(self):
         for activity in self:
             bike_qty = 0
+            # handling resource reservation here
             for registration in activity.registrations:
                 bike_qty += registration.quantity_needed
                 if registration.need_push:
@@ -278,24 +281,48 @@ class ResourceActivity(models.Model):
                     registration.order_line_id.write(line_vals)
                     registration.order_line_id.update_line()
                     registration.need_push = False
-                    
+            # handling delivery here        
             delivery_line = activity.sale_order_id.order_line.filtered(lambda record: record.resource_delivery == True)
-            if activity.need_delivery:
-                line_vals = {}
-                line_vals['product_uom_qty'] = bike_qty
-                line_vals['product_id'] = activity.delivery_product_id.id
-                if delivery_line:
-                    delivery_line.write(line_vals)
-                    delivery_line.update_line()
-                else:
-                    line_vals['order_id'] =activity.sale_order_id.id
-                    line_vals['product_uom'] = activity.delivery_product_id.uom_id.id
-                    line_vals['resource_delivery'] = True
-                    self.env['sale.order.line'].create(line_vals)
-            else:
-                if delivery_line:
-                    delivery_line.unlink() 
+            line_vals = {'resource_delivery': True}
+            
+            self.update_order_line(activity.sale_order_id, activity.need_delivery, line_vals, delivery_line, bike_qty,  activity.delivery_product_id)
+#             if activity.need_delivery:
+#                 line_vals['product_uom_qty'] = bike_qty
+#                 line_vals['product_id'] = activity.delivery_product_id.id
+#                 if delivery_line:
+#                     delivery_line.write(line_vals)
+#                     delivery_line.update_line()
+#                 else:
+#                     line_vals['order_id'] =activity.sale_order_id.id
+#                     line_vals['product_uom'] = activity.delivery_product_id.uom_id.id
+#                     line_vals['resource_delivery'] = True
+#                     self.env['sale.order.line'].create(line_vals)
+#             else:
+#                 if delivery_line:
+#                     delivery_line.unlink()
+            # handling guide here
+            guide_line = activity.sale_order_id.order_line.filtered(lambda record: record.resource_guide == True)
+            line_vals = {'resource_guide':True}
+            guide_qty = len(activity.guides)
+            
+            self.update_order_line(activity.sale_order_id, activity.need_guide, line_vals, guide_line, guide_qty,  activity.guide_product_id)
+
             activity.need_push = False
+    
+    def update_order_line(self, order_id, need_resource, line_vals, resource_line, resource_qty, resource_product_id):
+        if need_resource:
+            line_vals['product_uom_qty'] = resource_qty
+            line_vals['product_id'] = resource_product_id.id
+            if resource_line:
+                resource_line.write(line_vals)
+                resource_line.update_line()
+            else:
+                line_vals['order_id'] = order_id.id
+                line_vals['product_uom'] = resource_product_id.uom_id.id
+                self.env['sale.order.line'].create(line_vals)
+        else:
+            if resource_line:
+                resource_line.unlink()
 
     @api.multi
     def write(self,vals):
@@ -305,6 +332,10 @@ class ResourceActivity(models.Model):
                     vals['delivery_place'] = ''
                     vals['delivery_time'] = ''
                     vals['delivery_product_id'] = False
+                vals['need_push'] = True
+            if 'need_guide' in vals:
+                if not vals.get('need_guide'):
+                    vals['guide_product_id'] = False
                 vals['need_push'] = True
         return super(ResourceActivity,self).write(vals)
 

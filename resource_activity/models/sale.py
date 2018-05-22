@@ -47,6 +47,7 @@ class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
     
     resource_delivery = fields.Boolean(string="Resource Delivery")
+    resource_guide = fields.Boolean(string='Resource Guide')
      
     @api.multi
     def update_line(self):
@@ -64,3 +65,4 @@ class ProductTemplate(models.Model):
     _inherit = 'product.template'
     
     is_delivery = fields.Boolean(string='Delivery')
+    is_guide = fields.Boolean(string='Guide')

@@ -44,6 +44,10 @@
                         <field name="is_delivery"/>
                     	<label for="is_delivery"/>
                     </div>
+                    <div>
+                        <field name="is_guide"/>
+                    	<label for="is_guide"/>
+                    </div>
                 </xpath>
            </field>
        </record>
