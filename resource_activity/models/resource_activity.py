@@ -121,9 +121,6 @@ class ResourceActivity(models.Model):
     @api.one
     @api.constrains('date_start','date_end')
     def _check_date(self):
-        # removing constraint as it doesn't allow to duplicate an old activity
-#         if self.date_start < fields.Date().today() or self.date_end < fields.Date().today():
-#             raise ValidationError("Date can't be in the past: %s %s" % (self.date_start,self.date_end))
         if  self.date_end < self.date_start:
             raise ValidationError("Date end can't be before date start: %s %s" % (self.date_start,self.date_end))
 
@@ -138,7 +135,6 @@ class ResourceActivity(models.Model):
                 qty_without_resource += registration.quantity - registration.quantity_needed
             activity.registrations_expected = expected
             activity.without_resource_reg = qty_without_resource
-#            activity.write({'registrations_expected':expected,'without_resource_reg':qty_without_resource})
 
     @api.multi
     @api.depends('date_end', 'date_start')
@@ -286,18 +282,14 @@ class ResourceActivity(models.Model):
                 bike_qty += registration.quantity_needed
                 if registration.need_push:
                     line_vals = {}
-                    line_vals['product_uom_qty'] = registration.quantity_needed
-                    line_vals['product_id']= registration.product_id.id
-                    
-                    registration.order_line_id.write(line_vals)
-                    registration.order_line_id.update_line()
+                    self.update_order_line(activity.sale_order_id, True, line_vals, registration.order_line_id, registration.quantity_needed, registration.product_id)
                     registration.need_push = False
             
             # handling delivery here        
             delivery_line = activity.sale_order_id.order_line.filtered(lambda record: record.resource_delivery == True)
             line_vals = {'resource_delivery': True}
             
-            self.update_order_line(activity.sale_order_id, activity.need_delivery, line_vals, delivery_line, bike_qty,  activity.delivery_product_id)
+            self.update_order_line(activity.sale_order_id, activity.need_delivery, line_vals, delivery_line, bike_qty, activity.delivery_product_id)
 
             # handling guide here
             guide_line = activity.sale_order_id.order_line.filtered(lambda record: record.resource_guide == True)
@@ -371,7 +363,7 @@ class ActivityRegistration(models.Model):
     @api.depends('quantity_needed', 'product_id')
     def _compute_need_push(self):
         for registration in self:
-            if registration.order_line_id:
+            if registration.resource_activity_id.sale_order_id:
                 registration.need_push = True
         
     resource_activity_id = fields.Many2one('resource.activity',string="Activity")
