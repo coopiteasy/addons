@@ -71,7 +71,7 @@ class ResourceActivity(models.Model):
     duration = fields.Char(string="Duration", compute="_compute_duration", store=True)
     registrations = fields.One2many('resource.activity.registration', 'resource_activity_id', string="Registration")
     location_id = fields.Many2one('resource.location', string="Location", required=True)
-    sale_order_id = fields.Many2one('sale.order', string="Sale order", readonly=True)
+    sale_order_id = fields.Many2one('sale.order', string="Sale order", readonly=True, copy=False)
     state = fields.Selection([('draft','Draft'),
                               ('confirmed','Confirmed'),
                               ('done','Done'),
