@@ -250,6 +250,14 @@ class ResourceActivity(models.Model):
                 line_vals['product_uom'] = activity.delivery_product_id.uom_id.id
                 line_vals['resource_delivery'] = True
                 line_obj.create(line_vals)
+            
+            if activity.need_guide:
+                line_vals['product_id'] = activity.guide_product_id.id
+                line_vals['product_uom_qty'] = len(activity.guides)
+                line_vals['product_uom'] = activity.guide_product_id.uom_id.id
+                line_vals['resource_guide'] = True
+                line_obj.create(line_vals)
+
             order_id.with_context(activity_action=True).action_confirm()
 
     @api.multi
@@ -281,25 +289,13 @@ class ResourceActivity(models.Model):
                     registration.order_line_id.write(line_vals)
                     registration.order_line_id.update_line()
                     registration.need_push = False
+            
             # handling delivery here        
             delivery_line = activity.sale_order_id.order_line.filtered(lambda record: record.resource_delivery == True)
             line_vals = {'resource_delivery': True}
             
             self.update_order_line(activity.sale_order_id, activity.need_delivery, line_vals, delivery_line, bike_qty,  activity.delivery_product_id)
-#             if activity.need_delivery:
-#                 line_vals['product_uom_qty'] = bike_qty
-#                 line_vals['product_id'] = activity.delivery_product_id.id
-#                 if delivery_line:
-#                     delivery_line.write(line_vals)
-#                     delivery_line.update_line()
-#                 else:
-#                     line_vals['order_id'] =activity.sale_order_id.id
-#                     line_vals['product_uom'] = activity.delivery_product_id.uom_id.id
-#                     line_vals['resource_delivery'] = True
-#                     self.env['sale.order.line'].create(line_vals)
-#             else:
-#                 if delivery_line:
-#                     delivery_line.unlink()
+
             # handling guide here
             guide_line = activity.sale_order_id.order_line.filtered(lambda record: record.resource_guide == True)
             line_vals = {'resource_guide':True}
