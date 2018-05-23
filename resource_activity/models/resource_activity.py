@@ -242,6 +242,7 @@ class ResourceActivity(models.Model):
                 bike_qty += registration.quantity_needed
                 
                 line_id = line_obj.create(line_vals)
+                line_id.update_line()
                 registration.order_line_id = line_id
             
             if activity.need_delivery:
@@ -249,14 +250,16 @@ class ResourceActivity(models.Model):
                 line_vals['product_uom_qty'] = bike_qty
                 line_vals['product_uom'] = activity.delivery_product_id.uom_id.id
                 line_vals['resource_delivery'] = True
-                line_obj.create(line_vals)
+                line_id = line_obj.create(line_vals)
+                line_id.update_line()
             
             if activity.need_guide:
                 line_vals['product_id'] = activity.guide_product_id.id
                 line_vals['product_uom_qty'] = len(activity.guides)
                 line_vals['product_uom'] = activity.guide_product_id.uom_id.id
                 line_vals['resource_guide'] = True
-                line_obj.create(line_vals)
+                line_id = line_obj.create(line_vals)
+                line_id.update_line()
 
             order_id.with_context(activity_action=True).action_confirm()
 
