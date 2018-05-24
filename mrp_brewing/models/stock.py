@@ -27,15 +27,23 @@ class StockProductionLot(models.Model):
     _inherit = 'stock.production.lot'
     
     qty_available = fields.Float(compute="_compute_qty_available", string='Quantity available',store=True)
-    
+
+    def _compute_lot_quantity(self, lot):
+        quants = lot.quant_ids.filtered(lambda r: r.location_id.usage == 'internal' and not r.reservation_id)
+        lot.qty_available = sum(quants.mapped('qty'))
+
     @api.multi
     @api.depends('quant_ids.reservation_id')
     def _compute_qty_available(self):
         for lot in self:
-            qty_available = 0.0
-            for quant in lot.quant_ids.filtered(lambda r: r.location_id.usage == 'internal' and not r.reservation_id):
-                qty_available += quant.qty
-            lot.qty_available = qty_available
+            self._compute_lot_quantity(lot)
+
+    @api.model
+    def _batch_compute_qty_available(self):
+        lots = self.env['stock.production.lot'].search([])
+        for lot in lots:
+            self._compute_lot_quantity(lot)
+
 
 class StockPicking(models.Model):
     _inherit = 'stock.picking'
