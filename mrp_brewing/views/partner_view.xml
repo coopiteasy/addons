@@ -6,8 +6,12 @@
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_partner_tree"/>
             <field name="arch" type="xml">
+            <xpath expr="//field[@name='email']" position="attributes">
+              <attribute name="invisible">True</attribute>
+            </xpath>
             	<field name="email" position="after">
             		<field name="last_order"/>
+                <field name='last_contact_date'/>
             	</field>
             </field>
         </record>
@@ -19,6 +23,8 @@
             <field name="arch" type="xml">
             	<field name="category_id" position="before">
             		<field name="last_order"/>
+                <field name='last_contact_date'/>
+                <field name='last_contact_comment'/>
             	</field>
             </field>
         </record>
