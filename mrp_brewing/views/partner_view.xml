@@ -12,6 +12,7 @@
             	<field name="email" position="after">
             		<field name="last_order"/>
                 <field name='last_contact_date'/>
+                <field name='sale_frequency'/>
             	</field>
             </field>
         </record>
