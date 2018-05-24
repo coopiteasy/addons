@@ -33,6 +33,7 @@
     'data': [
         'security/ir.model.access.csv',
         'data/brewing_data.xml',
+        'data/cron.xml',
         'report/report_stock_raw_materials.xml',
         'report/report_stock_finished_products.xml',
         'report/report_brew_register.xml',
