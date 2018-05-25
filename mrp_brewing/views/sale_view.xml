@@ -74,7 +74,7 @@
          <field name="product_id" type="row"/>
          <field name="date" interval="month" type="col"/>
          <field name="qty_invoiced" type="measure"/>
-         <field name="price_total" type="measure"/>
+         <field name="price_subtotal" type="measure"/>
        </pivot>
      </field>
     </record>
