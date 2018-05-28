@@ -85,7 +85,7 @@ class ResourceActivity(models.Model):
     departure = fields.Char(string="Departure")
     arrival = fields.Char(string="Arrival")
     description = fields.Char(string="Description")
-    comment = fields.Char(string="Comment")
+    comment = fields.Text(string="Comment")
     activity_type = fields.Many2one('resource.activity.type', string="Activity type")
     analytic_account = fields.Many2one(related='activity_type.analytic_account', string="Analytic account", readonly=True, groups="analytic.group_analytic_accounting")
     guides = fields.Many2many('res.partner', string="Guide", domain=[('is_guide','=',True)])
