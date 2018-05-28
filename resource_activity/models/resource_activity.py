@@ -330,6 +330,15 @@ class ResourceActivity(models.Model):
                 vals['need_push'] = True
         return super(ResourceActivity,self).write(vals)
 
+    @api.multi
+    @api.depends('partner_id', 'registrations_max','registrations_expected')
+    def _propagate_activity_fields_update(self):
+        for activity in self:
+            vals['partner_id'] = activit.partner_id
+            vals['registrations_max'] = activit.registrations_max
+            vals['registrations_expected'] = activit.registrations_expected
+            activity.registrations.write(vals)
+
 
 class ActivityRegistration(models.Model):
     _name = 'resource.activity.registration'
@@ -480,7 +489,7 @@ class ActivityRegistration(models.Model):
 
     @api.model
     def create(self,vals):
-        if vals.get('registrations_max') < vals.get('registrations_expected') + vals.get('quantity_needed'):
+        if vals.get('registrations_max') > 0 and vals.get('registrations_max') < vals.get('registrations_expected') + vals.get('quantity_needed'):
             raise ValidationError("Maximum registration capacity reached")
         return super(ActivityRegistration,self).create(vals)
     
@@ -492,6 +501,7 @@ class ActivityRegistration(models.Model):
                                                                       + vals.get('quantity')):
                 raise ValidationError("Maximum registration capacity reached")
         return super(ActivityRegistration,self).write(vals)
+    
 
 class ResourceAvailable(models.Model):
     _name = 'resource.available'
