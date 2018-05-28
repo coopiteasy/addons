@@ -9,6 +9,5 @@
 			name="resource_activity.resource_activity_report" 
 			file="resource_activity.resource_activity_report.xml" 
 			menu="True"/>
-<!-- 		multi="True" -->
 	</data>
 </odoo>
