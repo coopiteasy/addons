@@ -95,6 +95,8 @@ class ResourceActivity(models.Model):
     need_delivery = fields.Boolean(string="Need delivery?")
     delivery_place = fields.Char(string="Delivery place")
     delivery_time = fields.Char(string="Delivery time")
+    pickup_place = fields.Char(string="Pick up place")
+    pickup_time = fields.Char(string="Pick up time")
     need_guide = fields.Boolean(string="Need guide?")
     registrations_max = fields.Integer(string="Maximum registration")
     registrations_min = fields.Integer(string="Minimum registration")

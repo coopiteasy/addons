@@ -85,6 +85,8 @@
 								<field name="delivery_product_id" options="{'no_create': True}" attrs="{'invisible':[('need_delivery','=',False)], 'required':[('need_delivery','=',True)]}"/>
 								<field name="delivery_place" attrs="{'invisible':[('need_delivery','=',False)], 'required':[('need_delivery','=',True)]}"/>
 								<field name="delivery_time" attrs="{'invisible':[('need_delivery','=',False)], 'required':[('need_delivery','=',True)]}"/>
+								<field name="pickup_place" attrs="{'invisible':[('need_delivery','=',False)], 'required':[('need_delivery','=',True)]}"/>
+								<field name="pickup_time" attrs="{'invisible':[('need_delivery','=',False)], 'required':[('need_delivery','=',True)]}"/>
 								<field name="need_guide"/>
 								<field name="company_id" invisible="True"/>
 							</group>

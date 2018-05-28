@@ -96,7 +96,7 @@
                 </table>
                 <div t-if="o.need_delivery">
                     <p><strong>Delivery:</strong> <span t-field="o.delivery_place"/> <span t-field="o.delivery_time"/></p>
-                    <!-- <p><strong>Récupération:</strong> <span t-field="o.pickup_place"/> <span t-field="o.pickup_time"/></p> -->
+                    <p><strong>Pick up:</strong> <span t-field="o.pickup_place"/> <span t-field="o.pickup_time"/></p> -->
                </div>
            </div> 
         </div>
