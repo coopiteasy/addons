@@ -100,7 +100,7 @@ class ResourceActivity(models.Model):
     need_guide = fields.Boolean(string="Need guide?")
     registrations_max = fields.Integer(string="Maximum registration")
     registrations_min = fields.Integer(string="Minimum registration")
-    registrations_expected = fields.Integer(string="Expected registrations",
+    registrations_expected = fields.Integer(string="Registrations made",
                         store=True, readonly=True, compute='_compute_registrations')
     without_resource_reg = fields.Integer(string="Registrations without resource",
                         store=True, readonly=True, compute='_compute_registrations')
@@ -461,7 +461,7 @@ class ActivityRegistration(models.Model):
         for registration in self:
             for resource_available in registration.resources_available:
                 resource_available.action_cancel()
-            registration.state = 'cancelled'
+            registration.write({'state':'cancelled','quantity_needed':0})
     
     @api.multi
     def unlink(self):
