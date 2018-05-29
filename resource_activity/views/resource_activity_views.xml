@@ -178,7 +178,7 @@
                 <search string="Search Activity">
                     <filter name="end_today" string="End today"
                         domain="[('date_end', '&gt;=', time.strftime('%Y-%m-%d 00:00:00')),('date_end', '&lt;=', time.strftime('%Y-%m-%d 23:59:59'))]"/>
-                    <filter name="today" string="Today"
+                    <filter name="ongoing" string="Ongoing"
                     	domain="[('date_start','&lt;=', time.strftime('%Y-%m-%d %H:%M:%S')), ('date_end','&gt;=', time.strftime('%Y-%m-%d %H:%M:%S'))]"/>
                     	<filter name="scheduled" string="Scheduled"
                     	domain="[('date_start','&gt;=', time.strftime('%Y-%m-%d 00:00:00')), ('date_end','&gt;=', time.strftime('%Y-%m-%d 00:00:00'))]"/>
@@ -217,7 +217,7 @@
             <field name="res_model">resource.activity</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form,calendar</field>
-            <field name="context">{"search_default_today":1,"search_default_not_cancelled":1}</field>
+            <field name="context">{"search_default_ongoing":1,"search_default_not_cancelled":1}</field>
         </record>
         
         <menuitem action="action_resource_activity" id="resource_activity_menu" parent="menu_resource_activity" sequence="10"/>
