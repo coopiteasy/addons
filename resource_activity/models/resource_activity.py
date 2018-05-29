@@ -464,6 +464,10 @@ class ActivityRegistration(models.Model):
             registration.write({'state':'cancelled','quantity_needed':0})
     
     @api.multi
+    def action_draft(self):
+        self.write({'state':'draft'})
+    
+    @api.multi
     def unlink(self):
         for registration in self:
             if registration.state not in ('draft', 'cancel'):

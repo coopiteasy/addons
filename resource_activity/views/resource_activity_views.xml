@@ -129,6 +129,7 @@
 	            						<field name="state"/>
 					                    <button type="object" name="search_resources" states="draft" help="Search resources" icon="gtk-apply"/>
 					                    <button type="object" name="action_cancel" states="draft" help="Cancel" icon="gtk-cancel"/>
+					                    <button type="object" name="action_draft" states="cancelled" help="Set to draft" icon="gtk-undo"/>
 	            					</tree>
 	            				</field>
 	            			</page>
