@@ -462,6 +462,13 @@ class ActivityRegistration(models.Model):
             for resource_available in registration.resources_available:
                 resource_available.action_cancel()
             registration.state = 'cancelled'
+    
+    @api.multi
+    def unlink(self):
+        for registration in self:
+            if registration.state not in ('draft', 'cancel'):
+                raise UserError(_('You cannot delete a registration which is not draft or cancelled. You should first cancel it.'))
+        return super(ActivityRegistration, self).unlink()
 
     @api.multi
     @api.depends('quantity','quantity_allocated')

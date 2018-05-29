@@ -112,7 +112,7 @@
 	            				<button type="object" name="search_all_resources" string="Search all"/>
 	            				<button type="object" name="reserve_needed_resource" string="Reserve needed Resources" help="refresh"/>
 	            				<field name="registrations" context="{'default_partner_id':partner_id,'default_booking_type':booking_type,'default_date_lock':date_lock,'default_registrations_max':registrations_max,'default_registrations_expected':registrations_expected}">
-	            					<tree delete="false" editable="bottom">
+	            					<tree editable="bottom">
 										<button type="object" icon="STOCK_FIND" name="view_registration_form" />
 	            						<field name="partner_id" invisible="True"/>
 	            						<field name="registrations_max" invisible="True"/>
