@@ -429,8 +429,8 @@ class ActivityRegistration(models.Model):
                         registration.state = 'available'
                     else:
                         self.env.cr.commit()
-                        raise UserError(("Not enough resource found for the registration %s. %s resources found") % 
-                                            (registration.attendee_id.name, len(registration.resources_available)))
+                        raise UserError(("Not enough resource found for the registration %s with category %s. %s resources found") % 
+                                            (registration.attendee_id.name, registration.resource_category.name, len(registration.resources_available)))
 
         return True
 
