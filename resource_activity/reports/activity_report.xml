@@ -23,7 +23,7 @@
         <div class="row" tyle="position:relative; margin-top:50px" name="row2">
             <div class="coll-xs-6">
                 <h2>
-			<span style="border-bottom: 4pt solid #00B9E4;">Activity Summary D-Day: <t t-field="o.description"> </t> <t t-field="o.date_start" t-field-options='{"format": "d MMMM y"}'></t> </span>
+			<span style="border-bottom: 4pt solid #00B9E4;">Activity Summary D-Day: <span t-field="o.description"> </span> <span t-field="o.date_start" t-field-options='{"format": "d MMMM y"}'></span> </span>
                 </h2>                                                            
             </div>
         </div>
