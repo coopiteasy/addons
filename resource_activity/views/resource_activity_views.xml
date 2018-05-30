@@ -239,6 +239,7 @@
 								<field name="attendee_id" attrs="{'required':[('partner_id','=',False)]}"/>
 								<field name="bring_bike"/>
 								<field name="quantity"/>
+								<field name="quantity_needed"/>
 								<field name="quantity_allocated"/>
 							</group>
 							<group>
