@@ -470,7 +470,7 @@ class ActivityRegistration(models.Model):
     @api.multi
     def unlink(self):
         for registration in self:
-            if registration.state not in ('draft', 'cancel'):
+            if registration.state not in ('draft', 'cancelled'):
                 raise UserError(_('You cannot delete a registration which is not draft or cancelled. You should first cancel it.'))
         return super(ActivityRegistration, self).unlink()
 
