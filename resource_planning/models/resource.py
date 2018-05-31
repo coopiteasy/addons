@@ -65,29 +65,21 @@ class Resource(models.Model):
         if location:
             available_resources = available_resources.filtered(lambda r: r.location.id ==  location.id)
         available_resources_ids = available_resources.ids
+
+        # assert start < end
+        conflicting_allocation_domain = [
+            ('resource_id', 'in', available_resources_ids),
+            ('state', '!=', 'cancel'),
+            ('date_end', '>=', fields.Datetime.now()),
+            '!',
+                '|', ('date_end', '<=', date_start),
+                     ('date_start', '>=', date_end)
+        ]
         
-        date_start = datetime.strptime(date_start, DTF)
-        date_end = datetime.strptime(date_end, DTF)
+        conflicting_allocations = self.env['resource.allocation'].search(conflicting_allocation_domain)
+        unavailable_resources_ids = conflicting_allocations.mapped('resource_id.id')
         
-        domain = [('resource_id', 'in', available_resources_ids)]
-        domain.append(('state', '!=', 'cancel'))
-        domain.append(('date_end', '>=', fields.Datetime.now()))
-        domain.append('|')
-        domain.append('|')
-        domain.append('&')
-        domain.append(('date_start', '>=', date_start.strftime(DTF)))
-        domain.append(('date_start', '<', date_end.strftime(DTF)))
-        domain.append('&')
-        domain.append(('date_end', '>', date_start.strftime(DTF)))
-        domain.append(('date_end', '<=', date_end.strftime(DTF)))
-        domain.append('&')
-        domain.append(('date_start', '<=', date_start.strftime(DTF)))
-        domain.append(('date_end', '>=', date_end.strftime(DTF)))
-        
-        matching_allocations = self.env['resource.allocation'].search(domain)
-        resource_ids = matching_allocations.mapped('resource_id.id')
-        
-        for resource_id in resource_ids:
+        for resource_id in unavailable_resources_ids:
             available_resources_ids.remove(resource_id)
         return available_resources_ids
     
