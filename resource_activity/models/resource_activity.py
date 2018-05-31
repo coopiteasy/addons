@@ -89,8 +89,16 @@ class ResourceActivity(models.Model):
     comment = fields.Text(string="Comment")
     activity_type = fields.Many2one('resource.activity.type', string="Activity type")
     analytic_account = fields.Many2one(related='activity_type.analytic_account', string="Analytic account", readonly=True, groups="analytic.group_analytic_accounting")
-    guides = fields.Many2many('res.partner', string="Guide", domain=[('is_guide','=',True)])
-    trainers = fields.Many2many('res.partner', string="Trainer", domain=[('is_trainer','=',True)])
+    guides = fields.Many2many('res.partner',
+                            relation='activity_guide',
+                            column1='activity_id',
+                            column2='guide_id',
+                            string="Guide", domain=[('is_guide','=',True)])
+    trainers = fields.Many2many('res.partner',
+                            relation='activity_trainer',
+                            column1='activity_id',
+                            column2='trainer_id',
+                            string="Trainer", domain=[('is_trainer','=',True)])
     langs = fields.Many2many('resource.activity.lang', string="Langs")
     activity_theme = fields.Many2one('resource.activity.theme', string="Activity theme")
     need_delivery = fields.Boolean(string="Need delivery?")
