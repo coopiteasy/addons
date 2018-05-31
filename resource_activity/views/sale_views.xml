@@ -48,6 +48,10 @@
                         <field name="is_guide"/>
                     	<label for="is_guide"/>
                     </div>
+                    <div>
+                        <field name="is_participation"/>
+                    	<label for="is_participation"/>
+                    </div>
                 </xpath>
            </field>
        </record>

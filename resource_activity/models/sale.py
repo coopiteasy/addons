@@ -48,6 +48,7 @@ class SaleOrderLine(models.Model):
     
     resource_delivery = fields.Boolean(string="Resource Delivery")
     resource_guide = fields.Boolean(string='Resource Guide')
+    participation_line = fields.Boolean(string="Participation")
      
     @api.multi
     def update_line(self):
@@ -66,3 +67,4 @@ class ProductTemplate(models.Model):
     
     is_delivery = fields.Boolean(string='Delivery')
     is_guide = fields.Boolean(string='Guide')
+    is_participation = fields.Boolean(string='Participation')

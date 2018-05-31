@@ -66,6 +66,7 @@ class ResourceActivity(models.Model):
     partner_id = fields.Many2one('res.partner', string="Customer", domain=[('customer','=',True)])
     delivery_product_id = fields.Many2one('product.product', string="Product delivery", domain=[('is_delivery','=',True)])
     guide_product_id = fields.Many2one('product.product', string="Product Guide", domain=[('is_guide','=',True)])
+    participation_product_id = fields.Many2one('product.product', string="Product Participation", domain=[('is_participation','=',True)], required=True)
     date_start = fields.Datetime(string="Date start", required=True)
     date_end = fields.Datetime(string="Date end", required=True)
     duration = fields.Char(string="Duration", compute="_compute_duration", store=True)
@@ -299,7 +300,12 @@ class ResourceActivity(models.Model):
             guide_qty = len(activity.guides)
             
             self.update_order_line(activity.sale_order_id, activity.need_guide, line_vals, guide_line, guide_qty,  activity.guide_product_id)
-
+            
+            if activity.participation_product_id:
+                participation_line = activity.sale_order_id.order_line.filtered(lambda record: record.participation_line == True)
+                ine_vals = {'participation_line':True}
+                self.update_order_line(activity.sale_order_id, True, line_vals, participation_line, activity.registrations_expected, activity.participation_product_id)
+            
             activity.need_push = False
     
     def update_order_line(self, order_id, need_resource, line_vals, resource_line, resource_qty, resource_product_id):
