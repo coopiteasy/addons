@@ -372,6 +372,18 @@ class ActivityRegistration(models.Model):
         if not self.bring_bike:
             self.quantity_needed = self.quantity
 
+    @api.onchange('quantity_needed')
+    def onchange_quantity_needed(self):
+        if self.state not in ['booked','option']:
+            if self.quantity_needed > self.quantity_allocated:
+                self.state= 'waiting'
+        elif self.state == 'draft':
+            return True
+#         else:
+#             return {
+#             'warning': {'title': _('Error'), 'message': _("You can't modify the quantity needed on an already reserved registration. You need to cancel the registration first")}
+#             }
+
     @api.onchange('bring_bike')
     def onchange_bring_bike(self):
         if self.bring_bike:
@@ -410,6 +422,8 @@ class ActivityRegistration(models.Model):
     state = fields.Selection([('draft','Draft'),
                               ('waiting','Waiting'),
                               ('available','Available'),
+                              ('option','Option'),
+                              ('booked','Booked'),
                               ('cancelled','Cancelled')],
                              string="State", default='draft', readonly=True)
     date_start = fields.Datetime(related='resource_activity_id.date_start', string="Date start")
@@ -442,6 +456,7 @@ class ActivityRegistration(models.Model):
                     if len(registration.resources_available) >= registration.quantity_needed:
                         registration.state = 'available'
                     else:
+                        registration.state = 'waiting'
                         self.env.cr.commit()
                         raise UserError(("Not enough resource found for the registration %s with category %s. %s resources found") % 
                                             (registration.attendee_id.name, registration.resource_category.name, len(registration.resources_available)))
@@ -468,7 +483,7 @@ class ActivityRegistration(models.Model):
                 qty_needed -=1
                 if qty_needed == 0:
                     break
-
+        return True
 
     @api.multi
     def action_cancel(self):
@@ -555,6 +570,7 @@ class ResourceAvailable(models.Model):
                 allocations.write({'activity_registration_id': resource_available.registration_id.id})
                 resource_available.registration_id.quantity_allocated += 1
                 resource_available.state = 'selected'
+                resource_available.registration_id.state = resource_available.registration_id.booking_type
             else:
                 print "no resource found for : " + str(resource_available.resource_id.ids)
 
@@ -562,9 +578,13 @@ class ResourceAvailable(models.Model):
 
     @api.multi
     def action_cancel(self):
-        allocation = self.registration_id.allocations.filtered(lambda record: record.resource_id.id == self.resource_id.id)
+        allocation = self.registration_id.allocations.filtered(lambda record: record.resource_id.id == self.resource_id.id and record.state != 'cancel')
         allocation.action_cancel()
         if self.state == 'selected':
             self.registration_id.quantity_allocated -= 1
+            if self.registration_id.quantity_needed > self.registration_id.quantity_allocated:
+                self.registration_id.state = 'waiting'
         self.state = 'cancelled'
+        
+        return True
 
