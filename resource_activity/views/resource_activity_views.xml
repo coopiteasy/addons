@@ -112,7 +112,7 @@
 	            			<page name="registration" string="Registrations">
 	            				<button type="object" name="search_all_resources" string="Search all"/>
 	            				<button type="object" name="reserve_needed_resource" string="Reserve needed Resources" help="refresh"/>
-	            				<field name="registrations" context="{'default_partner_id':partner_id,'default_booking_type':booking_type,'default_date_lock':date_lock,'default_registrations_max':registrations_max,'default_registrations_expected':registrations_expected}">
+	            				<field name="registrations" options="{'reload_on_button':True}" context="{'default_partner_id':partner_id,'default_booking_type':booking_type,'default_date_lock':date_lock,'default_registrations_max':registrations_max,'default_registrations_expected':registrations_expected}">
 	            					<tree editable="bottom">
 										<button type="object" icon="STOCK_FIND" name="view_registration_form" />
 	            						<field name="partner_id" invisible="True"/>
@@ -254,9 +254,9 @@
 						</group>
 						<notebook>
 							<page string="Search result">
-								<button type="object" name="action_refresh" string="Refresh" help="refresh"/>
-								<button type="object" name="reserve_needed_resource" string="Reserve needed Resources" help="refresh"/>
-								<field name="resources_available" options="{'no_open':True,'no_create':True}">
+								<!--<button type="object" name="action_refresh" string="Refresh" help="refresh"/>-->
+								<button type="object" name="reserve_needed_resource" string="Reserve needed Resources" help="Reserve needed resource"/>
+								<field name="resources_available" options="{'reload_on_button':True,'no_open':True,'no_create':True}">
 									<tree>
 										<field name="name"/>
 										<field name="resource_id"/>
@@ -267,7 +267,7 @@
 								</field>
 							</page>
 							<page string="Resource Allocations">
-								<field name="allocations">
+								<field name="allocations" options="{'reload_on_button':True}">
 									<tree>
 										<field name="name"/>
 										<field name="serial_number"/>
