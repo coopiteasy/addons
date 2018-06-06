@@ -101,6 +101,7 @@ class ResourceActivity(models.Model):
                             string="Trainer", domain=[('is_trainer','=',True)])
     langs = fields.Many2many('resource.activity.lang', string="Langs")
     activity_theme = fields.Many2one('resource.activity.theme', string="Activity theme")
+    need_participation = fields.Boolean(string="Need participation?")
     need_delivery = fields.Boolean(string="Need delivery?")
     delivery_place = fields.Char(string="Delivery place")
     delivery_time = fields.Char(string="Delivery time")
@@ -284,36 +285,37 @@ class ResourceActivity(models.Model):
             if activity.sale_order_id:
                 activity.sale_order_id.with_context(activity_action=True).action_confirm()
                 activity.state = 'sale'
+
     @api.multi            
     def push_changes_2_sale_order(self):
         for activity in self:
-            bike_qty = 0
-            # handling resource reservation here
-            for registration in activity.registrations:
-                bike_qty += registration.quantity_needed
-                if registration.need_push:
-                    line_vals = {}
-                    self.update_order_line(activity.sale_order_id, True, line_vals, registration.order_line_id, registration.quantity_needed, registration.product_id)
-                    registration.need_push = False
-            
-            # handling delivery here        
-            delivery_line = activity.sale_order_id.order_line.filtered(lambda record: record.resource_delivery == True)
-            line_vals = {'resource_delivery': True}
-            
-            self.update_order_line(activity.sale_order_id, activity.need_delivery, line_vals, delivery_line, bike_qty, activity.delivery_product_id)
+            if activity.sale_order_id:
+                bike_qty = 0
+                # handling resource reservation here
+                for registration in activity.registrations:
+                    bike_qty += registration.quantity_needed
+                    if registration.need_push:
+                        line_vals = {}
+                        self.update_order_line(activity.sale_order_id, True, line_vals, registration.order_line_id, registration.quantity_needed, registration.product_id)
+                        registration.need_push = False
 
-            # handling guide here
-            guide_line = activity.sale_order_id.order_line.filtered(lambda record: record.resource_guide == True)
-            line_vals = {'resource_guide':True}
-            guide_qty = len(activity.guides)
-            
-            self.update_order_line(activity.sale_order_id, activity.need_guide, line_vals, guide_line, guide_qty,  activity.guide_product_id)
-            
-            if activity.participation_product_id:
+                # handling delivery here        
+                delivery_line = activity.sale_order_id.order_line.filtered(lambda record: record.resource_delivery == True)
+                line_vals = {'resource_delivery': True}
+
+                self.update_order_line(activity.sale_order_id, activity.need_delivery, line_vals, delivery_line, bike_qty, activity.delivery_product_id)
+
+                # handling guide here
+                guide_line = activity.sale_order_id.order_line.filtered(lambda record: record.resource_guide == True)
+                line_vals = {'resource_guide':True}
+                guide_qty = len(activity.guides)
+
+                self.update_order_line(activity.sale_order_id, activity.need_guide, line_vals, guide_line, guide_qty,  activity.guide_product_id)
+
                 participation_line = activity.sale_order_id.order_line.filtered(lambda record: record.participation_line == True)
-                ine_vals = {'participation_line':True}
-                self.update_order_line(activity.sale_order_id, True, line_vals, participation_line, activity.registrations_expected, activity.participation_product_id)
-            
+                line_vals = {'participation_line':True}
+                self.update_order_line(activity.sale_order_id, activity.need_participation, line_vals, participation_line, activity.registrations_expected, activity.participation_product_id)
+
             activity.need_push = False
     
     def update_order_line(self, order_id, need_resource, line_vals, resource_line, resource_qty, resource_product_id):
@@ -334,16 +336,21 @@ class ResourceActivity(models.Model):
     @api.multi
     def write(self,vals):
         for activity in self:
-            if 'need_delivery' in vals:
-                if not vals.get('need_delivery'):
-                    vals['delivery_place'] = ''
-                    vals['delivery_time'] = ''
-                    vals['delivery_product_id'] = False
-                vals['need_push'] = True
-            if 'need_guide' in vals:
-                if not vals.get('need_guide'):
-                    vals['guide_product_id'] = False
-                vals['need_push'] = True
+            if activity.sale_order_id:
+                if 'need_delivery' in vals:
+                    if not vals.get('need_delivery'):
+                        vals['delivery_place'] = ''
+                        vals['delivery_time'] = ''
+                        vals['delivery_product_id'] = False
+                    vals['need_push'] = True
+                if 'need_guide' in vals:
+                    if not vals.get('need_guide'):
+                        vals['guide_product_id'] = False
+                    vals['need_push'] = True
+                if 'need_participation' in vals:
+                    if not vals.get('need_participation'):
+                        vals['need_participation'] = False
+                    vals['need_push'] = True
         return super(ResourceActivity,self).write(vals)
 
     @api.multi
@@ -369,7 +376,7 @@ class ActivityRegistration(models.Model):
     
     @api.onchange('quantity')
     def onchange_quantity(self):
-        if not self.bring_bike:
+        if not self.bring_bike and self.state not in ['option','booked']:
             self.quantity_needed = self.quantity
 
     @api.onchange('quantity_needed')
@@ -379,10 +386,6 @@ class ActivityRegistration(models.Model):
                 self.state= 'waiting'
         elif self.state == 'draft':
             return True
-#         else:
-#             return {
-#             'warning': {'title': _('Error'), 'message': _("You can't modify the quantity needed on an already reserved registration. You need to cancel the registration first")}
-#             }
 
     @api.onchange('bring_bike')
     def onchange_bring_bike(self):
@@ -534,16 +537,18 @@ class ActivityRegistration(models.Model):
         if vals.get('registrations_max') > 0 and vals.get('registrations_max') < vals.get('registrations_expected') + vals.get('quantity_needed'):
             raise ValidationError("Maximum registration capacity reached")
         return super(ActivityRegistration,self).create(vals)
-    
+
     @api.multi
     def write(self,vals):
         for registration in self:
-            if vals.get('quantity') and registration.resource_activity_id.registrations_max < (registration.resource_activity_id.registrations_expected 
-                                                                      - registration.quantity
-                                                                      + vals.get('quantity')):
+            if registration.registrations_max \
+                    and vals.get('quantity') \
+                    and registration.registrations_max < (registration.registrations_expected
+                                - registration.quantity
+                                + vals.get('quantity')):
                 raise ValidationError("Maximum registration capacity reached")
         return super(ActivityRegistration,self).write(vals)
-    
+
 
 class ResourceAvailable(models.Model):
     _name = 'resource.available'
@@ -568,8 +573,8 @@ class ResourceAvailable(models.Model):
             if allocation_ids:
                 allocations = self.env['resource.allocation'].browse(allocation_ids)
                 allocations.write({'activity_registration_id': resource_available.registration_id.id})
-                resource_available.registration_id.quantity_allocated += 1
                 resource_available.state = 'selected'
+                resource_available.registration_id.quantity_allocated += 1
                 resource_available.registration_id.state = resource_available.registration_id.booking_type
             else:
                 print "no resource found for : " + str(resource_available.resource_id.ids)
