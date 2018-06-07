@@ -13,10 +13,6 @@ def _pd(dt):
     return datetime.strptime(dt, DTF) if dt else dt
 
 
-def trunc_day(datetime):
-    return datetime.replace(hour=0, minute=0, second=0, microsecond=0)
-
-
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
@@ -146,6 +142,11 @@ class ResourceActivity(models.Model):
         tz = pytz.timezone(self._context['tz']) if self._context['tz'] else pytz.utc
         return pytz.utc.localize(date).astimezone(tz)
 
+    def trunc_day(self, datetime_):
+        datetime_ = self._localize(_pd(datetime_))
+        datetime_ = datetime_.replace(hour=0, minute=0, second=0, microsecond=0)
+        return datetime_.astimezone(pytz.utc)
+
     @api.onchange('date_start', 'date_end',
                   'need_delivery', 'delivery_time', 'pickup_time',
                   'set_allocation_span')
@@ -160,9 +161,7 @@ class ResourceActivity(models.Model):
                     # get utc, set it to local time midnight
                     # send it back as utc
                     start = self.delivery_time if self.delivery_time else self.date_start
-                    start = self._localize(_pd(start))
-                    start = trunc_day(start)
-                    start = start.astimezone(pytz.utc)
+                    start = self.trunc_day(start)
             else:
                 start = _pd(self.date_start)
             self.resource_allocation_start = start.strftime(DTF)
@@ -173,13 +172,10 @@ class ResourceActivity(models.Model):
                     end = _pd(self.date_end) + timedelta(minutes=90)
                 else:
                     end = self.pickup_time if self.pickup_time else self.date_end
-                    end = self._localize(_pd(end))
-                    end = trunc_day(end) + timedelta(days=1)
-                    end = end.astimezone(pytz.utc)
+                    end = self.trunc_day(end) + timedelta(days=1)
             else:
                 end = _pd(self.date_end)
             self.resource_allocation_end = end.strftime(DTF)
-
 
     @api.one
     @api.constrains('date_start', 'date_end')
