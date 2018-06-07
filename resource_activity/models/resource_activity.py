@@ -445,7 +445,7 @@ class ActivityRegistration(models.Model):
 
     @api.multi
     def search_resources(self):
-        registrations = self.filtered(lambda record: record.state in ['draft','waiting'])
+        registrations = self.filtered(lambda record: record.state in ['draft','waiting','available'])
         for registration in registrations:
             if registration.quantity_allocated < registration.quantity_needed:
                 # delete free and unfree resource when running.
@@ -481,7 +481,7 @@ class ActivityRegistration(models.Model):
         self.action_refresh()
         for registration in self:
             qty_needed = registration.quantity_needed
-            for resource_available in registration.resources_available:
+            for resource_available in registration.resources_available.filtered(lambda record: record.state == 'free'):
                 resource_available.action_reserve()
                 qty_needed -=1
                 if qty_needed == 0:
