@@ -21,6 +21,13 @@ class Resource(models.Model):
     _name = 'resource.resource'
     _inherit = ['resource.resource', 'mail.thread']
 
+    @api.model
+    def _get_default_location(self):
+        location = self.env.user.resource_location
+        if not location:
+            location = self.env.ref('resource_planning.main_location', False)
+        return location
+
     category_id = fields.Many2one('resource.category', string="Category")
     state = fields.Selection([('draft','Draft'),
                               ('available','Available'),
@@ -30,8 +37,8 @@ class Resource(models.Model):
                                       string="Resource Type", required=True, default="material")
     allocations = fields.One2many('resource.allocation', 'resource_id', string="Booking lines")
     serial_number = fields.Char(string="ID number")
-    location = fields.Many2one('resource.location', string="Location")
-    
+    location = fields.Many2one('resource.location', string="Location", default=_get_default_location, required=True)
+
     _sql_constraints = [
         ('name_uniq', 'unique (name)', 'The name of the resource must be unique !')
     ]
