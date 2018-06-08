@@ -37,7 +37,7 @@ class Resource(models.Model):
                                       string="Resource Type", required=True, default="material")
     allocations = fields.One2many('resource.allocation', 'resource_id', string="Booking lines")
     serial_number = fields.Char(string="ID number")
-    location = fields.Many2one('resource.location', string="Location", default=_get_default_location, required=True)
+    location = fields.Many2one('resource.location', string="Location", required=True)
 
     _sql_constraints = [
         ('name_uniq', 'unique (name)', 'The name of the resource must be unique !')
