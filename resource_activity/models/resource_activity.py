@@ -357,9 +357,9 @@ class ResourceActivity(models.Model):
     @api.depends('partner_id', 'registrations_max','registrations_expected')
     def _propagate_activity_fields_update(self):
         for activity in self:
-            vals['partner_id'] = activit.partner_id
-            vals['registrations_max'] = activit.registrations_max
-            vals['registrations_expected'] = activit.registrations_expected
+            vals['partner_id'] = activity.partner_id
+            vals['registrations_max'] = activity.registrations_max
+            vals['registrations_expected'] = activity.registrations_expected
             activity.registrations.write(vals)
 
 
