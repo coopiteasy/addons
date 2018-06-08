@@ -38,6 +38,7 @@
     'data': [
         'security/resource_planning_security.xml',
         'security/ir.model.access.csv',
+        'data/resource_planning_data.xml',
         'views/menu_item.xml',
         'wizard/allocate_resource_wizard.xml',
         'views/resource_planning_views.xml',
