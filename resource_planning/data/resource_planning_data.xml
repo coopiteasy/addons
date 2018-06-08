@@ -2,7 +2,7 @@
 <odoo>
 	<data noupdate="1">
 		<!-- Basic Implantation  -->
-        <record id="main_company" model="resource.location">
+        <record id="main_location" model="resource.location">
             <field name="name">My Company</field>
             <field name="address" ref="base.main_partner"/>
         </record>
