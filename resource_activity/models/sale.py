@@ -2,9 +2,8 @@
 # Copyright 2018 Coop IT Easy SCRLfs.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp import _, api, fields, models
-from datetime import date
-from openerp.exceptions import ValidationError, UserError
+from openerp import api, fields, models
+from openerp.exceptions import UserError
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
@@ -23,9 +22,9 @@ class SaleOrder(models.Model):
     activity_theme = fields.Many2one(related="activity_id.activity_theme", string="Activity theme", readonly=True)
     need_delivery = fields.Boolean(related="activity_id.need_delivery", string="Need delivery?", readonly=True)
     delivery_place = fields.Char(related="activity_id.delivery_place", string="Delivery place", readonly=True)
-    delivery_time = fields.Char(related="activity_id.delivery_time", string="Delivery time", readonly=True)
     pickup_place = fields.Char(related="activity_id.pickup_place", string="Delivery place", readonly=True)
-    pickup_time = fields.Char(related="activity_id.pickup_time", string="Delivery time", readonly=True)
+    pickup_time = fields.Datetime(related="activity_id.pickup_time", string="Delivery time", readonly=True)
+    delivery_time = fields.Datetime(related="activity_id.delivery_time", string="Delivery time", readonly=True)
 
     @api.multi
     def action_draft(self):

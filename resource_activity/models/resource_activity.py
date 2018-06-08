@@ -1,11 +1,16 @@
 # -*- coding: utf-8 -*-
 # Copyright 2018 Coop IT Easy SCRLfs.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-
+import pytz
 from openerp import _, api, fields, models
-from datetime import date, datetime, timedelta
+from datetime import datetime, timedelta
 from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT as DTF
 from openerp.exceptions import ValidationError, UserError
+
+
+def _pd(dt):
+    """parse datetime"""
+    return datetime.strptime(dt, DTF) if dt else dt
 
 
 class ResPartner(models.Model):
@@ -90,23 +95,26 @@ class ResourceActivity(models.Model):
     activity_type = fields.Many2one('resource.activity.type', string="Activity type", required=True)
     analytic_account = fields.Many2one(related='activity_type.analytic_account', string="Analytic account", readonly=True, groups="analytic.group_analytic_accounting")
     guides = fields.Many2many('res.partner',
-                            relation='activity_guide',
-                            column1='activity_id',
-                            column2='guide_id',
-                            string="Guide", domain=[('is_guide','=',True)])
+                              relation='activity_guide',
+                              column1='activity_id',
+                              column2='guide_id',
+                              string="Guide", domain=[('is_guide','=',True)])
     trainers = fields.Many2many('res.partner',
-                            relation='activity_trainer',
-                            column1='activity_id',
-                            column2='trainer_id',
-                            string="Trainer", domain=[('is_trainer','=',True)])
+                                relation='activity_trainer',
+                                column1='activity_id',
+                                column2='trainer_id',
+                                string="Trainer", domain=[('is_trainer','=',True)])
     langs = fields.Many2many('resource.activity.lang', string="Langs")
     activity_theme = fields.Many2one('resource.activity.theme', string="Activity theme")
     need_participation = fields.Boolean(string="Need participation?")
     need_delivery = fields.Boolean(string="Need delivery?")
     delivery_place = fields.Char(string="Delivery place")
-    delivery_time = fields.Char(string="Delivery time")
+    delivery_time = fields.Datetime(string="Delivery time")
     pickup_place = fields.Char(string="Pick up place")
-    pickup_time = fields.Char(string="Pick up time")
+    pickup_time = fields.Datetime(string="Pick up time")
+    set_allocation_span = fields.Boolean(string='Set Allocation Span Manually', default=False)
+    resource_allocation_start = fields.Datetime(string='Resource Allocation Start')
+    resource_allocation_end = fields.Datetime(string='Resource Allocation End')
     need_guide = fields.Boolean(string="Need guide?")
     registrations_max = fields.Integer(string="Maximum registration")
     registrations_min = fields.Integer(string="Minimum registration")
@@ -129,11 +137,50 @@ class ResourceActivity(models.Model):
     def onchange_booking_type(self):
         if self.booking_type == 'booked':
             self.date_lock = None
-        
+
+    def _localize(self, date):
+        tz = pytz.timezone(self._context['tz']) if self._context['tz'] else pytz.utc
+        return pytz.utc.localize(date).astimezone(tz)
+
+    def trunc_day(self, datetime_):
+        datetime_ = self._localize(_pd(datetime_))
+        datetime_ = datetime_.replace(hour=0, minute=0, second=0, microsecond=0)
+        return datetime_.astimezone(pytz.utc)
+
+    @api.onchange('date_start', 'date_end',
+                  'need_delivery', 'delivery_time', 'pickup_time',
+                  'set_allocation_span')
+    def default_allocation_span(self):
+        # todo, view readonly
+        # todo make sure it records date when manually set
+        if self.date_start:
+            if self.need_delivery:
+                if self.set_allocation_span:
+                    start = _pd(self.date_start) - timedelta(minutes=90)
+                else:
+                    # get utc, set it to local time midnight
+                    # send it back as utc
+                    start = self.delivery_time if self.delivery_time else self.date_start
+                    start = self.trunc_day(start)
+            else:
+                start = _pd(self.date_start)
+            self.resource_allocation_start = start.strftime(DTF)
+
+        if self.date_end:
+            if self.need_delivery:
+                if self.set_allocation_span:
+                    end = _pd(self.date_end) + timedelta(minutes=90)
+                else:
+                    end = self.pickup_time if self.pickup_time else self.date_end
+                    end = self.trunc_day(end) + timedelta(days=1)
+            else:
+                end = _pd(self.date_end)
+            self.resource_allocation_end = end.strftime(DTF)
+
     @api.one
-    @api.constrains('date_start','date_end')
+    @api.constrains('date_start', 'date_end')
     def _check_date(self):
-        if  self.date_end < self.date_start:
+        if self.date_end < self.date_start:
             raise ValidationError("Date end can't be before date start: %s %s" % (self.date_start,self.date_end))
 
     @api.multi
