@@ -24,6 +24,8 @@ class SaleOrder(models.Model):
     need_delivery = fields.Boolean(related="activity_id.need_delivery", string="Need delivery?", readonly=True)
     delivery_place = fields.Char(related="activity_id.delivery_place", string="Delivery place", readonly=True)
     delivery_time = fields.Char(related="activity_id.delivery_time", string="Delivery time", readonly=True)
+    pickup_place = fields.Char(related="activity_id.pickup_place", string="Delivery place", readonly=True)
+    pickup_time = fields.Char(related="activity_id.pickup_time", string="Delivery time", readonly=True)
 
     @api.multi
     def action_draft(self):
