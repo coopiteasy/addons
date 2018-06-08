@@ -51,7 +51,7 @@
             <field name="arch" type="xml">
 				<form>
 					<header>
-						<button name="create_sale_order" string="Create Sale order" type="object" states="confirmed"/>
+						<button name="create_sale_order" string="Create Quotation" type="object" states="confirmed"/>
 						<button name="action_quotation" string="Set to Quotation" type="object" states="sale"/>
 						<button name="action_sale_order" string="Set to Sale order" type="object" states="quotation"/>
 						<button name="push_changes_2_sale_order" string="Push to Sale order" type="object" attrs="{'invisible':[('need_push','=',False)]}" class="btn-primary"/>

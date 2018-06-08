@@ -283,7 +283,7 @@ class ResourceActivity(models.Model):
                 }
             
             order_id = order_obj.create(order_vals)
-            self.write({'sale_order_id': order_id.id, 'state':'sale'})
+            self.write({'sale_order_id': order_id.id, 'state':'quotation'})
             no_bike_qty = 0
             bike_qty = 0
             line_vals= {'order_id':order_id.id}
@@ -315,8 +315,6 @@ class ResourceActivity(models.Model):
                 line_vals['resource_guide'] = True
                 line_id = line_obj.create(line_vals)
                 line_id.update_line()
-
-            order_id.with_context(activity_action=True).action_confirm()
 
     @api.multi
     def action_quotation(self):
@@ -387,7 +385,9 @@ class ResourceActivity(models.Model):
                 if 'need_delivery' in vals:
                     if not vals.get('need_delivery'):
                         vals['delivery_place'] = ''
-                        vals['delivery_time'] = ''
+                        vals['delivery_time'] = False
+                        vals['pickup_place'] = ''
+                        vals['pickup_time'] = False
                         vals['delivery_product_id'] = False
                     vals['need_push'] = True
                 if 'need_guide' in vals:
