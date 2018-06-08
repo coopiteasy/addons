@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<template id="report_activity_saleorder_document" inherit_id="sale.report_saleorder_document">
+			<xpath expr="//div[@name='payment_term']" position="after">
+                <div name="date_start" t-if="doc.date_start" class="col-xs-3">
+                    <strong>Start date:</strong>
+                    <p t-field="doc.date_start"/>
+                </div>
+                <div name="date_end" t-if="doc.date_end" class="col-xs-3">
+                    <strong>End date:</strong>
+                    <p t-field="doc.date_end"/>
+                </div>
+                <div name="activity_theme" t-if="doc.activity_theme" class="col-xs-3">
+                    <strong>Theme:</strong>
+                    <p t-field="doc.activity_theme"/>
+                </div>
+                <div name="activity_type" t-if="doc.activity_type" class="col-xs-3">
+                    <strong>Type:</strong>
+                    <p t-field="doc.activity_type"/>
+                </div>
+                <div name="delivery_place" t-if="doc.delivery_place" class="col-xs-3">
+                    <strong>Delivery place:</strong>
+                    <p t-field="doc.delivery_place"/>
+                </div>
+                <div name="delivery_time" t-if="doc.delivery_time" class="col-xs-3">
+                    <strong>Delivery time:</strong>
+                    <p t-field="doc.delivery_time"/>
+                </div>
+                <div name="pickup_place" t-if="doc.pickup_place" class="col-xs-3">
+                    <strong>Pickup place:</strong>
+                    <p t-field="doc.pickup_place"/>
+                </div>
+                <div name="pickup_time" t-if="doc.pickup_time" class="col-xs-3">
+                    <strong>Pickup time:</strong>
+                    <p t-field="doc.pickup_time"/>
+                </div>
+                <div name="registrations_expected" t-if="doc.registrations_expected" class="col-xs-3">
+                    <strong>Registrations expected:</strong>
+                    <p t-field="doc.registrations_expected"/>
+                </div>
+                <div name="langs" t-if="doc.langs" class="col-xs-3">
+                    <strong>Langs:</strong>
+                    <t t-foreach="doc.langs" t-as="lang">
+                        <t t-if="lang">                 
+                            <div t-field="lang.name"/>
+                        </t>                                  
+                    </t>
+                </div>
+            </xpath>
+		</template>
+	</data>
+</openerp>
