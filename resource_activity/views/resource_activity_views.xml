@@ -83,6 +83,9 @@
 								<field name="without_resource_reg"/>
 								<field name="need_participation"/>
 								<field name="participation_product_id" attrs="{'invisible':[('need_participation','=',False)], 'required':[('need_participation','=',True)]}"/>
+								<field name="resource_allocation_start" attrs="{'readonly':[('set_allocation_span','=',False)]}"/>
+								<field name="resource_allocation_end" attrs="{'readonly':[('set_allocation_span','=',False)]}"/>
+								<field name="set_allocation_span"/>
 								<field name="need_delivery"/>
 								<field name="delivery_product_id" options="{'no_create': True}" attrs="{'invisible':[('need_delivery','=',False)], 'required':[('need_delivery','=',True)]}"/>
 								<field name="delivery_place" attrs="{'invisible':[('need_delivery','=',False)], 'required':[('need_delivery','=',True)]}"/>
