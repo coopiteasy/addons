@@ -566,6 +566,7 @@ class ActivityRegistration(models.Model):
     
     @api.multi
     def view_registration_form(self):
+        self.action_refresh()
         context = dict(self.env.context or {})
         context['active_id'] = self.id
 
