@@ -420,7 +420,11 @@ class ActivityRegistration(models.Model):
     def _get_activity_activity_date_lock(self):
         if self.resource_activity_id.booking_type:
             self.booking_type = self.resource_activity_id.booking_type
-    
+
+    @api.onchange('resource_category')
+    def onchange_resource_category(self):
+        self.product_id = False
+
     @api.onchange('quantity')
     def onchange_quantity(self):
         if not self.bring_bike and self.state not in ['option','booked']:
@@ -428,31 +432,29 @@ class ActivityRegistration(models.Model):
 
     @api.onchange('quantity_needed')
     def onchange_quantity_needed(self):
-        if self.state not in ['booked','option']:
+        if self.state not in ['booked','option','draft']:
             if self.quantity_needed > self.quantity_allocated:
                 self.state= 'waiting'
-        elif self.state == 'draft':
-            return True
 
     @api.onchange('bring_bike')
     def onchange_bring_bike(self):
         if self.bring_bike:
             self.quantity_needed = 0
         else:
-            self.quantity_needed = self.quantity 
+            self.quantity_needed = self.quantity
 
     @api.onchange('booking_type')
     def onchange_booking_type(self):
         if self.booking_type == 'booked':
             self.date_lock = None
-    
+
     @api.multi
     @api.depends('quantity_needed', 'product_id')
     def _compute_need_push(self):
         for registration in self:
             if registration.resource_activity_id.sale_order_id:
                 registration.need_push = True
-        
+
     resource_activity_id = fields.Many2one('resource.activity',string="Activity")
     order_line_id = fields.Many2one('sale.order.line', string="Sale order line")
     partner_id = fields.Many2one(related='resource_activity_id.partner_id')
@@ -559,7 +561,7 @@ class ActivityRegistration(models.Model):
         for subscription in self:
             if self.quantity_allocated == self.quantity:
                 self.state = self.booking_type
-            elif self.quantity_allocated < self.quantity:
+            elif self.state != 'draft' and self.quantity_allocated < self.quantity:
                 self.state= 'waiting'
     
     @api.multi
