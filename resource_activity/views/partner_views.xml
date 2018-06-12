@@ -16,5 +16,19 @@
 				</group>
             </field>
         </record>
+        
+       <record id="view_partner_property_form" model="ir.ui.view">
+            <field name="name">res.partner.property.activity.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="product.view_partner_property_form"/>
+            <field name="arch" type="xml"> 
+                    <field name="property_product_pricelist" position="attributes"> 
+						<attribute name="attrs">{
+		                    'invisible': [('is_company','=',False),('parent_id','!=',False)],
+		                    'required': [('is_company', '=', True)]
+		                }</attribute>
+					</field>
+            </field>
+        </record>
 	</data>
 </odoo>
