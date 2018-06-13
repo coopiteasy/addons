@@ -2,7 +2,7 @@
 <odoo>
 	<data>
 		<template id="report_saleorder_brewing" inherit_id="sale.report_saleorder_document">
-			<xpath expr="//th[text()='Description']" position="after">
+            <xpath expr="//tbody[@class='sale_tbody']/../thead/tr/th[1]" position="after">
 				<th class="text-right">Production lot</th>
             </xpath>
 			<xpath expr="//span[@t-field='l.name']" position="after">
