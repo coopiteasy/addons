@@ -7,15 +7,15 @@ class AccountInvoice(models.Model):
     
     subscription = fields.Boolean(string="Subscription")
     product_subscription_request = fields.One2many('product.subscription.request','invoice', string="Product subscription")
-    
+
     def process_subscription(self,effective_date):
         # set the subscription request to paid
         req_vals = {'state':'paid',
                 'payment_date':effective_date}
-        
+
         sub_req = self.product_subscription_request
         sub_template = sub_req.subscription_template
-        # check if there is already an ongoing or an old subscription 
+        # check if there is already an ongoing or an old subscription
         # tied to the subscriber
         subscriber = self.product_subscription_request.subscriber
         # allocate the product quantity to the subscriber
@@ -29,7 +29,7 @@ class AccountInvoice(models.Model):
         else:
             # no subscription found for this subscriber. We need to create one
             prod_sub_seq = self.env.ref('product_subscription.sequence_product_subscription', False)
-        
+
             prod_sub_num = prod_sub_seq.next_by_id()
             sub_vals = {'name':prod_sub_num,
                      'subscriber':subscriber.id,
@@ -41,17 +41,22 @@ class AccountInvoice(models.Model):
         subscriber.write({'subscriber':True,'old_subscriber':False})
         sub_req.write(req_vals)
         return True
-    
-    @api.multi                
+
+    @api.multi
     def confirm_paid(self):
         for invoice in self:
             super(AccountInvoice, invoice).confirm_paid()
-            if invoice.subscription and invoice.type == 'out_invoice':
+            # we check if there is an open refund for this invoice. in this case we
+            # don't run the process_subscription function as the invoice has been 
+            # reconciled with a refund and not a payment.
+            refund = self.search([('type','=','out_refund'),('origin','=',self.number)]).filtered(lambda record: record.state == 'open')
+            
+            if invoice.subscription and invoice.type == 'out_invoice' and not refund:
                 effective_date = datetime.now().strftime("%d/%m/%Y")
                 #take the effective date from the payment. by default the confirmation date is the payment date
-                if invoice.payment_move_line_ids :
+                if invoice.payment_move_line_ids:
                     move_line = invoice.payment_move_line_ids[0]
                     effective_date = move_line.date
-                
-                invoice.process_subscription(effective_date)        
+
+                invoice.process_subscription(effective_date)
         return True
