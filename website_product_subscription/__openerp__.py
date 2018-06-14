@@ -24,7 +24,8 @@
     "depends": [
         "product_subscription",
         "website",
-        "website_recaptcha_reloaded",        
+        "website_recaptcha_reloaded",
+        # "base_vat",
     ],
     "author": "Houssine BAKKALI <houssine@coopiteasy.be>",
     "category": "Sales",

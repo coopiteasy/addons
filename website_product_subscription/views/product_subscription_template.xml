@@ -77,6 +77,13 @@
 										This is a gift
 									</label>
 								</div>
+
+					           <div t-attf-class="form-group">
+									<label>
+										<input type="checkbox" t-att-checked="is_company" name="is_company"/>
+										Company subscription
+									</label>
+								</div>
 								
 								<div t-attf-class="form-group #{error and 'product_id' in error and 'has-error' or ''}">
 			                      <label class="col-md-3 col-sm-4 control-label" style="width:25%" for="product_subscription_id">Subscription</label>
@@ -104,10 +111,17 @@
 					                </div>
 					            </div>						           
 					            
-					            <div t-attf-class="form-group #{error and 'company' in error and 'has-error' or ''}">
+					            <div name="company" t-attf-class="form-group #{error and 'company' in error and 'has-error' or ''}">
 					                <label class="col-md-3 col-sm-4 control-label" for="company">Company</label>
 					                <div class="col-md-7 col-sm-8">
 					                    <input type="text" class="form-control mandatory-field" name="company" t-attf-value="#{company or ''}"/>
+					                </div>
+					            </div>
+
+					            <div name="vat_number" t-attf-class="form-group #{error and 'vat_number' in error and 'has-error' or ''}">
+					                <label class="col-md-3 col-sm-4 control-label" for="vat_number">VAT number</label>
+					                <div class="col-md-7 col-sm-8">
+					                    <input type="text" class="form-control mandatory-field" name="vat_number" t-attf-value="#{vat_number or ''}"/>
 					                </div>
 					            </div>
 					           	
