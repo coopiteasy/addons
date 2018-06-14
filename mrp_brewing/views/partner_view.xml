@@ -11,8 +11,10 @@
             </xpath>
             	<field name="email" position="after">
             		<field name="last_order"/>
-                <field name='last_contact_date'/>
-                <field name='sale_frequency'/>
+                    <field name='last_contact_date'/>
+                    <field name='sale_frequency'/>
+                    <field name='crate_per_order'/>
+                    <field name='crate_per_month'/>
             	</field>
             </field>
         </record>
@@ -24,8 +26,10 @@
             <field name="arch" type="xml">
             	<field name="category_id" position="before">
             		<field name="last_order"/>
-                <field name='last_contact_date'/>
-                <field name='last_contact_comment'/>
+                    <field name='last_contact_date'/>
+                    <field name='last_contact_comment'/>
+            		<field name="crate_per_order"/>
+            		<field name="crate_per_month"/>
             	</field>
             </field>
         </record>
