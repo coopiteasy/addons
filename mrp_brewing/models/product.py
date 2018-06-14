@@ -10,6 +10,7 @@ class ProductTemplate(models.Model):
     raw_material = fields.Boolean(string="Is raw material")
     finished_product = fields.Boolean(string="Is finished product")
     is_brewable = fields.Boolean(string="Is brewable")
+    is_crate = fields.Boolean(string="Is Crate", default=False)
     brew_product_sequence = fields.Many2one('ir.sequence', string="Brew product sequence")
     
     

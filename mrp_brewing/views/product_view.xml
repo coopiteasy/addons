@@ -30,6 +30,10 @@
                         <field name="is_brewable"/>
                         <label for="is_brewable"/>
                     </div>
+                    <div>
+                        <field name="is_crate"/>
+                        <label for="is_crate"/>
+                    </div>
                 </xpath>
                 <field name="type" position="after">
                 	<field name="brew_product_sequence" attrs="{'invisible':[('is_brewable','=',False)],'required':[('is_brewable','=',True)]}"/>
