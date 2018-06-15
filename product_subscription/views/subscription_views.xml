@@ -109,6 +109,7 @@
 			                    <field name="price"/>
 			                    <field name="product_qty"/>
 			                    <field name="description"/>
+			                    <field name="journal"/>
 			               	</group>
 		               	</group>
 		            </sheet>

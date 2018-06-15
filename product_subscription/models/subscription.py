@@ -30,6 +30,7 @@ class SubscriptionTemplate(models.Model):
     product = fields.Many2one('product.template', string='Product', 
                               domain=[('subscription','=',True)],required=True)
     analytic_distribution = fields.Many2one('account.analytic.distribution', string="Analytic distribution")
+    journal = fields.Many2one('account.journal',string='Journal',required=True,domain=[('type','=','sale')])
 
 class SubscriptionRequest(models.Model):
     _name = "product.subscription.request"
@@ -89,6 +90,7 @@ class SubscriptionRequest(models.Model):
         # creating invoice and invoice lines
         vals.update({'partner_id':partner.id, 
                 'subscription':True,
+                'journal_id':self.subscription_template.journal.id,
                 'type': 'out_invoice'})
         
         invoice = self.env['account.invoice'].create(vals)
