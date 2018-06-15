@@ -15,6 +15,7 @@ class ResPartner(models.Model):
 
     is_guide = fields.Boolean(string="Guide")
     is_trainer = fields.Boolean(string="Trainer")
+    is_partner = fields.Boolean(string="Partner")
     resource_activities = fields.One2many('resource.activity','partner_id', string="Activities")
     activity_count = fields.Integer(string='# of Activities', compute=_resource_activity_count)
 
