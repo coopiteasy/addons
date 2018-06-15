@@ -30,6 +30,7 @@
     ],
     "author": "Houssine BAKKALI <houssine@coopiteasy.be>",
     "category": "Sales",
+    "website": "www.coopiteasy.be",
     "description": """
     This module manages the subscription for a quantity of product 
     for which we need to invoice the whole amount at the subscription time
