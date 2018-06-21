@@ -19,6 +19,7 @@
            		</field>
             	<group name="technical" position="after">
             		<group name="activity" string="Activity" attrs="{'invisible':[('activity_sale','=',False)]}">
+	            		<field name="description"/>
 	            		<field name="departure"/>
 	            		<field name="arrival"/>
 	            		<field name="duration"/>
@@ -29,6 +30,8 @@
 	            		<field name="need_delivery" />
 	            		<field name="delivery_place" attrs="{'invisible':[('need_delivery','=',False)]}"/>
 	            		<field name="delivery_time" attrs="{'invisible':[('need_delivery','=',False)]}"/>
+	            		<field name="pickup_place" attrs="{'invisible':[('need_delivery','=',False)]}"/>
+	            		<field name="pickup_time" attrs="{'invisible':[('need_delivery','=',False)]}"/>
             		</group>
             	</group>
             </field>
