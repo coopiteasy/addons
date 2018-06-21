@@ -290,6 +290,7 @@ class ResourceActivity(models.Model):
             order_vals = {
                 'partner_id': activity.partner_id.id,
                 'activity_id': activity.id,
+                'project_id': activity.analytic_account.id,
                 'activity_sale': True,
                 }
             
@@ -348,6 +349,7 @@ class ResourceActivity(models.Model):
             if activity.sale_order_id:
                 bike_qty = 0
                 # handling resource reservation here
+                activity.sale_order_id.project_id = activity.analytic_account
                 for registration in activity.registrations:
                     bike_qty += registration.quantity_needed
                     if registration.need_push:
@@ -408,6 +410,8 @@ class ResourceActivity(models.Model):
                 if 'need_participation' in vals:
                     if not vals.get('need_participation'):
                         vals['need_participation'] = False
+                    vals['need_push'] = True
+                if 'activity_type' in vals:
                     vals['need_push'] = True
         return super(ResourceActivity,self).write(vals)
 
