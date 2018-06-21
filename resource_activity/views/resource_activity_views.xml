@@ -151,6 +151,9 @@
 	            			<page name="trainers" string="Trainers">
 	            				<field name="trainers"/>
 	            			</page>
+	            			<page name="booked_resources" string="Booked resources">
+	            				<field name="booked_resources"/>
+	            			</page>
 	            		</notebook>
 					</sheet>
 					<div class="oe_chatter">
