@@ -19,6 +19,14 @@
                     <strong>Type:</strong>
                     <p t-field="doc.activity_type"/>
                 </div>
+                <div name="arrival" t-if="doc.arrival" class="col-xs-3">
+                    <strong>Type:</strong>
+                    <p t-field="doc.arrival"/>
+                </div>
+                <div name="departure" t-if="doc.departure" class="col-xs-3">
+                    <strong>Type:</strong>
+                    <p t-field="doc.departure"/>
+                </div>
                 <div name="delivery_place" t-if="doc.delivery_place" class="col-xs-3">
                     <strong>Delivery place:</strong>
                     <p t-field="doc.delivery_place"/>
@@ -44,6 +52,14 @@
                     <t t-foreach="doc.langs" t-as="lang">
                         <t t-if="lang">                 
                             <div t-field="lang.name"/>
+                        </t>                                  
+                    </t>
+                </div>
+                <div name="resources" t-if="doc.activity_id.booked_resources" class="col-xs-3">
+                    <strong>Resources booked:</strong>
+                    <t t-foreach="doc.activity_id.booked_resources" t-as="booked_resources">
+                        <t t-if="booked_resources">                 
+                            <div t-field="booked_resources.name"/>
                         </t>                                  
                     </t>
                 </div>
