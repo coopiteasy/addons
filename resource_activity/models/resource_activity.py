@@ -281,11 +281,18 @@ class ResourceActivity(models.Model):
                 'context': self._context,
                 'res_model': action.res_model,
             }
-    
+
+    def create_order_line(self, line_vals, order_id, product, qty):
+        line_vals['order_id'] = order_id.id
+        line_vals['product_id'] = product.id
+        line_vals['product_uom_qty'] = qty
+        line_vals['product_uom'] = product.uom_id.id
+
+        return self.env['sale.order.line'].create(line_vals)
+
     @api.multi
     def create_sale_order(self):
         order_obj = self.env['sale.order']
-        line_obj = self.env['sale.order.line']
         for activity in self:
             order_vals = {
                 'partner_id': activity.partner_id.id,
@@ -298,34 +305,28 @@ class ResourceActivity(models.Model):
             self.write({'sale_order_id': order_id.id, 'state':'quotation'})
             no_bike_qty = 0
             bike_qty = 0
-            line_vals= {'order_id':order_id.id}
             
             for registration in activity.registrations:
-                line_vals['product_id'] = registration.product_id.id
-                line_vals['product_uom_qty'] = registration.quantity_needed
-                line_vals['product_uom'] = registration.product_id.uom_id.id
-                
                 no_bike_qty += registration.quantity - registration.quantity_needed
                 bike_qty += registration.quantity_needed
-                
-                line_id = line_obj.create(line_vals)
+                line_vals = {}
+                line_id = self.create_order_line(line_vals, order_id, registration.product_id, registration.quantity_needed)
                 line_id.update_line()
                 registration.order_line_id = line_id
             
             if activity.need_delivery:
-                line_vals['product_id'] = activity.delivery_product_id.id
-                line_vals['product_uom_qty'] = bike_qty
-                line_vals['product_uom'] = activity.delivery_product_id.uom_id.id
-                line_vals['resource_delivery'] = True
-                line_id = line_obj.create(line_vals)
+                line_vals = {'resource_delivery': True}
+                line_id = self.create_order_line(line_vals, order_id, activity.delivery_product_id, bike_qty)
                 line_id.update_line()
             
             if activity.need_guide:
-                line_vals['product_id'] = activity.guide_product_id.id
-                line_vals['product_uom_qty'] = len(activity.guides)
-                line_vals['product_uom'] = activity.guide_product_id.uom_id.id
-                line_vals['resource_guide'] = True
-                line_id = line_obj.create(line_vals)
+                line_vals = {'resource_guide': True}
+                line_id = self.create_order_line(line_vals, order_id, activity.guide_product_id, len(activity.guides))
+                line_id.update_line()
+
+            if activity.need_participation:
+                line_vals = {'participation_line': True}
+                line_id = self.create_order_line(line_vals, order_id, activity.participation_product_id, activity.registrations_expected)
                 line_id.update_line()
 
     @api.multi
