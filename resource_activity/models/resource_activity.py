@@ -73,9 +73,9 @@ class ResourceActivity(models.Model):
         for activity in self:
             booked_resources = []
             for registration in activity.registrations:
-                res_ids = registration.allocations.filtered(lambda record: record.state in ['option','booked']).resource_id.ids
+                res_ids = registration.allocations.filtered(lambda record: record.state in ['option','booked']).mapped('resource_id').ids
                 if res_ids:
-                    booked_resources.append(res_ids[0])
+                    booked_resources = booked_resources + res_ids
             activity.booked_resources = booked_resources
 
     name = fields.Char(string="Name", copy=False)
