@@ -36,6 +36,7 @@ class ResourceActivityType(models.Model):
     name = fields.Char(string="Type", required=True)
     code = fields.Char(string="Code")
     analytic_account = fields.Many2one('account.analytic.account', string="Analytic account", groups="analytic.group_analytic_accounting")
+    product_ids = fields.Many2many('product.product', string="Product")
 
 class ResourceActivityTheme(models.Model):
     _name = 'resource.activity.theme'
@@ -500,6 +501,7 @@ class ActivityRegistration(models.Model):
     bring_bike = fields.Boolean(string="Bring his bike")
     registrations_max = fields.Integer(string="Maximum registration")
     registrations_expected = fields.Integer(string="Expected registration")
+    activity_type = fields.Many2one('resource.activity.type', string="Activity type")
     need_push = fields.Boolean(string="Need to be pushed to sales order", compute='_compute_need_push', store=True)
 
     def create_resource_available(self, resource_ids, registration):
