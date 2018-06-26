@@ -90,9 +90,9 @@ class ResourceActivity(models.Model):
     location_id = fields.Many2one('resource.location', string="Location", required=True)
     sale_order_id = fields.Many2one('sale.order', string="Sale order", readonly=True, copy=False)
     state = fields.Selection([('draft','Draft'),
-                              ('done','Done'),
                               ('quotation','Quotation'),
                               ('sale','Sale'),
+                              ('done','Done'),
                               ('cancelled','Cancelled')], string="State", default='draft')
     date_lock = fields.Date(string="Date lock")
     booking_type = fields.Selection([('option','Option'),
