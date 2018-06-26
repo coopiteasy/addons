@@ -90,7 +90,6 @@ class ResourceActivity(models.Model):
     location_id = fields.Many2one('resource.location', string="Location", required=True)
     sale_order_id = fields.Many2one('sale.order', string="Sale order", readonly=True, copy=False)
     state = fields.Selection([('draft','Draft'),
-                              ('confirmed','Confirmed'),
                               ('done','Done'),
                               ('quotation','Quotation'),
                               ('sale','Sale'),
@@ -230,22 +229,6 @@ class ResourceActivity(models.Model):
         
                 elif date_end == date_start:
                     activity.duration = str(delta_time.seconds / 3600) + " hour(s) " + str(delta_time.seconds % 3600 // 60) +" minute(s)" 
-                    
-            
-    @api.multi
-    def action_confirm(self):
-        vals = {'state': 'confirmed'}
-        res_acti_seq = self.env.ref('resource_activity.sequence_resource_activity', False)
-        
-        for activity in self:
-            options = activity.registrations.filtered(lambda record: record.booking_type in ['option'])
-            options.allocations.action_confirm()
-            options.write({'booking_type':'booked', 'date_lock': None})
-            
-            if activity.name == '' or not activity.name:
-                vals['name'] = res_acti_seq.next_by_id()
-            
-            activity.write(vals)
 
     @api.multi
     def search_all_resources(self):
@@ -340,10 +323,21 @@ class ResourceActivity(models.Model):
 
     @api.multi        
     def action_sale_order(self):
+        res_acti_seq = self.env.ref('resource_activity.sequence_resource_activity', False)
         for activity in self:
+            vals = {}
+            if activity.name == '' or not activity.name:
+                vals['name'] = res_acti_seq.next_by_id()
+
             if activity.sale_order_id:
                 activity.sale_order_id.with_context(activity_action=True).action_confirm()
-                activity.state = 'sale'
+                vals['state'] = 'sale'
+            
+            activity.write(vals)
+            
+            options = activity.registrations.filtered(lambda record: record.booking_type in ['option'])
+            options.allocations.action_confirm()
+            options.write({'booking_type':'booked', 'date_lock': None})
 
     @api.multi            
     def push_changes_2_sale_order(self):
