@@ -324,7 +324,7 @@ class ResourceActivity(models.Model):
     def action_sale_order(self):
         res_acti_seq = self.env.ref('resource_activity.sequence_resource_activity', False)
         for activity in self:
-            vals = {}
+            vals = {'booking_type':'booked'}
             if activity.name == '' or not activity.name:
                 vals['name'] = res_acti_seq.next_by_id()
 
@@ -335,8 +335,9 @@ class ResourceActivity(models.Model):
             activity.write(vals)
 
             options = activity.registrations.filtered(lambda record: record.booking_type in ['option'])
-            options.allocations.action_confirm()
-            options.write({'booking_type':'booked', 'date_lock': None})
+            for option in options:
+                option.allocations.action_confirm()
+                option.write({'booking_type':'booked','state':'booked','date_lock': None})
 
     @api.multi            
     def push_changes_2_sale_order(self):
