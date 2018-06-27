@@ -27,12 +27,15 @@
 	            		<field name="registrations_expected"/>
 	            		<field name="activity_type"/>
 	            		<field name="activity_theme"/>
-	            		<field name="need_delivery" />
+	            		<field name="need_delivery"/>
 	            		<field name="delivery_place" attrs="{'invisible':[('need_delivery','=',False)]}"/>
 	            		<field name="delivery_time" attrs="{'invisible':[('need_delivery','=',False)]}"/>
 	            		<field name="pickup_place" attrs="{'invisible':[('need_delivery','=',False)]}"/>
 	            		<field name="pickup_time" attrs="{'invisible':[('need_delivery','=',False)]}"/>
             		</group>
+	            	<group colspan="4">
+	            		<field name="booked_resources"/>
+	            	</group>
             	</group>
             </field>
         </record>

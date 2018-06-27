@@ -22,10 +22,11 @@ class SaleOrder(models.Model):
     activity_theme = fields.Many2one(related="activity_id.activity_theme", string="Activity theme", readonly=True)
     need_delivery = fields.Boolean(related="activity_id.need_delivery", string="Need delivery?", readonly=True)
     delivery_place = fields.Char(related="activity_id.delivery_place", string="Delivery place", readonly=True)
-    pickup_place = fields.Char(related="activity_id.pickup_place", string="Delivery place", readonly=True)
+    delivery_time = fields.Datetime(related="activity_id.delivery_time", string="Delivery time", readonly=True)
+    pickup_place = fields.Char(related="activity_id.pickup_place", string="Pick up place", readonly=True)
     pickup_time = fields.Datetime(related="activity_id.pickup_time", string="Pick up time", readonly=True)
-    delivery_time = fields.Datetime(related="activity_id.delivery_time", string="Pick up time", readonly=True)
     description = fields.Char(related="activity_id.description",string="Description", readonly=True)
+    booked_resources = fields.One2many('resource.resource', related='activity_id.booked_resources', readonly=True)
 
     @api.multi
     def action_draft(self):
