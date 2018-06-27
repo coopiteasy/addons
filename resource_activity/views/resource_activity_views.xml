@@ -146,10 +146,10 @@
 	            					<group>
 	            					</group>
 	            				</group>
-	            				<field name="guides"/>
+	            				<field name="guides" domain="[('resource_location_guide','=',location_id)]"/>
 	            			</page>
 	            			<page name="trainers" string="Trainers">
-	            				<field name="trainers"/>
+	            				<field name="trainers"  domain="[('resource_location_trainer','=',location_id)]"/>
 	            			</page>
 	            			<page name="booked_resources" string="Booked resources">
 	            				<field name="booked_resources"/>
