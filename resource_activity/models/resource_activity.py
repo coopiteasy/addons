@@ -13,48 +13,47 @@ def _pd(dt):
     return datetime.strptime(dt, DTF) if dt else dt
 
 
-class ResPartner(models.Model):
-    _inherit = 'res.partner'
-
-    resource_location_guide = fields.Many2one('resource.location', string="Guide Location")
-    resource_location_trainer = fields.Many2one('resource.location', string="Trainer location")
-
 class ResourceLocation(models.Model):
     _inherit = 'resource.location'
 
     guides = fields.One2many('res.partner','resource_location_guide', domain=[('is_guide','=',True)], string="Guides")
     trainers = fields.One2many('res.partner','resource_location_trainer', domain=[('is_trainer','=',True)], string="Trainers")
 
+
 class ResourceAllocation(models.Model):
     _inherit = 'resource.allocation'
 
     activity_registration_id = fields.Many2one('resource.activity.registration', string="Activity registration")
 
+
 class ResourceActivityType(models.Model):
     _name = 'resource.activity.type'
-    
+
     name = fields.Char(string="Type", required=True)
     code = fields.Char(string="Code")
     analytic_account = fields.Many2one('account.analytic.account', string="Analytic account", groups="analytic.group_analytic_accounting")
     product_ids = fields.Many2many('product.product', string="Product")
 
+
 class ResourceActivityTheme(models.Model):
     _name = 'resource.activity.theme'
-    
+
     name = fields.Char(string="Type", required=True)
     code = fields.Char(string="Code")
 
+
 class ResourceActivityLang(models.Model):
     _name = 'resource.activity.lang'
-    
+
     name = fields.Char(string="Lang", required=True)
     code = fields.Char(string="Code")
-    
+
+
 class ResourceActivity(models.Model):
     _name = 'resource.activity'
 
     _inherit = ['mail.thread']
-    
+
     @api.multi
     @api.depends('registrations.need_push')
     def _compute_push2sale_order(self):
@@ -67,7 +66,7 @@ class ResourceActivity(models.Model):
                     flag = True
 
             activity.need_push = flag
-    
+
     @api.multi
     def _compute_booked_resources(self):
         for activity in self:
@@ -143,7 +142,7 @@ class ResourceActivity(models.Model):
         if self.location_id and self.location_id.address:
             self.departure = self.location_id.address._display_address(self.location_id.address)
             self.arrival = self.location_id.address._display_address(self.location_id.address)
-    
+
     @api.onchange('booking_type')
     def onchange_booking_type(self):
         if self.booking_type == 'booked':
@@ -211,22 +210,22 @@ class ResourceActivity(models.Model):
     def _compute_duration(self):
         period = timedelta(days=1)
         period_time = timedelta(hours=24)
-        
+
         for activity in self:
             if activity.date_start and activity.date_end and activity.date_start < activity.date_end:
                 datetime_end = datetime.strptime(activity.date_end, DTF)
                 datetime_start = datetime.strptime(activity.date_start, DTF)
                 date_end = datetime_end.date()
                 date_start = datetime_start.date()
-                
+
                 delta_time = datetime_end - datetime_start
-                
+
                 if date_end > date_start:
                     delta = date_end - date_start
                     if delta_time > period_time: 
                         delta += period
                     activity.duration = str(delta.days) + " day(s)"
-        
+
                 elif date_end == date_start:
                     activity.duration = str(delta_time.seconds / 3600) + " hour(s) " + str(delta_time.seconds % 3600 // 60) +" minute(s)" 
 
@@ -234,7 +233,7 @@ class ResourceActivity(models.Model):
     def search_all_resources(self):
         for activity in self:
             activity.registrations.search_resources()
-    
+
     @api.multi
     def reserve_needed_resource(self):
         for activity in self:
@@ -243,7 +242,7 @@ class ResourceActivity(models.Model):
     @api.multi
     def action_done(self):
         self.state = 'done'          
-    
+
     @api.multi
     def action_draft(self):
         self.state = 'draft'
@@ -254,7 +253,7 @@ class ResourceActivity(models.Model):
         for activity in self:
             activity.registrations.action_cancel()
             activity.state = 'cancelled'
-            
+
             return {
                 'name': action.name,
                 'help': action.help,
@@ -284,12 +283,12 @@ class ResourceActivity(models.Model):
                 'project_id': activity.analytic_account.id,
                 'activity_sale': True,
                 }
-            
+
             order_id = order_obj.create(order_vals)
             self.write({'sale_order_id': order_id.id, 'state':'quotation'})
             no_bike_qty = 0
             bike_qty = 0
-            
+
             for registration in activity.registrations:
                 no_bike_qty += registration.quantity - registration.quantity_needed
                 bike_qty += registration.quantity_needed
@@ -297,12 +296,12 @@ class ResourceActivity(models.Model):
                 line_id = self.create_order_line(line_vals, order_id, registration.product_id, registration.quantity_needed)
                 line_id.update_line()
                 registration.order_line_id = line_id
-            
+
             if activity.need_delivery:
                 line_vals = {'resource_delivery': True}
                 line_id = self.create_order_line(line_vals, order_id, activity.delivery_product_id, bike_qty)
                 line_id.update_line()
-            
+
             if activity.need_guide:
                 line_vals = {'resource_guide': True}
                 line_id = self.create_order_line(line_vals, order_id, activity.guide_product_id, len(activity.guides))
@@ -332,9 +331,9 @@ class ResourceActivity(models.Model):
             if activity.sale_order_id:
                 activity.sale_order_id.with_context(activity_action=True).action_confirm()
                 vals['state'] = 'sale'
-            
+
             activity.write(vals)
-            
+
             options = activity.registrations.filtered(lambda record: record.booking_type in ['option'])
             options.allocations.action_confirm()
             options.write({'booking_type':'booked', 'date_lock': None})
@@ -371,7 +370,7 @@ class ResourceActivity(models.Model):
                 self.update_order_line(activity.sale_order_id, activity.need_participation, line_vals, participation_line, activity.registrations_expected, activity.participation_product_id)
 
             activity.need_push = False
-    
+
     def update_order_line(self, order_id, need_resource, line_vals, resource_line, resource_qty, resource_product_id):
         if need_resource:
             line_vals['product_uom_qty'] = resource_qty
@@ -423,7 +422,7 @@ class ResourceActivity(models.Model):
 
 class ActivityRegistration(models.Model):
     _name = 'resource.activity.registration'
-    
+
     def _get_activity_booking_type(self):
         if self.resource_activity_id.booking_type:
             self.booking_type = self.resource_activity_id.booking_type
@@ -478,7 +477,6 @@ class ActivityRegistration(models.Model):
     resources_available = fields.One2many('resource.available','registration_id',string="Resource available")
     allocations = fields.One2many('resource.allocation', 'activity_registration_id',
                                   string="Activity registration")
-
     date_lock = fields.Date(string="Date lock")
     booking_type = fields.Selection([('option','Option'),
                                       ('booked','Booking')],string="Booking type", required=True)
@@ -536,7 +534,7 @@ class ActivityRegistration(models.Model):
                 if resource_available.resource_id.id not in still_avai_res:
                     resource_available.state = 'not_free'
         return True
-    
+
     @api.multi
     def reserve_needed_resource(self):
         self.action_refresh()
@@ -555,11 +553,11 @@ class ActivityRegistration(models.Model):
             for resource_available in registration.resources_available:
                 resource_available.action_cancel()
             registration.write({'state':'cancelled','quantity_needed':0})
-    
+
     @api.multi
     def action_draft(self):
         self.write({'state':'draft'})
-    
+
     @api.multi
     def unlink(self):
         for registration in self:
@@ -575,7 +573,7 @@ class ActivityRegistration(models.Model):
                 self.state = self.booking_type
             elif self.state != 'draft' and self.quantity_allocated < self.quantity:
                 self.state= 'waiting'
-    
+
     @api.multi
     def view_registration_form(self):
         self.action_refresh()
@@ -652,6 +650,6 @@ class ResourceAvailable(models.Model):
             if self.registration_id.quantity_needed > self.registration_id.quantity_allocated:
                 self.registration_id.state = 'waiting'
         self.state = 'cancelled'
-        
+
         return True
 
