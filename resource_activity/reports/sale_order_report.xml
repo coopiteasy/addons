@@ -20,11 +20,11 @@
                     <p t-field="doc.activity_type"/>
                 </div>
                 <div name="arrival" t-if="doc.arrival" class="col-xs-3">
-                    <strong>Type:</strong>
+                    <strong>Arrival:</strong>
                     <p t-field="doc.arrival"/>
                 </div>
                 <div name="departure" t-if="doc.departure" class="col-xs-3">
-                    <strong>Type:</strong>
+                    <strong>Departure:</strong>
                     <p t-field="doc.departure"/>
                 </div>
                 <div name="delivery_place" t-if="doc.delivery_place" class="col-xs-3">
