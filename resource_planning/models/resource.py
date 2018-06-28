@@ -70,14 +70,13 @@ class Resource(models.Model):
         self.check_dates(date_start, date_end)
         available_resources = self.filtered(lambda r: r.state == 'available')
         if location:
-            available_resources = available_resources.filtered(lambda r: r.location.id ==  location.id)
+            available_resources = available_resources.filtered(lambda r: r.location.id == location.id)
         available_resources_ids = available_resources.ids
 
         # assert start < end
         conflicting_allocation_domain = [
             ('resource_id', 'in', available_resources_ids),
             ('state', '!=', 'cancel'),
-            ('date_end', '>=', fields.Datetime.now()),
             '!',
                 '|', ('date_end', '<=', date_start),
                      ('date_start', '>=', date_end)
