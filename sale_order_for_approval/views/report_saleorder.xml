@@ -6,7 +6,8 @@
             <div class="col-xs-5" style="position:absolute;top:850px; page-break-inside: avoid;">
                 <strong>For approval</strong> <br/>
                 Last Name and First Name <br/>
-                Date
+                Date <br/>
+                Signature<br/>
             </div>
         </div>
     </template>
