@@ -294,6 +294,11 @@ class ResourceActivity(models.Model):
             customers = {}
             for registration in activity.registrations:
                 if not activity.partner_id:
+                    order_vals = {
+                        'activity_id': activity.id,
+                        'project_id': activity.analytic_account.id,
+                        'activity_sale': True,
+                    }
                     attendee_id = registration.attendee_id.id
                     if not customers.has_key(attendee_id):
                         order_vals['partner_id'] = attendee_id
