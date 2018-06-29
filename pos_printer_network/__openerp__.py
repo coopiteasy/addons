@@ -15,7 +15,7 @@
     "currency": "EUR",
 
     "depends": [
-        "pos_restaurant_base",
+      #  "pos_restaurant_base",
     ],
     "external_dependencies": {"python": [], "bin": []},
     "data": [
