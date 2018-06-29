@@ -106,7 +106,7 @@
 								<field name="departure"/>
 								<field name="arrival"/>
 								<field name="langs" options="{'no_create': True}" widget='many2many_tags'/>
-								<field name="sale_order_id"/>
+								<field name="sale_order_id" attrs="{'invisible':[('sale_order_id','=',False)]}"/>
 								<field name="comment"/>
 								<field name="need_push" invisible="True"/>
 							</group>
@@ -154,6 +154,9 @@
 	            			</page>
 	            			<page name="booked_resources" string="Booked resources">
 	            				<field name="booked_resources"/>
+	            			</page>
+	            			<page name="sale_orders" string="Sale orders" attrs="{'invisible':[('sale_orders','=',False)]}">
+	            				<field name="sale_orders"/>
 	            			</page>
 	            		</notebook>
 					</sheet>

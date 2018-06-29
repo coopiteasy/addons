@@ -77,6 +77,11 @@ class ResourceActivity(models.Model):
                     booked_resources = booked_resources + res_ids
             activity.booked_resources = booked_resources
 
+    @api.multi
+    def _compute_sale_orders(self):
+        for activity in self:
+            activity.sale_orders = activity.registrations.mapped('sale_order_id').ids
+
     name = fields.Char(string="Name", copy=False)
     partner_id = fields.Many2one('res.partner', string="Customer", domain=[('customer','=',True)])
     delivery_product_id = fields.Many2one('product.product', string="Product delivery", domain=[('is_delivery','=',True)])
@@ -136,6 +141,7 @@ class ResourceActivity(models.Model):
                         default=lambda self: self.env['res.company']._company_default_get())
     need_push = fields.Boolean(string="Need to push to sale order", compute='_compute_push2sale_order', store=True)
     booked_resources = fields.One2many('resource.resource', string="Booked resources", compute='_compute_booked_resources')
+    sale_orders = fields.One2many('sale.order', string="Sale orders", compute='_compute_sale_orders')
 
     @api.onchange('location_id')
     def onchange_location_id(self):
