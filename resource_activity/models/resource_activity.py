@@ -278,18 +278,31 @@ class ResourceActivity(models.Model):
         order_obj = self.env['sale.order']
         for activity in self:
             order_vals = {
-                'partner_id': activity.partner_id.id,
                 'activity_id': activity.id,
                 'project_id': activity.analytic_account.id,
                 'activity_sale': True,
                 }
-
-            order_id = order_obj.create(order_vals)
-            self.write({'sale_order_id': order_id.id, 'state':'quotation'})
+            # if the whole activity is for the same customer we only create one sale order
+            if activity.partner_id:
+                order_vals['partner_id'] = activity.partner_id.id
+                order_id = order_obj.create(order_vals)
+                self.write({'sale_order_id': order_id.id, 'state':'quotation'})
+            
             no_bike_qty = 0
             bike_qty = 0
 
+            customers = {}
             for registration in activity.registrations:
+                if not activity.partner_id:
+                    attendee_id = registration.attendee_id.id
+                    if not customers.has_key(attendee_id):
+                        order_vals['partner_id'] = attendee_id
+                        order_id = order_obj.create(order_vals)
+                        customers[attendee_id] = order_id
+                    else:
+                        order_id = customers[attendee_id]
+                    registration.write({'sale_order_id': order_id.id})
+
                 no_bike_qty += registration.quantity - registration.quantity_needed
                 bike_qty += registration.quantity_needed
                 line_vals = {}
@@ -320,7 +333,7 @@ class ResourceActivity(models.Model):
                 activity.sale_order_id.with_context(activity_action=True).action_draft()
                 activity.state = 'quotation'
 
-    @api.multi        
+    @api.multi
     def action_sale_order(self):
         res_acti_seq = self.env.ref('resource_activity.sequence_resource_activity', False)
         for activity in self:
@@ -415,6 +428,7 @@ class ResourceActivity(models.Model):
     @api.depends('partner_id', 'registrations_max','registrations_expected')
     def _propagate_activity_fields_update(self):
         for activity in self:
+            vals = {}
             vals['partner_id'] = activity.partner_id
             vals['registrations_max'] = activity.registrations_max
             vals['registrations_expected'] = activity.registrations_expected
@@ -470,6 +484,7 @@ class ActivityRegistration(models.Model):
     order_line_id = fields.Many2one('sale.order.line', string="Sale order line")
     partner_id = fields.Many2one(related='resource_activity_id.partner_id')
     attendee_id = fields.Many2one('res.partner', string="Attendee", domain=[('customer','=',True)])
+    sale_order_id = fields.Many2one('sale.order', string="Sale order", readonly=True, copy=False)
     quantity = fields.Integer(string="Number of participant", default=1)
     quantity_needed = fields.Integer(string="Quantity needed", default=1)
     quantity_allocated = fields.Integer(string="Quantity allocated", readonly=True)
