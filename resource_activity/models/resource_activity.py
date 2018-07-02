@@ -60,7 +60,7 @@ class ResourceActivity(models.Model):
         # computed field in order to display or not the push to sale order button
         for activity in self:
             flag = False
-            if activity.sale_order_id:
+            if activity.sale_order_id or activity.sale_orders:
                 registrations = activity.registrations.filtered(lambda record: record.need_push == True)
                 if registrations:
                     flag = True
@@ -276,8 +276,10 @@ class ResourceActivity(models.Model):
         line_vals['product_id'] = product.id
         line_vals['product_uom_qty'] = qty
         line_vals['product_uom'] = product.uom_id.id
-
-        return self.env['sale.order.line'].create(line_vals)
+        line_id = self.env['sale.order.line'].create(line_vals)
+        line_id.update_line()
+        
+        return line_id
 
     @api.multi
     def create_sale_order(self):
@@ -314,27 +316,32 @@ class ResourceActivity(models.Model):
                         order_id = customers[attendee_id]
                     registration.write({'sale_order_id': order_id.id})
 
+                    if activity.need_delivery:
+                        line_vals = {'resource_delivery': True}
+                        line_id = self.create_order_line(line_vals, order_id, activity.delivery_product_id, registration.quantity_needed)
+    
+                    if activity.need_participation:
+                        line_vals = {'participation_line': True}
+                        line_id = self.create_order_line(line_vals, order_id, activity.participation_product_id, activity.quantity)
+
                 no_bike_qty += registration.quantity - registration.quantity_needed
                 bike_qty += registration.quantity_needed
                 line_vals = {}
                 line_id = self.create_order_line(line_vals, order_id, registration.product_id, registration.quantity_needed)
-                line_id.update_line()
                 registration.order_line_id = line_id
 
-            if activity.need_delivery:
-                line_vals = {'resource_delivery': True}
-                line_id = self.create_order_line(line_vals, order_id, activity.delivery_product_id, bike_qty)
-                line_id.update_line()
+            if activity.partner_id:
+                if activity.need_delivery:
+                    line_vals = {'resource_delivery': True}
+                    line_id = self.create_order_line(line_vals, order_id, activity.delivery_product_id, bike_qty)
 
-            if activity.need_guide:
-                line_vals = {'resource_guide': True}
-                line_id = self.create_order_line(line_vals, order_id, activity.guide_product_id, len(activity.guides))
-                line_id.update_line()
+                if activity.need_guide:
+                    line_vals = {'resource_guide': True}
+                    line_id = self.create_order_line(line_vals, order_id, activity.guide_product_id, len(activity.guides))
 
-            if activity.need_participation:
-                line_vals = {'participation_line': True}
-                line_id = self.create_order_line(line_vals, order_id, activity.participation_product_id, activity.registrations_expected)
-                line_id.update_line()
+                if activity.need_participation:
+                    line_vals = {'participation_line': True}
+                    line_id = self.create_order_line(line_vals, order_id, activity.participation_product_id, activity.registrations_expected)
 
     @api.multi
     def action_quotation(self):
@@ -390,9 +397,40 @@ class ResourceActivity(models.Model):
 
                 self.update_order_line(activity.sale_order_id, activity.need_guide, line_vals, guide_line, guide_qty,  activity.guide_product_id)
 
+                # handling participation here
                 participation_line = activity.sale_order_id.order_line.filtered(lambda record: record.participation_line == True)
                 line_vals = {'participation_line':True}
                 self.update_order_line(activity.sale_order_id, activity.need_participation, line_vals, participation_line, activity.registrations_expected, activity.participation_product_id)
+            elif activity.sale_orders:
+                # if the activity is spread on several sale orders
+                needed_res = {}
+                participations = {}
+
+                for registration in activity.registrations:
+                    registration.sale_order_id.project_id = activity.analytic_account
+                    attendee_id = registration.attendee_id.id
+                    
+                    if needed_res.has_key(attendee_id):
+                        needed_res[attendee_id] += registration.quantity_needed
+                        participations[attendee_id] += registration.quantity
+                    else:
+                        needed_res[attendee_id] = registration.quantity_needed
+                        participations[attendee_id] = registration.quantity
+                    if registration.need_push:
+                        line_vals = {}
+                        self.update_order_line(registration.sale_order_id, True, line_vals, registration.order_line_id, needed_res[attendee_id], registration.product_id)
+                        registration.need_push = False
+
+                    # handling delivery here        
+                    delivery_line = registration.sale_order_id.order_line.filtered(lambda record: record.resource_delivery == True)
+                    line_vals = {'resource_delivery': True}
+    
+                    self.update_order_line(registration.sale_order_id, activity.need_delivery, line_vals, delivery_line, needed_res[attendee_id], activity.delivery_product_id)
+
+                    # handling participation here
+                    participation_line = registration.sale_order_id.order_line.filtered(lambda record: record.participation_line == True)
+                    line_vals = {'participation_line':True}
+                    self.update_order_line(registration.sale_order_id, activity.need_participation, line_vals, participation_line, participations[attendee_id], activity.participation_product_id)
 
             activity.need_push = False
 
@@ -414,7 +452,7 @@ class ResourceActivity(models.Model):
     @api.multi
     def write(self,vals):
         for activity in self:
-            if activity.sale_order_id:
+            if activity.sale_order_id or activity.sale_orders:
                 if 'need_delivery' in vals:
                     if not vals.get('need_delivery'):
                         vals['delivery_place'] = ''
@@ -488,7 +526,7 @@ class ActivityRegistration(models.Model):
     @api.depends('quantity_needed', 'product_id')
     def _compute_need_push(self):
         for registration in self:
-            if registration.resource_activity_id.sale_order_id:
+            if registration.resource_activity_id.sale_order_id or registration.sale_order_id:
                 registration.need_push = True
 
     resource_activity_id = fields.Many2one('resource.activity',string="Activity")
