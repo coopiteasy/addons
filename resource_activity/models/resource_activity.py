@@ -300,7 +300,7 @@ class ResourceActivity(models.Model):
             bike_qty = 0
 
             customers = {}
-            for registration in activity.registrations:
+            for registration in activity.registrations.filtered(lambda record: record.state != 'cancelled'):
                 if not activity.partner_id:
                     order_vals = {
                         'activity_id': activity.id,
@@ -378,7 +378,9 @@ class ResourceActivity(models.Model):
                 # handling resource reservation here
                 activity.sale_order_id.project_id = activity.analytic_account
                 for registration in activity.registrations:
-                    bike_qty += registration.quantity_needed
+                    if registration.state != 'cancelled':
+                        bike_qty += registration.quantity_needed
+
                     if registration.need_push:
                         line_vals = {}
                         self.update_order_line(activity.sale_order_id, True, line_vals, registration.order_line_id, registration.quantity_needed, registration.product_id)
@@ -523,7 +525,7 @@ class ActivityRegistration(models.Model):
             self.date_lock = None
 
     @api.multi
-    @api.depends('quantity_needed', 'product_id')
+    @api.depends('quantity_needed', 'product_id','state')
     def _compute_need_push(self):
         for registration in self:
             if registration.resource_activity_id.sale_order_id or registration.sale_order_id:
@@ -712,8 +714,11 @@ class ResourceAvailable(models.Model):
         allocation.action_cancel()
         if self.state == 'selected':
             self.registration_id.quantity_allocated -= 1
-            if self.registration_id.quantity_needed > self.registration_id.quantity_allocated:
+            if self.registration_id.quantity_needed > self.registration_id.quantity_allocated \
+                and self.registration_id.quantity_allocated > 0:
                 self.registration_id.state = 'waiting'
+            elif self.registration_id.quantity_allocated == 0:
+                self.registration_id.state = 'cancelled'
         self.state = 'cancelled'
 
         return True
