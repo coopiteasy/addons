@@ -10,6 +10,7 @@
     'category': 'Sales',
     'version': '9.0.1.0.0',
     'license': 'AGPL-3',
+    'website': 'www.coopiteasy.be',
     'depends': ['product'],
     'data': [
     'views/product_view.xml',         
