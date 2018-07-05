@@ -13,12 +13,12 @@
     'description': """
     """,
 
-    'author': 'Rémy Taymans',
+    'author': 'Coop IT Easy, Rémy Taymans',
     'license': 'AGPL-3',
     'version': '9.0.1.0',
-    'website': "https://github.com/houssine78/addons",
+    'website': "https://coopiteasy.be",
 
-    'category': '',
+    'category': 'Partner Management',
 
     'depends': [
         'base',
