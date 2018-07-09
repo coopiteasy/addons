@@ -39,8 +39,8 @@
     'data': [
         'security/ir.model.access.csv',
         'data/resource_activity_data.xml',
-        'views/partner_views.xml',
         'views/resource_activity_views.xml',
+        'views/partner_views.xml',
         'views/sale_views.xml',
         'views/resource_views.xml',
         'wizard/cancel_sale_order_wizard.xml',
