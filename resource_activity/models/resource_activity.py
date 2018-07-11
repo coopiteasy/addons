@@ -619,7 +619,7 @@ class ActivityRegistration(models.Model):
         for registration in self:
             for resource_available in registration.resources_available:
                 resource_available.action_cancel()
-            registration.write({'state':'cancelled','quantity_needed':0})
+            registration.write({'state':'cancelled','quantity_allocated':0})
 
     @api.multi
     def action_draft(self):
