@@ -134,7 +134,7 @@
 	            						<field name="date_lock" attrs="{'required':[('booking_type','=','option')]}"/>
 	            						<field name="state"/>
 					                    <button type="object" name="search_resources" states="draft,waiting" help="Search resources" icon="gtk-apply"/>
-					                    <button type="object" name="action_cancel" states="draft" help="Cancel" icon="gtk-cancel"/>
+					                    <button type="object" name="action_cancel" states="draft, booked, option,waiting,available" help="Cancel" icon="gtk-cancel" confirm="Are you sure you want to cancel this registration?"/>
 					                    <button type="object" name="action_draft" states="cancelled" help="Set to draft" icon="gtk-undo"/>
 	            					</tree>
 	            				</field>
@@ -241,7 +241,7 @@
 				<form>
 					<header>
 						<button type="object" name="search_resources" string="Search" states="draft,waiting,available" help="Search resources"/>
-						<button name="action_cancel" string="Cancel" type="object" states="draft, booked, option,waiting,available" confirm="Are you sure you want to cancel this registration?"/>
+						<button name="action_cancel" string="Cancel" type="object" states="draft,booked,option,waiting,available" confirm="Are you sure you want to cancel this registration?"/>
 						<field name="state" widget="statusbar"/>
 					</header>
 					<sheet>
