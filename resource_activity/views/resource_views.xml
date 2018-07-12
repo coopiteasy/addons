@@ -20,5 +20,17 @@
             	</page>
             </field>
        	</record>
+       	
+       	<record id="view_resource_allocation_activity_form" model="ir.ui.view">
+            <field name="name">resource.allocation.form</field>
+            <field name="model">resource.allocation</field>
+            <field name="inherit_id" ref="resource_planning.view_resource_allocation_form"/>
+            <field name="arch" type="xml">
+            	<field name="location" position="after">
+            		<field name="activity_id"/>
+            		<field name="activity_registration_id"/>
+            	</field>
+            </field>
+        </record>
 	</data>
 </odoo>

@@ -13,19 +13,6 @@ def _pd(dt):
     return datetime.strptime(dt, DTF) if dt else dt
 
 
-class ResourceLocation(models.Model):
-    _inherit = 'resource.location'
-
-    guides = fields.One2many('res.partner','resource_location_guide', domain=[('is_guide','=',True)], string="Guides")
-    trainers = fields.One2many('res.partner','resource_location_trainer', domain=[('is_trainer','=',True)], string="Trainers")
-
-
-class ResourceAllocation(models.Model):
-    _inherit = 'resource.allocation'
-
-    activity_registration_id = fields.Many2one('resource.activity.registration', string="Activity registration")
-
-
 class ResourceActivityType(models.Model):
     _name = 'resource.activity.type'
 
