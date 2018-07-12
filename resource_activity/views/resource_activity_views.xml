@@ -197,9 +197,12 @@
                     <field name="partner_id" string="Partner"/>
                     <field name="location_id" string="location" groups="resource_planning.group_multi_location"/>
                     <filter string="Draft" name="draft" domain="[('state','=','draft')]"/>
-                    <filter string="Option" name="option" domain="[('state','=','option')]"/>
-                    <filter string="Booked" name="booked" domain="[('state','=','booked')]"/>
+                    <filter string="Quotation" name="quotation" domain="[('state','=','quotation')]"/>
+                    <filter string="Sale order" name="sale" domain="[('state','=','sale')]"/>
+                    <filter string="Done" name="done" domain="[('state','=','done')]"/>
+                    <separator/>
                     <filter string="Not cancelled" name="not_cancelled" domain="[('state','!=','cancelled')]"/>
+                    <filter string="Cancelled" name="cancelled" domain="[('state','=','cancelled')]"/>
                     <separator/>
                     <group string="Group By...">
                         <filter name="location" string="Location" domain="[]" context="{'group_by':'location_id'}"/>
