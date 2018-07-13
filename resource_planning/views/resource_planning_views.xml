@@ -76,6 +76,11 @@
             <field name="model">resource.resource</field>
             <field name="inherit_id" ref="resource.view_resource_resource_search"/>
             <field name="arch" type="xml">
+            	<field name="resource_type" position="after">
+            		<filter name="available" string="Available" domain="[('state','in',['draft','available'])]"/>
+            		<filter name="unavailable" string="Unavailable" domain="[('state','=','unavailable')]"/>
+            	</field>
+            	<filter domain="[('active','=',False)]" position="replace"/>
                 <group expand="0" position="inside">
                 	<filter name="resource_category" string="Resource category" domain="[]" context="{'group_by':'category_id'}"/>
                 </group>
