@@ -591,7 +591,6 @@ class ActivityRegistration(models.Model):
 
     @api.multi
     def reserve_needed_resource(self):
-        self.action_refresh()
         for registration in self:
             qty_needed = registration.quantity_needed
             for resource_available in registration.resources_available.filtered(lambda record: record.state == 'free'):
@@ -599,6 +598,7 @@ class ActivityRegistration(models.Model):
                 qty_needed -=1
                 if qty_needed == 0:
                     break
+            self.resource_activity_id.registrations.action_refresh()
         return True
 
     @api.multi
@@ -670,6 +670,7 @@ class ResourceAvailable(models.Model):
     name = fields.Char(related='resource_id.serial_number',string='Name')
     resource_id = fields.Many2one('resource.resource', string="Resource", required=True)
     registration_id = fields.Many2one('resource.activity.registration', string="Registration")
+    activity_id = fields.Many2one(related='registration_id.resource_activity_id', string="Activity", readonly=True)
     state = fields.Selection([('free','Free'),
                               ('not_free','Not free'),
                               ('selected','Selected'),
@@ -692,7 +693,7 @@ class ResourceAvailable(models.Model):
                 resource_available.registration_id.state = resource_available.registration_id.booking_type
             else:
                 print "no resource found for : " + str(resource_available.resource_id.ids)
-
+            self.activity_id.registrations.action_refresh()
         return True
 
     @api.multi
