@@ -142,15 +142,15 @@
 	            			<page name="guides" string="Guides">
 	            				<group>
 	            					<group>
-	            						<field name="guide_product_id" attrs="{'required':[('need_guide','=',True)]}"/>
+	            						<field name="guide_product_id" attrs="{'required':[('need_guide','=',True)]}" options="{'no_create':True}"/>
 	            					</group>
 	            					<group>
 	            					</group>
 	            				</group>
-	            				<field name="guides" domain="[('resource_location_guide','=',location_id)]"/>
+	            				<field name="guides" domain="[('resource_location_guide','=',location_id)]" options="{'no_create':True}"/>
 	            			</page>
 	            			<page name="trainers" string="Trainers">
-	            				<field name="trainers"  domain="[('resource_location_trainer','=',location_id)]"/>
+	            				<field name="trainers"  domain="[('resource_location_trainer','=',location_id)]" options="{'no_create':True}"/>
 	            			</page>
 	            			<page name="booked_resources" string="Booked resources">
 	            				<field name="booked_resources"/>
