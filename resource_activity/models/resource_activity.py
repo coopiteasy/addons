@@ -592,7 +592,7 @@ class ActivityRegistration(models.Model):
     @api.multi
     def reserve_needed_resource(self):
         for registration in self:
-            qty_needed = registration.quantity_needed
+            qty_needed = registration.quantity_needed - registration.quantity_allocated
             for resource_available in registration.resources_available.filtered(lambda record: record.state == 'free'):
                 resource_available.action_reserve()
                 qty_needed -=1
