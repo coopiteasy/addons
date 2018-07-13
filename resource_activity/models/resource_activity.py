@@ -569,7 +569,7 @@ class ActivityRegistration(models.Model):
                     cat_resource_ids = registration.resource_category.resources.check_availabilities(registration.date_start, registration.date_end, registration.location_id)
                     self.create_resource_available(cat_resource_ids, registration)
                     
-                    if len(registration.resources_available) >= registration.quantity_needed:
+                    if len(registration.resources_available.filtered(lambda record: record.state != 'cancelled')) >= registration.quantity_needed:
                         registration.state = 'available'
                     else:
                         registration.state = 'waiting'
