@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report
+            id="product_template_label_repeat"
+            string="Same Product Labels"
+            model="product.template"
+            report_type="qweb-pdf"
+            name="product_report_v10.report_producttemplate_label_repeat"
+            file="product_report_v10.product_template_label_repeat.xml"/>
+
+        <report
+            id="report_product_template_label"
+            string="Products Labels"
+            model="product.template"
+            report_type="qweb-pdf"
+            name="product_report_v10.report_producttemplatelabel"
+            file="product_report_v10.product_template_templates.xml"/>
+    </data>
+</odoo>
