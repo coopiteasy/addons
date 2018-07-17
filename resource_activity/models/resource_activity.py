@@ -541,8 +541,9 @@ class ActivityRegistration(models.Model):
                               ('booked','Booked'),
                               ('cancelled','Cancelled')],
                              string="State", default='draft', readonly=True)
-    date_start = fields.Datetime(related='resource_activity_id.date_start', string="Date start")
-    date_end = fields.Datetime(related='resource_activity_id.date_end', string="Date end")
+    # depends of the resource type
+    date_start = fields.Datetime(related='resource_activity_id.resource_allocation_start', string="Date start")
+    date_end = fields.Datetime(related='resource_activity_id.resource_allocation_end', string="Date end")
     location_id = fields.Many2one(related='resource_activity_id.location_id', string="Location")
     bring_bike = fields.Boolean(string="Bring his bike")
     registrations_max = fields.Integer(string="Maximum registration")
@@ -566,7 +567,14 @@ class ActivityRegistration(models.Model):
                 res_to_delete.unlink()
                 if registration.resource_category: 
                     # we complete with the group resources
-                    cat_resource_ids = registration.resource_category.resources.check_availabilities(registration.date_start, registration.date_end, registration.location_id)
+                    cat_resource_ids = (
+                        registration
+                        .resource_category
+                        .resources
+                        .check_availabilities(registration.date_start,
+                                              registration.date_end,
+                                              registration.location_id)
+                    )
                     self.create_resource_available(cat_resource_ids, registration)
                     
                     if len(registration.resources_available.filtered(lambda record: record.state != 'cancelled')) >= registration.quantity_needed:
@@ -679,12 +687,16 @@ class ResourceAvailable(models.Model):
     @api.multi
     def action_reserve(self):
         for resource_available in self.filtered(lambda record: record.state == 'free'):
-            allocation_ids = resource_available.resource_id.allocate_resource(resource_available.registration_id.booking_type,
-                                                                resource_available.registration_id.date_start,
-                                                                resource_available.registration_id.date_end,
-                                                                resource_available.registration_id.attendee_id,
-                                                                resource_available.registration_id.location_id,
-                                                                resource_available.registration_id.date_lock)
+            allocation_ids = (
+                resource_available
+                .resource_id
+                .allocate_resource(resource_available.registration_id.booking_type,
+                                   resource_available.registration_id.date_start,
+                                   resource_available.registration_id.date_end,
+                                   resource_available.registration_id.attendee_id,
+                                   resource_available.registration_id.location_id,
+                                   resource_available.registration_id.date_lock)
+            )
             if allocation_ids:
                 allocations = self.env['resource.allocation'].browse(allocation_ids)
                 allocations.write({'activity_registration_id': resource_available.registration_id.id})
