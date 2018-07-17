@@ -186,6 +186,16 @@ class ResourceActivity(models.Model):
         if self.date_end < self.date_start:
             raise ValidationError("Date end can't be before date start: %s %s" % (self.date_start,self.date_end))
 
+    @api.one
+    @api.constrains('date_start', 'date_end',
+                    'resource_allocation_start', 'resource_allocation_end',
+                    'need_delivery', 'delivery_time', 'pickup_time')
+    def _activity_fields_blocked_if_resource_booked(self):
+        if self.booked_resources:
+            raise ValidationError('You cannot modify activity dates, resource allocation dates or delivery '
+                                  'information when a resource is already booked. You must either delete this '
+                                  'activity and create a new one or release all booked resources for this activity.')
+
     @api.multi
     @api.depends('registrations_max', 'registrations.state', 'registrations.quantity')
     def _compute_registrations(self):
