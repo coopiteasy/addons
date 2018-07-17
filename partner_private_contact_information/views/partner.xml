@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2018 Rémy Taymans <remytaymans@gmail.com>
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<openerp>
+  <data>
+
+    <!-- Modify Partner form view -->
+    <record id="view_partner_form" model="ir.ui.view">
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="base.view_partner_form" />
+      <field name="arch" type="xml">
+
+        <xpath expr="//field[@name='parent_id']" position="after">
+            <field name="is_vip"/>
+            <label for="is_vip" string="VIP"/>
+        </xpath>
+
+        <xpath expr="//field[@name='website']/.." position="after">
+          <group attrs="{'invisible': [('is_vip', '=', False)]}">
+              <label for="vip_street" string="Private Address"/>
+              <div class="o_address_format">
+                  <field name="vip_street" placeholder="Street..." class="o_address_street"/>
+                  <field name="vip_street2" placeholder="Street 2..." class="o_address_street"/>
+                  <field name="vip_city" placeholder="City" class="o_address_city"/>
+                  <field name="vip_state_id" class="o_address_state" placeholder="State" options='{"no_open": True}' on_change="onchange_state(state_id)"/>
+                  <field name="vip_zip" placeholder="ZIP" class="o_address_zip"/>
+                  <field name="vip_country_id" placeholder="Country" class="o_address_country" options='{"no_open": True, "no_create": True}'/>
+              </div>
+          </group>
+        </xpath>
+
+        <xpath expr="//field[@name='email']" position="after">
+            <field name="vip_email" attrs="{'invisible': [('is_vip', '=', False)]}"/>
+        </xpath>
+
+        <xpath expr="//field[@name='phone']" position="after">
+            <field name="vip_phone" attrs="{'invisible': [('is_vip', '=', False)]}"/>
+        </xpath>
+
+        <xpath expr="//field[@name='mobile']" position="after">
+            <field name="vip_mobile" attrs="{'invisible': [('is_vip', '=', False)]}"/>
+        </xpath>
+
+      </field>
+    </record>
+
+  </data>
+</openerp>
