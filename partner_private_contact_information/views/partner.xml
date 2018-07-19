@@ -18,7 +18,8 @@
         </xpath>
 
         <xpath expr="//field[@name='website']/.." position="after">
-          <group attrs="{'invisible': [('is_vip', '=', False)]}">
+          <group attrs="{'invisible': [('is_vip', '=', False)]}"
+                 groups="partner_private_contact_information.group_private_contact_manager">
               <label for="vip_street" string="Private Address"/>
               <div class="o_address_format">
                   <field name="vip_street" placeholder="Street..." class="o_address_street"/>
@@ -32,15 +33,18 @@
         </xpath>
 
         <xpath expr="//field[@name='email']" position="after">
-            <field name="vip_email" attrs="{'invisible': [('is_vip', '=', False)]}"/>
+            <field name="vip_email" attrs="{'invisible': [('is_vip', '=', False)]}"
+                   groups="partner_private_contact_information.group_private_contact_manager"/>
         </xpath>
 
         <xpath expr="//field[@name='phone']" position="after">
-            <field name="vip_phone" attrs="{'invisible': [('is_vip', '=', False)]}"/>
+            <field name="vip_phone" attrs="{'invisible': [('is_vip', '=', False)]}"
+                   groups="partner_private_contact_information.group_private_contact_manager"/>
         </xpath>
 
         <xpath expr="//field[@name='mobile']" position="after">
-            <field name="vip_mobile" attrs="{'invisible': [('is_vip', '=', False)]}"/>
+            <field name="vip_mobile" attrs="{'invisible': [('is_vip', '=', False)]}"
+                   groups="partner_private_contact_information.group_private_contact_manager"/>
         </xpath>
 
       </field>

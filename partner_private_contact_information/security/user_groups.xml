@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0"> <!-- fixme -->
+        <record model="res.groups" id="group_private_contact_manager">
+            <field name="name">Private Contact Manager</field>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+            <field name="category_id" ref="base.module_category_usability"/>
+        </record>
+    </data>
+</odoo>

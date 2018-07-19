@@ -24,5 +24,6 @@
     ],
     'data': [
         'views/partner.xml',
+        'security/user_groups.xml'
     ]
 }
