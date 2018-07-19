@@ -10,6 +10,8 @@ from openerp import http, SUPERUSER_ID
 from openerp.http import request
 from openerp.tools.translate import _
 
+from openerp.exceptions import ValidationError
+
 
 class WebsiteProductSubscription(http.Controller):
 
@@ -164,19 +166,11 @@ class WebsiteProductSubscription(http.Controller):
         request.env['product.subscription.request'].sudo().create(values)
 
         if not logged:
-            user_id = user_obj.sudo()._signup_create_user(user_values)
-            user = user_obj.browse(user_id)
-            user.sudo().with_context({'create_user': True}).action_reset_password()
             if "company" in kwargs and kwargs.get("company").strip() != '':
 
+                vat_number = ''
                 if "vat_number" in kwargs and kwargs.get("vat_number").strip() != '':
                     vat_number = kwargs.get("vat_number").strip()
-                    vat_country, vat_part = partner_obj._split_vat(vat_number)
-
-                    # if not partner_obj.simple_vat_check(vat_country, vat_part):
-                    #     raise ValueError('%s VAT number is not valid')
-                # else:
-                #     vat_number = False
 
                 company_vals = {
                     'name': kwargs.get("company"),
@@ -185,6 +179,19 @@ class WebsiteProductSubscription(http.Controller):
                     'out_inv_comm_algorithm': 'random',
                     'vat': vat_number,
                 }
-                company = partner_obj.sudo().create(company_vals)
+                try:
+
+                    company = partner_obj.sudo().create(company_vals)
+                except ValidationError as ve:
+                    values = self.fill_values(values)
+                    values.update(kwargs)
+                    values['error_msg'] = ve.name
+                    return request.website.render(redirect, values)
+
+                # create user last to avoid creating a user when an error occurs
+                user_id = user_obj.sudo()._signup_create_user(user_values)
+                user = user_obj.browse(user_id)
+                user.sudo().with_context({'create_user': True}).action_reset_password()
+
                 subscriber.sudo().write({'parent_id': company.id})
         return request.website.render('website_product_subscription.product_subscription_thanks',values)
