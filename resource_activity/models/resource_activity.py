@@ -616,7 +616,7 @@ class ActivityRegistration(models.Model):
                 qty_needed -=1
                 if qty_needed == 0:
                     break
-            self.resource_activity_id.registrations.action_refresh()
+            registration.resource_activity_id.registrations.action_refresh()
         return True
 
     @api.multi
