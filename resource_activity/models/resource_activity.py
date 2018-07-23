@@ -600,8 +600,18 @@ class ActivityRegistration(models.Model):
     @api.multi
     def action_refresh(self):
         for registration in self:
-            resources_available = registration.resources_available.filtered(lambda record: record.state == 'free')
-            still_avai_res = resources_available.mapped('resource_id').check_availabilities(registration.date_start, registration.date_end, registration.location_id)
+            resources_available = (
+                registration
+                .resources_available
+                .filtered(lambda record: record.state == 'free')
+            )
+            still_avai_res = (
+                resources_available
+                .mapped('resource_id')
+                .check_availabilities(registration.date_start,
+                                      registration.date_end,
+                                      registration.location_id)
+            )
             for resource_available in resources_available:
                 if resource_available.resource_id.id not in still_avai_res:
                     resource_available.state = 'not_free'
@@ -611,12 +621,19 @@ class ActivityRegistration(models.Model):
     def reserve_needed_resource(self):
         for registration in self:
             qty_needed = registration.quantity_needed - registration.quantity_allocated
-            for resource_available in registration.resources_available.filtered(lambda record: record.state == 'free'):
+            free_resources = (
+                registration
+                .resources_available
+                .filtered(lambda record: record.state == 'free')
+            )
+            for resource_available in free_resources:
                 resource_available.action_reserve()
-                qty_needed -=1
+                qty_needed -= 1
                 if qty_needed == 0:
                     break
-            registration.resource_activity_id.registrations.action_refresh()
+            (registration
+             .resource_activity_id
+             .registrations.action_refresh())
         return True
 
     @api.multi
