@@ -10,10 +10,9 @@ class AccountInvoice(models.Model):
     identical_invoice_confirmed = fields.Boolean('Confirm Identical Invoice?',
                                                  default=False,
                                                  copy=False,
-                                                 help="HELP!!!")
+                                                 help="You need to check this box to validate the invoice if invoices with the same partner, invoice date and totam alount already exist.")
     identical_invoice_detected = fields.Boolean('identical_invoice_detected',
                                                 compute='_check_identical_invoice')
-    # todo onchange
 
     @api.onchange('partner_id', 'date_invoice')
     @api.multi

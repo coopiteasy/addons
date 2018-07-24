@@ -28,7 +28,9 @@
     "category": "",
     "website": "www.coopiteasy.be",
     "description": """
-    # todo
+        This module requires to check this box to validate the invoice 
+        if invoices with the same partner, invoice date and totam alount already
+        exist.
     """,
     'data': [
         "views/account_invoice.xml",
