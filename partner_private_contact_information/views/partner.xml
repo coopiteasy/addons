@@ -13,7 +13,7 @@
       <field name="arch" type="xml">
 
         <xpath expr="//field[@name='parent_id']" position="after">
-            <field name="is_vip"/>
+            <field name="is_vip" attrs="{'readonly': True}"/>
             <label for="is_vip" string="VIP"/>
         </xpath>
 
@@ -48,6 +48,17 @@
         </xpath>
 
       </field>
+    </record>
+
+    <record id="view_partner_form_vip_readonly" model="ir.ui.view">
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="view_partner_form" />
+        <field name="groups_id" eval="[(6, 0, [ref('partner_private_contact_information.group_private_contact_manager')])]"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='is_vip']" position="attributes">
+                <attribute name="readonly">False</attribute>
+            </xpath>
+        </field>
     </record>
 
   </data>
