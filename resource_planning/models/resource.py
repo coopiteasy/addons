@@ -17,6 +17,7 @@ class ResourceCategory(models.Model):
     name = fields.Char(string="Category name", required=True)
     resources = fields.One2many('resource.resource', 'category_id', string="Resources")
 
+
 class Resource(models.Model):
     _name = 'resource.resource'
     _inherit = ['resource.resource', 'mail.thread']
@@ -29,11 +30,11 @@ class Resource(models.Model):
         return location
 
     category_id = fields.Many2one('resource.category', string="Category")
-    state = fields.Selection([('draft','Draft'),
-                              ('available','Available'),
-                              ('unavailable','Unavailable')],
+    state = fields.Selection([('draft', 'Draft'),
+                              ('available', 'Available'),
+                              ('unavailable', 'Unavailable')],
                              string="State", default='draft')
-    resource_type = fields.Selection([('user','Human'),('material','Material')],
+    resource_type = fields.Selection([('user', 'Human'), ('material', 'Material')],
                                       string="Resource Type", required=True, default="material")
     allocations = fields.One2many('resource.allocation', 'resource_id', string="Booking lines")
     serial_number = fields.Char(string="ID number")
@@ -62,7 +63,8 @@ class Resource(models.Model):
         if not date_start or not date_end:
             raise ValidationError((_("Error. Date start or date end aren't set")))
         elif date_end < date_start:
-            raise ValidationError((_("Error. End date is preceding start date. Please choose an end date after a start date ")))
+            raise ValidationError((_("Error. End date is preceding start date. Please choose an end date after a "
+                                     "start date ")))
         #elif date_start < fields.Datetime.now():
 
     @api.multi        
@@ -95,12 +97,12 @@ class Resource(models.Model):
         res_alloc = self.env['resource.allocation']
 
         vals = {
-            'date_start':date_start,
-            'date_end':date_end,
-            'date_lock':date_lock,
-            'state':allocation_type,
-            'partner_id':partner_id.id,
-            'location':location.id
+            'date_start': date_start,
+            'date_end': date_end,
+            'date_lock': date_lock,
+            'state': allocation_type,
+            'partner_id': partner_id.id,
+            'location': location.id
         }
 
         # we check again the availabilities in case in has been booked 
@@ -118,7 +120,7 @@ class Resource(models.Model):
 class ResourceAllocation(models.Model):
     _name = "resource.allocation"
     
-    _inherit = ['mail.thread']
+    # _inherit = ['mail.thread']
     
     name = fields.Many2one(related="partner_id")
     serial_number = fields.Char(related="resource_id.serial_number", string="Serial number")
@@ -126,10 +128,10 @@ class ResourceAllocation(models.Model):
     resource_category_id = fields.Many2one(related='resource_id.category_id', string="Resource Category", store=True)
     date_start = fields.Datetime(string="Date start")
     date_end = fields.Datetime(string="Date end")
-    state = fields.Selection([('booked','Booked'),
-                             ('option','Option'),
-                             ('maintenance','Maintenance'),
-                             ('cancel','Cancel')],
+    state = fields.Selection([('booked', 'Booked'),
+                             ('option', 'Option'),
+                             ('maintenance', 'Maintenance'),
+                             ('cancel', 'Cancel')],
                             string="State", default='option')
     date_lock = fields.Date(string="Lock date",
                             help="If the booking type is option, it should be confirmed before the lock date expire")
@@ -139,7 +141,7 @@ class ResourceAllocation(models.Model):
     @api.multi
     def action_confirm(self):
         for allocation in self:
-            allocation.write({'state':'booked', 'date_lock':None})
+            allocation.write({'state': 'booked', 'date_lock': None})
 
     @api.multi
     def action_cancel(self):
