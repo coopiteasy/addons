@@ -118,7 +118,7 @@ class Resource(models.Model):
 class ResourceAllocation(models.Model):
     _name = "resource.allocation"
     
-    _inherit = ['mail.thread']
+    # _inherit = ['mail.thread']
     
     name = fields.Many2one(related="partner_id")
     serial_number = fields.Char(related="resource_id.serial_number", string="Serial number")
