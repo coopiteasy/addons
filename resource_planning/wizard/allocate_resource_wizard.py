@@ -3,18 +3,19 @@
 from openerp import api, fields, models, _
 from openerp.exceptions import ValidationError, UserError
 
+
 class AllocateResourceWizard(models.TransientModel):
     _name = "allocate.resource.wizard"
     
     date_start = fields.Datetime(string="Date Start", required=True)
     date_end = fields.Datetime(string="Date end", required=True)
     resources = fields.Many2many('resource.resource', string="Resources")
-    allocation_type = fields.Selection([('booked','Book'),
-                                        ('option','Option'),
-                                        ('maintenance','Maintenance')],
+    allocation_type = fields.Selection([('booked', 'Book'),
+                                        ('option', 'Option'),
+                                        ('maintenance', 'Maintenance')],
                                         string="Allocation type", required=True)
-    resource_type = fields.Selection([('resource','Resource'),
-                                      ('category','Category')],
+    resource_type = fields.Selection([('resource', 'Resource'),
+                                      ('category', 'Category')],
                                       string="Allocate on", default="resource", required=True)
     resource_category_id = fields.Many2one('resource.category', string="Resource Category")
     checked_resources = fields.Boolean(string="Checked resources")
@@ -35,7 +36,7 @@ class AllocateResourceWizard(models.TransientModel):
         if self.checked_resources and self.resource_category_id:
             self.checked_resources = False
     
-    @api.onchange('date_start','date_end')
+    @api.onchange('date_start', 'date_end')
     def onchange_dates(self):
         if self.checked_resources and self.date_start and self.date_end:
             self.checked_resources = False
@@ -69,4 +70,11 @@ class AllocateResourceWizard(models.TransientModel):
     @api.multi
     def book_resource(self):
         if self.resources:
-            self.resources.allocate_resource(self.allocation_type, self.date_start, self.date_end, self.partner_id, self.location, self.date_lock)
+            self.resources.allocate_resource(
+                self.allocation_type,
+                self.date_start,
+                self.date_end,
+                self.partner_id,
+                self.location,
+                self.date_lock
+            )
