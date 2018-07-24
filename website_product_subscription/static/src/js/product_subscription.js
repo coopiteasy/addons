@@ -42,8 +42,31 @@ $(document).ready(function () {
     	}
     	hide_display();
 
+    	function hide_display_company() {
+    		var is_company = $("input[name='is_company']:checked").val();
+
+    		console.log("in hide_display_company()");
+    		console.log(is_company);
+
+    		if(is_company == "on") {
+    	        console.log("show company");
+                $("div[name='company']").show('quick');
+                $("div[name='vat_number']").show('quick');
+    			$("input[name='company']").prop('required', true);
+    		} else {
+    	        console.log("hide company");
+                $("div[name='company']").hide('quick');
+                $("div[name='vat_number']").hide('quick');
+    			$("input[name='company']").prop('required', false);
+    		}
+    	}
+    	hide_display_company();
+
     	$("input[name='gift']").click(function(ev) {
     		hide_display();
+		});
+    	$("input[name='is_company']").click(function(ev) {
+    		hide_display_company();
 		});
     });
 });

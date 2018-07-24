@@ -38,7 +38,8 @@ class SubscriptionRequest(models.Model):
     _order = "subscription_date desc, id desc"
     
     name = fields.Char(string="Name", copy=False)
-    gift  = fields.Boolean(string="Gift?")
+    gift = fields.Boolean(string="Gift?")
+    is_company = fields.Boolean(string="Company?")
     sponsor = fields.Many2one('res.partner', string="Sponsor")
     subscriber = fields.Many2one('res.partner', string="Subscriber", required=True)
     subscription_date = fields.Date(string='Subscription request date', default=fields.Date.today())
