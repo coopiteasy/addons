@@ -648,6 +648,10 @@ class ActivityRegistration(models.Model):
         self.write({'state':'draft'})
 
     @api.multi
+    def action_unlink(self):
+        self.unlink()
+
+    @api.multi
     def unlink(self):
         for registration in self:
             if registration.state not in ('draft', 'cancelled', 'free'):
