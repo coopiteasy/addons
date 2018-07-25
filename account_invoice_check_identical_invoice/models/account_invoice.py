@@ -27,6 +27,7 @@ class AccountInvoice(models.Model):
             Invoice = self.env['account.invoice']
             duplicate_domain = [
                 ('state', 'not in', ['draft', 'cancel']),
+                ('partner_id.supplier', '=', True),
                 ('partner_id', '=', invoice.partner_id.id),
             ]
             partner_invoices = Invoice.search(duplicate_domain)
