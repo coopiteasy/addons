@@ -16,7 +16,7 @@
             	</field>
             </field>
         </record>
-        
+
         
         <record id="resource.resource_resource_form" model="ir.ui.view">
             <field name="name">resource.resource.form</field>
@@ -70,13 +70,14 @@
                 </form>
             </field>
         </record>
-		
+
 		<record id="view_resource_resource_search" model="ir.ui.view">
             <field name="name">resource.resource.search</field>
             <field name="model">resource.resource</field>
             <field name="inherit_id" ref="resource.view_resource_resource_search"/>
             <field name="arch" type="xml">
             	<field name="resource_type" position="after">
+            		<filter name="available_draft" string="Available and Draft" domain="[('state','in',['draft','available'])]"/>
             		<filter name="available" string="Available" domain="[('state','in',['draft','available'])]"/>
             		<filter name="unavailable" string="Unavailable" domain="[('state','=','unavailable')]"/>
             	</field>
@@ -86,7 +87,16 @@
                 </group>
             </field>
         </record>
-		
+
+        <record id="action_resource_resource_tree" model="ir.actions.act_window">
+            <field name="name">Resources</field>
+            <field name="res_model">resource.resource</field>
+            <field name="view_mode">tree</field>
+            <field name="context">{"search_default_available_draft": 1}</field>
+            <field name="search_view_id" ref="view_resource_resource_search"/>
+        </record>
+
+
 		<record id="resouce_allocation_tree" model="ir.ui.view">
             <field name="name">resource.allocation.tree</field>
             <field name="model">resource.allocation</field>
