@@ -116,7 +116,7 @@
 	            				<button type="object" name="search_all_resources" string="Search all"/>
 	            				<button type="object" name="reserve_needed_resource" string="Reserve needed Resources" help="refresh"/>
 	            				<field name="registrations" options="{'reload_on_button':True}" context="{'default_partner_id':partner_id,'default_booking_type':booking_type,'default_activity_type':activity_type,'default_date_lock':date_lock,'default_registrations_max':registrations_max,'default_registrations_expected':registrations_expected}">
-	            					<tree editable="bottom">
+	            					<tree editable="bottom" delete="false">
 										<button type="object" icon="STOCK_FIND" name="view_registration_form"/>
 	            						<field name="partner_id" invisible="True"/>
 	            						<field name="sale_order_id" invisible="True"/>
@@ -134,8 +134,9 @@
 	            						<field name="date_lock" attrs="{'required':[('booking_type','=','option')]}"/>
 	            						<field name="state"/>
 					                    <button type="object" name="search_resources" states="draft,waiting" help="Search resources" icon="gtk-apply"/>
-					                    <button type="object" name="action_cancel" states="draft, booked, option,waiting,available" help="Cancel" icon="gtk-cancel" confirm="Are you sure you want to cancel this registration?"/>
+					                    <button type="object" name="action_cancel" states="draft,booked,option,waiting,available" help="Cancel" icon="gtk-cancel" confirm="Are you sure you want to cancel this registration?"/>
 					                    <button type="object" name="action_draft" states="cancelled" help="Set to draft" icon="gtk-undo"/>
+					                    <button type="object" name="action_unlink" states="draft,cancelled" help="Delete" icon="gtk-clear" confirm="Are you sure you want to delete this registration?"/>
 	            					</tree>
 	            				</field>
 	            			</page>
