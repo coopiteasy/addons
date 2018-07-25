@@ -23,7 +23,7 @@
         'base',
     ],
     'data': [
+        'security/user_groups.xml',
         'views/partner.xml',
-        'security/user_groups.xml'
     ]
 }
