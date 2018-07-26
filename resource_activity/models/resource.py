@@ -29,5 +29,5 @@ class ResourceAllocation(models.Model):
     _inherit = 'resource.allocation'
 
     activity_registration_id = fields.Many2one('resource.activity.registration', string="Activity registration", readonly=True)
-    activity_id = fields.Many2one(related='activity_registration_id.resource_activity_id', string="Registrations", readonly=True)
+    activity_id = fields.Many2one(related='activity_registration_id.resource_activity_id', string="Activity", readonly=True)
 
