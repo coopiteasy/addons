@@ -33,27 +33,25 @@
             </field>
         </record>
 
-		<!--<record id="resource_planning_resource_form" model="'ir.ui.view">-->
-			<!--<field name="name">resource.resource.form</field>-->
-			<!--<field name="model">resource.resource</field>-->
-			<!--<field name="inherit_id" ref="resource_planning.resource_planning_resource_form"/>-->
-			<!--<field name="arch" type="xml">-->
-				<!--<xpath expr="//page[@name='allocations']" position="replace">-->
-					<!--<page name="allocations" string="Allocations">-->
-						<!--<field name="allocations">-->
-							<!--<tree delete="false" create="false">-->
-								<!--<field name="partner_id"/>-->
-								<!--<field name="date_start"/>-->
-								<!--<field name="date_end"/>-->
-								<!--<field name="date_lock"/>-->
-								<!--<field name="state"/>-->
-								<!--<field name="activity_id"/>-->
-							<!--</tree>-->
-						<!--</field>-->
-					<!--</page>-->
-				<!--</xpath>-->
-			<!--</field>-->
-		<!--</record>-->
+		<record id="resource_planning_resource_form_inherit" model="ir.ui.view">
+			<field name="name">resource.resource.form</field>
+			<field name="model">resource.resource</field>
+			<field name="inherit_id" ref="resource_planning.resource_planning_resource_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='allocations']" position="replace">
+					<field name="allocations">
+						<tree delete="false" create="false">
+							<field name="partner_id"/>
+							<field name="date_start"/>
+							<field name="date_end"/>
+							<field name="date_lock"/>
+							<field name="state"/>
+							<field name="activity_id"/>
+						</tree>
+					</field>
+            	</xpath>
+			</field>
+		</record>
 
 	</data>
 </odoo>
