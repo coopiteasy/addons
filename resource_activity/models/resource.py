@@ -5,6 +5,7 @@
 from openerp import _, api, fields, models
 from openerp.exceptions import ValidationError, UserError
 
+
 class ResourceCategory(models.Model):
     _inherit = 'resource.category'
     
@@ -21,13 +22,12 @@ class ProductProduct(models.Model):
 class ResourceLocation(models.Model):
     _inherit = 'resource.location'
 
-    guides = fields.One2many('res.partner','resource_location_guide', domain=[('is_guide','=',True)], string="Guides")
-    trainers = fields.One2many('res.partner','resource_location_trainer', domain=[('is_trainer','=',True)], string="Trainers")
+    guides = fields.One2many('res.partner', 'resource_location_guide', domain=[('is_guide', '=', True)], string="Guides")
+    trainers = fields.One2many('res.partner', 'resource_location_trainer', domain=[('is_trainer', '=', True)], string="Trainers")
 
 
 class ResourceAllocation(models.Model):
     _inherit = 'resource.allocation'
 
     activity_registration_id = fields.Many2one('resource.activity.registration', string="Activity registration", readonly=True)
-    activity_id = fields.Many2one(related='activity_registration_id.resource_activity_id', string="Registrations", readonly=True)
-
+    activity_id = fields.Many2one(related='activity_registration_id.resource_activity_id', string="Activity", readonly=True)
