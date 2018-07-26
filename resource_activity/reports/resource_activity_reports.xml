@@ -10,4 +10,15 @@
 			file="resource_activity.resource_activity_report.xml" 
 			menu="True"/>
 	</data>
+
+	<data noupdate="0">
+		<report
+			id="action_resource_activity_registration_report"
+			model="resource.activity"
+			string="Resource activity registration report"
+			report_type="qweb-pdf"
+			name="resource_activity.resource_activity_registration_report"
+			file="resource_activity.resource_activity_registration_report.xml"
+			menu="True"/>
+	</data>
 </odoo>
