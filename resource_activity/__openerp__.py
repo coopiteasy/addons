@@ -28,6 +28,7 @@
         "theme_light",
         "product",
         "sale",
+        "web_tree_many2one_clickable",
     ],
     "author": "Houssine BAKKALI <houssine@coopiteasy.be>",
     "category": "Resource",
