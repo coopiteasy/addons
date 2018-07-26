@@ -73,7 +73,9 @@ class ResourceActivity(models.Model):
     partner_id = fields.Many2one('res.partner', string="Customer", domain=[('customer','=',True)])
     delivery_product_id = fields.Many2one('product.product', string="Product delivery", domain=[('is_delivery','=',True)])
     guide_product_id = fields.Many2one('product.product', string="Product Guide", domain=[('is_guide','=',True)])
-    participation_product_id = fields.Many2one('product.product', string="Product Participation", domain=[('is_participation','=',True)], required=True)
+    participation_product_id = fields.Many2one('product.product',
+                                               string="Product Participation",
+                                               domain=[('is_participation', '=', True)])
     date_start = fields.Datetime(string="Date start", required=True)
     date_end = fields.Datetime(string="Date end", required=True)
     duration = fields.Char(string="Duration", compute="_compute_duration", store=True)
