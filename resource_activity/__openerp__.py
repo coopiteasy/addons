@@ -47,6 +47,7 @@
         'wizard/cancel_sale_order_wizard.xml',
         'reports/resource_activity_reports.xml',
         'reports/activity_report.xml',
+        'reports/activity_registration_report.xml',
         'reports/sale_order_report.xml',
     ],
     'installable': True,
