@@ -17,10 +17,10 @@
             </field>
         </record>
 
-        
-        <record id="resource.resource_resource_form" model="ir.ui.view">
-            <field name="name">resource.resource.form</field>
+        <record id="resource_planning_resource_form" model="ir.ui.view">
+            <field name="name">resource.planning.resource.form</field>
             <field name="model">resource.resource</field>
+            <field name="priority">15</field>
             <field name="arch" type="xml">
                 <form string="Resource">
                		<header>

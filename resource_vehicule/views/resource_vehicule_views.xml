@@ -29,7 +29,7 @@
 		<record id="resource_vehicule_form" model="ir.ui.view">
             <field name="name">resource.resource.form</field>
             <field name="model">resource.resource</field>
-            <field name="inherit_id" ref="resource.resource_resource_form"/>
+            <field name="inherit_id" ref="resource_planning.resource_planning_resource_form"/>
             <field name="arch" type="xml">
             	<group name="category" position="after">
 					<group name="vehicule" string="Vehicule Info" attrs="{'invisible':[('vehicule_type','!=','bike')]}">
