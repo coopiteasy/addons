@@ -321,7 +321,7 @@ class ResourceActivity(models.Model):
     
                     if activity.need_participation:
                         line_vals = {'participation_line': True}
-                        line_id = self.create_order_line(line_vals, order_id, activity.participation_product_id, activity.quantity)
+                        line_id = self.create_order_line(line_vals, order_id, activity.participation_product_id, registration.quantity)
 
                 no_bike_qty += registration.quantity - registration.quantity_needed
                 bike_qty += registration.quantity_needed
