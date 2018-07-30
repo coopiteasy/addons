@@ -94,8 +94,8 @@
                     <th style="border-bottom: 2pt dotted #00B9E4 !important;">Attendee</th>
                     <th style="border-bottom: 2pt dotted #00B9E4 !important;">Registered participants</th>
                     <th style="border-bottom: 2pt dotted #00B9E4 !important;">Present participants</th>
-                    <th style="border-bottom: 2pt dotted #00B9E4 !important;">Quantity needed</th>
                     <th style="border-bottom: 2pt dotted #00B9E4 !important;">Resource Planned</th>
+                    <th style="border-bottom: 2pt dotted #00B9E4 !important;">Quantity needed</th>
                     <th style="border-bottom: 2pt dotted #00B9E4 !important;">Resource Used</th>
                   </tr>
                 </thead>
@@ -108,13 +108,13 @@
                       <span t-field="l.quantity" />
                     </td>
                     <td>
-                      <span t-field="l.quantity_needed" />
+                      <span />
                     </td>
                     <td>
                       <span t-field="l.resource_category.name" />
                     </td>
                     <td>
-                      <span />
+                      <span t-field="l.quantity_needed" />
                     </td>
                     <td>
                       <span />
