@@ -246,11 +246,13 @@ class ResourceActivity(models.Model):
 
     @api.multi
     def action_done(self):
-        self.state = 'done'          
+        for activity in self:
+            activity.state = 'done'
 
     @api.multi
     def action_draft(self):
-        self.state = 'draft'
+        for activity in self:
+            activity.state = 'draft'
 
     @api.multi
     def action_cancel(self):
@@ -369,8 +371,13 @@ class ResourceActivity(models.Model):
                 option.allocations.action_confirm()
                 option.write({'booking_type':'booked','state':'booked','date_lock': None})
 
+    @api.multi
+    def action_back_to_sale_order(self):
+        for activity in self:
+            activity.state = 'sale'
+
     @api.multi            
-    def push_changes_2_sale_order(self):
+    def push_changes_to_sale_order(self):
         for activity in self:
             if activity.sale_order_id:
                 bike_qty = 0
@@ -509,7 +516,7 @@ class ActivityRegistration(models.Model):
     def onchange_quantity_needed(self):
         if self.state not in ['booked','option','draft']:
             if self.quantity_needed > self.quantity_allocated:
-                self.state= 'waiting'
+                self.state = 'waiting'
 
     @api.onchange('bring_bike')
     def onchange_bring_bike(self):
@@ -667,7 +674,7 @@ class ActivityRegistration(models.Model):
             if self.quantity_allocated == self.quantity:
                 self.state = self.booking_type
             elif self.state != 'draft' and self.quantity_allocated < self.quantity:
-                self.state= 'waiting'
+                self.state = 'waiting'
 
     @api.multi
     def view_registration_form(self):
