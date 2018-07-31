@@ -41,14 +41,13 @@
               <div class="row" name="clients-titre">
                 <h3>Client:</h3>
               </div>
-              <div class="row" name="clients-nom">
-                <h4>Name:</h4>
-                <span t-if="o.partner_id.name" t-field="o.partner_id.name" />
-                <span t-if="o.partner_id.phone" t-field="o.partner_id.phone" />
-                <span t-if="o.partner_id.mobile" t-field="o.partner_id.mobile" />
+              <div t-if="o.partner_id" class="row" name="clients-nom">
+                  <div t-if="o.partner_id.name" t-field="o.partner_id.name" />
+                  <div t-if="o.partner_id.phone">Tel: <span t-field="o.partner_id.phone" /></div>
+                  <div t-if="o.partner_id.mobile">Mob: <span t-field="o.partner_id.mobile" /></div>
               </div>
               <div class="row" name="clients-participants">
-                <h4>Expected participants:</h4>
+                <h3>Expected participants:</h3>
                 <span t-field="o.registrations_expected" />
               </div>
             </div>
@@ -58,13 +57,13 @@
               </div>
               <div class="row" name="activite-depart">
                 <h4>Start time and place:</h4>
-                <span t-field="o.date_start" />
-                <span t-field="o.departure" />
+                  <div><span t-field="o.date_start" /></div>
+                  <div><span t-field="o.departure" /></div>
               </div>
               <div class="row" name="activite-arrival">
                 <h4>End time and place:</h4>
-                <span t-field="o.date_end" />
-                <span t-field="o.arrival" />
+                  <div><span t-field="o.date_end" /></div>
+                  <div><span t-field="o.arrival" /></div>
               </div>
               <div class="row" name="activite-theme">
                 <h4>Theme:</h4>
@@ -81,7 +80,6 @@
                     <div t-field="lang.name" />
                   </t>
                 </t>
-                <span t-field="o.registrations_expected" />
               </div>
             </div>
           </div>
@@ -92,6 +90,9 @@
                 <thead class="invoice_tbody easymy-coop-normal">
                   <tr>
                     <th style="border-bottom: 2pt dotted #00B9E4 !important;">Attendee</th>
+                    <div t-if="not o.partner_id">
+                      <th style="border-bottom: 2pt dotted #00B9E4 !important;">Mobile</th>
+                    </div>
                     <th style="border-bottom: 2pt dotted #00B9E4 !important;">Registered participants</th>
                     <th style="border-bottom: 2pt dotted #00B9E4 !important;">Present participants</th>
                     <th style="border-bottom: 2pt dotted #00B9E4 !important;">Resource Planned</th>
@@ -103,6 +104,9 @@
                   <tr t-foreach="o.registrations" t-as="l">
                     <td>
                       <span t-field="l.attendee_id.name" />
+                    </td>
+                    <td t-if="not o.partner_id">
+                      <span t-if="l.attendee_id and l.attendee_id.mobile" t-field="l.attendee_id.mobile" />
                     </td>
                     <td>
                       <span t-field="l.quantity" />

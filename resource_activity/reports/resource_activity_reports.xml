@@ -16,7 +16,7 @@
 			id="action_resource_activity_registration_report"
 			model="resource.activity"
 			string="Activity D-Day Report"
-			report_type="qweb-pdf"
+			report_type="qweb-html"
 			name="resource_activity.resource_activity_registration_report"
 			file="resource_activity.resource_activity_registration_report.xml"
 			menu="True"/>
