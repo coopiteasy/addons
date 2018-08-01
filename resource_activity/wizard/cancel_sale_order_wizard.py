@@ -9,6 +9,7 @@ class CancelSaleOrderWizard(models.TransientModel):
     @api.multi
     def cancel_sale_order(self):
         activity = self.env['resource.activity'].browse(self._context.get('active_ids'))[0]
-        activity.sale_order_id.with_context(activity_action=True).action_cancel()
+        for sale_order in activity.sale_orders:
+            sale_order.with_context(activity_action=True).action_cancel()
         
         return {'type': 'ir.actions.act_window_close'}

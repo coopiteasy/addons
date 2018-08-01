@@ -48,7 +48,7 @@ class ActivityRegistration(models.Model):
     @api.depends('quantity_needed', 'product_id', 'state')
     def _compute_need_push(self):
         for registration in self:
-            if registration.resource_activity_id.sale_order_id or registration.sale_order_id:
+            if registration.sale_order_id:
                 registration.need_push = True
 
     resource_activity_id = fields.Many2one('resource.activity',string="Activity")

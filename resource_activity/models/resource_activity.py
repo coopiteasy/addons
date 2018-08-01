@@ -57,14 +57,8 @@ class ResourceActivity(models.Model):
         # computed field in order to display or not the push to sale order
         # button
         for activity in self:
-            flag = False
-            if activity.sale_order_id or activity.sale_orders:
-                registrations = activity.registrations.filtered(lambda record: record.need_push == True)
-                if registrations:
-                    flag = True
-
-            activity.need_push = flag
-
+            if activity.sale_orders:
+                activity.need_push = any(activity.registrations.mapped('need_push'))
 
     @api.multi
     def _compute_booked_resources(self):
@@ -124,11 +118,6 @@ class ResourceActivity(models.Model):
         'resource.location',
         string="Location",
         required=True)
-    sale_order_id = fields.Many2one(
-        'sale.order',
-        string="Sale order",
-        readonly=True,
-        copy=False)
     state = fields.Selection(
         [('draft', 'Draft'),
           ('quotation', 'Quotation'),
@@ -443,22 +432,25 @@ class ResourceActivity(models.Model):
 
         return prepared_lines
 
+    def _create_sale_order(self, activity, partner_id):
+        SaleOrder = self.env['sale.order']
+        order_id = SaleOrder.create({
+                    'partner_id': partner_id,
+                    'activity_id': activity.id,
+                    'project_id': activity.analytic_account.id,
+                    'activity_sale': True,
+        })
+        activity.state = 'quotation'
+        return order_id
+
     @api.multi
     def create_sale_order(self):
-        SaleOrder = self.env['sale.order']
 
         for activity in self:
             order_lines = self.prepare_lines(activity)
             partners = set(ol.partner for ol in order_lines)
             for partner in partners:
-                order_id = SaleOrder.create({
-                    'partner_id': partner,
-                    'activity_id': activity.id,
-                    'project_id': activity.analytic_account.id,
-                    'activity_sale': True,
-                })
-                # todo think again: last order as activity order, writes on all activity ?
-                self.write({'sale_order_id': order_id.id, 'state': 'quotation'})
+                order_id = self._create_sale_order(activity, partner)
 
                 partner_lines = [ol for ol in order_lines if ol.partner == partner]
                 products = set(ol.product for ol in partner_lines)
@@ -489,7 +481,6 @@ class ResourceActivity(models.Model):
                             participation_line=True,
                         )
 
-
                 for pl in partner_lines:
                     pl.registration.write({'sale_order_id': order_id.id})
 
@@ -504,9 +495,9 @@ class ResourceActivity(models.Model):
     @api.multi
     def action_quotation(self):
         for activity in self:
-            if activity.sale_order_id:
-                activity.sale_order_id.with_context(activity_action=True).action_cancel()
-                activity.sale_order_id.with_context(activity_action=True).action_draft()
+            for sale_order in activity.sale_orders:
+                sale_order.with_context.with_context(activity_action=True).action_cancel()
+                sale_order.with_context.with_context(activity_action=True).action_draft()
                 activity.state = 'quotation'
 
     @api.multi
@@ -517,8 +508,8 @@ class ResourceActivity(models.Model):
             if activity.name == '' or not activity.name:
                 vals['name'] = res_acti_seq.next_by_id()
 
-            if activity.sale_order_id:
-                activity.sale_order_id.with_context(activity_action=True).action_confirm()
+            for sale_order in activity.sale_orders:
+                sale_order.with_context(activity_action=True).action_confirm()
                 vals['state'] = 'sale'
 
             activity.write(vals)
@@ -562,9 +553,9 @@ class ResourceActivity(models.Model):
     def update_guide_line(self, activity, sale_order_id):
         guide_line = (
             activity
-                .sale_order_id
-                .order_line
-                .filtered(lambda record: record.resource_guide == True)
+            .sale_order_id
+            .order_line
+            .filtered(lambda record: record.resource_guide == True)
         )
         line_vals = {'resource_guide': True}
         guide_qty = len(activity.guides)
@@ -594,68 +585,69 @@ class ResourceActivity(models.Model):
             activity.participation_product_id)
 
     @api.multi
-    def push_changes_to_sale_order(self):
-        for activity in self:
-            if activity.sale_order_id:
-                activity.sale_order_id.project_id = activity.analytic_account
-
-                bike_qty = 0
-                for registration in activity.registrations:  # todo refactor
-                    if registration.state != 'cancelled':
-                        bike_qty += registration.quantity_needed
-
-                for registration in activity.registrations:
-                    if registration.need_push:
-                        self.update_resource_booking_line(
-                            registration,
-                            activity.sale_order_id)
-                        registration.need_push = False
-
-                self.update_delivery_line(
-                    activity,
-                    activity.sale_order_id,
-                    bike_qty)
-                self.update_participation_line(
-                    activity,
-                    activity.sale_order_id,
-                    activity.registrations_expected)
-                self.update_guide_line(
-                    activity,
-                    activity.sale_order_id)
-
-            elif activity.sale_orders:
-                # if the activity is spread on several sale orders
-                needed_resources = {}  # todo refactor
-                participations = {}
-
-                for registration in activity.registrations:
-                    registration.sale_order_id.project_id = activity.analytic_account
-                    attendee_id = registration.attendee_id.id
-
-                    if needed_resources.has_key(attendee_id):
-                        needed_resources[attendee_id] += registration.quantity_needed
-                        participations[attendee_id] += registration.quantity
-                    else:
-                        needed_resources[attendee_id] = registration.quantity_needed
-                        participations[attendee_id] = registration.quantity
-
-                    if registration.need_push:
-                        # todo remove this note
-                        # replaced un nb_resources: needed_resources[attendee_id] by registration.quantity_needed
-                        # seems more correct but I might miss something
-                        self.update_resource_booking_line(registration, registration.sale_order_id)
-                        registration.need_push = False
-
-                    self.update_delivery_line(
-                        activity,
-                        registration.sale_order_id,
-                        needed_resources[attendee_id])
-                    self.update_participation_line(
-                        activity,
-                        registration.sale_order_id,
-                        participations[attendee_id])
-
-                    activity.need_push = False
+    def push_changes_to_sale_order(self):  # refactor
+        return
+    #     for activity in self:
+    #         if activity.sale_orders:
+    #             activity.sale_orders.project_id = activity.analytic_account
+    #
+    #             bike_qty = 0
+    #             for registration in activity.registrations:  # todo refactor
+    #                 if registration.state != 'cancelled':
+    #                     bike_qty += registration.quantity_needed
+    #
+    #             for registration in activity.registrations:
+    #                 if registration.need_push:
+    #                     self.update_resource_booking_line(
+    #                         registration,
+    #                         activity.sale_order_id)
+    #                     registration.need_push = False
+    #
+    #             self.update_delivery_line(
+    #                 activity,
+    #                 activity.sale_order_id,
+    #                 bike_qty)
+    #             self.update_participation_line(
+    #                 activity,
+    #                 activity.sale_order_id,
+    #                 activity.registrations_expected)
+    #             self.update_guide_line(
+    #                 activity,
+    #                 activity.sale_order_id)
+    #
+    #         elif activity.sale_orders:
+    #             # if the activity is spread on several sale orders
+    #             needed_resources = {}  # todo refactor
+    #             participations = {}
+    #
+    #             for registration in activity.registrations:
+    #                 registration.sale_order_id.project_id = activity.analytic_account
+    #                 attendee_id = registration.attendee_id.id
+    #
+    #                 if needed_resources.has_key(attendee_id):
+    #                     needed_resources[attendee_id] += registration.quantity_needed
+    #                     participations[attendee_id] += registration.quantity
+    #                 else:
+    #                     needed_resources[attendee_id] = registration.quantity_needed
+    #                     participations[attendee_id] = registration.quantity
+    #
+    #                 if registration.need_push:
+    #                     # todo remove this note
+    #                     # replaced un nb_resources: needed_resources[attendee_id] by registration.quantity_needed
+    #                     # seems more correct but I might miss something
+    #                     self.update_resource_booking_line(registration, registration.sale_order_id)
+    #                     registration.need_push = False
+    #
+    #                 self.update_delivery_line(
+    #                     activity,
+    #                     registration.sale_order_id,
+    #                     needed_resources[attendee_id])
+    #                 self.update_participation_line(
+    #                     activity,
+    #                     registration.sale_order_id,
+    #                     participations[attendee_id])
+    #
+    #                 activity.need_push = False
 
     def update_order_line(self,
                           order_id,
@@ -679,9 +671,9 @@ class ResourceActivity(models.Model):
                 resource_line.unlink()
 
     @api.multi
-    def write(self,vals):
+    def write(self, vals):
         for activity in self:
-            if activity.sale_order_id or activity.sale_orders:
+            if activity.sale_orders:
                 if 'need_delivery' in vals:
                     if not vals.get('need_delivery'):
                         vals['delivery_place'] = ''
