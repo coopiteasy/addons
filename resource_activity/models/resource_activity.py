@@ -52,7 +52,9 @@ class ResourceActivity(models.Model):
     _inherit = ['mail.thread']
 
     @api.multi
-    @api.depends('registrations.need_push')
+    @api.depends('registrations.need_push',
+                 'participation_product_id',
+                 'delivery_product_id')
     def _compute_push2sale_order(self):
         # computed field in order to display or not the push to sale order
         # button
@@ -473,6 +475,9 @@ class ResourceActivity(models.Model):
     @api.multi
     def create_sale_order(self):
         for activity in self:
+            if not activity.registrations.filtered(lambda r: r.state in ('option', 'booked')):
+                raise ValidationError('No registrations are booked.')
+
             sale_orders = self.prepare_sale_orders(activity)
             order_lines = self.prepare_lines(activity)
 
@@ -483,7 +488,7 @@ class ResourceActivity(models.Model):
                 partner_lines = [ol for ol in order_lines if ol.partner == partner]
                 products = set(ol.product for ol in partner_lines)
 
-                for product in products:
+                for product in sorted(products, key=lambda p: p.name):
                     product_lines = [ol for ol in partner_lines if ol.product == product]
                     qty = sum(pl.qty for pl in product_lines)
                     type = product_lines.pop().type
@@ -513,8 +518,9 @@ class ResourceActivity(models.Model):
                     pl.registration.write({'sale_order_id': order_id.id})
 
             if activity.need_guide and activity.partner_id:
+                    order = sale_orders.values().pop()
                     self.create_order_line(
-                        order_id,  # last order generated, unique if  activity.partner_id is set
+                        order,
                         activity.guide_product_id,
                         len(activity.guides),
                         resource_guide=True,
