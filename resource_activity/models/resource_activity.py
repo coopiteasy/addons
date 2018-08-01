@@ -512,140 +512,137 @@ class ResourceActivity(models.Model):
         for activity in self:
             activity.state = 'sale'
 
+    def update_resource_booking_line(self, registration, sale_order_id):
+        self.update_order_line(
+            sale_order_id,
+            True,
+            {},
+            registration.order_line_id,
+            registration.quantity_needed,
+            registration.product_id)
+
+    def update_delivery_line(self, activity, sale_order_id, nb_delivery):
+
+        delivery_line = (
+            sale_order_id
+            .order_line
+            .filtered(lambda record: record.resource_delivery)
+        )
+        line_vals = {'resource_delivery': True}
+
+        self.update_order_line(
+            sale_order_id,
+            activity.need_delivery,
+            line_vals,
+            delivery_line,
+            nb_delivery,
+            activity.delivery_product_id)
+
+    def update_guide_line(self, activity, sale_order_id):
+        guide_line = (
+            activity
+                .sale_order_id
+                .order_line
+                .filtered(lambda record: record.resource_guide == True)
+        )
+        line_vals = {'resource_guide': True}
+        guide_qty = len(activity.guides)
+
+        self.update_order_line(
+            sale_order_id,
+            activity.need_guide,
+            line_vals,
+            guide_line,
+            guide_qty,
+            activity.guide_product_id)
+
+    def update_participation_line(self, activity, sale_order_id, nb_registrations):
+        participation_line = (
+            sale_order_id
+            .order_line
+            .filtered(lambda record: record.participation_line)
+        )
+        line_vals = {'participation_line': True}
+
+        self.update_order_line(
+            sale_order_id,
+            activity.need_participation,
+            line_vals,
+            participation_line,
+            nb_registrations,
+            activity.participation_product_id)
+
     @api.multi
     def push_changes_to_sale_order(self):
         for activity in self:
             if activity.sale_order_id:
-                bike_qty = 0
-                # handling resource reservation here
                 activity.sale_order_id.project_id = activity.analytic_account
-                for registration in activity.registrations:
+
+                bike_qty = 0
+                for registration in activity.registrations:  # todo refactor
                     if registration.state != 'cancelled':
                         bike_qty += registration.quantity_needed
 
+                for registration in activity.registrations:
                     if registration.need_push:
-                        line_vals = {}
-                        self.update_order_line(
-                            activity.sale_order_id,
-                           True,
-                           line_vals,
-                           registration.order_line_id,
-                           registration.quantity_needed,
-                           registration.product_id)
+                        self.update_resource_booking_line(
+                            registration,
+                            activity.sale_order_id)
                         registration.need_push = False
 
-                # handling delivery here        
-                delivery_line = (
-                    activity
-                    .sale_order_id
-                    .order_line
-                    .filtered(lambda record: record.resource_delivery == True)
-                )
-                line_vals = {'resource_delivery': True}
-
-                self.update_order_line(
+                self.update_delivery_line(
+                    activity,
                     activity.sale_order_id,
-                    activity.need_delivery,
-                    line_vals, delivery_line,
-                    bike_qty,
-                    activity.delivery_product_id)
-
-                # handling guide here
-                guide_line = (
-                    activity
-                    .sale_order_id
-                    .order_line
-                    .filtered(lambda record: record.resource_guide == True)
-                )
-                line_vals = {'resource_guide':True}
-                guide_qty = len(activity.guides)
-
-                self.update_order_line(
+                    bike_qty)
+                self.update_participation_line(
+                    activity,
                     activity.sale_order_id,
-                    activity.need_guide,
-                    line_vals,
-                    guide_line,
-                    guide_qty,
-                    activity.guide_product_id)
-
-                # handling participation here
-                participation_line = (
-                    activity
-                    .sale_order_id
-                    .order_line
-                    .filtered(lambda record: record.participation_line == True)
-                )
-                line_vals = {'participation_line':True}
-                self.update_order_line(
-                    activity.sale_order_id,
-                    activity.need_participation,
-                    line_vals,
-                    participation_line,
-                    activity.registrations_expected,
-                    activity.participation_product_id)
+                    activity.registrations_expected)
+                self.update_guide_line(
+                    activity,
+                    activity.sale_order_id)
 
             elif activity.sale_orders:
                 # if the activity is spread on several sale orders
-                needed_res = {}
+                needed_resources = {}  # todo refactor
                 participations = {}
 
                 for registration in activity.registrations:
                     registration.sale_order_id.project_id = activity.analytic_account
                     attendee_id = registration.attendee_id.id
 
-                    if needed_res.has_key(attendee_id):
-                        needed_res[attendee_id] += registration.quantity_needed
+                    if needed_resources.has_key(attendee_id):
+                        needed_resources[attendee_id] += registration.quantity_needed
                         participations[attendee_id] += registration.quantity
                     else:
-                        needed_res[attendee_id] = registration.quantity_needed
+                        needed_resources[attendee_id] = registration.quantity_needed
                         participations[attendee_id] = registration.quantity
+
                     if registration.need_push:
-                        line_vals = {}
-                        self.update_order_line(
-                            registration.sale_order_id,
-                            True,
-                            line_vals,
-                            registration.order_line_id,
-                            needed_res[attendee_id],
-                            registration.product_id)
+                        # todo remove this note
+                        # replaced un nb_resources: needed_resources[attendee_id] by registration.quantity_needed
+                        # seems more correct but I might miss something
+                        self.update_resource_booking_line(registration, registration.sale_order_id)
                         registration.need_push = False
 
-                    # handling delivery here        
-                    delivery_line = (
-                        registration
-                        .sale_order_id
-                        .order_line
-                        .filtered(lambda record: record.resource_delivery == True)
-                    )
-                    line_vals = {'resource_delivery': True}
-
-                    self.update_order_line(
+                    self.update_delivery_line(
+                        activity,
                         registration.sale_order_id,
-                        activity.need_delivery,
-                        line_vals,
-                        delivery_line,
-                        needed_res[attendee_id],
-                        activity.delivery_product_id)
-
-                    # handling participation here
-                    participation_line = (
-                        registration
-                        .sale_order_id
-                        .order_line
-                        .filtered(lambda record: record.participation_line == True)
-                    )
-                    line_vals = {'participation_line':True}
-                    self.update_order_line(
+                        needed_resources[attendee_id])
+                    self.update_participation_line(
+                        activity,
                         registration.sale_order_id,
-                        activity.need_participation,
-                        line_vals,
-                        participation_line,
-                        participations[attendee_id],
-                        activity.participation_product_id)
+                        participations[attendee_id])
 
-            activity.need_push = False
+                    activity.need_push = False
 
-    def update_order_line(self, order_id, need_resource, line_vals, resource_line, resource_qty, resource_product_id):
+    def update_order_line(self,
+                          order_id,
+                          need_resource,
+                          line_vals,
+                          resource_line,
+                          resource_qty,
+                          resource_product_id):
         if need_resource:
             line_vals['product_uom_qty'] = resource_qty
             line_vals['product_id'] = resource_product_id.id
