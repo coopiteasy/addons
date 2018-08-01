@@ -1,11 +1,16 @@
 # -*- coding: utf-8 -*-
 # Copyright 2018 Coop IT Easy SCRLfs.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+from collections import defaultdict, namedtuple
+
 import pytz
 from openerp import _, api, fields, models
 from datetime import datetime, timedelta
 from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT as DTF
 from openerp.exceptions import ValidationError, UserError
+
+OrderLine = namedtuple('OrderLine',
+                       ['partner', 'product', 'qty', 'type', 'registration'])
 
 
 def _pd(dt):
@@ -383,102 +388,118 @@ class ResourceActivity(models.Model):
                 'res_model': action.res_model,
             }
 
-    def create_order_line(self, line_vals, order_id, product, qty):
-        line_vals['order_id'] = order_id.id
-        line_vals['product_id'] = product.id
-        line_vals['product_uom_qty'] = qty
-        line_vals['product_uom'] = product.uom_id.id
-        line_id = self.env['sale.order.line'].create(line_vals)
-        line_id.update_line()
+    def create_order_line(self, order, product, qty, **kwargs):
+        line_values = {
+            'order_id': order.id,
+            'product_id': product.id,
+            'product_uom_qty': qty,
+            'product_uom': product.uom_id.id,
 
+        }
+        line_values.update(kwargs)
+        line_id = self.env['sale.order.line'].create(line_values)
+        line_id.update_line()
         return line_id
+
+    def prepare_lines(self, activity):
+        registrations = (
+            activity
+            .registrations
+            .filtered(lambda record: record.state != 'cancelled')
+        )
+        prepared_lines = []
+        for registration in registrations:
+            partner = activity.partner_id.id if activity.partner_id else registration.attendee_id.id
+            if activity.need_delivery:
+                prepared_lines.append(
+                    OrderLine(
+                        partner,
+                        activity.delivery_product_id,
+                        registration.quantity_needed,
+                        'delivery',
+                        registration
+                    )
+                )
+            if activity.need_participation:
+                prepared_lines.append(
+                    OrderLine(
+                        partner,
+                        activity.participation_product_id,
+                        registration.quantity,
+                        'participation',
+                        registration
+                    )
+                )
+
+            prepared_lines.append(
+                OrderLine(
+                    partner,
+                    registration.product_id,
+                    registration.quantity_needed,
+                    'resource',
+                    registration
+                )
+            )
+
+        return prepared_lines
 
     @api.multi
     def create_sale_order(self):
-        order_obj = self.env['sale.order']
-        for activity in self:
-            order_vals = {
-                'activity_id': activity.id,
-                'project_id': activity.analytic_account.id,
-                'activity_sale': True,
-                }
+        SaleOrder = self.env['sale.order']
 
-            # if the whole activity is for the same customer we only create one sale order
-            if activity.partner_id:
-                order_vals['partner_id'] = activity.partner_id.id
-                order_id = order_obj.create(order_vals)
+        for activity in self:
+            order_lines = self.prepare_lines(activity)
+            partners = set(ol.partner for ol in order_lines)
+            for partner in partners:
+                order_id = SaleOrder.create({
+                    'partner_id': partner,
+                    'activity_id': activity.id,
+                    'project_id': activity.analytic_account.id,
+                    'activity_sale': True,
+                })
+                # todo think again: last order as activity order, writes on all activity ?
                 self.write({'sale_order_id': order_id.id, 'state': 'quotation'})
 
-            no_bike_qty = 0
-            bike_qty = 0
+                partner_lines = [ol for ol in order_lines if ol.partner == partner]
+                products = set(ol.product for ol in partner_lines)
 
-            customers = {}
-            for registration in activity.registrations.filtered(lambda record: record.state != 'cancelled'):
-                if not activity.partner_id:
-                    order_vals = {
-                        'activity_id': activity.id,
-                        'project_id': activity.analytic_account.id,
-                        'activity_sale': True,
-                    }
-                    attendee_id = registration.attendee_id.id
-                    if not customers.has_key(attendee_id):
-                        order_vals['partner_id'] = attendee_id
-                        order_id = order_obj.create(order_vals)
-                        customers[attendee_id] = order_id
+                for product in products:
+                    product_lines = [ol for ol in partner_lines if ol.product == product]
+                    qty = sum(pl.qty for pl in product_lines)
+                    type = product_lines.pop().type
+
+                    if type == 'resource':
+                        self.create_order_line(
+                            order_id,
+                            product,
+                            qty,
+                        )
+                    elif type == 'delivery':
+                        self.create_order_line(
+                            order_id,
+                            product,
+                            qty,
+                            resource_delivery=True,
+                        )
                     else:
-                        order_id = customers[attendee_id]
-                    registration.write({'sale_order_id': order_id.id})
-
-                    if activity.need_delivery:
-                        line_vals = {'resource_delivery': True}
                         self.create_order_line(
-                            line_vals,
                             order_id,
-                            activity.delivery_product_id,
-                            registration.quantity_needed)
+                            product,
+                            qty,
+                            participation_line=True,
+                        )
 
-                    if activity.need_participation:
-                        line_vals = {'participation_line': True}
-                        self.create_order_line(
-                            line_vals,
-                            order_id,
-                            activity.participation_product_id,
-                            registration.quantity)
 
-                no_bike_qty += registration.quantity - registration.quantity_needed
-                bike_qty += registration.quantity_needed
-                line_vals = {}
-                line_id = self.create_order_line(
-                    line_vals,
-                    order_id,
-                    registration.product_id,
-                    registration.quantity_needed)
-                registration.order_line_id = line_id
+                for pl in partner_lines:
+                    pl.registration.write({'sale_order_id': order_id.id})
 
-            if activity.partner_id:
-                if activity.need_delivery:
-                    line_vals = {'resource_delivery': True}
+            if activity.need_guide and activity.partner_id:
                     self.create_order_line(
-                        line_vals,
-                        order_id,
-                        activity.delivery_product_id,
-                        bike_qty)
-
-                if activity.need_guide:
-                    line_vals = {'resource_guide': True}
-                    self.create_order_line(
-                        line_vals,
-                        order_id,
+                        order_id,  # last order generated, unique if  activity.partner_id is set
                         activity.guide_product_id,
-                        len(activity.guides))
-
-                if activity.need_participation:
-                    line_vals = {'participation_line': True}
-                    self.create_order_line(
-                        line_vals,
-                        order_id,
-                        activity.participation_product_id,
-                        activity.registrations_expected)
+                        len(activity.guides),
+                        resource_guide=True,
+                    )
 
     @api.multi
     def action_quotation(self):
