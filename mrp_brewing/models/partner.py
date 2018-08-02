@@ -140,3 +140,8 @@ class ResPartner(models.Model):
             partner.sale_frequency = compute_sale_frequency(partner_orders)
             partner.crate_per_order = compute_crate_per_order(partner_orders)
             partner.crate_per_month = compute_crate_per_month(partner_orders)
+
+    @api.model
+    def _batch_compute_sales_statistics(self):
+        partners = self.search([('customer', '=', True)])
+        partners._compute_sales_statistics()
