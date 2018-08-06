@@ -45,6 +45,19 @@ class SaleOrder(models.Model):
         if self.activity_sale and not self.env.context.get('activity_action'):
             raise UserError("You can't confirm a sale order linked to an activity. Please go to the activity to perform this operation")
         return super(SaleOrder, self).action_confirm()
+
+    @api.multi
+    def action_open_sale_order(self):
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Sale Order',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': self._name,
+            'res_id': self.id,
+            'target': 'current',
+        }
     
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
