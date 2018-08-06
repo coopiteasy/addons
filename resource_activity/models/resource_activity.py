@@ -530,8 +530,8 @@ class ResourceActivity(models.Model):
     def action_quotation(self):
         for activity in self:
             for sale_order in activity.sale_orders:
-                sale_order.with_context.with_context(activity_action=True).action_cancel()
-                sale_order.with_context.with_context(activity_action=True).action_draft()
+                sale_order.with_context(activity_action=True).action_cancel()
+                sale_order.with_context(activity_action=True).action_draft()
                 activity.state = 'quotation'
 
     @api.multi
