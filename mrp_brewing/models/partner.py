@@ -17,6 +17,36 @@ def filter_last_year_orders(partner_orders):
     return last_year_orders
 
 
+def month_delta(d1, d2):
+    """Returns the month delta between d1 and d2. Delta is always positive
+    and maximum 12. Examples:
+
+    2017-09-21 -> 2017-09-24 = 0
+    2017-09-21 -> 2017-12-19 = 2
+    2017-09-21 -> 2017-12-23 = 3
+    2017-09-21 -> 2018-08-30 = 11
+    2017-09-21 -> 2018-10-11 = 12
+    """
+    first, second = (d1, d2) if d1 <= d2 else (d2, d1)
+
+    y = second.year - first.year
+    m = second.month - first.month
+    d = second.day - first.day
+
+    if y == 0 and d < 0:
+        delta = m - 1
+    elif y == 0 and d >= 0:
+        delta = m
+    elif y == 1 and m <= 0 and d < 0:
+        delta = 12 - (abs(m) + 1)
+    elif y == 1 and m < 0 and d >= 0:
+        delta = 12 - abs(m)
+    else:
+        delta = 12
+
+    return delta
+
+
 def compute_last_order(partner_orders):
     partner_orders = partner_orders.sorted()
     if len(partner_orders) > 0:
@@ -53,7 +83,7 @@ def compute_crate_per_order(partner_orders):
 
     if crate_lines:
         nb_crates = sum(crate_lines.mapped('qty_invoiced'))
-        return nb_crates / len(partner_orders)
+        return nb_crates / float(len(partner_orders))
     else:
         return None
 
@@ -71,15 +101,12 @@ def compute_crate_per_month(partner_orders):
 
         order_dates = map(_parse_date, partner_orders.mapped('date_order'))
         first_order_date = sorted(order_dates, reverse=True).pop()
+        nb_months = month_delta(first_order_date, dt.datetime.today())
 
-        # average on the last 12 months if customer has ordered before the last
-        # 12 month. Compute average since the first order otherwise.
-        if first_order_date < _last_year():
-            nb_months = 12
+        if nb_months == 0:
+            return nb_crates
         else:
-            nb_months = ((dt.datetime.today() - first_order_date).days / 31) + 1
-
-        return nb_crates / nb_months
+            return nb_crates / float(nb_months)
     else:
         return None
 
@@ -129,11 +156,11 @@ class ResPartner(models.Model):
             partner_orders = (
                 partner
                 .sale_order_ids
-                .filtered(lambda r: r.state not in ['cancel', 'exception']))
+                .filtered(lambda r: r.state not in ['cancel', 'draft']))
             childs_orders = (
                 partner
                 .mapped('child_ids.sale_order_ids')
-                .filtered(lambda r: r.state not in ['cancel', 'exception']))
+                .filtered(lambda r: r.state not in ['cancel', 'draft']))
             partner_orders = partner_orders + childs_orders
 
             partner.last_order = compute_last_order(partner_orders)
