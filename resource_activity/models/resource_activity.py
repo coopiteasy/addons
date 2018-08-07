@@ -480,11 +480,12 @@ class ResourceActivity(models.Model):
     @api.multi
     def create_sale_order(self):
         for activity in self:
-            if not activity.registrations.filtered(lambda r: r.state in ('option', 'booked')):
-                raise ValidationError('No registrations are booked.')
+
+            order_lines = self.prepare_lines(activity)
+             if not order_lines:
+                raise ValidationError('Nothing to invoice on this activity.')
 
             sale_orders = self.prepare_sale_orders(activity)
-            order_lines = self.prepare_lines(activity)
 
             partners = set(ol.partner for ol in order_lines)
             for partner in partners:
