@@ -482,7 +482,7 @@ class ResourceActivity(models.Model):
         for activity in self:
 
             order_lines = self.prepare_lines(activity)
-             if not order_lines:
+            if not order_lines:
                 raise ValidationError('Nothing to invoice on this activity.')
 
             sale_orders = self.prepare_sale_orders(activity)
