@@ -165,7 +165,20 @@
 	            				<field name="booked_resources"/>
 	            			</page>
 	            			<page name="sale_orders" string="Sale orders" attrs="{'invisible':[('sale_orders','=',False)]}">
-	            				<field name="sale_orders"/>
+ 	            				<field name="sale_orders">
+									<tree>
+                                        <button type="object"
+                                                name="action_open_sale_order"
+                                                help="Open Sale Order"
+                                                icon="gtk-open"/>
+										<field name="name"/>
+										<field name="date_order"/>
+										<field name="partner_id"/>
+										<field name="user_id"/>
+										<field name="amount_total"/>
+										<field name="state"/>
+									</tree>
+								</field>
 	            			</page>
 	            		</notebook>
 					</sheet>

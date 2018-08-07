@@ -52,15 +52,20 @@ class ResourceActivity(models.Model):
     _inherit = ['mail.thread']
 
     @api.multi
-    @api.depends('registrations.need_push',
-                 'participation_product_id',
-                 'delivery_product_id')
+    @api.depends('registrations.need_push')
     def _compute_push2sale_order(self):
         # computed field in order to display or not the push to sale order
         # button
         for activity in self:
             if activity.sale_orders:
-                activity.need_push = any(activity.registrations.mapped('need_push'))
+                registrations_need_push = any(
+                    activity
+                    .registrations
+                    .filtered(
+                        lambda record: record.state in ['option', 'booked'])
+                    .mapped('need_push'))
+                activity.need_push = activity.need_push or registrations_need_push
+        return
 
     @api.multi
     def _compute_booked_resources(self):
@@ -401,7 +406,7 @@ class ResourceActivity(models.Model):
         prepared_lines = []
         for registration in registrations:
             partner = activity.partner_id.id if activity.partner_id else registration.attendee_id.id
-            if activity.need_delivery:
+            if activity.need_delivery and registration.quantity_needed > 0:
                 prepared_lines.append(
                     OrderLine(
                         partner,
@@ -421,16 +426,16 @@ class ResourceActivity(models.Model):
                         registration
                     )
                 )
-
-            prepared_lines.append(
-                OrderLine(
-                    partner,
-                    registration.product_id,
-                    registration.quantity_needed,
-                    'resource',
-                    registration
+            if registration.quantity_needed > 0:
+                prepared_lines.append(
+                    OrderLine(
+                        partner,
+                        registration.product_id,
+                        registration.quantity_needed,
+                        'resource',
+                        registration
+                    )
                 )
-            )
 
         return prepared_lines
 
@@ -475,11 +480,12 @@ class ResourceActivity(models.Model):
     @api.multi
     def create_sale_order(self):
         for activity in self:
-            if not activity.registrations.filtered(lambda r: r.state in ('option', 'booked')):
-                raise ValidationError('No registrations are booked.')
+
+            order_lines = self.prepare_lines(activity)
+            if not order_lines:
+                raise ValidationError('Nothing to invoice on this activity.')
 
             sale_orders = self.prepare_sale_orders(activity)
-            order_lines = self.prepare_lines(activity)
 
             partners = set(ol.partner for ol in order_lines)
             for partner in partners:
@@ -530,8 +536,8 @@ class ResourceActivity(models.Model):
     def action_quotation(self):
         for activity in self:
             for sale_order in activity.sale_orders:
-                sale_order.with_context.with_context(activity_action=True).action_cancel()
-                sale_order.with_context.with_context(activity_action=True).action_draft()
+                sale_order.with_context(activity_action=True).action_cancel()
+                sale_order.with_context(activity_action=True).action_draft()
                 activity.state = 'quotation'
 
     @api.multi
@@ -622,8 +628,10 @@ class ResourceActivity(models.Model):
     def push_changes_to_sale_order(self):
         self.create_sale_order()
         for activity in self:
+            activity.need_push = False
             for registration in activity:
                 registration.need_push = False
+        return
 
     def update_order_line(self,
                           order_id,
@@ -650,32 +658,39 @@ class ResourceActivity(models.Model):
     def write(self, vals):
         for activity in self:
             if activity.sale_orders:
-                if 'need_delivery' in vals:
-                    if not vals.get('need_delivery'):
-                        vals['delivery_place'] = ''
-                        vals['delivery_time'] = False
-                        vals['pickup_place'] = ''
-                        vals['pickup_time'] = False
-                        vals['delivery_product_id'] = False
+                if ('need_delivery' in vals
+                        and not vals.get('need_delivery')):
+
+                    vals['delivery_place'] = ''
+                    vals['delivery_time'] = False
+                    vals['pickup_place'] = ''
+                    vals['pickup_time'] = False
+                    vals['delivery_product_id'] = False
+
+                if 'need_guide' in vals and not vals.get('need_guide'):
+                    vals['guide_product_id'] = False
+                    vals['guides'] = [[6, False, []]]
+
+                if ('need_participation' in vals
+                        and not vals.get('need_participation')):
+
+                    vals['need_participation'] = False
+
+                watches = (
+                    'need_delivery', 'delivery_product_id',
+                    'need_guide', 'guide_product_id', 'guides',
+                    'need_participation', 'participation_product_id',
+                    'activity_type',
+                )
+                if any(map(lambda var: var in vals, watches)):
                     vals['need_push'] = True
-                if 'need_guide' in vals:
-                    if not vals.get('need_guide'):
-                        vals['guide_product_id'] = False
-                    vals['need_push'] = True
-                if 'need_participation' in vals:
-                    if not vals.get('need_participation'):
-                        vals['need_participation'] = False
-                    vals['need_push'] = True
-                if 'activity_type' in vals:
-                    vals['need_push'] = True
-        return super(ResourceActivity,self).write(vals)
+        return super(ResourceActivity, self).write(vals)
 
     @api.multi
     @api.depends('partner_id', 'registrations_max', 'registrations_expected')
     def _propagate_activity_fields_update(self):
         for activity in self:
-            vals = {}
-            vals['partner_id'] = activity.partner_id
-            vals['registrations_max'] = activity.registrations_max
-            vals['registrations_expected'] = activity.registrations_expected
+            vals = {'partner_id': activity.partner_id,
+                    'registrations_max': activity.registrations_max,
+                    'registrations_expected': activity.registrations_expected}
             activity.registrations.write(vals)

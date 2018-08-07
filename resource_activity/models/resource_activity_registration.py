@@ -51,7 +51,33 @@ class ActivityRegistration(models.Model):
             if registration.sale_order_id:
                 registration.need_push = True
 
-    resource_activity_id = fields.Many2one('resource.activity',string="Activity")
+
+    @api.multi
+    @api.depends('allocations')
+    def _compute_quantity_allocated(self):
+        for registration in self:
+            registration.quantity_allocated = len(
+                registration
+                .allocations
+                .filtered(lambda a: a.state != 'cancel')
+            )
+
+    @api.multi
+    @api.depends('allocations')
+    def _compute_state(self):
+        for registration in self:
+            if registration.quantity_needed == registration.quantity_allocated:
+                registration.state = registration.booking_type
+            elif (registration.quantity_needed < registration.quantity_allocated
+                  and registration.quantity_allocated > 0):
+                registration.state = 'waiting'
+            elif registration.quantity_allocated == 0:
+                registration.state = 'cancelled'
+
+
+    resource_activity_id = fields.Many2one(
+        'resource.activity',
+        string="Activity")
     order_line_id = fields.Many2one(
         'sale.order.line',
         string="Sale order line")
@@ -74,6 +100,8 @@ class ActivityRegistration(models.Model):
         default=1)
     quantity_allocated = fields.Integer(
         string="Quantity allocated",
+        compute='_compute_quantity_allocated',
+        store=True,
         readonly=True)
     product_id = fields.Many2one(
         'product.product',
@@ -197,20 +225,22 @@ class ActivityRegistration(models.Model):
     @api.multi
     def reserve_needed_resource(self):
         for registration in self:
-            qty_needed = registration.quantity_needed - registration.quantity_allocated
-            free_resources = (
-                registration
-                .resources_available
-                .filtered(lambda record: record.state == 'free')
-            )
-            for resource_available in free_resources:
-                resource_available.action_reserve()
-                qty_needed -= 1
-                if qty_needed == 0:
-                    break
-            (registration
-             .resource_activity_id
-             .registrations.action_refresh())
+            if registration.quantity_needed == 0:
+                registration.state = 'booked'
+            else:
+                free_resources = (
+                    registration
+                    .resources_available
+                    .filtered(lambda record: record.state == 'free')
+                )
+                for resource_available in free_resources:
+                    if registration.quantity_needed - registration.quantity_allocated <= 0:
+                        break
+                    resource_available.action_reserve()
+
+                (registration
+                 .resource_activity_id
+                 .registrations.action_refresh())
         return True
 
     @api.multi
@@ -312,7 +342,7 @@ class ResourceAvailable(models.Model):
                 allocations = self.env['resource.allocation'].browse(allocation_ids)
                 allocations.write({'activity_registration_id': resource_available.registration_id.id})
                 resource_available.state = 'selected'
-                resource_available.registration_id.quantity_allocated += 1
+                # resource_available.registration_id.quantity_allocated += 1  # mark
                 resource_available.registration_id.state = resource_available.registration_id.booking_type
             else:
                 print "no resource found for : " + str(resource_available.resource_id.ids)
@@ -330,14 +360,6 @@ class ResourceAvailable(models.Model):
                                and record.state != 'cancel')
         )
         allocation.action_cancel()
-        if self.state == 'selected':
-            self.registration_id.quantity_allocated -= 1
-            if (self.registration_id.quantity_needed > self.registration_id.quantity_allocated
-                    and self.registration_id.quantity_allocated > 0):
-                self.registration_id.state = 'waiting'
-            elif self.registration_id.quantity_allocated == 0:
-                self.registration_id.state = 'cancelled'
         self.state = 'cancelled'
 
         return True
-
