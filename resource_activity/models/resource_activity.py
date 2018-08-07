@@ -406,7 +406,7 @@ class ResourceActivity(models.Model):
         prepared_lines = []
         for registration in registrations:
             partner = activity.partner_id.id if activity.partner_id else registration.attendee_id.id
-            if activity.need_delivery:
+            if activity.need_delivery and registration.quantity_needed > 0:
                 prepared_lines.append(
                     OrderLine(
                         partner,
@@ -426,16 +426,16 @@ class ResourceActivity(models.Model):
                         registration
                     )
                 )
-
-            prepared_lines.append(
-                OrderLine(
-                    partner,
-                    registration.product_id,
-                    registration.quantity_needed,
-                    'resource',
-                    registration
+            if registration.quantity_needed > 0:
+                prepared_lines.append(
+                    OrderLine(
+                        partner,
+                        registration.product_id,
+                        registration.quantity_needed,
+                        'resource',
+                        registration
+                    )
                 )
-            )
 
         return prepared_lines
 

@@ -197,20 +197,23 @@ class ActivityRegistration(models.Model):
     @api.multi
     def reserve_needed_resource(self):
         for registration in self:
-            qty_needed = registration.quantity_needed - registration.quantity_allocated
-            free_resources = (
-                registration
-                .resources_available
-                .filtered(lambda record: record.state == 'free')
-            )
-            for resource_available in free_resources:
-                resource_available.action_reserve()
-                qty_needed -= 1
-                if qty_needed == 0:
-                    break
-            (registration
-             .resource_activity_id
-             .registrations.action_refresh())
+            if registration.quantity_needed == 0:
+                registration.state = 'booked'
+            else:
+                qty_needed = registration.quantity_needed - registration.quantity_allocated
+                free_resources = (
+                    registration
+                    .resources_available
+                    .filtered(lambda record: record.state == 'free')
+                )
+                for resource_available in free_resources:
+                    resource_available.action_reserve()
+                    qty_needed -= 1
+                    if qty_needed == 0:
+                        break
+                (registration
+                 .resource_activity_id
+                 .registrations.action_refresh())
         return True
 
     @api.multi
