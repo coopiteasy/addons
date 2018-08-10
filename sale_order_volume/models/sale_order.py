@@ -5,6 +5,10 @@ from openerp import api, fields, models
 from collections import defaultdict
 
 
+def _compute_volume(order_line):
+    return order_line.product_id.volume * order_line.product_uom_qty
+
+
 class ProductCategoryVolume(models.Model):
     _name = 'product.category.volume'
 
@@ -26,6 +30,8 @@ class SaleOrder(models.Model):
 
     volume = fields.Float(
         string='Order Volume (m³)',
+        compute='compute_order_volume',
+        store=True,
     )
 
     volume_per_category = fields.One2many(
@@ -35,7 +41,20 @@ class SaleOrder(models.Model):
     )
 
     @api.multi
+    @api.depends('order_line',
+                 'order_line.product_id',
+                 'order_line.product_uom_qty')
     def compute_order_volume(self):
+
+        for order in self:
+            order_lines = order.order_line.filtered(
+                lambda ol: ol.state not in ['cancel']
+            )
+
+            order.volume = sum(_compute_volume(ol) for ol in order_lines)
+
+    @api.multi
+    def compute_product_category_volumes(self):
         CategoryVolume = self.env['product.category.volume']
 
         for order in self:
@@ -43,15 +62,10 @@ class SaleOrder(models.Model):
                 lambda ol: ol.state not in ['cancel']
             )
 
-            def compute_volume(ol):
-                return ol.product_id.volume * ol.product_uom_qty
-
-            order.volume = sum(compute_volume(ol) for ol in order_lines)
-
             accumulator = defaultdict(list)
             for order_line in order_lines:
                 category_id = order_line.product_id.categ_id.id
-                volume = compute_volume(order_line)
+                volume = _compute_volume(order_line)
                 accumulator[category_id].append(volume)
 
             volume_per_category = [
@@ -69,8 +83,14 @@ class SaleOrder(models.Model):
                     existing_categories[category_id].volume = volume
                 else:
                     vals = {
-                            'sale_order_id': order.id,
-                            'category_id': category_id,
-                            'volume': volume
-                        }
+                        'sale_order_id': order.id,
+                        'category_id': category_id,
+                        'volume': volume
+                    }
                     CategoryVolume.create(vals)
+
+    @api.multi
+    def write(self, values):
+        ret = super(SaleOrder, self).write(values)
+        self.compute_product_category_volumes()
+        return ret

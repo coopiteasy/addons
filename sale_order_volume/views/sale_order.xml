@@ -20,12 +20,6 @@
                         </group>
                     </page>
                 </xpath>
-                <xpath expr="//button[@name='action_done']" position="after">
-                    <button name="compute_order_volume"
-                            string="Compute Order Volume"
-                            type="object"
-                            class="btn-primary"/>
-                </xpath>
             </field>
         </record>
 
