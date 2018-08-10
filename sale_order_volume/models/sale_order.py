@@ -54,40 +54,47 @@ class SaleOrder(models.Model):
             order.volume = sum(_compute_volume(ol) for ol in order_lines)
 
     @api.multi
-    def compute_product_category_volumes(self):
+    def compute_order_product_category_volumes(self):
+        self.ensure_one()
         CategoryVolume = self.env['product.category.volume']
 
+        order_lines = self.order_line.filtered(
+            lambda ol: ol.state not in ['cancel']
+        )
+
+        accumulator = defaultdict(list)
+        for order_line in order_lines:
+            category_id = order_line.product_id.categ_id.id
+            volume = _compute_volume(order_line)
+            accumulator[category_id].append(volume)
+
+        volume_per_category = [
+            (category_id, sum(volumes))
+            for category_id, volumes
+            in accumulator.items()
+        ]
+
+        existing_categories = {
+            vpc.category_id.id: vpc for vpc in self.volume_per_category
+        }
+
+        for category_id, volume in volume_per_category:
+            if category_id in existing_categories:
+                existing_categories[category_id].volume = volume
+            else:
+                vals = {
+                    'sale_order_id': self.id,
+                    'category_id': category_id,
+                    'volume': volume
+                }
+                CategoryVolume.create(vals)
+
+        return self.volume_per_category
+
+    @api.multi
+    def compute_product_category_volumes(self):
         for order in self:
-            order_lines = order.order_line.filtered(
-                lambda ol: ol.state not in ['cancel']
-            )
-
-            accumulator = defaultdict(list)
-            for order_line in order_lines:
-                category_id = order_line.product_id.categ_id.id
-                volume = _compute_volume(order_line)
-                accumulator[category_id].append(volume)
-
-            volume_per_category = [
-                (category_id, sum(volumes))
-                for category_id, volumes
-                in accumulator.items()
-            ]
-
-            existing_categories = {
-                vpc.category_id.id: vpc for vpc in order.volume_per_category
-            }
-
-            for category_id, volume in volume_per_category:
-                if category_id in existing_categories:
-                    existing_categories[category_id].volume = volume
-                else:
-                    vals = {
-                        'sale_order_id': order.id,
-                        'category_id': category_id,
-                        'volume': volume
-                    }
-                    CategoryVolume.create(vals)
+            order.compute_order_product_category_volumes()
 
     @api.multi
     def write(self, values):
