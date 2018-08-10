@@ -21,7 +21,8 @@
     "name": "Sale Order Volume",
     "version": "1.0",
     "depends": [
-        'sale'
+        'sale',
+        'website_sale',
     ],
     "author": "Robin Keunen <robin@coopiteasy.be>",
     'license': 'AGPL-3',
@@ -35,6 +36,7 @@
     """,
     'data': [
         'views/sale_order.xml',
+        'views/shopping_cart.xml',
         'reports/report_saleorder.xml',
     ],
     'installable': True,
