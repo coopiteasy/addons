@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+    <template id="cart" inherit_id="website_sale.cart">
+        <div id="right_column" position="inside">
+            <h4>Product Volumes (m³)</h4>
+            <table class="table table-condensed" name="volume-per-category">
+                <tbody class="sale_tbody">
+                    <t t-set="category_volumes"
+                       t-value="website_sale_order.compute_order_product_category_volumes()"/>
+                    <t t-foreach="category_volumes" t-as="line">
+                        <tr>
+                            <td>
+                                <span t-field="line.category_id"/>
+                            </td>
+                            <td class="text-right">
+                                <span t-field="line.volume"/>
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </table>
+        </div>
+    </template>
+
+</data>
+</openerp>
