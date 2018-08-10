@@ -35,6 +35,7 @@
     """,
     'data': [
         'views/sale_order.xml',
+        'reports/report_saleorder.xml',
     ],
     'installable': True,
 }
