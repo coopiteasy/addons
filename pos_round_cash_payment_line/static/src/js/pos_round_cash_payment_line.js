@@ -25,7 +25,6 @@ odoo.define('pos_round_cash_payment_line.pos_round_cash_payment_line', function 
             let due;
             if (!paymentline) {
                 due = this.get_total_with_tax() - this.get_total_paid();
-                alert('get due !paymentline');
                 return utils.round_precision(Math.max(0,due), this.pos.currency.rounding);
             } else {
                 due = this.get_total_with_tax();
@@ -39,10 +38,8 @@ odoo.define('pos_round_cash_payment_line.pos_round_cash_payment_line', function 
                 }
 
                 if (paymentline.cashregister.journal.type === 'cash') {
-                    alert('get due round_c5');
-                    return this.round_5c(due);
+                    return this.round_5c(due); // fixme swiss parameter
                 } else {
-                    alert('get due else');
                     return utils.round_precision(Math.max(0, due), this.pos.currency.rounding);
                 }
             }
@@ -67,6 +64,14 @@ odoo.define('pos_round_cash_payment_line.pos_round_cash_payment_line', function 
             }
             this.paymentlines.add(newPaymentline);
             this.select_paymentline(newPaymentline);
+        },
+
+        is_paid: function(){
+            if (this.is_paid_with_cash()) {  // fixme swiss parameter
+                return Math.abs(this.get_due()) < 0.05;
+            } else {
+                return this.get_due() === 0;
+            }
         },
     });
 });
