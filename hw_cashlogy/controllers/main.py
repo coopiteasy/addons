@@ -211,10 +211,13 @@ class CashlogyAutomaticCashdrawerProxy(hw_proxy.Proxy):
         '/hw_proxy/automatic_cashdrawer_transaction_start',
         type='json', auth='none', cors='*')
     def automatic_cashdrawer_transaction_start(self, payment_info=None):
-        logger.debug(
+        logger.info(
             'Cashlogy: Call automatic_cashdrawer_transaction_start with '
             'payment_info=%s', payment_info)
         answer = driver.transaction_start(payment_info)
+        logger.info(
+            'Cashlogy: automatic_cashdrawer_transaction_start answer'
+            'payment_info_response=%s', answer)
         return {'info': str(answer)}
 
     @http.route(
