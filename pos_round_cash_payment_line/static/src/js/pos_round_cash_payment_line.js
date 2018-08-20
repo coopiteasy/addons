@@ -10,6 +10,8 @@ odoo.define('pos_round_cash_payment_line.pos_round_cash_payment_line', function 
     var models = require('point_of_sale.models');
     var round_pr = require('web.utils').round_precision;
 
+    var order_prototype = models.Order.prototype;
+
     models.Order = models.Order.extend({
 
         round_5c: function(x) {
@@ -18,16 +20,15 @@ odoo.define('pos_round_cash_payment_line.pos_round_cash_payment_line', function 
 
         round_5c_remainder: function(x) {
             var rounded_value = round_pr(x * 20) / 20;
-            return x - rounded_value;
+            return rounded_value - x;
         },
 
         get_due: function(paymentline) {
-            let due;
+
             if (!paymentline) {
-                due = this.get_total_with_tax() - this.get_total_paid();
-                return round_pr(Math.max(0,due), this.pos.currency.rounding);
+                var due = this.get_total_with_tax() - this.get_total_paid();
             } else {
-                due = this.get_total_with_tax();
+                var due = this.get_total_with_tax();
                 var lines = this.paymentlines.models;
                 for (var i = 0; i < lines.length; i++) {
                     if (lines[i] === paymentline) {
@@ -36,37 +37,20 @@ odoo.define('pos_round_cash_payment_line.pos_round_cash_payment_line', function 
                         due -= lines[i].get_amount();
                     }
                 }
+            }
 
-                if (paymentline.cashregister.journal.type === 'cash') {
-                    return this.round_5c(due);  // fixme swiss parameter
-                } else {
-                    return round_pr(Math.max(0, due), this.pos.currency.rounding);
-                }
+            if (paymentline && paymentline.cashregister.journal.type === 'cash') {
+                return this.round_5c(due);  // fixme swiss parameter
+
+            } else {
+                return round_pr(due, this.pos.currency.rounding)
             }
         },
 
 
         get_change: function(paymentline) {
-            let change;
-            if (!paymentline) {
-                change = this.get_total_paid() - this.get_total_with_tax();
-                return round_pr(Math.max(0, change), this.pos.currency.rounding);
-            } else {
-                change = -this.get_total_with_tax();
-                var lines = this.paymentlines.models;
-                for (var i = 0; i < lines.length; i++) {
-                    change += lines[i].get_amount();
-                    if (lines[i] === paymentline) {
-                        break;
-                    }
-                }
-
-                if (paymentline.cashregister.journal.type === 'cash') {
-                    return this.round_5c(change)  // fixme swiss parameter
-                } else {
-                    return round_pr(Math.max(0, change), this.pos.currency.rounding);
-                }
-            }
+            var change = order_prototype.get_change.call(this, paymentline);
+            return this.round_5c(change);  // fixme swiss parameter
         },
 
         add_paymentline: function(cashregister) {
