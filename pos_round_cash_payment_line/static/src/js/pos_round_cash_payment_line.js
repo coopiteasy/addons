@@ -11,6 +11,7 @@ odoo.define('pos_round_cash_payment_line.pos_round_cash_payment_line', function 
     var round_pr = require('web.utils').round_precision;
 
     var order_prototype = models.Order.prototype;
+    var psw_prototype = models.PaymentScreenWidget.prototype;
 
     models.Order = models.Order.extend({
 
@@ -80,5 +81,15 @@ odoo.define('pos_round_cash_payment_line.pos_round_cash_payment_line', function 
                 return this.get_due() === 0;
             }
         },
+    });
+
+    models.PaymentScreenWidget = models.PaymentScreenWidget.extend({
+        finalize_validation: function () {
+            var order = this.pos.get_order();
+            if ( Math.abs(order.get_due()) < 0.5 ) {  // fixme swiss parameter
+                // add line
+            }
+            psw_prototype.finalize_validation.call(this)
+        }
     });
 });
