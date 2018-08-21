@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_product_category_volume,product.category.volume,model_product_category_volume,base.group_sale_salesman,1,0,0,0
