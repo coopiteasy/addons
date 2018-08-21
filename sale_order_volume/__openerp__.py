@@ -38,6 +38,7 @@
         'views/sale_order.xml',
         'views/shopping_cart.xml',
         'reports/report_saleorder.xml',
+        'security/ir.model.access.csv',
     ],
     'installable': True,
 }
