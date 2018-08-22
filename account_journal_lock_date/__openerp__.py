@@ -21,7 +21,8 @@
     # any module necessary for this one to work correctly
     'depends': [
         'base',
-        'account'
+        'account',
+        'account_permanent_lock_move',
     ],
 
     # always loaded
