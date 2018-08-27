@@ -30,6 +30,20 @@ class TestJournalLockDate(common.TransactionCase):
         self.account2 = self.browse_ref("account.a_expense")
         self.journal = self.browse_ref("account.bank_journal")
 
+    def set_group_account_manager(self):
+        self.env.user.write({
+            'groups_id': [(4, self.ref('account.group_account_manager'))],
+        })
+        self.assertTrue(self.env.user.has_group(
+            'account.group_account_manager'))
+
+    def unset_group_account_manager(self):
+        self.env.user.write({
+            'groups_id': [(3, self.ref('account.group_account_manager'))],
+        })
+        self.assertFalse(self.env.user.has_group(
+            'account.group_account_manager'))
+
     def create_move(self):
         """create a move and post it"""
         move = self.account_move_obj.create({
@@ -50,17 +64,12 @@ class TestJournalLockDate(common.TransactionCase):
         return move
 
     def test_create_account_move(self):
-        self.env.user.write({
-            'groups_id': [(3, self.ref('account.group_account_manager'))],
-        })
-        self.assertFalse(self.env.user.has_group(
-            'account.group_account_manager'))
-
+        self.unset_group_account_manager()
         self.create_move()
 
     def test_create_account_move_on_locked_journal(self):
         """Test that the move cannot be created."""
-        # lock journal
+        self.unset_group_account_manager()
 
         self.journal.journal_lock_date = fields.Date.today()
 
@@ -81,6 +90,7 @@ class TestJournalLockDate(common.TransactionCase):
 
     def test_update_account_move_on_locked_journal(self):
         """Test that the move cannot be written"""
+        self.unset_group_account_manager()
         move = self.create_move()
         self.journal.journal_lock_date = fields.Date.today()
 
@@ -89,13 +99,15 @@ class TestJournalLockDate(common.TransactionCase):
 
     def test_cancel_account_move_on_locked_journal(self):
         """Test that the move cannot be cancelled"""
+        self.unset_group_account_manager()
         move = self.create_move()
         self.journal.journal_lock_date = fields.Date.today()
         with self.assertRaises(JournalLockDateError):
             move.button_cancel()
 
     def test_update_account_move_on_unlocked_journal(self):
-        # create a move after their lock date and post it
+        """create a move after their lock date and post it"""
+        self.unset_group_account_manager()
         self.journal.journal_lock_date = fields.Date.today()
         tomorrow = date.today() + timedelta(days=1)
         move = self.account_move_obj.create({
@@ -113,28 +125,22 @@ class TestJournalLockDate(common.TransactionCase):
         })
         move.post()
 
-    # def test_journal_lock_date_adviser(self):
-    #     """ The journal lock date is ignored for Advisers """
-    #     self.env.user.write({
-    #         'groups_id': [(4, self.ref('account.group_account_manager'))],
-    #     })
-    #     self.assertTrue(self.env.user.has_group(
-    #         'account.group_account_manager'))
-    #
-    #     # lock journal
-    #     self.journal.journal_lock_date = fields.Date.today()
-    #
-    #     # advisers can create moves before or on the lock date
-    #     self.account_move_obj.create({
-    #         'date': fields.Date.today(),
-    #         'journal_id': self.journal.id,
-    #         'line_ids': [(0, 0, {
-    #             'account_id': self.account.id,
-    #             'credit': 1000.0,
-    #             'name': 'Credit line',
-    #         }), (0, 0, {
-    #             'account_id': self.account2.id,
-    #             'debit': 1000.0,
-    #             'name': 'Debit line',
-    #         })]
-    #     })
+    def test_journal_lock_date_adviser(self):
+        """ The journal lock date is ignored for Advisers """
+        self.set_group_account_manager()
+        self.journal.journal_lock_date = fields.Date.today()
+
+        # advisers can create moves before or on the lock date
+        self.account_move_obj.create({
+            'date': fields.Date.today(),
+            'journal_id': self.journal.id,
+            'line_ids': [(0, 0, {
+                'account_id': self.account.id,
+                'credit': 1000.0,
+                'name': 'Credit line',
+            }), (0, 0, {
+                'account_id': self.account2.id,
+                'debit': 1000.0,
+                'name': 'Debit line',
+            })]
+        })

@@ -14,6 +14,12 @@ class AccountJournal(models.Model):
              "has the Adviser role.",
     )
 
+    @api.model
+    def _can_bypass_journal_lock_date(self):
+        """ This method is meant to be overridden to provide
+        finer control on who can bypass the lock date """
+        return self.env.user.has_group('account.group_account_manager')
+
 
 class AccountMove(models.Model):
     _inherit = 'account.move'
@@ -21,6 +27,10 @@ class AccountMove(models.Model):
     @api.multi
     def _check_lock_date(self):
         res = super(AccountMove, self)._check_lock_date()
+
+        if self.env['account.journal']._can_bypass_journal_lock_date():
+            return res
+
         for move in self:
             lock_date = move.journal_id.journal_lock_date
             if lock_date and move.date <= lock_date:
