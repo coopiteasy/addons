@@ -5,7 +5,7 @@
      	<t t-set="data_report_margin_top" t-value="20"/>
         <t t-set="data_report_header_spacing" t-value="9"/>
         <t t-set="data_report_dpi" t-value="300"/>
-        <t t-call="report.internal_layout">
+        <t t-call="product_report_v10.report_layout">
 	    	<div class="page">
 		        <t t-foreach="docs" t-as="product">
 	    		<div class="row">
