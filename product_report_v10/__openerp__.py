@@ -13,6 +13,7 @@
     'license': 'AGPL-3',
     'depends': ['base', 'product', 'report'],
     'data': [
+        'report/layout.xml',
         'report/product_template_label_repeat.xml',
         'report/product_template_templates.xml',
         'report/product_reports.xml',
