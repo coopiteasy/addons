@@ -7,8 +7,11 @@
         <field name="inherit_id" ref="point_of_sale.view_pos_config_form"/>
         <field name="arch" type="xml">
             <field name="tip_product_id" position="after">
-                <field name="round_remainder_income_account_id"/>
-                <field name="round_remainder_expense_account_id"/>
+                <field name="cash_rounding_activated"/>
+                <field name="round_remainder_product_id"
+                       attrs="{'invisible':[('cash_rounding_activated','=',False)],
+                               'required':[('cash_rounding_activated','=',True)]}"
+                />
             </field>
         </field>
     </record>
