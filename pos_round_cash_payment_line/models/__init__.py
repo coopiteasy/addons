@@ -1,1 +1,1 @@
-# from . import x  # fixme
+from . import pos_config
