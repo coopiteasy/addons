@@ -22,11 +22,6 @@ odoo.define(
             return round_pr(x * 20) / 20;
         },
 
-        round_5c_remainder: function(x) {
-            var rounded_value = round_pr(x * 20) / 20;
-            return rounded_value - x;
-        },
-
         get_due: function(paymentline) {
 
             if (!paymentline) {
@@ -43,18 +38,23 @@ odoo.define(
                 }
             }
 
-            if (paymentline && paymentline.cashregister.journal.type === 'cash') {
-                return this.round_5c(due);  // fixme swiss parameter
+            if (this.pos.config.cash_rounding_activated
+                && paymentline
+                && paymentline.cashregister.journal.type === 'cash') {
+                return this.round_5c(due);
 
             } else {
                 return round_pr(due, this.pos.currency.rounding)
             }
         },
-
-
+        // todo check it writes correct journal entries
         get_change: function(paymentline) {
             var change = order_prototype.get_change.call(this, paymentline);
-            return this.round_5c(change);  // fixme swiss parameter
+            if (this.pos.config.cash_rounding_activated){
+                return this.round_5c(change);
+            } else {
+                return change;
+            }
         },
 
         add_paymentline: function(cashregister) {
@@ -78,7 +78,8 @@ odoo.define(
         },
 
         is_paid: function(){
-            if (this.is_paid_with_cash()) {  // fixme swiss parameter
+            if (this.pos.config.cash_rounding_activated
+                  && this.is_paid_with_cash()) {
                 return Math.abs(this.get_due()) < 0.05;
             } else {
                 return this.get_due() === 0;
@@ -86,8 +87,6 @@ odoo.define(
         },
 
         add_round_line: function (remainder) {
-            // todo round remainder product
-            // todo -> with configured remainder account
             var remainder_product = this.pos.db.get_product_by_id(
                 this.pos.config.round_remainder_product_id[0]
             );
@@ -106,7 +105,8 @@ odoo.define(
     screens.PaymentScreenWidget.include({
         finalize_validation: function () {
             var order = this.pos.get_order();
-            if ( Math.abs(order.get_due()) < 0.5 ) {  // fixme swiss parameter
+            if (this.pos.config.cash_rounding_activated
+                    && Math.abs(order.get_due()) < 0.5 ) {
                 order.add_round_line(-order.get_due());
             }
             return this._super()
