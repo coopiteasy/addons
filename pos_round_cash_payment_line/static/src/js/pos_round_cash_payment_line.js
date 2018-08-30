@@ -5,13 +5,16 @@
     The licence is in the file __openerp__.py
 */
 
-odoo.define('pos_round_cash_payment_line.pos_round_cash_payment_line', function (require) {
+odoo.define(
+    'pos_round_cash_payment_line.pos_round_cash_payment_line',
+    function (require) {
+
     "use strict";
     var models = require('point_of_sale.models');
+    var screens = require('point_of_sale.screens');
     var round_pr = require('web.utils').round_precision;
 
     var order_prototype = models.Order.prototype;
-    var psw_prototype = models.PaymentScreenWidget.prototype;
 
     models.Order = models.Order.extend({
 
@@ -81,15 +84,32 @@ odoo.define('pos_round_cash_payment_line.pos_round_cash_payment_line', function 
                 return this.get_due() === 0;
             }
         },
+
+        add_round_line: function (remainder) {
+            // todo round remainder product
+            // todo -> with configured remainder account
+            var remainder_product = this.pos.db.get_product_by_id(
+                this.pos.config.round_remainder_product_id[0]
+            );
+            var lines = this.get_orderlines();
+
+            for (var i = 0; i < lines.length; i++) {
+                if (lines[i].get_product() === remainder_product) {
+                    lines[i].set_unit_price(remainder);
+                    return;
+                }
+            }
+            this.add_product(remainder_product, {quantity: 1, price: remainder});
+        }
     });
 
-    models.PaymentScreenWidget = models.PaymentScreenWidget.extend({
+    screens.PaymentScreenWidget.include({
         finalize_validation: function () {
             var order = this.pos.get_order();
             if ( Math.abs(order.get_due()) < 0.5 ) {  // fixme swiss parameter
-                // add line
+                order.add_round_line(-order.get_due());
             }
-            psw_prototype.finalize_validation.call(this)
+            return this._super()
         }
     });
 });

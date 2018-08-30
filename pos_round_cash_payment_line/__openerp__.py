@@ -28,9 +28,12 @@
     # todo
     """,
     "depends": [
-        'point_of_sale'
+        'point_of_sale',
+        'product',
     ],
     'data': [
+        'views/pos_config.xml',
+        'data/round_remainder_product.xml',
         'static/src/xml/templates.xml',
     ],
     'qweb': [

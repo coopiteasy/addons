@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<openerp>
+
+    <record id="view_pos_config_form" model="ir.ui.view">
+        <field name="name">pos.config.form.view.inherit</field>
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_config_form"/>
+        <field name="arch" type="xml">
+            <field name="tip_product_id" position="after">
+                <field name="round_remainder_income_account_id"/>
+                <field name="round_remainder_expense_account_id"/>
+            </field>
+        </field>
+    </record>
+
+</openerp>
