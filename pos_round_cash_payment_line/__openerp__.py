@@ -20,12 +20,17 @@
 {
     "name": "Pos Round Cash Payment Line",
     "version": "9.0.0.1.0",
-    "author": "Robin Keunen <robin@coopiteasy.be>",
+    "author": "Coop IT Easy - Robin Keunen <robin@coopiteasy.be>",
     "license": "AGPL-3",
-    "category": "",
+    "category": "Point of Sale",
     "website": "www.coopiteasy.be",
     "description": """
-    # todo
+        Rounds due amount to nearest 5 cents when adding a cash Payment line.
+        An line is added on the invoice to record the rounding remainder.
+        
+        The rounding remainder account is set through the *Round Remainder 
+        Product* fields: property_account_income_id and
+        property_account_expense_id.
     """,
     "depends": [
         'point_of_sale',
