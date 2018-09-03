@@ -3,7 +3,7 @@
     <data noupdate="1">
         <record id="round_remainder_product" model="product.product">
             <field name="name">Round Remainder Product</field>
-            <field name="categ_id" ref="product.product_category_all"/>  <!-- Internal -->
+            <field name="categ_id" ref="product.product_category_all"/>
             <field name="uom_id" ref="product.product_uom_unit"/>
             <field name="sale_ok">1</field>
             <field name="available_in_pos">1</field>
