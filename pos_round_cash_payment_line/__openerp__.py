@@ -28,9 +28,12 @@
         Rounds due amount to nearest 5 cents when adding a cash Payment line.
         An line is added on the invoice to record the rounding remainder.
         
-        The rounding remainder account is set through the *Round Remainder 
-        Product* fields: property_account_income_id and
-        property_account_expense_id.
+        The product *Round Remainder Product* is added to your product list.
+        You must set the Rounding Account through:
+        - Round Remainder Product > Accounting 
+          - > Income Account
+          - > Expense Account
+        
     """,
     "depends": [
         'point_of_sale',
