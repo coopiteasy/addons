@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-
-        <!--<template id="assets" inherit_id="point_of_sale.assets">-->
         <template id="assets_backend" name="round_cash_payment_extension_assets" inherit_id="web.assets_backend">
           <xpath expr="." position="inside">
               <script type="text/javascript"
@@ -10,6 +8,5 @@
               </script>
           </xpath>
         </template>
-
     </data>
 </odoo>

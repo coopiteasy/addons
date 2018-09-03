@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<openerp>
+<odoo>
     <data noupdate="1">
         <record id="round_remainder_product" model="product.product">
             <field name="name">Round Remainder Product</field>
@@ -13,4 +13,4 @@
             <field name="supplier_taxes_id" eval="[(5, 0, 0)]"/>
         </record>
     </data>
-</openerp>
+</odoo>
