@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<odoo>
+    <data noupdate="1">
+        <record id="round_remainder_product" model="product.product">
+            <field name="name">Round Remainder Product</field>
+            <field name="categ_id" ref="product.product_category_all"/>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="sale_ok">1</field>
+            <field name="available_in_pos">1</field>
+            <field name="purchase_ok"/>
+            <field name="list_price">0</field>
+            <field name="taxes_id" eval="[(5, 0, 0)]"/>
+            <field name="supplier_taxes_id" eval="[(5, 0, 0)]"/>
+        </record>
+    </data>
+</odoo>
