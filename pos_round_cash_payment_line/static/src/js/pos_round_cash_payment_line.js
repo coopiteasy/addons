@@ -47,7 +47,7 @@ odoo.define(
                 return round_pr(due, this.pos.currency.rounding)
             }
         },
-        // todo check it writes correct journal entries
+
         get_change: function(paymentline) {
             var change = order_prototype.get_change.call(this, paymentline);
             if (this.pos.config.cash_rounding_activated){
@@ -80,7 +80,7 @@ odoo.define(
         is_paid: function(){
             if (this.pos.config.cash_rounding_activated
                   && this.is_paid_with_cash()) {
-                return Math.abs(this.get_due()) < 0.05;
+                return this.get_due() < 0.025;
             } else {
                 return this.get_due() === 0;
             }
