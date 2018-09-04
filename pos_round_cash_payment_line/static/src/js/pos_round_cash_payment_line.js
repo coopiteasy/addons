@@ -22,10 +22,13 @@ odoo.define(
             return round_pr(x * 20) / 20;
         },
 
-        get_due: function(paymentline) {
+        round_5c_remainder: function(x) {
+            return x - this.round_5c(x);
+        },
 
+        get_due: function(paymentline) {
             if (!paymentline) {
-                var due = this.get_total_with_tax() - this.get_total_paid();
+                var due = this.get_total_with_tax() - this.get_total_paid() + this.get_change();
             } else {
                 var due = this.get_total_with_tax();
                 var lines = this.paymentlines.models;
@@ -37,15 +40,7 @@ odoo.define(
                     }
                 }
             }
-
-            if (this.pos.config.cash_rounding_activated
-                && paymentline
-                && paymentline.cashregister.journal.type === 'cash') {
-                return this.round_5c(due);
-
-            } else {
-                return round_pr(due, this.pos.currency.rounding)
-            }
+            return round_pr(Math.max(-0.02, due), this.pos.currency.rounding);
         },
 
         get_change: function(paymentline) {
@@ -66,10 +61,13 @@ odoo.define(
                     cashregister:cashregister, pos: this.pos
                 }
             );
-            if(cashregister.journal.type !== 'cash'
-                || this.pos.config.iface_precompute_cash) {
+            if(cashregister.journal.type !== 'cash') {
+                newPaymentline.set_amount(this.get_due(newPaymentline))
+
+            } else if ( this.pos.config.iface_precompute_cash )  {
                 const due = this.get_due(newPaymentline);
-                newPaymentline.set_amount( due );
+                newPaymentline.set_amount( this.round_5c(due) );
+
             } else {
                 newPaymentline.set_amount( 0 );
             }
@@ -103,12 +101,16 @@ odoo.define(
     });
 
     screens.PaymentScreenWidget.include({
+
         finalize_validation: function () {
-            var order = this.pos.get_order();
-            if (this.pos.config.cash_rounding_activated
-                    && Math.abs(order.get_due()) < 0.5 ) {
-                order.add_round_line(-order.get_due());
-            }
+            if (this.pos.config.cash_rounding_activated) {
+                var order = this.pos.get_order();
+                var due = order.get_due();
+
+                if ( order.round_5c_remainder(due) ) {
+                        order.add_round_line(order.round_5c_remainder(-due))
+                    }
+                }
             return this._super()
         }
     });
