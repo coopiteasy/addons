@@ -64,8 +64,10 @@ class CashlogyAutomaticCashdrawerDriver(Thread):
             try:
                 BUFFER_SIZE = 1024
 #                 answer = "ok"
+                logger.info('hw_cashlogy send_to_cashdrawer: message=%s', msg)
                 self.socket.send(msg)
                 answer = self.socket.recv(BUFFER_SIZE)
+                logger.info('hw_cashlogy send_to_cashdrawer: answer=%s', answer)
                 if msg == '#I#':
                     self.set_status('initialized')
                 return answer
@@ -123,7 +125,7 @@ class CashlogyAutomaticCashdrawerDriver(Thread):
         message = "#G#1#1#1#1#1#1#1#1#1#1#1#1#1#"
         answer = self.send_to_cashdrawer(message)
         return answer
-    
+
     def content_inventory(self):
         '''This function return the content of the cashdrawer (coins and notes).
         '''
@@ -131,7 +133,7 @@ class CashlogyAutomaticCashdrawerDriver(Thread):
         answer = self.send_to_cashdrawer(message)
         s = answer.split('#')
         res = {}
-        if (s[1]=='0'):
+        if (s[1] == '0'):
             for location in [s[2], s[3]]:
                 coins_notes = location.split(';')
                 for type_money in coins_notes:
@@ -143,10 +145,10 @@ class CashlogyAutomaticCashdrawerDriver(Thread):
                         number = int(val[1])
                         if not(value in res.keys()):
                             res[value] = number
-                        else :
+                        else:
                             res[value] += number
         return res
-    
+
     def transaction_start(self, payment_info):
         '''This function sends the data to the serial/usb port.
         '''
