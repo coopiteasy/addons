@@ -3,13 +3,16 @@
 
     <t t-extend="Product">
         <t t-jquery=".product-name" t-operation="replace">
-            <t t-log="product.display_name"/>
             <div class="product-name">
                 <t t-if="product.display_weight > 0">
                     <t t-esc="product.display_name + ' - ' + product.display_weight + ' ' + product.display_unit[1]"/>
                 </t>
                 <t t-if="!(product.display_weight > 0)">
                     <t t-esc="product.display_name"/>
+                </t>
+                <br/>
+                <t t-if="product.main_seller_id">
+                    <t t-esc="product.main_seller_id[1]"/>
                 </t>
             </div>
         </t>

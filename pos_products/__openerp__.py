@@ -22,6 +22,7 @@
     "version": "1.0",
     "depends": [
         "point_of_sale",
+        "beesdoo_product",
     ],
     "author": "Robin Keunen <robin@coopiteasy.be>",
     "license": "AGPL-3",
