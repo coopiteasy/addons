@@ -7,7 +7,7 @@ odoo.define('pos_product_available', function (require) {
     for(var i=0; i<models.length; i++){
         var model=models[i];
         if(model.model === 'product.product'){
-             model.fields.push('display_weight', 'display_unit');
+             model.fields.push('display_weight', 'display_unit', 'main_seller_id');
         }
     }
 });
