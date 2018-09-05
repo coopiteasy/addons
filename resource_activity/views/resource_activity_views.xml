@@ -240,7 +240,7 @@
                     <group string="Group By...">
                         <filter name="location" string="Location" domain="[]" context="{'group_by':'location_id'}"/>
                         <filter name="activity_type" string="Activity Type" domain="[]" context="{'group_by':'activity_type'}"/>
-                        <filter name="customer" string="Customer" domain="[]" context="{'group_by':'activity_type'}"/>
+                        <filter name="customer" string="Customer" domain="[]" context="{'group_by':'partner_id'}"/>
                     </group>
                </search>
             </field>
