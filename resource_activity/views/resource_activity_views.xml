@@ -224,9 +224,16 @@
                         domain="[('date_end', '&gt;=', time.strftime('%Y-%m-%d 00:00:00')),('date_end', '&lt;=', time.strftime('%Y-%m-%d 23:59:59'))]"/>
                     <filter name="ongoing" string="Ongoing"
                     	domain="[('date_start','&lt;=', time.strftime('%Y-%m-%d %H:%M:%S')), ('date_end','&gt;=', time.strftime('%Y-%m-%d %H:%M:%S'))]"/>
-                    	<filter name="scheduled" string="Scheduled"
+                    <filter name="scheduled" string="Scheduled"
                     	domain="[('date_start','&gt;=', time.strftime('%Y-%m-%d 00:00:00')), ('date_end','&gt;=', time.strftime('%Y-%m-%d 00:00:00'))]"/>
-                    <field name="partner_id" string="Partner"/>
+                    <filter name="coming_week" string="Today and the 7 next days"
+                    	domain="[('date_start','&gt;=', ((context_today()).strftime('%Y-%m-%d 00:00:00'))), ('date_start','&lt;=', ((context_today()+datetime.timedelta(days=7)).strftime('%Y-%m-%d 23:59:59')))]"/>
+                    <filter name="start_today" string="Start today"
+                        domain="[('date_start', '&gt;=', time.strftime('%Y-%m-%d 00:00:00')),('date_start', '&lt;=', time.strftime('%Y-%m-%d 23:59:59'))]"/>
+                    <filter name="next" string="What's next"
+                        domain="[('date_start', '&gt;=', time.strftime('%Y-%m-%d %H:%M:%S'))]"/>
+
+		    <field name="partner_id" string="Partner"/>
                     <field name="description" string="Description"/>
                     <field name="location_id" string="location" groups="resource_planning.group_multi_location"/>
                     <filter string="Draft" name="draft" domain="[('state','=','draft')]"/>
@@ -236,6 +243,9 @@
                     <separator/>
                     <filter string="Not cancelled" name="not_cancelled" domain="[('state','!=','cancelled')]"/>
                     <filter string="Cancelled" name="cancelled" domain="[('state','=','cancelled')]"/>
+                    <separator/>
+                    <filter string="Bruxelles" name="Bruxelles" domain="[('location_id','ilike','Bruxelles')]"/>
+                    <filter string="Mons" name="Bruxelles" domain="[('location_id','ilike','Mons')]"/>
                     <separator/>
                     <group string="Group By...">
                         <filter name="location" string="Location" domain="[]" context="{'group_by':'location_id'}"/>
