@@ -275,7 +275,7 @@
             <field name="res_model">resource.activity</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form,calendar</field>
-            <field name="context">{"search_default_ongoing":1,"search_default_not_cancelled":1}</field>
+            <field name="context">{"search_default_coming_week":1,"search_default_not_cancelled":1}</field>
         </record>
         
         <menuitem action="action_resource_activity" id="resource_activity_menu" parent="menu_resource_activity" sequence="10"/>
