@@ -27,6 +27,7 @@
         "account_analytic_distribution",
         "l10n_be_invoice_bba",
         "email_template_config",
+        "mail",
     ],
     "author": "Houssine BAKKALI <houssine@coopiteasy.be>",
     "category": "Sales",
@@ -40,6 +41,7 @@
     'data': [
         'security/ir.model.access.csv',
         'data/product_subscription_data.xml',
+        'data/email_templates.xml',
         'views/subscription_views.xml',
         'views/product_views.xml',
         'views/res_partner_views.xml',

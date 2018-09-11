@@ -40,6 +40,8 @@ class AccountInvoice(models.Model):
             req_vals['subscription'] = subscription.id
         subscriber.write({'subscriber':True,'old_subscriber':False})
         sub_req.write(req_vals)
+        # Send confirmation email
+        self.send_confirm_paid_email()
         return True
 
     @api.multi
@@ -60,3 +62,14 @@ class AccountInvoice(models.Model):
 
                 invoice.process_subscription(effective_date)
         return True
+
+    @api.multi
+    def send_confirm_paid_email(self):
+        """Send an email to confirm the payment of this invoice."""
+        conf_email_template = self.env.ref(
+            'product_subscription'
+            '.subscription_payment_confirmation_email_template'
+        )
+        (self.env['mail.template']
+         .browse(conf_email_template.id)
+         .send_mail(self.id))
