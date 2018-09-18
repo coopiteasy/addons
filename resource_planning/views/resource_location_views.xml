@@ -29,6 +29,14 @@
 	            			</group>
 	            		</group>
 	            		<notebook>
+							<page name="resource_categories" string="Available Categories">
+                                <field name="resource_categories">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="create_date"/>
+                                    </tree>
+                                </field>
+                            </page>
 	            			<page name="resources" string="Resources">
 	            				<field name="resources">
 		            				<tree delete="false" create="false">

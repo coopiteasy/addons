@@ -157,6 +157,11 @@ class ActivityRegistration(models.Model):
         string="Need to be pushed to sales order",
         compute='_compute_need_push',
         store=True)
+    available_category_ids = fields.Many2many(
+        comodel_name='resource.category',
+        string='Available Categories',
+        related='location_id.resource_categories',
+    )
 
     def create_resource_available(self, resource_ids, registration):
         for resource_id in resource_ids:
