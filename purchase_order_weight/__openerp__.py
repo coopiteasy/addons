@@ -23,6 +23,7 @@
     "depends": [
         'base',
         'purchase',
+        'beesdoo_product',
     ],
     "author": "Coop IT Easy - Robin Keunen <robin@coopiteasy.be>",
     "license": "AGPL-3",
@@ -32,6 +33,7 @@
         Adds weight and weight unit to Purchase Order
     """,
     "data": [
+        'views/purchaseorder.xml',
         'views/report_purchaseorder.xml',
         'views/report_purchasequotation.xml',
     ],
