@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <function model="account.invoice" name="do_not_auto_delete_mail_template" />
+    </data>
+</odoo>
