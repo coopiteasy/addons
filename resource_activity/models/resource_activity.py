@@ -4,7 +4,7 @@
 from collections import defaultdict, namedtuple
 
 import pytz
-from openerp import _, api, fields, models
+from openerp import _, api, fields, models, _
 from datetime import datetime, timedelta
 from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT as DTF
 from openerp.exceptions import ValidationError, UserError
@@ -121,10 +121,20 @@ class ResourceActivity(models.Model):
         'resource.activity.registration',
         'resource_activity_id',
         string="Registration")
+
+    def _default_location(self):
+        location = self.env.user.resource_location
+        if location:
+            return location
+        else:
+            raise UserError(_('No location set for current user'))
+
     location_id = fields.Many2one(
         'resource.location',
         string="Location",
-        required=True)
+        required=True,
+        default=_default_location
+    )
     state = fields.Selection(
         [('draft', 'Draft'),
           ('quotation', 'Quotation'),
