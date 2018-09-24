@@ -74,7 +74,6 @@ class ActivityRegistration(models.Model):
             elif registration.quantity_allocated == 0:
                 registration.state = 'cancelled'
 
-
     resource_activity_id = fields.Many2one(
         'resource.activity',
         string="Activity")
