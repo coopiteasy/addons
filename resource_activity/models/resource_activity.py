@@ -61,8 +61,6 @@ class ResourceActivity(models.Model):
                 registrations_need_push = any(
                     activity
                     .registrations
-                    .filtered(
-                        lambda record: record.state in ['option', 'booked'])
                     .mapped('need_push'))
                 activity.need_push = activity.need_push or registrations_need_push
         return
@@ -75,7 +73,7 @@ class ResourceActivity(models.Model):
                 res_ids = (
                     registration
                     .allocations
-                    .filtered(lambda record: record.state in ['option','booked'])
+                    .filtered(lambda record: record.state in ['option', 'booked'])
                     .mapped('resource_id')
                     .ids
                 )
@@ -639,7 +637,7 @@ class ResourceActivity(models.Model):
         self.create_sale_order()
         for activity in self:
             activity.need_push = False
-            for registration in activity:
+            for registration in activity.registrations:
                 registration.need_push = False
         return
 

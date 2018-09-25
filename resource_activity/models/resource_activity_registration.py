@@ -48,9 +48,15 @@ class ActivityRegistration(models.Model):
     @api.depends('quantity_needed', 'product_id', 'state')
     def _compute_need_push(self):
         for registration in self:
+            # if sale order was created for registration, any
+            # any change must be pushed
             if registration.sale_order_id:
                 registration.need_push = True
 
+            # if new registrations goes to booked or option state
+            elif (registration.resource_activity_id.sale_orders
+                    and registration.state in ['booked', 'option']):
+                registration.need_push = True
 
     @api.multi
     @api.depends('allocations')
@@ -252,7 +258,10 @@ class ActivityRegistration(models.Model):
         for registration in self:
             for resource_available in registration.resources_available:
                 resource_available.action_cancel()
-            registration.write({'state': 'cancelled', 'quantity_allocated': 0})
+            registration.write({'state': 'cancelled',
+                                'quantity_allocated': 0,
+                                'need_push': True,
+                                })
 
     @api.multi
     def action_draft(self):
@@ -264,17 +273,21 @@ class ActivityRegistration(models.Model):
 
     @api.multi
     def unlink(self):
-        for registration in self:
-            if registration.state not in ('draft', 'cancelled', 'free'):
-                raise UserError(_('You cannot delete a registration which is '
-                                  'not draft or cancelled. You should first '
-                                  'cancel it.'))
+        self.ensure_one()
+        if self.state not in ('draft', 'cancelled', 'free'):
+            raise UserError(_('You cannot delete a registration which is '
+                              'not draft or cancelled. You should first '
+                              'cancel it.'))
+
+        if len(self.resource_activity_id.registrations) == 1:
+            self.resource_activity_id.state = 'draft'
+
         return super(ActivityRegistration, self).unlink()
 
     @api.multi
     @api.depends('quantity', 'quantity_allocated')
     def compute_state(self):
-        for subscription in self:
+        for subscription in self:  # fixme
             if self.quantity_allocated == self.quantity:
                 self.state = self.booking_type
             elif self.state != 'draft' and self.quantity_allocated < self.quantity:
