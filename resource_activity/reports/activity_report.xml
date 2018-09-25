@@ -67,7 +67,6 @@
                     <div t-field="lang.name" />
                   </t>
                 </t>
-                <span t-field="o.registrations_expected" />
               </div>
             </div>
           </div>
