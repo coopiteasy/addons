@@ -34,14 +34,16 @@
             <field name="arch" type="xml">
 				<tree>
 					<field name="description"/>
-					<field name="name"/>
 					<field name="partner_id"/>
 					<field name="activity_type"/>
 					<field name="date_start"/>
 					<field name="date_end"/>
 					<field name="location_id"/>
 					<field name="state"/>
-					<field name="registrations_paid"/>
+					<field name="registrations_expected" string="Registrations"/>
+					<field name="nb_allocated_resources" string="Resources"/>
+					<field name="need_delivery" string="Delivery"/>
+					<field name="registrations_paid" string="Paid"/>
 				</tree>
             </field>
         </record>

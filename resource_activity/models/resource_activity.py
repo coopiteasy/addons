@@ -237,6 +237,10 @@ class ResourceActivity(models.Model):
         store=True,
         readonly=True,
         compute='_compute_registrations')
+    nb_allocated_resources = fields.Integer(
+        string="Allocated Resources",
+        compute='_compute_registrations',
+    )
     without_resource_reg = fields.Integer(
         string="Registrations without resource",
         store=True,
@@ -341,13 +345,21 @@ class ResourceActivity(models.Model):
                  'registrations.quantity')
     def _compute_registrations(self):
         for activity in self:
-            expected = 0
-            qty_without_resource = 0
-            for registration in activity.registrations.filtered(lambda record: record.state != 'cancelled'):
-                expected += registration.quantity
-                qty_without_resource += registration.quantity - registration.quantity_needed
-            activity.registrations_expected = expected
-            activity.without_resource_reg = qty_without_resource
+            registrations = (
+                activity
+                .registrations
+                .filtered(lambda record: record.state != 'cancelled')
+            )
+
+            activity.registrations_expected = sum(
+                registrations.mapped('quantity')
+            )
+            activity.without_resource_reg = sum(
+                map(lambda reg: reg.quantity - reg.quantity_needed, registrations)
+            )
+            activity.nb_allocated_resources = sum(
+                registrations.mapped('quantity_allocated')
+            )
 
     @api.multi
     @api.depends('date_end', 'date_start')
