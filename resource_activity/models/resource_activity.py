@@ -48,8 +48,8 @@ class ResourceActivityLang(models.Model):
 
 class ResourceActivity(models.Model):
     _name = 'resource.activity'
-
     _inherit = ['mail.thread']
+    _order = 'date_start'
 
     @api.multi
     @api.depends('registrations.need_push')
