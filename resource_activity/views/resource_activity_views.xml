@@ -224,8 +224,6 @@
                         domain="[('date_end', '&gt;=', time.strftime('%Y-%m-%d 00:00:00')),('date_end', '&lt;=', time.strftime('%Y-%m-%d 23:59:59'))]"/>
                     <filter name="ongoing" string="Ongoing"
                     	domain="[('date_start','&lt;=', time.strftime('%Y-%m-%d %H:%M:%S')), ('date_end','&gt;=', time.strftime('%Y-%m-%d %H:%M:%S'))]"/>
-                    <filter name="scheduled" string="Scheduled"
-                    	domain="[('date_start','&gt;=', time.strftime('%Y-%m-%d 00:00:00')), ('date_end','&gt;=', time.strftime('%Y-%m-%d 00:00:00'))]"/>
                     <filter name="coming_week" string="Today and the 7 next days"
                     	domain="[('date_start','&gt;=', ((context_today()).strftime('%Y-%m-%d 00:00:00'))), ('date_start','&lt;=', ((context_today()+datetime.timedelta(days=7)).strftime('%Y-%m-%d 23:59:59')))]"/>
                     <filter name="start_today" string="Start today"
@@ -243,9 +241,6 @@
                     <separator/>
                     <filter string="Not cancelled" name="not_cancelled" domain="[('state','!=','cancelled')]"/>
                     <filter string="Cancelled" name="cancelled" domain="[('state','=','cancelled')]"/>
-                    <separator/>
-                    <filter string="Bruxelles" name="Bruxelles" domain="[('location_id','ilike','Bruxelles')]"/>
-                    <filter string="Mons" name="Bruxelles" domain="[('location_id','ilike','Mons')]"/>
                     <separator/>
                     <group string="Group By...">
                         <filter name="location" string="Location" domain="[]" context="{'group_by':'location_id'}"/>
