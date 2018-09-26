@@ -263,7 +263,8 @@ class ResourceActivity(models.Model):
         compute='_compute_sale_orders')
     registrations_paid = fields.Boolean(
         string='All Registrations Paid',
-        compute='_compute_registrations_paid'
+        compute='_compute_registrations_paid',
+        store=True,
     )
 
     @api.onchange('location_id')

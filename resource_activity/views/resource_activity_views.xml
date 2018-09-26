@@ -41,6 +41,7 @@
 					<field name="date_end"/>
 					<field name="location_id"/>
 					<field name="state"/>
+					<field name="registrations_paid"/>
 				</tree>
             </field>
         </record>
