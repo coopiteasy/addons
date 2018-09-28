@@ -192,11 +192,11 @@ class ResourceActivity(models.Model):
     partner_id = fields.Many2one(
         'res.partner',
         string="Customer",
-        domain=[('customer','=', True)])
+        domain=[('customer', '=', True)])
     delivery_product_id = fields.Many2one(
         'product.product',
         string="Product delivery",
-        domain=[('is_delivery','=', True)])
+        domain=[('is_delivery', '=', True)])
     guide_product_id = fields.Many2one(
         'product.product',
         string="Product Guide",
@@ -235,10 +235,10 @@ class ResourceActivity(models.Model):
     )
     state = fields.Selection(
         [('draft', 'Draft'),
-          ('quotation', 'Quotation'),
-          ('sale', 'Sale'),
-          ('done', 'Done'),
-          ('cancelled', 'Cancelled')],
+         ('quotation', 'Quotation'),
+         ('sale', 'Sale'),
+         ('done', 'Done'),
+         ('cancelled', 'Cancelled')],
         string="State",
         default='draft')
     date_lock = fields.Date(
@@ -665,13 +665,13 @@ class ResourceActivity(models.Model):
                     pl.registration.write({'sale_order_id': order_id.id})
 
             if activity.need_guide and activity.partner_id:
-                    order = sale_orders.values().pop()
-                    self.create_order_line(
-                        order,
-                        activity.guide_product_id,
-                        len(activity.guides),
-                        resource_guide=True,
-                    )
+                order = sale_orders.values().pop()
+                self.create_order_line(
+                    order,
+                    activity.guide_product_id,
+                    len(activity.guides),
+                    resource_guide=True,
+                )
 
     @api.multi
     def action_quotation(self):
@@ -802,6 +802,7 @@ class ResourceActivity(models.Model):
         else:
             if resource_line:
                 resource_line.unlink()
+
     @api.model
     def create(self, vals):
         if 'need_delivery' in vals and vals.get('need_delivery'):
