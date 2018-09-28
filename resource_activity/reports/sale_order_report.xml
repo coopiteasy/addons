@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
-        <data>
-                <template id="report_activity_saleorder_document" inherit_id="sale.report_saleorder_document">
-                        <xpath expr="//div[@name='payment_term']" position="after">
+    <data>
+        <template id="report_activity_saleorder_document" inherit_id="sale.report_saleorder_document">
+            <xpath expr="//div[@name='payment_term']" position="after">
                 <div name="date_start" t-if="doc.date_start" class="col-xs-3">
                     <strong>Start date:</strong>
                     <p t-field="doc.date_start"/>
@@ -55,10 +55,7 @@
                         </t>                                  
                     </t>
                 </div>
-                <div name="resources" t-if="doc.activity_id.booked_resources" class="col-xs-3">
-                    <strong>Resources booked:</strong>
-                </div>
-            </xpath>
-                </template>
-        </data>
+             </xpath>
+        </template>
+    </data>
 </openerp>
