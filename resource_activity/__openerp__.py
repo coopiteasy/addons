@@ -44,6 +44,7 @@
         'views/partner_views.xml',
         'views/sale_views.xml',
         'views/resource_views.xml',
+        'views/resource_activity_delivery_views.xml',
         'wizard/cancel_sale_order_wizard.xml',
         'reports/resource_activity_reports.xml',
         'reports/activity_report.xml',
