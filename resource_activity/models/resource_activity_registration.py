@@ -167,7 +167,6 @@ class ActivityRegistration(models.Model):
         string='Available Categories',
         related='location_id.resource_categories',
     )
-    is_paid = fields.Boolean('Paid')
 
     def create_resource_available(self, resource_ids, registration):
         for resource_id in resource_ids:

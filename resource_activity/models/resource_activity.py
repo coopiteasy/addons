@@ -168,18 +168,6 @@ class ResourceActivity(models.Model):
         for activity in self:
             activity.sale_orders = activity.registrations.mapped('sale_order_id').ids
 
-    @api.multi
-    @api.depends('registrations.is_paid', 'registrations.state')
-    def _compute_registrations_paid(self):
-        for activity in self:
-            registrations = (
-                activity
-                .registrations
-                .filtered(lambda record: record.state in ('option', 'booked'))
-            )
-
-            activity.registrations_paid = all(registrations.mapped('is_paid'))
-
     name = fields.Char(
         string="Name",
         copy=False)
@@ -346,11 +334,6 @@ class ResourceActivity(models.Model):
         'sale.order',
         string="Sale orders",
         compute='_compute_sale_orders')
-    registrations_paid = fields.Boolean(
-        string='All Registrations Paid',
-        compute='_compute_registrations_paid',
-        store=True,
-    )
 
     @api.onchange('location_id')
     def onchange_location_id(self):
