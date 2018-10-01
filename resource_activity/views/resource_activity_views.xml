@@ -43,7 +43,6 @@
 					<field name="registrations_expected" string="Registrations"/>
 					<field name="nb_allocated_resources" string="Resources"/>
 					<field name="need_delivery" string="Delivery"/>
-					<field name="registrations_paid" string="Paid"/>
 				</tree>
             </field>
         </record>
