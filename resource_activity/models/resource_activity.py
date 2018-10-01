@@ -155,8 +155,7 @@ class ResourceActivity(models.Model):
                 res_ids = (
                     registration
                     .allocations
-                    .filtered(
-                        lambda record: record.state in ['option', 'booked'])
+                    .filtered(lambda record: record.state in ['option', 'booked'])
                     .mapped('resource_id')
                     .ids
                 )
@@ -167,12 +166,7 @@ class ResourceActivity(models.Model):
     @api.multi
     def _compute_sale_orders(self):
         for activity in self:
-            activity.sale_orders = (
-                    activity
-                    .registrations
-                    .mapped('sale_order_id')
-                    .ids
-            )
+            activity.sale_orders = activity.registrations.mapped('sale_order_id').ids
 
     @api.multi
     @api.depends('registrations.is_paid', 'registrations.state')
@@ -410,9 +404,7 @@ class ResourceActivity(models.Model):
     @api.constrains('date_start', 'date_end')
     def _check_date(self):
         if self.date_end < self.date_start:
-            raise ValidationError(
-                "Date end can't be before date start: %s %s"
-                % (self.date_start, self.date_end))
+            raise ValidationError("Date end can't be before date start: %s %s" % (self.date_start,self.date_end))
 
     @api.one
     @api.constrains('date_start', 'date_end',
@@ -427,9 +419,7 @@ class ResourceActivity(models.Model):
                 'release all booked resources for this activity.')
 
     @api.multi
-    @api.depends('registrations_max',
-                 'registrations.state',
-                 'registrations.quantity')
+    @api.depends('registrations_max', 'registrations.state', 'registrations.quantity')
     def _compute_registrations(self):
         for activity in self:
             registrations = (
@@ -539,11 +529,7 @@ class ResourceActivity(models.Model):
         )
         prepared_lines = []
         for registration in registrations:
-            if activity.partner_id:
-                partner = activity.partner_id.id
-            else:
-                partner = registration.attendee_id.id
-
+            partner = activity.partner_id.id if activity.partner_id else registration.attendee_id.id
             if activity.need_delivery and registration.quantity_needed > 0:
                 prepared_lines.append(
                     OrderLine(
@@ -602,10 +588,7 @@ class ResourceActivity(models.Model):
 
         sale_orders = {}
         for registration in registrations:
-            if activity.partner_id:
-                partner = activity.partner_id.id
-            else:
-                partner = registration.attendee_id.id
+            partner = activity.partner_id.id if activity.partner_id else registration.attendee_id.id
 
             if partner not in sale_orders:
                 if registration.sale_order_id and registration.sale_order_id.state != 'cancel':
@@ -695,18 +678,10 @@ class ResourceActivity(models.Model):
 
             activity.write(vals)
 
-            options = (
-                activity
-                .registrations
-                .filtered(lambda record: record.booking_type in ['option'])
-            )
+            options = activity.registrations.filtered(lambda record: record.booking_type in ['option'])
             for option in options:
                 option.allocations.action_confirm()
-                option.write({
-                    'booking_type': 'booked',
-                    'state': 'booked',
-                    'date_lock': None}
-                )
+                option.write({'booking_type': 'booked', 'state': 'booked', 'date_lock': None})
 
     @api.multi
     def action_back_to_sale_order(self):
