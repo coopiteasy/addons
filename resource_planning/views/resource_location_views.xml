@@ -75,6 +75,10 @@
             <field name="view_mode">tree,form</field>
         </record>
         
-        <menuitem action="action_resource_location" id="resource_location_menu" parent="menu_resource_location" sequence="10" groups="resource_planning.group_multi_location"/>
+        <menuitem action="action_resource_location"
+				  id="resource_location_menu"
+				  parent="menu_resource_location"
+				  sequence="10"
+				  groups="resource_planning.group_multi_location"/>
 	</data>
 </odoo>

@@ -1,202 +1,202 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-	<data>
-		<menuitem name="Activities" id="menu_resource_activity" parent="resource_planning.menu_main_resource_planning" sequence="5"/>
-		
-		
-		<record id="resource_location_form" model="ir.ui.view">
+    <data>
+        <menuitem name="Activities" id="menu_resource_activity" parent="resource_planning.menu_main_resource_planning" sequence="5"/>
+
+
+        <record id="resource_location_form" model="ir.ui.view">
             <field name="name">resource.location.form</field>
             <field name="model">resource.location</field>
             <field name="inherit_id" ref="resource_planning.resource_location_form"/>
             <field name="arch" type="xml">
-            	<page name="users" position="after">
-           			<page name="guides" string="Guides">
-           				<field name="guides">
-            				<tree delete="false" create="false">
-            					<field name="name"/>
-            				</tree>
-            			</field>
-           			</page>
-            		<page name="trainers" string="Trainers">
-           				<field name="trainers">
-            				<tree delete="false" create="false">
-            					<field name="name"/>
-            				</tree>
-            			</field>
-           			</page>
-           		</page>
+                <page name="users" position="after">
+                       <page name="guides" string="Guides">
+                           <field name="guides">
+                            <tree delete="false" create="false">
+                                <field name="name"/>
+                            </tree>
+                        </field>
+                       </page>
+                    <page name="trainers" string="Trainers">
+                           <field name="trainers">
+                            <tree delete="false" create="false">
+                                <field name="name"/>
+                            </tree>
+                        </field>
+                       </page>
+                   </page>
             </field>
         </record>
 
-		<record id="view_resource_activity_tree" model="ir.ui.view">
+        <record id="view_resource_activity_tree" model="ir.ui.view">
             <field name="name">resource.activity.tree</field>
             <field name="model">resource.activity</field>
             <field name="arch" type="xml">
-				<tree>
-					<field name="description"/>
-					<field name="partner_id"/>
-					<field name="activity_type"/>
-					<field name="date_start"/>
-					<field name="date_end"/>
-					<field name="location_id"/>
-					<field name="state"/>
-					<field name="registrations_expected" string="Registrations"/>
-					<field name="nb_allocated_resources" string="Resources"/>
-					<field name="need_delivery" string="Delivery"/>
-                    <field name="registrations_paid" string="Paid"/>
+                <tree>
+                    <field name="description"/>
+                    <field name="partner_id"/>
+                    <field name="activity_type"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="location_id"/>
+                    <field name="state"/>
+                    <field name="registrations_expected" string="Registrations"/>
+                    <field name="nb_allocated_resources" string="Resources"/>
+                    <field name="need_delivery" string="Delivery"/>
+                <field name="registrations_paid" string="Paid"/>
 				</tree>
             </field>
         </record>
-		
-		<record id="view_resource_activity_form" model="ir.ui.view">
+
+        <record id="view_resource_activity_form" model="ir.ui.view">
             <field name="name">resource.activity.form</field>
             <field name="model">resource.activity</field>
             <field name="arch" type="xml">
-				<form>
-					<header>
-						<button name="create_sale_order" string="Create Quotation" type="object" states="draft"/>
-						<button name="action_quotation" string="Set to Quotation" type="object" states="sale"/>
-						<button name="action_sale_order" string="Set to Sale order" type="object" states="quotation"/>
-						<button name="action_back_to_sale_order" string="Set to Sale Order" type="object" states="done"/>
-						<button name="push_changes_to_sale_order" string="Push to Sale Order" type="object" attrs="{'invisible':[('need_push','=',False)]}" class="btn-primary"/>
-						<button name="action_draft" string="Draft" type="object" states="cancelled"/>
-						<button name="action_done" string="Done" type="object" states="sale"/>
-						<button name="action_cancel" string="Cancel" type="object" states="draft,quotation,sale,done" confirm="Are you sure you want to cancel this activity? That will also cancel all the reservations"/>
-						<field name="state" widget="statusbar"/>
-					</header>
-					<sheet>
-						 <div class="oe_button_box" name="button_box">
-	                        <button name="toggle_active" type="object" groups="resource_planning.group_resource_user"
-	                                class="oe_stat_button" icon="fa-archive">
-	                            <field name="active" widget="boolean_button"
-	                                options='{"terminology": "archive"}'/>
-	                        </button>
-	                    </div>
-						<h1 class="mt0">
-	                  		<field name="name" readonly="1" class="oe_inline"/>
-	                   	</h1>
-						<group>
-								<field name="need_push" invisible="True"/>
-								<field name="company_id" invisible="True"/>
-							<group>
-								<field name="description"/>
-								<field name="partner_id" attrs="{'readonly':[('sale_orders','!=',[])]}"/>
-								<field name="location_id" widget="selection"/>
-								<field name="registrations_max"/>
-								<field name="registrations_min"/>
-								<field name="registrations_expected"/>
-								<field name="without_resource_reg"/>
-								<field name="need_participation"/>
-								<field name="participation_product_id" attrs="{'invisible':[('need_participation','=',False)], 'required':[('need_participation','=',True)]}"/>
-								<field name="resource_allocation_start"/>
-								<field name="resource_allocation_end"/>
-								<field name="set_allocation_span"/>
-								<field name="need_delivery"/>
-								<field name="delivery_product_id" options="{'no_create': True}" attrs="{'invisible':[('need_delivery','=',False)], 'required':[('need_delivery','=',True)]}"/>
-								<field name="delivery_place" attrs="{'invisible':[('need_delivery','=',False)], 'required':[('need_delivery','=',True)]}"/>
-								<field name="delivery_time" attrs="{'invisible':[('need_delivery','=',False)], 'required':[('need_delivery','=',True)]}"/>
-								<field name="pickup_place" attrs="{'invisible':[('need_delivery','=',False)], 'required':[('need_delivery','=',True)]}"/>
-								<field name="pickup_time" attrs="{'invisible':[('need_delivery','=',False)], 'required':[('need_delivery','=',True)]}"/>
-								<field name="need_guide"/>
-							</group>
-							<group>
-								<field name="date_start"/>
-								<field name="date_end"/>
-								<field name="duration"/>
-								<field name="booking_type"/>
-								<field name="date_lock" attrs="{'invisible':[('booking_type','!=','option')],'required':[('booking_type','=','option')]}"/>
-								<field name="activity_type" widget="selection"/>
-								<field name="activity_theme" widget="selection"/>
-								<field name="analytic_account"/>
-								<field name="departure"/>
-								<field name="arrival"/>
-								<field name="langs" options="{'no_create': True}" widget='many2many_tags'/>
-								<field name="comment"/>
-							</group>
-						</group>
-						<notebook>
-	            			<page name="registration" string="Registrations">
-	            				<button type="object" name="search_all_resources" string="Search all"/>
-	            				<button type="object" name="reserve_needed_resource" string="Reserve needed Resources" help="refresh"/>
-	            				<field name="registrations"
-									   options="{'reload_on_button':True}"
-									   context="{'default_partner_id': partner_id,
-									   			 'default_booking_type': booking_type,
-									   			 'default_activity_type': activity_type,
-									   			 'default_date_lock': date_lock,
-									   			 'default_registrations_max': registrations_max,
-									   			 'default_location_id': location_id,
-									   			 'default_registrations_expected': registrations_expected}">
-	            					<tree editable="bottom" delete="false">
-										<button type="object" icon="STOCK_FIND" name="view_registration_form"/>
-	            						<field name="partner_id" invisible="True"/>
-	            						<field name="sale_order_id" invisible="True"/>
-	            						<field name="registrations_max" invisible="True"/>
-										<field name="registrations_expected" invisible="True"/>
-										<field name="location_id" invisible="True"/>
-	            						<field name="attendee_id" attrs="{'required':  [('partner_id','=',False)],
-																		  'readonly':  [('sale_order_id','!=',False)]}"/>
-	            						<field name="bring_bike"/>
-	            						<field name="quantity" sum="Total participant"/>
-	            						<field name="quantity_needed" sum="Total needed" attrs="{'readonly':[('state','in',['booked','option'])]}"/>
-	            						<field name="quantity_allocated" sum="Total allocated"/>
-	            						<field name="available_category_ids" invisible="True"/>
-	            						<field name="resource_category"
-											   attrs="{'required':[('bring_bike','=',False)],'readonly':[('state','in',['booked','option','waiting','cancelled'])]}"
-											   domain="[('id', 'in', available_category_ids[0][2])]"
-										/>
-	            						<field name="product_id" domain="[('resource_category_id','=',resource_category),('resource_activity_id','=',activity_type)]" attrs="{'required':[('bring_bike','=',False)]}"/>
-										<field name="activity_type" invisible="True"/>
-	            						<field name="booking_type"/>
-	            						<field name="date_lock" attrs="{'required':[('booking_type','=','option')]}"/>
-	            						<field name="state"/>
+                <form>
+                    <header>
+                        <button name="create_sale_order" string="Create Quotation" type="object" states="draft"/>
+                        <button name="action_quotation" string="Set to Quotation" type="object" states="sale"/>
+                        <button name="action_sale_order" string="Set to Sale order" type="object" states="quotation"/>
+                        <button name="action_back_to_sale_order" string="Set to Sale Order" type="object" states="done"/>
+                        <button name="push_changes_to_sale_order" string="Push to Sale Order" type="object" attrs="{'invisible':[('need_push','=',False)]}" class="btn-primary"/>
+                        <button name="action_draft" string="Draft" type="object" states="cancelled"/>
+                        <button name="action_done" string="Done" type="object" states="sale"/>
+                        <button name="action_cancel" string="Cancel" type="object" states="draft,quotation,sale,done" confirm="Are you sure you want to cancel this activity? That will also cancel all the reservations"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                         <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object" groups="resource_planning.group_resource_user"
+                                    class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button"
+                                    options='{"terminology": "archive"}'/>
+                            </button>
+                        </div>
+                        <h1 class="mt0">
+                              <field name="name" readonly="1" class="oe_inline"/>
+                           </h1>
+                        <group>
+                                <field name="need_push" invisible="True"/>
+                                <field name="company_id" invisible="True"/>
+                            <group>
+                                <field name="description"/>
+                                <field name="partner_id" attrs="{'readonly':[('sale_orders','!=',[])]}"/>
+                                <field name="location_id" widget="selection"/>
+                                <field name="registrations_max"/>
+                                <field name="registrations_min"/>
+                                <field name="registrations_expected"/>
+                                <field name="without_resource_reg"/>
+                                <field name="need_participation"/>
+                                <field name="participation_product_id" attrs="{'invisible':[('need_participation','=',False)], 'required':[('need_participation','=',True)]}"/>
+                                <field name="resource_allocation_start"/>
+                                <field name="resource_allocation_end"/>
+                                <field name="set_allocation_span"/>
+                                <field name="need_delivery"/>
+                                <field name="delivery_product_id" options="{'no_create': True}" attrs="{'invisible':[('need_delivery','=',False)], 'required':[('need_delivery','=',True)]}"/>
+                                <field name="delivery_place" attrs="{'invisible':[('need_delivery','=',False)], 'required':[('need_delivery','=',True)]}"/>
+                                <field name="delivery_time" attrs="{'invisible':[('need_delivery','=',False)], 'required':[('need_delivery','=',True)]}"/>
+                                <field name="pickup_place" attrs="{'invisible':[('need_delivery','=',False)], 'required':[('need_delivery','=',True)]}"/>
+                                <field name="pickup_time" attrs="{'invisible':[('need_delivery','=',False)], 'required':[('need_delivery','=',True)]}"/>
+                                <field name="need_guide"/>
+                            </group>
+                            <group>
+                                <field name="date_start"/>
+                                <field name="date_end"/>
+                                <field name="duration"/>
+                                <field name="booking_type"/>
+                                <field name="date_lock" attrs="{'invisible':[('booking_type','!=','option')],'required':[('booking_type','=','option')]}"/>
+                                <field name="activity_type" widget="selection"/>
+                                <field name="activity_theme" widget="selection"/>
+                                <field name="analytic_account"/>
+                                <field name="departure"/>
+                                <field name="arrival"/>
+                                <field name="langs" options="{'no_create': True}" widget='many2many_tags'/>
+                                <field name="comment"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="registration" string="Registrations">
+                                <button type="object" name="search_all_resources" string="Search all"/>
+                                <button type="object" name="reserve_needed_resource" string="Reserve needed Resources" help="refresh"/>
+                                <field name="registrations"
+                                       options="{'reload_on_button':True}"
+                                       context="{'default_partner_id': partner_id,
+                                                    'default_booking_type': booking_type,
+                                                    'default_activity_type': activity_type,
+                                                    'default_date_lock': date_lock,
+                                                    'default_registrations_max': registrations_max,
+                                                    'default_location_id': location_id,
+                                                    'default_registrations_expected': registrations_expected}">
+                                    <tree editable="bottom" delete="false">
+                                        <button type="object" icon="STOCK_FIND" name="view_registration_form"/>
+                                        <field name="partner_id" invisible="True"/>
+                                        <field name="sale_order_id" invisible="True"/>
+                                        <field name="registrations_max" invisible="True"/>
+                                        <field name="registrations_expected" invisible="True"/>
+                                        <field name="location_id" invisible="True"/>
+                                        <field name="attendee_id" attrs="{'required':  [('partner_id','=',False)],
+                                                                          'readonly':  [('sale_order_id','!=',False)]}"/>
+                                        <field name="bring_bike"/>
+                                        <field name="quantity" sum="Total participant"/>
+                                        <field name="quantity_needed" sum="Total needed" attrs="{'readonly':[('state','in',['booked','option'])]}"/>
+                                        <field name="quantity_allocated" sum="Total allocated"/>
+                                        <field name="available_category_ids" invisible="True"/>
+                                        <field name="resource_category"
+                                               attrs="{'required':[('bring_bike','=',False)],'readonly':[('state','in',['booked','option','waiting','cancelled'])]}"
+                                               domain="[('id', 'in', available_category_ids[0][2])]"
+                                        />
+                                        <field name="product_id" domain="[('resource_category_id','=',resource_category),('resource_activity_id','=',activity_type)]" attrs="{'required':[('bring_bike','=',False)]}"/>
+                                        <field name="activity_type" invisible="True"/>
+                                        <field name="booking_type"/>
+                                        <field name="date_lock" attrs="{'required':[('booking_type','=','option')]}"/>
+                                        <field name="state"/>
                                         <field name="is_paid"/>
 					                    <button type="object" name="search_resources" states="draft,waiting" help="Search resources" icon="gtk-apply"/>
-					                    <button type="object" name="action_cancel" states="draft,booked,option,waiting,available" help="Cancel" icon="gtk-cancel" confirm="Are you sure you want to cancel this registration?"/>
-					                    <button type="object" name="action_draft" states="cancelled" help="Set to draft" icon="gtk-undo"/>
-					                    <button type="object" name="action_unlink" states="draft,cancelled" help="Delete" icon="gtk-clear" confirm="Are you sure you want to delete this registration?"/>
-	            					</tree>
-	            				</field>
-	            			</page>
-	            			<page name="guides" string="Guides">
-	            				<group>
-	            					<group>
-	            						<field name="guide_product_id" attrs="{'required':[('need_guide','=',True)]}" options="{'no_create':True}"/>
-	            					</group>
-	            					<group>
-	            					</group>
-	            				</group>
-	            				<field name="guides" domain="[('resource_location_guide','=',location_id)]" options="{'no_create':True}"/>
-	            			</page>
-	            			<page name="trainers" string="Trainers">
-	            				<field name="trainers"  domain="[('resource_location_trainer','=',location_id)]" options="{'no_create':True}"/>
-	            			</page>
-	            			<page name="booked_resources" string="Booked resources">
-	            				<field name="booked_resources"/>
-	            			</page>
-	            			<page name="sale_orders" string="Sale orders" attrs="{'invisible':[('sale_orders','=',False)]}">
- 	            				<field name="sale_orders">
-									<tree>
+                                        <button type="object" name="action_cancel" states="draft,booked,option,waiting,available" help="Cancel" icon="gtk-cancel" confirm="Are you sure you want to cancel this registration?"/>
+                                        <button type="object" name="action_draft" states="cancelled" help="Set to draft" icon="gtk-undo"/>
+                                        <button type="object" name="action_unlink" states="draft,cancelled" help="Delete" icon="gtk-clear" confirm="Are you sure you want to delete this registration?"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page name="guides" string="Guides">
+                                <group>
+                                    <group>
+                                        <field name="guide_product_id" attrs="{'required':[('need_guide','=',True)]}" options="{'no_create':True}"/>
+                                    </group>
+                                    <group>
+                                    </group>
+                                </group>
+                                <field name="guides" domain="[('resource_location_guide','=',location_id)]" options="{'no_create':True}"/>
+                            </page>
+                            <page name="trainers" string="Trainers">
+                                <field name="trainers"  domain="[('resource_location_trainer','=',location_id)]" options="{'no_create':True}"/>
+                            </page>
+                            <page name="booked_resources" string="Booked resources">
+                                <field name="booked_resources"/>
+                            </page>
+                            <page name="sale_orders" string="Sale orders" attrs="{'invisible':[('sale_orders','=',False)]}">
+                                 <field name="sale_orders">
+                                    <tree>
                                         <button type="object"
                                                 name="action_open_sale_order"
                                                 help="Open Sale Order"
                                                 icon="gtk-open"/>
-										<field name="name"/>
-										<field name="date_order"/>
-										<field name="partner_id"/>
-										<field name="user_id"/>
-										<field name="amount_total"/>
-										<field name="state"/>
-									</tree>
-								</field>
-	            			</page>
-	            		</notebook>
-					</sheet>
-					<div class="oe_chatter">
-	                    <field name="message_follower_ids" widget="mail_followers"/>
-	                    <field name="message_ids" widget="mail_thread"/>
+                                        <field name="name"/>
+                                        <field name="date_order"/>
+                                        <field name="partner_id"/>
+                                        <field name="user_id"/>
+                                        <field name="amount_total"/>
+                                        <field name="state"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
                     </div>
-				</form>
+                </form>
             </field>
         </record>
         
@@ -206,7 +206,7 @@
             <field eval="3" name="priority"/>
             <field name="arch" type="xml">
                 <calendar color="activity_type" date_start="date_start" display="[description]"
-                		date_stop="date_end" quick_add="false" string="Activities">
+                        date_stop="date_end" quick_add="false" string="Activities">
                     <field name="description"/>
                     <field name="booking_type"/>
                     <field name="partner_id"/>
@@ -223,15 +223,15 @@
                     <filter name="end_today" string="End today"
                         domain="[('date_end', '&gt;=', time.strftime('%Y-%m-%d 00:00:00')),('date_end', '&lt;=', time.strftime('%Y-%m-%d 23:59:59'))]"/>
                     <filter name="ongoing" string="Ongoing"
-                    	domain="[('date_start','&lt;=', time.strftime('%Y-%m-%d %H:%M:%S')), ('date_end','&gt;=', time.strftime('%Y-%m-%d %H:%M:%S'))]"/>
+                        domain="[('date_start','&lt;=', time.strftime('%Y-%m-%d %H:%M:%S')), ('date_end','&gt;=', time.strftime('%Y-%m-%d %H:%M:%S'))]"/>
                     <filter name="coming_week" string="Today and the 7 next days"
-                    	domain="[('date_start','&gt;=', ((context_today()).strftime('%Y-%m-%d 00:00:00'))), ('date_start','&lt;=', ((context_today()+datetime.timedelta(days=7)).strftime('%Y-%m-%d 23:59:59')))]"/>
+                        domain="[('date_start','&gt;=', ((context_today()).strftime('%Y-%m-%d 00:00:00'))), ('date_start','&lt;=', ((context_today()+datetime.timedelta(days=7)).strftime('%Y-%m-%d 23:59:59')))]"/>
                     <filter name="start_today" string="Start today"
                         domain="[('date_start', '&gt;=', time.strftime('%Y-%m-%d 00:00:00')),('date_start', '&lt;=', time.strftime('%Y-%m-%d 23:59:59'))]"/>
                     <filter name="next" string="What's next"
                         domain="[('date_start', '&gt;=', time.strftime('%Y-%m-%d %H:%M:%S'))]"/>
 
-		    <field name="partner_id" string="Partner"/>
+            <field name="partner_id" string="Partner"/>
                     <field name="description" string="Description"/>
                     <field name="location_id" string="location" groups="resource_planning.group_multi_location"/>
                     <filter string="Draft" name="draft" domain="[('state','=','draft')]"/>
@@ -279,62 +279,62 @@
             <field name="name">activity.registration.form</field>
             <field name="model">resource.activity.registration</field>
             <field name="arch" type="xml">
-				<form>
-					<header>
-						<button type="object" name="search_resources" string="Search" states="draft,waiting,available" help="Search resources"/>
-						<button name="action_cancel" string="Cancel" type="object" states="draft,booked,option,waiting,available" confirm="Are you sure you want to cancel this registration?"/>
-						<field name="state" widget="statusbar"/>
-					</header>
-					<sheet>
-						<group>
-							<group>
-								<field name="partner_id" invisible="True"/>
-								<field name="attendee_id" attrs="{'required':[('partner_id','=',False)]}"/>
-								<field name="bring_bike"/>
-								<field name="quantity"/>
-								<field name="quantity_needed" attrs="{'readonly':[('state','in',['booked','option'])]}"/>
-								<field name="quantity_allocated"/>
-							</group>
-							<group>
-								<field name="booking_type"/>
-								<field name="date_lock" attrs="{'invisible':[('booking_type','!=','option')]}"/>
-           						<field name="activity_type" invisible="True"/>
-           						<field name="resource_category" attrs="{'required':[('bring_bike','=',False)],'readonly':[('state','in',['booked','option','waiting','cancelled'])]}"/>
-           						<field name="product_id" domain="[('resource_category_id','=',resource_category),('resource_activity_id','=',activity_type)]" attrs="{'required':[('bring_bike','=',False)]}"/>
-								<field name="registrations_max" invisible="True"/>
-								<field name="registrations_expected" invisible="True"/>
-							</group>
-						</group>
-						<notebook>
-							<page string="Search result">
-								<!--<button type="object" name="action_refresh" string="Refresh" help="refresh"/>-->
-								<button type="object" name="reserve_needed_resource" string="Reserve needed Resources" help="Reserve needed resource"/>
-								<field name="resources_available" options="{'reload_on_button':True,'no_open':True,'no_create':True}">
-									<tree>
-										<field name="name"/>
-										<field name="resource_id"/>
-										<field name="state"/>
-										<button type="object" name="action_reserve" states="free" help="Book" icon="STOCK_MEDIA_PLAY"/>
-										<button type="object" name="action_cancel" states="selected" help="Cancel" icon="gtk-cancel"/>
-									</tree>
-								</field>
-							</page>
-							<page string="Resource Allocations">
-								<field name="allocations" options="{'reload_on_button':True}">
-									<tree>
-										<field name="name"/>
-										<field name="serial_number"/>
-										<field name="resource_id"/>
-										<field name="resource_category_id"/>
-										<field name="date_start"/>
-										<field name="date_end"/>
-										<field name="state"/>
-									</tree>
-								</field>
-							</page>
-						</notebook>
-					</sheet>
-				</form>
+                <form>
+                    <header>
+                        <button type="object" name="search_resources" string="Search" states="draft,waiting,available" help="Search resources"/>
+                        <button name="action_cancel" string="Cancel" type="object" states="draft,booked,option,waiting,available" confirm="Are you sure you want to cancel this registration?"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="partner_id" invisible="True"/>
+                                <field name="attendee_id" attrs="{'required':[('partner_id','=',False)]}"/>
+                                <field name="bring_bike"/>
+                                <field name="quantity"/>
+                                <field name="quantity_needed" attrs="{'readonly':[('state','in',['booked','option'])]}"/>
+                                <field name="quantity_allocated"/>
+                            </group>
+                            <group>
+                                <field name="booking_type"/>
+                                <field name="date_lock" attrs="{'invisible':[('booking_type','!=','option')]}"/>
+                                   <field name="activity_type" invisible="True"/>
+                                   <field name="resource_category" attrs="{'required':[('bring_bike','=',False)],'readonly':[('state','in',['booked','option','waiting','cancelled'])]}"/>
+                                   <field name="product_id" domain="[('resource_category_id','=',resource_category),('resource_activity_id','=',activity_type)]" attrs="{'required':[('bring_bike','=',False)]}"/>
+                                <field name="registrations_max" invisible="True"/>
+                                <field name="registrations_expected" invisible="True"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Search result">
+                                <!--<button type="object" name="action_refresh" string="Refresh" help="refresh"/>-->
+                                <button type="object" name="reserve_needed_resource" string="Reserve needed Resources" help="Reserve needed resource"/>
+                                <field name="resources_available" options="{'reload_on_button':True,'no_open':True,'no_create':True}">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="resource_id"/>
+                                        <field name="state"/>
+                                        <button type="object" name="action_reserve" states="free" help="Book" icon="STOCK_MEDIA_PLAY"/>
+                                        <button type="object" name="action_cancel" states="selected" help="Cancel" icon="gtk-cancel"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Resource Allocations">
+                                <field name="allocations" options="{'reload_on_button':True}">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="serial_number"/>
+                                        <field name="resource_id"/>
+                                        <field name="resource_category_id"/>
+                                        <field name="date_start"/>
+                                        <field name="date_end"/>
+                                        <field name="state"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
             </field>
         </record>
 
@@ -343,8 +343,8 @@
             <field name="model">resource.activity.type</field>
             <field name="arch" type="xml">
                 <tree string="Resource activity type" delete="false">
-	                <field name="name"/>
-	                <field name="code"/>
+                    <field name="name"/>
+                    <field name="code"/>
                 </tree>
             </field>
         </record>
@@ -354,34 +354,34 @@
             <field name="model">resource.activity.type</field>
             <field name="arch" type="xml">
                 <form string="Resource activity type">
-		            <sheet>
-		            	<group>
-			            	<group>
-			                    <field name="name"/>
-			               	</group>
-			               	<group>
-			               		<field name="code"/>
-			               		<field name="analytic_account"/>
-			               	</group>
-		            	</group>
-	            		<notebook>
-		            		<page name="products" string="Product">
-		            			<field name="product_ids">
-		            				<tree>
-		            					<field name="name"/>
-		            					<field name="default_code"/>
-		            					<field name="list_price"/>
-		            					<field name="uom_id"/>
-		            				</tree>
-		            			</field>
-		            		</page>
-	            		</notebook>
-		        	</sheet>
-		        </form>
-		    </field>
-		</record>
-		
-		<record id="action_resource_activity_type" model="ir.actions.act_window">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                               </group>
+                               <group>
+                                   <field name="code"/>
+                                   <field name="analytic_account"/>
+                               </group>
+                        </group>
+                        <notebook>
+                            <page name="products" string="Product">
+                                <field name="product_ids">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="default_code"/>
+                                        <field name="list_price"/>
+                                        <field name="uom_id"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_resource_activity_type" model="ir.actions.act_window">
             <field name="name">Resource activity type</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">resource.activity.type</field>
@@ -396,8 +396,8 @@
             <field name="model">resource.activity.lang</field>
             <field name="arch" type="xml">
                 <tree string="Resource activity lang" delete="false">
-	                <field name="name"/>
-	                <field name="code"/>
+                    <field name="name"/>
+                    <field name="code"/>
                 </tree>
             </field>
         </record>
@@ -407,21 +407,21 @@
             <field name="model">resource.activity.lang</field>
             <field name="arch" type="xml">
                 <form string="Resource activity lang">
-		            <sheet>
-		            	<group>
-			            	<group>
-			                    <field name="name"/>
-			               	</group>
-			               	<group>
-			               		<field name="code"/>
-			               	</group>
-		            	</group>
-		        	</sheet>
-		        </form>
-		    </field>
-		</record>
-		
-		<record id="action_resource_activity_lang" model="ir.actions.act_window">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                               </group>
+                               <group>
+                                   <field name="code"/>
+                               </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_resource_activity_lang" model="ir.actions.act_window">
             <field name="name">Resource activity lang</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">resource.activity.lang</field>
@@ -436,8 +436,8 @@
             <field name="model">resource.activity.theme</field>
             <field name="arch" type="xml">
                 <tree string="Resource activity theme" delete="false">
-	                <field name="name"/>
-	                <field name="code"/>
+                    <field name="name"/>
+                    <field name="code"/>
                 </tree>
             </field>
         </record>
@@ -447,21 +447,21 @@
             <field name="model">resource.activity.theme</field>
             <field name="arch" type="xml">
                 <form string="Resource activity theme">
-		            <sheet>
-		            	<group>
-			            	<group>
-			                    <field name="name"/>
-			               	</group>
-			               	<group>
-			               		<field name="code"/>
-			               	</group>
-		            	</group>
-		        	</sheet>
-		        </form>
-		    </field>
-		</record>
-		
-		<record id="action_resource_activity_theme" model="ir.actions.act_window">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                               </group>
+                               <group>
+                                   <field name="code"/>
+                               </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_resource_activity_theme" model="ir.actions.act_window">
             <field name="name">Resource activity theme</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">resource.activity.theme</field>
@@ -470,5 +470,5 @@
         </record>
         
         <menuitem action="action_resource_activity_theme" id="resource_activity_theme_menu" parent="resource_planning.menu_resource_configuration" sequence="90"/>
-	</data>
+    </data>
 </odoo>
