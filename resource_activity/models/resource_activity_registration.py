@@ -45,13 +45,13 @@ class ActivityRegistration(models.Model):
             self.date_lock = None
 
     @api.multi
-    @api.depends('quantity_needed', 'product_id', 'state')
+    @api.depends('quantity_needed', 'quantity', 'product_id', 'state')
     def _compute_need_push(self):
         for registration in self:
             # if sale order was created for registration, any
             # any change must be pushed
             if registration.sale_order_id:
-                registration.need_push = True
+                        registration.need_push = True
 
             # if new registrations goes to booked or option state
             elif (registration.resource_activity_id.sale_orders
