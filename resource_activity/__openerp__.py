@@ -40,6 +40,7 @@
     'data': [
         'security/ir.model.access.csv',
         'data/resource_activity_data.xml',
+        'data/cron.xml',
         'views/resource_activity_views.xml',
         'views/partner_views.xml',
         'views/sale_views.xml',

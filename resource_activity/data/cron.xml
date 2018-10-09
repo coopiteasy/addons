@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data noupdate="0">
+    <record id="ir_cron_init_registration_payments" model="ir.cron">
+      <field name="name">Inititialize Payement Registration Fields</field>
+      <field name="interval_number">12</field>
+      <field name="interval_type">months</field>
+      <field name="numbercall">-1</field>
+      <field name="doall" eval="True" />
+      <field name="model">resource.activity</field>
+      <field name="function">init_payments_fields</field>
+      <field name="args">()</field>
+      <field name="active" eval="False" />
+    </record>
+  </data>
+</odoo>

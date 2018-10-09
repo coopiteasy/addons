@@ -194,6 +194,12 @@ class ResourceActivity(models.Model):
             else:
                 activity.registrations_paid = False
 
+    @api.model
+    def init_payments_fields(self):
+        activities = self.search([])
+        activities._compute_registrations_paid()
+        return
+
     def _default_location(self):
         location = self.env.user.resource_location
         if location:
