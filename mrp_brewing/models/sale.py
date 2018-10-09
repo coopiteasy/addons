@@ -23,10 +23,15 @@ class SaleOrder(models.Model):
                 return min(dates_list)
     
     delivery_done_date = fields.Datetime(compute='_compute_delivery_info', string="Delivery done date", readonly=True)
-    
-    delivery_status = fields.Selection([('to_deliver','To deliver'),
-                                       ('delivered','Delivered'),
-                                       ('cancelled','Cancelled')], compute='_compute_delivery_info', string="Delivery status", readonly=True)
+
+    delivery_status = fields.Selection(
+        [('to_deliver', 'To deliver'),
+         ('delivered', 'Delivered'),
+         ('cancelled', 'Cancelled')],
+        compute='_compute_delivery_info',
+        string="Delivery status",
+        search='_search_delivery_status',
+        readonly=True)
     
     commitment_date = fields.Date(string='Commitment Date', default=_get_commitment_date,
             help="Date by which the products are sure to be delivered. This is "
@@ -54,6 +59,16 @@ class SaleOrder(models.Model):
                 
                 sale_order.delivery_done_date = done_date
                 sale_order.delivery_status = delivery_status
+
+    def _search_delivery_status(self, operator, value):
+        filter_function = {
+            '=': lambda so: so.delivery_status == value,
+            '!=': lambda so: so.delivery_status != value,
+        }
+        sale_orders = self.search([]).filtered(
+            filter_function[operator]
+        )
+        return [('id', 'in', sale_orders.ids)]
 
     @api.multi
     @api.onchange('pricelist_id')
