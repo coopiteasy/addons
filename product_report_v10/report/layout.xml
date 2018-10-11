@@ -1,33 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-  <data>
-    <template id="report_layout">
-      <!-- Multicompany -->
-      <t t-if="o and 'company_id' in o">
-        <t t-set="company" t-value="o.company_id"></t>
-      </t>
-      <t t-if="not o or not 'company_id' in o">
-        <t t-set="company" t-value="res_company"></t>
-      </t>
+  <template id="report_style">
+    <style type="text/css">
+.col-xs-4 {
+    // The height is set approximatly because size in mm doesn't work well
+    height: 175px;
+    min-height: 175px;
+    max-height: 175px;
+    padding: 20px;
+    text-align: center;
+    font-size: 14px;
+    margin: 0;
+}
 
-      <div class="header">
-        <div class="row">
-          <div class="col-xs-3">
-            <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/>
-          </div>
-          <div class="col-xs-7 text-center">
-            <span t-esc="company.name"/>
-          </div>
-          <div class="col-xs-2 text-right">
-            <ul class="list-inline">
-              <li><span class="page"/></li>
-              <li>/</li>
-              <li><span class="topage"/></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <t t-raw="0" />
-    </template>
-  </data>
+.barcode-img {
+    width: 100%;
+    // height in percentage doesn't work on all version of wkhtml, don't ask why
+    height: 40px;
+}
+
+.barcode {
+    font-size: 20px;
+}
+
+.product-name {
+    font-weight: bold;
+    overflow: hidden;
+    line-height: 1.4em;
+    max-height: 2.8em;
+}
+    </style>
+    <t t-raw="0" />
+  </template>
 </odoo>
