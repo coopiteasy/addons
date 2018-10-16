@@ -816,6 +816,42 @@ class ResourceActivity(models.Model):
             if resource_line:
                 resource_line.unlink()
 
+    def has_valid_delivery(self):
+        """Return True if the attribute `delivery_ids` is coherent, else
+        False"""
+        for activity in self:
+            if activity.need_delivery:
+                if len(activity.delivery_ids) != 2:
+                    return False
+                elif (activity.delivery_ids[0].delivery_type
+                        == activity.delivery_ids[1].delivery_type):
+                    return False
+                elif activity.delivery_ids[0].delivery_type == '':
+                    return False
+                elif activity.delivery_ids[1].delivery_type == '':
+                    return False
+            else:
+                if len(activity.delivery_ids) != 0:
+                    return False
+        return True
+
+    @api.model
+    def _set_valid_deliveries_cron(self):
+        """Check if activities has valid deliveries. If not, valid
+        deliveries are set."""
+        activities = (self.env['resource.activity'].search([])
+                      .filtered(
+                          lambda rec: not rec.has_valid_delivery()
+                      ))
+        for activity in activities:
+            activity.write({
+                'delivery_ids': [
+                    (5, False, False),
+                    (0, False, {'delivery_type': 'delivery'}),
+                    (0, False, {'delivery_type': 'pickup'}),
+                ],
+            })
+
     @api.model
     def create(self, vals):
         if 'need_delivery' in vals and vals.get('need_delivery'):
@@ -833,7 +869,7 @@ class ResourceActivity(models.Model):
                 vals['delivery_ids'] = [(5,)]
             else:
                 vals['delivery_ids'] = [
-                    (5,),
+                    (5, False, False),
                     (0, False, {'delivery_type': 'delivery'}),
                     (0, False, {'delivery_type': 'pickup'}),
                 ]
