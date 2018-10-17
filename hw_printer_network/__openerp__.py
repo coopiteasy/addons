@@ -3,7 +3,7 @@
     "summary": """Hardware Driver for Network Printers""",
     "category": "Point of Sale",
     "images": [],
-    "version": "10.0.2.0.1",
+    "version": "12.0.2.0.1",
     "application": False,
 
     "author": "IT-Projects LLC, Dinar Gabbasov",
@@ -28,5 +28,5 @@
     "post_init_hook": None,
 
     "auto_install": False,
-    "installable": False,
+    "installable": True,
 }
