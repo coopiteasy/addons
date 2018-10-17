@@ -139,14 +139,16 @@ class ResPartner(models.Model):
         string="Crates Bought per Sale Order",
         compute="_compute_sales_statistics",
         store=True,
-        help="Average number of crates bought per order over the last 12 months."
+        help="Average number of crates bought per order over the last 12 "
+             "months. "
     )
 
     crate_per_month = fields.Float(
         string="Crates Bought per Month",
         compute="_compute_sales_statistics",
         store=True,
-        help="Average number of crates bought per month over the last 12 months."
+        help="Average number of crates bought per month over the last 12 "
+             "months. "
     )
 
     @api.multi
