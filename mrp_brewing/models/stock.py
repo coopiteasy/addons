@@ -3,33 +3,47 @@
 
 from openerp import api, fields, models, _, SUPERUSER_ID
 
+
 class StockMove(models.Model):
-    _inherit = "stock.move" 
-    
+    _inherit = "stock.move"
+
     @api.model
     @api.depends('state')
     def get_on_hand(self):
         for move in self:
             if move.state == 'done':
                 move.quantity_after_move = move.product_id.qty_available
-    
-    quantity_after_move = fields.Integer(string="Quantity",compute="get_on_hand",store=True,readonly=True)
-    brew_number = fields.Integer(string="Brew number",readonly=True)
+
+    quantity_after_move = fields.Integer(
+        string="Quantity",
+        compute="get_on_hand",
+        store=True,
+        readonly=True)
+    brew_number = fields.Integer(
+        string="Brew number",
+        readonly=True)
 
 
 class StockWarehouseOrderpoint(models.Model):
     _inherit = "stock.warehouse.orderpoint"
-    
-    qty_available = fields.Float(related='product_id.qty_available',string='Quantity On Hand',readonly=True)
-    
+
+    qty_available = fields.Float(
+        related='product_id.qty_available',
+        string='Quantity On Hand',
+        readonly=True)
+
 
 class StockProductionLot(models.Model):
     _inherit = 'stock.production.lot'
-    
-    qty_available = fields.Float(compute="_compute_qty_available", string='Quantity available',store=True)
+
+    qty_available = fields.Float(
+        compute="_compute_qty_available",
+        string='Quantity available',
+        store=True)
 
     def _compute_lot_quantity(self, lot):
-        quants = lot.quant_ids.filtered(lambda r: r.location_id.usage == 'internal' and not r.reservation_id)
+        quants = lot.quant_ids.filtered(
+            lambda r: r.location_id.usage == 'internal' and not r.reservation_id)
         lot.qty_available = sum(quants.mapped('qty'))
 
     @api.multi
@@ -47,7 +61,7 @@ class StockProductionLot(models.Model):
 
 class StockPicking(models.Model):
     _inherit = 'stock.picking'
-    
+
     @api.multi
     def do_transfer(self):
         super(StockPicking, self).do_transfer()
