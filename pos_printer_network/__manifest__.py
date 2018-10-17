@@ -1,21 +1,20 @@
-# -*- coding: utf-8 -*-
 {
     "name": """POS Network Printer""",
     "summary": """The time has come. Print POS orders and receipts by using network printers""",
     "category": "Point of Sale",
     "images": ['images/pos_printer_network_main.png'],
-    "version": "10.0.2.0.0",
+    "version": "12.0.2.0.0",
     "application": False,
 
     "author": "IT-Projects LLC, Dinar Gabbasov",
-    "support": "pos@it-projects.info",
+    "support": "apps@it-projects.info",
     "website": "https://twitter.com/gabbasov_dinar",
     "license": "LGPL-3",
     "price": 340.00,
     "currency": "EUR",
 
     "depends": [
-        "pos_restaurant_base",
+        "pos_restaurant",
     ],
     "external_dependencies": {"python": [], "bin": []},
     "data": [
