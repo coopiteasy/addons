@@ -154,6 +154,11 @@
           <field name="location" string="location" groups="resource_planning.group_multi_location"/>
           <filter string="Option" name="option" domain="[('state','=','option')]"/>
           <filter string="Booked" name="booked" domain="[('state','=','booked')]"/>
+          <filter string="Maintenance" name="maintenance" domain="[('state','=','maintenance')]"/>
+          <separator/>
+          <filter string="Currently" name="currently"
+            domain="[('date_start','&lt;=', datetime.datetime.combine(context_today(), datetime.time(23, 59, 59))),
+                     ('date_end', '&gt;=', datetime.datetime.combine(context_today(), datetime.time(0, 0, 0)))]"/>
           <separator/>
           <group string="Group By...">
             <filter string="Resource" domain="[]" context="{'group_by':'resource_id'}"/>
