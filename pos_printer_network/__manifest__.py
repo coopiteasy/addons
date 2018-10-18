@@ -1,9 +1,10 @@
+# -*- coding: utf-8 -*-
 {
     "name": """POS Network Printer""",
     "summary": """The time has come. Print POS orders and receipts by using network printers""",
     "category": "Point of Sale",
     "images": ['images/pos_printer_network_main.png'],
-    "version": "11.0.2.0.0",
+    "version": "10.0.2.0.0",
     "application": False,
 
     "author": "IT-Projects LLC, Dinar Gabbasov",
@@ -31,5 +32,5 @@
     "post_init_hook": None,
 
     "auto_install": False,
-    "installable": False,
+    "installable": True,
 }
