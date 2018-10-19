@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 # Copyright (C) 2014 GRAP (http://www.grap.coop)
-# © 2017 Coop IT Easy (http://www.coopiteasy.be)
+# Copyright © 2017 Coop IT Easy (http://www.coopiteasy.be)
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # @author: Houssine BAKKALI (https://github.com/houssine78)
+# @author: Rémy TAYMANS <remy@coopiteasy.be>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 from datetime import datetime
 
@@ -118,14 +119,13 @@ class ProductTemplate(models.Model):
                         defered[product.id] = 'write'
                 # ticking and unticking the "can be sold" checkbox
                 # trigger the corresponding product_scale_log
-                if 'sale_ok' in vals.keys() or 'active' in vals.keys():
-                    if ((product.sale_ok and product.active)
-                        and (not vals.get('sale_ok', False)
-                             or not vals.get('active', False))):
-                        product._send_to_scale_bizerba('unlink')
-                    elif ((product.sale_ok and vals.get('active', False))
-                          or (product.active and vals.get('sale_ok', False))):
+                if vals.get('active', product.active):
+                    if vals.get('sale_ok', product.sale_ok):
                         defered[product.id] = 'create'
+                    else:
+                        defered[product.id] = 'unlink'
+                else:
+                    defered[product.id] = 'unlink'
 
         res = super(ProductTemplate, self).write(vals)
 
