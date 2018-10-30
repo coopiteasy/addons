@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+        <record id="view_resource_activity_filter_provelo" model="ir.ui.view">
+            <field name="name">resource.activity.search.provelo</field>
+            <field name="model">resource.activity</field>
+            <field name="inherit_id" ref="resource_activity.view_resource_activity_filter"/>
+            <field name="arch" type="xml">
+                <filter name="end_today" position="before">
+                    <filter name="Bruxelles" domain="[('location_id','ilike','Bruxelles')]"/>
+                    <filter name="Liège" domain="[('location_id','ilike','Liège')]"/>
+                    <filter name="Mons" domain="[('location_id','ilike','Mons')]"/>
+                    <!--<filter name="Ottignies" domain="[('location_id','ilike','Ottignies')]"/>-->
+                    <!--<filter name="Namur" domain="[('location_id','ilike','Namur')]"/>-->
+                    <separator/>
+                </filter>
+            </field>
+        </record>
+    </data>
+</odoo>
