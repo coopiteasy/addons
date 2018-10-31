@@ -32,7 +32,7 @@
                 </xpath>
             </field>
         </record>
-        
+
         <record model="ir.actions.act_window" id="sale_product_open_quants">
             <field name="name">Stock On Hand</field>
             <field name="context">{'search_default_internal_loc': 1, 'search_default_locationgroup':1, 'search_default_productgroup':1,'search_default_lot':1}</field>

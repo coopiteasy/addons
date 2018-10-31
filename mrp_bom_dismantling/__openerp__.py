@@ -12,7 +12,7 @@
     "application": False,
     "installable": True,
     "depends": [
-#        'mrp',        
+        'mrp_brewing',
         'mrp_byproduct',
     ],
     "data": [
