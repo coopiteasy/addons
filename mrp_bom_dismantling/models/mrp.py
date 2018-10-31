@@ -14,6 +14,18 @@ class MrpProduction(models.Model):
         compute='_compute_master_mo_candidate',
     )
 
+    @api.model
+    def create(self, vals):
+        result = super(MrpProduction, self).create(vals)
+
+        if result.bom_id.dismantling and len(result.master_mo_candidate_ids) > 0:  # noqa
+            result.master_mo_id = (
+                result
+                .master_mo_candidate_ids
+                .sorted(key=lambda mo: mo.date_planned)[0]
+            )
+        return result
+
     @api.multi
     @api.depends('bom_id')
     def _compute_master_mo_candidate(self):
