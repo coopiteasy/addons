@@ -4,6 +4,27 @@
 from openerp import api, fields, models, _, SUPERUSER_ID
 
 
+class ProductProduct(models.Model):
+    _inherit = 'product.product'
+
+    @api.multi
+    def compute_master_mo_candidates(self):
+        self.ensure_one()
+        available_lots = (
+            self.env['stock.quant']
+                .search([('product_id', '=', self.id),
+                         ('location_id.usage', '=', 'internal')])
+                .mapped('lot_id')
+        )
+
+        master_mos = (
+            self.env['mrp.production']
+                .search([('origin', 'in', available_lots.mapped('name')),
+                         ('master_mo_id', '=', False)])
+        )
+        return master_mos
+
+
 class ProductTemplate(models.Model):
     _inherit = "product.template"
     
