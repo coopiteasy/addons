@@ -27,6 +27,7 @@ class MrpProduction(models.Model):
             )
         return result
 
+    # todo move this to create since never used elsewhere
     @api.multi
     @api.depends('bom_id')
     def _compute_master_mo_candidate(self):

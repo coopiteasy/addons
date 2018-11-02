@@ -8,14 +8,23 @@ from openerp import api, fields, models
 class MrpByProductLine(models.TransientModel):
     _name = "mrp.product.produced.line"
 
-    produce_id = fields.Many2one('mrp.product.produce', required=True,
-                                 string="Produce")
-    move_id = fields.Many2one('stock.move', required=True)
-    product_id = fields.Many2one('product.product',
-                                 related='move_id.product_id')
-    lot_id = fields.Many2one('stock.production.lot', string='Lot')
-
-    lot_required = fields.Boolean(compute='_compute_lot_required')
+    produce_id = fields.Many2one(
+        'mrp.product.produce',
+        required=True,
+        string="Produce")
+    move_id = fields.Many2one(
+        'stock.move',
+        required=True)
+    product_id = fields.Many2one(
+        'product.product',
+        related='move_id.product_id')
+    lot_id = fields.Many2one(
+        'stock.production.lot',
+        string='Lot',
+    )
+    lot_required = fields.Boolean(
+        compute='_compute_lot_required'
+    )
 
     @api.depends('produce_id.mode', 'product_id.tracking')
     def _compute_lot_required(self):
@@ -41,8 +50,22 @@ class MrpProductProduce(models.TransientModel):
                 self.env.context['active_id']
             )
 
+            def default_lot(product):
+                if product == self.product_id:
+                    return self.lot_id
+                else:
+                    lots = (
+                        self.env['stock.production.lot']
+                            .search([('product_id', '=', product.id)])
+                            .sorted(lambda l: l.create_date, reverse=True)
+                    )
+                    return lots[0] if lots else None
+
             self.move_lot_ids = [
-                (0, None, {'move_id': move})
+                (0, None, {
+                    'move_id': move,
+                    'lot_id': default_lot(move.product_id)
+                })
                 for move in mrp_prod.move_created_ids
             ]
 
