@@ -5,6 +5,7 @@
 from openerp import api, fields, models, _
 from itertools import chain
 
+
 class MrpProduction(models.Model):
     _inherit = "mrp.production"
 

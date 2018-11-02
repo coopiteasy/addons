@@ -1,5 +1,5 @@
-# -*- coding: utf-8 -*-
-# Part of Open Architechts Consulting sprl. See LICENSE file for full copyright and licensing details.
+# -*- coding: utf-8 -*- Part of Open Architechts Consulting sprl. See LICENSE
+#  file for full copyright and licensing details.
 
 from openerp import api, fields, models, _, SUPERUSER_ID
 
@@ -15,6 +15,7 @@ class ProductProduct(models.Model):
                 .search([('product_id', '=', self.id),
                          ('location_id.usage', '=', 'internal')])
                 .mapped('lot_id')
+                .filtered(lambda l: l.qty_available > 0)
         )
 
         master_mos = (
