@@ -504,6 +504,11 @@ class ResourceActivity(models.Model):
             activity.registrations.reserve_needed_resource()
 
     @api.multi
+    def mark_all_as_paid(self):
+        for activity in self:
+            activity.registrations.mark_as_paid()
+
+    @api.multi
     def action_done(self):
         for activity in self:
             activity.state = 'done'

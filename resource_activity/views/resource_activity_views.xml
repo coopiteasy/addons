@@ -118,6 +118,7 @@
                             <page name="registration" string="Registrations">
                                 <button type="object" name="search_all_resources" string="Search all"/>
                                 <button type="object" name="reserve_needed_resource" string="Reserve needed Resources" help="refresh"/>
+                                <button type="object" name="mark_all_as_paid" string="Mark all as paid"/>
                                 <field name="registrations"
                                        options="{'reload_on_button':True}"
                                        context="{'default_partner_id': partner_id,
@@ -199,7 +200,7 @@
                 </form>
             </field>
         </record>
-        
+
         <record id="view_resource_activity_calendar" model="ir.ui.view">
             <field name="name">resource.activity.calendar</field>
             <field name="model">resource.activity</field>
@@ -214,7 +215,7 @@
                 </calendar>
             </field>
         </record>
-        
+
         <record id="view_resource_activity_filter" model="ir.ui.view">
             <field name="name">resource.activity.search</field>
             <field name="model">resource.activity</field>
@@ -250,7 +251,7 @@
                </search>
             </field>
         </record>
-        
+
         <record id="view_resource_activity_calendar" model="ir.ui.view">
             <field name="name">resource.activity.calendar</field>
             <field name="model">resource.activity</field>
@@ -272,9 +273,9 @@
             <field name="view_mode">tree,form,calendar</field>
             <field name="context">{"search_default_coming_week":1,"search_default_not_cancelled":1}</field>
         </record>
-        
+
         <menuitem action="action_resource_activity" id="resource_activity_menu" parent="menu_resource_activity" sequence="10"/>
-        
+
         <record id="view_activity_registration_form" model="ir.ui.view">
             <field name="name">activity.registration.form</field>
             <field name="model">resource.activity.registration</field>
@@ -348,7 +349,7 @@
                 </tree>
             </field>
         </record>
-        
+
         <record id="view_resource_activity_type_form" model="ir.ui.view">
             <field name="name">resource.activity.type.form</field>
             <field name="model">resource.activity.type</field>
@@ -388,9 +389,9 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
-        
+
         <menuitem action="action_resource_activity_type" id="resource_activity_type_menu" parent="resource_planning.menu_resource_configuration" sequence="70"/>
-       
+
         <record id="resource_activity_lang_tree" model="ir.ui.view">
             <field name="name">resource.activity.lang.tree</field>
             <field name="model">resource.activity.lang</field>
@@ -401,7 +402,7 @@
                 </tree>
             </field>
         </record>
-        
+
         <record id="view_resource_activity_lang_form" model="ir.ui.view">
             <field name="name">resource.activity.lang.form</field>
             <field name="model">resource.activity.lang</field>
@@ -428,7 +429,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
-        
+
         <menuitem action="action_resource_activity_lang" id="resource_activity_lang_menu" parent="resource_planning.menu_resource_configuration" sequence="80"/>
 
         <record id="resource_activity_theme_tree" model="ir.ui.view">
@@ -441,7 +442,7 @@
                 </tree>
             </field>
         </record>
-        
+
         <record id="view_resource_activity_theme_form" model="ir.ui.view">
             <field name="name">resource.activity.theme.form</field>
             <field name="model">resource.activity.theme</field>
@@ -468,7 +469,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
-        
+
         <menuitem action="action_resource_activity_theme" id="resource_activity_theme_menu" parent="resource_planning.menu_resource_configuration" sequence="90"/>
     </data>
 </odoo>
