@@ -168,9 +168,8 @@ class ResourceActivity(models.Model):
     def _compute_sale_orders(self):
         for activity in self:
             activity.sale_orders = (
-                    activity
-                    .registrations
-                    .mapped('sale_order_id')
+                self.env['sale.order']
+                    .search([('activity_id', '=', activity.id)])
                     .ids
             )
 
