@@ -257,6 +257,11 @@ class ActivityRegistration(models.Model):
         return True
 
     @api.multi
+    def mark_as_paid(self):
+        for registration in self:
+            registration.is_paid = True
+
+    @api.multi
     def action_cancel(self):
         for registration in self:
             for resource_available in registration.resources_available:

@@ -168,9 +168,8 @@ class ResourceActivity(models.Model):
     def _compute_sale_orders(self):
         for activity in self:
             activity.sale_orders = (
-                    activity
-                    .registrations
-                    .mapped('sale_order_id')
+                self.env['sale.order']
+                    .search([('activity_id', '=', activity.id)])
                     .ids
             )
 
@@ -502,6 +501,11 @@ class ResourceActivity(models.Model):
     def reserve_needed_resource(self):
         for activity in self:
             activity.registrations.reserve_needed_resource()
+
+    @api.multi
+    def mark_all_as_paid(self):
+        for activity in self:
+            activity.registrations.mark_as_paid()
 
     @api.multi
     def action_done(self):
