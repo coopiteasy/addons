@@ -28,8 +28,7 @@
     This module add the delivery address on the invoice template.
     """,
     'data': [
-        'report/docs_report.xml',
-        'report/sexy_invoice.xml',
+        'report/report_invoice.xml',
     ],
     'installable': True,
     "auto_install": True,
