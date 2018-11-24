@@ -114,18 +114,30 @@ class ProductTemplate(models.Model):
                         # Create in the new group
                         defered[product.id] = 'create'
                     elif (product._check_vals_scale_bizerba(vals)
-                          and self.active and self.sale_ok):
+                          and product.active and product.sale_ok):
                         # Data related to the scale
                         defered[product.id] = 'write'
                 # ticking and unticking the "can be sold" checkbox
                 # trigger the corresponding product_scale_log
-                if vals.get('active', product.active):
-                    if vals.get('sale_ok', product.sale_ok):
-                        defered[product.id] = 'create'
-                    else:
-                        defered[product.id] = 'unlink'
-                else:
-                    defered[product.id] = 'unlink'
+                if 'active' in vals:
+                    if vals.get('active') != product.active:
+                        # there is a change in active status
+                        if vals.get('active'):
+                            if vals.get('sale_ok', product.sale_ok):
+                                # product can be sold in the past or can
+                                # be sold now
+                                defered[product.id] = 'create'
+                        else:
+                            defered[product.id] = 'unlink'
+                if 'sale_ok' in vals:
+                    if vals.get('active', product.active):
+                        # product was active or will become active
+                        if vals.get('sale_ok') != product.sale_ok:
+                            # there is a change in the sale_ok status
+                            if vals.get('sale_ok'):
+                                defered[product.id] = 'create'
+                            else:
+                                defered[product.id] = 'unlink'
 
         res = super(ProductTemplate, self).write(vals)
 
