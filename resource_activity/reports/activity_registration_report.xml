@@ -2,7 +2,15 @@
 <odoo>
     <data>
         <template id="resource_activity.resource_activity_registration_report_document">
-            <t t-call="theme_light.invoice_layout_002">
+        <!-- Explicitely copying content of theme_light.invoice_layout_002 so that we don't call its footer altogether -->
+        <!-- Multicompany -->
+        <t t-if="o and 'company_id' in o">
+            <t t-set="company" t-value="o.company_id"/>
+        </t>
+            <t t-if="not o or not 'company_id' in o">
+            <t t-set="company" t-value="res_company"/>
+        </t>
+        <t t-raw="0"/>
                 <div class="page">
                     <t t-call="theme_light.invoice_header" />
                     <div class="row" style="margin-top:50px;" name="row1">
@@ -166,7 +174,6 @@
                         </div>
                     </div>
                 </div>
-            </t>
         </template>
         <template id="resource_activity.resource_activity_registration_report">
             <t t-call="theme_light.html_container">
