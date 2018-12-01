@@ -10,6 +10,8 @@ from datetime import datetime
 from openerp import api, fields, models, _
 import openerp.addons.decimal_precision as dp
 
+# TODO: scale_category is defined in beesdoo_product but this module do
+#       not depend on it. Find a way to configure these fields.
 ADDITIONAL_FIELDS = ['list_price', 'scale_category', 'image_medium']
 
 class ProductTemplate(models.Model):
@@ -39,18 +41,21 @@ class ProductTemplate(models.Model):
     @api.multi
     def send_scale_create(self):
         for product in self:
+            # TODO: Should check if the product has a scale group
             product._send_to_scale_bizerba('create', True)
         return True
 
     @api.multi
     def send_scale_write(self):
         for product in self:
+            # TODO: Should check if the product has a scale group
             product._send_to_scale_bizerba('write', True)
         return True
 
     @api.multi
     def send_scale_unlink(self):
         for product in self:
+            # TODO: Should check if the product has a scale group
             product._send_to_scale_bizerba('unlink')
         return True
 
@@ -74,70 +79,60 @@ class ProductTemplate(models.Model):
         vals_fields = vals.keys()
         return set(system_fields).intersection(vals_fields)
 
-    # we tell to ignore the update or creation if
-    # there is no scale group or active or can be sold
-    # is False or not defined
-    def ignore(self, product, vals):
-        ignore = (
-            (not product.scale_group_id and 'scale_group_id' not in vals)
-            or (not product.sale_ok and 'sale_ok' not in vals)
-            or (not product.active and 'active' not in vals)
-        )
-        return ignore
+    def is_in_scale(self):
+        """Return True if the current product should be in the scale
+        system.
+        """
+        self.ensure_one()
+        return self.active and self.sale_ok and self.scale_group_id
+
+    def is_new_in_scale(self, vals):
+        """Return True if the current product will be new in the scale
+        system after the write.
+        """
+        return not self.is_in_scale() and self.will_be_in_scale(vals)
+
+    def will_be_in_scale(self, vals):
+        """Return True if the current product will be in the scale
+        system after the write.
+        """
+        self.ensure_one()
+        return (vals.get('active', self.active)
+                and vals.get('sale_ok', self.sale_ok)
+                and vals.get('scale_group_id', self.scale_group_id))
 
     # Overload Section
     @api.model
     def create(self, vals):
-        send_to_scale = vals.get('scale_group_id', False)
-        res = super(ProductTemplate, self).create(vals)
-        if send_to_scale:
-            product = self.browse(res)
-            self._send_to_scale_bizerba('create')
-        return res
+        product = super(ProductTemplate, self).create(vals)
+        if product.is_in_scale():
+            product._send_to_scale_bizerba('create')
+        return product
 
     @api.multi
     def write(self, vals):
         defered = {}
         for product in self:
-            ignore = self.ignore(product, vals)
-            if not ignore:
-                if not product.scale_group_id:
-                    # (the product is new on this group)
+            if product.is_new_in_scale(vals):
+                # Product is new to the scale system: create it.
+                defered[product.id] = 'create'
+            elif product.is_in_scale() and product.will_be_in_scale(vals):
+                # Product is in the scale system and will be in the
+                # scale system after the write: if there is changes in
+                # the fields related to the scale system, update it.
+                if product._check_vals_scale_bizerba(vals):
+                    defered[product.id] = 'write'
+                # If scale_group has change, product must be updated.
+                if ('scale_group_id' in vals
+                        and vals['scale_group_id'] != product.scale_group_id):
+                    # Remove it from previous group
+                    product._send_to_scale_bizerba('unlink')
+                    # Send it in the new group
                     defered[product.id] = 'create'
-                else:
-                    if (vals.get('scale_group_id', False)
-                        and (vals.get('scale_group_id', False) !=
-                             product.scale_group_id)):
-                        # (the product has moved from a group to another)
-                        # Remove from obsolete group
-                        product._send_to_scale_bizerba('unlink')
-                        # Create in the new group
-                        defered[product.id] = 'create'
-                    elif (product._check_vals_scale_bizerba(vals)
-                          and product.active and product.sale_ok):
-                        # Data related to the scale
-                        defered[product.id] = 'write'
-                # ticking and unticking the "can be sold" checkbox
-                # trigger the corresponding product_scale_log
-                if 'active' in vals:
-                    if vals.get('active') != product.active:
-                        # there is a change in active status
-                        if vals.get('active'):
-                            if vals.get('sale_ok', product.sale_ok):
-                                # product can be sold in the past or can
-                                # be sold now
-                                defered[product.id] = 'create'
-                        else:
-                            defered[product.id] = 'unlink'
-                if 'sale_ok' in vals:
-                    if vals.get('active', product.active):
-                        # product was active or will become active
-                        if vals.get('sale_ok') != product.sale_ok:
-                            # there is a change in the sale_ok status
-                            if vals.get('sale_ok'):
-                                defered[product.id] = 'create'
-                            else:
-                                defered[product.id] = 'unlink'
+            elif product.is_in_scale() and not product.will_be_in_scale(vals):
+                # Product is in the scale system and will no longer be
+                # in the scale system after the write: delete it.
+                defered[product.id] = 'unlink'
 
         res = super(ProductTemplate, self).write(vals)
 
@@ -150,6 +145,6 @@ class ProductTemplate(models.Model):
     @api.multi
     def unlink(self):
         for product in self:
-            if product.scale_group_id:
+            if product.is_in_scale():
                 self._send_to_scale_bizerba('unlink')
         return super(ProductTemplate, self).unlink()
