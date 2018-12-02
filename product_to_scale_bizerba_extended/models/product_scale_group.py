@@ -19,14 +19,14 @@ class product_scale_group(models.Model):
     def send_all_to_scale_create(self):
         for scale_group in self:
             (scale_group.product_ids
-             .filtered(lambda r: r.to_weight and r.sale_ok)
+             .filtered(lambda r: r.is_in_scale())
              .send_scale_create())
 
     @api.multi
     def send_all_to_scale_write(self):
         for scale_group in self:
             (scale_group.product_ids
-             .filtered(lambda r: r.to_weight and r.sale_ok)
+             .filtered(lambda r: r.is_in_scale())
              .send_scale_write())
 
     @api.multi
