@@ -9,6 +9,14 @@ from odoo.exceptions import ValidationError
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
+    @api.model_cr
+    def init(self):
+        self.env.cr.execute("SELECT id FROM sale_order"
+                            " WHERE reference_type IS NULL")
+        ids = (x[0] for x in self.env.cr.fetchall())
+        sale_orders = self.browse(ids)
+        sale_orders.write({'reference_type': 'none'})
+
     @api.model
     def _get_reference_type(self):
         return [('none', _('Free Reference')),
