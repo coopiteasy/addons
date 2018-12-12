@@ -18,6 +18,7 @@
     """,
     'data': [
         "views/sale_views.xml",
+        "report/sale_order_report.xml",
     ],
     'installable': True,
 }
