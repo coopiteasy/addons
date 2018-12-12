@@ -1,9 +1,7 @@
 # © 2018 Coop IT Easy (http://www.coopiteasy.be)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import api, fields, models, tools
-
-from odoo.http import request
+from odoo import api, models
 
 
 class Website(models.Model):
