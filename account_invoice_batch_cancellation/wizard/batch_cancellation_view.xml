@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_invoice_batch_cancellation" model="ir.ui.view">
+            <field name="name">Invoice batch cancellation</field>
+            <field name="model">invoice.batch.cancellation</field>
+            <field name="arch" type="xml">
+                <form string="Cancel the invoices">
+                    <p class="oe_grey">
+                        Cancel the invoices.
+                    </p>
+                    <footer>
+                        <button name="do_cancellation" string="Apply" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_invoice_batch_cancellation" model="ir.actions.act_window">
+            <field name="name">Invoice batch cancellation</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">invoice.batch.cancellation</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="groups_id" eval="[(4,ref('base.group_system'))]"/>
+        </record>
+		
+		<record model="ir.values" id="validate_subscription_request">
+            <field name="model_id" ref="account.model_account_invoice" />
+            <field name="name">Invoice batch cancellation</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.act_window,' + str(ref('action_invoice_batch_cancellation'))" />
+            <field name="key">action</field>
+            <field name="model">account.invoice</field>
+        </record>
+    </data>
+</openerp>
