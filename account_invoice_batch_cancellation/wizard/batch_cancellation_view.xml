@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
         <record id="view_invoice_batch_cancellation" model="ir.ui.view">
