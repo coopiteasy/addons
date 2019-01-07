@@ -1,0 +1,210 @@
+/* Copyright 2016 LasLabs Inc.
+ * License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). */
+
+.app-drawer-nav {
+    border-color: @dropdown-border;
+    background-color: @dropdown-bg;
+    border: 0px solid @dropdown-fallback-border; // IE8 fallback
+    border: 0px solid @dropdown-border;
+        border-radius: 0px !important;
+//    -webkit-border-radius: @border-radius-base;
+//    -moz-border-radius: @border-radius-base;
+   border-radius: @border-radius-base;
+//    .box-shadow(0 6px 12px rgba(0, 0, 0, .175));
+    background-clip: padding-box;
+
+    .navbar-left {
+        width: 100%;
+
+        li {
+            padding: 0;
+        }
+    }
+
+    .app-drawer-title {
+        float: none;
+    }
+
+    .app-drawer-panel-title {
+        margin-top: 4px;
+    }
+
+    .app-drawer-icon-app {
+        height: 100%;
+        width: 100%;
+        max-width: @app-drawer-icon-size;
+        max-height: @app-drawer-icon-size;
+        object-fit: contain;
+        object-position: center;
+    }
+
+    .panel-body {
+        padding-top: @app-drawer-title-height;
+    }
+
+    #appDrawerAppPanelHead {
+        position: absolute;
+        height: @app-drawer-title-height;
+        width: 100%;
+        z-index: 9999;
+    }
+
+}
+
+.drawer-nav {
+    width: @app-drawer-width;
+    z-index: 9999;
+}
+
+.drawer--left .drawer-nav {
+    left: -@app-drawer-width;
+}
+
+.drawer--left.drawer-open .drawer-hamburger {
+    left: @app-drawer-width;
+}
+
+.drawer--right .drawer-nav {
+    right: -@app-drawer-width;
+}
+
+.drawer-open .oe-right-toolbar {
+    display: none;
+}
+
+.drawer-closed .oe-right-toolbar {
+    display: block;
+}
+
+/* App Drawer Toggle */
+
+/*.app-drawer-toggle {
+    background-color: transparent;
+        border: none;
+}*/
+
+.app-drawer-toggle {
+    color: #fff;
+    background-color: @brand-primary;
+    border-color: @brand-primary;
+}
+
+.app-drawer-toggle:hover {
+    color: #fff;
+    background-color: @brand-primary;
+    border-color: @brand-primary;
+}
+
+.app-drawer-toggle:active {
+    color: #fff;
+    background-color: @brand-primary;
+    border-color: @brand-primary;
+}
+
+.app-drawer-toggle:focus {
+    color: #fff;
+    background-color: @brand-primary;
+    border-color: @brand-primary;
+}
+
+.app-drawer-toggle.navbar-toggle {
+//      background-color: #ee3366;
+    background-color: @brand-primary;
+    margin-left: 1em;
+}
+
+// Add background image
+.drawer-nav{
+        //background: transparent url('/backend_theme/static/src/img/material-background.jpg') no-repeat scroll center center / cover;
+        background-color: rgba(33, 30, 30, 0.95);
+}
+
+.app-drawer-nav .app-drawer-title {
+    color: #fff;
+}
+
+// Center app icons
+.app-drawer-nav .panel-body {
+    margin: auto;
+    max-width: 768px;
+    padding-top: 80px;
+    width: 90%;
+}
+
+//My customization
+
+.breadcrumb > .active {
+    color: #777777;
+}
+
+.o_form_view > header {
+    background-image: none;
+    background-color: #fff;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.o_form_view ul.oe_form_status li:first-child > .label, .o_form_view ul.oe_form_status_clickable li:first-child > .label {
+    border-left: none;
+}
+
+.o_form_view ul.oe_form_status li > .arrow span, .o_form_view ul.oe_form_status_clickable li > .arrow span {
+    background-image: none;
+    background-color: #fff;
+}
+
+.o_form_view ul.oe_form_status li.oe_active > .arrow span, .o_form_view ul.oe_form_status_clickable li.oe_active > .arrow span {
+    background-image: none;
+    background-color: @brand-primary;
+}
+
+.o_form_view ul.oe_form_status li, .o_form_view ul.oe_form_status_clickable li {
+    background-image: none;
+    background-color: #fff;
+}
+
+.o_form_view ul.oe_form_status li.oe_active, .o_form_view ul.oe_form_status_clickable li.oe_active {
+    background-image: none;
+    background-color: @brand-primary;
+}
+
+.o_form_view .o_form_sheet_bg {
+    background-image: none;
+    background-color: #fff;
+}
+
+.o_web_client > .o_main .o_main_content .o_content {
+    background-image: none;
+    background-color: #fff;
+}
+
+.o_mail_thread .o_thread_message .o_thread_message_core.o_mail_note {
+    background-image: none;
+    background-color: #fff;
+}
+
+.navbar-default .navbar-toggle {
+    color: #fff;
+}
+
+@media (max-width: 507px){
+  .o_control_panel .o_cp_left {
+      width: 100%;
+      float: left;
+  }
+}
+
+@media (max-width: 507px){
+  .o_control_panel .o_cp_right {
+      width: 100%;
+      float: right;
+  }
+}
+
+input:not([type="radio"]):not([type="checkbox"]) {
+  min-width: 110px;
+}
+
+select {
+  min-width: 110px;
+}
