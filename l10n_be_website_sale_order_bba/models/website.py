@@ -1,4 +1,4 @@
-# © 2018 Coop IT Easy (http://www.coopiteasy.be)
+# copyright 2018 - ongoing Coop IT Easy (http://www.coopiteasy.be)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import api, models
