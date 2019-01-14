@@ -46,9 +46,9 @@ class AccountInvoice(models.Model):
             )
 
             if duplicate_invoices:
-                self.identical_invoice_detected = True
+                invoice.identical_invoice_detected = True
             else:
-                self.identical_invoice_detected = False
+                invoice.identical_invoice_detected = False
 
     @api.multi
     def invoice_validate(self):
