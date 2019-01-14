@@ -1,0 +1,85 @@
+.leftPanel{
+-webkit-box-sizing: border-box;
+-moz-box-sizing: border-box;
+-ms-box-sizing: border-box;
+box-sizing: border-box;
+position: absolute;
+left: 0px;
+bottom: 0px;
+border-right: 1px solid rgb(206, 203, 203);
+background: gainsboro;
+
+}
+.product_list{
+height: 100vh;
+background: white none repeat scroll 0% 0%;
+font-family: "Lato","Lucida Grande",Helvetica,Verdana,Arial;
+color: rgb(85, 85, 85);
+text-shadow: none;
+overflow: scroll;
+}
+.product_content{
+padding: 12px;
+width: 94%;
+margin: 10px;
+}
+
+.product_name{
+font-size: 16px;
+}
+.product_name1{
+float: right;
+font-size: 16px;
+
+}
+.product_price{
+font-size: 12px;
+margin: 14px;
+}
+.rightPanel{
+margin-top: 7px;
+padding-bottom: 10px;
+
+}
+.empty{
+text-align: center;
+margin-top: 15px;
+margin-bottom: 5px;
+color: #999;
+font-weight: normal;
+}
+.line{
+float: right;
+margin-right: 15px;
+margin-left: 15px;
+padding-top: 5px;
+border-top: solid 2px;
+border-color: #777;
+}
+
+
+@media (max-height:500px){
+.product_list{
+height: 400px;
+}
+}
+@media (max-height:400px){
+.product_list{
+height: 300px;
+}
+}
+@media (max-width:300px){
+.product_list{
+height: 200px;
+}
+}
+
+.carousel {
+  height: 100vh;
+  overflow: hidden;
+
+  .item img {
+    width: 100%;
+    height: auto;
+  }
+}

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="assets_backend" name="Pos Mirror Image Assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/pos_mirror/static/src/js/pos_90.js"></script>
+            </xpath>
+        </template>
+
+        <template id="assets_frontend" inherit_id="website.assets_frontend" name="Pos Mirror Assets" >
+            <xpath expr="/t" position="inside">
+                <link rel='stylesheet' href='/pos_mirror/static/src/css/pos.css'/>
+                <script type="text/javascript" src="/pos_mirror/static/src/js/mirror_image.js"></script>
+            </xpath>
+        </template>
+    </data>
+</openerp>

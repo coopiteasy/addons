@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="pos_mirror_image" name="Pos Mirror Image">&lt;!DOCTYPE html&gt;
+            <html>
+                <head>
+                  <title>Odoo POS</title>
+                  <script src="/pos_mirror/static/src/js/jquery.js"/>
+                  <script type="text/javascript" src="/pos_mirror/static/src/js/mirror_image.js"/>
+                  <link rel="stylesheet" href="/pos_mirror/static/src/css/pos.css"/>
+                  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+                  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"/>
+                  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"/>
+                </head>
+                <body style="background:#fff;">
+                        <div class="container-fluid">
+                            <div class="col-sm-12 col-xs-12 col-md-4 col-lg-4">
+                                <div>
+                                    <div class="product_list">
+                                        <table class="product_content"></table>
+                                        <div class="line">
+                                            <div>
+                                                <b class="total_amount"></b>
+                                            </div>
+                                            <div class="total_tax"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-xs-12 col-md-8 col-lg-8">
+                                <div class="rightPanel">
+                                    <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="3000">
+
+                                        <div class="carousel-inner" role="listbox">
+                                            <t t-foreach="config.mirror_image_ids" t-as="mirror_image">
+                                                <div t-attf-class="item #{mirror_image_index == 0 and 'active' or ''}">
+                                                    <img t-att-src="'data:image/png;base64,'+mirror_image.image" width="100%"/>
+                                                    <div class="carousel-caption">
+                                                        <h3 t-esc="mirror_image.name"></h3>
+                                                        <p></p>
+                                                    </div>
+                                                </div>
+                                            </t>
+                                        </div>
+                                        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                            <span class="sr-only">Previous</span>
+                                        </a>
+                                        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                            <span class="sr-only">Next</span>
+                                        </a>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </body>
+                </html>
+        </template>
+    </data>
+</openerp>

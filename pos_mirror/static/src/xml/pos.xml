@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="Chrome">
+        <div class="pos">
+            <div class="pos-topheader">
+                <div class="pos-branding">
+                    <img class="pos-logo" src="/point_of_sale/static/src/img/logo.png"/>
+                    <span class="control-button url_create" style="margin-left: 39px; position: fixed; margin-top: 4px;">
+                        Mirror Screen
+                    </span>
+                    <span class="placeholder-UsernameWidget"></span>
+                </div>
+                <div class="pos-rightheader">
+                    <span class="placeholder-OrderSelectorWidget"></span>
+                    <!-- here goes header buttons -->
+                </div>
+            </div>
+
+            <div class="pos-content">
+                <div class='window'>
+                    <div class='subwindow'>
+                        <div class='subwindow-container'>
+                            <div class='subwindow-container-fix screens'></div>
+                            <!-- here go the screens -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="placeholder-OnscreenKeyboardWidget"></div>
+            </div>
+
+            <div class='popups'>
+                <!-- here go the popups -->
+            </div>
+
+            <div class="loader">
+                <div class='loader-feedback oe_hidden'>
+                    <h1 class='message'>Loading</h1>
+                    <div class='progressbar'>
+                        <div class='progress' width='50%'></div>
+                    </div>
+                    <div class='oe_hidden button skip'>
+                        Skip
+                    </div>
+                </div>
+            </div>
+
+            &lt;!--[if IE]&gt;
+            <div class='not-supported-browser'>
+                <div class='message'>
+                    <img src='/point_of_sale/static/src/img/pos_screenshot.jpg'/>
+                    <p>
+                        The Point of Sale is not supported by Microsoft Internet Explorer. Please use a modern browser like
+                        <a href="http://www.mozilla.org/firefox/" target="_blank">Mozilla Firefox</a>
+                        or
+                        <a href="http://www.google.com/chrome" target="_blank">Google Chrome</a>.
+                    </p>
+                </div>
+            </div>
+            &lt;![endif]--&gt;
+        </div>
+    </t>
+
+    <t t-name="URLLinkPopupWidget">
+        <div class="modal-dialog">
+            <div class="popup popup-error">
+                <p class="message">Mirror Image URL</p>
+                <p class="comment">
+                    <textarea class="mirror_image_url" cols="50" rows="4">
+                        <t t-esc=" widget.message || 'Error' "/>
+                    </textarea>
+                </p>
+                <div class="footer">
+                    <div class="button press_ok">
+                        Ok
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>
