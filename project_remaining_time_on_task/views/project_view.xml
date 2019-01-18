@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_task_form2_remaining_hours_contract" model="ir.ui.view">
+            <field name="name">Project task form - Remaining hours extension</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <field name="planned_hours" position="after">
+                    <field name="remaining_hours_contract"></field>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

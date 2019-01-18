@@ -21,7 +21,7 @@
     "name": "Remaining time project on task",
     "version": "1.0",
     "depends": [
-        'base',
+        'project',
     ],
     "author": "Coop IT Easy - Nicolas Jamoulle <nciolas@coopiteasy.be>",
     "license": "AGPL-3",
@@ -31,7 +31,7 @@
         Show remaining time project on task view
     """,
     "data": [
-        'views/purchaseorder.xml',
+        'views/project_view.xml',
     ],
     'installable': True,
 }
