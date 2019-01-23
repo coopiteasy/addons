@@ -7,7 +7,10 @@
             <field name="inherit_id" ref="project.view_task_form2"/>
             <field name="arch" type="xml">
                 <field name="planned_hours" position="after">
-                    <field name="remaining_hours_contract" widget="float_time"></field>
+                    <field name="remaining_contract_hours" widget="float_time"
+                           attrs="{'invisible':[('has_contract_hours','=', False)]}">Remaining contract hours
+                    </field>
+                    <field name="has_contract_hours" invisible="1"></field>
                 </field>
             </field>
         </record>
