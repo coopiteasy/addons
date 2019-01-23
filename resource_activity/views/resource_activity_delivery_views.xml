@@ -34,7 +34,7 @@
                      ('state', '!=', 'cancelled')]"/>
           <separator/>
           <filter name="only_future" string="Only future"
-            domain="[('date', '>=', datetime.datetime.now())]"/>
+            domain="['&amp;', ('date', '>=', datetime.datetime.now()), ('state', '!=', 'cancelled')]"/>
         </search>
       </field>
     </record>
