@@ -5,11 +5,30 @@ from openerp import api, fields, models
 class Task(models.Model):
     _inherit = 'project.task'
 
-    # fields.function(_compute_remaining_hours_contract,'Heures restantes / contrat', digits=(16, 2),
-    #                                     help="Total remaining time from the contract")
+    remaining_hours_contract = fields.Float(string="Heures restantes sur contrat",
+                                            compute='_compute_remaining_hours_contract', digits=(16, 2))
 
+    def _get_qty_invoiced(self):
+        _qty_invoiced = 0
+        sale_order_lines = self.env['sale.order.line'].search(
+            [('project_id', '=', self.analytic_account_id.id)])
+        for line in sale_order_lines:
+            _qty_invoiced += line.qty_invoiced
+
+        return _qty_invoiced
+
+    def _get_qty_effective(self):
+        _qty_effective = 0
+        tasks_effective__hour = self.project_id.task_ids
+        for task in tasks_effective__hour:
+            _qty_effective += task.effective_hours
+
+        return _qty_effective
+
+    @api.multi
+    @api.depends('remaining_hours')
     def _compute_remaining_hours_contract(self):
-        return 2.0
-
-    remaining_hours_contract = fields.function(_compute_remaining_hours_contract, 'Heures restantes / contrat',
-                                               type='digits=(16, 2)')
+        _qty_invoiced = self._get_qty_invoiced()
+        if _qty_invoiced > 0:
+            for task in self:
+                task.remaining_hours_contract = _qty_invoiced - self._get_qty_effective()
