@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-27 08:27+0000\n"
-"PO-Revision-Date: 2019-01-27 08:27+0000\n"
+"POT-Creation-Date: 2019-01-28 09:39+0000\n"
+"PO-Revision-Date: 2019-01-28 09:39+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:project_remaining_time_on_task.field_project_task_remaining_contract_hours
 #: model:ir.ui.view,arch_db:project_remaining_time_on_task.view_task_form2_remaining_hours_contract
 msgid "Remaining contract hours"
-msgstr "Heures restantes sur contrat"
+msgstr "Heures restantes sur contrats"
 
 #. module: project_remaining_time_on_task
 #: model:ir.model,name:project_remaining_time_on_task.model_project_task
