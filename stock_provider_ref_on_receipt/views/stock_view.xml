@@ -6,8 +6,8 @@
             <field name="model">stock.picking</field>
             <field name="inherit_id" ref="stock.view_picking_form"></field>
             <field name="arch" type="xml">
-                <xpath expr="//notebook//page//field[@name='package_id']" position="after">
-                    <field name="provider_ref_id"></field>
+                <xpath expr="//field[@name='pack_operation_product_ids']/tree/field[@name='package_id']" position="after" >
+                    <field name="provider_ref_id">qscqsc</field>
                 </xpath>
             </field>
         </record>
