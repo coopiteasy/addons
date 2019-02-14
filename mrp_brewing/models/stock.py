@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-# Part of Open Architechts Consulting sprl. See LICENSE file for full copyright and licensing details.
+# Part of Open Architechts Consulting sprl. See LICENSE file for full copyright and licensing details. # noqa
+# Copyright 2019 Coop IT Easy SCRLfs
 
 from openerp import api, fields, models, _, SUPERUSER_ID
 
@@ -22,6 +23,28 @@ class StockMove(models.Model):
     brew_number = fields.Integer(
         string="Brew number",
         readonly=True)
+    is_internal = fields.Boolean(
+        string="Is Internal",
+        compute="_compute_is_internal",
+    )
+
+    @api.multi
+    @api.depends('location_id', 'location_dest_id')
+    def _compute_is_internal(self):
+
+        for move in self:
+            move.is_internal = (
+                    move.location_id.usage == 'internal'
+                    and move.location_dest_id.usage == 'internal'
+            )
+
+    @api.onchange('is_internal')
+    def onchange_is_internal(self):
+        if self.is_internal:
+            domain = {'product_id': [('sale_ok', '=', True)]}
+        else:
+            domain = {'product_id': []}
+        return {'value': [], 'domain': domain}
 
 
 class StockWarehouseOrderpoint(models.Model):
