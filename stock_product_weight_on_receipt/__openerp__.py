@@ -13,10 +13,11 @@
     "license": "AGPL-3",
     "website": "www.coopiteasy.be",
     "description": """
-        Show product weight on each line of a receipt
+        Show product weight and unit weight on each line of a receipt
     """,
     "data": [
         'views/stock_view.xml',
+        'reports/report_deliveryslip.xml',
     ],
     'installable': True,
 }

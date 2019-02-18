@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_receipt_weight"
+                  inherit_id="stock.report_delivery_document"
+                  name="Receipt with weight">
+
+            <xpath expr="//table[@t-if='not o.pack_operation_ids']/thead/tr/th[1]" position="after">
+                <th class="text-right">
+                    <span>Weight</span>
+                </th>
+            </xpath>
+
+            <xpath expr="//tr[@t-foreach='o.move_lines']//td[3]" position="after">
+                <td class="text-right">
+                    <span t-field="line.product_id.display_weight"/>
+                    <span t-field="line.product_id.display_unit"/>
+                </td>
+            </xpath>
+        </template>
+    </data>
+</odoo>
