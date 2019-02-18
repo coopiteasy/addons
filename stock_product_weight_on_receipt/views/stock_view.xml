@@ -9,6 +9,7 @@
                 <xpath expr="//field[@name='pack_operation_product_ids']/tree/field[@name='fresh_record']"
                        position="before">
                     <field name="display_weight"/>
+                    <field name="display_unit"/>
                 </xpath>
             </field>
         </record>
