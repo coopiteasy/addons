@@ -16,7 +16,7 @@
     ],
     "description": """
     This module allows to send confirmation email and invoice automatically
-    once the picking is done according the choosen preference.
+    once the picking is done according the chosen preference.
     """,
     'data': [
         'views/delivery_carrier_view.xml',
