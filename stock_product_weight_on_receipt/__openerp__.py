@@ -7,6 +7,7 @@
     "version": "1.0",
     "depends": [
         'stock',
+        'beesdoo_product',
     ],
     "author": "Coop IT Easy SCRLfs",
     "license": "AGPL-3",
