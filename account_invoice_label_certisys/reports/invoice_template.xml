@@ -4,8 +4,8 @@
 	<template id="certicys_label" inherit_id="account.report_invoice_document">
 		<xpath expr="//p[@t-if='o.fiscal_position_id.note']" position="after">
 			<p>
-                <img src="/mrp_brewing/static/img/EU_Organic_Logo.jpg" style="width:98px;height:auto;padding-bottom:5px;"/>
-                <strong>Toutes les bières de la Brasserie du Renard sont certifiées bio par certisys BE-BIO-01</strong>
+                <img src="/account_invoice_label_certisys/static/img/EU_Organic_Logo.jpg" style="width:98px;height:auto;padding-bottom:5px;"/>
+                <strong>Toutes les bières de la <span t-field="o.company_id.name"/> sont certifiées bio par certisys BE-BIO-01</strong>
             </p>
 		</xpath>
 		
