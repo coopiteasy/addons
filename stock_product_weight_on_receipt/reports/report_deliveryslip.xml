@@ -5,13 +5,13 @@
                   inherit_id="stock.report_delivery_document"
                   name="Receipt with weight">
 
-            <xpath expr="//table[3]/thead/tr/th[1]" position="after">
+            <xpath expr="//table[3]/thead/tr/th[4]" position="after">
                 <th class="text-right">
                     <span>Weight</span>
                 </th>
             </xpath>
 
-            <xpath expr="//table[3]//tr[@t-foreach='o.pack_operation_ids']//td[1]" position="after">
+            <xpath expr="//table[3]//tr[@t-foreach='o.pack_operation_ids']//td[3]" position="after">
                 <td class="text-right">
                     <span t-field="pack_operation.display_weight"/>
                     <span t-field="pack_operation.display_unit"/>
