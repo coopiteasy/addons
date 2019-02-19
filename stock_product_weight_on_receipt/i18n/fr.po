@@ -16,6 +16,11 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: stock_product_weight_on_receipt
+#: model:ir.ui.view,arch_db:stock_product_weight_on_receipt.report_receipt_weight
+msgid "<span>Weight</span>"
+msgstr "<span>Poids/unité</span>"
+
+#. module: stock_product_weight_on_receipt
 #: model:ir.model,name:stock_product_weight_on_receipt.model_stock_pack_operation
 msgid "Packing Operation"
 msgstr "Colisage"
