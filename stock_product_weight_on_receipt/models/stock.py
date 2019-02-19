@@ -2,7 +2,7 @@
 from openerp import api, fields, models
 
 
-class Product(models.Model):
+class StockPackOperation(models.Model):
     _inherit = 'stock.pack.operation'
 
     display_weight = fields.Float(string='Weight',
