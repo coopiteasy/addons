@@ -16,6 +16,7 @@
     """,
     "data": [
         'views/stock_view.xml',
+        'reports/report_deliveryslip.xml'
     ],
     'installable': True,
 }
