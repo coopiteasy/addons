@@ -25,8 +25,7 @@ class StockMove(models.Model):
         readonly=True)
     is_internal = fields.Boolean(
         string="Is Internal",
-        compute="_compute_is_internal",
-    )
+        compute="_compute_is_internal")
 
     @api.multi
     @api.depends('location_id', 'location_dest_id')
@@ -38,13 +37,35 @@ class StockMove(models.Model):
                     and move.location_dest_id.usage == 'internal'
             )
 
+    @api.model
+    def _compute_product_domain(self, is_internal):
+        if is_internal:
+            domain = [('type', 'in', ['product', 'consu']),
+                      ('sale_ok', '=', True)]
+        else:
+            domain = [('type', 'in', ['product', 'consu'])]
+
+        return domain
+
     @api.onchange('is_internal')
     def onchange_is_internal(self):
-        if self.is_internal:
-            domain = {'product_id': [('sale_ok', '=', True)]}
-        else:
-            domain = {'product_id': []}
-        return {'value': [], 'domain': domain}
+        domain = self._compute_product_domain(self.is_internal)
+        return {'value': [], 'domain': {'product_id': domain}}
+
+    @api.model
+    def fields_view_get(self, view_id=None, view_type='form',
+                        toolbar=False, submenu=False):
+        result = (
+            super(StockMove, self)
+            .fields_view_get(view_id, view_type,
+                             toolbar=toolbar, submenu=submenu)
+        )
+        if 'fields' in result and 'product_id' in result['fields']:
+            result['fields']['product_id']['domain'] = (
+                self._compute_product_domain(
+                    result['fields'].get('is_internal', False))
+            )
+        return result
 
 
 class StockWarehouseOrderpoint(models.Model):

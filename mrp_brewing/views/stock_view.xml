@@ -87,5 +87,16 @@
 		        </field>
             </field>
         </record>
+
+        <record id="view_move_picking_tree" model="ir.ui.view">
+            <field name="name">stock.move.form</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_picking_tree"/>
+            <field name="arch" type="xml">
+                <field name="location_id" position="after">
+                    <field name="is_internal" invisible="1"/>
+                </field>
+            </field>
+        </record>
 	</data>
 </odoo>
