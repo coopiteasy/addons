@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="report_delivery_document" inherit_id="stock.report_delivery_document">
+
+            <xpath expr="//table[@t-if='not o.pack_operation_ids']/thead/tr/th[1]" position="after">
+                <th><strong>Price</strong></th>
+                <th><strong>Taxes</strong></th>
+                <th><strong>Total</strong></th>
+            </xpath>
+
+            <xpath expr="//table[@t-if='not o.pack_operation_ids']/tbody/tr/td[1]" position="after">
+                <!-- in <tr t-foreach="o.move_lines" t-as="move"> -->
+                <td><span t-field="move.price_subtotal"/></td>
+                <td><span t-field="move.price_taxes"/></td>
+                <td><span t-field="move.price_total"/></td>
+            </xpath>
+
+            <xpath expr="//table[@t-if='o.pack_operation_ids']/thead/tr/th[1]" position="before">
+                <th><strong>Price</strong></th>
+                <th><strong>Taxes</strong></th>
+                <th><strong>Total</strong></th>
+            </xpath>
+
+            <xpath expr="//table[@t-if='o.pack_operation_ids']/tbody/tr/td[1]" position="after">
+                <!--in <tr t-foreach="o.pack_operation_ids" t-as="pack_operation">-->
+                <td><span>to do</span></td>
+                <td><span>to do</span></td>
+                <td><span>to do</span></td>
+            </xpath>
+
+        </template>
+    </data>
+</openerp>
