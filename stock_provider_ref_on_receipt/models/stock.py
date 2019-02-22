@@ -13,6 +13,6 @@ class Product(models.Model):
     def _compute_product_code(self):
         for line in self:
             product_supplier = self.env['product.supplierinfo'].search(
-                [('product_tmpl_id', '=', self.product_id.product_tmpl_id.id)])
+                [('product_tmpl_id', '=', line.product_id.product_tmpl_id.id)])
             if product_supplier:
                 line.provider_ref = product_supplier[0].product_code
