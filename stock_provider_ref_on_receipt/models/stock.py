@@ -14,4 +14,5 @@ class Product(models.Model):
         for line in self:
             product_supplier = self.env['product.supplierinfo'].search(
                 [('product_tmpl_id', '=', self.product_id.product_tmpl_id.id)])
-            line.provider_ref = product_supplier[0].product_code
+            if product_supplier:
+                line.provider_ref = product_supplier[0].product_code
