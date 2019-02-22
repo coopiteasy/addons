@@ -16,6 +16,15 @@ class SaleOrder(models.Model):
         sale_orders = self.browse(ids)
         sale_orders.write({'reference_type': 'none'})
 
+    @api.multi
+    def copy_data(self, default=None):
+        values = super(SaleOrder, self).copy_data(default)
+        if self.reference_type == 'bba':
+            bbacomm = self.generate_bbacomm()
+            print (bbacomm.get('reference'))
+            values[0]['reference'] = bbacomm.get('reference')
+        return values
+
     @api.model
     def _get_reference_type(self):
         return [('none', _('Free Reference')),
