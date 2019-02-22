@@ -40,25 +40,35 @@ class SaleOrder(models.Model):
                     raise ValidationError(_('Invalid BBA Structured '
                                             'Communication !'))
 
-    @api.onchange('partner_id', 'reference_type')
-    def onchange_partner_id(self):
-        result = super(SaleOrder, self).onchange_partner_id()
-        reference = False
+    def generate_bbacomm(self):
+        invoice_obj = self.env['account.invoice']
         reference_type = 'none'
+        values = {}
         if self.partner_id:
             reference_type = self.partner_id.out_inv_comm_type
             if reference_type:
-                reference = self.env['account.invoice'].generate_bbacomm(
+                values['reference'] = invoice_obj.generate_bbacomm(
                     'out_invoice',
                     reference_type,
                     self.partner_id.id, '')['value']['reference']
-        self.reference_type = reference_type or 'none'
-        self.reference = reference
+        values['reference_type'] = reference_type
+        return values
+
+    @api.onchange('partner_id', 'reference_type')
+    def onchange_partner_id(self):
+        result = super(SaleOrder, self).onchange_partner_id()
+        bbacomm = self.generate_bbacomm()
+        self.reference_type = bbacomm.get('reference_type', 'none')
+        self.reference = bbacomm.get('reference')
         return result
 
     @api.multi
     def _prepare_invoice(self):
         self.ensure_one()
+        invoice = self.env['account.invoice'].search([
+                    ('reference', '=', self.reference)])
+        if invoice:
+            self.reference = self.generate_bbacomm().get('reference')
         invoice_vals = super(SaleOrder, self)._prepare_invoice()
         invoice_vals['reference_type'] = self.reference_type or 'none'
         invoice_vals['reference'] = self.reference
