@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_receipt_provider_ref"
+                  inherit_id="stock.report_delivery_document"
+                  name="Receipt with provider reference">
+
+            <xpath expr="//table[3]/thead/tr/th[1]" position="after">
+                <th class="text-left">
+                    <span>Provider ref.</span>
+                </th>
+            </xpath>
+
+            <xpath expr="//table[3]//tr[@t-foreach='o.pack_operation_ids']//td[1]" position="after">
+                <td class="text-left">
+                    <span t-field="pack_operation.provider_ref"/>
+                </td>
+            </xpath>
+
+        </template>
+    </data>
+</odoo>
