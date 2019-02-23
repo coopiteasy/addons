@@ -11,8 +11,8 @@ class Product(models.Model):
     @api.multi
     @api.depends('provider_ref')
     def _compute_product_code(self):
-        for line in self:
+        for product in self:
             product_supplier = self.env['product.supplierinfo'].search(
-                [('product_tmpl_id', '=', line.product_id.product_tmpl_id.id)])
+                [('product_tmpl_id', '=', product.product_id.product_tmpl_id.id)])
             if product_supplier:
-                line.provider_ref = product_supplier[0].product_code
+                product.provider_ref = product_supplier[0].product_code
