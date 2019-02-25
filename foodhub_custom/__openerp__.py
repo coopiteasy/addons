@@ -9,15 +9,14 @@
         Foodhub customizations""",
 
     'author': "Coop IT Easy SCRL fs",
-    'website': "http://www.yourcompany.com",
-
+    'website': "http://www.coopiteasy.be",
+    'license': 'AGPL-3',
     'category': 'Account',
     'depends': [
         'sale_stock',
     ],
 
     'data': [
-        'views/stock_view.xml',
         'reports/report_deliveryslip.xml',
     ],
 }

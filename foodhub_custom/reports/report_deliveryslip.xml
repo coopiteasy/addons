@@ -23,10 +23,10 @@
             </xpath>
 
             <xpath expr="//table[@t-if='o.pack_operation_ids']/tbody/tr/td[1]" position="after">
-                <!--in <tr t-foreach="o.pack_operation_ids" t-as="pack_operation">-->
-                <td><span>to do</span></td>
-                <td><span>to do</span></td>
-                <td><span>to do</span></td>
+                <!-- in <tr t-foreach="o.pack_operation_ids" t-as="pack_operation">-->
+                <td><span t-field="pack_operation.price_subtotal"/></td>
+                <td><span t-field="pack_operation.price_taxes"/></td>
+                <td><span t-field="pack_operation.price_total"/></td>
             </xpath>
 
         </template>
