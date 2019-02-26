@@ -1,14 +1,13 @@
 <odoo>
-      <record id="invoice_supplier_form" model="ir.ui.view">
-         <field name="name">account.invoice.supplier.form</field>
-         <field name="model">account.invoice</field>
-		 <field name="inherit_id" ref="account.invoice_supplier_form"/>
-         <field name="arch" type="xml">
-         	<field name="reference" position="after">
-         		<group>
-         			<field name="partner_structured_communication" groups="sale.group_discount_per_so_line, account.group_account_invoice"/>
-         		</group>
-         	</field>
-         </field>
-      </record>
+    <record id="invoice_supplier_form_inherit" model="ir.ui.view">
+        <field name="name">account.invoice.supplier.form.inherit</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_supplier_form"/>
+        <field name="arch" type="xml">
+            <field name="reference" position="before">
+                <field name="reference_type">bba</field>
+                <!--<field name="partner_structured_communication"/>-->
+            </field>
+        </field>
+    </record>
 </odoo>

@@ -1,11 +1,16 @@
 # -*- coding: utf-8 -*-
+from openerp import models, fields, api
 
-from openerp import models, fields, api, exceptions, _
-import openerp.addons.decimal_precision as dp
 
-class account_invoice(models.Model):
-
+class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
-    
-    # global_discount = fields.Float(string='Global discount(%)', digits=dp.get_precision('Discount'), default=0.0)
-    
+
+    partner_structured_communication = fields.Char(string="Partner Structured "
+                                                          "Communication"
+                                                   )
+
+    @api.multi
+    def _compute_ref(self):
+        self.ensure_one()
+        if not self.check_bbacomm('partner_structured_communication'):
+            print("b is greater than a")
