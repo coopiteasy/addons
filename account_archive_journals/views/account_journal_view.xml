@@ -1,0 +1,14 @@
+<openerp>
+  <data>
+    <record model="ir.ui.view" id="account_journal_form_view">
+        <field name="name">account.journal.archive</field>
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="account.view_account_journal_form"/>
+        <field name="arch" type="xml">
+            <field name="type" position="after">
+                <field name="active"/>
+            </field>
+        </field>
+    </record>
+  </data>
+</openerp>
