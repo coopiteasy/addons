@@ -1,12 +1,5 @@
 # -*- coding: utf-8 -*-
-import base64
-import datetime
-import re
-
-import werkzeug
-import werkzeug.urls
-
-from openerp import http, SUPERUSER_ID
+from openerp import http
 from openerp.http import request
 from openerp.tools.translate import _
 
@@ -15,18 +8,27 @@ from openerp.exceptions import ValidationError
 
 class WebsiteProductSubscription(http.Controller):
 
-    @http.route(['/page/login_subscriber','/login_subscriber'], type='http', auth="user", website=True)
+    @http.route(['/page/login_subscriber',
+                 '/login_subscriber'],
+                type='http',
+                auth="user",
+                website=True)
     def login_subscriber(self, **kwargs):
 
         return request.redirect("/page/become_subscriber")
 
-    @http.route(['/page/become_subscriber','/become_subscriber'], type='http', auth="public", website=True)
+    @http.route(['/page/become_subscriber',
+                 '/become_subscriber'],
+                type='http',
+                auth="public",
+                website=True)
     def display_subscription_page(self, **kwargs):
         values = {}
 
         values = self.fill_values(values, True)
 
-        for field in ['email','firstname','lastname','address','city','zip_code','country_id','error_msg']:
+        for field in ['email', 'firstname', 'lastname', 'address', 'city',
+                      'zip_code', 'country_id', 'error_msg']:
             if kwargs.get(field):
                 values[field] = kwargs.pop(field)
 
@@ -34,6 +36,7 @@ class WebsiteProductSubscription(http.Controller):
         return request.website.render("website_product_subscription.becomesubscriber", values)
 
     def fill_values(self, values, load_from_user=False):
+        sub_temp_obj = request.env['product.subscription.template']
         if load_from_user:
             # the subscriber is connected
             if request.env.user.login != 'public':
@@ -49,9 +52,9 @@ class WebsiteProductSubscription(http.Controller):
                 if partner.parent_id:
                     values['company'] = partner.parent_id.display_name
 
-        if not values.get('product_subscription_id',False):
+        if not values.get('product_subscription_id', False):
             values['product_subscription_id'] = 0
-        values['subscriptions'] = request.env['product.subscription.template'].sudo().search([('publish','=',True)])
+        values['subscriptions'] = sub_temp_obj.sudo().search([('publish', '=', True)])
         values['countries'] = self.get_countries()
 
         if not values.get('country_id'):
@@ -64,21 +67,22 @@ class WebsiteProductSubscription(http.Controller):
         return countries
 
     def get_address(self, kwargs):
-        vals = {'zip':kwargs.get("zip_code"),
-                'city':kwargs.get("city"),
-                'country_id':kwargs.get("country_id")}
-        address = kwargs.get("street") +', ' + kwargs.get("street_number")
+        vals = {'zip': kwargs.get("zip_code"),
+                'city': kwargs.get("city"),
+                'country_id': kwargs.get("country_id")}
+        address = kwargs.get("street") + ', ' + kwargs.get("street_number")
         if kwargs.get("box").strip() != '':
             address = address + ', ' + kwargs.get("box").strip()
         vals['street'] = address
         return vals
 
     def get_receiver(self, kwargs):
-        vals = {'email': kwargs.get("subscriber_email"),'out_inv_comm_type':'bba',
-                'out_inv_comm_algorithm':'random'}
+        vals = {'email': kwargs.get("subscriber_email"),
+                'out_inv_comm_type': 'bba',
+                'out_inv_comm_algorithm': 'random'}
         firstname = kwargs.get("subscriber_firstname").title()
         lastname = kwargs.get("subscriber_lastname").upper()
-        vals['name'] =  firstname + ' ' + lastname
+        vals['name'] = firstname + ' ' + lastname
         vals['firstname'] = firstname
         vals['lastname'] = lastname
         vals["customer"] = True
@@ -92,14 +96,15 @@ class WebsiteProductSubscription(http.Controller):
         values = {}
         redirect = "website_product_subscription.becomesubscriber"
 
-        if not kwargs.has_key('g-recaptcha-response') or not request.website.is_captcha_valid(kwargs['g-recaptcha-response']):
-           values = self.fill_values(values)
-           values.update(kwargs)
-           values["error_msg"] = "the captcha has not been validated, please fill in the captcha"
+        if 'g-recaptcha-response' not in kwargs or not request.website.is_captcha_valid(kwargs['g-recaptcha-response']):
+            values = self.fill_values(values)
+            values.update(kwargs)
+            values["error_msg"] = _("the captcha has not been validated, "
+                                    "please fill in the captcha")
 
-           return request.website.render(redirect, values)
+            return request.website.render(redirect, values)
 
-        logged = kwargs.get("logged")=='on'
+        logged = kwargs.get("logged") == 'on'
         gift = kwargs.get("gift") == 'on'
 
         if not logged and kwargs.get("email") != kwargs.get("email_confirmation"):
@@ -108,14 +113,16 @@ class WebsiteProductSubscription(http.Controller):
             values["error_msg"] = "email and confirmation email doesn't match"
             return request.website.render(redirect, values)
 
-        if not logged and kwargs.has_key('email'):
-           user = user_obj.sudo().search([('login','=',kwargs.get("email"))])
-           if user:
-               values = self.fill_values(values)
-               values.update(kwargs)
-               values["error_msg"] = "There is an existing account for this mail address. Please login before fill in the form"
+        if not logged and 'email' in kwargs:
+            user = user_obj.sudo().search([('login', '=', kwargs.get("email"))])
+            if user:
+                values = self.fill_values(values)
+                values.update(kwargs)
+                values["error_msg"] = _("There is an existing account for "
+                                        "this mail address. Please login "
+                                        "before fill in the form")
 
-               return request.website.render(redirect, values)
+                return request.website.render(redirect, values)
 
         if gift:
             values["gift"] = gift
@@ -124,14 +131,14 @@ class WebsiteProductSubscription(http.Controller):
         sponsor = False
         subscriber_vals = {}
         if logged:
-           subscriber = request.env.user.partner_id
-           address = self.get_address(kwargs)
-           if gift:
-               sponsor = request.env.user.partner_id
-               subscriber_vals.update(self.get_receiver(kwargs))
-               subscriber_vals.update(address)
-               subscriber = partner_obj.sudo().create(subscriber_vals)
-           else:
+            subscriber = request.env.user.partner_id
+            address = self.get_address(kwargs)
+            if gift:
+                sponsor = request.env.user.partner_id
+                subscriber_vals.update(self.get_receiver(kwargs))
+                subscriber_vals.update(address)
+                subscriber = partner_obj.sudo().create(subscriber_vals)
+            else:
                 subscriber.sudo().write(address)
         else:
             lastname = kwargs.get("lastname").upper()
@@ -155,7 +162,7 @@ class WebsiteProductSubscription(http.Controller):
                 subscriber = partner_obj.sudo().create(subscriber_vals)
 
         values['subscriber'] = subscriber.id
-        user_values={'partner_id': subscriber.id, 'login':subscriber.email}
+        user_values = {'partner_id': subscriber.id, 'login': subscriber.email}
         if sponsor:
             values['sponsor'] = sponsor.id
             user_values['partner_id'] = sponsor.id
@@ -188,7 +195,8 @@ class WebsiteProductSubscription(http.Controller):
                     values['error_msg'] = ve.name
                     return request.website.render(redirect, values)
 
-                # create user last to avoid creating a user when an error occurs
+                # create user last to avoid creating a user when
+                # an error occurs
                 user_id = user_obj.sudo()._signup_create_user(user_values)
                 user = user_obj.browse(user_id)
                 user.sudo().with_context({'create_user': True}).action_reset_password()
