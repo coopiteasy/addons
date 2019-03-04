@@ -6,7 +6,7 @@
     "name": "Archive journals",
     "version": "9.0.1.0",
     "depends": [
-        'project',
+        'account',
     ],
     "author": "Coop IT Easy SCRLfs",
     "license": "AGPL-3",
