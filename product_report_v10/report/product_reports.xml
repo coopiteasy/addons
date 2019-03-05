@@ -40,4 +40,14 @@
     paperformat="paperformat_a4_nomargin"
     name="product_report_v10.report_producttemplatelabel"
     file="product_report_v10.product_template_templates.xml"/>
+
+  <report
+    id="report_product_template_label_65"
+    string="Products Labels 65/page"
+    model="product.template"
+    report_type="qweb-pdf"
+    paperformat="paperformat_a4_nomargin"
+    name="product_report_v10.report_producttemplatelabel_65"
+    file="product_report_v10.product_template_templates_65.xml"/>
+
 </odoo>
