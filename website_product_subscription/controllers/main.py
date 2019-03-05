@@ -110,7 +110,7 @@ class WebsiteProductSubscription(http.Controller):
         if not logged and kwargs.get("email") != kwargs.get("email_confirmation"):
             values = self.fill_values(values)
             values.update(kwargs)
-            values["error_msg"] = "email and confirmation email doesn't match"
+            values["error_msg"] = _("email and confirmation email doesn't match")
             return request.website.render(redirect, values)
 
         if not logged and 'email' in kwargs:
