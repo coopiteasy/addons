@@ -9,7 +9,7 @@
                     <t t-foreach="range(65)" t-as="l">
                         <div class="barcode-column">
                             <img t-if="product.barcode"
-                                 t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN13', product.barcode, 150, 38)"
+                                 t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN13', product.barcode, 200, 38)"
                                  class="barcode-img"/>
                             <br/>
                             <span t-field="product.barcode" class="barcode"/>

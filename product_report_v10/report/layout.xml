@@ -36,25 +36,30 @@
     <template id="report_style_65">
         <style type="text/css">
             .page {
-                text-align:center;
-                padding:30px 0;
-                display:block;
+            text-align:center;
+            padding:15px 0;
+            display:block;
             }
 
             .barcode-column {
-            height: 80px;
-            width:144px;
+            height: 105px;
+            max-height: 105px;
+            min-height: 105px;
+            width:192px;
+            min-width:192px;
+            max-width:192px;
             text-align: center;
             font-size: 9px;
-            padding:0;
-            margin: 10px;
-            display:inline-block;
+            padding:10px 0;
+            margin: 0;
+            float:left;
             overflow:hidden;
             }
 
             .barcode-column .barcode {
             font-size: 10px;
             }
+
 
         </style>
         <t t-raw="0"/>
