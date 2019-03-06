@@ -195,11 +195,12 @@ class WebsiteProductSubscription(http.Controller):
                     values['error_msg'] = ve.name
                     return request.website.render(redirect, values)
 
-                # create user last to avoid creating a user when
-                # an error occurs
-                user_id = user_obj.sudo()._signup_create_user(user_values)
-                user = user_obj.browse(user_id)
-                user.sudo().with_context({'create_user': True}).action_reset_password()
-
                 subscriber.sudo().write({'parent_id': company.id})
+
+            # create user last to avoid creating a user when
+            # an error occurs
+            user_id = user_obj.sudo()._signup_create_user(user_values)
+            user = user_obj.browse(user_id)
+            user.sudo().with_context({'create_user': True}).action_reset_password()
+
         return request.website.render('website_product_subscription.product_subscription_thanks',values)
