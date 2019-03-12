@@ -114,6 +114,7 @@ class EscposNetworkDriver(EscposDriver):
                 _logger.info('In while true network_printer')
                 error = True
                 timestamp, task, data = self.queue.get(True)
+                _logger.info('task is ' + task)
                 if task == 'xml_receipt':
                     error = False
                     if timestamp >= (time.time() - 1 * 60 * 60):
