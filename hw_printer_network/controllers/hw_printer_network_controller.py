@@ -98,6 +98,7 @@ class EscposNetworkDriver(EscposDriver):
         pinger.start()
 
     def update_driver_status(self):
+        _logger.info('in update driver status of network printer')
         count = len([p for p in self.network_printers if p.get('status', None) == 'online'])
         if count:
             self.set_status('connected', '{} printer(s) Connected'.format(count))
