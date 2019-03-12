@@ -105,11 +105,13 @@ class EscposNetworkDriver(EscposDriver):
             self.set_status('disconnected', 'Disconnected')
 
     def run(self):
+        _logger.info('In run of network_printer')
         if not escpos:
             _logger.error('ESC/POS cannot initialize, please verify system dependencies.')
             return
         while True:
             try:
+                _logger.info('In while true network_printer')
                 error = True
                 timestamp, task, data = self.queue.get(True)
                 if task == 'xml_receipt':
