@@ -141,6 +141,7 @@ class EscposNetworkDriver(EscposDriver):
                     error = False
                     for printer in self.network_printers:
                         ip = printer['ip']
+                        _logger.info('printer network ip : ' + ip)
                         pinger = self.ping_processes.get(ip, None)
                         if pinger and pinger.isAlive():
                             status = pinger.get_status()
@@ -149,6 +150,7 @@ class EscposNetworkDriver(EscposDriver):
                                 printer['status'] = status
                                 self.update_driver_status()
                         else:
+                            _logger.info('we start pinging')
                             self.start_pinging(ip)
                 error = False
             except Exception as e:
