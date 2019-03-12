@@ -64,6 +64,7 @@ class EscposNetworkDriver(EscposDriver):
 
     def get_network_printer(self, ip, name=None):
         found_printer = False
+        _logger.info('In get network_printer')
         for printer in self.network_printers:
             if printer['ip'] == ip:
                 found_printer = True
