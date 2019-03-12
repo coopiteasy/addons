@@ -139,7 +139,7 @@ class EscposNetworkDriver(EscposDriver):
                     pass
                 elif task == 'status':
                     error = False
-                    _logger('network printers are : ' + self.network_printers)
+                    _logger('network printers are : ' + str(self.network_printers))
                     for printer in self.network_printers:
                         ip = printer['ip']
                         _logger.info('printer network ip : ' + ip)
