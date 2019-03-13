@@ -103,8 +103,13 @@ class ResourceActivityDelivery(models.Model):
 class ResourceActivityType(models.Model):
     _name = 'resource.activity.type'
 
-    name = fields.Char(string="Type", required=True)
-    code = fields.Char(string="Code")
+    name = fields.Char(
+        string="Type",
+        required=True,
+        translate=True,
+    )
+    code = fields.Char(
+        string="Code")
     analytic_account = fields.Many2one(
         'account.analytic.account',
         string="Analytic account",
@@ -117,15 +122,24 @@ class ResourceActivityType(models.Model):
 class ResourceActivityTheme(models.Model):
     _name = 'resource.activity.theme'
 
-    name = fields.Char(string="Type", required=True)
+    name = fields.Char(
+        string="Type",
+        required=True,
+        translate=True,
+    )
     code = fields.Char(string="Code")
 
 
 class ResourceActivityLang(models.Model):
     _name = 'resource.activity.lang'
 
-    name = fields.Char(string="Lang", required=True)
-    code = fields.Char(string="Code")
+    name = fields.Char(
+        string="Lang",
+        required=True,
+        translate=True,
+    )
+    code = fields.Char(
+        string="Code")
 
 
 class ResourceActivity(models.Model):
