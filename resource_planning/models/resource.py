@@ -11,7 +11,9 @@ class ResourceCategory(models.Model):
 
     name = fields.Char(
         string="Category name",
-        required=True)
+        required=True,
+        translate=True,
+    )
     resources = fields.One2many(
         'resource.resource',
         'category_id',
