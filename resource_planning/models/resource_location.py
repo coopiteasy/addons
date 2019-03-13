@@ -8,9 +8,18 @@ from openerp import _, api, fields, models
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
+    @api.model
+    def _get_default_location(self):
+        location = self.env.user.resource_location
+        if not location:
+            location = self.env.ref('resource_planning.main_location', False)
+        return location
+
     resource_location = fields.Many2one(
         'resource.location',
-        string="Location")
+        string="Location",
+        default=_get_default_location,
+    )
 
 
 class ResUsers(models.Model):
