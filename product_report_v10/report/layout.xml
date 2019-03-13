@@ -59,8 +59,6 @@
             .barcode-column .barcode {
             font-size: 10px;
             }
-
-
         </style>
         <t t-raw="0"/>
     </template>
