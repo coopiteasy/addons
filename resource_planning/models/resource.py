@@ -79,12 +79,11 @@ class Resource(models.Model):
 
     def check_dates(self, date_start, date_end):
         if not date_start or not date_end:
-            raise ValidationError(
-                (_("Error. Date start or date end aren't set")))
+            raise ValidationError(_("Error. Date start or date end aren't set"))
         elif date_end < date_start:
-            raise ValidationError((_("Error. End date is preceding start "
-                                     "date. Please choose an end date after a "
-                                     "start date ")))
+            raise ValidationError(_("Error. End date is preceding start "
+                                    "date. Please choose an end date after a "
+                                    "start date "))
 
     @api.multi        
     def check_availabilities(self, date_start, date_end, location):

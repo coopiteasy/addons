@@ -87,25 +87,25 @@ class SaleOrder(models.Model):
     @api.multi
     def action_draft(self):
         if self.activity_sale and not self.env.context.get('activity_action'):
-            raise UserError("You can't set to draft a sale order linked to an "
-                            "activity. Please go to the activity to perform "
-                            "this operation")
+            raise UserError(_("You can't set to draft a sale order linked to "
+                              "an activity. Please go to the activity to "
+                              "perform this operation"))
         return super(SaleOrder, self).action_draft()
 
     @api.multi
     def action_cancel(self):
         if self.activity_sale and not self.env.context.get('activity_action'):
-            raise UserError("You can't cancel a sale order linked to an "
-                            "activity. Please go to the activity to perform "
-                            "this operation")
+            raise UserError(_("You can't cancel a sale order linked to an "
+                              "activity. Please go to the activity to perform"
+                              " this operation"))
         return super(SaleOrder, self).action_cancel()
 
     @api.multi
     def action_confirm(self):
         if self.activity_sale and not self.env.context.get('activity_action'):
-            raise UserError("You can't confirm a sale order linked to an "
-                            "activity. Please go to the activity to perform "
-                            "this operation")
+            raise UserError(_("You can't confirm a sale order linked to an "
+                              "activity. Please go to the activity to perform"
+                              " this operation"))
         return super(SaleOrder, self).action_confirm()
 
     @api.multi
