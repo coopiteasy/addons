@@ -8,15 +8,18 @@
                 <t t-foreach="docs" t-as="product">
                     <t t-foreach="range(65)" t-as="l">
                         <div class="barcode-column">
-                            <img t-if="product.barcode"
-                                 t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN13', product.barcode, 200, 38)"
-                                 class="barcode-img"/>
-                            <br/>
-                            <span t-field="product.barcode" class="barcode"/>
-                            <div class="product-name" t-esc="product.name"/>
+                            <div class="barcode-column-inside">
+                                <img t-if="product.barcode"
+                                     t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN13', product.barcode, 200, 38)"
+                                     class="barcode-img"/>
+                                <br/>
+                                <span t-field="product.barcode" class="barcode"/>
+                                <div class="product-name" t-esc="product.name"/>
+                            </div>
                         </div>
                     </t>
                 </t>
+                <div style="clear:both"></div>
             </div>
         </t>
     </template>
