@@ -270,7 +270,7 @@ class ResourceActivity(models.Model):
         string="Arrival")
     description = fields.Char(
         string="Description")
-    comment = fields.Text(
+    comment = fields.Html(
         string="Comment")
     activity_type = fields.Many2one(
         'resource.activity.type',
