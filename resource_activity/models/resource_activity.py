@@ -520,6 +520,15 @@ class ResourceActivity(models.Model):
     @api.multi
     def action_done(self):
         for activity in self:
+            registrations = (
+                activity
+                .registrations
+                .filtered(lambda r: r.state in ['option', 'booked'])
+            )
+            if activity.state == 'draft' and registrations:
+                raise ValidationError(_(
+                    'You cannot set an activity to done if there are '
+                    'registrations set on it.'))
             activity.state = 'done'
 
     @api.multi
@@ -738,6 +747,11 @@ class ResourceActivity(models.Model):
     @api.multi
     def action_back_to_sale_order(self):
         for activity in self:
+            if activity.state == 'done' and not activity.sale_orders:
+                raise ValidationError(_(
+                    "No sale order on this activity. Cancel first than go "
+                    "back to draft. "
+                ))
             activity.state = 'sale'
 
     def update_resource_booking_line(self, registration, sale_order_id):
