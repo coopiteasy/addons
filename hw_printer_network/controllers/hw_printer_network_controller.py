@@ -64,7 +64,6 @@ class EscposNetworkDriver(EscposDriver):
 
     def get_network_printer(self, ip, name=None):
         found_printer = False
-        _logger.info('In get network_printer')
         for printer in self.network_printers:
             if printer['ip'] == ip:
                 found_printer = True
@@ -98,7 +97,6 @@ class EscposNetworkDriver(EscposDriver):
         pinger.start()
 
     def update_driver_status(self):
-        _logger.info('in update driver status of network printer')
         count = len([p for p in self.network_printers if p.get('status', None) == 'online'])
         if count:
             self.set_status('connected', '{} printer(s) Connected'.format(count))
@@ -106,16 +104,13 @@ class EscposNetworkDriver(EscposDriver):
             self.set_status('disconnected', 'Disconnected')
 
     def run(self):
-        _logger.info('In run of network_printer')
         if not escpos:
             _logger.error('ESC/POS cannot initialize, please verify system dependencies.')
             return
         while True:
             try:
-                _logger.info('In while true network_printer')
                 error = True
                 timestamp, task, data = self.queue.get(True)
-                _logger.info('task is ' + task)
                 if task == 'xml_receipt':
                     error = False
                     if timestamp >= (time.time() - 1 * 60 * 60):
@@ -139,10 +134,8 @@ class EscposNetworkDriver(EscposDriver):
                     pass
                 elif task == 'status':
                     error = False
-                    _logger.info('network printers are : ' + str(self.network_printers))
                     for printer in self.network_printers:
                         ip = printer['ip']
-                        _logger.info('printer network ip : ' + ip)
                         pinger = self.ping_processes.get(ip, None)
                         if pinger and pinger.isAlive():
                             status = pinger.get_status()
@@ -151,7 +144,6 @@ class EscposNetworkDriver(EscposDriver):
                                 printer['status'] = status
                                 self.update_driver_status()
                         else:
-                            _logger.info('we start pinging')
                             self.start_pinging(ip)
                 error = False
             except Exception as e:
