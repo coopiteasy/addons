@@ -14,6 +14,20 @@
     <field name="dpi">96</field>
   </record>
 
+  <record id="paperformat_a4_65_print_label" model="report.paperformat">
+    <field name="name">European A4 for 65 print label</field>
+    <field name="default" eval="False"/>
+    <field name="format">A4</field>
+    <field name="orientation">Portrait</field>
+    <field name="margin_top">10</field>
+    <field name="margin_bottom">10</field>
+    <field name="margin_left">4</field>
+    <field name="margin_right">4</field>
+    <field name="header_line" eval="False"/>
+    <field name="header_spacing">0</field>
+    <field name="dpi">96</field>
+  </record>
+
   <report
     id="product_template_label_repeat"
     string="Same Product Labels"
@@ -28,7 +42,7 @@
     string="Same Product Labels 65/page"
     model="product.template"
     report_type="qweb-pdf"
-    paperformat="paperformat_a4_nomargin"
+    paperformat="paperformat_a4_65_print_label"
     name="product_report_v10.report_producttemplate_label_repeat_65"
     file="product_report_v10.product_template_label_repeat_65.xml"/>
 
@@ -46,7 +60,7 @@
     string="Products Labels 65/page"
     model="product.template"
     report_type="qweb-pdf"
-    paperformat="paperformat_a4_nomargin"
+    paperformat="paperformat_a4_65_print_label"
     name="product_report_v10.report_producttemplatelabel_65"
     file="product_report_v10.product_template_templates_65.xml"/>
 
