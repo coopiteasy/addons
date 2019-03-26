@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="activity_opening_hours_tree" model="ir.ui.view">
+            <field name="name">activity.opening.hours.tree</field>
+            <field name="model">activity.opening.hours</field>
+            <field name="arch" type="xml">
+                <tree string="Opening Hours">
+                    <field name="name"/>
+                    <field name="location_id"/>
+                    <field name="start"/>
+                    <field name="end"/>
+                    <field name="is_holiday"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="activity_opening_hours_form" model="ir.ui.view">
+            <field name="name">activity.opening.hours.form</field>
+            <field name="model">activity.opening.hours</field>
+            <field name="arch" type="xml">
+                <form name="Opening hours">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="location_id"/>
+                                <field name="is_holiday"/>
+                                <field name="end"/>
+                                <field name="start"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="opening_days" string="Opening Days">
+
+                                <field name="opening_day_ids">
+                                    <tree>
+                                        <field name="dayofweek"/>
+                                        <field name="opening_time"/>
+                                        <field name="closing_time"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <act_window id="action_activity_opening_hours"
+            name="Opening Hours"
+            res_model="activity.opening.hours"
+            view_mode="tree,form"
+            context="{'search_default_only_future': True}"/>
+
+
+        <menuitem action="action_activity_opening_hours"
+                  id="activity_opening_hours_menu"
+                  parent="resource_planning.menu_resource_configuration"
+                  sequence="1000"/>
+
+    </data>
+</odoo>
