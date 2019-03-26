@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data noupdate="1">
+
+		<!-- WINTER 2018-->
+
+		<record id="activity_opening_hours_winter_2018" model="activity.opening.hours">
+			<field name="location_id" eval="ref('resource_planning.main_location')"/>
+			<field name="name">Winter 2018</field>
+			<field name="start">2018-10-01</field>
+			<field name="end">2019-05-01</field>
+			<field name="is_holiday" eval="False"/>
+        </record>
+
+		<record id="activity_opening_hours_day_w2018_monday_1" model="activity.opening.hours.day">
+			<field name="opening_hours_id" ref="activity_opening_hours_winter_2018"/>
+			<field name="dayofweek">0</field>
+			<field name="opening_time">10:00</field>
+			<field name="closing_time">13:00</field>
+		</record>
+		<record id="activity_opening_hours_day_w2018_wednesday_1" model="activity.opening.hours.day">
+			<field name="opening_hours_id" ref="activity_opening_hours_winter_2018"/>
+			<field name="dayofweek">2</field>
+			<field name="opening_time">10:00</field>
+			<field name="closing_time">13:00</field>
+		</record>
+		<record id="activity_opening_hours_day_w2018_thursday_1" model="activity.opening.hours.day">
+			<field name="opening_hours_id" ref="activity_opening_hours_winter_2018"/>
+			<field name="dayofweek">3</field>
+			<field name="opening_time">10:00</field>
+			<field name="closing_time">13:00</field>
+		</record>
+		<record id="activity_opening_hours_day_w2018_friday_1" model="activity.opening.hours.day">
+			<field name="opening_hours_id" ref="activity_opening_hours_winter_2018"/>
+			<field name="dayofweek">4</field>
+			<field name="opening_time">10:00</field>
+			<field name="closing_time">13:00</field>
+		</record>
+
+		<record id="activity_opening_hours_day_w2018_monday_2" model="activity.opening.hours.day">
+			<field name="opening_hours_id" ref="activity_opening_hours_winter_2018"/>
+			<field name="dayofweek">1</field>
+			<field name="opening_time">13:30</field>
+			<field name="closing_time">17:00</field>
+		</record>
+		<record id="activity_opening_hours_day_w2018_tuesday_2" model="activity.opening.hours.day">
+			<field name="opening_hours_id" ref="activity_opening_hours_winter_2018"/>
+			<field name="dayofweek">1</field>
+			<field name="opening_time">13:30</field>
+			<field name="closing_time">17:00</field>
+		</record>
+		<record id="activity_opening_hours_day_w2018_wednesday_2" model="activity.opening.hours.day">
+			<field name="opening_hours_id" ref="activity_opening_hours_winter_2018"/>
+			<field name="dayofweek">2</field>
+			<field name="opening_time">13:30</field>
+			<field name="closing_time">17:00</field>
+		</record>
+		<record id="activity_opening_hours_day_w2018_thursday_2" model="activity.opening.hours.day">
+			<field name="opening_hours_id" ref="activity_opening_hours_winter_2018"/>
+			<field name="dayofweek">3</field>
+			<field name="opening_time">13:30</field>
+			<field name="closing_time">17:00</field>
+		</record>
+		<record id="activity_opening_hours_day_w2018_friday_2" model="activity.opening.hours.day">
+			<field name="opening_hours_id" ref="activity_opening_hours_winter_2018"/>
+			<field name="dayofweek">4</field>
+			<field name="opening_time">13:30</field>
+			<field name="closing_time">17:00</field>
+		</record>
+
+		<!-- SUMMER 2019-->
+		<record id="activity_opening_hours_summer_2019" model="activity.opening.hours">
+			<field name="location_id" eval="ref('resource_planning.main_location')"/>
+			<field name="name">Summer 2019</field>
+			<field name="start">2019-05-01</field>
+			<field name="end">2019-10-01</field>
+			<field name="is_holiday" eval="False"/>
+        </record>
+
+		<record id="activity_opening_hours_day_s2019_monday_1" model="activity.opening.hours.day">
+			<field name="opening_hours_id" ref="activity_opening_hours_summer_2019"/>
+			<field name="dayofweek">1</field>
+			<field name="opening_time">10:00</field>
+			<field name="closing_time">13:00</field>
+		</record>
+		<record id="activity_opening_hours_day_s2019_wednesday_1" model="activity.opening.hours.day">
+			<field name="opening_hours_id" ref="activity_opening_hours_summer_2019"/>
+			<field name="dayofweek">2</field>
+			<field name="opening_time">10:00</field>
+			<field name="closing_time">13:00</field>
+		</record>
+		<record id="activity_opening_hours_day_s2019_thursday_1" model="activity.opening.hours.day">
+			<field name="opening_hours_id" ref="activity_opening_hours_summer_2019"/>
+			<field name="dayofweek">3</field>
+			<field name="opening_time">10:00</field>
+			<field name="closing_time">13:00</field>
+		</record>
+		<record id="activity_opening_hours_day_s2019_friday_1" model="activity.opening.hours.day">
+			<field name="opening_hours_id" ref="activity_opening_hours_summer_2019"/>
+			<field name="dayofweek">4</field>
+			<field name="opening_time">10:00</field>
+			<field name="closing_time">13:00</field>
+		</record>
+		<record id="activity_opening_hours_day_s2019_saturday_1" model="activity.opening.hours.day">
+			<field name="opening_hours_id" ref="activity_opening_hours_summer_2019"/>
+			<field name="dayofweek">5</field>
+			<field name="opening_time">10:00</field>
+			<field name="closing_time">13:00</field>
+		</record>
+		<record id="activity_opening_hours_day_s2019_sunday_1" model="activity.opening.hours.day">
+			<field name="opening_hours_id" ref="activity_opening_hours_summer_2019"/>
+			<field name="dayofweek">6</field>
+			<field name="opening_time">10:00</field>
+			<field name="closing_time">13:00</field>
+		</record>
+
+		<record id="activity_opening_hours_day_s2019_monday_2" model="activity.opening.hours.day">
+			<field name="opening_hours_id" ref="activity_opening_hours_summer_2019"/>
+			<field name="dayofweek">1</field>
+			<field name="opening_time">13:30</field>
+			<field name="closing_time">18:00</field>
+		</record>
+		<record id="activity_opening_hours_day_s2019_tuesday_2" model="activity.opening.hours.day">
+			<field name="opening_hours_id" ref="activity_opening_hours_summer_2019"/>
+			<field name="dayofweek">1</field>
+			<field name="opening_time">13:30</field>
+			<field name="closing_time">18:00</field>
+		</record>
+		<record id="activity_opening_hours_day_s2019_wednesday_2" model="activity.opening.hours.day">
+			<field name="opening_hours_id" ref="activity_opening_hours_summer_2019"/>
+			<field name="dayofweek">2</field>
+			<field name="opening_time">13:30</field>
+			<field name="closing_time">18:00</field>
+		</record>
+		<record id="activity_opening_hours_day_s2019_thursday_2" model="activity.opening.hours.day">
+			<field name="opening_hours_id" ref="activity_opening_hours_summer_2019"/>
+			<field name="dayofweek">3</field>
+			<field name="opening_time">13:30</field>
+			<field name="closing_time">18:00</field>
+		</record>
+		<record id="activity_opening_hours_day_s2019_friday_2" model="activity.opening.hours.day">
+			<field name="opening_hours_id" ref="activity_opening_hours_summer_2019"/>
+			<field name="dayofweek">4</field>
+			<field name="opening_time">13:30</field>
+			<field name="closing_time">18:00</field>
+		</record>
+		<record id="activity_opening_hours_day_s2019_saturday_2" model="activity.opening.hours.day">
+			<field name="opening_hours_id" ref="activity_opening_hours_summer_2019"/>
+			<field name="dayofweek">5</field>
+			<field name="opening_time">13:30</field>
+			<field name="closing_time">18:00</field>
+		</record>
+		<record id="activity_opening_hours_day_s2019_sunday_2" model="activity.opening.hours.day">
+			<field name="opening_hours_id" ref="activity_opening_hours_summer_2019"/>
+			<field name="dayofweek">6</field>
+			<field name="opening_time">13:30</field>
+			<field name="closing_time">18:00</field>
+		</record>
+
+
+		<!-- WINTER 2019 -->
+		<record id="activity_opening_hours_winter_2019" model="activity.opening.hours">
+			<field name="location_id" eval="ref('resource_planning.main_location')"/>
+			<field name="name">Winter 2019</field>
+			<field name="start">2019-10-01</field>
+			<field name="end">2020-05-01</field>
+			<field name="is_holiday" eval="False"/>
+        </record>
+
+		<record id="activity_opening_hours_day_w2019_monday_1" model="activity.opening.hours.day">
+			<field name="opening_hours_id" ref="activity_opening_hours_winter_2019"/>
+			<field name="dayofweek">1</field>
+			<field name="opening_time">10:00</field>
+			<field name="closing_time">13:00</field>
+		</record>
+		<record id="activity_opening_hours_day_w2019_wednesday_1" model="activity.opening.hours.day">
+			<field name="opening_hours_id" ref="activity_opening_hours_winter_2019"/>
+			<field name="dayofweek">2</field>
+			<field name="opening_time">10:00</field>
+			<field name="closing_time">13:00</field>
+		</record>
+		<record id="activity_opening_hours_day_w2019_thursday_1" model="activity.opening.hours.day">
+			<field name="opening_hours_id" ref="activity_opening_hours_winter_2019"/>
+			<field name="dayofweek">3</field>
+			<field name="opening_time">10:00</field>
+			<field name="closing_time">13:00</field>
+		</record>
+		<record id="activity_opening_hours_day_w2019_friday_1" model="activity.opening.hours.day">
+			<field name="opening_hours_id" ref="activity_opening_hours_winter_2019"/>
+			<field name="dayofweek">4</field>
+			<field name="opening_time">10:00</field>
+			<field name="closing_time">13:00</field>
+		</record>
+
+		<record id="activity_opening_hours_day_w2019_monday_2" model="activity.opening.hours.day">
+			<field name="opening_hours_id" ref="activity_opening_hours_winter_2019"/>
+			<field name="dayofweek">1</field>
+			<field name="opening_time">13:30</field>
+			<field name="closing_time">17:00</field>
+		</record>
+		<record id="activity_opening_hours_day_w2019_tuesday_2" model="activity.opening.hours.day">
+			<field name="opening_hours_id" ref="activity_opening_hours_winter_2019"/>
+			<field name="dayofweek">1</field>
+			<field name="opening_time">13:30</field>
+			<field name="closing_time">17:00</field>
+		</record>
+		<record id="activity_opening_hours_day_w2019_wednesday_2" model="activity.opening.hours.day">
+			<field name="opening_hours_id" ref="activity_opening_hours_winter_2019"/>
+			<field name="dayofweek">2</field>
+			<field name="opening_time">13:30</field>
+			<field name="closing_time">17:00</field>
+		</record>
+		<record id="activity_opening_hours_day_w2019_thursday_2" model="activity.opening.hours.day">
+			<field name="opening_hours_id" ref="activity_opening_hours_winter_2019"/>
+			<field name="dayofweek">3</field>
+			<field name="opening_time">13:30</field>
+			<field name="closing_time">17:00</field>
+		</record>
+		<record id="activity_opening_hours_day_w2019_friday_2" model="activity.opening.hours.day">
+			<field name="opening_hours_id" ref="activity_opening_hours_winter_2019"/>
+			<field name="dayofweek">4</field>
+			<field name="opening_time">13:30</field>
+			<field name="closing_time">17:00</field>
+		</record>
+
+		<!-- SUMMER 2020-->
+		<record id="activity_opening_hours_summer_2020" model="activity.opening.hours">
+			<field name="location_id" eval="ref('resource_planning.main_location')"/>
+			<field name="name">Summer 2020</field>
+			<field name="start">2020-05-01</field>
+			<field name="end">2021-05-01</field>
+			<field name="is_holiday" eval="False"/>
+        </record>		
+
+		<record id="activity_opening_hours_day_s2020_monday_1" model="activity.opening.hours.day">
+			<field name="opening_hours_id" ref="activity_opening_hours_summer_2020"/>
+			<field name="dayofweek">1</field>
+			<field name="opening_time">10:00</field>
+			<field name="closing_time">13:00</field>
+		</record>
+		<record id="activity_opening_hours_day_s2020_wednesday_1" model="activity.opening.hours.day">
+			<field name="opening_hours_id" ref="activity_opening_hours_summer_2020"/>
+			<field name="dayofweek">2</field>
+			<field name="opening_time">10:00</field>
+			<field name="closing_time">13:00</field>
+		</record>
+		<record id="activity_opening_hours_day_s2020_thursday_1" model="activity.opening.hours.day">
+			<field name="opening_hours_id" ref="activity_opening_hours_summer_2020"/>
+			<field name="dayofweek">3</field>
+			<field name="opening_time">10:00</field>
+			<field name="closing_time">13:00</field>
+		</record>
+		<record id="activity_opening_hours_day_s2020_friday_1" model="activity.opening.hours.day">
+			<field name="opening_hours_id" ref="activity_opening_hours_summer_2020"/>
+			<field name="dayofweek">4</field>
+			<field name="opening_time">10:00</field>
+			<field name="closing_time">13:00</field>
+		</record>
+		<record id="activity_opening_hours_day_s2020_saturday_1" model="activity.opening.hours.day">
+			<field name="opening_hours_id" ref="activity_opening_hours_summer_2020"/>
+			<field name="dayofweek">5</field>
+			<field name="opening_time">10:00</field>
+			<field name="closing_time">13:00</field>
+		</record>
+		<record id="activity_opening_hours_day_s2020_sunday_1" model="activity.opening.hours.day">
+			<field name="opening_hours_id" ref="activity_opening_hours_summer_2020"/>
+			<field name="dayofweek">6</field>
+			<field name="opening_time">10:00</field>
+			<field name="closing_time">13:00</field>
+		</record>
+
+		<record id="activity_opening_hours_day_s2020_monday_2" model="activity.opening.hours.day">
+			<field name="opening_hours_id" ref="activity_opening_hours_summer_2020"/>
+			<field name="dayofweek">1</field>
+			<field name="opening_time">13:30</field>
+			<field name="closing_time">18:00</field>
+		</record>
+		<record id="activity_opening_hours_day_s2020_tuesday_2" model="activity.opening.hours.day">
+			<field name="opening_hours_id" ref="activity_opening_hours_summer_2020"/>
+			<field name="dayofweek">1</field>
+			<field name="opening_time">13:30</field>
+			<field name="closing_time">18:00</field>
+		</record>
+		<record id="activity_opening_hours_day_s2020_wednesday_2" model="activity.opening.hours.day">
+			<field name="opening_hours_id" ref="activity_opening_hours_summer_2020"/>
+			<field name="dayofweek">2</field>
+			<field name="opening_time">13:30</field>
+			<field name="closing_time">18:00</field>
+		</record>
+		<record id="activity_opening_hours_day_s2020_thursday_2" model="activity.opening.hours.day">
+			<field name="opening_hours_id" ref="activity_opening_hours_summer_2020"/>
+			<field name="dayofweek">3</field>
+			<field name="opening_time">13:30</field>
+			<field name="closing_time">18:00</field>
+		</record>
+		<record id="activity_opening_hours_day_s2020_friday_2" model="activity.opening.hours.day">
+			<field name="opening_hours_id" ref="activity_opening_hours_summer_2020"/>
+			<field name="dayofweek">4</field>
+			<field name="opening_time">13:30</field>
+			<field name="closing_time">18:00</field>
+		</record>
+		<record id="activity_opening_hours_day_s2020_saturday_2" model="activity.opening.hours.day">
+			<field name="opening_hours_id" ref="activity_opening_hours_summer_2020"/>
+			<field name="dayofweek">5</field>
+			<field name="opening_time">13:30</field>
+			<field name="closing_time">18:00</field>
+		</record>
+		<record id="activity_opening_hours_day_s2020_sunday_2" model="activity.opening.hours.day">
+			<field name="opening_hours_id" ref="activity_opening_hours_summer_2020"/>
+			<field name="dayofweek">6</field>
+			<field name="opening_time">13:30</field>
+			<field name="closing_time">18:00</field>
+		</record>
+
+		<!-- CHRISTMAS 2018 -->
+		<record id="activity_opening_hours_christmas_2018" model="activity.opening.hours">
+			<field name="location_id" eval="ref('resource_planning.main_location')"/>
+			<field name="name">Christmas 2018</field>
+			<field name="start">2018-12-25</field>
+			<field name="end">2018-12-26</field>
+			<field name="is_holiday" eval="True"/>
+        </record>
+
+		<record id="activity_opening_hours_day_christmas_2018" model="activity.opening.hours.day">
+			<field name="opening_hours_id" ref="activity_opening_hours_christmas_2018"/>
+			<field name="dayofweek">1</field>
+			<field name="opening_time">10:00</field>
+			<field name="closing_time">13:00</field>
+		</record>
+	</data>
+</odoo>
+
