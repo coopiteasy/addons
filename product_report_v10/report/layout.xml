@@ -35,17 +35,13 @@
 
     <template id="report_style_65">
         <style type="text/css">
-            .page {
-            text-align:center;
-            }
-
             .barcode-column {
             height: 100px;
             max-height: 100px;
             min-height: 100px;
-            width:170px;
-            min-width:170px;
-            max-width:170px;
+            width:177px;
+            min-width:177px;
+            max-width:177px;
             text-align: center;
             font-size: 9px;
             padding: 0;
@@ -56,7 +52,14 @@
 
             .barcode-column .barcode-column-inside {
             overflow:hidden;
-            margin:0 5px;
+            height: 90px;
+            max-height: 90px;
+            min-height: 90px;
+            width:160px;
+            min-width:160px;
+            max-width:160px;
+            margin-left:5px;
+            text-align: center;
             }
 
             .barcode-column .barcode {

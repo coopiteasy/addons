@@ -10,7 +10,7 @@
                         <div class="barcode-column">
                             <div class="barcode-column-inside">
                                 <img t-if="product.barcode"
-                                     t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN13', product.barcode, 200, 38)"
+                                     t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN13', product.barcode, 170, 38)"
                                      class="barcode-img"/>
                                 <br/>
                                 <span t-field="product.barcode" class="barcode"/>
