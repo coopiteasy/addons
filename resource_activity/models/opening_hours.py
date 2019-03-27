@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from openerp import models, fields, api
+from openerp import models, fields, api, _
+from openerp.exceptions import ValidationError
+from openerp.tools.misc import DEFAULT_SERVER_DATETIME_FORMAT
+import datetime as dt
+import pytz
 
 
 class ActivityOpeningHours(models.Model):
@@ -10,7 +14,8 @@ class ActivityOpeningHours(models.Model):
     def _get_default_location(self):
         location = self.env.user.resource_location
         if not location:
-            main_location = self.env.ref('resource_planning.main_location', False)
+            main_location = self.env.ref('resource_planning.main_location',
+                                         False)
             return main_location if main_location else False
         return location
 
@@ -41,7 +46,35 @@ class ActivityOpeningHours(models.Model):
         string='Opening Days'
     )
 
-# at least one opening.hours.day set for each week day
-# at most one holiday period set for each time
-# at most one non holiday period set for each time
-# generate next years summer
+    @api.model
+    def get_opening_hours(self, location, time):
+        opening_hours = self.search(
+            [('location_id', '=', location.id),
+             ('start', '<=', time),
+             ('end', '>', time)],
+            order='is_holiday desc',  # (null), True, False
+        )
+
+        if not opening_hours:
+            raise ValidationError(_(
+                'No opening hours set for %s') % time
+            )
+        return opening_hours[0]
+
+    def _localize(self, date):
+        tz = pytz.timezone(self._context['tz']) if self._context['tz'] else pytz.utc
+        return pytz.utc.localize(date).astimezone(tz)
+
+    @api.model
+    def is_location_open(self, location, time):
+        if type(time) in (str, unicode):
+            time = dt.datetime.strptime(time, DEFAULT_SERVER_DATETIME_FORMAT)
+            time = self._localize(time)
+
+        opening_hours = self.get_opening_hours(location, time)
+        return opening_hours.opening_day_ids.is_open(time)
+
+# todo at most one holiday period set for each time
+# todo generate next years summer
+# todo start before end
+# todo supprimer/créer opening hour days from openin hours form

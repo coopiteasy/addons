@@ -27,8 +27,8 @@
                                 <field name="name"/>
                                 <field name="location_id"/>
                                 <field name="is_holiday"/>
-                                <field name="end"/>
                                 <field name="start"/>
+                                <field name="end"/>
                             </group>
                         </group>
                         <notebook>

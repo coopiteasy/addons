@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from openerp import models, fields, api
+from openerp.tools.misc import DEFAULT_SERVER_DATETIME_FORMAT
+import datetime as dt
 
 
 class OpeningHoursDay(models.Model):
@@ -29,7 +31,26 @@ class OpeningHoursDay(models.Model):
         required=True,
     )
     closing_time = fields.Char(
-        string='opening',
+        string='Closing Time',
         help='format: HH:mm',
         required=True,
     )
+
+    def compute_hour_minute(self, time):
+        """time is a string HH:mm"""
+        return tuple(int(x) for x in time.split(':'))
+
+    @api.multi
+    def is_open(self, time):
+        for day in self:
+            shour, smin = self.compute_hour_minute(day.opening_time)
+            opening_time = time.replace(hour=shour, minute=smin)
+            ehour, emin = self.compute_hour_minute(day.closing_time)
+            closing_time = time.replace(hour=ehour, minute=emin)
+
+            same_weekday = time.weekday() == int(day.dayofweek)
+            within_hours = opening_time <= time <= closing_time
+
+            if same_weekday and within_hours:
+                return True
+        return False

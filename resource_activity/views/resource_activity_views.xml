@@ -32,8 +32,10 @@
             <field name="name">resource.activity.tree</field>
             <field name="model">resource.activity</field>
             <field name="arch" type="xml">
-                <tree>
+                <tree colors="red: ((is_start_outside_opening_hours == True) or (is_end_outside_opening_hours == True))">
                     <field name="description"/>
+                    <field name="is_start_outside_opening_hours"/>
+                    <field name="is_end_outside_opening_hours"/>
                     <field name="partner_id"/>
                     <field name="activity_type"/>
                     <field name="date_start"/>
@@ -101,7 +103,9 @@
                             </group>
                             <group>
                                 <field name="date_start"/>
+                                <field name="is_start_outside_opening_hours" attrs="{'invisible': [('is_start_outside_opening_hours', '!=', True)]}"/>
                                 <field name="date_end"/>
+                                <field name="is_end_outside_opening_hours" attrs="{'invisible': [('is_end_outside_opening_hours', '!=', True)]}"/>
                                 <field name="duration"/>
                                 <field name="booking_type"/>
                                 <field name="date_lock" attrs="{'invisible':[('booking_type','!=','option')],'required':[('booking_type','=','option')]}"/>
