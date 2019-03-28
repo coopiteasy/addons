@@ -78,3 +78,4 @@ class ActivityOpeningHours(models.Model):
 # todo generate next years summer
 # todo start before end
 # todo supprimer/créer opening hour days from openin hours form
+# use location start rather than date start?

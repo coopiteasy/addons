@@ -34,8 +34,6 @@
             <field name="arch" type="xml">
                 <tree colors="red: ((is_start_outside_opening_hours == True) or (is_end_outside_opening_hours == True))">
                     <field name="description"/>
-                    <field name="is_start_outside_opening_hours"/>
-                    <field name="is_end_outside_opening_hours"/>
                     <field name="partner_id"/>
                     <field name="activity_type"/>
                     <field name="date_start"/>
@@ -76,7 +74,16 @@
                         </div>
                         <h1 class="mt0">
                               <field name="name" readonly="1" class="oe_inline"/>
-                           </h1>
+                        </h1>
+                        <div>
+                             <field name="is_start_outside_opening_hours" attrs="{'invisible': 1}"/>
+                             <label for="is_start_outside_opening_hours"  style="color:Red" attrs="{'invisible': [('is_start_outside_opening_hours', '!=', True)]}"/>
+                        </div>
+                        <div>
+                             <field name="is_end_outside_opening_hours" attrs="{'invisible': 1}"/>
+                             <label for="is_end_outside_opening_hours"  style="color:Red" attrs="{'invisible': [('is_end_outside_opening_hours', '!=', True)]}"/>
+                        </div>
+
                         <group>
                                 <field name="need_push" invisible="True"/>
                                 <field name="company_id" invisible="True"/>
@@ -103,9 +110,7 @@
                             </group>
                             <group>
                                 <field name="date_start"/>
-                                <field name="is_start_outside_opening_hours" attrs="{'invisible': [('is_start_outside_opening_hours', '!=', True)]}"/>
                                 <field name="date_end"/>
-                                <field name="is_end_outside_opening_hours" attrs="{'invisible': [('is_end_outside_opening_hours', '!=', True)]}"/>
                                 <field name="duration"/>
                                 <field name="booking_type"/>
                                 <field name="date_lock" attrs="{'invisible':[('booking_type','!=','option')],'required':[('booking_type','=','option')]}"/>
