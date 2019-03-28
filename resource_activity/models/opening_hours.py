@@ -46,6 +46,19 @@ class ActivityOpeningHours(models.Model):
         string='Opening Days'
     )
 
+    @api.one
+    @api.constrains('location_id', 'start', 'end', 'is_holiday')
+    def check_overlapping_records(self):
+        other_oh = self.search([('location_id', '=', self.location_id.id),
+                                ('is_holiday', '=', self.is_holiday),
+                                ('id', '!=', self.id)])
+
+        for oh in other_oh:
+            if not (oh.end <= self.start or oh.start >= self.end):
+                raise ValidationError(_(
+                    '% opening hours are overlapping with % opening hours'
+                ) % (self.name, oh.name))
+
     @api.model
     def get_opening_hours(self, location, time):
         opening_hours = self.search(
@@ -73,9 +86,3 @@ class ActivityOpeningHours(models.Model):
 
         opening_hours = self.get_opening_hours(location, time)
         return opening_hours.opening_day_ids.is_open(time)
-
-# todo at most one holiday period set for each time
-# todo generate next years summer
-# todo start before end
-# todo supprimer/créer opening hour days from openin hours form
-# use location start rather than date start?

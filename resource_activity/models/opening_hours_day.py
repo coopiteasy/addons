@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from openerp import models, fields, api
+from openerp import models, fields, api, _
+from openerp.exceptions import ValidationError
 
 
 class OpeningHoursDay(models.Model):
@@ -31,9 +32,27 @@ class OpeningHoursDay(models.Model):
     )
     closing_time = fields.Char(
         string='Closing Time',
-        help='format: HH:mm',
+        help='format: HH:MM',
         required=True,
     )
+
+    @api.one
+    @api.constrains('opening_time', 'closing_time')
+    def check_time_format(self):
+        try:
+            assert len(self.opening_time) == 5
+            assert len(self.closing_time) == 5
+            ot = self.compute_hour_minute(self.opening_time)
+            ct = self.compute_hour_minute(self.closing_time)
+            assert len(ot) == 2
+            assert len(ct) == 2
+        except (ValueError, AssertionError):
+            raise ValidationError(_('Time format must be HH:MM'))
+
+        try:
+            assert ot < ct
+        except AssertionError:
+            raise ValidationError(_('Closing time must be before opening time'))
 
     def compute_hour_minute(self, time):
         """time is a string HH:mm"""
