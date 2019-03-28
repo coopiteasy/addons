@@ -37,7 +37,7 @@ class ActivityOpeningHours(models.Model):
         required=True,
     )
     is_holiday = fields.Boolean(
-        string='Is Holiday Opening Hours',
+        string='Is Holiday',
         default=False,
     )
     opening_day_ids = fields.One2many(

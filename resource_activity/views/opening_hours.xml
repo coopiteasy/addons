@@ -35,7 +35,7 @@
                             <page name="opening_days" string="Opening Days">
 
                                 <field name="opening_day_ids">
-                                    <tree>
+                                    <tree editable="bottom" >
                                         <field name="dayofweek"/>
                                         <field name="opening_time"/>
                                         <field name="closing_time"/>

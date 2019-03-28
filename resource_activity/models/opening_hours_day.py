@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from openerp import models, fields, api
-from openerp.tools.misc import DEFAULT_SERVER_DATETIME_FORMAT
-import datetime as dt
 
 
 class OpeningHoursDay(models.Model):
@@ -11,6 +9,7 @@ class OpeningHoursDay(models.Model):
 
     opening_hours_id = fields.Many2one(
         comodel_name='activity.opening.hours',
+        inverse_name='opening_day_ids',
         string='Opening Hours',
         required=True,
     )
