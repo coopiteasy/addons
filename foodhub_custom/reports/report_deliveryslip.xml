@@ -9,6 +9,10 @@
                 <th><strong>Total</strong></th>
             </xpath>
 
+            <xpath expr="//span[@t-field='move.product_id']" position="replace">
+                <span t-field="move.product_id"/><br/><span t-field="move.description_sale"/>
+            </xpath>
+
             <xpath expr="//table[@t-if='not o.pack_operation_ids']/tbody/tr/td[1]" position="after">
                 <!-- in <tr t-foreach="o.move_lines" t-as="move"> -->
                 <td><span t-field="move.price_subtotal"/></td>
@@ -20,6 +24,10 @@
                 <th><strong>Price</strong></th>
                 <th><strong>Taxes</strong></th>
                 <th><strong>Total</strong></th>
+            </xpath>
+
+            <xpath expr="//span[@t-field='pack_operation.product_id']" position="replace">
+                <span t-field="pack_operation.product_id"/><br/><span t-field="pack_operation.description_sale"/>
             </xpath>
 
             <xpath expr="//table[@t-if='o.pack_operation_ids']/tbody/tr/td[1]" position="after">

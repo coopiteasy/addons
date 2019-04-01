@@ -23,6 +23,9 @@ class StockMove(models.Model):
     price_total = fields.Monetary(
         string='Total',
         related='order_line_id.price_total')
+    description_sale = fields.Text(
+        related='product_id.description_sale',
+    )
 
     @api.multi
     @api.depends('picking_id.origin')
@@ -61,6 +64,9 @@ class StockPackOperation(models.Model):
     price_total = fields.Monetary(
         string='Total',
         related='order_line_id.price_total')
+    description_sale = fields.Text(
+        related='product_id.description_sale',
+    )
 
     @api.multi
     @api.depends('picking_id.origin')
