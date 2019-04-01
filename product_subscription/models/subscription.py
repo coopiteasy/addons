@@ -202,7 +202,7 @@ class SubscriptionObject(models.Model):
                                  'old_subscriber': True})
         # this part is to eventual delta between the subscriber status
         # and the corresponding subscription status
-        ongoing_subscription = self.search(['counter', '>', 0])
+        ongoing_subscription = self.search([('counter', '>', 0)])
         ongoing_subscriber = ongoing_subscription.mapped('subscriber')
         subscriber_wrong_status = ongoing_subscriber.filtered('old_subscriber')
         if subscriber_wrong_status:
