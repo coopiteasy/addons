@@ -14,6 +14,7 @@
     'category': 'Account',
     'depends': [
         'sale_stock',
+        'sale_order_volume',
     ],
 
     'data': [

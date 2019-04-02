@@ -3,6 +3,30 @@
 from openerp import models, fields, api
 
 
+class StockPicking(models.Model):
+    _inherit = 'stock.picking'
+
+    sale_order_id = fields.Many2one(
+        comodel_name='sale.order',
+        string='Sale Order',
+        compute='_compute_related_sale_order',
+        # store=True,
+    )
+
+    @api.model
+    @api.depends('origin')
+    def _compute_related_sale_order(self):
+        for picking in self:
+            sale_order = (
+                self.env['sale.order']
+                    .search([('name', '=', picking.origin)])
+            )
+            sale_order.compute_order_volume()
+            sale_order.compute_product_category_volumes()
+
+            picking.sale_order_id = sale_order
+
+
 class StockMove(models.Model):
     _inherit = 'stock.move'
 

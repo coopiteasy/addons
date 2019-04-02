@@ -37,6 +37,68 @@
                 <td><span t-field="pack_operation.price_total"/></td>
             </xpath>
 
+            <xpath expr="//table[last()]" position="after">
+
+                <t t-set="so" t-value="o.sale_order_id"/>
+
+                <table class="table table-condensed" name="volume-per-category">
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th class="text-right">Volume (m³)  </th>
+                        </tr>
+                    </thead>
+                    <tbody class="sale_tbody">
+                        <t t-foreach="so.volume_per_category" t-as="line">
+                            <tr>
+                                <td>
+                                    <span t-field="line.category_id"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-field="line.volume"/>
+                                </td>
+                            </tr>
+                        </t>
+                        <tr class="border-black">
+                            <td><strong>Total</strong></td>
+                            <td class="text-right">
+                                <strong>
+                                    <span t-field="so.volume"/>
+                                </strong>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="row" name="total">
+                    <div class="col-xs-4 pull-right">
+                        <table class="table table-condensed">
+                            <tr class="border-black">
+                                <td><strong>Total Without Taxes</strong></td>
+                                <td class="text-right">
+                                    <span t-field="so.amount_untaxed"
+                                        t-field-options='{"widget": "monetary", "display_currency": "so.pricelist_id.currency_id"}'/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Taxes</td>
+                                <td class="text-right">
+                                    <span t-field="so.amount_tax"
+                                        t-field-options='{"widget": "monetary", "display_currency": "so.pricelist_id.currency_id"}'/>
+                                </td>
+                            </tr>
+                            <tr class="border-black">
+                                <td><strong>Total</strong></td>
+                                <td class="text-right">
+                                    <span t-field="so.amount_total"
+                                        t-field-options='{"widget": "monetary", "display_currency": "so.pricelist_id.currency_id"}'/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </xpath>
+
         </template>
     </data>
 </openerp>
