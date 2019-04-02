@@ -9,7 +9,6 @@ class ResUsers(models.Model):
     _inherit = 'res.users'
     login = fields.Char(
         'Login',
-        size=64,
         required=True,
         help='Used to log into the system. Case insensitive.',
     )
