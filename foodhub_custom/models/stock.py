@@ -12,6 +12,11 @@ class StockPicking(models.Model):
         compute='_compute_related_sale_order',
         # store=True,
     )
+    volume = fields.Float(
+        string='Order Volume (m³)',
+        compute='_compute_related_sale_order',
+        # store=True,
+    )
 
     @api.model
     @api.depends('origin')
@@ -25,6 +30,7 @@ class StockPicking(models.Model):
             sale_order.compute_product_category_volumes()
 
             picking.sale_order_id = sale_order
+            picking.volume = sale_order.volume
 
 
 class StockMove(models.Model):
@@ -34,21 +40,6 @@ class StockMove(models.Model):
         comodel_name='sale.order.line',
         string='Related Sale Line',
         compute='_compute_related_order_line',
-    )
-
-    currency_id = fields.Many2one(
-        related='order_line_id.currency_id')
-    price_subtotal = fields.Monetary(
-        string='Subtotal',
-        related='order_line_id.price_subtotal')
-    price_taxes = fields.Monetary(
-        string='Taxes',
-        related='order_line_id.price_tax')
-    price_total = fields.Monetary(
-        string='Total',
-        related='order_line_id.price_total')
-    description_sale = fields.Text(
-        related='product_id.description_sale',
     )
 
     @api.multi
@@ -75,21 +66,6 @@ class StockPackOperation(models.Model):
         comodel_name='sale.order.line',
         string='Related Move Line',
         compute='_compute_related_order_line',
-    )
-
-    currency_id = fields.Many2one(
-        related='order_line_id.currency_id')
-    price_subtotal = fields.Monetary(
-        string='Subtotal',
-        related='order_line_id.price_subtotal')
-    price_taxes = fields.Monetary(
-        string='Taxes',
-        related='order_line_id.price_tax')
-    price_total = fields.Monetary(
-        string='Total',
-        related='order_line_id.price_total')
-    description_sale = fields.Text(
-        related='product_id.description_sale',
     )
 
     @api.multi

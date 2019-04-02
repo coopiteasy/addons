@@ -3,100 +3,117 @@
     <data>
         <template id="report_delivery_document" inherit_id="stock.report_delivery_document">
 
-            <xpath expr="//table[@t-if='not o.pack_operation_ids']/thead/tr/th[1]" position="after">
-                <th><strong>Price</strong></th>
-                <th><strong>Taxes</strong></th>
-                <th><strong>Total</strong></th>
+            <xpath expr="//table[@t-if='not o.pack_operation_ids']/thead/tr/th[last()]" position="after">
+                <t t-if="o.picking_type_id.code == 'outgoing'">
+                    <th><strong>Unit Price</strong></th>
+                    <!--<th><strong>Price</strong></th>-->
+                    <th><strong>Taxes</strong></th>
+                    <th><strong>Total</strong></th>
+                </t>
             </xpath>
 
             <xpath expr="//span[@t-field='move.product_id']" position="replace">
-                <span t-field="move.product_id"/><br/><span t-field="move.description_sale"/>
+                <t t-if="o.picking_type_id.code == 'outgoing'">
+                    <span t-field="move.product_id"/><br/><span t-field="move.product_id.description_sale"/>
+                </t>
             </xpath>
 
-            <xpath expr="//table[@t-if='not o.pack_operation_ids']/tbody/tr/td[1]" position="after">
-                <!-- in <tr t-foreach="o.move_lines" t-as="move"> -->
-                <td><span t-field="move.price_subtotal"/></td>
-                <td><span t-field="move.price_taxes"/></td>
-                <td><span t-field="move.price_total"/></td>
+            <xpath expr="//table[@t-if='not o.pack_operation_ids']/tbody/tr/td[last()]" position="after">
+                <t t-if="o.picking_type_id.code == 'outgoing'">
+                    <!-- in <tr t-foreach="o.move_lines" t-as="move"> -->
+                    <t t-set="ol" t-value="move.order_line_id"/>
+                    <td><span t-field="ol.price_unit"/></td>
+                    <td><span t-field="ol.tax_id.name"/></td>
+                    <td><span t-field="ol.price_subtotal"/></td>
+                </t>
             </xpath>
 
-            <xpath expr="//table[@t-if='o.pack_operation_ids']/thead/tr/th[1]" position="before">
-                <th><strong>Price</strong></th>
-                <th><strong>Taxes</strong></th>
-                <th><strong>Total</strong></th>
+            <xpath expr="//table[@t-if='o.pack_operation_ids']/thead/tr/th[last()]" position="after">
+                <t t-if="o.picking_type_id.code == 'outgoing'">
+                    <th><strong>Unit Price</strong></th>
+                    <th><strong>Taxes</strong></th>
+                    <th><strong>Total</strong></th>
+                </t>
             </xpath>
 
             <xpath expr="//span[@t-field='pack_operation.product_id']" position="replace">
-                <span t-field="pack_operation.product_id"/><br/><span t-field="pack_operation.description_sale"/>
+                <t t-if="o.picking_type_id.code == 'outgoing'">
+                    <span t-field="pack_operation.product_id"/><br/><span t-field="pack_operation.product_id.description_sale"/>
+                </t>
             </xpath>
 
-            <xpath expr="//table[@t-if='o.pack_operation_ids']/tbody/tr/td[1]" position="after">
-                <!-- in <tr t-foreach="o.pack_operation_ids" t-as="pack_operation">-->
-                <td><span t-field="pack_operation.price_subtotal"/></td>
-                <td><span t-field="pack_operation.price_taxes"/></td>
-                <td><span t-field="pack_operation.price_total"/></td>
+            <xpath expr="//table[@t-if='o.pack_operation_ids']/tbody/tr/td[last()]" position="after">
+                <t t-if="o.picking_type_id.code == 'outgoing'">
+                    <!-- in <tr t-foreach="o.pack_operation_ids" t-as="pack_operation">-->
+                    <t t-set="ol" t-value="pack_operation.order_line_id"/>
+                    <td><span t-field="ol.price_unit"/></td>
+                    <td><span t-field="ol.tax_id.name"/></td>
+                    <td><span t-field="ol.price_subtotal"/></td>
+                </t>
             </xpath>
 
             <xpath expr="//table[last()]" position="after">
+                <t t-if="o.picking_type_id.code == 'outgoing'">
 
-                <t t-set="so" t-value="o.sale_order_id"/>
+                    <t t-set="so" t-value="o.sale_order_id"/>
 
-                <table class="table table-condensed" name="volume-per-category">
-                    <thead>
-                        <tr>
-                            <th>Category</th>
-                            <th class="text-right">Volume (m³)  </th>
-                        </tr>
-                    </thead>
-                    <tbody class="sale_tbody">
-                        <t t-foreach="so.volume_per_category" t-as="line">
+                    <div class="row" name="total">
+                        <div class="col-xs-4 pull-right">
+                            <table class="table table-condensed">
+                                <tr class="border-black">
+                                    <td><strong>Total Without Taxes</strong></td>
+                                    <td class="text-right">
+                                        <span t-field="so.amount_untaxed"
+                                            t-field-options='{"widget": "monetary", "display_currency": "so.pricelist_id.currency_id"}'/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Taxes</td>
+                                    <td class="text-right">
+                                        <span t-field="so.amount_tax"
+                                            t-field-options='{"widget": "monetary", "display_currency": "so.pricelist_id.currency_id"}'/>
+                                    </td>
+                                </tr>
+                                <tr class="border-black">
+                                    <td><strong>Total</strong></td>
+                                    <td class="text-right">
+                                        <span t-field="so.amount_total"
+                                            t-field-options='{"widget": "monetary", "display_currency": "so.pricelist_id.currency_id"}'/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <table class="table table-condensed" name="volume-per-category">
+                        <thead>
                             <tr>
-                                <td>
-                                    <span t-field="line.category_id"/>
-                                </td>
-                                <td class="text-right">
-                                    <span t-field="line.volume"/>
-                                </td>
+                                <th>Category</th>
+                                <th class="text-right">Volume (m³)  </th>
                             </tr>
-                        </t>
-                        <tr class="border-black">
-                            <td><strong>Total</strong></td>
-                            <td class="text-right">
-                                <strong>
-                                    <span t-field="so.volume"/>
-                                </strong>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <div class="row" name="total">
-                    <div class="col-xs-4 pull-right">
-                        <table class="table table-condensed">
-                            <tr class="border-black">
-                                <td><strong>Total Without Taxes</strong></td>
-                                <td class="text-right">
-                                    <span t-field="so.amount_untaxed"
-                                        t-field-options='{"widget": "monetary", "display_currency": "so.pricelist_id.currency_id"}'/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Taxes</td>
-                                <td class="text-right">
-                                    <span t-field="so.amount_tax"
-                                        t-field-options='{"widget": "monetary", "display_currency": "so.pricelist_id.currency_id"}'/>
-                                </td>
-                            </tr>
+                        </thead>
+                        <tbody class="sale_tbody">
+                            <t t-foreach="so.volume_per_category" t-as="line">
+                                <tr>
+                                    <td>
+                                        <span t-field="line.category_id"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-field="line.volume"/>
+                                    </td>
+                                </tr>
+                            </t>
                             <tr class="border-black">
                                 <td><strong>Total</strong></td>
                                 <td class="text-right">
-                                    <span t-field="so.amount_total"
-                                        t-field-options='{"widget": "monetary", "display_currency": "so.pricelist_id.currency_id"}'/>
+                                    <strong>
+                                        <span t-field="o.volume"/>
+                                    </strong>
                                 </td>
                             </tr>
-                        </table>
-                    </div>
-                </div>
+                        </tbody>
+                    </table>
+                </t>
             </xpath>
 
         </template>
