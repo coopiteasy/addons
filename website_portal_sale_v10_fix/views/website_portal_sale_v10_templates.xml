@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<template id="invoices_fix" inherit_id="website_portal_sale_v10.portal_my_invoices" name="Invoices and Payments fix">
+		<xpath expr="//a[@t-attf-href='/website_payment/pay?reference=#{invoice.number}&amp;amount=#{invoice.residual}&amp;currency_id=#{invoice.currency_id.id}&amp;country_id=#{invoice.partner_id.country_id.id}']" position="replace">
+			
+		</xpath>
+	</template>
+</odoo>
