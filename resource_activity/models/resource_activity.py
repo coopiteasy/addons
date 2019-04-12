@@ -4,7 +4,7 @@
 from collections import defaultdict, namedtuple
 
 import pytz
-from openerp import _, api, fields, models, _
+from openerp import _, api, fields, models
 from datetime import datetime, timedelta
 from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT as DTF
 from openerp.exceptions import ValidationError, UserError
@@ -76,8 +76,7 @@ class ResourceActivityDelivery(models.Model):
             elif delivery.is_pickup():
                 delivery.date = delivery.activity_id.pickup_time
             else:
-                raise ValueError("'delivery_type' is not defined on '%s'"
-                                 " with id %s" % delivery._name, delivery.id)
+                raise ValueError(_("'delivery_type' is not defined"))
 
     @api.multi
     @api.depends('activity_id.delivery_place', 'activity_id.pickup_place')
@@ -88,8 +87,7 @@ class ResourceActivityDelivery(models.Model):
             elif delivery.is_pickup():
                 delivery.place = delivery.activity_id.pickup_place
             else:
-                raise ValueError("'delivery_type' is not defined on '%s'"
-                                 " with id %s" % delivery._name, delivery.id)
+                raise ValueError(_("'delivery_type' is not defined"))
 
     def is_delivery(self):
         self.ensure_one()
@@ -103,8 +101,13 @@ class ResourceActivityDelivery(models.Model):
 class ResourceActivityType(models.Model):
     _name = 'resource.activity.type'
 
-    name = fields.Char(string="Type", required=True)
-    code = fields.Char(string="Code")
+    name = fields.Char(
+        string="Type",
+        required=True,
+        translate=True,
+    )
+    code = fields.Char(
+        string="Code")
     analytic_account = fields.Many2one(
         'account.analytic.account',
         string="Analytic account",
@@ -117,15 +120,24 @@ class ResourceActivityType(models.Model):
 class ResourceActivityTheme(models.Model):
     _name = 'resource.activity.theme'
 
-    name = fields.Char(string="Type", required=True)
+    name = fields.Char(
+        string="Type",
+        required=True,
+        translate=True,
+    )
     code = fields.Char(string="Code")
 
 
 class ResourceActivityLang(models.Model):
     _name = 'resource.activity.lang'
 
-    name = fields.Char(string="Lang", required=True)
-    code = fields.Char(string="Code")
+    name = fields.Char(
+        string="Lang",
+        required=True,
+        translate=True,
+    )
+    code = fields.Char(
+        string="Code")
 
 
 class ResourceActivity(models.Model):
@@ -422,9 +434,7 @@ class ResourceActivity(models.Model):
     @api.constrains('date_start', 'date_end')
     def _check_date(self):
         if self.date_end < self.date_start:
-            raise ValidationError(
-                "Date end can't be before date start: %s %s"
-                % (self.date_start, self.date_end))
+            raise ValidationError(_("Date end can't be before date start:"))
 
     @api.one
     @api.constrains('date_start', 'date_end',
@@ -432,11 +442,11 @@ class ResourceActivity(models.Model):
                     'need_delivery', 'delivery_time', 'pickup_time')
     def _activity_fields_blocked_if_resource_booked(self):
         if self.booked_resources:
-            raise ValidationError(
+            raise ValidationError(_(
                 'You cannot modify activity dates, resource allocation dates '
                 'or delivery information when a resource is already booked. '
                 'You must either delete this activity and create a new one or '
-                'release all booked resources for this activity.')
+                'release all booked resources for this activity.'))
 
     @api.multi
     @api.depends('registrations_max',
@@ -641,7 +651,7 @@ class ResourceActivity(models.Model):
 
             order_lines = self.prepare_lines(activity)
             if not order_lines:
-                raise ValidationError('Nothing to invoice on this activity.')
+                raise ValidationError(_('Nothing to invoice on this activity.'))
 
             sale_orders = self.prepare_sale_orders(activity)
 

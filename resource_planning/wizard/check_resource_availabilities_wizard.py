@@ -16,7 +16,7 @@ class CheckResourceWizard(models.TransientModel):
     def check_resource_availabilities(self):
         res = []
         if not self.multi_resource_category_id:
-            raise ValidationError((_("Please choose at least one category")))
+            raise ValidationError(_("Please choose at least one category"))
 
         self.env['resource.resource'].check_dates(self.date_start, self.date_end)
         

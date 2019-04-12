@@ -206,13 +206,8 @@ class ActivityRegistration(models.Model):
                     else:
                         registration.state = 'waiting'
                         self.env.cr.commit()
-                        raise UserError(("Not enough resource found for the "
-                                         "registration %s with category %s. "
-                                         "%s resources found") %
-                                            (registration.attendee_id.name,
-                                             registration.resource_category.name,
-                                             len(registration.resources_available)))
-
+                        raise UserError(_(
+                            "Not enough resource found for the registration"))
         return True
 
     @api.multi
@@ -321,9 +316,12 @@ class ActivityRegistration(models.Model):
 
     @api.model
     def create(self, vals):
-        if vals.get('registrations_max') > 0 and vals.get('registrations_max') < vals.get('registrations_expected') + vals.get('quantity_needed'):
-            raise ValidationError("Maximum registration capacity reached")
-        return super(ActivityRegistration,self).create(vals)
+        max_ = vals.get('registrations_max')
+        expected = vals.get('registrations_expected')
+        needed = vals.get('quantity_needed')
+        if 0 < max_ < expected + needed:
+            raise ValidationError(_("Maximum registration capacity reached"))
+        return super(ActivityRegistration, self).create(vals)
 
     @api.multi
     def write(self, vals):
@@ -334,8 +332,8 @@ class ActivityRegistration(models.Model):
                             registration.registrations_expected
                             - registration.quantity
                             + vals.get('quantity'))):
-                raise ValidationError("Maximum registration capacity reached")
-        return super(ActivityRegistration,self).write(vals)
+                raise ValidationError(_("Maximum registration capacity reached"))
+        return super(ActivityRegistration, self).write(vals)
 
 
 class ResourceAvailable(models.Model):
