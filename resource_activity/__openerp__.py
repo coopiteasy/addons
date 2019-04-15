@@ -29,6 +29,7 @@
         "product",
         "sale",
         "web_tree_many2one_clickable",
+        "web_tree_dynamic_colored_field",
     ],
     "author": "Houssine BAKKALI <houssine@coopiteasy.be>",
     "category": "Resource",

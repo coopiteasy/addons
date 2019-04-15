@@ -32,12 +32,14 @@
             <field name="name">resource.activity.tree</field>
             <field name="model">resource.activity</field>
             <field name="arch" type="xml">
-                <tree colors="red: ((is_start_outside_opening_hours == True) or (is_end_outside_opening_hours == True))">
+                <tree>
+                    <field name="is_start_outside_opening_hours" attrs="{'invisible': 1}"/>
+                    <field name="is_end_outside_opening_hours" attrs="{'invisible': 1}"/>
                     <field name="description"/>
                     <field name="partner_id"/>
                     <field name="activity_type"/>
-                    <field name="date_start"/>
-                    <field name="date_end"/>
+                    <field name="date_start" fg_color="red:is_start_outside_opening_hours==True;"/>
+                    <field name="date_end" fg_color="red:is_end_outside_opening_hours==True;"/>
                     <field name="location_id"/>
                     <field name="state"/>
                     <field name="registrations_expected" string="Registrations"/>
