@@ -45,6 +45,9 @@ class ActivityOpeningHours(models.Model):
         inverse_name='opening_hours_id',
         string='Opening Days'
     )
+    active = fields.Boolean(
+        default=True,
+    )
 
     @api.one
     @api.constrains('location_id', 'start', 'end', 'is_holiday')

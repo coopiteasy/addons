@@ -29,6 +29,7 @@
                                 <field name="is_holiday"/>
                                 <field name="start"/>
                                 <field name="end"/>
+                                <field name="active"/>
                             </group>
                         </group>
                         <notebook>
@@ -48,11 +49,21 @@
             </field>
         </record>
 
+        <record id="view_opening_hours_search" model="ir.ui.view">
+            <field name="name">opening.hours.search</field>
+            <field name="model">activity.opening.hours</field>
+            <field name="arch" type="xml">
+                <search string="Search Opening Hours">
+                    <filter string="Active" name="active" domain="[('active','=',1)]"/>
+               </search>
+            </field>
+        </record>
+
         <act_window id="action_activity_opening_hours"
-            name="Opening Hours"
-            res_model="activity.opening.hours"
-            view_mode="tree,form"
-            context="{'search_default_only_future': True}"/>
+                    name="Opening Hours"
+                    res_model="activity.opening.hours"
+                    view_mode="tree,form"
+                    context="{'search_default_active': True}"/>
 
 
         <menuitem action="action_activity_opening_hours"
