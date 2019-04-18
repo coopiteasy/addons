@@ -16,5 +16,5 @@ class Website(models.Model):
         values['reference'] = self.env['account.invoice'].generate_bbacomm(
                     'out_invoice',
                     reference_type,
-                    self.partner_id.id, '')['value']['reference']
+                    partner.id, '')['value']['reference']
         return values
