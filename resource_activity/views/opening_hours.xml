@@ -8,7 +8,6 @@
             <field name="arch" type="xml">
                 <tree string="Opening Hours">
                     <field name="name"/>
-                    <field name="location_id"/>
                     <field name="start"/>
                     <field name="end"/>
                     <field name="is_holiday"/>
@@ -25,7 +24,6 @@
                         <group>
                             <group>
                                 <field name="name"/>
-                                <field name="location_id"/>
                                 <field name="is_holiday"/>
                                 <field name="start"/>
                                 <field name="end"/>
@@ -34,7 +32,6 @@
                         </group>
                         <notebook>
                             <page name="opening_days" string="Opening Days">
-
                                 <field name="opening_day_ids">
                                     <tree editable="bottom" >
                                         <field name="dayofweek"/>
@@ -42,6 +39,9 @@
                                         <field name="closing_time"/>
                                     </tree>
                                 </field>
+                            </page>
+                            <page name="locations" string="Locations">
+                                <field name="location_ids"/>
                             </page>
                         </notebook>
                     </sheet>

@@ -17,12 +17,12 @@ class ActivityOpeningHours(models.Model):
             main_location = self.env.ref('resource_planning.main_location',
                                          False)
             return main_location if main_location else False
-        return location
+        return [(6, 0, location.id)]
 
     name = fields.Char(
         string='Name',
     )
-    location_id = fields.Many2one(
+    location_ids = fields.Many2many(
         comodel_name='resource.location',
         string='Location',
         default=_get_default_location,
@@ -49,23 +49,10 @@ class ActivityOpeningHours(models.Model):
         default=True,
     )
 
-    @api.one
-    @api.constrains('location_id', 'start', 'end', 'is_holiday')
-    def check_overlapping_records(self):
-        other_oh = self.search([('location_id', '=', self.location_id.id),
-                                ('is_holiday', '=', self.is_holiday),
-                                ('id', '!=', self.id)])
-
-        for oh in other_oh:
-            if not (oh.end <= self.start or oh.start >= self.end):
-                raise ValidationError(_(
-                    '% opening hours are overlapping with % opening hours'
-                ) % (self.name, oh.name))
-
     @api.model
     def get_opening_hours(self, location, time):
         opening_hours = self.search(
-            [('location_id', '=', location.id),
+            [('location_ids', 'in', [location.id]),
              ('start', '<=', time),
              ('end', '>', time)],
             order='is_holiday desc',  # (null), True, False
@@ -75,6 +62,14 @@ class ActivityOpeningHours(models.Model):
             raise ValidationError(_(
                 'No opening hours set for %s') % time
             )
+        if len(opening_hours) >= 2:
+            if opening_hours[0].is_holiday and opening_hours[1].is_holiday:
+                raise ValidationError(_(
+                    'Two holiday opening hours set for %s') % time)
+            elif not opening_hours[0].is_holiday and not opening_hours[1].is_holiday:
+                raise ValidationError(_(
+                    'Two opening hours set for %s') % time)
+
         return opening_hours[0]
 
     def _localize(self, date):

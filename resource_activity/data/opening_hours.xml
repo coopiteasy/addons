@@ -3,9 +3,8 @@
 	<data noupdate="1">
 
 		<!-- WINTER 2018-->
-
 		<record id="activity_opening_hours_winter_2018" model="activity.opening.hours">
-			<field name="location_id" eval="ref('resource_planning.main_location')"/>
+			<field name="location_ids" eval="[(6, 0, [ref('resource_planning.main_location')])]"/>
 			<field name="name">Winter 2018</field>
 			<field name="start">2018-10-01</field>
 			<field name="end">2019-05-01</field>
@@ -70,7 +69,7 @@
 
 		<!-- SUMMER 2019-->
 		<record id="activity_opening_hours_summer_2019" model="activity.opening.hours">
-			<field name="location_id" eval="ref('resource_planning.main_location')"/>
+			<field name="location_ids" eval="[(6, 0, [ref('resource_planning.main_location')])]"/>
 			<field name="name">Summer 2019</field>
 			<field name="start">2019-05-01</field>
 			<field name="end">2019-10-01</field>
@@ -160,7 +159,7 @@
 
 		<!-- WINTER 2019 -->
 		<record id="activity_opening_hours_winter_2019" model="activity.opening.hours">
-			<field name="location_id" eval="ref('resource_planning.main_location')"/>
+			<field name="location_ids" eval="[(6, 0, [ref('resource_planning.main_location')])]"/>
 			<field name="name">Winter 2019</field>
 			<field name="start">2019-10-01</field>
 			<field name="end">2020-05-01</field>
@@ -225,7 +224,7 @@
 
 		<!-- SUMMER 2020-->
 		<record id="activity_opening_hours_summer_2020" model="activity.opening.hours">
-			<field name="location_id" eval="ref('resource_planning.main_location')"/>
+			<field name="location_ids" eval="[(6, 0, [ref('resource_planning.main_location')])]"/>
 			<field name="name">Summer 2020</field>
 			<field name="start">2020-05-01</field>
 			<field name="end">2021-05-01</field>
@@ -314,7 +313,7 @@
 
 		<!-- CHRISTMAS 2018 -->
 		<record id="activity_opening_hours_christmas_2018" model="activity.opening.hours">
-			<field name="location_id" eval="ref('resource_planning.main_location')"/>
+			<field name="location_ids" eval="[(6, 0, [ref('resource_planning.main_location')])]"/>
 			<field name="name">Christmas 2018</field>
 			<field name="start">2018-12-25</field>
 			<field name="end">2018-12-26</field>

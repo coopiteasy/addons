@@ -103,7 +103,7 @@ class TestOpeningHours(common.SavepointCase):
         location = self.env.ref('resource_planning.main_location')
         oh.create({
             'name': 'test opening reference',
-            'location_id': location.id,
+            'location_ids': [(6, 0, [location.id])],
             'start': '2000-02-01',
             'end': '2000-03-01',
             'is_holiday': False,
@@ -112,35 +112,41 @@ class TestOpeningHours(common.SavepointCase):
         with self.assertRaises(ValidationError):
             oh.create({
                 'name': 'test opening hours',
-                'location_id': location.id,
+                'location_ids': [(6, 0, [location.id])],
                 'start': '2000-02-02',
                 'end': '2000-02-03',
                 'is_holiday': False,
             })
+            oh.get_opening_hours(location, '2000-02-02')
         with self.assertRaises(ValidationError):
             oh.create({
                 'name': 'test opening hours',
-                'location_id': location.id,
+                'location_ids': [(6, 0, [location.id])],
                 'start': '2000-01-01',
                 'end': '2000-02-10',
                 'is_holiday': False,
             })
+            oh.get_opening_hours(location, '2000-02-02')
+
         with self.assertRaises(ValidationError):
             oh.create({
                 'name': 'test opening hours',
-                'location_id': location.id,
+                'location_ids': [(6, 0, [location.id])],
                 'start': '2000-01-01',
                 'end': '2000-03-10',
                 'is_holiday': False,
             })
+            oh.get_opening_hours(location, '2000-02-02')
+
         with self.assertRaises(ValidationError):
             oh.create({
                 'name': 'test opening hours',
-                'location_id': location.id,
+                'location_ids': [(6, 0, [location.id])],
                 'start': '2000-02-10',
                 'end': '2000-03-10',
                 'is_holiday': False,
             })
+            oh.get_opening_hours(location, '2000-02-11')
 
     def test_check_time_format(self):
         ohd = self.env['activity.opening.hours.day']
