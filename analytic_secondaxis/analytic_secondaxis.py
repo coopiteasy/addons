@@ -312,6 +312,8 @@ class project_activity_al(osv.osv):
         'currency_id': _get_default_currency,
     }
 
+    _order = "name asc"
+
 
 class analytic_account(osv.osv):
     _inherit = "account.analytic.account"
