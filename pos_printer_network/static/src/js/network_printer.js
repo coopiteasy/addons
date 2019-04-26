@@ -85,9 +85,18 @@ odoo.define('pos_printer_network.network_printer', function (require) {
                                 self.receipt_queue.unshift(r);
                             });
                         }
+                        var el = self.$('.message-print')
+                        el.empty();
+                        msg += _t('Receipt printed');
+                        el.append('<h2>' + msg + '</h2>');
                     }
                 };
                 send_printing_job();
+        },
+        show: function(){
+            this._super();
+            var self = this;
+            this.$('.message-print').empty();
         },
     });
 
