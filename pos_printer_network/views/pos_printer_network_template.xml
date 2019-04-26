@@ -6,13 +6,4 @@
 	        <link rel="stylesheet" href="/pos_printer_network/static/src/css/pos.css"/>
 	    </xpath>
 	</template>
-	
-	<templates id="template">
-	    <t t-extend="ReceiptScreenWidget">
-	        <t t-jquery='.button print' t-operation='after'>
-		        <div class="message-print">
-	            </div>
-	        </t>
-	    </t>
-	</templates>
 </odoo>

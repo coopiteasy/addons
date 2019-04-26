@@ -67,4 +67,10 @@
             </div>
         </div>
     </t>
+    <t t-extend="ReceiptScreenWidget">
+        <t t-jquery='.button print' t-operation='after'>
+	        <div class="message-print">
+            </div>
+        </t>
+    </t>
 </templates>
