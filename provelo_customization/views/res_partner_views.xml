@@ -15,6 +15,10 @@
                     <attribute name="attrs">{'invisible': 1}</attribute>
                 </field>
 
+                <field name="category_id" position="attributes">
+                    <attribute name="options">{'no_create_edit': 1}</attribute>
+                </field>
+
             </field>
         </record>
     </data>
