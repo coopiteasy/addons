@@ -16,8 +16,12 @@ class ActivityOpeningHours(models.Model):
         if not location:
             main_location = self.env.ref('resource_planning.main_location',
                                          False)
-            return main_location if main_location else False
-        return [(6, 0, location.id)]
+            if main_location:
+                return [(6, 0, [main_location.id])]
+            else:
+                return [(6, 0, [])]
+
+        return [(6, 0, [location.id])]
 
     name = fields.Char(
         string='Name',
