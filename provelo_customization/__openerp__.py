@@ -31,7 +31,8 @@
         Specifics customizations for Pro Velo
     """,
     'data': [
-        'views/location_filters.xml'
+        'views/location_filters.xml',
+        'views/res_partner_views.xml',
     ],
     'installable': True,
 }
