@@ -31,8 +31,10 @@
 
 {
     "name": "Timesheet Analytic Second Axis",
-    "version": "1.0",
-    "author": "Camptocamp,Odoo Community Association (OCA)",
+    "version": "9.0.1.0.0",
+    "author": "Camptocamp, "
+              "Coop IT Easy SCRLfs, "
+              "Odoo Community Association (OCA)",
     "category": "Generic Modules/Accounting",
     "description":
     """
@@ -59,6 +61,5 @@
     "data": [
         "analytic_secondaxis_view.xml",
     ],
-    #"active": False,
     "installable": True
 }
