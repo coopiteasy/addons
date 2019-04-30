@@ -7,4 +7,6 @@ from openerp import fields, models
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
-    type = fields.Selection(selection_add=[('representative', 'Representative')], default="representative")
+    type = fields.Selection(selection_add=[
+                            ('representative', 'Representative')],
+                            default="representative")
