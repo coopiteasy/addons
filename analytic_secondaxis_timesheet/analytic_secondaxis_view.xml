@@ -1,6 +1,6 @@
 <openerp>
     <data>
-        
+
         #---------------------------------------------------------------------------------------------------------
         #   timesheet form in the timesheet_sheet
         #---------------------------------------------------------------------------------------------------------
@@ -32,7 +32,7 @@
                 </xpath>
             </field>
         </record>
-        
+
         <record id="hr_timesheet_line_tree" model="ir.ui.view">
             <field name="name">account.analytic.line.tree</field>
             <field name="model">account.analytic.line</field>
@@ -44,7 +44,7 @@
                 </xpath>
             </field>
         </record>
-        
+
         #---------------------------------------------------------------------------------------------------------
         #   Add activity on search hr.analytic.timesheet
         #---------------------------------------------------------------------------------------------------------
@@ -65,6 +65,6 @@
                 </xpath>
             </field>
         </record>
-        
+
     </data>
 </openerp>
