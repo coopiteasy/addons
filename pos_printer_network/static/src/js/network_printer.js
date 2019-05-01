@@ -56,7 +56,7 @@ odoo.define('pos_printer_network.network_printer', function (require) {
         },
     });
 
-    //module.ReceiptScreenWidget = module.ReceiptScreenWidget.include({
+    //module.ReceiptScreenWidget = screens.ReceiptScreenWidget.include({
     var Printer = core.Class.extend(mixins.PropertiesMixin,{
     	init: function(parent,options){
         	alert('youhou?!');
