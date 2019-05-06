@@ -34,7 +34,8 @@ class ProductProduct(models.Model):
         )
         # could be optimized with sql but
         # early optimisation is the root of all evil
-        for registration in registrations:
+
+        for registration in registrations.filtered(lambda r: r.sale_order_id):
             product_id = registration.product_id
             if product_id:
                 product_id.registration_counter += registration.quantity_allocated
