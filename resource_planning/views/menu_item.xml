@@ -23,6 +23,11 @@
 				  parent="menu_main_resource"
 				  sequence="5"/>
 
+		<menuitem action="action_view_check_resource"
+				  id="check_resource_menu"
+				  parent="menu_main_resource"
+				  sequence="60"/>
+
 		<!-- menus -->
 
 		<menuitem action="action_resource_allocation"
