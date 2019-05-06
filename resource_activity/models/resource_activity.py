@@ -526,10 +526,20 @@ class ResourceActivity(models.Model):
                 .filtered(lambda r: r.state in ['option', 'booked'])
             )
             if activity.state == 'draft' and registrations:
-                raise ValidationError(_(
-                    'You cannot set an activity to done if there are '
-                    'registrations set on it.'))
-            activity.state = 'done'
+                action = self.env.ref(
+                    'resource_activity.action_draft_to_done')
+                return {
+                    'name': action.name,
+                    'help': action.help,
+                    'type': action.type,
+                    'view_type': action.view_type,
+                    'view_mode': action.view_mode,
+                    'target': action.target,
+                    'context': self._context,
+                    'res_model': action.res_model,
+                }
+            elif activity.state == 'draft':
+                activity.state = 'done'
 
     @api.multi
     def action_draft(self):
