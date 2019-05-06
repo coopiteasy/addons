@@ -99,22 +99,37 @@ odoo.define('pos_printer_network.network_printer', function (require) {
                                 self.receipt_queue.unshift(r);
                             });
                         }
-                        alert('lalala');
-                        var el = self.$('.message-print')
-                        el.empty();
-                        msg += _t('Receipt printed');
-                        el.append('<h2>' + msg + '</h2>');
                     }
                 };
-                alert('yo!!');
                 send_printing_job();
         },
-        /*show: function(){
+    });
+
+    module.ReceiptScreenWidget = screens.ReceiptScreenWidget.include({
+    	print: function() {
+    		alert('lalala');
+    		this._super();
+            var el = self.$('.message-print');
+            el.empty();
+            msg += _t('Receipt printed');
+            el.append('<h2>' + msg + '</h2>');
+    	},
+    	renderElement: function() {
+    		alert('aaaaaaaa');
+            var self = this;
             this._super();
-            alert('show');
+            this.$('.message-print').click(function(){
+                if (!self._locked) {
+                    self.print();
+                }
+            });
+        },
+    	show: function(){
+    		alert('oooooooo');
+            this._super();
             var self = this;
             this.$('.message-print').empty();
-        },*/
+        },
     });
 
     devices.ProxyDevice.include({
