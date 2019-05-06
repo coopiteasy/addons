@@ -38,7 +38,7 @@ class ProductProduct(models.Model):
         for registration in registrations.filtered(lambda r: r.sale_order_id):
             product_id = registration.product_id
             if product_id:
-                product_id.registration_counter += registration.quantity_allocated
+                product_id.registration_counter += 1
 
 
 class ResourceLocation(models.Model):
