@@ -10,7 +10,7 @@ class ResourceCategory(models.Model):
     _inherit = 'resource.category'
     
     product_ids = fields.Many2many('product.product', string="Product")
-    
+
 
 class ProductProduct(models.Model):
     _inherit = 'product.product'

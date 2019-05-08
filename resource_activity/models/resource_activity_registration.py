@@ -20,6 +20,8 @@ class ActivityRegistration(models.Model):
     @api.onchange('resource_category')
     def onchange_resource_category(self):
         self.product_id = False
+        if self.is_accessory_registration:
+            self.quantity = 0
 
     @api.onchange('quantity')
     def onchange_quantity(self):
@@ -170,6 +172,8 @@ class ActivityRegistration(models.Model):
     is_paid = fields.Boolean(
         string='Paid',
     )
+    is_accessory_registration = fields.Boolean(
+        related='resource_category.is_accessory')
 
     def create_resource_available(self, resource_ids, registration):
         for resource_id in resource_ids:

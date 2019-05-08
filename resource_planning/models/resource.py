@@ -18,6 +18,8 @@ class ResourceCategory(models.Model):
         'resource.resource',
         'category_id',
         string="Resources")
+    is_accessory = fields.Boolean(
+        string="Is Accessory")
 
 
 class Resource(models.Model):

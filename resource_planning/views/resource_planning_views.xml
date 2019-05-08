@@ -207,6 +207,7 @@
             <group>
               <group name="name">
                 <field name="name"/>
+                <field name="is_accessory"/>
               </group>
             </group>
             <notebook>
