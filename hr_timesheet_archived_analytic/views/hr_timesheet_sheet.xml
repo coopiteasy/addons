@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2019 Coop IT Easy SCRLfs <https://coopiteasy.be>
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+
+    <record model="ir.ui.view" id="hr_timesheet_sheet_form_view">
+        <field name="name">hr.timesheet.sheet.form (in analytic_archive)</field>
+        <field name="model">hr_timesheet_sheet.sheet</field>
+        <field name="inherit_id" ref="hr_timesheet_sheet.hr_timesheet_sheet_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form//field[@name='account_id']" position="attributes">
+                <attribute name="domain">[('account_type', '=', 'normal')]</attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
