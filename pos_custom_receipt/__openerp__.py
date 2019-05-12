@@ -1,23 +1,22 @@
 # -*- coding: utf-8 -*-
-# Copyright 2018-Coop IT Easy SCRLfs (<http://www.coopiteasy.be>)
+# Copyright 2019-Coop IT Easy SCRLfs (<http://www.coopiteasy.be>)
 # - Houssine BAKKALI - <houssine@coopiteasy.be>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
-    "name": "Email Configuration",
+    "name": "POS Custom Receipt",
     "version": "9.0.1.0.0",
     "depends": [
-        "mail",
+        "point_of_sale",
     ],
     "author": "Houssine BAKKALI <houssine@coopiteasy.be>",
-    "category": "CRM",
+    "category": "POS",
     "website": "www.coopiteasy.be",
     "license": "AGPL-3",
     "description": """
-    This module extends the email in order to force some behaviours
-    configured in the mail template(e.g. force send mail or not).
+    This module extends the pos receipt in order to not show some info and
+    adds other info.
     """,
-    'data': [
-        'views/mail_template_views.xml',
-    ],
+    'data': [],
+    'qweb': ['static/src/xml/pos.xml'],
     'installable': True,
 }
