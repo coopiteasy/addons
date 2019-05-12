@@ -68,7 +68,7 @@
         </div>
     </t>
     <t t-extend="ReceiptScreenWidget">
-        <t t-jquery='.button print' t-operation='after'>
+        <t t-jquery='.pos-receipt-container' t-operation='before'>
 	        <div class="message-print">
             </div>
         </t>

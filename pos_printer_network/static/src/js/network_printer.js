@@ -23,7 +23,6 @@ odoo.define('pos_printer_network.network_printer', function (require) {
             for (var i = 0; i < self.config.printer_ids.length; i++) {
                 active_printers[self.config.printer_ids[i]] = true;
             }
-
             self.printers = [];
 
             for(var i = 0; i < printers.length; i++){
@@ -50,7 +49,7 @@ odoo.define('pos_printer_network.network_printer', function (require) {
     });
 
     var Printer = core.Class.extend(mixins.PropertiesMixin,{
-        init: function(parent,options){
+    	init: function(parent,options){
             mixins.PropertiesMixin.init.call(this,parent);
             options = options || {};
             var url = options.url || 'http://localhost:8069';
@@ -58,8 +57,10 @@ odoo.define('pos_printer_network.network_printer', function (require) {
             this.host       = url;
             this.receipt_queue = [];
         },
+        // Don't understand why this part isn't called
+        // Should be investigated
         print: function(receipt){
-            var self = this;
+        	var self = this;
                 if(receipt) {
                     this.receipt_queue.push(receipt);
                 }
@@ -85,20 +86,38 @@ odoo.define('pos_printer_network.network_printer', function (require) {
                                 self.receipt_queue.unshift(r);
                             });
                         }
-                        var el = self.$('.message-print')
-                        el.empty();
-                        msg += _t('Receipt printed');
-                        el.append('<h2>' + msg + '</h2>');
                     }
                 };
                 send_printing_job();
         },
-        show: function(){
+    });
+
+/*    module.ReceiptScreenWidget = screens.ReceiptScreenWidget.include({
+    	print: function() {
+    		alert('lalala');
+    		this._super();
+            var el = self.$('.message-print');
+            el.empty();
+            msg += _t('Receipt printed');
+            el.append('<h2>' + msg + '</h2>');
+    	},
+    	renderElement: function() {
+    		alert('aaaaaaaa');
+            var self = this;
+            this._super();
+            this.$('.message-print').click(function(){
+                if (!self._locked) {
+                    self.print();
+                }
+            });
+        },
+    	show: function(){
+    		alert('oooooooo');
             this._super();
             var self = this;
             this.$('.message-print').empty();
         },
-    });
+    });*/
 
     devices.ProxyDevice.include({
         init: function(parent,options){
