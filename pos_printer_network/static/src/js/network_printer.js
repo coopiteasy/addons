@@ -19,22 +19,14 @@ odoo.define('pos_printer_network.network_printer', function (require) {
         fields: ['name','network_printer','proxy_ip'],
         domain: null,
         loaded: function(self,printers){
-        	alert('atchoum!');
         	var active_printers = {};
-        	/*alert(self.config.receipt_network_printer_ip);
-        	alert(self.config.iface_print_via_proxy);*/
             for (var i = 0; i < self.config.printer_ids.length; i++) {
                 active_printers[self.config.printer_ids[i]] = true;
-                alert(self.config.printer_ids[i]);
             }
-        	/*if (self.config.iface_print_via_proxy) {
-        		active_printers[self.config.receipt_network_printer_ip] = true;
-        	}*/
             self.printers = [];
 
             for(var i = 0; i < printers.length; i++){
                 if(active_printers[printers[i].id]){
-                	alert(printers[i].proxy_ip);
                     var printer = new Printer(self,{url:'http://'+printers[i].proxy_ip+':8069'});
                     printer.config = printers[i];
                     self.printers.push(printer);
@@ -56,27 +48,22 @@ odoo.define('pos_printer_network.network_printer', function (require) {
         },
     });
 
-    //module.ReceiptScreenWidget = screens.ReceiptScreenWidget.include({
     var Printer = core.Class.extend(mixins.PropertiesMixin,{
     	init: function(parent,options){
-        	alert('youhou?!');
             mixins.PropertiesMixin.init.call(this,parent);
             options = options || {};
-            alert(options.url);
-            alert(parent);
             var url = options.url || 'http://localhost:8069';
             this.connection = new Session(undefined,url, { use_cors: true});
             this.host       = url;
             this.receipt_queue = [];
-            alert('In da print?!');
         },
+        // Don't understand why this part isn't called
+        // Should be investigated
         print: function(receipt){
-        	alert('lolala');
         	var self = this;
                 if(receipt) {
                     this.receipt_queue.push(receipt);
                 }
-                alert('hihihi');
                 var send_printing_job = function(){
                     if(self.receipt_queue.length > 0) {
                         var r = self.receipt_queue.shift();
@@ -105,7 +92,7 @@ odoo.define('pos_printer_network.network_printer', function (require) {
         },
     });
 
-    module.ReceiptScreenWidget = screens.ReceiptScreenWidget.include({
+/*    module.ReceiptScreenWidget = screens.ReceiptScreenWidget.include({
     	print: function() {
     		alert('lalala');
     		this._super();
@@ -130,7 +117,7 @@ odoo.define('pos_printer_network.network_printer', function (require) {
             var self = this;
             this.$('.message-print').empty();
         },
-    });
+    });*/
 
     devices.ProxyDevice.include({
         init: function(parent,options){
