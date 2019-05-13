@@ -5,7 +5,7 @@
         <t t-jquery="t[t-if='receipt.company.email']" t-operation='replace'/>
         <t t-jquery="t[t-if='receipt.cashier']" t-operation='after'>
         	 <t t-if='receipt.partner'>
-             	<div>Customer: <t t-esc='receipt.partner' /></div>
+             	<div>Customer: <t t-esc='receipt.client' /></div>
              </t>
         </t>
     </t>
