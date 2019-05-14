@@ -525,7 +525,8 @@ class ResourceActivity(models.Model):
                 .registrations
                 .filtered(lambda r: r.state in ['option', 'booked'])
             )
-            if activity.state == 'draft' and registrations:
+            if (activity.state == 'draft'
+                and (registrations or activity.guides or activity.trainers)):
                 action = self.env.ref(
                     'resource_activity.action_draft_to_done')
                 return {
