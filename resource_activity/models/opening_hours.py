@@ -63,9 +63,7 @@ class ActivityOpeningHours(models.Model):
         )
 
         if not opening_hours:
-            raise ValidationError(_(
-                'No opening hours set for %s') % time
-            )
+            return False
         if len(opening_hours) >= 2:
             if opening_hours[0].is_holiday and opening_hours[1].is_holiday:
                 raise ValidationError(_(
@@ -87,4 +85,7 @@ class ActivityOpeningHours(models.Model):
             time = self._localize(time)
 
         opening_hours = self.get_opening_hours(location, time)
-        return opening_hours.opening_day_ids.is_open(time)
+        if opening_hours:
+            return opening_hours.opening_day_ids.is_open(time)
+        else:
+            return False

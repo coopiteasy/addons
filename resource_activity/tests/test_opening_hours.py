@@ -58,9 +58,11 @@ class TestOpeningHours(common.SavepointCase):
         time = dt.datetime(1969, 8, 18, 8, 32)
         location = self.env.ref('resource_planning.main_location')
 
-        with self.assertRaises(ValidationError):
-            (self.env['activity.opening.hours']
-                 .get_opening_hours(location, time))
+        self.assertEqual(
+            self.env['activity.opening.hours']
+                .get_opening_hours(location, time),
+            False
+        )
 
     def test_opening_hours_day_is_open(self):
         day = self.env.ref('resource_activity.activity_opening_hours_day_christmas_2018')
@@ -95,8 +97,7 @@ class TestOpeningHours(common.SavepointCase):
         time = dt.datetime(1969, 8, 18, 8, 32)
         location = self.env.ref('resource_planning.main_location')
 
-        with self.assertRaises(ValidationError):
-            oh.is_location_open(location, time)
+        self.assertEqual(oh.is_location_open(location, time), False)
 
     def test_check_overlapping_records(self):
         oh = self.env['activity.opening.hours']

@@ -6,7 +6,7 @@
 		<record id="activity_opening_hours_winter_2018" model="activity.opening.hours">
 			<field name="location_ids" eval="[(6, 0, [ref('resource_planning.main_location')])]"/>
 			<field name="name">Winter 2018</field>
-			<field name="start">1900-10-01</field>
+			<field name="start">1970-10-01</field>
 			<field name="end">2019-05-01</field>
 			<field name="is_holiday" eval="False"/>
         </record>
