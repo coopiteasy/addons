@@ -33,6 +33,44 @@
         <t t-raw="0"/>
     </template>
 
+    <template id="report_style_10x4">
+        <style type="text/css">
+.height-10 {
+    height: 140px;
+    min-height: 140px;
+    max-height: 140px;
+    margin: 0;
+}
+
+.label {
+    text-align: center;
+    font-size: 14px;
+    color: black;
+    padding: 20px;
+    border: none;
+    white-space: normal;
+}
+
+.barcode-img {
+    width: 100%;
+    height: 30px;
+}
+
+.barcode {
+    font-size: 20px;
+    font-weight: normal;
+}
+
+.product-name {
+    font-weight: bold;
+    overflow: hidden;
+    line-height: 1.4em;
+    max-height: 2.8em;
+}
+        </style>
+        <t t-raw="0"/>
+    </template>
+
     <template id="report_style_65">
         <style type="text/css">
             .barcode-column {
