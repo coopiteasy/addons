@@ -101,7 +101,7 @@ class ActivityRegistration(models.Model):
         copy=False)
     quantity = fields.Integer(
         string="Number of participant",
-        default=1)
+        default=0)
     quantity_needed = fields.Integer(
         string="Quantity needed",
         default=1)

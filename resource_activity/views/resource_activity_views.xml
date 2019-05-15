@@ -137,18 +137,17 @@
                                         <field name="available_category_ids" invisible="True"/>
                                         <field name="location_id" invisible="True"/>
                                         <field name="is_accessory_registration" invisible="True"/>
-                                        <field name="attendee_id" attrs="{'required':  [('partner_id','=',False)],
-                                                                          'readonly':  [('sale_order_id','!=',False)]}"/>
+                                        <field name="activity_type" invisible="True"/>
+
+                                        <field name="attendee_id" attrs="{'required':  [('partner_id','=',False)], 'readonly':  [('sale_order_id','!=',False)]}"/>
                                         <field name="bring_bike"/>
                                         <field name="quantity" sum="Total participant" attrs="{'readonly':[('is_accessory_registration','=',True)]}"/>
-                                        <field name="quantity_needed" sum="Total needed" attrs="{'readonly':[('state','in',['booked','option'])]}"/>
-                                        <field name="quantity_allocated" sum="Total allocated"/>
                                         <field name="resource_category"
                                                attrs="{'required':[('bring_bike','=',False)],'readonly':[('state','in',['booked','option','waiting','cancelled'])]}"
-                                               domain="[('id', 'in', available_category_ids[0][2])]"
-                                        />
+                                               domain="[('id', 'in', available_category_ids[0][2])]"/>
                                         <field name="product_id" domain="[('resource_category_id','=',resource_category),('resource_activity_id','=',activity_type)]" attrs="{'required':[('bring_bike','=',False)]}"/>
-                                        <field name="activity_type" invisible="True"/>
+                                        <field name="quantity_needed" sum="Total needed" attrs="{'readonly':[('state','in',['booked','option'])]}"/>
+                                        <field name="quantity_allocated" sum="Total allocated"/>
                                         <field name="booking_type"/>
                                         <field name="date_lock" attrs="{'required':[('booking_type','=','option')]}"/>
                                         <field name="state"/>
