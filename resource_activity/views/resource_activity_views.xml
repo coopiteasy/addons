@@ -56,7 +56,7 @@
                     <field name="nb_allocated_resources" string="Resources"/>
                     <field name="need_delivery" string="Delivery"/>
                 <field name="registrations_paid" string="Paid"/>
-				</tree>
+                </tree>
             </field>
         </record>
 
@@ -64,10 +64,10 @@
             <field name="name">resource.activity.search.product.tree</field>
             <field name="model">product.template</field>
             <field name="arch" type="xml">
-                <tree default_order='lst_price desc'>
+                <tree default_order='list_price desc'>
                     <field name="name"/>
-                    <field name="lst_price"/>
-				</tree>
+                    <field name="list_price"/>
+                </tree>
             </field>
         </record>
 
@@ -184,7 +184,7 @@
                                         <field name="date_lock" attrs="{'required':[('booking_type','=','option')]}"/>
                                         <field name="state"/>
                                         <field name="is_paid"/>
-					                    <button type="object" name="search_resources" states="draft,waiting" help="Search resources" icon="gtk-apply"/>
+                                        <button type="object" name="search_resources" states="draft,waiting" help="Search resources" icon="gtk-apply"/>
                                         <button type="object" name="action_cancel" states="draft,booked,option,waiting,available" help="Cancel" icon="gtk-cancel" confirm="Are you sure you want to cancel this registration?"/>
                                         <button type="object" name="action_draft" states="cancelled" help="Set to draft" icon="gtk-undo"/>
                                         <button type="object" name="action_unlink" states="draft,cancelled" help="Delete" icon="gtk-clear" confirm="Are you sure you want to delete this registration?"/>
