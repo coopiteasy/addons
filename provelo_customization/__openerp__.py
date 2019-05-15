@@ -21,6 +21,7 @@
     "name": "Provelo Customization",
     "version": "9.0.1.0",
     "depends": [
+        'resource_planning',
         'resource_activity',
     ],
     "author": "Coop IT Easy - Robin Keunen <robin@coopiteasy.be>",
@@ -33,6 +34,8 @@
     'data': [
         'views/location_filters.xml',
         'views/res_partner_views.xml',
+        'security/custom_security.xml',
+        'security/ir.model.access.csv',
     ],
     'installable': True,
 }
