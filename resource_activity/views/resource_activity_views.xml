@@ -60,7 +60,7 @@
                         <button name="action_back_to_sale_order" string="Set to Sale Order" type="object" states="done"/>
                         <button name="push_changes_to_sale_order" string="Push to Sale Order" type="object" attrs="{'invisible':[('need_push','=',False)]}" class="btn-primary"/>
                         <button name="action_draft" string="Draft" type="object" states="cancelled"/>
-                        <button name="action_done" string="Done" type="object" states="sale"/>
+                        <button name="action_done" string="Done" type="object" states="draft,sale"/>
                         <button name="action_cancel" string="Cancel" type="object" states="draft,quotation,sale,done" confirm="Are you sure you want to cancel this activity? That will also cancel all the reservations"/>
                         <field name="state" widget="statusbar"/>
                     </header>

@@ -520,7 +520,27 @@ class ResourceActivity(models.Model):
     @api.multi
     def action_done(self):
         for activity in self:
-            activity.state = 'done'
+            registrations = (
+                activity
+                .registrations
+                .filtered(lambda r: r.state in ['option', 'booked'])
+            )
+            if (activity.state == 'draft'
+                and (registrations or activity.guides or activity.trainers)):
+                action = self.env.ref(
+                    'resource_activity.action_draft_to_done')
+                return {
+                    'name': action.name,
+                    'help': action.help,
+                    'type': action.type,
+                    'view_type': action.view_type,
+                    'view_mode': action.view_mode,
+                    'target': action.target,
+                    'context': self._context,
+                    'res_model': action.res_model,
+                }
+            elif activity.state == 'draft':
+                activity.state = 'done'
 
     @api.multi
     def action_draft(self):
@@ -738,6 +758,11 @@ class ResourceActivity(models.Model):
     @api.multi
     def action_back_to_sale_order(self):
         for activity in self:
+            if activity.state == 'done' and not activity.sale_orders:
+                raise ValidationError(_(
+                    "No sale order on this activity. Cancel first than go "
+                    "back to draft. "
+                ))
             activity.state = 'sale'
 
     def update_resource_booking_line(self, registration, sale_order_id):
