@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+base.access_res_partner_title_group_user,base.res_partner_title group_user,base.model_res_partner_title,base.group_partner_manager,1,0,0,0
+access_res_partner_title_group_provelo_customizer,res_partner_title_provelo_customizer,base.model_res_partner_title,group_provelo_customizer,1,1,1,1
+crm.access_res_partner_category,crm.res.partner.category.crm.user,base.model_res_partner_category,base.group_sale_salesman,1,0,0,0
+access_res_partner_category_group_provelo_customizer,res.partner.category.crm.user.group_provelo_customizer,base.model_res_partner_category,group_provelo_customizer,1,1,1,1

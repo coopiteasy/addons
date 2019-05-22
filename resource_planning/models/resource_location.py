@@ -19,6 +19,7 @@ class ResPartner(models.Model):
         'resource.location',
         string="Location",
         default=_get_default_location,
+        domain=[('main_location', '=', True)],
     )
 
 
@@ -44,7 +45,10 @@ class ResourceLocation(models.Model):
             location.resource_categories = resources.mapped('category_id')
         return True
 
-    name = fields.Char(string="Name")
+    name = fields.Char(
+        string="Name")
+    main_location = fields.Boolean(
+        default=False)
     address = fields.Many2one(
         'res.partner',
         string="Address")
@@ -65,5 +69,4 @@ class ResourceLocation(models.Model):
         comodel_name='resource.category',
         string='Available Categories',
         compute=_compute_available_resources,
-        store=True,
-    )
+        store=True)

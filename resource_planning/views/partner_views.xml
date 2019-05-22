@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-	<data>
-		<record id="view_partner_location_form" model="ir.ui.view">
+    <data>
+        <record id="view_partner_location_form" model="ir.ui.view">
             <field name="name">res.partner.location.form</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="arch" type="xml">
-				<field name="function" position="before">
-					<field name="resource_location" widget="selection"/>
-				</field>
+                <field name="function" position="before">
+                    <field name="resource_location" widget="selection"/>
+                </field>
             </field>
         </record>
         
@@ -17,12 +17,12 @@
             <field name="model">res.users</field>
             <field name="inherit_id" ref="base.view_users_form"/>
             <field name="arch" type="xml">
-            	<group name="preferences" position="after">
-            		<group string="Location" name="location" groups="resource_planning.group_multi_location">
-	                    <field name="resource_location"/>
+                <group name="preferences" position="after">
+                    <group string="Location" name="location" groups="resource_planning.group_multi_location">
+                        <field name="resource_location"/>
                     </group>
                 </group>
             </field>
         </record>
-	</data>
+    </data>
 </odoo>
