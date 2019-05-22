@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2017-2018 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<openerp>
+    <record id="view_task_form2" model="ir.ui.view">
+        <field name="name">project.task.form.pr</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+
+            <field name="tag_ids" position="after">
+                <field name="int_priority"/>
+            </field>
+
+            <xpath expr="//field[@name='project_id']/../.." position="after">
+                <group>
+                    <field name="pr_uri" widget="url"/>
+                </group>
+            </xpath>
+
+        </field>
+    </record>
+</openerp>
