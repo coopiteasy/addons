@@ -30,7 +30,9 @@ class Resource(models.Model):
     def _get_default_location(self):
         location = self.env.user.resource_location
         if not location:
-            location = self.env.ref('resource_planning.main_location', False)
+            main_location = self.env.ref('resource_planning.main_location', False)
+            return main_location if main_location else self.env['resource.location']
+
         return location
 
     category_id = fields.Many2one(
@@ -57,7 +59,8 @@ class Resource(models.Model):
         'resource.location',
         string="Location",
         default=_get_default_location,
-        required=True)
+        # required=True,
+    )
 
     _sql_constraints = [
         ('name_uniq', 'unique (name)',

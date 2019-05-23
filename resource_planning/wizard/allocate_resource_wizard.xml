@@ -43,7 +43,7 @@
             </field>
         </record>
         
-		<record id="action_view_allocate_resource" model="ir.actions.act_window">
+        <record id="action_view_allocate_resource" model="ir.actions.act_window">
             <field name="name">Allocate Resource</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">allocate.resource.wizard</field>
@@ -51,8 +51,6 @@
             <field name="view_mode">form</field>
             <field name="target">new</field>
         </record>
-		
-		<menuitem action="action_view_allocate_resource" id="allocate_resource_menu" parent="menu_main_resource" sequence="50"/>
 
         <!-- TODO: check if we need this -->
         <record model="ir.values" id="allocate_resource">

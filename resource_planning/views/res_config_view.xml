@@ -24,15 +24,6 @@
             </field>
         </record>
 
-        <record id="action_resource_config" model="ir.actions.act_window">
-            <field name="name">Configure Resource</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="res_model">resource.config.settings</field>
-            <field name="view_mode">form</field>
-            <field name="target">inline</field>
-        </record>
 
-        <menuitem id="menu_resource_config" name="Settings" parent="menu_resource_configuration"
-            sequence="10" action="action_resource_config" groups="base.group_configuration"/>
     </data>
 </openerp>

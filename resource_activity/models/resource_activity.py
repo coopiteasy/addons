@@ -381,12 +381,43 @@ class ResourceActivity(models.Model):
         compute='_compute_registrations_paid',
         store=True,
     )
+    is_start_outside_opening_hours = fields.Boolean(
+        string='Activity start is outside opening hours',
+        compute='_compute_outside_opening_hours',
+    )
+    is_end_outside_opening_hours = fields.Boolean(
+        string='Activity end is outside opening hours',
+        compute='_compute_outside_opening_hours',
+    )
+
+    @api.multi
+    @api.depends('date_end', 'date_start')
+    def _compute_outside_opening_hours(self):
+        opening_hours = self.env['activity.opening.hours']
+        for activity in self:
+            if activity.date_start and activity.date_end:
+                activity.is_start_outside_opening_hours = not (
+                    opening_hours.is_location_open(activity.location_id,
+                                                   activity.date_start)
+                )
+                activity.is_end_outside_opening_hours = not (
+                    opening_hours.is_location_open(activity.location_id,
+                                                   activity.date_end)
+                )
 
     @api.onchange('location_id')
     def onchange_location_id(self):
         if self.location_id and self.location_id.address:
-            self.departure = self.location_id.address._display_address(self.location_id.address)
-            self.arrival = self.location_id.address._display_address(self.location_id.address)
+            self.departure = (
+                self.location_id
+                    .address
+                    ._display_address(self.location_id.address)
+            )
+            self.arrival = (
+                self.location_id
+                    .address
+                    ._display_address(self.location_id.address)
+            )
 
     @api.onchange('booking_type')
     def onchange_booking_type(self):
@@ -501,6 +532,7 @@ class ResourceActivity(models.Model):
                             + str(delta_time.seconds % 3600 // 60)
                             + " minute(s)"
                     )
+
 
     @api.multi
     def search_all_resources(self):

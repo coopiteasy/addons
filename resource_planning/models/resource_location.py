@@ -5,6 +5,14 @@
 from openerp import _, api, fields, models
 
 
+class ResUsers(models.Model):
+    _inherit = 'res.users'
+
+    resource_location = fields.Many2one(
+        'resource.location',
+        string="Location")
+
+
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
@@ -12,7 +20,8 @@ class ResPartner(models.Model):
     def _get_default_location(self):
         location = self.env.user.resource_location
         if not location:
-            location = self.env.ref('resource_planning.main_location', False)
+            main_location = self.env.ref('resource_planning.main_location', False)
+            return main_location if main_location else self.env['resource.location']
         return location
 
     resource_location = fields.Many2one(
@@ -21,14 +30,6 @@ class ResPartner(models.Model):
         default=_get_default_location,
         domain=[('main_location', '=', True)],
     )
-
-
-class ResUsers(models.Model):
-    _inherit = 'res.users'
-
-    resource_location = fields.Many2one(
-        'resource.location',
-        string="Location")
 
 
 class ResourceLocation(models.Model):

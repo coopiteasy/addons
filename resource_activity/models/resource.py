@@ -24,6 +24,7 @@ class ResourceLocation(models.Model):
 
     guides = fields.One2many('res.partner', 'resource_location_guide', domain=[('is_guide', '=', True)], string="Guides")
     trainers = fields.One2many('res.partner', 'resource_location_trainer', domain=[('is_trainer', '=', True)], string="Trainers")
+    opening_hours_ids = fields.Many2many('activity.opening.hours', string="Opening Hours")
 
 
 class ResourceAllocation(models.Model):
