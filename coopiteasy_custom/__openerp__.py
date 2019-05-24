@@ -31,6 +31,7 @@
         Specifics customizations for Coop IT Easy
     """,
     'data': [
+        'data/cron.xml',
         'views/project_view.xml',
     ],
     'installable': True,
