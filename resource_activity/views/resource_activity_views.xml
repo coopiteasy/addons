@@ -64,7 +64,7 @@
             <field name="name">resource.activity.search.product.tree</field>
             <field name="model">product.template</field>
             <field name="arch" type="xml">
-                <tree default_order='list_price desc'>
+                <tree default_order='list_price'>
                     <field name="name"/>
                     <field name="list_price"/>
                 </tree>
