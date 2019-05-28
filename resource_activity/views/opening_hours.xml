@@ -41,7 +41,12 @@
                                 </field>
                             </page>
                             <page name="locations" string="Locations">
-                                <field name="location_ids"/>
+                                <field name="location_ids">
+                                    <tree name="location_tree" delete="true">
+                                        <field name="name"/>
+                                        <field name="address"/>
+                                    </tree>
+                                </field>
                             </page>
                         </notebook>
                     </sheet>
