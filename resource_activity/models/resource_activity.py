@@ -548,6 +548,16 @@ class ResourceActivity(models.Model):
             activity.registrations.reserve_needed_resource()
 
     @api.multi
+    def unreserve_resources(self):
+        registrations = self.env['resource.activity.registration'].browse()
+        for activity in self:
+            for registration in activity.registrations:
+                if registration.state == "booked":
+                    registrations |= registration
+        registrations.action_cancel()
+        registrations.action_draft()
+
+    @api.multi
     def mark_all_as_paid(self):
         for activity in self:
             activity.registrations.mark_as_paid()
