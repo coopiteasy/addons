@@ -551,12 +551,19 @@ class ResourceActivity(models.Model):
 
     @api.multi
     def action_done(self):
+        """
+        Allowed from
+        - sale state
+        - draft state if nothing to invoice
+        - allow bur warn from draft state with invoiced resources
+        """
         for activity in self:
             registrations = (
                 activity
                 .registrations
                 .filtered(lambda r: r.state in ['option', 'booked'])
             )
+            # warn if in draft and invoiced resources booked
             if (activity.state == 'draft'
                 and (registrations or activity.guides or activity.trainers)):
                 action = self.env.ref(
@@ -571,7 +578,7 @@ class ResourceActivity(models.Model):
                     'context': self._context,
                     'res_model': action.res_model,
                 }
-            elif activity.state == 'draft':
+            elif activity.state in ('draft', 'sale'):
                 activity.state = 'done'
 
     @api.multi
