@@ -151,6 +151,7 @@
                             <page name="registration" string="Registrations">
                                 <button type="object" name="search_all_resources" string="Search all"/>
                                 <button type="object" name="reserve_needed_resource" string="Reserve needed Resources" help="refresh"/>
+                                <button type="object" name="unreserve_resources" string="Unreserve Resources" help="Change all booked registrations to draft status"/>
                                 <button type="object" name="mark_all_as_paid" string="Mark all as paid"/>
                                 <field name="registrations"
                                        options="{'reload_on_button':True}"
