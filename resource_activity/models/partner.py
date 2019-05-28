@@ -20,6 +20,3 @@ class ResPartner(models.Model):
     activity_count = fields.Integer(string='# of Activities', compute=_resource_activity_count)
     resource_location_guide = fields.Many2one('resource.location', string="Guide Location")
     resource_location_trainer = fields.Many2one('resource.location', string="Trainer location")
-
-
-
