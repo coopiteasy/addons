@@ -771,6 +771,15 @@ class ResourceActivity(models.Model):
                 activity.state = 'quotation'
 
     @api.multi
+    def print_last_sale_order(self):
+        self.ensure_one()
+        sale_order = None
+        for so in self.sale_orders:
+            if not sale_order or so.create_date > sale_order.create_date:
+                sale_order = so
+        return sale_order.print_quotation()
+
+    @api.multi
     def action_sale_order(self):
         res_acti_seq = self.env.ref('resource_activity.sequence_resource_activity', False)
         for activity in self:
