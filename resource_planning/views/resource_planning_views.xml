@@ -33,13 +33,17 @@
             <field name="state" widget="statusbar"/>
           </header>
           <sheet>
+            <div class="oe_button_box" name="button_box">
+                <button class="oe_stat_button" type="object" name="toggle_active" icon="fa-archive">
+                  <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                </button>
+            </div>
             <group>
               <group name="general">
                 <field name="name"/>
                 <field name="serial_number"/>
                 <field name="user_id" attrs="{'required':[('resource_type','=','user')], 'readonly':[('resource_type','=','material')]}"/>
                 <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
-                <field name="active" invisible="True"/>
               </group>
               <group name="category">
                 <field name="category_id" widget="selection"/>
@@ -188,6 +192,11 @@
       <field name="arch" type="xml">
         <form string="Resource Category">
           <sheet>
+            <div class="oe_button_box" name="button_box">
+                <button class="oe_stat_button" type="object" name="toggle_active" icon="fa-archive">
+                  <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+              </button>
+            </div>
             <group>
               <group name="name">
                 <field name="name"/>
@@ -207,6 +216,10 @@
               </page>
             </notebook>
           </sheet>
+          <div class="oe_chatter">
+            <field name="message_follower_ids" widget="mail_followers"/>
+            <field name="message_ids" widget="mail_thread"/>
+          </div>
         </form>
       </field>
     </record>

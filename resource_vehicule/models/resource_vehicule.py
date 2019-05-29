@@ -29,21 +29,25 @@ class ResourceBrand(models.Model):
     
     name = fields.Char(string="Brand")
     code = fields.Char(string="Code")
+    active = fields.Boolean("Active", default=True)
 
 class ResourceModel(models.Model):
     _name = 'resource.model'
     
     name = fields.Char(string="Model")
     code = fields.Char(string="Code")
+    active = fields.Boolean("Active", default=True)
 
 class ResourceColor(models.Model):
     _name = 'resource.color'
     
     name = fields.Char(string="Color")
     code = fields.Char(string="code")
+    active = fields.Boolean("Active", default=True)
     
 class ResourceGearbox(models.Model):
     _name = 'resource.gearbox'
     
     name = fields.Char(string="Gearbox")
     code = fields.Char(string="code")
+    active = fields.Boolean("Active", default=True)

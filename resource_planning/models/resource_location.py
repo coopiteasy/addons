@@ -34,6 +34,7 @@ class ResPartner(models.Model):
 
 class ResourceLocation(models.Model):
     _name = 'resource.location'
+    _inherit = 'mail.thread'
 
     @api.multi
     @api.depends('resources')
@@ -71,3 +72,7 @@ class ResourceLocation(models.Model):
         string='Available Categories',
         compute=_compute_available_resources,
         store=True)
+    active = fields.Boolean(
+            "Active",
+            default=True,
+            track_visibility="onchange")

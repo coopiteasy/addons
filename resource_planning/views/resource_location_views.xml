@@ -19,6 +19,11 @@
             <field name="arch" type="xml">
             	<form>
             		<sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" type="object" name="toggle_active" icon="fa-archive">
+                              <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                            </button>
+                        </div>
 	            		<group>
 	            			<group>
 		            			<field name="name"/>
@@ -63,6 +68,10 @@
 	            			</page>
 	            		</notebook>
 	            	</sheet>
+                    <div class="oe_chatter">
+                      <field name="message_follower_ids" widget="mail_followers"/>
+                      <field name="message_ids" widget="mail_thread"/>
+                    </div>
             	</form>
             </field>
         </record>
