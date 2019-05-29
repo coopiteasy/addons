@@ -115,6 +115,7 @@ class ResourceActivityType(models.Model):
     product_ids = fields.Many2many(
         'product.product',
         string="Product")
+    active = fields.Boolean('Active', default=True)
 
 
 class ResourceActivityTheme(models.Model):
@@ -126,6 +127,7 @@ class ResourceActivityTheme(models.Model):
         translate=True,
     )
     code = fields.Char(string="Code")
+    active = fields.Boolean('Active', default=True)
 
 
 class ResourceActivityLang(models.Model):
@@ -138,6 +140,7 @@ class ResourceActivityLang(models.Model):
     )
     code = fields.Char(
         string="Code")
+    active = fields.Boolean('Active', default=True)
 
 
 class ResourceActivity(models.Model):

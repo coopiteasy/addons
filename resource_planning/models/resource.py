@@ -8,6 +8,7 @@ from openerp.exceptions import ValidationError, UserError
 
 class ResourceCategory(models.Model):
     _name = 'resource.category'
+    _inherit = 'mail.thread'
 
     name = fields.Char(
         string="Category name",
@@ -21,6 +22,9 @@ class ResourceCategory(models.Model):
     is_accessory = fields.Boolean(
         string="Is Accessory")
 
+    active = fields.Boolean(
+            'Active', default=True,
+            track_visibility='onchange')
 
 class Resource(models.Model):
     _name = 'resource.resource'
