@@ -26,6 +26,7 @@
                 		<button name="action_cancel" string="Cancel" type="object" states="draft"/>
                 		<button name="action_draft" string="Set to draft" type="object" states="validated,cancelled"/>
                 		<button name="action_done" string="Proceed" type="object" states="validated"/>
+                		<button name="action_transfert" string="Set delivered" type="object" states="done"/>
 		            	<field name="state" widget="statusbar"/>
 		            </header>
 		            <sheet>

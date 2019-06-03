@@ -10,7 +10,7 @@ class ProductRelease(models.Model):
     @api.multi
     def _compute_picking_ids(self):
         for product_release in self:
-            product_release.picking_ids = product_release.product_release_lines.mapped('picking')
+            product_release.picking_ids = product_release.product_release_lines.mapped('picking') # noqa
             product_release.delivery_count = len(product_release.picking_ids)
 
     name = fields.Char(string="Name", readonly=True, copy=False)
@@ -47,6 +47,7 @@ class ProductRelease(models.Model):
     state = fields.Selection([('draft', 'Draft'),
                               ('validated', 'Validated'),
                               ('done', 'Done'),
+                              ('transfered', 'Transfered'),
                               ('cancelled', 'Cancelled'),
                               ],
                              string='State',
@@ -92,7 +93,7 @@ class ProductRelease(models.Model):
         pick_ids = sum([order.picking_ids.ids for order in self], [])
 
         if len(pick_ids) > 1:
-            result['domain'] = "[('id','in',["+','.join(map(str, pick_ids))+"])]"
+            result['domain'] = "[('id','in',["+','.join(map(str, pick_ids))+"])]" # noqa
         elif len(pick_ids) == 1:
             form = self.env.ref('stock.view_picking_form', False)
             form_id = form.id if form else False
@@ -118,7 +119,7 @@ class ProductRelease(models.Model):
 
         vals = {'state': 'validated'}
         if self.name == '' or not self.name:
-            prod_rel_seq = self.env.ref('product_subscription.sequence_product_release', False)
+            prod_rel_seq = self.env.ref('product_subscription.sequence_product_release', False) # noqa
             vals['name'] = prod_rel_seq.next_by_id()
 
         subscriptions = prod_sub_obj.search([('counter', '>', 0)])
@@ -150,23 +151,32 @@ class ProductRelease(models.Model):
 
     @api.one
     def action_done(self):
-        picking_type = self.env['stock.picking.type'].search([('code', '=', 'outgoing')])
+        picking_type_obj = self.env['stock.picking.type']
+        picking_type = picking_type_obj.search([('code', '=', 'outgoing')])
+        stock_move_vals = self.get_stock_move_vals(picking_type)
+        picking_vals = self.get_picking_vals(picking_type)
 
         for line in self.product_release_lines:
             if line.product_subscription.counter - self.release_qty >= 0:
-                picking_vals = self.get_picking_vals(picking_type)
-                stock_move_vals = self.get_stock_move_vals(picking_type)
                 line.create_picking(picking_vals, stock_move_vals)
-                line.product_subscription.counter = line.product_subscription.counter - self.release_qty
+                line.product_subscription.counter = line.product_subscription.counter - self.release_qty # noqa
 
-        subs_terminated = self.product_release_lines.filtered(lambda record: record.product_subscription.counter == 0)
-        subs_renew = self.product_release_lines.filtered(lambda record: record.product_subscription.counter == 1)
+        subs_terminated = self.product_release_lines.filtered(lambda record: record.product_subscription.counter == 0) # noqa
+        subs_renew = self.product_release_lines.filtered(lambda record: record.product_subscription.counter == 1) # noqa
 
         subs_terminated.write({'state': 'terminated'})
         subscriber_terminated = subs_terminated.mapped('subscriber')
-        subscriber_terminated.write({'subscriber': False, 'old_subscriber': True})
+        subscriber_terminated.write({
+                                'subscriber': False,
+                                'old_subscriber': True
+                                })
         subs_renew.write({'state': 'renew'})
+        self.state = 'done'
 
+        return True
+
+    @api.one
+    def action_transfert(self):
         for picking in self.product_release_lines.mapped('picking'):
             if picking.state not in ['cancel', 'done']:
                 if picking.state != 'assigned':
@@ -179,13 +189,15 @@ class ProductRelease(models.Model):
                     if pack_operation.product_id.id == self.product_id.id:
                         pack_operation.qty_done = self.release_qty
                 picking.do_transfer()
-        self.state = 'done'
+        self.state = 'transfered'
+
+        return True
 
 
 class ProductReleaseLine(models.Model):
     _name = "product.release.line"
 
-    product_release_list = fields.Many2one('product.release.list', 
+    product_release_list = fields.Many2one('product.release.list',
                                            string="Product release list",
                                            required=True)
     subscriber = fields.Many2one('res.partner',
@@ -207,12 +219,13 @@ class ProductReleaseLine(models.Model):
     @api.model
     def create_picking(self, vals, stock_move_vals):
         picking_obj = self.env['stock.picking']
+        stock_move_obj = self.env['stock.move']
 
         vals['partner_id'] = self.subscriber.id
 
         picking = picking_obj.create(vals)
         stock_move_vals['picking_id'] = picking.id
-        self.env['stock.move'].create(stock_move_vals)
+        stock_move_obj.create(stock_move_vals)
 
         self.picking = picking
 
