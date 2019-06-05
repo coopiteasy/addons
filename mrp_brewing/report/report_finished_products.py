@@ -8,8 +8,11 @@ class ReportFinishedProducts(models.AbstractModel):
     _name = 'report.mrp_brewing.stock_finished_products'
 
     def get_stock_moves(self, data):
-        lines = self.env['stock.move'].search([('state','=','done'),('product_id.finished_product','=',True)], order="date asc")
-        
+        lines = self.env['stock.move'].search([
+                                    ('state', '=', 'done'),
+                                    ('product_id.finished_product', '=', True)
+                                    ], order="date asc")
+
         return lines
 
     @api.multi
@@ -24,4 +27,5 @@ class ReportFinishedProducts(models.AbstractModel):
             'time': time,
             'get_stock_moves': report_lines,
         }
-        return self.env['report'].render('mrp_brewing.stock_finished_products', docargs)
+        return self.env['report'].render('mrp_brewing.stock_finished_products',
+                                         docargs)
