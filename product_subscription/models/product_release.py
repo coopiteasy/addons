@@ -157,8 +157,9 @@ class ProductRelease(models.Model):
         picking_vals = self.get_picking_vals(picking_type)
 
         for line in self.product_release_lines:
+            vals = dict(picking_vals)
             if line.product_subscription.counter - self.release_qty >= 0:
-                line.create_picking(picking_vals, stock_move_vals)
+                line.create_picking(vals, stock_move_vals)
                 line.product_subscription.counter = line.product_subscription.counter - self.release_qty # noqa
 
         subs_terminated = self.product_release_lines.filtered(lambda record: record.product_subscription.counter == 0) # noqa
