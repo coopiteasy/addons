@@ -15,15 +15,15 @@ UNIT = dp.get_precision('Product Unit of Measure')
 
 class PurchaseOrder(models.Model):
     _inherit = "purchase.order"
-    
-    autoload_all_products = fields.Boolean(string="Auto-load all products", default=True)
-    
+
+    autoload_all_products = fields.Boolean(string="Auto-load all products", default=False)
+
     @api.onchange('partner_id', 'company_id')
     def onchange_partner_id(self):
         super(PurchaseOrder, self).onchange_partner_id()
         self.order_line = self.create_order_line()
         return {}
-    
+
     @api.model
     def create_order_line(self):
         res = []
@@ -53,6 +53,6 @@ class PurchaseOrder(models.Model):
                     values['taxes_id'] = fpos.map_tax(supplier_info.product_tmpl_id.supplier_taxes_id.filtered(lambda r: r.company_id.id == company_id))
                 else:
                     values['taxes_id'] = fpos.map_tax(supplier_info.product_tmpl_id.supplier_taxes_id)
-    
+
                 res.append(values)
         return res
