@@ -212,7 +212,7 @@ class ProductReleaseLine(models.Model):
                                            string='Subscription',
                                            required=True)
     counter = fields.Float(related='product_subscription.counter',
-                           string="Counteur",
+                           string="Counter",
                            readonly=True)
     picking = fields.Many2one('stock.picking',
                               string="Delivery order")
