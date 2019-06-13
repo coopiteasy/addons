@@ -16,7 +16,6 @@
 						 states="partially_available,assigned"
 						 type="object"
 						 class="oe_highlight"
-                         attrs="{'invisible': ['|', ('picking_type_code', '!=', 'incoming')]}"
 				 />
             </button>
 		</field>
