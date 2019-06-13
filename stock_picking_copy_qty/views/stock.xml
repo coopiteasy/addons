@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2019 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+
+	<record model="ir.ui.view" id="beesdoo_stock_form_view">
+		<field name="name">beesdoo.stock.form.view</field>
+		<field name="model">stock.picking</field>
+		<field name="inherit_id" ref="stock.view_picking_form" />
+		<field name="arch" type="xml">
+            <button name="do_new_transfer" position="before">
+                 <button name="copy_qty"
+						 string="Copy Pack Quantity"
+						 states="partially_available,assigned"
+						 type="object"
+						 class="oe_highlight"
+                         attrs="{'invisible': ['|', ('picking_type_code', '!=', 'incoming')]}"
+				 />
+            </button>
+		</field>
+	</record>
+
+</odoo>
