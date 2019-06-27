@@ -111,6 +111,13 @@ class StockProductionLot(models.Model):
 class StockPicking(models.Model):
     _inherit = 'stock.picking'
 
+    date = fields.Datetime('Creation Date',
+                           help="Creation Date, usually the time of the order",
+                           select=True,
+                           states={'done': [('readonly', False)],
+                                   'cancel': [('readonly', False)]},
+                           track_visibility='onchange')
+
     @api.multi
     def do_transfer(self):
         super(StockPicking, self).do_transfer()
