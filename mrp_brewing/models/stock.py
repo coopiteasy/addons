@@ -123,4 +123,4 @@ class StockPicking(models.Model):
         super(StockPicking, self).do_transfer()
         for picking in self:
             for move in picking.move_lines:
-                move.date = picking.date
+                move.date = picking.date_done
