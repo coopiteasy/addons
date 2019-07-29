@@ -2,7 +2,7 @@
 # Part of Open Architechts Consulting sprl. See LICENSE file for full copyright and licensing details. # noqa
 # Copyright 2019 Coop IT Easy SCRLfs
 
-from openerp import api, fields, models, _, SUPERUSER_ID
+from openerp import api, fields, models
 
 
 class StockMove(models.Model):
