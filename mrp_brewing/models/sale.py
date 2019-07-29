@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
-# Part of Open Architechts Consulting sprl. See LICENSE file for full copyright and licensing details.
+# Part of Open Architechts Consulting sprl. See LICENSE file for full
+# copyright and licensing details.
 from datetime import datetime, timedelta
-from openerp import api, fields, models, _, SUPERUSER_ID
+from openerp import api, fields, models
 from openerp.tools import DEFAULT_SERVER_DATE_FORMAT
 
 
@@ -107,7 +108,8 @@ class SaleOrderLine(models.Model):
 
     @api.multi
     def _compute_stock_product(self):
-        """Computes the delivered product lot on sale order lines, based on done stock moves related to its procurements
+        """Computes the delivered product lot on sale order lines, based on
+        done stock moves related to its procurements
         """
         for line in self:
             product_lot_ids = []

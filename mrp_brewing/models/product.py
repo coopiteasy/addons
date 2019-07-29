@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*- Part of Open Architechts Consulting sprl. See LICENSE
 #  file for full copyright and licensing details.
 
-from openerp import api, fields, models, _, SUPERUSER_ID
+from openerp import api, fields, models
 
 
 class ProductProduct(models.Model):
@@ -28,7 +28,7 @@ class ProductProduct(models.Model):
 
 class ProductTemplate(models.Model):
     _inherit = "product.template"
-    
+
     raw_material = fields.Boolean(
         string="Is raw material")
     finished_product = fields.Boolean(
@@ -41,9 +41,9 @@ class ProductTemplate(models.Model):
     brew_product_sequence = fields.Many2one(
         'ir.sequence',
         string="Brew product sequence")
-    
-    
+
+
 class ProductPricelist(models.Model):
     _inherit = "product.pricelist"
-    
-    particular_conditions = fields.Text("Particular Conditions") 
+
+    particular_conditions = fields.Text("Particular Conditions")

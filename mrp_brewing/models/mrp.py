@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
-# Part of Open Architechts Consulting sprl. See LICENSE file for full copyright and licensing details.
+# Part of Open Architechts Consulting sprl. See LICENSE file for full
+# copyright and licensing details.
 
-from openerp import api, fields, models, _
+from openerp import api, fields, models
 
 
 class MrpProduction(models.Model):
