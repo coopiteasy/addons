@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <template id="report_producttemplate_label_repeat_10x4">
+    <t t-call="report.html_container">
+      <t t-set="data_report_dpi" t-value="300"/>
+      <div class="page">
+        <t t-call="product_report_v10.report_style_10x4"/>
+        <t t-foreach="docs" t-as="product">
+          <div class="row">
+            <t t-foreach="range(40)" t-as="l">
+              <div class="col-xs-3 height-10 label">
+                <img t-if="product.barcode"
+                  t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN13', product.barcode, 600, 150)"
+                  class="barcode-img"/>
+                <div t-field="product.barcode" class="barcode"/>
+                <div class="product-name" t-esc="product.name"/>
+              </div>
+            </t>
+          </div>
+        </t>
+      </div>
+    </t>
+  </template>
+</odoo>
