@@ -40,6 +40,7 @@
         'report/report_stock.xml',
         'report/report_layout.xml',
         'wizard/stock_reports_view.xml',
+        'wizard/recompute_qty_afte_move_view.xml',
         'views/product_view.xml',
         'views/mrp_view.xml',
         'views/brew_view.xml',
