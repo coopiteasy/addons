@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
-
+# © 201 Houssine BAKKALI (Coop IT Easy SCRLds)
+import logging
 from openerp import api, fields, models
+
+_logger = logging.getLogger(__name__)
 
 
 class StockRecomputeAfterMove(models.TransientModel):
@@ -25,7 +28,7 @@ class StockRecomputeAfterMove(models.TransientModel):
                                ], order="date asc")
             qty_after_move = 0
             if self.print_log:
-                print ("========= product = " + product.name + " ==========")
+                _logger.info("======= product = " + product.name + " ========")
             for move in moves:
                 qty = 0
                 if move.location_id.usage == 'customer' \
@@ -48,14 +51,19 @@ class StockRecomputeAfterMove(models.TransientModel):
                     qty = move.product_qty
 
                 qty_after_move += qty
+
                 if self.print_log:
-                    print ("move " + str(move.origin) +
-                           " from " + move.location_id.name +
-                           " to " + move.location_dest_id.name +
-                           " on " + str(move.date) +
-                           " moved qty is " + str(qty) + " qty after move "
-                           "is " + str(move.quantity_after_move) +
-                           " instead of " + str(qty_after_move))
+                    _logger.info("move %s  from %s to %s on %s "
+                                 "moved qty is %s qty after move is %s "
+                                 "instead of %s",
+                                 move.origin,
+                                 move.location_id.name,
+                                 move.location_dest_id.name,
+                                 move.date,
+                                 qty,
+                                 move.quantity_after_move,
+                                 qty_after_move)
+
                 if self.update:
                     move.quantity_after_move = qty_after_move
         return True
