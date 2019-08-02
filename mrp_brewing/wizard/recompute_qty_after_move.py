@@ -37,11 +37,10 @@ class StockRecomputeAfterMove(models.TransientModel):
                 elif move.location_id.usage == 'transit' \
                         and move.location_dest_id.usage == 'internal':
                     qty = move.product_qty
-                elif move.location_dest_id.usage == 'transit':
-                    qty = -move.product_qty
                 elif move.location_dest_id.usage in ['inventory',
                                                      'production',
-                                                     'customer'
+                                                     'customer',
+                                                     'transit'
                                                      ]:
                     qty = -move.product_qty
                 elif move.location_id.usage in ['inventory',
