@@ -117,6 +117,8 @@ class StockPicking(models.Model):
                            states={'done': [('readonly', False)],
                                    'cancel': [('readonly', False)]},
                            track_visibility='onchange')
+    date_done = fields.Datetime(readonly=False,
+                                states={'done': [('readonly', True)]})
 
     @api.multi
     def do_transfer(self):
