@@ -8,10 +8,7 @@
             <group>
             	<field name="report_name"/>
             </group>
-            <!-- 
-                <field name="date_from"/>
-                <field name="date_to"/>
-             -->
+
             <footer>
                 <button name="check_report" string="Print" type="object" default_focus="1" class="oe_highlight"/>
                 or 

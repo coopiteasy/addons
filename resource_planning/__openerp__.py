@@ -36,15 +36,16 @@
     in order to be able to tie a resource with any other model.
     """,
     'data': [
+        'data/resource_planning_data.xml',
         'security/resource_planning_security.xml',
         'security/ir.model.access.csv',
-        'data/resource_planning_data.xml',
+        'wizard/check_resource_availabilities_wizard.xml',
         'wizard/allocate_resource_wizard.xml',
         'views/resource_planning_views.xml',
         'views/resource_location_views.xml',
         'views/partner_views.xml',
         'views/res_config_view.xml',
-        'wizard/check_resource_availabilities_wizard.xml',
+        'views/actions.xml',
         'views/menu_item.xml',
     ],
     'installable': True,

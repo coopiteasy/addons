@@ -59,11 +59,14 @@
                         <h4>Start time and place:</h4>
                         <span t-field="o.date_start" />
                         <span t-field="o.departure" />
+                        <br/>
+                        <span t-if="o.is_start_outside_opening_hours" style="color:Red;">Activity start is outside opening hours</span>
                      </div>
                      <div class="row" name="activite-arrival">
                         <h4>End time and place:</h4>
                         <span t-field="o.date_end" />
                         <span t-field="o.arrival" />
+                        <span t-if="o.is_end_outside_opening_hours" style="color:Red;">Activity end is outside opening hours</span>
                      </div>
                      <div class="row" name="activite-theme">
                         <h4>Theme:</h4>

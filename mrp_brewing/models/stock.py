@@ -2,7 +2,7 @@
 # Part of Open Architechts Consulting sprl. See LICENSE file for full copyright and licensing details. # noqa
 # Copyright 2019 Coop IT Easy SCRLfs
 
-from openerp import api, fields, models, _, SUPERUSER_ID
+from openerp import api, fields, models
 
 
 class StockMove(models.Model):
@@ -111,9 +111,18 @@ class StockProductionLot(models.Model):
 class StockPicking(models.Model):
     _inherit = 'stock.picking'
 
+    date = fields.Datetime('Creation Date',
+                           help="Creation Date, usually the time of the order",
+                           select=True,
+                           states={'done': [('readonly', False)],
+                                   'cancel': [('readonly', False)]},
+                           track_visibility='onchange')
+    date_done = fields.Datetime(readonly=False,
+                                states={'done': [('readonly', True)]})
+
     @api.multi
     def do_transfer(self):
         super(StockPicking, self).do_transfer()
         for picking in self:
             for move in picking.move_lines:
-                move.date = picking.date
+                move.date = picking.date_done

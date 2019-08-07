@@ -33,7 +33,7 @@
                         </thead>
                         <tbody>
                             <tr t-foreach="get_stock_moves" t-as="a">
-                                <t t-if="a.location_id.usage == 'production' and a.location_dest_id.usage == 'internal'">
+                                <t t-if="(a.location_id.usage in ['production','inventory','inventory']) and a.location_dest_id.usage == 'internal'">
                                    <td>
                                         <span t-att-style="style" t-esc="a.date"/>
                                     </td>
@@ -59,7 +59,7 @@
                                         <span t-att-style="style" t-esc="a.quantity_after_move" />
                                     </td>
                                 </t>
-                                <t t-if="a.location_dest_id.usage in ['customer','production']">
+                                <t t-if="a.location_dest_id.usage in ['inventory','customer','production']">
                                     <td/>
                                     <td/>
                                     <td/>

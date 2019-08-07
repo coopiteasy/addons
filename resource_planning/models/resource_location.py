@@ -5,6 +5,14 @@
 from openerp import _, api, fields, models
 
 
+class ResUsers(models.Model):
+    _inherit = 'res.users'
+
+    resource_location = fields.Many2one(
+        'resource.location',
+        string="Location")
+
+
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
@@ -12,22 +20,16 @@ class ResPartner(models.Model):
     def _get_default_location(self):
         location = self.env.user.resource_location
         if not location:
-            location = self.env.ref('resource_planning.main_location', False)
+            main_location = self.env.ref('resource_planning.main_location', False)
+            return main_location if main_location else self.env['resource.location']
         return location
 
     resource_location = fields.Many2one(
         'resource.location',
         string="Location",
         default=_get_default_location,
+        domain=[('main_location', '=', True)],
     )
-
-
-class ResUsers(models.Model):
-    _inherit = 'res.users'
-
-    resource_location = fields.Many2one(
-        'resource.location',
-        string="Location")
 
 
 class ResourceLocation(models.Model):
@@ -44,7 +46,10 @@ class ResourceLocation(models.Model):
             location.resource_categories = resources.mapped('category_id')
         return True
 
-    name = fields.Char(string="Name")
+    name = fields.Char(
+        string="Name")
+    main_location = fields.Boolean(
+        default=False)
     address = fields.Many2one(
         'res.partner',
         string="Address")
@@ -65,5 +70,4 @@ class ResourceLocation(models.Model):
         comodel_name='resource.category',
         string='Available Categories',
         compute=_compute_available_resources,
-        store=True,
-    )
+        store=True)

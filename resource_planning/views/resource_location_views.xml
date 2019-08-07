@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 	<data>
-		<menuitem name="Locations" id="menu_resource_location" parent="menu_main_resource_planning" sequence="30" groups="resource_planning.group_multi_location"/>
-		
+
 		<record id="resource_location_tree" model="ir.ui.view">
             <field name="name">resource.location.tree</field>
             <field name="model">resource.location</field>
@@ -23,6 +22,7 @@
 	            		<group>
 	            			<group>
 		            			<field name="name"/>
+								<field name="main_location"/>
 	            			</group>
 	            			<group>
 		            			<field name="address"/>
@@ -67,18 +67,6 @@
             </field>
         </record>
         
-        <record id="action_resource_location" model="ir.actions.act_window">
-            <field name="name">Resource locations</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="res_model">resource.location</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-        </record>
-        
-        <menuitem action="action_resource_location"
-				  id="resource_location_menu"
-				  parent="menu_resource_location"
-				  sequence="10"
-				  groups="resource_planning.group_multi_location"/>
+
 	</data>
 </odoo>

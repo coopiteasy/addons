@@ -282,7 +282,7 @@ class ResourceActivity(models.Model):
         string="Arrival")
     description = fields.Char(
         string="Description")
-    comment = fields.Text(
+    comment = fields.Html(
         string="Comment")
     activity_type = fields.Many2one(
         'resource.activity.type',
@@ -381,12 +381,43 @@ class ResourceActivity(models.Model):
         compute='_compute_registrations_paid',
         store=True,
     )
+    is_start_outside_opening_hours = fields.Boolean(
+        string='Activity start is outside opening hours',
+        compute='_compute_outside_opening_hours',
+    )
+    is_end_outside_opening_hours = fields.Boolean(
+        string='Activity end is outside opening hours',
+        compute='_compute_outside_opening_hours',
+    )
+
+    @api.multi
+    @api.depends('date_end', 'date_start')
+    def _compute_outside_opening_hours(self):
+        opening_hours = self.env['activity.opening.hours']
+        for activity in self:
+            if activity.date_start and activity.date_end:
+                activity.is_start_outside_opening_hours = not (
+                    opening_hours.is_location_open(activity.location_id,
+                                                   activity.date_start)
+                )
+                activity.is_end_outside_opening_hours = not (
+                    opening_hours.is_location_open(activity.location_id,
+                                                   activity.date_end)
+                )
 
     @api.onchange('location_id')
     def onchange_location_id(self):
         if self.location_id and self.location_id.address:
-            self.departure = self.location_id.address._display_address(self.location_id.address)
-            self.arrival = self.location_id.address._display_address(self.location_id.address)
+            self.departure = (
+                self.location_id
+                    .address
+                    ._display_address(self.location_id.address)
+            )
+            self.arrival = (
+                self.location_id
+                    .address
+                    ._display_address(self.location_id.address)
+            )
 
     @api.onchange('booking_type')
     def onchange_booking_type(self):
@@ -502,6 +533,7 @@ class ResourceActivity(models.Model):
                             + " minute(s)"
                     )
 
+
     @api.multi
     def search_all_resources(self):
         for activity in self:
@@ -519,8 +551,35 @@ class ResourceActivity(models.Model):
 
     @api.multi
     def action_done(self):
+        """
+        Allowed from
+        - sale state
+        - draft state if nothing to invoice
+        - allow bur warn from draft state with invoiced resources
+        """
         for activity in self:
-            activity.state = 'done'
+            registrations = (
+                activity
+                .registrations
+                .filtered(lambda r: r.state in ['option', 'booked'])
+            )
+            # warn if in draft and invoiced resources booked
+            if (activity.state == 'draft'
+                and (registrations or activity.guides or activity.trainers)):
+                action = self.env.ref(
+                    'resource_activity.action_draft_to_done')
+                return {
+                    'name': action.name,
+                    'help': action.help,
+                    'type': action.type,
+                    'view_type': action.view_type,
+                    'view_mode': action.view_mode,
+                    'target': action.target,
+                    'context': self._context,
+                    'res_model': action.res_model,
+                }
+            elif activity.state in ('draft', 'sale'):
+                activity.state = 'done'
 
     @api.multi
     def action_draft(self):
@@ -738,6 +797,11 @@ class ResourceActivity(models.Model):
     @api.multi
     def action_back_to_sale_order(self):
         for activity in self:
+            if activity.state == 'done' and not activity.sale_orders:
+                raise ValidationError(_(
+                    "No sale order on this activity. Cancel first than go "
+                    "back to draft. "
+                ))
             activity.state = 'sale'
 
     def update_resource_booking_line(self, registration, sale_order_id):

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="recompute_qty_after_move_view" model="ir.ui.view">
+        <field name="name">Recompute qty after move</field>
+        <field name="model">stock.recompute.after.move</field>
+        <field name="arch" type="xml">
+        <form string="Recompute">
+			<group>
+            	<field name="update"/>
+            	<field name="print_log"/>
+            </group>
+            <footer>
+                <button name="recompute" string="Recompute" type="object" default_focus="1" class="oe_highlight"/>
+                or 
+                <button string="Cancel" class="oe_link" special="cancel" />
+            </footer>
+        </form>
+        </field>
+    </record>
+    
+    <record id="action_recompute_qty_after_move" model="ir.actions.act_window">
+        <field name="name">Recompute qty after move</field>
+        <field name="res_model">stock.recompute.after.move</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="recompute_qty_after_move_view"/>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_recompute_qty_after_move" name="Qty After Move" action="action_recompute_qty_after_move" 
+    parent="stock.menu_warehouse_report" groups="base.group_system" sequence="180"/>
+
+</odoo>

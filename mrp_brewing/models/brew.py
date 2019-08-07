@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
-# Part of Open Architechts Consulting sprl. See LICENSE file for full copyright and licensing details.
+# Part of Open Architechts Consulting sprl. See LICENSE file for full
+# copyright and licensing details.
 
 from openerp import api, fields, models, _
 
 from datetime import datetime, date
 import openerp.addons.decimal_precision as dp
 
-from openerp.exceptions import UserError, ValidationError
+from openerp.exceptions import UserError
 from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
 

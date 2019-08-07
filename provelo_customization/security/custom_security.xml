@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2017-2018 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<openerp>
+    <data noupdate="0">  <!-- fixme -->
+
+        <record id="group_provelo_customizer" model="res.groups">
+            <field name="name">Provelo Customizer</field>
+            <field name="category_id">99</field>  <!-- custom -->
+        </record>
+
+    </data>
+</openerp>
