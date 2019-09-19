@@ -26,6 +26,7 @@ class ResourceCategory(models.Model):
             'Active', default=True,
             track_visibility='onchange')
 
+
 class Resource(models.Model):
     _name = 'resource.resource'
     _inherit = ['resource.resource', 'mail.thread']
@@ -62,9 +63,27 @@ class Resource(models.Model):
     location = fields.Many2one(
         'resource.location',
         string="Location",
-        default=_get_default_location,
-        # required=True,
-    )
+        default=_get_default_location)
+    removed_from_stock = fields.Boolean(
+        string='Removed From Stock',
+        default=False)
+    stock_removal_reason = fields.Selection(
+        string='Stock Removal Reason',
+        selection=[('sold', 'Sold'),
+                   ('stolen', 'Stolen'),
+                   ('given', 'Given'),
+                   ('broken', 'Broken'),
+                   ('other', 'Other')])
+    purchase_date = fields.Date(
+        string='Purchase Date')
+    stock_removal_date = fields.Date(
+        string='Stock Removal Date')
+    selling_price = fields.Float(
+        string='Selling Price')
+    purchase_invoice_ref = fields.Char(
+        string='Purchase Invoice Ref')
+    sale_invoice_ref = fields.Char(
+        string='Sale Invoice Ref')
 
     _sql_constraints = [
         ('name_uniq', 'unique (name)',
@@ -94,7 +113,7 @@ class Resource(models.Model):
                                     "date. Please choose an end date after a "
                                     "start date "))
 
-    @api.multi        
+    @api.multi
     def check_availabilities(self, date_start, date_end, location):
         self.check_dates(date_start, date_end)
         available_resources = self.filtered(lambda r: r.state == 'available')
