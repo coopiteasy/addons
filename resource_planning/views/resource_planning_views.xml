@@ -52,6 +52,15 @@
                 <field name="calendar_id"/>
                 <field name="time_efficiency" invisible="True"/>
               </group>
+              <group name="stock_info" string="Stock Info">
+                <field name="purchase_invoice_ref"/>
+                <field name="purchase_date"/>
+                <field name="removed_from_stock"/>
+                <field name="stock_removal_reason" attrs="{'invisible':[('removed_from_stock','=',False)]}"/>
+                <field name="stock_removal_date" attrs="{'invisible':[('removed_from_stock','=',False)]}"/>
+                <field name="selling_price" attrs="{'invisible':[('stock_removal_reason', '!=', 'sold')]}"/>
+                <field name="sale_invoice_ref" attrs="{'invisible':[('stock_removal_reason', '!=', 'sold')]}"/>
+              </group>
             </group>
             <notebook>
               <page name="allocations" string="Allocations">
