@@ -16,6 +16,7 @@
                 'sale',
                 'product',
                 'sale_order_dates',
+                'purchase',
                 ],
     'data': [
         'security/ir.model.access.csv',
