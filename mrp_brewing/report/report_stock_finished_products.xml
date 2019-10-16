@@ -72,7 +72,18 @@
                                         <span t-esc="a.origin"/>
                                     </td>
                                     <td>
-                                        <span t-esc="a.raw_material_production_id.brew_order_name"/>
+                                        <t t-if="a.origin">
+                                            <t t-set="lot_number" t-value="False"/>
+                                            <t t-if="a.raw_material_production_id.brew_order_name">
+                                                <t t-set="lot_number" t-value="a.raw_material_production_id.brew_order_name"/>
+                                            </t>
+                                            <t t-if="not a.raw_material_production_id.brew_order_name">
+                                                <t t-foreach="a.quant_ids" t-as="qids">
+                                                    <t t-set="lot_number" t-value="qids.lot_id.display_name"/>
+                                                </t>
+                                            </t>
+                                            <span t-esc="lot_number"/>
+                                        </t>
                                     </td>
                                     <td>
                                         <span t-att-style="style" t-esc="a.product_id.name" />
