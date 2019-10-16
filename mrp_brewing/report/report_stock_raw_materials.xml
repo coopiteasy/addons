@@ -43,7 +43,7 @@
                                         <span t-esc="a.origin"/>
                                     </td>
                                     <td>
-                                        <span t-att-style="style" t-esc="a.date" />
+                                        <span t-att-style="style" t-field="a.with_context(tz=a.env.user.tz).date" />
                                     </td>
                                     <td>
                                         <span t-att-style="style" t-esc="a.product_id.name" />
@@ -82,7 +82,7 @@
                                         <span t-esc="a.origin"/>
                                     </td>
                                     <td>
-                                        <span t-att-style="style" t-esc="a.date" />
+                                        <span t-att-style="style" t-field="a.with_context(tz=a.env.user.tz).date" />
                                     </td>
                                     <td>
                                         <span t-att-style="style" t-esc="a.product_id.name" />
