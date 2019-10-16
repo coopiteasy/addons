@@ -65,7 +65,7 @@
                                         <span t-att-style="style" t-esc="a.quantity_after_move" />
                                     </td>
                                 </t>
-                                <t t-if="a.location_dest_id.usage in ['production','inventory']">
+                                <t t-if="a.location_dest_id.usage in ['production','inventory','customer']">
                                     <td/>
                                     <td/>
                                     <td/>
