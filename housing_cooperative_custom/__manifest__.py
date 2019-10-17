@@ -14,6 +14,10 @@
         'housing_cooperative_base',
         'l10n_ch_states',
     ],
+    'data': [
+        'data/data.xml',
+        'views/building.xml',
+    ],
     'installable': True,
     'application': False,
 }
