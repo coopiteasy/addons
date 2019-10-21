@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2019 Coop IT Easy SCRL fs
 #   Robin Keunen <robin@coopiteasy.be>
 #   Vincent Van Rossem <vincent@coopiteasy.be>
@@ -15,7 +14,7 @@
     'website': "https://github.com/coopiteasy/addons",
 
     'category': 'Sales Management',
-    'version': '10.0.1.0.0',
+    'version': '11.0.1.0.0',
 
     'depends': [
         'stock',

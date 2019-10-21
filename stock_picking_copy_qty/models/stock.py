@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2019 Coop IT Easy SCRL fs
 #   Robin Keunen <robin@coopiteasy.be>
 #   Vincent Van Rossem <vincent@coopiteasy.be>
@@ -14,6 +13,6 @@ class StockPicking(models.Model):
     @api.multi
     def copy_qty(self):
         self.ensure_one()
-        for pack_operation in self.pack_operation_product_ids:
-            pack_operation.qty_done = pack_operation.product_qty
+        for move_without_package in self.move_ids_without_package:
+            move_without_package.quantity_done = move_without_package.product_uom_qty
         return True
