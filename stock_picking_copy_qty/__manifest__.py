@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Copyright 2019 Coop IT Easy SCRL fs
 #   Robin Keunen <robin@coopiteasy.be>
+#   Vincent Van Rossem <vincent@coopiteasy.be>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 {
@@ -10,11 +11,11 @@
         Adds a button to copy reserved quantity to received quantity    
     """,
 
-    'author': "Beescoop - Cellule IT, Coop IT Easy SCRL fs",
-    'website': "https://github.com/beescoop/Obeesdoo",
+    'author': "Coop IT Easy SCRL fs",
+    'website': "https://github.com/coopiteasy/addons",
 
     'category': 'Sales Management',
-    'version': '9.0.0.0.1',
+    'version': '10.0.1.0.0',
 
     'depends': [
         'stock',
@@ -26,4 +27,6 @@
     ],
 
     'demo': [],
+
+    'installable': True
 }
