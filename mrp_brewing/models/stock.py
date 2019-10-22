@@ -15,6 +15,11 @@ class StockMove(models.Model):
             if move.state == 'done':
                 move.quantity_after_move = move.product_id.qty_available
 
+    lot_numbers = fields.Char(
+        string="Lot Numbers",
+        compute="_compute_lot_numbers",
+        store=True,
+        readonly=True)
     quantity_after_move = fields.Integer(
         string="Quantity",
         compute="get_on_hand",
@@ -26,6 +31,17 @@ class StockMove(models.Model):
     is_internal = fields.Boolean(
         string="Is Internal",
         compute="_compute_is_internal")
+
+    @api.multi
+    @api.depends('quant_ids')
+    def _compute_lot_numbers(self):
+
+        for stock_move in self:
+            lot_numbers = stock_move.lot_numbers.split('/') if stock_move.lot_numbers else []
+            for qid in stock_move.quant_ids:
+                if qid.lot_id.display_name and qid.lot_id.display_name not in lot_numbers:
+                    lot_numbers.append(qid.lot_id.display_name)
+            stock_move.lot_numbers = "/".join(lot_numbers)
 
     @api.multi
     @api.depends('location_id', 'location_dest_id')
