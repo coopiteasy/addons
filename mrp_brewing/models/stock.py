@@ -37,7 +37,7 @@ class StockMove(models.Model):
     def _compute_lot_numbers(self):
 
         for stock_move in self:
-            lot_numbers = stock_move.lot_numbers.split('/') if stock_move.lot_numbers else []
+            lot_numbers = []
             for qid in stock_move.quant_ids:
                 if qid.lot_id.display_name and qid.lot_id.display_name not in lot_numbers:
                     lot_numbers.append(qid.lot_id.display_name)
@@ -73,8 +73,8 @@ class StockMove(models.Model):
                         toolbar=False, submenu=False):
         result = (
             super(StockMove, self)
-            .fields_view_get(view_id, view_type,
-                             toolbar=toolbar, submenu=submenu)
+                .fields_view_get(view_id, view_type,
+                                 toolbar=toolbar, submenu=submenu)
         )
         if 'fields' in result and 'product_id' in result['fields']:
             result['fields']['product_id']['domain'] = (
