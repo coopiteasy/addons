@@ -17,6 +17,7 @@
     'data': [
         'data/data.xml',
         'views/building.xml',
+        'views/housing.xml',
     ],
     'installable': True,
     'application': False,
