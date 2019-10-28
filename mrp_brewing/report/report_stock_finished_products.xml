@@ -38,7 +38,10 @@
                                             <span t-att-style="style" t-field="a.with_context(tz=a.env.user.tz).date"/>
                                         </td>
                                         <td>
-                                            <t t-if="a.lot_numbers">
+                                            <t t-if="a.raw_material_production_id.brew_order_name">
+                                                <span t-esc="a.raw_material_production_id.brew_order_name"/>
+                                            </t>
+                                            <t t-if="not a.raw_material_production_id.brew_order_name and a.lot_numbers">
                                                 <span t-esc="a.lot_numbers"/>
                                             </t>
                                         </td>
