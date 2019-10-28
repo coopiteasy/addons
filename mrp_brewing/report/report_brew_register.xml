@@ -1,181 +1,181 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-<template id="mrp_brewing.brew_register">
-    <t t-call="report.html_container">
-        <t t-foreach="docs" t-as="o">
-            <t t-call="report.internal_layout">
-                <div class="page">
-                    <h2 style="text-align:center"> Brew Register Report</h2>
-					<br/>
-					<h3 style="text-align:center"> Authorized warehousekeeper n°</h3>
-                    <!-- <div class="row mt32 mb32">
-                        <div class="col-xs-4">
-                            <strong>Target Moves:</strong>
-                            <p>
-                                <span t-if="data['target_move'] == 'all'">All Entries</span>
-                                <span t-if="data['target_move'] == 'posted'">All Posted Entries</span>
-                            </p>
-                        </div>
-                        <div class="col-xs-4">
-                            <p>
-                                <t t-if="data['date_from']"><strong>Date from :</strong> <span t-esc="data['date_from']"/><br/></t>
-                                <t t-if="data['date_to']"><strong>Date to :</strong> <span t-esc="data['date_to']"/></t>
-                            </p>
-                        </div>
-                    </div> -->
-					<br/>
-					<br/>
-                    <table class="table table-condensed">
-                        <thead>
-                            <tr>
-                                <th>Brew date</th>
-                                <th colspan='5' style="text-align: center;">Brew Declaration</th>
-                                <th>Used vessels for work in tank</th>
-                                <th colspan='3' style="text-align: center;">Used raw material quantity</th>
-                                <th>% dry extract</th>
-                                <th>Real bulk of wort</th>
-                                <th>Hl noted by the brewer</th>
-                                <th>Collecting vessels</th>
-                                <th>Hl noted by the agents</th>
-                                <th>Lot Number</th>
-                                <th>Volume of green Beer</th>
-                                <th>Output wort (Hl)</th>
-                                <th>Sugar</th>
-                                <th>Output beer (Hl)</th>
-                                <th>Remark</th>
-                            </tr>
-                            <tr>
-                                <td/>
-                                <td>Date</td>
-                                <td>Number</td>
-                                <td>Brew number</td>
-                                <td>Bom id</td>
-                                <td>Product code</td>
-                                <td/>
-                                <td>Species</td>
-								<td>Quantity</td>
-                                <td>UoM</td>
-                                <td/>
-                                <td/>
-                                <td/>
-                                <td/>
-                                <td/>
-                                <td/>
-                                <td/>
-                                <td/>
-                                <td/>
-                                <td/>
-                                <td/>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <t t-foreach="get_brew_orders" t-as="a">
-                                <t t-if="a.state == 'done'">
-                                   <t t-set="lign_count" t-value="0"/>
-                                   <t t-foreach="a.consumed_lines" t-as="stm">
-	                                   <t t-if="lign_count == 0">
-		                                   <tr>
-			                                   <td>
-                                                   <span t-field="a.with_context(tz=a.env.user.tz).start_date"/>
-			                                    </td>
-			                                   <td>
-                                                   <span t-field="a.with_context(tz=a.env.user.tz).brew_declaration_id.request_date"/>
-			                                    </td>
-			                                    <td>
-			                                        <span t-esc="a.brew_declaration_id.brew_declaration_number"/>
-			                                    </td>
-			                                    <td>
-			                                        <span t-esc="a.brew_number"/>
-			                                    </td>
-			                                    <td>
-			                                        <span t-esc="a.bom.code"/>
-			                                    </td>
-			                                    <td>
-			                                        <span t-esc="a.product_id.code"/>
-			                                    </td>
-			                                    <td>
-			                                        <span t-esc="a.used_vessels_tank"/>
-			                                    </td>
-			                                    <td>
-			                                        <span t-esc="stm.product_id.name"/>
-			                                    </td>
-			                                    <td>
-			                                        <span t-esc="stm.product_uom_qty"/>
-			                                    </td>
-			                                    <td>
-			                                        <span t-esc="stm.product_uom.name"/>
-			                                    </td>
-			                                    <td>
-			                                        <span t-esc="a.dry_extract"/>
-			                                    </td>
-			                                    <td>
-			                                        <span t-esc="a.real_bulk_wort"/>
-			                                    </td>
-			                                    <td>
-			                                        <span t-esc="a.hl_plato_brewer"/>
-			                                    </td>
-			                                    <td>
-			                                        <span t-esc="a.collecting_vessels"/>
-			                                    </td>
-			                                    <td>
-			                                        <span t-esc="a.hl_plato_agent"/>
-			                                    </td>
-			                                    <td>
-			                                        <span t-esc="a.green_beer_volume"/>
-			                                    </td>
-			                                    <td>
-			                                        <span t-esc="a.sugar_quantity"/>
-			                                    </td>
-			                                    <td>
-			                                        <span t-esc="a.output_wort"/>
-			                                    </td>
-			                                    <td>
-			                                        <span t-esc="a.output_beer"/>
-			                                    </td>
-			                                    <td>
-			                                        <span t-esc="a.notes"/>
-			                                    </td>
-		                                    </tr>
-	                                    </t>
-                                    	<t t-if="lign_count != 0">
-		                                    <tr>
-			                                   	<td/>
-			                                   	<td/>
-			                                	<td/>
-			                                    <td/>
-			                                    <td/>
-			                                    <td/>
-			                                    <td/>
-			                                    <td>
-			                                        <span t-esc="stm.product_id.name"/>
-			                                    </td>
-			                                    <td>
-			                                        <span t-esc="stm.product_uom_qty"/>
-			                                    </td>
-			                                    <td>
-			                                        <span t-esc="stm.product_uom.name"/>
-			                                    </td>
-			                                    <td/>
-			                                    <td/>
-			                                    <td/>
-			                                    <td/>
-			                                    <td/>
-			                                    <td/>
-			                                    <td/>
-			                                    <td/>
-			                                    <td/>
-			                                    <td/>
-		                                    </tr>
-		                            	</t>
-		                            	<t t-set="lign_count" t-value="1"/>
+    <template id="mrp_brewing.brew_register">
+        <t t-call="report.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="report.internal_layout">
+                    <div class="page">
+                        <h2 style="text-align:center">Brew Register Report</h2>
+                        <br/>
+                        <h3 style="text-align:center">Authorized warehousekeeper n°</h3>
+                        <!-- <div class="row mt32 mb32">
+                            <div class="col-xs-4">
+                                <strong>Target Moves:</strong>
+                                <p>
+                                    <span t-if="data['target_move'] == 'all'">All Entries</span>
+                                    <span t-if="data['target_move'] == 'posted'">All Posted Entries</span>
+                                </p>
+                            </div>
+                            <div class="col-xs-4">
+                                <p>
+                                    <t t-if="data['date_from']"><strong>Date from :</strong> <span t-esc="data['date_from']"/><br/></t>
+                                    <t t-if="data['date_to']"><strong>Date to :</strong> <span t-esc="data['date_to']"/></t>
+                                </p>
+                            </div>
+                        </div> -->
+                        <br/>
+                        <br/>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>Brew date</th>
+                                    <th colspan='5' style="text-align: center;">Brew Declaration</th>
+                                    <th>Used vessels for work in tank</th>
+                                    <th colspan='3' style="text-align: center;">Used raw material quantity</th>
+                                    <th>% dry extract</th>
+                                    <th>Real bulk of wort</th>
+                                    <th>Hl noted by the brewer</th>
+                                    <th>Collecting vessels</th>
+                                    <th>Hl noted by the agents</th>
+                                    <th>Lot Number</th>
+                                    <th>Volume of green Beer</th>
+                                    <th>Output wort (Hl)</th>
+                                    <th>Sugar</th>
+                                    <th>Output beer (Hl)</th>
+                                    <th>Remark</th>
+                                </tr>
+                                <tr>
+                                    <td/>
+                                    <td>Date</td>
+                                    <td>Number</td>
+                                    <td>Brew number</td>
+                                    <td>Bom id</td>
+                                    <td>Product code</td>
+                                    <td/>
+                                    <td>Species</td>
+                                    <td>Quantity</td>
+                                    <td>UoM</td>
+                                    <td/>
+                                    <td/>
+                                    <td/>
+                                    <td/>
+                                    <td/>
+                                    <td/>
+                                    <td/>
+                                    <td/>
+                                    <td/>
+                                    <td/>
+                                    <td/>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="get_brew_orders" t-as="a">
+                                    <t t-if="a.state == 'done'">
+                                        <t t-set="lign_count" t-value="0"/>
+                                        <t t-foreach="a.consumed_lines" t-as="stm">
+                                            <t t-if="lign_count == 0">
+                                                <tr>
+                                                    <td>
+                                                        <span t-field="a.with_context(tz=a.env.user.tz).start_date"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-field="a.with_context(tz=a.env.user.tz).brew_declaration_id.request_date"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="a.brew_declaration_id.brew_declaration_number"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="a.brew_number"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="a.bom.code"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="a.product_id.code"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="a.used_vessels_tank"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="stm.product_id.name"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="stm.product_uom_qty"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="stm.product_uom.name"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="a.dry_extract"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="a.real_bulk_wort"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="a.hl_plato_brewer"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="a.collecting_vessels"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="a.hl_plato_agent"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="a.green_beer_volume"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="a.sugar_quantity"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="a.output_wort"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="a.output_beer"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="a.notes"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <t t-if="lign_count != 0">
+                                                <tr>
+                                                    <td/>
+                                                    <td/>
+                                                    <td/>
+                                                    <td/>
+                                                    <td/>
+                                                    <td/>
+                                                    <td/>
+                                                    <td>
+                                                        <span t-esc="stm.product_id.name"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="stm.product_uom_qty"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="stm.product_uom.name"/>
+                                                    </td>
+                                                    <td/>
+                                                    <td/>
+                                                    <td/>
+                                                    <td/>
+                                                    <td/>
+                                                    <td/>
+                                                    <td/>
+                                                    <td/>
+                                                    <td/>
+                                                    <td/>
+                                                </tr>
+                                            </t>
+                                            <t t-set="lign_count" t-value="1"/>
+                                        </t>
                                     </t>
                                 </t>
-                            </t>
-                        </tbody>
-                    </table>
-                </div>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
             </t>
         </t>
-    </t>
-</template>
+    </template>
 </odoo>
