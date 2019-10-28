@@ -76,10 +76,10 @@
 	                                   <t t-if="lign_count == 0">
 		                                   <tr>
 			                                   <td>
-			                                        <span t-esc="a.start_date"/>
+                                                   <span t-field="a.with_context(tz=a.env.user.tz).start_date"/>
 			                                    </td>
 			                                   <td>
-			                                        <span t-esc="a.brew_declaration_id.request_date"/>
+                                                   <span t-field="a.with_context(tz=a.env.user.tz).brew_declaration_id.request_date"/>
 			                                    </td>
 			                                    <td>
 			                                        <span t-esc="a.brew_declaration_id.brew_declaration_number"/>
