@@ -8,21 +8,6 @@
                         <h2 style="text-align:center">Brew Register Report</h2>
                         <br/>
                         <h3 style="text-align:center">Authorized warehousekeeper n°</h3>
-                        <!-- <div class="row mt32 mb32">
-                            <div class="col-xs-4">
-                                <strong>Target Moves:</strong>
-                                <p>
-                                    <span t-if="data['target_move'] == 'all'">All Entries</span>
-                                    <span t-if="data['target_move'] == 'posted'">All Posted Entries</span>
-                                </p>
-                            </div>
-                            <div class="col-xs-4">
-                                <p>
-                                    <t t-if="data['date_from']"><strong>Date from :</strong> <span t-esc="data['date_from']"/><br/></t>
-                                    <t t-if="data['date_to']"><strong>Date to :</strong> <span t-esc="data['date_to']"/></t>
-                                </p>
-                            </div>
-                        </div> -->
                         <br/>
                         <br/>
                         <table class="table table-condensed">
