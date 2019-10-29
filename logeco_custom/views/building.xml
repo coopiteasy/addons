@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2019 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+
+    <record id="view_hc_building_form" model="ir.ui.view">
+        <field name="name">view_hc_building_form</field>
+        <field name="model">hc.building</field>
+        <field name="inherit_id" ref="housing_cooperative_base.view_hc_building_form"/>
+        <field name="arch" type="xml">
+
+            <group name="people" position="after">
+                <group>
+                    <field name="surface_hm"/>
+                    <field name="housings_hm"/>
+                    <field name="surface_lup"/>
+                    <field name="housings_lup"/>
+                    <field name="surface_zdloc"/>
+                    <field name="housings_zdloc"/>
+                </group>
+                <group>
+                    <field name="ddp_start"/>
+                    <field name="ddp_duration"/>
+                    <field name="lgl_end"/>        
+                </group>  
+            </group>
+
+        </field>
+    </record>
+
+</odoo>

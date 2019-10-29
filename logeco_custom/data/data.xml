@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2019 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+
+    <record id="hc_permit_nationaux_data" model="hc.permit">
+        <field name="name">Nationaux</field>
+    </record>
+    <record id="hc_permit_permis_b_data" model="hc.permit">
+        <field name="name">Permis B</field>
+    </record>
+    <record id="hc_permit_permis_b_etudiant_data" model="hc.permit">
+        <field name="name">Permis B étudiant</field>
+    </record>
+    <record id="hc_permit_permis_b_refugie_data" model="hc.permit">
+        <field name="name">Permis B réfugié</field>
+    </record>
+    <record id="hc_permit_permis_c_data" model="hc.permit">
+        <field name="name">Permis C</field>
+    </record>
+    <record id="hc_permit_permis_ci_diplomate_data" model="hc.permit">
+        <field name="name">Permis Ci - diplomate</field>
+    </record>
+    <record id="hc_permit_permis_l_data" model="hc.permit">
+        <field name="name">Permis L</field>
+    </record>
+    <record id="hc_permit_permis_f_data" model="hc.permit">
+        <field name="name">Permis F</field>
+    </record>
+    <record id="hc_permit_permis_g_frontalier_data" model="hc.permit">
+        <field name="name">Permis G - frontalier</field>
+    </record>
+    <record id="hc_permit_permis_n_data" model="hc.permit">
+        <field name="name">Permis N</field>
+    </record>
+    <record id="hc_permit_non_renseigne_data" model="hc.permit">
+        <field name="name">Non renseigné</field>
+    </record>
+
+
+</odoo>
