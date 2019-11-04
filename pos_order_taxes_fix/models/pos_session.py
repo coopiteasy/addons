@@ -1,4 +1,7 @@
+import logging
 from odoo import api, models
+
+_logger = logging.getLogger(__name__)
 
 
 class PosSession(models.Model):
@@ -33,9 +36,9 @@ class PosSession(models.Model):
 
         taxes_diff = abs(order.amount_tax != amount_tax)
         if taxes_diff != 0:
-            print(("Taxes calculated in POS client and in backend "
-                   "don't match. There is a difference of %.2f on the "
-                   "pos order %s.") % (taxes_diff, order.name))
+            logging.info(("Taxes calculated in POS client and in backend "
+                          "don't match. There is a difference of %.2f on the "
+                          "pos order %s.") % (taxes_diff, order.name))
             order.amount_tax = amount_tax
             order.amount_total = amount_tax + amount_untaxed
 
