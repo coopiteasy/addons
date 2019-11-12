@@ -19,5 +19,6 @@
 
     'data': [
         'reports/report_deliveryslip.xml',
+        'views/templates.xml',
     ],
 }
