@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2019 Coop IT Easy SCRLfs
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+    <template id="closed_ecommerce" name="Closed e-commerce">
+        <t t-call="website.layout">
+            <t t-set="additional_title">Shop</t>
+            <div id="wrap">
+                <div class="container oe_website_sale">
+                    <div id="text_closed_ecommerce"
+                        t-raw="text_closed_ecommerce"/>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>
+
