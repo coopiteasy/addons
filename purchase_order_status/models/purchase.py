@@ -8,32 +8,15 @@ from openerp.tools.float_utils import float_compare
 class PurchaseOrder(models.Model):
     _inherit = "purchase.order"
 
-    delivery_done_date = fields.Datetime(
-        compute='_compute_delivery_info',
-        string="Delivery done date",
-        readonly=True)
-
-    delivery_status = fields.Selection(
-        [('to_deliver', 'To deliver'),
-         ('delivered', 'Delivered'),
-         ('cancelled', 'Cancelled')],
-        compute='_compute_delivery_info',
-        string="Delivery status",
-        search='_search_delivery_status',
-        readonly=True)
-    invoice_status = fields.Selection(selection_add=[
-                        ('paid', 'Paid')
-                        ])
-
     @api.depends('state', 'order_line.qty_invoiced', 'order_line.product_qty')
     def _get_invoiced(self):
         precision = self.env['decimal.precision'].precision_get('Product Unit of Measure') #noqa
         for po in self:
             invoice_status = 'no'
-            if po.state not in ['purchase', 'done']:
-                if any(float_compare(line.qty_invoiced, line.product_qty, precision_digits=precision) == -1 for line in order.order_line): #noqa
+            if po.state in ['purchase', 'done']:
+                if any(float_compare(line.qty_invoiced, line.product_qty, precision_digits=precision) == -1 for line in po.order_line): #noqa
                     invoice_status = 'to invoice'
-                elif all(float_compare(line.qty_invoiced, line.product_qty, precision_digits=precision) >= 0 for line in order.order_line): #noqa
+                elif all(float_compare(line.qty_invoiced, line.product_qty, precision_digits=precision) >= 0 for line in po.order_line): #noqa
                     invoice_status = 'invoiced'
                 else:
                     invoice_status = 'no'
@@ -79,3 +62,20 @@ class PurchaseOrder(models.Model):
             filter_function[operator]
         )
         return [('id', 'in', purchase_orders.ids)]
+
+    delivery_done_date = fields.Datetime(
+        compute='_compute_delivery_info',
+        string="Delivery done date",
+        readonly=True)
+
+    delivery_status = fields.Selection(
+        [('to_deliver', 'To deliver'),
+         ('delivered', 'Delivered'),
+         ('cancelled', 'Cancelled')],
+        compute='_compute_delivery_info',
+        string="Delivery status",
+        search='_search_delivery_status',
+        readonly=True)
+    invoice_status = fields.Selection(selection_add=[
+                        ('paid', 'Paid')],
+                        compute='_get_invoiced',)
