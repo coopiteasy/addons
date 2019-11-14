@@ -1,8 +1,8 @@
 /*
     POS Search with Accented/Unaccented characters module for Odoo
-    Copyright (C) 2019 Coop IT Easy
+    Copyright 2019 Coop IT Easy SCRLfs
     @author: Vincent Van Rossem <vincent@coopiteasy.be>
-    The licence is in the file __openerp__.py
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 */
 odoo.define('pos_search_accented_unaccented', function (require) {
     "use strict";
