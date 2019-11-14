@@ -13,7 +13,7 @@
     "category": "Point of Sale",
     "website": "http://coopiteasy.be",
     "description": """
-        Allows to search in POS for products using accented and/or unaccented characters.
+        Allows to search in POS for products with accented characters in name using unaccented search query.
     """,
     "data": [
         'views/templates.xml',
