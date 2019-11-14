@@ -1,40 +1,33 @@
 # -*- coding: utf-8 -*-
-##############################################################################
-#
-#    Copyright (C) 2017- Coop IT Easy.
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
+# © 2017 - Coop IT Easy SCRLfs. (<http://www.coopiteasy.be>)
+# © 2018 - Robin Keunen <robin@coopiteasy.be>
+# © 2019 Elouan Le Bars <elouan@coopiteasy.be>
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+
 {
     "name": "Sale Order Volume",
-    "version": "1.0",
+    "version": "9.0.1.1.0",
     "depends": [
         'sale',
         'website_sale',
     ],
-    "author": "Robin Keunen <robin@coopiteasy.be>",
-    'license': 'AGPL-3',
+    "author": "Coop IT Easy SCRLfs",
     "category": "Sale",
     "website": "www.coopiteasy.be",
+    'license': 'AGPL-3',
     "description": """
-        Computes the volume of products per category ordered and display it on 
+        Computes the volume of products per category ordered and display it on
         - sale order page,
         - sale order report,
         - website shop cart website page.
+        The corresponding number of pallets is displayed on
+        - sale order page
+        - website shop cart website page.
+        Pallet volume is configurable.
     """,
     'data': [
+        'data/res_config_data.xml',
+        'views/res_config_view.xml',
         'views/sale_order.xml',
         'views/shopping_cart.xml',
         'reports/report_saleorder.xml',

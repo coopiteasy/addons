@@ -23,7 +23,28 @@ class ProductCategoryVolume(models.Model):
     volume = fields.Float(
         string='Volume (m³)',
     )
+    pallet_no = fields.Integer(
+        string="Number of pallets",
+        compute='compute_pallet_no'
+    )
 
+    @api.model
+    def get_pallet_volume_indication(self):
+        pallet_volume = float(self.env["ir.config_parameter"].get_param(
+        'sale_order_volume.pallet_volume'
+        )) or 0
+        return "One pallet = %.2f m³" % pallet_volume
+
+    @api.depends('volume')
+    def compute_pallet_no(self):
+        pallet_volume = float(self.env["ir.config_parameter"].get_param(
+            'sale_order_volume.pallet_volume'
+        ))
+        for product in self:
+            if pallet_volume:
+                product.pallet_no = product.volume // pallet_volume
+            else:
+                product.pallet_no = 0
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'

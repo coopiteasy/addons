@@ -11,13 +11,14 @@
                     <page string="Volume of Products">
                         <group>
                             <field name="volume"/>
+                        </group>
                             <field name="volume_per_category">
                                 <tree>
                                     <field name="category_id"/>
                                     <field name="volume"/>
+                                    <field name="pallet_no"/>
                                 </tree>
                             </field>
-                        </group>
                     </page>
                 </xpath>
             </field>

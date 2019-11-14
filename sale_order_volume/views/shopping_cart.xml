@@ -21,6 +21,24 @@
                     </t>
                 </tbody>
             </table>
+            <h4>Number of pallets</h4>
+            <table class="table table-condensed" name="number-of-pallets">
+                <tbody class="sale_tbody">
+                    <t t-set="category_volumes"
+                       t-value="website_sale_order.compute_order_product_category_volumes()"/>
+                    <p t-esc="category_volumes[0].get_pallet_volume_indication()"/>
+                    <t t-foreach="category_volumes" t-as="line">
+                        <tr>
+                            <td>
+                                <span t-field="line.category_id"/>
+                            </td>
+                            <td class="text-right">
+                                <span t-field="line.pallet_no"/>
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </table>
         </div>
     </template>
 
