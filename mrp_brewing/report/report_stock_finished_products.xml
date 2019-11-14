@@ -8,7 +8,7 @@
                         <h2 style="text-align:center">Finished Products Stock Report</h2>
                         <br/>
                         <h3 style="text-align:center">Authorized warehousekeeper n°
-                            <span t-esc="res_company.warehousekeeper_nb"/>
+                            <span t-esc="res_company.warehousekeeper_no"/>
                         </h3>
 
                         <table class="table table-condensed">
