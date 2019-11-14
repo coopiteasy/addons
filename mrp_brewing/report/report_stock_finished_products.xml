@@ -7,7 +7,9 @@
                     <div class="page">
                         <h2 style="text-align:center">Finished Products Stock Report</h2>
                         <br/>
-                        <h3 style="text-align:center">Authorized warehousekeeper n°</h3>
+                        <h3 style="text-align:center">Authorized warehousekeeper n°
+                            <span t-esc="res_company.warehousekeeper_nb"/>
+                        </h3>
 
                         <table class="table table-condensed">
                             <thead>

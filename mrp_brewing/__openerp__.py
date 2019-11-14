@@ -36,6 +36,7 @@
         'views/sale_view.xml',
         'views/sale_order_report.xml',
         'views/partner_view.xml',
+        'views/company_view.xml',
     ],
     'application': True,
 }
