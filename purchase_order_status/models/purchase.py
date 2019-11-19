@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-# © 2019 Houssine BAKKALI, Coop IT Easy SCRLfs
+# Copyright 2019 Coop IT Easy SCRLfs
+#     Houssine Bakkali <houssine@coopiteasy.be>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 from openerp import api, fields, models
 from openerp.tools.float_utils import float_compare
@@ -12,11 +13,14 @@ class PurchaseOrder(models.Model):
     def _get_invoiced(self):
         precision = self.env['decimal.precision'].precision_get('Product Unit of Measure') #noqa
         for po in self:
-            invoice_status = 'no'
+            def comp(a, b):
+                return float_compare(a, b, precision_digits=precision)
             if po.state in ['purchase', 'done']:
-                if any(float_compare(line.qty_invoiced, line.product_qty, precision_digits=precision) == -1 for line in po.order_line): #noqa
+                if any(comp(line.qty_invoiced, line.product_qty) == -1
+                       for line in po.order_line):
                     invoice_status = 'to invoice'
-                elif all(float_compare(line.qty_invoiced, line.product_qty, precision_digits=precision) >= 0 for line in po.order_line): #noqa
+                elif all(comp(line.qty_invoiced, line.product_qty) >= 0
+                         for line in po.order_line):
                     invoice_status = 'invoiced'
                 else:
                     invoice_status = 'no'
@@ -38,10 +42,10 @@ class PurchaseOrder(models.Model):
                 for picking in purchase_order.picking_ids.sorted(
                         key=lambda r: r.name):
                     if picking.state == 'done':
-                        if delivery_status != 'to_deliver':
-                            if picking.date_done > done_date:
-                                done_date = picking.date_done
-                                delivery_status = 'delivered'
+                        if (delivery_status != 'to_deliver'
+                           and picking.date_done > done_date):
+                            done_date = picking.date_done
+                            delivery_status = 'delivered'
                     elif picking.state == 'cancel':
                         if not delivery_status:
                             done_date = None
