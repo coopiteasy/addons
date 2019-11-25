@@ -5,23 +5,28 @@ from openerp import api, models
 
 
 class ReportRawMaterials(models.AbstractModel):
-    _name = 'report.mrp_brewing.stock_raw_materials'
+    _name = "report.mrp_brewing.stock_raw_materials"
 
     def get_stock_moves(self, data):
-        lines = self.env['stock.move'].search([('state','=','done'),('product_id.raw_material','=',True)], order="date asc")
-        
+        lines = self.env["stock.move"].search(
+            [("state", "=", "done"), ("product_id.raw_material", "=", True)],
+            order="date asc",
+        )
+
         return lines
 
     @api.multi
     def render_html(self, data):
-        docs = self.env['stock.move'].browse(self.env.context.get('active_id'))
-        report_lines = self.get_stock_moves(data.get('form'))
+        docs = self.env["stock.move"].browse(self.env.context.get("active_id"))
+        report_lines = self.get_stock_moves(data.get("form"))
         docargs = {
-            'doc_ids': self.ids,
-            'doc_model': 'stock.move',
-            'data': data['form'],
-            'docs': docs,
-            'time': time,
-            'get_stock_moves': report_lines,
+            "doc_ids": self.ids,
+            "doc_model": "stock.move",
+            "data": data["form"],
+            "docs": docs,
+            "time": time,
+            "get_stock_moves": report_lines,
         }
-        return self.env['report'].render('mrp_brewing.stock_raw_materials', docargs)
+        return self.env["report"].render(
+            "mrp_brewing.stock_raw_materials", docargs
+        )
