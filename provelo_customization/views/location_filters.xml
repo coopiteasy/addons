@@ -10,8 +10,9 @@
                     <filter name="Bruxelles" domain="[('location_id','ilike','Bruxelles')]"/>
                     <filter name="Liège" domain="[('location_id','ilike','Liège')]"/>
                     <filter name="Mons" domain="[('location_id','ilike','Mons')]"/>
-                    <!--<filter name="Ottignies" domain="[('location_id','ilike','Ottignies')]"/>-->
-                    <!--<filter name="Namur" domain="[('location_id','ilike','Namur')]"/>-->
+                    <filter name="Ottignies" domain="[('location_id','ilike','Ottignies')]"/>
+                    <filter name="Namur" domain="[('location_id','ilike','Namur')]"/>
+                    <filter name="Gembloux" domain="[('location_id','ilike','Gembloux')]"/>
                     <separator/>
                 </filter>
             </field>
