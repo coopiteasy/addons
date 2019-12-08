@@ -37,7 +37,7 @@ class PurchaseOrder(models.Model):
     @api.multi
     def _compute_delivery_info(self):
         for purchase_order in self:
-            if purchase_order.state in ['sale', 'done']:
+            if purchase_order.state in ['purchase', 'done']:
                 done_date = None
                 delivery_status = None
                 for picking in purchase_order.picking_ids.sorted(
