@@ -15,6 +15,7 @@ class PurchaseOrder(models.Model):
         for po in self:
             def comp(a, b):
                 return float_compare(a, b, precision_digits=precision)
+            invoice_status = 'no'
             if po.state in ['purchase', 'done']:
                 if any(comp(line.qty_invoiced, line.product_qty) == -1
                        for line in po.order_line):
