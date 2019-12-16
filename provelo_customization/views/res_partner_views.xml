@@ -7,10 +7,6 @@
             <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="arch" type="xml">
 
-                <field name="function" position="attributes">
-                    <attribute name="attrs">{'invisible': 1}</attribute>
-                </field>
-
                 <field name="fax" position="attributes">
                     <attribute name="attrs">{'invisible': 1}</attribute>
                 </field>
