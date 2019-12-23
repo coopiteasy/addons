@@ -4,9 +4,7 @@
 {
     "name": "POS Search Accented/Unaccented Characters",
     "version": "12.0.1.0.0",
-    "depends": [
-        "point_of_sale",
-    ],
+    "depends": ["point_of_sale"],
     "author": "Coop IT Easy SCRLfs",
     "license": "AGPL-3",
     "category": "Point of Sale",
@@ -14,8 +12,6 @@
     "description": """
         Allows to search in POS for products with accented characters in name using unaccented search query.
     """,
-    "data": [
-        'views/templates.xml',
-    ],
-    'installable': True,
+    "data": ["views/templates.xml"],
+    "installable": True,
 }
