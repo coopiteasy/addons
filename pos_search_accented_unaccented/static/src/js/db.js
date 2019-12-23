@@ -30,10 +30,6 @@ odoo.define('pos_search_accented_unaccented', function (require) {
             if (product.description_sale) {
                 str += '|' + product.description_sale;
             }
-            var packagings = this.packagings_by_product_tmpl_id[product.product_tmpl_id] || [];
-            for (var i = 0; i < packagings.length; i++) {
-                str += '|' + packagings[i].barcode;
-            }
             str = product.id + ':' + str.replace(/:/g, '') + '\n';
             return str;
         },
