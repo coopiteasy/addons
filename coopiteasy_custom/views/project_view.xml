@@ -20,6 +20,19 @@
                 </group>
             </xpath>
 
+            <field name="user_id" position="before">
+                <field name="author_id" />
+            </field>
+            <field name="user_id" position="after">
+                <field name="reviewer_id" />
+                <field name="tester_id" />
+            </field>
+            <notebook position="inside">
+                <page string="Linked Tasks" name="link_tasks">
+                    <field name="link_task_ids" />
+                </page>
+            </notebook>
+
         </field>
     </record>
 
