@@ -14,6 +14,10 @@
     "summary": """
         Specifics customizations for Coop IT Easy
     """,
+    "description": """
+        * reset_so_line on account.analytic.line
+        * fields on project.task
+    """,
     "data": ["data/cron.xml", "views/project_view.xml"],
     "installable": True,
 }
