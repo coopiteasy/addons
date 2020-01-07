@@ -19,7 +19,7 @@
 ##############################################################################
 {
     'name': 'Account Invoice label certisys',
-    'description': 'Add certisys label on invoices',
+    'description': 'Add Certisys label on invoices, delivery slips and picking opperations (stock picking), and sale orders',
     'category': 'Invoice',
     'version': '9.0.1.0',
     'author': 'Coop IT Easy SCRLfs',
@@ -27,7 +27,9 @@
         'account',
         ],
     'data': [
-        'reports/invoice_template.xml'
+        'reports/invoice_template.xml',
+        'reports/stock_template.xml',
+        'reports/sale_template.xml'
     ],
     'installable': True,
 }
