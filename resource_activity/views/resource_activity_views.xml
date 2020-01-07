@@ -79,7 +79,7 @@
                     <header>
                         <button name="create_sale_order" string="Create Quotation" type="object" states="draft"/>
                         <button name="action_quotation" string="Set to Quotation" type="object" states="sale"/>
-                        <button name="print_last_sale_order" string="Print Last Quotation" type="object" states="quotation"/>
+                        <button name="print_last_sale_order" string="Print Last Quotation" type="object" states="quotation,sale,done"/>
                         <button name="action_sale_order" string="Set to Sale order" type="object" states="quotation"/>
                         <button name="action_back_to_sale_order" string="Set to Sale Order" type="object" states="done"/>
                         <button name="push_changes_to_sale_order" string="Push to Sale Order" type="object" attrs="{'invisible':[('need_push','=',False)]}" class="btn-primary"/>
