@@ -77,7 +77,9 @@
             <field name="arch" type="xml">
                 <form>
                     <header>
+                        <!-- todo cleanup -->
                         <button name="create_sale_order" string="Create Quotation" type="object" states="draft"/>
+                        <button name="action_draft_to_sale" string="Set to Sale order" type="object" states="draft"/>
                         <button name="action_quotation" string="Set to Quotation" type="object" states="sale"/>
                         <button name="print_last_sale_order" string="Print Last Quotation" type="object" states="quotation,sale,done"/>
                         <button name="action_sale_order" string="Set to Sale order" type="object" states="quotation"/>

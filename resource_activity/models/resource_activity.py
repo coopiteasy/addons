@@ -817,6 +817,11 @@ class ResourceActivity(models.Model):
                 )
 
     @api.multi
+    def action_draft_to_sale(self):
+        self.create_sale_order()
+        self.action_sale_order()
+
+    @api.multi
     def action_back_to_sale_order(self):
         for activity in self:
             if activity.state == 'done' and not activity.sale_orders:
