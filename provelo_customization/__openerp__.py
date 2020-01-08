@@ -21,6 +21,7 @@
     "name": "Provelo Customization",
     "version": "9.0.1.0",
     "depends": [
+        'hr_holidays',
         'hr_timesheet_sheet',
         'resource_planning',
         'resource_activity',
@@ -33,6 +34,7 @@
         Specifics customizations for Pro Velo
     """,
     'data': [
+        'views/hr_holidays_view.xml',
         'views/hr_timesheet_sheet_view.xml',
         'views/location_filters.xml',
         'views/res_partner_views.xml',
