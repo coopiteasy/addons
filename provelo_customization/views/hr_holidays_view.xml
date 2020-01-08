@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.actions.act_window" id="hr_holidays.action_hr_holidays_dashboard">
+            <field name="context">
+                {'search_default_year': 1, 'search_default_group_employee': 1, 'search_default_my_leaves': 1}
+            </field>
+        </record>
+
+    </data>
+</odoo>
