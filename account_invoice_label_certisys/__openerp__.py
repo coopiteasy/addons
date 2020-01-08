@@ -19,7 +19,7 @@
 ##############################################################################
 {
     'name': 'Account Invoice label certisys',
-    'description': 'Add Certisys label on invoices, delivery slips and picking opperations (stock picking), and sale orders',
+    'description': 'Add Certisys label on invoices, delivery slips and picking opperations (stock picking), and sale orders. This module should get a more generic name in the future.',
     'category': 'Invoice',
     'version': '9.0.1.0',
     'author': 'Coop IT Easy SCRLfs',
