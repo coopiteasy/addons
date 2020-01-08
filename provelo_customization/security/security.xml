@@ -4,11 +4,11 @@
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 -->
 <openerp>
-    <data noupdate="1">
+    <data noupdate="0">
 
         <record id="group_provelo_customizer" model="res.groups">
             <field name="name">Provelo Customizer</field>
-            <field name="category_id">99</field>  <!-- custom -->
+            <field name="category_id" ref="base.module_category_usability"/>
         </record>
 
          <record id="hr_employee_own_account_analytic_line" model="ir.rule">
