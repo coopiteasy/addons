@@ -5,7 +5,7 @@
 		<xpath expr="//p[@t-if='not o.pack_operation_ids']" position="after">
 			<p>
                 <img src="/account_invoice_label_certisys/static/img/EU_Organic_Logo.jpg" style="width:98px;height:auto;padding-bottom:5px;"/>
-                <strong>Tous les produits de la <span t-field="o.company_id.name"/> sont certifiées bio par Certisys BE-BIO-01</strong>
+                <strong>All products of <span t-field="o.company_id.name"/> are certified BIO by Certisys BE-BIO-01</strong>
             </p>
 		</xpath>
 		
@@ -15,7 +15,7 @@
 		<xpath expr="//table[@t-if='o.pack_operation_ids']" position="after">
 			<p>
                 <img src="/account_invoice_label_certisys/static/img/EU_Organic_Logo.jpg" style="width:98px;height:auto;padding-bottom:5px;"/>
-                <strong>Tous les produits de la <span t-field="o.company_id.name"/> sont certifiées bio par Certisys BE-BIO-01</strong>
+                <strong>All products of <span t-field="o.company_id.name"/> are certified BIO by Certisys BE-BIO-01</strong>
             </p>
 		</xpath>
 
