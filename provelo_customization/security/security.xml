@@ -22,7 +22,7 @@
              <field name="domain_force">[('user_id','=',user.id)]</field>
          </record>
 
-         <record id="deparment_manager_depatment_account_analytic_line" model="ir.rule">
+         <record id="deparment_manager_department_account_analytic_line" model="ir.rule">
              <field name="name">deparment_manager_depatment_account_analytic_line</field>
              <field name="model_id" ref="account.model_account_analytic_line"/>
              <field name="groups" eval="[(4, ref('base.group_user'))]"/>
@@ -31,8 +31,7 @@
              <field name="perm_create" eval="1"/>
              <field name="perm_unlink" eval="1"/>
              <field name="domain_force">[
-                 (user.employee_ids.manager, '=', True),
-                 ('user_id.employee_ids.department_id', '=', user.employee_ids.department_id.id)
+                 ('user_id.employee_ids.parent_id', '=', user.employee_ids.id)
              ]</field>
          </record>
 
@@ -44,7 +43,7 @@
              <field name="perm_write" eval="1"/>
              <field name="perm_create" eval="1"/>
              <field name="perm_unlink" eval="1"/>
-             <field name="domain_force">[(1,'=', 1)]</field>
+             <field name="domain_force">[(1, '=', 1)]</field>
          </record>
 
     </data>
