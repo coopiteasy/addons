@@ -21,6 +21,8 @@
     "name": "Provelo Customization",
     "version": "9.0.1.0",
     "depends": [
+        'resource_planning',
+        'resource_activity',
         'analytic',
         'hr',
         'hr_contract',
@@ -29,8 +31,6 @@
         'hr_timesheet_default_analytic_account',
         'hr_timesheet_holiday',
         'hr_timesheet_overtime',
-        'resource_planning',
-        'resource_activity',
     ],
     "author": "Coop IT Easy - Robin Keunen <robin@coopiteasy.be>",
     "license": "AGPL-3",
