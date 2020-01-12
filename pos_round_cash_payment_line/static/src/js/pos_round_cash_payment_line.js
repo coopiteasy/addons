@@ -51,37 +51,21 @@ odoo.define(
                 return change;
             }
         },
-
-        add_paymentline: function(cashregister) {
-            this.assert_editable();
+        
+        add_remainder_line: function(cashregister) {
+        	this.assert_editable();
             var newPaymentline = new models.Paymentline(
-                {},
-                {
-                    order: this,
-                    cashregister:cashregister, pos: this.pos
-                }
-            );
-            if(cashregister.journal.type !== 'cash') {
-                newPaymentline.set_amount(this.get_due(newPaymentline))
+                    {},
+                    {
+                        order: this,
+                        cashregister:cashregister, pos: this.pos
+                    }
+                );
+            const due = this.get_due(newPaymentline);
+            newPaymentline.set_amount( this.round_5c_remainder(due) );
 
-            } else if ( this.pos.config.iface_precompute_cash )  {
-                const due = this.get_due(newPaymentline);
-                newPaymentline.set_amount( this.round_5c(due) );
-
-            } else {
-                newPaymentline.set_amount( 0 );
-            }
             this.paymentlines.add(newPaymentline);
             this.select_paymentline(newPaymentline);
-        },
-
-        is_paid: function(){
-            if (this.pos.config.cash_rounding_activated
-                  && this.is_paid_with_cash()) {
-                return this.get_due() < 0.025;
-            } else {
-                return this.get_due() === 0;
-            }
         },
 
         add_round_line: function (remainder) {
@@ -100,18 +84,33 @@ odoo.define(
         }
     });
 
+    
     screens.PaymentScreenWidget.include({
 
+    	click_paymentmethods: function(id) {
+    		var cashregister = null;
+    		for ( var i = 0; i < this.pos.cashregisters.length; i++ ) {
+    			if ( this.pos.cashregisters[i].journal_id[0] === id ){
+    				cashregister = this.pos.cashregisters[i];
+    				break;
+    			}
+    		}
+            if (this.pos.config.cash_rounding_activated && cashregister.journal.type == 'cash') {
+            	this.pos.get_order().add_remainder_line( cashregister );
+            }
+            this._super.apply(this, arguments);
+        },
+        
         finalize_validation: function () {
             if (this.pos.config.cash_rounding_activated) {
                 var order = this.pos.get_order();
                 var due = order.get_due();
 
                 if ( order.round_5c_remainder(due) ) {
-                        order.add_round_line(order.round_5c_remainder(-due))
-                    }
+                    order.add_round_line(order.round_5c_remainder(due))
                 }
+            }
             return this._super()
-        }
+        },
     });
 });
