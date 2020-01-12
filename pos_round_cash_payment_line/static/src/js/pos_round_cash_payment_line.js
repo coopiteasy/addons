@@ -15,6 +15,15 @@ odoo.define(
     var round_pr = require('web.utils').round_precision;
 
     var order_prototype = models.Order.prototype;
+    /*models.load_fields("account.journal", ['payment_mode', 'cash_rounding']);
+
+    models.Paymentline = models.Paymentline.extend({
+        get_rounding_cashregister: function() {
+        	alert('get journal');
+        	alert(this.cashregister.journal.name);
+            return this.cashregister.journal.cash_rounding;
+        },
+    });*/
 
     models.Order = models.Order.extend({
 
@@ -63,7 +72,6 @@ odoo.define(
                 );
             const due = this.get_due(newPaymentline);
             newPaymentline.set_amount( this.round_5c_remainder(due) );
-
             this.paymentlines.add(newPaymentline);
             this.select_paymentline(newPaymentline);
         },
@@ -89,6 +97,8 @@ odoo.define(
 
     	click_paymentmethods: function(id) {
     		var cashregister = null;
+    		//var line = this.pos.get_order().selected_paymentline;
+    		
     		for ( var i = 0; i < this.pos.cashregisters.length; i++ ) {
     			if ( this.pos.cashregisters[i].journal_id[0] === id ){
     				cashregister = this.pos.cashregisters[i];
@@ -96,7 +106,9 @@ odoo.define(
     			}
     		}
             if (this.pos.config.cash_rounding_activated && cashregister.journal.type == 'cash') {
-            	this.pos.get_order().add_remainder_line( cashregister );
+            	//var rounding_cashregister = line.get_rounding_cashregister();
+            	//this.pos.get_order().add_remainder_line(rounding_cashregister);
+            	this.pos.get_order().add_remainder_line(cashregister);
             }
             this._super.apply(this, arguments);
         },
