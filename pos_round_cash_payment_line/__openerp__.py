@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Copyright 2017 Coop IT Easy SCRLfs
 #   - Robin Keunen <robin@coopiteasy.be>
-#   - Houssine BAKKALI <houssine@coopiteasy.be>
+#   - Houssine bakkali <houssine@coopiteasy.be>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
     "name": "Pos Round Cash Payment Line",
@@ -19,12 +19,10 @@
     """,
     "depends": [
         'point_of_sale',
-        'product',
     ],
     'data': [
         'views/pos_config.xml',
         'views/account_journal_view.xml',
-        'data/round_remainder_product.xml',
         'static/src/xml/templates.xml',
     ],
     'qweb': [
