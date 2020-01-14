@@ -5,10 +5,10 @@
 from openerp import models, fields
 
 
-class pos_config(models.Model):
-    _inherit = 'pos.config'
+class AccountJournal(models.Model):
+    _inherit = 'account.journal'
 
-    cash_rounding_activated = fields.Boolean(
-        string='Activate Cash Rounding',
+    cash_rounding = fields.Boolean(
+        string='Cash Rounding Journal',
         default=False,
     )

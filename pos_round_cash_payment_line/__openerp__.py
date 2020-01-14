@@ -14,11 +14,7 @@
         Rounds due amount to nearest 5 cents when adding a cash Payment line.
         An line is added on the invoice to record the rounding remainder.
 
-        The product *Round Remainder Product* is added to your product list.
-        You must set the Rounding Account through:
-        - Round Remainder Product > Accounting
-          - > Income Account
-          - > Expense Account
+        A Round Remainder journal must be defined.
 
     """,
     "depends": [
@@ -27,7 +23,7 @@
     ],
     'data': [
         'views/pos_config.xml',
-#        'views/account_journal_view.xml',
+        'views/account_journal_view.xml',
         'data/round_remainder_product.xml',
         'static/src/xml/templates.xml',
     ],
