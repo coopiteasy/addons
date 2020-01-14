@@ -8,10 +8,6 @@
         <field name="arch" type="xml">
             <field name="tip_product_id" position="after">
                 <field name="cash_rounding_activated"/>
-                <field name="round_remainder_product_id"
-                       attrs="{'invisible':[('cash_rounding_activated','=',False)],
-                               'required':[('cash_rounding_activated','=',True)]}"
-                />
             </field>
         </field>
     </record>
