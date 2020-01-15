@@ -33,14 +33,13 @@ odoo.define(
         	const due = this.get_due(newPaymentline);
         	const remainder = this.round_5c_remainder(due)
         	if (remainder !== 0) {
-        		var newPaymentline = new models.Paymentline(
-                    {},
-                    {
-                        order: this,
+        		var newPaymentline = new models.Paymentline({},
+                	{
+                    	order: this,
                         cashregister:cashregister, pos: this.pos
                     }
                 );
-	            
+
 	            newPaymentline.set_amount(remainder);
 	            this.paymentlines.add(newPaymentline);
 	            this.select_paymentline(newPaymentline);
