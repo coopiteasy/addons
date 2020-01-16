@@ -21,5 +21,6 @@
         "views/document_hosting_menu.xml",
         "views/document_hosting_views.xml",
         "views/document_hosting_website_templates.xml",
+        "views/res_config_settings_views.xml",
     ],
 }

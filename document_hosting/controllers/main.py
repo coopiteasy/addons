@@ -15,6 +15,10 @@ class DocumentWebsite(http.Controller):
     @http.route("/documents/<int:oid>", auth="public", website=True)
     def get_document(self, oid=-1):
         """Render a http response for a document"""
+
+        if not request.website.display_document_page:
+            return request.not_found()
+
         document_mgr = request.env["document_hosting.document"]
         doc = document_mgr.sudo().browse(oid)
         ir_http_mgr = request.env["ir.http"]
@@ -41,6 +45,9 @@ class DocumentWebsite(http.Controller):
     def template_website_document(self, date_begin=None, date_end=None, **kw):
         """
         """
+        if not request.website.display_document_page:
+            return request.not_found()
+
         values = {}
         values.update(
             self.website_document_side_bar(
