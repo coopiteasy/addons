@@ -6,7 +6,7 @@
 {
     "name": "Document Hosting",
     "summary": """
-    Manage documents that can be published on website with document_hosting_website.
+    Manage documents that can be published on website with ??.
     """,
     "description": """
     """,
@@ -15,10 +15,11 @@
     "version": "12.0.1.0.0",
     "website": "www.coopiteasy.be",
     "category": "Document",
-    "depends": ["base", "web", "mail",],
+    "depends": ["base", "web", "website", "mail",],
     "data": [
         "security/ir.model.access.csv",
         "views/document_hosting_menu.xml",
         "views/document_hosting_views.xml",
+        "views/document_hosting_website_templates.xml",
     ],
 }
