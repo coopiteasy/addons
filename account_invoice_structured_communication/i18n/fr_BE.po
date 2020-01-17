@@ -23,9 +23,9 @@ msgstr "Facture"
 #. module: account_invoice_structured_communication
 #: model:ir.model.fields,field_description:account_invoice_structured_communication.field_account_invoice_provider_reference
 msgid "Provider reference invoice"
-msgstr "Référence fournisseur"
+msgstr "Référence facture"
 
 #. module: account_invoice_structured_communication
 #: model:ir.ui.view,arch_db:account_invoice_structured_communication.invoice_supplier_form_inherit
 msgid "Vendor Reference Invoice"
-msgstr "Communication"
+msgstr "Référence fournisseur"
