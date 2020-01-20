@@ -28,7 +28,7 @@
     'summary': 'Manage Automatic Cashdrawer device from POS front end',
     'author': "Aurélien DUMAINE",
     'license': 'AGPL-3',
-    'depends': ['point_of_sale'],
+    'depends': ['point_of_sale', 'pos_round_cash_payment_line'],
     'data': [
         'security/res_groups.xml',
         'pos_automatic_cashdrawer_view.xml',
