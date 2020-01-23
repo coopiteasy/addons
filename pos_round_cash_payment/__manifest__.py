@@ -1,11 +1,10 @@
-# -*- coding: utf-8 -*-
-# Copyright 2017 Coop IT Easy SCRLfs
+# Copyright 2020 Coop IT Easy SCRLfs
 #   - Robin Keunen <robin@coopiteasy.be>
 #   - Houssine bakkali <houssine@coopiteasy.be>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
-    "name": "Pos Round Cash Payment Line",
-    "version": "9.0.1.0.0",
+    "name": "Pos Round Cash Payment",
+    "version": "12.0.1.0.0",
     "author": "Coop IT Easy SCRLfs",
     "license": "AGPL-3",
     "category": "Point of Sale",
@@ -26,7 +25,7 @@
         'static/src/xml/templates.xml',
     ],
     'qweb': [
-        'static/src/xml/pos_round_cash_payment_line.xml'
+        'static/src/xml/pos_round_cash_payment.xml'
     ],
     'installable': True,
 }

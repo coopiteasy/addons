@@ -1,12 +1,13 @@
 /*
-    POS Round cash Payment line for odoo
-    Copyright (C) 2018 Robin Keunen
+    POS Round cash Payment for odoo
+    Copyright (C) 2018 Coop IT Easy SCRLfs
     @author: Robin Keunen
-    The licence is in the file __openerp__.py
+    @author: Houssine BAKKALI
+    The licence is in the file __manifest__.py
 */
 
 odoo.define(
-    'pos_round_cash_payment_line.pos_round_cash_payment_line',
+    'pos_round_cash_payment.pos_round_cash_payment_line',
     function (require) {
 
     "use strict";
