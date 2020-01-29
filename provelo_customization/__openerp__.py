@@ -25,6 +25,7 @@
         'hr_timesheet_sheet',
         'resource_planning',
         'resource_activity',
+        'web_readonly_bypass',
     ],
     "author": "Coop IT Easy - Robin Keunen <robin@coopiteasy.be>",
     "license": "AGPL-3",
