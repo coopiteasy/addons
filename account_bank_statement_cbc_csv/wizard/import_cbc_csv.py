@@ -125,13 +125,14 @@ class CBCBankStatementImport(models.TransientModel):
                 raise ValueError()
         except ValueError:
             return super(CBCBankStatementImport, self)._parse_file(data_file)
-        items = itertools.imap(lambda row: {key: item.decode('utf-8') for key, item in row.iteritems()}, data)
+        items = itertools.imap(lambda row: {key: item.decode('utf-8') for key, item in row.iteritems()}, data) # noqa
 
         currency_code = False
         account_number = False
         self.init_balance = None
         begin_date = False
         end_date = False
+        balance = False
 
         language = self._context.get('lang', 'en_US')
         lang = self.env['res.lang'].search([('code', '=', language)])
@@ -141,10 +142,10 @@ class CBCBankStatementImport(models.TransientModel):
         sum_transaction = 0
         for statement in items:
             statement[AMOUNT] = float(statement[AMOUNT].strip().replace(lang.thousands_sep, '').replace(lang.decimal_point, '.')) # noqa
-            begin_date = begin_date or statement[DATE]
-            end_date = statement[DATE]
-            account_number = statement[ACCOUNT]
-            balance = self._get_acc_balance_cbc(account_number)
+            end_date = end_date or statement[DATE]
+            begin_date = statement[DATE]
+            account_number = account_number or statement[ACCOUNT]
+            balance = balance or self._get_acc_balance_cbc(account_number)
             currency_code = statement[CURRENCY]
             transactions.append(self._get_move_value_cbc(statement, i))
             sum_transaction += float(statement[AMOUNT])
