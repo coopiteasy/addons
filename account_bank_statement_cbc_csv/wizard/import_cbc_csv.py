@@ -25,7 +25,7 @@ class CBCBankStatementImport(models.TransientModel):
     _date_format = "%d/%m/%Y"
 
     _decimal_sep = "."
-    _csv_delimiter = ";"
+    _csv_delimiter = "\t"
     _csv_quote = '"'
 
     _header = ['Num\xef\xbf\xbdro de compte', 'Nom de la rubrique', 'Nom',
