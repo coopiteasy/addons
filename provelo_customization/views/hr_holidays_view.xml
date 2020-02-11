@@ -19,7 +19,7 @@
             <field name="inherit_id" ref="hr_holidays.hr_kanban_view_employees_kanban"/>
             <field name="arch" type="xml">
 
-                <xpath expr="//li[@id='last_login']/field[@name='current_leave_id']" position="attributes">
+                <xpath expr="//li[@id='last_login']//field[@name='current_leave_id']" position="attributes">
                     <attribute name="invisible">True</attribute>
                 </xpath>
 
