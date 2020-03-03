@@ -28,8 +28,21 @@
                     <field name="state" invisible="1"/>
                 </field>
 
+                <!--
+                    Hide archived analytic accounts
+                -->
+                <xpath expr="//notebook//tree/field[@name='account_id']" position="attributes">
+                    <attribute name="domain">[('account_type','=','normal')]</attribute>
+                </xpath>
+
+                <xpath expr="//notebook//form//field[@name='account_id']" position="attributes">
+                    <attribute name="domain">[('account_type','=','normal')]</attribute>
+                </xpath>
+
             </field>
         </record>
+
+
 
     </data>
 </odoo>

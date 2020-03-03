@@ -37,6 +37,7 @@
     'data': [
         'views/hr_holidays_view.xml',
         'views/hr_timesheet_sheet_view.xml',
+        'views/hr_timesheet_view.xml',
         'views/location_filters.xml',
         'views/res_partner_views.xml',
         'security/security.xml',

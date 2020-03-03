@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="hr_timesheet_line_tree" model="ir.ui.view">
+            <field name="name">account.analytic.line.tree</field>
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_tree"/>
+            <field name="arch" type="xml">
+                <!--
+                    Hide archived analytic accounts
+                -->
+                <field name="account_id" position="attributes">
+                    <attribute name="domain">[('account_type','=','normal')]</attribute>
+                </field>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>
