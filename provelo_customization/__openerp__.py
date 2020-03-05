@@ -21,11 +21,11 @@
     "name": "Provelo Customization",
     "version": "9.0.1.0",
     "depends": [
-        'hr_holidays',
-        'hr_timesheet_sheet',
-        'resource_planning',
-        'resource_activity',
-        'web_readonly_bypass',
+        "hr_holidays",
+        "hr_timesheet_sheet",
+        "resource_planning",
+        "resource_activity",
+        "web_readonly_bypass",
     ],
     "author": "Coop IT Easy - Robin Keunen <robin@coopiteasy.be>",
     "license": "AGPL-3",
@@ -34,13 +34,13 @@
     "description": """
         Specifics customizations for Pro Velo
     """,
-    'data': [
-        'views/hr_holidays_view.xml',
-        'views/hr_timesheet_sheet_view.xml',
-        'views/location_filters.xml',
-        'views/res_partner_views.xml',
-        'security/security.xml',
-        'security/ir.model.access.csv',
+    "data": [
+        "views/hr_holidays_view.xml",
+        "views/hr_timesheet_sheet_view.xml",
+        "views/location_filters.xml",
+        "views/res_partner_views.xml",
+        "security/security.xml",
+        "security/ir.model.access.csv",
     ],
-    'installable': True,
+    "installable": True,
 }
