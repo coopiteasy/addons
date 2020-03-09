@@ -26,9 +26,9 @@
             </field>
         </record>
 
-        <menuitem parent="menu_hr_holidays_my_leaves"
+        <menuitem parent="hr_holidays.menu_hr_holidays_my_leaves"
                   id="menu_open_allocation_holidays"
-                  action="open_allocation_holidays"
+                  action="hr_holidays.open_allocation_holidays"
                   sequence="40"
                   groups="base.group_hr_manager"/>
 
