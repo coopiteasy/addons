@@ -26,9 +26,11 @@
             </field>
         </record>
 
-        <record model="ir.ui.menu" id="menu_hr_holidays_my_leaves">
-            <field name="groups_id" eval="[(4, ref('base.group_hr_manager'))]"/>
-        </record>
+        <menuitem parent="menu_hr_holidays_my_leaves"
+                  id="menu_open_allocation_holidays"
+                  action="open_allocation_holidays"
+                  sequence="40"
+                  groups="base.group_hr_manager"/>
 
     </data>
 </odoo>
