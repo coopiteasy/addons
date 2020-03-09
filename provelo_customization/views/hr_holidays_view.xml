@@ -27,9 +27,8 @@
         </record>
 
         <menuitem parent="hr_holidays.menu_hr_holidays_my_leaves"
-                  id="menu_open_allocation_holidays"
+                  id="hr_holidays.menu_open_allocation_holidays"
                   action="hr_holidays.open_allocation_holidays"
-                  sequence="40"
                   groups="base.group_hr_manager"/>
 
     </data>
