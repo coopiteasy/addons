@@ -27,9 +27,6 @@
         </record>
 
         <record model="ir.ui.menu" id="menu_hr_holidays_my_leaves">
-            <field name="name">HR - hide 'Allocation Request' menu to employees</field>
-            <field name="model">hr.holidays</field>
-            <field name="inherit_id" ref="hr_holidays.menu_open_allocation_holidays"/>
             <field name="groups_id" eval="[(4, ref('base.group_hr_manager'))]"/>
         </record>
 
