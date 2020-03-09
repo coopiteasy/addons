@@ -29,7 +29,8 @@
         <menuitem parent="hr_holidays.menu_hr_holidays_my_leaves"
                   id="hr_holidays.menu_open_allocation_holidays"
                   action="hr_holidays.open_allocation_holidays"
-                  groups="base.group_hr_manager"/>
+                  groups="base.group_hr_manager"
+                  sequence="40"/>
 
     </data>
 </odoo>
