@@ -5,10 +5,10 @@
         <record model="ir.actions.act_window" id="hr_holidays.action_hr_holidays_dashboard">
             <field name="context">
                 {
-                    'search_default_year': 1,
-                    'search_default_group_employee': 1,
-                    'search_default_my_leaves': 1,
-                    'readonly_by_pass': True,
+                'search_default_year': 1,
+                'search_default_group_employee': 1,
+                'search_default_my_leaves': 1,
+                'readonly_by_pass': True,
                 }
             </field>
         </record>
@@ -25,6 +25,12 @@
 
             </field>
         </record>
+
+        <menuitem parent="hr_holidays.menu_hr_holidays_my_leaves"
+                  id="hr_holidays.menu_open_allocation_holidays"
+                  action="hr_holidays.open_allocation_holidays"
+                  groups="base.group_hr_manager"
+                  sequence="40"/>
 
     </data>
 </odoo>
