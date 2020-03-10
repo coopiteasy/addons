@@ -15,7 +15,7 @@
         <record id="hr_employee_own_account_analytic_line" model="ir.rule">
             <field name="name">hr_employee_own_account_analytic_line</field>
             <field name="model_id" ref="account.model_account_analytic_line"/>
-            <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+            <field name="groups" eval="[(4, ref('base.group_hr_user'))]"/>
             <field name="perm_read" eval="1"/>
             <field name="perm_write" eval="1"/>
             <field name="perm_create" eval="1"/>
@@ -24,9 +24,9 @@
         </record>
 
         <record id="department_manager_department_account_analytic_line" model="ir.rule">
-            <field name="name">department_manager_depatment_account_analytic_line</field>
+            <field name="name">department_manager_department_account_analytic_line</field>
             <field name="model_id" ref="account.model_account_analytic_line"/>
-            <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+            <field name="groups" eval="[(4, ref('base.group_hr_user'))]"/>
             <field name="perm_read" eval="1"/>
             <field name="perm_write" eval="1"/>
             <field name="perm_create" eval="1"/>
@@ -40,7 +40,7 @@
         <record id="hr_manager_all_account_analytic_line" model="ir.rule">
             <field name="name">hr_manager_all_account_analytic_line</field>
             <field name="model_id" ref="account.model_account_analytic_line"/>
-            <field name="groups" eval="[(4, ref('base.group_hr_user'))]"/>
+            <field name="groups" eval="[(4, ref('base.group_hr_manager'))]"/>
             <field name="perm_read" eval="1"/>
             <field name="perm_write" eval="1"/>
             <field name="perm_create" eval="1"/>
@@ -62,7 +62,7 @@
         <record id="hr_employee_own_leaves" model="ir.rule">
             <field name="name">hr_employee_own_leaves</field>
             <field name="model_id" ref="hr_holidays.model_hr_holidays"/>
-            <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+            <field name="groups" eval="[(4, ref('base.group_hr_user'))]"/>
             <field name="perm_read" eval="1"/>
             <field name="perm_write" eval="1"/>
             <field name="perm_create" eval="1"/>
@@ -73,7 +73,7 @@
         <record id="department_manager_department_leaves" model="ir.rule">
             <field name="name">department_manager_department_leaves</field>
             <field name="model_id" ref="hr_holidays.model_hr_holidays"/>
-            <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+            <field name="groups" eval="[(4, ref('base.group_hr_user'))]"/>
             <field name="perm_read" eval="1"/>
             <field name="perm_write" eval="1"/>
             <field name="perm_create" eval="1"/>
@@ -87,7 +87,7 @@
         <record id="hr_manager_all_leaves" model="ir.rule">
             <field name="name">hr_manager_all_leaves</field>
             <field name="model_id" ref="hr_holidays.model_hr_holidays"/>
-            <field name="groups" eval="[(4, ref('base.group_hr_user'))]"/>
+            <field name="groups" eval="[(4, ref('base.group_hr_manager'))]"/>
             <field name="perm_read" eval="1"/>
             <field name="perm_write" eval="1"/>
             <field name="perm_create" eval="1"/>
