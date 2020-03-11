@@ -32,5 +32,12 @@
                   groups="base.group_hr_manager"
                   sequence="40"/>
 
+        <menuitem name="Reports"
+                  parent="hr_holidays.menu_hr_holidays_root"
+                  id="hr_holidays.menu_hr_holidays_report"
+                  groups="base.group_user"
+                  sequence="99"/>
+
+
     </data>
 </odoo>
