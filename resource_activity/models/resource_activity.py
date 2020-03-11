@@ -548,6 +548,16 @@ class ResourceActivity(models.Model):
             activity.registrations.reserve_needed_resource()
 
     @api.multi
+    def unreserve_resources(self):
+        registrations = self.env['resource.activity.registration'].browse()
+        for activity in self:
+            for registration in activity.registrations:
+                if registration.state == "booked":
+                    registrations |= registration
+        registrations.action_cancel()
+        registrations.action_draft()
+
+    @api.multi
     def mark_all_as_paid(self):
         for activity in self:
             activity.registrations.mark_as_paid()
@@ -771,6 +781,20 @@ class ResourceActivity(models.Model):
                 activity.state = 'quotation'
 
     @api.multi
+    def print_last_sale_order(self):
+        self.ensure_one()
+        sale_orders = self.sale_orders.sorted(
+            lambda so: so.create_date,
+            reverse=True,
+        )
+        if sale_orders:
+            return sale_orders[0].print_quotation()
+        else:
+            raise ValidationError(_(
+                "No Sale Order defined on this activity"
+            ))
+
+    @api.multi
     def action_sale_order(self):
         res_acti_seq = self.env.ref('resource_activity.sequence_resource_activity', False)
         for activity in self:
@@ -796,6 +820,11 @@ class ResourceActivity(models.Model):
                     'state': 'booked',
                     'date_lock': None}
                 )
+
+    @api.multi
+    def action_draft_to_sale(self):
+        self.create_sale_order()
+        self.action_sale_order()
 
     @api.multi
     def action_back_to_sale_order(self):
