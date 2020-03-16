@@ -1,20 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-	<record model="ir.ui.view" id="beesdoo_product_form">
+    <record model="ir.ui.view" id="beesdoo_product_form">
         <field name="name">biobes.bees.product.template.form</field>
         <field name="model">product.template</field>
-        <field name="inherit_id" ref="beesdoo_product.beesdoo_product_form"/>
+        <field name="inherit_id" ref="beesdoo_product.beesdoo_product_template_form"/>
         <field name="arch" type="xml">
-        	<field name="total_with_vat" position="replace"/>
-        </field>
-    </record>
-        
-    <record model="ir.ui.view" id="biobes_product_form">
-        <field name="name">biobes.product.template.form</field>
-        <field name="model">product.template</field>
-        <field name="inherit_id" ref="product.product_template_only_form_view" />
-        <field name="arch" type="xml">
-        	<field name="list_price" position="after">
+            <field name="total_with_vat" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="list_price" position="after">
                 <field name="total_with_vat" widget='monetary' options="{'currency_field': 'currency_id'}" />
             </field>
         </field>
