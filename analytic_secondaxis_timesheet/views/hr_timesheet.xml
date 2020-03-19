@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2015-2020 Coop IT Easy SCRLfs (http://coopiteasy.be)
+        Houssine Bakkali <houssine@coopiteasy.be>
+        Rémy Taymans <remy@coopiteasy.be>
+    License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+
+    <record id="hr_timesheet_line_form" model="ir.ui.view">
+        <field name="name">account.analytic.line.form</field>
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_form"/>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <field name="project_id" position="after">
+                <field name="account_id" invisible="1"/>
+                <field
+                    name="analytic_activity_id"
+                    context="{'account_id': account_id}"
+                    options="{'no_create': True}"
+                    required="1"
+                />
+            </field>
+        </field>
+    </record>
+
+    <record id="hr_timesheet_line_tree" model="ir.ui.view">
+        <field name="name">account.analytic.line.tree</field>
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_tree"/>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <field name="project_id" position="after">
+                <field name="account_id" invisible="1"/>
+                <field
+                    name="analytic_activity_id"
+                    context="{'account_id': account_id}"
+                    options="{'no_create': True}"
+                    required="1"
+                />
+            </field>
+        </field>
+    </record>
+
+    <record id="hr_timesheet_line_search" model="ir.ui.view">
+        <field name="name">account.analytic.line.search</field>
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_search"/>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <xpath
+                expr="/search/group/filter[@name='groupby_project']"
+                position="after"
+            >
+                <filter
+                    name="groupby_activity"
+                    string="Activity"
+                    context="{'group_by':'analytic_activity_id'}"
+                />
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
