@@ -1,102 +1,129 @@
-<openerp>
-<data noupdate="True">
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2010 Camptocamp SA (http://www.camptocamp.com)
+        Joel Grand-guillaume (Camptocamp)
+    Copyright 2015-2020 Coop IT Easy SCRLfs (http://coopiteasy.be)
+        Houssine Bakkali <houssine@coopiteasy.be>
+        Rémy Taymans <remy@coopiteasy.be>
+    License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+    <data noupdate="1">
 
-    <record model="project.activity_al" id="activity_al_1">
+        <record id="activity_al_1" model="account.analytic.activity">
             <field name="name">Administrative matters (not related to projects)</field>
             <field name="code">gen</field>
         </record>
-    <record model="project.activity_al" id="activity_al_2">
+
+        <record id="activity_al_2" model="account.analytic.activity">
             <field name="name">Standards - Procedures</field>
             <field name="code">gen</field>
         </record>
-    <record model="project.activity_al" id="activity_al_3">
+
+        <record id="activity_al_3" model="account.analytic.activity">
             <field name="name">Training / Seminars</field>
             <field name="code">gen</field>
         </record>
-    <record model="project.activity_al" id="activity_al_4">
+
+        <record id="activity_al_4" model="account.analytic.activity">
             <field name="name">Exhibitions</field>
             <field name="code">gen</field>
         </record>
-    <record model="project.activity_al" id="activity_al_5">
-            <field name="name">General Administration (économat, travaux, photocopies…)</field>
+
+        <record id="activity_al_5" model="account.analytic.activity">
+            <field name="name">General Administration</field>
             <field name="code">admin</field>
         </record>
-    <record model="project.activity_al" id="activity_al_6">
+
+        <record id="activity_al_6" model="account.analytic.activity">
             <field name="name">Management</field>
             <field name="code">admin</field>
         </record>
-    <record model="project.activity_al" id="activity_al_1">
-            <field name="name">Meetings (internal or external)</field>
-            <field name="code">admin</field>
-        </record>
-    <record model="project.activity_al" id="activity_al_7">
+
+        <record id="activity_al_7" model="account.analytic.activity">
             <field name="name">Reception</field>
             <field name="code">admin</field>
         </record>
-    <record model="project.activity_al" id="activity_al_8">
+
+        <record id="activity_al_8" model="account.analytic.activity">
             <field name="name">Secretariat for Management</field>
             <field name="code">admin</field>
         </record>
-    <record model="project.activity_al" id="activity_al_9">
+
+        <record id="activity_al_9" model="account.analytic.activity">
             <field name="name">Secretariat on administrative matters</field>
             <field name="code">admin</field>
         </record>
-    <record model="project.activity_al" id="activity_al_10">
+
+        <record id="activity_al_10" model="account.analytic.activity">
             <field name="name">Travels</field>
             <field name="code">admin</field>
         </record>
-    <record model="project.activity_al" id="activity_al_11">
+
+        <record id="activity_al_11" model="account.analytic.activity">
             <field name="name">Communication</field>
             <field name="code">market</field>
         </record>
-    <record model="project.activity_al" id="activity_al_12">
+
+        <record id="activity_al_12" model="account.analytic.activity">
             <field name="name">Business Development</field>
             <field name="code">market</field>
         </record>
-    <record model="project.activity_al" id="activity_al_13">
+
+        <record id="activity_al_13" model="account.analytic.activity">
             <field name="name">Preparation of the offer &amp; Negociation</field>
             <field name="code">market</field>
         </record>
-    <record model="project.activity_al" id="activity_al_14">
+
+        <record id="activity_al_14" model="account.analytic.activity">
             <field name="name">Management</field>
             <field name="code">project</field>
         </record>
-    <record model="project.activity_al" id="activity_al_15">
+
+        <record id="activity_al_15" model="account.analytic.activity">
             <field name="name">Procurement</field>
             <field name="code">project</field>
         </record>
-    <record model="project.activity_al" id="activity_al_16">
+
+        <record id="activity_al_16" model="account.analytic.activity">
             <field name="name">Secretariat</field>
             <field name="code">project</field>
         </record>
-    <record model="project.activity_al" id="activity_al_17">
+
+        <record id="activity_al_17" model="account.analytic.activity">
             <field name="name">Meetings (internal)</field>
             <field name="code">project</field>
         </record>
-    <record model="project.activity_al" id="activity_al_18">
+
+        <record id="activity_al_18" model="account.analytic.activity">
             <field name="name">Meetings (with external partners)</field>
             <field name="code">project</field>
         </record>
-    <record model="project.activity_al" id="activity_al_19">
+
+        <record id="activity_al_19" model="account.analytic.activity">
             <field name="name">Missions abroad</field>
             <field name="code">project</field>
         </record>
-    <record model="project.activity_al" id="activity_al_20">
+
+        <record id="activity_al_20" model="account.analytic.activity">
             <field name="name">Periodic reports to client</field>
             <field name="code">project</field>
         </record>
-    <record model="project.activity_al" id="activity_al_21">
+
+        <record id="activity_al_21" model="account.analytic.activity">
             <field name="name">Contract &amp; claims (commercial negociations)</field>
             <field name="code">project</field>
         </record>
-    <record model="project.activity_al" id="activity_al_22">
+
+        <record id="activity_al_22" model="account.analytic.activity">
             <field name="name">Planning</field>
             <field name="code">project</field>
         </record>
-    <record model="project.activity_al" id="activity_al_23">
+
+        <record id="activity_al_23" model="account.analytic.activity">
             <field name="name">Quality / Time / Cost Control</field>
             <field name="code">project</field>
         </record>
-    
-</data>
-</openerp>
+
+    </data>
+</odoo>

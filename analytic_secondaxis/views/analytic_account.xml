@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2015-2020 Coop IT Easy SCRLfs (http://coopiteasy.be)
+        Houssine Bakkali <houssine@coopiteasy.be>
+        Rémy Taymans <remy@coopiteasy.be>
+    License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+
+    <record id="view_account_analytic_account_form" model="ir.ui.view">
+        <field name="name">account.analytic.account.form</field>
+        <field name="model">account.analytic.account</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_account_form"/>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <group name="main" position="after">
+                <group name="activities">
+                    <field name="analytic_activity_ids"/>
+                </group>
+            </group>
+        </field>
+    </record>
+
+
+    <record id="view_account_analytic_line_form" model="ir.ui.view">
+        <field name="name">account.analytic.line.form</field>
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_form"/>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <field name="tag_ids" position="after">
+                <field name="analytic_activity_id"/>
+            </field>
+        </field>
+    </record>
+
+
+    <record id="view_account_analytic_line_tree" model="ir.ui.view">
+        <field name="name">account.analytic.line.tree</field>
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_tree"/>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <field name="account_id" position="after">
+                <field name="analytic_activity_id"/>
+            </field>
+        </field>
+    </record>
+
+
+    <record id="view_account_analytic_line_filter" model="ir.ui.view">
+        <field name="name">account.analytic.line.select</field>
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_filter"/>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <field name="account_id" position="after">
+                <field name="analytic_activity_id"/>
+            </field>
+            <xpath
+                expr="/search/group/filter[@name='account_id']"
+                position="after"
+            >
+                <filter
+                    string="Activity"
+                    name="activity"
+                    context="{'group_by':'analytic_activity_id'}"
+                />
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
