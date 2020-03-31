@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="seq_ean_product_internal_ref_weight_pp" model="ir.sequence">
+            <field name="name">Internal reference - SPP - weight - pp</field>
+            <field name="code">product.internal.code.spp</field>
+            <field name="prefix"></field>
+            <field name="padding">3</field>
+            <field name="suffix"></field>
+            <field name="number_next">1</field>
+        </record>
+        <record id="seq_ean_product_internal_ref_weight_bio_producer" model="ir.sequence">
+            <field name="name">Internal reference - SPP - weight - bio producer</field>
+            <field name="code">product.internal.code.bio.producer</field>
+            <field name="prefix"></field>
+            <field name="padding">3</field>
+            <field name="suffix"></field>
+            <field name="number_next">1</field>
+        </record>
+        <record id="seq_ean_product_internal_ref_weight_bio_supplier" model="ir.sequence">
+            <field name="name">Internal reference - SPP - weight - bio supplier</field>
+            <field name="code">product.internal.code.bio.supplier</field>
+            <field name="prefix"></field>
+            <field name="padding">3</field>
+            <field name="suffix"></field>
+            <field name="number_next">1</field>
+        </record>
+        <record id="seq_ean_product_internal_ref_weight_non_bio" model="ir.sequence">
+            <field name="name">Internal reference - SPP - weight - non bio</field>
+            <field name="code">product.internal.code.non.bio</field>
+            <field name="prefix"></field>
+            <field name="padding">3</field>
+            <field name="suffix"></field>
+            <field name="number_next">1</field>
+        </record>
+    </data>
+</odoo>
