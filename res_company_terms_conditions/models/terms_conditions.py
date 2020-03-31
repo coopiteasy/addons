@@ -17,5 +17,5 @@ class TermsConditions(models.Model):
     )
 
     name = fields.Char(string="Name", required="True")
-
     content = fields.Html(string="Content", required="True")
+    active = fields.Boolean(string="Active", default=True)

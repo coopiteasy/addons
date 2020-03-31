@@ -12,18 +12,20 @@
         <field name="arch" type="xml">
             <notebook position="inside">
                 <page name="terms_conditions" string="Terms and Conditions">
-                    <field name="terms_conditions_ids">
+                    <field name="terms_conditions_ids" widget="one2many_list">
                         <form>
                             <group>
                                 <group>
                                     <field name="name"/>
                                     <field name="content" widget="html"/>
+                                    <field name="active"/>
                                 </group>
                             </group>
                         </form>
                         <tree>
                             <field name="name"/>
                             <field name="content"/>
+                            <field name="active"/>
                         </tree>
                     </field>
                 </page>

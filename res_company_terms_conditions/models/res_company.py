@@ -12,4 +12,5 @@ class ResCompany(models.Model):
         comodel_name="res.company.terms",
         inverse_name="company_id",
         string="Terms and Conditions",
+        domain=["|", ("active", "=", False), ("active", "=", True)],
     )
