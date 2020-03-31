@@ -39,8 +39,10 @@
         "views/hr_timesheet_sheet_view.xml",
         "views/location_filters.xml",
         "views/res_partner_views.xml",
+        "report/available_holidays_view.xml",
         "security/security.xml",
         "security/ir.model.access.csv",
+        "wizard/hr_holidays_summary_department_view.xml",
     ],
     "installable": True,
 }
