@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_company_inherit_form" model="ir.ui.view">
+        <field name="name">res.company.form.inherit</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="model">res.company</field>
+        <field name="priority">18</field>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="Human Resources">
+                    <group name="holidays_half_day">
+                        <field name="hours_per_day" widget="float_time"/>
+                        <field name="am_hour_from" widget="float_time"/>
+                        <field name="am_hour_to" widget="float_time"/>
+                        <field name="pm_hour_from" widget="float_time"/>
+                        <field name="pm_hour_to" widget="float_time"/>
+                    </group>
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+</odoo>
