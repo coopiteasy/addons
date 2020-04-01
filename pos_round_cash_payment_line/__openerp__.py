@@ -17,16 +17,12 @@
         A Round Remainder journal must be created and assigned to the POS.
 
     """,
-    "depends": [
-        'point_of_sale',
+    "depends": ["point_of_sale"],
+    "data": [
+        "views/pos_config.xml",
+        "views/account_journal_view.xml",
+        "static/src/xml/templates.xml",
     ],
-    'data': [
-        'views/pos_config.xml',
-        'views/account_journal_view.xml',
-        'static/src/xml/templates.xml',
-    ],
-    'qweb': [
-        'static/src/xml/pos_round_cash_payment_line.xml'
-    ],
-    'installable': True,
+    "qweb": ["static/src/xml/pos_round_cash_payment_line.xml"],
+    "installable": True,
 }

@@ -1,7 +1,7 @@
 /*
     POS Round cash Payment line for odoo
     Copyright (C) 2018 Robin Keunen
-    @author: Robin Keunen
+    Copyright (C) 2020 Houssine Bakkali
     The licence is in the file __openerp__.py
 */
 

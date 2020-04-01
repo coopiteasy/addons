@@ -7,9 +7,8 @@ from openerp import models, fields
 
 
 class AccountJournal(models.Model):
-    _inherit = 'account.journal'
+    _inherit = "account.journal"
 
     cash_rounding = fields.Boolean(
-        string='Cash Rounding Journal',
-        default=False,
+        string="Cash Rounding Journal", default=False
     )
