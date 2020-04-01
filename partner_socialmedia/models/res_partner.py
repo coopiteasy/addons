@@ -9,8 +9,8 @@ class ResPartner(models.Model):
     """Add social media fields"""
     _inherit = "res.partner"
 
-    facebook = fields.Char()
-    twitter = fields.Char()
-    skype = fields.Char()
-    linkedin = fields.Char()
-    mastodon = fields.Char()
+    facebook = fields.Char(translate=True)
+    twitter = fields.Char(translate=True)
+    skype = fields.Char(translate=True)
+    linkedin = fields.Char(translate=True)
+    mastodon = fields.Char(translate=True)
