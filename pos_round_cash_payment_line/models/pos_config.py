@@ -7,9 +7,8 @@ from openerp import models, fields
 
 
 class pos_config(models.Model):
-    _inherit = 'pos.config'
+    _inherit = "pos.config"
 
     cash_rounding_activated = fields.Boolean(
-        string='Activate Cash Rounding',
-        default=False,
+        string="Activate Cash Rounding", default=False
     )
