@@ -14,11 +14,14 @@
     'website': 'https://www.coopiteasy.be',
     'license': 'AGPL-3',
     'description': """
-    This module adds BVR number on res partner
+    This module adds BVR number on res partner. It also allows to match the
+    account bank statements lines with the corresponding partner based on
+    the bvr number
     """,
     'data': [
         'data/customer_id_sequence.xml',
         'views/partner_view.xml',
+        'views/account_bank_statement_view.xml'
     ],
     'installable': True,
 }
