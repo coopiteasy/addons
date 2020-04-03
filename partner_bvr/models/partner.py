@@ -5,6 +5,7 @@
 
 
 from odoo import api, fields, models
+from odoo.tools.misc import mod10r
 
 
 class ResPartner(models.Model):
@@ -28,7 +29,7 @@ class ResPartner(models.Model):
         bvr_number = bvr_number + str(partner.customer_number).rjust(5, '0')
         bvr_number = bvr_number + '00000'
 
-        return bvr_number
+        return mod10r(bvr_number)
 
     @api.multi
     def action_generate_bvr(self):
