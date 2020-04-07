@@ -20,7 +20,7 @@ class HrHolidays(models.Model):
     period = fields.Selection(
         string="Period",
         selection=[("am", "AM"), ("pm", "PM"), ("day", "Day")],
-        default="day",
+        required=True,
     )
 
     @api.multi
@@ -61,7 +61,7 @@ class HrHolidays(models.Model):
                 from_dt, to_dt = self._replace_duration(
                     from_dt, to_dt, company.pm_hour_from, company.pm_hour_to
                 )
-            else:
+            elif period == "day":
                 from_dt, to_dt = self._replace_duration(
                     from_dt, to_dt, company.am_hour_from, company.pm_hour_to
                 )
