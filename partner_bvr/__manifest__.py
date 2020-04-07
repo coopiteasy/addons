@@ -3,7 +3,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 {
-    'name': 'Partner BVR',
+    'name': 'Partner ISR',
     'version': '11.0.1.0.0',
     'depends': [
         'base',
@@ -14,9 +14,9 @@
     'website': 'https://www.coopiteasy.be',
     'license': 'AGPL-3',
     'description': """
-    This module adds BVR number on res partner. It also allows to match the
+    This module adds ISR number on res partner. It also allows to match the
     account bank statements lines with the corresponding partner based on
-    the bvr number
+    the isr number
     """,
     'data': [
         'data/customer_id_sequence.xml',
