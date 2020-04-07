@@ -19,7 +19,7 @@
 ##############################################################################
 {
     "name": "POS Products Display Customization",
-    "version": "1.0",
+    "version": "10.0.1.0.0",
     "depends": [
         "point_of_sale",
         "beesdoo_product",
