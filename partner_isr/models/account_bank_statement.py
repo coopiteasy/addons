@@ -14,9 +14,9 @@ class AccountBankStatement(models.Model):
         if self.state == 'open':
             customers = self.env['res.partner'].search([
                                                 ('customer', '=', True),
-                                                ('bvr_number', '!=', False)
+                                                ('isr_number', '!=', False)
                                                 ])
             for line in self.line_ids:
-                partner = customers.filtered(lambda cust: cust.bvr_number == line.ref)
+                partner = customers.filtered(lambda cust: cust.isr_number == line.ref)
                 if partner:
                     line.partner_id = partner.id

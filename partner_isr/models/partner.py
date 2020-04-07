@@ -11,8 +11,8 @@ from odoo.tools.misc import mod10r
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
-    bvr_number = fields.Char(
-        string="BVR number",
+    isr_number = fields.Char(
+        string="ISR number",
         readonly=True
         )
     customer_number = fields.Integer(
@@ -20,24 +20,33 @@ class ResPartner(models.Model):
         readonly=True
         )
 
+    _sql_constraints = [
+        ('customer_number_uniq', 'unique(customer_number, company_id)',
+         'Customer number must be unique'),
+    ]
+
+    _sql_constraints = [
+        ('isr_number_uniq', 'unique(isr_number, company_id)',
+         'ISR number must be unique'),
+    ]
     def get_customer_seq(self):
-        return self.env.ref('partner_bvr.sequence_customer_id', False)
+        return self.env.ref('partner_isr.sequence_customer_id', False)
 
-    def get_bvr_number(self, partner):
+    def get_isr_number(self, partner):
         number = 99999 - partner.customer_number
-        bvr_number = '20' + str(number).rjust(5, '0')
-        bvr_number = bvr_number + str(partner.customer_number).rjust(5, '0')
-        bvr_number = bvr_number + '00000'
+        isr_number = '20' + str(number).rjust(5, '0')
+        isr_number = isr_number + str(partner.customer_number).rjust(5, '0')
+        isr_number = isr_number + '00000'
 
-        return mod10r(bvr_number)
+        return mod10r(isr_number)
 
     @api.multi
-    def action_generate_bvr(self):
+    def action_generate_isr(self):
         for partner in self:
             if partner.customer:
                 if not partner.customer_number:
                     cust_sequ = self.get_customer_seq()
                     cust_number = cust_sequ.next_by_id()
                     partner.customer_number = cust_number
-                if not partner.bvr_number:
-                    partner.bvr_number = self.get_bvr_number(partner)
+                if not partner.isr_number:
+                    partner.isr_number = self.get_isr_number(partner)
