@@ -9,7 +9,7 @@ class AccountBankStatement(models.Model):
     _inherit = "account.bank.statement"
 
     @api.multi
-    def set_partner_on_bvr(self):
+    def set_partner_on_bank_statement_line(self):
         self.ensure_one()
         if self.state == 'open':
             customers = self.env['res.partner'].search([
