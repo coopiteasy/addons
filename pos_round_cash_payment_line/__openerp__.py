@@ -20,6 +20,8 @@
         "views/account_journal_view.xml",
         "static/src/xml/templates.xml",
     ],
-    "qweb": ["static/src/xml/pos_round_cash_payment_line.xml"],
+    "qweb": [
+        "static/src/xml/payment_methods.xml",
+    ],
     "installable": True,
 }
