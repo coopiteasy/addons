@@ -1,0 +1,12 @@
+<odoo>
+	<record id="view_bank_statement_form_bvr" model="ir.ui.view">
+	    <field name="name">account.bank.statement.form.bvr</field>
+	    <field name="model">account.bank.statement</field>
+	    <field name="inherit_id" ref="account.view_bank_statement_form"/>
+	    <field name="arch" type="xml">
+	    	<button name="check_confirm_bank" position="before">
+		    	<button name="set_partner_on_bank_statement_line" string="Run ISR Search" type="object" attrs="{'invisible':[('state', '!=', 'open')]}"/>
+	    	</button>
+	    </field>
+    </record>
+</odoo>

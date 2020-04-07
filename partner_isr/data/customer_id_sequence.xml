@@ -1,0 +1,10 @@
+<odoo>
+	<data noupdate="1">
+		<record id="sequence_customer_id" model="ir.sequence">
+            <field name="name">Customer Id Sequence</field>
+            <field name="code">customer.sequence</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+        </record>
+    </data>
+</odoo>
