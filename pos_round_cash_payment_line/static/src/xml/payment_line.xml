@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2020 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<templates id="PaymentScreen-Paymentlines-extend" xml:space="preserve">
+    <t t-extend="PaymentScreen-Paymentlines">
+        <t t-jquery=".col-tendered.edit" t-operation="replace">
+            <t t-if="line.cashregister.journal.cash_rounding === true">
+                <td class='col-tendered'>
+                    <t t-esc='widget.format_currency_no_symbol(line.get_amount())' />
+                </td>
+            </t>
+            <t t-if="!(line.cashregister.journal.cash_rounding === true)">
+                <td class='col-tendered edit'>
+                    <t t-esc='widget.inputbuffer' />
+                </td>
+            </t>
+        </t>
+    </t>
+</templates>

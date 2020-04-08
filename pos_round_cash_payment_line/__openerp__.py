@@ -22,6 +22,7 @@
     ],
     "qweb": [
         "static/src/xml/payment_methods.xml",
+        "static/src/xml/payment_line.xml",
     ],
     "installable": True,
 }
