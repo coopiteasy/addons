@@ -1,13 +1,19 @@
-odoo.define('pos_product_available', function (require) {
+odoo.define('pos_products.pos_products', function (require) {
     "use strict";
 
-    var module = require('point_of_sale.models');
-    var models = module.PosModel.prototype.models;
+    var models = require('point_of_sale.models');
+    var super_posmodel = models.PosModel.prototype;
 
-    for(var i=0; i<models.length; i++){
-        var model=models[i];
-        if(model.model === 'product.product'){
-             model.fields.push('display_weight', 'display_unit', 'main_seller_id');
-        }
-    }
+    models.PosModel = models.PosModel.extend({
+        initialize: function (session, attributes) {
+            // New code
+            var product_product = _.find(this.models, function (model) {
+                return model.model === 'product.product';
+            });
+            product_product.fields.push('display_weight', 'display_unit', 'main_seller_id');
+
+            // Inheritance
+            return super_posmodel.initialize.call(this, session, attributes);
+        },
+    });
 });
