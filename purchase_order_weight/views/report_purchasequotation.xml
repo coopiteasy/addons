@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
         <template id="report_purchasequotation_document"
                   inherit_id="purchase.report_purchasequotation_document"
                   name="purchasequotation_weight">
@@ -20,5 +19,4 @@
             </xpath>
 
         </template>
-    </data>
 </odoo>
