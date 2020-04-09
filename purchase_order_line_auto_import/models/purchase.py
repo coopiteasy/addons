@@ -4,7 +4,7 @@ from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
 from odoo import api, fields, models, SUPERUSER_ID
-import openerp.addons.decimal_precision as dp
+from odoo.addons import decimal_precision as dp
 
 UNIT = dp.get_precision('Product Unit of Measure')
 
