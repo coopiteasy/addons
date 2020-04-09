@@ -44,7 +44,7 @@ class PurchaseOrder(models.Model):
                     name += '\n' + product_lang.description_purchase
                 values['name'] = name
                 if self.date_order:
-                    values['date_planned'] = datetime.strptime(self.date_order, DEFAULT_SERVER_DATETIME_FORMAT) + relativedelta(days=supplier_info.delay if supplier_info else 0)
+                    values['date_planned'] = self.date_order + relativedelta(days=supplier_info.delay if supplier_info else 0)
                 else:
                     values['date_planned'] = datetime.today() + relativedelta(days=supplier_info.delay if supplier_info else 0)
                 if self.env.uid == SUPERUSER_ID:
