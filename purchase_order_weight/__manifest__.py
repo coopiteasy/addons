@@ -18,13 +18,13 @@
 ##############################################################################
 {
     "name": "Purchase Order Weight",
-    "version": "11.0.1.0.0",
+    "version": "12.0.1.0.0",
     "depends": [
         'base',
         'purchase',
         'beesdoo_product',
     ],
-    "author": "Coop IT Easy - Robin Keunen <robin@coopiteasy.be>",
+    "author": "Coop IT Easy SCRLfs",
     "license": "AGPL-3",
     "category": "",
     "website": "www.coopiteasy.be",
