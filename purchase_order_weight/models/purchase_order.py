@@ -13,7 +13,7 @@ class PurchaseOrderLine(models.Model):
     )
 
     display_unit = fields.Many2one(
-        'product.uom',
+        'uom.uom',
         'Weight Unit',
         related='product_id.display_unit'
     )
