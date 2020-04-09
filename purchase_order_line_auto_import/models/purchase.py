@@ -2,11 +2,8 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
-from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
 from odoo import api, fields, models, SUPERUSER_ID
-from odoo.exceptions import Warning as UserError
-from odoo.tools.translate import _
 import openerp.addons.decimal_precision as dp
 
 UNIT = dp.get_precision('Product Unit of Measure')
