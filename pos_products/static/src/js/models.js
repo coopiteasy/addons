@@ -1,4 +1,4 @@
-odoo.define('pos_products.pos_products', function (require) {
+odoo.define('pos_products.models', function (require) {
     "use strict";
 
     var models = require('point_of_sale.models');
@@ -11,7 +11,6 @@ odoo.define('pos_products.pos_products', function (require) {
                 return model.model === 'product.product';
             });
             product_product.fields.push('display_weight', 'display_unit', 'main_seller_id');
-
             // Inheritance
             return super_posmodel.initialize.call(this, session, attributes);
         },

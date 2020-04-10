@@ -33,10 +33,10 @@
         - producers
     """,
     "data": [
-        'static/src/xml/templates.xml',
+        'views/assets.xml',
     ],
     "qweb": [
-      'static/src/xml/pos.xml',
+      'static/src/xml/pos_products.xml',
     ],
     'installable': True,
 }
