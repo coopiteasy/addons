@@ -9,6 +9,9 @@
             <field name="model">resource.location</field>
             <field name="inherit_id" ref="resource_planning.resource_location_form"/>
             <field name="arch" type="xml">
+                <field name="address" position="after">
+                    <field name="terms_conditions_id"/>
+                </field>
                 <page name="users" position="after">
                     <page name="guides" string="Guides">
                         <field name="guides">
