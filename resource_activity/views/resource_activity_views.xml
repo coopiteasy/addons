@@ -404,6 +404,7 @@
                                <group>
                                    <field name="code"/>
                                    <field name="analytic_account"/>
+                                   <field name="terms_conditions_id"/>
                                </group>
                         </group>
                         <notebook>

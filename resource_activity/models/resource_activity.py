@@ -116,6 +116,11 @@ class ResourceActivityType(models.Model):
         'product.product',
         string="Product")
     active = fields.Boolean('Active', default=True)
+    terms_conditions_id = fields.Many2one(
+        comodel_name="res.company.terms",
+        string="Terms and Conditions",
+        help="Terms and Conditions related to this activity type"
+    )
 
 
 class ResourceActivityTheme(models.Model):
