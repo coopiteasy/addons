@@ -5,3 +5,4 @@ from . import sale
 from . import resource
 from . import opening_hours
 from . import opening_hours_day
+from . import terms_conditions

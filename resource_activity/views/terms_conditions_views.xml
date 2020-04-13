@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2020 Coop IT Easy SCRLfs
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+
+    <record id="view_form_terms_conditions" model="ir.ui.view">
+        <field name="name">res.company.terms.form</field>
+        <field name="model">res.company.terms</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="name"/>
+                        <field name="content" widget="html"/>
+                        <field name="active"/>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_tree_terms_conditions" model="ir.ui.view">
+        <field name="name">res.company.terms.tree</field>
+        <field name="model">res.company.terms</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="content"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_terms_conditions" model="ir.actions.act_window">
+        <field name="name">Terms and Conditions</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.company.terms</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">
+            ['|', ('active', '=', False), ('active', '=', True)]
+        </field>
+    </record>
+
+    <menuitem id="menu_terms_conditions"
+              name="Terms and Conditions"
+              action="action_terms_conditions"
+              parent="resource_planning.menu_resource_configuration"
+              sequence="30"/>
+
+</odoo>
