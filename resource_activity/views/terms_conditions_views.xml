@@ -14,7 +14,7 @@
                     <group>
                         <field name="name"/>
                         <field name="content" widget="html"/>
-                        <field name="active"/>
+                        <field name="active" groups="resource_planning.group_resource_manager"/>
                     </group>
                 </group>
             </form>
@@ -28,7 +28,7 @@
             <tree>
                 <field name="name"/>
                 <field name="content"/>
-                <field name="active"/>
+                <field name="active" groups="resource_planning.group_resource_manager"/>
             </tree>
         </field>
     </record>
