@@ -56,6 +56,18 @@
                     </t>
                 </div>
              </xpath>
+            <xpath expr="//p[@id='fiscal_position_remark']" position="after">
+                <div t-if="doc.activity_type.terms_conditions_id or doc.location_id.terms_conditions_id">
+                    <div style="page-break-after: always;"/>
+                    <strong>Terms and Conditions:</strong>
+                    <div name="terms_conditions_activity_type" t-if="doc.activity_type.terms_conditions_id">
+                        <div t-field="doc.activity_type.terms_conditions_id.content"/>
+                    </div>
+                    <div name="terms_conditions_location_id" t-if="doc.location_id.terms_conditions_id">
+                        <div t-field="doc.location_id.terms_conditions_id.content"/>
+                    </div>
+                </div>
+            </xpath>
         </template>
     </data>
 </openerp>
