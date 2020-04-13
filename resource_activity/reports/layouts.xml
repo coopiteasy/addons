@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report.external_layout">
+        <t t-if="not o and doc">
+            <t t-set="o" t-value="doc"/>
+        </t>
+        <t t-if="o and 'company_id' in o">
+            <t t-set="company" t-value="o.company_id"></t>
+        </t>
+        <t t-if="not o or not 'company_id' in o">
+            <t t-set="company" t-value="res_company"></t>
+        </t>
+        <!-- override starts here -->
+        <t t-if="o and 'location_id' in o">
+            <t t-set="location" t-value="o.location_id"></t>
+        </t>
+        <!-- override ends here -->
+
+        <t t-call="report.external_layout_header"/>
+        <t t-raw="0"/>
+        <t t-call="resource_activity.external_layout_footer"/>
+    </template>
+
+    <template id="extend_external_layout_header" inherit_id="report.external_layout_header">
+        <xpath expr="//div[@name='company_address']" position="replace">
+            <div class="col-xs-5">
+                <div t-if="location.address">
+                    <div t-field="location.address"
+                         t-field-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'
+                         style="border-bottom: 1px solid black;"
+                         class="pull-left"/>
+                </div>
+                <div t-if="not location.address">
+                    <div t-field="company.partner_id"
+                         t-field-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'
+                         style="border-bottom: 1px solid black;"
+                         class="pull-left"/>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="resource_activity.external_layout_footer">
+        <div class="footer">
+            <div class="text-center" style="border-top: 1px solid black;">
+                Phone:
+                <t t-if="location.address.phone">
+                    <span t-field="location.address.phone"/>
+                    |
+                </t>
+                <t t-if="not location.address.phone and company.phone">
+                    <span t-field="company.phone"/>
+                    |
+                </t>
+                Email:
+                <t t-if="location.address.email">
+                    <span t-field="location.address.email"/>
+                    |
+                </t>
+                <t t-if="not location.address.email and company.email">
+                    <span t-field="company.email"/>
+                    |
+                </t>
+                Website:
+                <t t-if="location.address.website">
+                    <span t-field="location.address.website"/>
+                    |
+                </t>
+                <t t-if="not location.address.website and company.website">
+                    <span t-field="company.website"/>
+                    |
+                </t>
+                VAT:
+                <t t-if="company.vat">
+                    <span t-field="company.vat"/>
+                    |
+                </t>
+                Reg.:
+                <t t-if="company.company_registry">
+                    <span t-field="company.company_registry"/>
+                </t>
+
+                <ul class="list-inline">
+                    <li>Page:</li>
+                    <li>
+                        <span class="page"/>
+                    </li>
+                    <li>/</li>
+                    <li>
+                        <span class="topage"/>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </template>
+</odoo>

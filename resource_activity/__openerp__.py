@@ -56,6 +56,7 @@
         'reports/activity_report.xml',
         'reports/activity_registration_report.xml',
         'reports/sale_order_report.xml',
+        'reports/layouts.xml',
     ],
     'installable': True,
     'application': True,
