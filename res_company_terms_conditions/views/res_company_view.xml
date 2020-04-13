@@ -5,6 +5,34 @@
 -->
 <odoo>
 
+    <record id="view_form_terms_conditions" model="ir.ui.view">
+        <field name="name">res.company.terms.form</field>
+        <field name="model">res.company.terms</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="name"/>
+                        <field name="content" widget="html"/>
+                        <field name="active"/>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_tree_terms_conditions" model="ir.ui.view">
+        <field name="name">res.company.terms.tree</field>
+        <field name="model">res.company.terms</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="content"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
     <record id="view_company_form_terms_conditions" model="ir.ui.view">
         <field name="name">res.company.form.terms.conditions</field>
         <field name="model">res.company</field>
@@ -12,25 +40,10 @@
         <field name="arch" type="xml">
             <notebook position="inside">
                 <page name="terms_conditions" string="Terms and Conditions">
-                    <field name="terms_conditions_ids" widget="one2many_list">
-                        <form>
-                            <group>
-                                <group>
-                                    <field name="name"/>
-                                    <field name="content" widget="html"/>
-                                    <field name="active"/>
-                                </group>
-                            </group>
-                        </form>
-                        <tree>
-                            <field name="name"/>
-                            <field name="content"/>
-                            <field name="active"/>
-                        </tree>
-                    </field>
+                    <field name="terms_conditions_ids" widget="one2many_list"/>
                 </page>
             </notebook>
         </field>
-
     </record>
+
 </odoo>
