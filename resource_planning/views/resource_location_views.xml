@@ -31,6 +31,7 @@
 	            			</group>
 	            			<group>
 		            			<field name="address"/>
+								<field name="terms_conditions_id"/>
 	            			</group>
 	            		</group>
 	            		<notebook>
