@@ -69,11 +69,6 @@
 				  parent="menu_resource_configuration"
 				  sequence="20"/>
 
-		<menuitem id="menu_terms_conditions"
-				  name="Terms and Conditions"
-				  action="action_terms_conditions"
-				  parent="menu_resource_configuration"
-				  sequence="30"/>
 
 	</data>
 </odoo>
