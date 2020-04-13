@@ -76,8 +76,3 @@ class ResourceLocation(models.Model):
             "Active",
             default=True,
             track_visibility="onchange")
-    terms_conditions_id = fields.Many2one(
-        comodel_name="res.company.terms",
-        string="Terms and Conditions",
-        help="Terms and Conditions related to this location"
-    )
