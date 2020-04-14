@@ -1,14 +1,14 @@
 from odoo import api, fields, models
 
 
-class StockPackOperation(models.Model):
-    _inherit = 'stock.pack.operation'
+class StockMoveLine(models.Model):
+    _inherit = 'stock.move.line'
 
     display_weight = fields.Float(string='Weight',
                                   related='product_id.display_weight')
 
     display_unit = fields.Many2one(
-        'product.uom',
+        'uom.uom',
         'Weight Unit',
         related='product_id.display_unit'
     )
