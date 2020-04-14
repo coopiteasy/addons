@@ -19,11 +19,7 @@
 {
     "name": "Purchase Order Weight",
     "version": "12.0.1.0.0",
-    "depends": [
-        'base',
-        'purchase',
-        'beesdoo_product',
-    ],
+    "depends": ["base", "purchase", "beesdoo_product",],
     "author": "Coop IT Easy SCRLfs",
     "license": "AGPL-3",
     "category": "",
@@ -32,9 +28,9 @@
         Adds weight and weight unit to Purchase Order
     """,
     "data": [
-        'views/purchaseorder.xml',
-        'views/report_purchaseorder.xml',
-        'views/report_purchasequotation.xml',
+        "views/purchaseorder.xml",
+        "views/report_purchaseorder.xml",
+        "views/report_purchasequotation.xml",
     ],
-    'installable': True,
+    "installable": True,
 }
