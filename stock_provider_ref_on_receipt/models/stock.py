@@ -1,8 +1,8 @@
 from odoo import api, fields, models
 
 
-class Product(models.Model):
-    _inherit = 'stock.pack.operation'
+class StockMoveLine(models.Model):
+    _inherit = 'stock.move.line'
 
     provider_ref = fields.Char(string="Provider Reference",
                                compute="_compute_product_code")

@@ -10,9 +10,9 @@
             </th>
         </xpath>
 
-        <xpath expr="//table[3]//tr[@t-foreach='o.pack_operation_ids']//td[1]" position="after">
+        <xpath expr="//table[3]//tr[@t-foreach='o.move_line_ids']//td[1]" position="after">
             <td class="text-left">
-                <span t-field="pack_operation.provider_ref"/>
+                <span t-field="move_line.provider_ref"/>
             </td>
         </xpath>
     </template>
