@@ -8,7 +8,6 @@ class StockMoveLine(models.Model):
                                compute="_compute_product_code")
 
     @api.multi
-    @api.depends('provider_ref')
     def _compute_product_code(self):
         for product in self:
             product_supplier = self.env['product.supplierinfo'].search(
