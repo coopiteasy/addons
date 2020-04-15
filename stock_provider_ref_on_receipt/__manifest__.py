@@ -4,18 +4,13 @@
 {
     "name": "Provider reference on receipt",
     "version": "12.0.1.0.0",
-    "depends": [
-        'stock',
-    ],
+    "depends": ["stock",],
     "author": "Coop IT Easy SCRLfs",
     "license": "AGPL-3",
     "website": "www.coopiteasy.be",
     "description": """
         Show provider reference on each line of a receipt
     """,
-    "data": [
-        'views/stock_view.xml',
-        'reports/report_deliveryslip.xml'
-    ],
-    'installable': True,
+    "data": ["views/stock_view.xml", "reports/report_deliveryslip.xml"],
+    "installable": True,
 }
