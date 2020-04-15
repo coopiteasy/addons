@@ -1,13 +1,14 @@
-# Copyright 2017 Houssine BAKKALI <houssine@coopiteasy.be>
+# Copyright 2017- Coop IT Easy SCRLfs
+#   - Houssine Bakkali <houssine@coopiteasy.be>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
     'name': 'Global discount on invoice',
-    'version': '11.0.1.1.0',
-    'author': 'Houssine BAKKALI - Coop IT Easy',
+    'version': '12.0.1.1.0',
+    'author': 'Coop IT Easy SCRLfs',
     'category': 'Accounting',
     'license': 'AGPL-3',
-    'website': 'https://www.coopiteasy.be',
+    'website': 'https://coopiteasy.be',
     'depends': [
         'account',
     ],
