@@ -4,7 +4,7 @@
 
 {
     'name': 'Global discount on invoice',
-    'version': '9.0.1.1.0',
+    'version': '10.0.1.1.0',
     'author': 'Houssine BAKKALI - Coop IT Easy',
     'category': 'Accounting',
     'license': 'AGPL-3',
