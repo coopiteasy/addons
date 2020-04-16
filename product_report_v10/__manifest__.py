@@ -5,10 +5,10 @@
     'summary': """
         This module allows to show the print barcode and name of the product.
     """,
-    'author': 'Houssine BAKKALI, Coop IT Easy',
+    'author': 'Coop IT Easy SCRLfs',
     'category': 'Product',
-    'version': '11.0.1.0.0',
-    'website': 'www.coopiteasy.be',
+    'version': '12.0.1.0.0',
+    'website': 'https://coopiteasy.be',
     'license': 'AGPL-3',
     'depends': ['base', 'product', 'web'],
     'data': [
