@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # © 2016 Houssine BAKKALI, Open Architects Consulting SPRL
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 {
@@ -8,10 +7,10 @@
     """,
     'author': 'Houssine BAKKALI, Coop IT Easy',
     'category': 'Product',
-    'version': '10.0.1.0.0',
+    'version': '11.0.1.0.0',
     'website': 'www.coopiteasy.be',
     'license': 'AGPL-3',
-    'depends': ['base', 'product', 'report'],
+    'depends': ['base', 'product', 'web'],
     'data': [
         'report/layout.xml',
         'report/product_template_label_repeat.xml',

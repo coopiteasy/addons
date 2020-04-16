@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
   <template id="report_producttemplate_label_repeat">
-    <t t-call="report.html_container">
+    <t t-call="web.html_container">
       <t t-set="data_report_dpi" t-value="300"/>
       <div class="page">
         <t t-call="product_report_v10.report_style"/>
