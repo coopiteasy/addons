@@ -8,7 +8,7 @@
     """,
     'author': 'Houssine BAKKALI, Coop IT Easy',
     'category': 'Product',
-    'version': '9.0.1.0.0',
+    'version': '10.0.1.0.0',
     'website': 'www.coopiteasy.be',
     'license': 'AGPL-3',
     'depends': ['base', 'product', 'report'],
