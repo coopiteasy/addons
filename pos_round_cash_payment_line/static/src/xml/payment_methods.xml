@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2020 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<templates id="PaymentScreen-Paymentmethods-extend" xml:space="preserve">
+    <t t-extend="PaymentScreen-Paymentmethods">
+        <t t-jquery=".paymentmethod" t-operation="replace">
+            <t t-if="cashregister.journal.cash_rounding === true">
+                <div class="button paymentmethod oe_hidden"
+                     t-att-data-id="cashregister.journal_id[0]">
+                    <t t-esc="cashregister.journal_id[1]"/>
+                </div>
+            </t>
+            <t t-if="!cashregister.journal.cash_rounding === true">
+                <div class="button paymentmethod"
+                     t-att-data-id="cashregister.journal_id[0]">
+                    <t t-esc="cashregister.journal_id[1]"/>
+                </div>
+            </t>
+        </t>
+    </t>
+</templates>
