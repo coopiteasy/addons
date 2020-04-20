@@ -28,11 +28,11 @@ class PurchaseOrder(models.Model):
             for supplier_info in self.env['product.supplierinfo'].search([('name','=',self.partner_id.id),('product_tmpl_id.active','=',True),('product_tmpl_id.purchase_ok','=',True)]):
                 values = {}
                 values['order_id'] = self.id
-                values['product_id'] = supplier_info.product_tmpl_id.product_variant_ids.id
+                values['product_id'] = supplier_info.product_tmpl_id.product_variant_ids[0].id
                 values['product_qty'] = supplier_info.min_qty
                 values['product_uom'] = supplier_info.product_uom.id
                 values['price_unit'] = supplier_info.price
-                product_lang = supplier_info.product_tmpl_id.product_variant_ids.with_context({
+                product_lang = supplier_info.product_tmpl_id.product_variant_ids[0].with_context({
                                     'lang': self.partner_id.lang,
                                     'partner_id': self.partner_id.id
                                     })
