@@ -10,15 +10,15 @@ class StockMoveLine(models.Model):
 
     @api.multi
     def _compute_product_code(self):
-        for product in self:
+        for line in self:
             product_supplier = self.env["product.supplierinfo"].search(
                 [
                     (
                         "product_tmpl_id",
                         "=",
-                        product.product_id.product_tmpl_id.id,
+                        line.product_id.product_tmpl_id.id,
                     )
                 ]
             )
             if product_supplier:
-                product.provider_ref = product_supplier[0].product_code
+                line.provider_ref = product_supplier[0].product_code
