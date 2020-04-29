@@ -158,7 +158,8 @@ class CashlogyAutomaticCashdrawerDriver(Thread):
         amount = int(payment_info_dict['amount'] * 100)  # amount is sent in cents to the cashdrawer
         operation_number = payment_info_dict.get('operation_number', '00001')  # Number to be able to track operation
         display_accept_button = payment_info_dict.get('display_accept_button', False)  # Allow the user to confirm the change given by customer
-        screen_on_top = payment_info_dict.get('screen_on_top', False)  # Put the screen on top
+        #screen_on_top = payment_info_dict.get('screen_on_top', False)  # Put the screen on top
+        screen_on_top = False
         see_customer_screen = payment_info_dict.get('see_customer_screen', False)  # Display customer screen
         message = "#C#%s#1#%s#%s#15#15#%s#1#%s#0#0#" % (operation_number,
                                                         amount,
