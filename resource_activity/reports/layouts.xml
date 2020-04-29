@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <template id="contact" inherit_id="base.contact">
+        <xpath expr="//t[@t-if='object.name']" position="replace">
+            <t t-if="object.name">
+                <span itemprop="name" t-esc="object.name"/>
+            </t>
+        </xpath>
+    </template>
+
     <template id="report.external_layout">
         <t t-if="not o and doc">
             <t t-set="o" t-value="doc"/>

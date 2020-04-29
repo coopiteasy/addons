@@ -50,23 +50,46 @@
                 <div name="langs" t-if="doc.langs" class="col-xs-3">
                     <strong>Langs:</strong>
                     <t t-foreach="doc.langs" t-as="lang">
-                        <t t-if="lang">                 
+                        <t t-if="lang">
                             <div t-field="lang.name"/>
-                        </t>                                  
+                        </t>
+                    </t>
+                </div>
+
+                <div t-if="doc.location_id.line_ids">
+                    <t t-foreach="doc.location_id.line_ids" t-as="line">
+                        <t t-if="(line.location_id == doc.location_id) and (line.activity_type_id == doc.activity_type)">
+                            <div name="resources" t-if="(doc.activity_id.booked_resources) and (line.bike_number_display)" class="col-xs-3">
+                                <strong>Resources booked:</strong>
+                                <div name="booked_resources_list"
+                                     t-if="(line.bike_number_display == 'list')">
+                                    <t t-foreach="doc.booked_resources" t-as="booked_resource">
+                                        <div t-field="booked_resource.name"/>
+                                    </t>
+                                </div>
+
+                                <div name="booked_resources_category"
+                                     t-if="(line.bike_number_display == 'type')">
+                                    <t t-foreach="doc.get_category_quantity()" t-as="category">
+                                        <t t-esc="category_value"/> <t t-esc="category"/><br/>
+                                    </t>
+                                </div>
+                            </div>
+                        </t>
                     </t>
                 </div>
              </xpath>
+
+
             <xpath expr="//p[@id='fiscal_position_remark']" position="after">
-                <div t-if="doc.activity_type.terms_conditions_id or doc.location_id.terms_conditions_id">
-                    <div style="page-break-after: always;"/>
-                    <strong>Terms and Conditions:</strong>
-                    <div name="terms_conditions_activity_type" t-if="doc.activity_type.terms_conditions_id">
-                        <div t-field="doc.activity_type.terms_conditions_id.content"/>
-                    </div>
-                    <div name="terms_conditions_location_id" t-if="doc.location_id.terms_conditions_id">
-                        <div t-field="doc.location_id.terms_conditions_id.content"/>
-                    </div>
-                </div>
+                <t t-if="doc.location_id.line_ids">
+                    <t t-foreach="doc.location_id.line_ids" t-as="line">
+                        <t t-if="(line.location_id == doc.location_id) and (line.activity_type_id == doc.activity_type)">
+                            <p style="page-break-before:always;"/>
+                            <div t-field="line.terms_id.content"/>
+                        </t>
+                    </t>
+                </t>
             </xpath>
         </template>
     </data>

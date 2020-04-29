@@ -2,8 +2,13 @@
 # Copyright 2018 Coop IT Easy SCRLfs.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp import api, fields, models
+from openerp import api, fields, models, _
 from openerp.exceptions import UserError
+
+
+class ResCompany(models.Model):
+    _inherit = "res.company"
+    sale_note = fields.Html(string='Default Terms and Conditions', translate=True, sanitize=False)
 
 
 class SaleOrder(models.Model):
@@ -83,6 +88,7 @@ class SaleOrder(models.Model):
         'resource.resource',
         related='activity_id.booked_resources',
         readonly=True)
+    note = fields.Html('Terms and conditions', default=lambda self: self._default_note())
 
     @api.multi
     def action_draft(self):
@@ -120,6 +126,13 @@ class SaleOrder(models.Model):
             'res_id': self.id,
             'target': 'current',
         }
+
+    @api.multi
+    def get_category_quantity(self):
+        category_qty = {}
+        for booked_resource in self.booked_resources:
+            category_qty[booked_resource.category_id.name] = category_qty.get(booked_resource.category_id.name, 0) + 1
+        return category_qty
 
 
 class SaleOrderLine(models.Model):

@@ -116,11 +116,6 @@ class ResourceActivityType(models.Model):
         'product.product',
         string="Product")
     active = fields.Boolean('Active', default=True)
-    terms_conditions_id = fields.Many2one(
-        comodel_name="res.company.terms",
-        string="Terms and Conditions",
-        help="Terms and Conditions related to this activity type"
-    )
 
 
 class ResourceActivityTheme(models.Model):
@@ -162,8 +157,8 @@ class ResourceActivity(models.Model):
             if activity.sale_orders:
                 registrations_need_push = any(
                     activity
-                    .registrations
-                    .mapped('need_push'))
+                        .registrations
+                        .mapped('need_push'))
                 activity.need_push = activity.need_push or registrations_need_push
         return
 
@@ -174,11 +169,11 @@ class ResourceActivity(models.Model):
             for registration in activity.registrations:
                 res_ids = (
                     registration
-                    .allocations
-                    .filtered(
+                        .allocations
+                        .filtered(
                         lambda record: record.state in ['option', 'booked'])
-                    .mapped('resource_id')
-                    .ids
+                        .mapped('resource_id')
+                        .ids
                 )
                 if res_ids:
                     booked_resources = booked_resources + res_ids
@@ -203,8 +198,8 @@ class ResourceActivity(models.Model):
             if activity.state in ('sale', 'done'):
                 registrations = (
                     activity
-                    .registrations
-                    .filtered(lambda record: record.state == 'booked')
+                        .registrations
+                        .filtered(lambda record: record.state == 'booked')
                 )
 
                 activity.registrations_paid = all(
@@ -495,8 +490,8 @@ class ResourceActivity(models.Model):
         for activity in self:
             registrations = (
                 activity
-                .registrations
-                .filtered(lambda record: record.state != 'cancelled')
+                    .registrations
+                    .filtered(lambda record: record.state != 'cancelled')
             )
 
             activity.registrations_expected = sum(
@@ -541,7 +536,6 @@ class ResourceActivity(models.Model):
                             + " minute(s)"
                     )
 
-
     @api.multi
     def search_all_resources(self):
         for activity in self:
@@ -578,12 +572,12 @@ class ResourceActivity(models.Model):
         for activity in self:
             registrations = (
                 activity
-                .registrations
-                .filtered(lambda r: r.state in ['option', 'booked'])
+                    .registrations
+                    .filtered(lambda r: r.state in ['option', 'booked'])
             )
             # warn if in draft and invoiced resources booked
             if (activity.state == 'draft'
-                and (registrations or activity.guides or activity.trainers)):
+                    and (registrations or activity.guides or activity.trainers)):
                 action = self.env.ref(
                     'resource_activity.action_draft_to_done')
                 return {
@@ -638,8 +632,8 @@ class ResourceActivity(models.Model):
     def prepare_lines(self, activity):
         registrations = (
             activity
-            .registrations
-            .filtered(lambda record: record.state != 'cancelled')
+                .registrations
+                .filtered(lambda record: record.state != 'cancelled')
         )
         prepared_lines = []
         for registration in registrations:
@@ -683,11 +677,18 @@ class ResourceActivity(models.Model):
 
     def _create_sale_order(self, activity, partner_id):
         SaleOrder = self.env['sale.order']
+        sale_note = SaleOrder._default_note()
+        for line in activity.location_id.line_ids:
+            if (line.note_id
+                    and line.location_id == activity.location_id
+                    and line.activity_type_id == activity.activity_type):
+                sale_note = line.note_id.content
         order_id = SaleOrder.create({
-                    'partner_id': partner_id,
-                    'activity_id': activity.id,
-                    'project_id': activity.analytic_account.id,
-                    'activity_sale': True,
+            'partner_id': partner_id,
+            'activity_id': activity.id,
+            'project_id': activity.analytic_account.id,
+            'activity_sale': True,
+            'note': sale_note,
         })
         activity.state = 'quotation'
         return order_id
@@ -700,8 +701,8 @@ class ResourceActivity(models.Model):
         """
         registrations = (
             activity
-            .registrations
-            .filtered(lambda record: record.state != 'cancelled')
+                .registrations
+                .filtered(lambda record: record.state != 'cancelled')
         )
 
         sale_orders = {}
@@ -815,8 +816,8 @@ class ResourceActivity(models.Model):
 
             options = (
                 activity
-                .registrations
-                .filtered(lambda record: record.booking_type in ['option'])
+                    .registrations
+                    .filtered(lambda record: record.booking_type in ['option'])
             )
             for option in options:
                 option.allocations.action_confirm()
@@ -854,8 +855,8 @@ class ResourceActivity(models.Model):
 
         delivery_line = (
             sale_order_id
-            .order_line
-            .filtered(lambda record: record.resource_delivery)
+                .order_line
+                .filtered(lambda record: record.resource_delivery)
         )
         line_vals = {'resource_delivery': True}
 
@@ -870,9 +871,9 @@ class ResourceActivity(models.Model):
     def update_guide_line(self, activity, sale_order_id):
         guide_line = (
             activity
-            .sale_order_id
-            .order_line
-            .filtered(lambda record: record.resource_guide == True)
+                .sale_order_id
+                .order_line
+                .filtered(lambda record: record.resource_guide == True)
         )
         line_vals = {'resource_guide': True}
         guide_qty = len(activity.guides)
@@ -888,8 +889,8 @@ class ResourceActivity(models.Model):
     def update_participation_line(self, activity, sale_order_id, nb_registrations):
         participation_line = (
             sale_order_id
-            .order_line
-            .filtered(lambda record: record.participation_line)
+                .order_line
+                .filtered(lambda record: record.participation_line)
         )
         line_vals = {'participation_line': True}
 
@@ -939,7 +940,7 @@ class ResourceActivity(models.Model):
                 if len(activity.delivery_ids) != 2:
                     return False
                 elif (activity.delivery_ids[0].delivery_type
-                        == activity.delivery_ids[1].delivery_type):
+                      == activity.delivery_ids[1].delivery_type):
                     return False
                 elif activity.delivery_ids[0].delivery_type == '':
                     return False
@@ -955,9 +956,9 @@ class ResourceActivity(models.Model):
         """Check if activities has valid deliveries. If not, valid
         deliveries are set."""
         activities = (self.env['resource.activity'].search([])
-                      .filtered(
-                          lambda rec: not rec.has_valid_delivery()
-                      ))
+            .filtered(
+            lambda rec: not rec.has_valid_delivery()
+        ))
         for activity in activities:
             activity.write({
                 'delivery_ids': [
@@ -992,7 +993,6 @@ class ResourceActivity(models.Model):
             if activity.sale_orders:
                 if ('need_delivery' in vals
                         and not vals.get('need_delivery')):
-
                     vals['delivery_place'] = ''
                     vals['delivery_time'] = False
                     vals['pickup_place'] = ''
@@ -1005,7 +1005,6 @@ class ResourceActivity(models.Model):
 
                 if ('need_participation' in vals
                         and not vals.get('need_participation')):
-
                     vals['need_participation'] = False
 
                 watches = (
