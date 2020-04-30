@@ -14,7 +14,7 @@
     'author': 'Coop IT Easy SCRLfs, GRAP',
     'website': 'https://coopiteasy.be',
     'category': 'Tools',
-    'version': '11.0.1.0.0',
+    'version': '12.0.1.0.0',
     'license': 'AGPL-3',
     'depends': ['product', 'sale_management'],
     'data': [
@@ -24,7 +24,7 @@
         'data/ir_config_parameter.xml',
         'data/ir_cron.xml',
         'views/product_template_view.xml',
-        'views/product_uom_view.xml',
+        'views/uom_uom_view.xml',
         'views/product_scale_system_view.xml',
         'views/product_scale_group_view.xml',
         'views/product_scale_log_view.xml',

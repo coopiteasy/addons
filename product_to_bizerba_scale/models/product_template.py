@@ -4,7 +4,6 @@
 #   - Houssine BAKKALI <houssine@coopiteasy.be>
 #   - Rémy TAYMANS <remy@coopiteasy.be>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-from datetime import datetime
 
 from odoo import api, fields, models, _
 from odoo.addons import decimal_precision as dp
@@ -59,7 +58,7 @@ class ProductTemplate(models.Model):
     def _send_to_scale_bizerba(self, action, send_product_image=False):
         log_obj = self.env['product.scale.log']
         log_obj.create({
-            'log_date': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+            'log_date': fields.Datetime.now(),
             'scale_system_id': self.scale_group_id.scale_system_id.id,
             'product_id': self.id,
             'action': action,

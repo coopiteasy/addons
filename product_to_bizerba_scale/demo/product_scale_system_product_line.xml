@@ -8,8 +8,8 @@
         <field name="name">Bizerba Shelf ID</field>
         <field name="sequence">2</field>
         <field name="type">many2one</field>
-        <field name="field_id" ref="product_to_bizerba_scale.field_product_template_scale_group_id"/>
-        <field name="related_field_id" ref="product_to_bizerba_scale.field_product_scale_group_external_identity"/>
+        <field name="field_id" ref="product_to_bizerba_scale.field_product_template__scale_group_id"/>
+        <field name="related_field_id" ref="product_to_bizerba_scale.field_product_scale_group__external_identity"/>
         <field name="delimiter">#</field>
     </record>
 
@@ -29,7 +29,7 @@
         <field name="name">Product Name</field>
         <field name="sequence">4</field>
         <field name="type">text</field>
-        <field name="field_id" ref="product.field_product_template_name"/>
+        <field name="field_id" ref="product.field_product_template__name"/>
         <field name="multiline_length">40</field>
         <field name="multiline_separator">@0A</field>
         <field name="delimiter">#</field>
@@ -52,7 +52,7 @@
         <field name="name">Public Price (x 100)</field>
         <field name="sequence">6</field>
         <field name="type">numeric</field>
-        <field name="field_id" ref="product.field_product_template_list_price"/>
+        <field name="field_id" ref="product.field_product_template__list_price"/>
         <field name="numeric_coefficient">100</field>
         <field name="numeric_round">1</field>
         <field name="delimiter">#</field>
@@ -86,7 +86,7 @@
         <field name="name">Product Barcode</field>
         <field name="sequence">9</field>
         <field name="type">text</field>
-        <field name="field_id" ref="product.field_product_template_barcode"/>
+        <field name="field_id" ref="product.field_product_template__barcode"/>
         <field name="delimiter">#</field>
     </record>
 
@@ -96,8 +96,8 @@
         <field name="name">To Weight ('P' / 'F')</field>
         <field name="sequence">10</field>
         <field name="type">many2one</field>
-        <field name="field_id" ref="product.field_product_template_uom_id"/>
-        <field name="related_field_id" ref="product_to_bizerba_scale.field_product_uom_scale_type"/>
+        <field name="field_id" ref="product.field_product_template__uom_id"/>
+        <field name="related_field_id" ref="product_to_bizerba_scale.field_uom_uom__scale_type"/>
         <field name="delimiter">#</field>
     </record>
 
@@ -107,7 +107,7 @@
         <field name="name">Tare Weight</field>
         <field name="sequence">11</field>
         <field name="type">numeric</field>
-        <field name="field_id" ref="product_to_bizerba_scale.field_product_template_scale_tare_weight"/>
+        <field name="field_id" ref="product_to_bizerba_scale.field_product_template__scale_tare_weight"/>
         <field name="numeric_coefficient">1000</field>
         <field name="numeric_round">1</field>
         <field name="delimiter">#</field>
@@ -119,7 +119,7 @@
         <field name="name">Fixed Weight</field>
         <field name="sequence">12</field>
         <field name="type">numeric</field>
-        <field name="field_id" ref="product.field_product_template_weight"/>
+        <field name="field_id" ref="product.field_product_template__weight"/>
         <field name="numeric_coefficient">1000</field>
         <field name="numeric_round">1</field>
         <field name="delimiter">#</field>
@@ -327,7 +327,7 @@
         <field name="name">Main Image</field>
         <field name="sequence">32</field>
         <field name="type">product_image</field>
-        <field name="field_id" ref="product.field_product_template_image"/>
+        <field name="field_id" ref="product.field_product_template__image"/>
         <field name="suffix">.PNG</field>
         <field name="delimiter">#</field>
     </record>
