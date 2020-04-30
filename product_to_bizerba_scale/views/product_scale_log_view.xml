@@ -5,7 +5,7 @@
     <record id="view_product_scale_log_tree" model="ir.ui.view">
         <field name="model">product.scale.log</field>
         <field name="arch" type="xml">
-            <tree name="scale_log" string="Scale Log" colors="gray:sent == True;">
+            <tree name="scale_log" string="Scale Log" decoration-muted="sent == True">
                 <field name="log_date"/>
                 <field name="sent"/>
                 <field name="last_send_date"/>

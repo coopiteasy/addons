@@ -4,7 +4,7 @@
 
     <menuitem id="menu_scale_root"
         name="Scales"
-        parent="sales_team.menu_sale_config" sequence="25"/>
+        parent="sale.menu_sale_config" sequence="25"/>
 
     <menuitem id="menu_product_scale_system"
         parent="menu_scale_root" sequence="1"

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2014-2017 GRAP (http://www.grap.coop)
 #   - Sylvain LE GAL (https://twitter.com/legalsylvain)
 # Copyright 2017-Today Coop IT Easy SCRLfs
@@ -15,9 +14,9 @@
     'author': 'Coop IT Easy SCRLfs, GRAP',
     'website': 'https://coopiteasy.be',
     'category': 'Tools',
-    'version': '10.0.1.0.0',
+    'version': '11.0.1.0.0',
     'license': 'AGPL-3',
-    'depends': ['product', 'sales_team'],
+    'depends': ['product', 'sale_management'],
     'data': [
         'security/ir_module_category.xml',
         'security/res_groups.xml',

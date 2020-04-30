@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2014-2017 GRAP (http://www.grap.coop)
 #   - Sylvain LE GAL (https://twitter.com/legalsylvain)
 # Copyright 2017-Today Coop IT Easy SCRLfs
@@ -73,7 +72,7 @@ class ProductTemplate(models.Model):
         for product_field in ADDITIONAL_FIELDS:
             if product_field not in system_fields:
                 system_fields.append(product_field)
-        vals_fields = vals.keys()
+        vals_fields = list(vals.keys())
         return set(system_fields).intersection(vals_fields)
 
     def is_in_scale(self):
@@ -133,7 +132,7 @@ class ProductTemplate(models.Model):
 
         res = super(ProductTemplate, self).write(vals)
 
-        for product_id, action in defered.iteritems():
+        for product_id, action in defered.items():
             product = self.browse(product_id)
             product._send_to_scale_bizerba(action, True)
 

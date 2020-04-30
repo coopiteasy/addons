@@ -1,10 +1,10 @@
-# -*- coding: utf-8 -*-
 # Copyright 2014-2017 GRAP (http://www.grap.coop)
 #   - Sylvain LE GAL (https://twitter.com/legalsylvain)
 # Copyright 2017-Today Coop IT Easy SCRLfs
 #   - Houssine BAKKALI <houssine@coopiteasy.be>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
+import codecs
 import os
 import logging
 from datetime import datetime
@@ -22,7 +22,7 @@ except ImportError:
 
 class ProductScaleLog(models.Model):
     _name = 'product.scale.log'
-    _inherit = 'ir.needaction_mixin'
+    _inherit = 'mail.activity.mixin'
     _order = 'log_date desc, id desc'
 
     _EXTERNAL_SIZE_ID_RIGHT = 4
@@ -253,13 +253,13 @@ class ProductScaleLog(models.Model):
             f_name = datetime.now().strftime(pattern)
             local_path = os.path.join(local_folder_path, f_name)
             distant_path = os.path.join(distant_folder_path, f_name)
-            f = open(local_path, 'w')
+            f = open(local_path, 'wb')
             for line in lines:
                 f.write(line.encode(encoding))
             f.close()
 
             # Send File by FTP
-            f = open(local_path, 'r')
+            f = open(local_path, 'rb')
             ftp.storbinary('STOR ' + distant_path, f)
             f.close()
             # Delete temporary file
@@ -272,7 +272,7 @@ class ProductScaleLog(models.Model):
 
         for product in product_lst:
             f_name = str(product.id) + '.jpeg'
-            datas = product.image.decode('base64')
+            datas = codecs.decode(product.image, 'base64')
             local_path = os.path.join(local_folder_path, f_name)
             distant_path = os.path.join(distant_folder_path, f_name)
             f = open(local_path, 'wb')
@@ -296,7 +296,7 @@ class ProductScaleLog(models.Model):
             else:
                 system_map[log.scale_system_id] = [log]
 
-        for scale_system, logs in system_map.iteritems():
+        for scale_system, logs in system_map.items():
 
             # Open FTP Connection
             ftp = self.ftp_connection_open(
