@@ -1,22 +1,29 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2014 GRAP (http://www.grap.coop)
-# © 2017 Coop IT Easy (http://www.coopiteasy.be)
-# @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
-# @author: Houssine BAKKALI (https://github.com/houssine78)
+# Copyright 2014-2017 GRAP (http://www.grap.coop)
+#   - Sylvain LE GAL (https://twitter.com/legalsylvain)
+# Copyright 2017-Today Coop IT Easy SCRLfs
+#   - Houssine BAKKALI <houssine@coopiteasy.be>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 import os
 import logging
 from datetime import datetime
 
-from openerp import tools, api
-from openerp.osv import fields
-from openerp.osv.orm import Model
+from odoo import api, fields, models, tools, _
 
 _logger = logging.getLogger(__name__)
 
-class product_scale_log(Model):
-    _inherit = 'product.scale.log'
+try:
+    from ftplib import FTP
+except ImportError:
+    _logger.warning(
+        "Cannot import 'ftplib' Python Library. 'product_to_bizerba_scale' module will not work properly.")
+
+
+class ProductScaleLog(models.Model):
+    _name = 'product.scale.log'
+    _inherit = 'ir.needaction_mixin'
+    _order = 'log_date desc, id desc'
 
     _EXTERNAL_SIZE_ID_RIGHT = 4
 
@@ -44,10 +51,54 @@ class product_scale_log(Model):
 
     _EXTERNAL_TEXT_DELIMITER = '#'
 
+    log_date = fields.Datetime(
+        string='Log Date',
+        required=True
+    )
+    scale_system_id = fields.Many2one(
+        comodel_name='product.scale.system',
+        string='Scale System',
+        required=True
+    )
+    send_product_image = fields.Boolean(
+        string='Send product image'
+    )
+    product_id = fields.Many2one(
+        'product.template',
+        string='Product'
+    )
+    product_text = fields.Text(
+        compute='_compute_text',
+        string='Product Text',
+        store=True,
+    )
+    external_text = fields.Text(
+        compute='_compute_text',
+        string='External Text',
+        store=True,
+    )
+    external_text_display = fields.Text(
+        compute='_compute_text',
+        string='External Text (Display)',
+        store=True,
+    )
+    action = fields.Selection(
+        selection=_ACTION_SELECTION,
+        string='Action',
+        required=True
+    )
+    sent = fields.Boolean(
+        string='Is Sent'
+    )
+    last_send_date = fields.Datetime(
+        string='Last Send Date'
+    )
+
     @api.noguess
-    def _auto_init(self, cr, context=None):
-        cr.execute("DELETE FROM product_scale_log")
-        res = super(product_scale_log, self)._auto_init(cr, context=context)
+    def _auto_init(self):
+        # FIXME on install -> psycopg2.ProgrammingError: relation "product_scale_log" does not exist
+        # self.env.cr.execute("DELETE FROM product_scale_log")
+        res = super(ProductScaleLog, self)._auto_init()
         return res
 
     # Private Section
@@ -71,21 +122,21 @@ class product_scale_log(Model):
 
     def _generate_external_text(self, value, product_line, external_id, log):
         external_text_list = [
-            self._EXTERNAL_TEXT_ACTION_CODE,                    # WALO Code
-            log.product_id.scale_group_id.external_identity,    # ABNR Code
-            external_id,                                        # TXNR Code
-            self._clean_value(value, product_line),             # TEXT Code
+            self._EXTERNAL_TEXT_ACTION_CODE,  # WALO Code
+            log.product_id.scale_group_id.external_identity,  # ABNR Code
+            external_id,  # TXNR Code
+            self._clean_value(value, product_line),  # TEXT Code
         ]
         return self._EXTERNAL_TEXT_DELIMITER.join(external_text_list)
 
     # Compute Section
-    def _compute_text(
-            self, cr, uid, ids, field_name, arg, context=None):
-        res = {}
-        for log in self.browse(cr, uid, ids, context):
+    @api.multi
+    @api.depends('scale_system_id', 'product_id')
+    def _compute_text(self):
+        for log in self:
 
             group = log.product_id.scale_group_id
-            product_text =\
+            product_text = \
                 self._ACTION_MAPPING[log.action] + self._DELIMITER
             external_texts = []
 
@@ -107,9 +158,9 @@ class product_scale_log(Model):
                     product_text += self._clean_value(value, product_line)
 
                 elif product_line.type == 'external_text':
-                    external_id = str(log.product_id.id)\
-                        + str(product_line.id).rjust(
-                            self._EXTERNAL_SIZE_ID_RIGHT, '0')
+                    external_id = str(log.product_id.id) \
+                                  + str(product_line.id).rjust(
+                        self._EXTERNAL_SIZE_ID_RIGHT, '0')
                     external_texts.append(self._generate_external_text(
                         value, product_line, external_id, log))
                     product_text += external_id
@@ -134,7 +185,7 @@ class product_scale_log(Model):
                     elif value and product_line.related_field_id:
                         item_value = getattr(
                             value, product_line.related_field_id.name)
-                        product_text +=\
+                        product_text += \
                             item_value and str(item_value) or ''
 
                 elif product_line.type == 'many2many':
@@ -150,48 +201,75 @@ class product_scale_log(Model):
                             item_value, product_line)
 
                 elif product_line.type == 'product_image':
-                    product_text += str(log.product_id.id) +\
-                        product_line.suffix
+                    product_text += str(log.product_id.id) + \
+                                    product_line.suffix
 
                 if product_line.delimiter:
                     product_text += product_line.delimiter
             break_line = self._ENCODING_MAPPING[log.scale_system_id.encoding]
-            res[log.id] = {
-                'product_text': product_text + break_line,
-                'external_text': break_line.join(external_texts) + break_line,
-                'external_text_display': '\n'.join(
-                    [x.replace('\n', '') for x in external_texts]),
-            }
-        return res
+            log.product_text = product_text + break_line
+            log.external_text = break_line.join(external_texts) + break_line
+            log.external_text_display = '\n'.join(
+                    [x.replace('\n', '') for x in external_texts])
 
-    # Column Section
-    _columns = {
-        'send_product_image': fields.boolean(string='Send product image'),
-        'product_id': fields.many2one(
-            'product.template', string='Product'),
-        'product_text': fields.function(
-            _compute_text, type='text', string='Product Text',
-            multi='compute_text', store={'product.scale.log': (
-                lambda self, cr, uid, ids, context=None:
-                    ids, ['scale_system_id', 'product_id'], 10)}),
-        'external_text': fields.function(
-            _compute_text, type='text', string='External Text',
-            multi='compute_text', store={'product.scale.log': (
-                lambda self, cr, uid, ids, context=None: ids, [
-                    'scale_system_id', 'product_id', 'product_id'], 10)}),
-        'external_text_display': fields.function(
-            _compute_text, type='text', string='External Text (Display)',
-            multi='compute_text', store={'product.scale.log': (
-                lambda self, cr, uid, ids, context=None: ids, [
-                    'scale_system_id', 'product_id', 'product_id'], 10)}),
-    }
-    
-    def action_send_product_image(self, cr, uid, ftp, distant_folder_path, local_folder_path, product_lst, context=None):
+    # View Section
+    @api.model
+    def _needaction_count(self):
+        return len(
+            self.search([('sent', '=', False)]))
+
+    @api.model
+    def ftp_connection_open(self, scale_system):
+        """Return a new FTP connection with found parameters."""
+        _logger.info("Trying to connect to ftp://%s@%s" % (
+            scale_system.ftp_login, scale_system.ftp_url))
+        try:
+            ftp = FTP(scale_system.ftp_url)
+            if scale_system.ftp_login:
+                ftp.login(
+                    scale_system.ftp_login,
+                    scale_system.ftp_password)
+            else:
+                ftp.login()
+            return ftp
+        except:
+            _logger.error("Connection to ftp://%s@%s failed." % (
+                scale_system.ftp_login, scale_system.ftp_url))
+            return False
+
+    @api.model
+    def ftp_connection_close(self, ftp):
+        try:
+            ftp.quit()
+        except:
+            pass
+
+    @api.model
+    def ftp_connection_push_text_file(
+            self, ftp, distant_folder_path, local_folder_path,
+            pattern, lines, encoding):
+        if lines:
+            # Generate temporary file
+            f_name = datetime.now().strftime(pattern)
+            local_path = os.path.join(local_folder_path, f_name)
+            distant_path = os.path.join(distant_folder_path, f_name)
+            f = open(local_path, 'w')
+            for line in lines:
+                f.write(line.encode(encoding))
+            f.close()
+
+            # Send File by FTP
+            f = open(local_path, 'r')
+            ftp.storbinary('STOR ' + distant_path, f)
+            f.close()
+            # Delete temporary file
+            os.remove(local_path)
+
+    @api.model
+    def action_send_product_image(self, ftp, distant_folder_path, local_folder_path, product_lst):
         if not ftp:
             return False
 
-        att_obj = self.pool['ir.attachment']
-        
         for product in product_lst:
             f_name = str(product.id) + '.jpeg'
             datas = product.image.decode('base64')
@@ -207,15 +285,13 @@ class product_scale_log(Model):
             # Delete temporary file
             os.remove(local_path)
         return True
-    
-    def send_log(self, cr, uid, ids, context=None):
-        config_obj = self.pool['ir.config_parameter']
-        folder_path = config_obj.get_param(
-            cr, uid, 'bizerba.local_folder_path', context=context)
 
+    @api.multi
+    def send_log(self, context=None, domain=None, order=None):
+        folder_path = self.env['ir.config_parameter'].sudo().get_param('bizerba.local_folder_path')
         system_map = {}
-        for log in self.browse(cr, uid, ids, context=context):
-            if log.scale_system_id in system_map.keys():
+        for log in self.search(domain or [], order=order):
+            if log.scale_system_id in list(system_map.keys()):
                 system_map[log.scale_system_id].append(log)
             else:
                 system_map[log.scale_system_id] = [log]
@@ -224,7 +300,7 @@ class product_scale_log(Model):
 
             # Open FTP Connection
             ftp = self.ftp_connection_open(
-                cr, uid, logs[0].scale_system_id, context=context)
+                logs[0].scale_system_id)
             if not ftp:
                 return False
 
@@ -242,25 +318,31 @@ class product_scale_log(Model):
                 if log.external_text:
                     external_text_lst.append(log.external_text)
             self.action_send_product_image(
-                cr, uid, ftp, scale_system.product_image_relative_path,
-                folder_path, product_image_lst, context=context)
+                ftp, scale_system.product_image_relative_path,
+                folder_path, product_image_lst)
             self.ftp_connection_push_text_file(
-                cr, uid, ftp, scale_system.csv_relative_path,
+                ftp, scale_system.csv_relative_path,
                 folder_path, scale_system.external_text_file_pattern,
-                external_text_lst, scale_system.encoding, context=context)
+                external_text_lst, scale_system.encoding)
             self.ftp_connection_push_text_file(
-                cr, uid, ftp, scale_system.csv_relative_path,
+                ftp, scale_system.csv_relative_path,
                 folder_path, scale_system.product_text_file_pattern,
-                product_text_lst, scale_system.encoding, context=context)
+                product_text_lst, scale_system.encoding)
 
             # Close FTP Connection
-            self.ftp_connection_close(cr, uid, ftp, context=context)
+            self.ftp_connection_close(ftp)
 
             # Mark logs as sent
             now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-            self.write(
-                cr, uid, [log.id for log in logs], {
-                    'sent': True,
-                    'last_send_date': now,
-                }, context=context)
+            for log in logs:
+                log.write({
+                        'sent': True,
+                        'last_send_date': now,
+                    })
         return True
+
+    @api.model
+    def cron_send_to_scale(self):
+        domain = [('sent', '=', False)]
+        order = 'log_date'
+        self.send_log(domain=domain, order=order)

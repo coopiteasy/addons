@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-Copyright (C) 2016-Today: GRAP (http://www.grap.coop)
-@author Sylvain LE GAL (https://twitter.com/legalsylvain)
-License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
--->
 
-<openerp><data>
+<odoo>
 
     <record id="view_product_scale_system_form" model="ir.ui.view">
         <field name="model">product.scale.system</field>
         <field name="arch" type="xml">
-            <form string="Scale System" version="7.0">
+            <form name="scale_system" string="Scale System" version="7.0">
                 <header />
                 <sheet>
                     <group>
@@ -28,7 +23,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                             <field name="product_text_file_pattern"/>
                             <field name="external_text_file_pattern"/>
                         </group>
-                        <group string="FTP Connexion">
+                        <group name="ftp_connexion" string="FTP Connexion">
                             <field name="ftp_url"/>
                             <field name="ftp_login"/>
                             <field name="ftp_password"/>
@@ -37,7 +32,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                         </group>
                     </group>
                     <notebook>
-                        <page string="Line Settings">
+                        <page name="line_settings" string="Line Settings">
                             <group>
                                 <field name="product_line_ids" nolabel="1">
                                     <tree editable="bottom">
@@ -74,4 +69,4 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         </field>
     </record>
 
-</data></openerp>
+</odoo>

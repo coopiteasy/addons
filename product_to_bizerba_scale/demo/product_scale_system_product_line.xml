@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-Copyright (C) 2016-Today: GRAP (http://www.grap.coop)
-@author Sylvain LE GAL (https://twitter.com/legalsylvain)
-License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
--->
 
-<openerp><data>
+<odoo>
 
     <record id="demo_scale_system_product_line_ABNR" model="product.scale.system.product.line">
         <field name="scale_system_id" ref="demo_scale_system"/>
@@ -13,8 +8,8 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="name">Bizerba Shelf ID</field>
         <field name="sequence">2</field>
         <field name="type">many2one</field>
-        <field name="field_id" ref="product_to_scale_bizerba.field_product_product_scale_group_id"/>
-        <field name="related_field_id" ref="product_to_scale_bizerba.field_product_scale_group_external_identity"/>
+        <field name="field_id" ref="product_to_bizerba_scale.field_product_template_scale_group_id"/>
+        <field name="related_field_id" ref="product_to_bizerba_scale.field_product_scale_group_external_identity"/>
         <field name="delimiter">#</field>
     </record>
 
@@ -91,7 +86,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="name">Product Barcode</field>
         <field name="sequence">9</field>
         <field name="type">text</field>
-        <field name="field_id" ref="product.field_product_product_barcode"/>
+        <field name="field_id" ref="product.field_product_template_barcode"/>
         <field name="delimiter">#</field>
     </record>
 
@@ -102,7 +97,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="sequence">10</field>
         <field name="type">many2one</field>
         <field name="field_id" ref="product.field_product_template_uom_id"/>
-        <field name="related_field_id" ref="product_to_scale_bizerba.field_product_uom_scale_type"/>
+        <field name="related_field_id" ref="product_to_bizerba_scale.field_product_uom_scale_type"/>
         <field name="delimiter">#</field>
     </record>
 
@@ -112,7 +107,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="name">Tare Weight</field>
         <field name="sequence">11</field>
         <field name="type">numeric</field>
-        <field name="field_id" ref="product_to_scale_bizerba.field_product_product_scale_tare_weight"/>
+        <field name="field_id" ref="product_to_bizerba_scale.field_product_template_scale_tare_weight"/>
         <field name="numeric_coefficient">1000</field>
         <field name="numeric_round">1</field>
         <field name="delimiter">#</field>
@@ -332,11 +327,11 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="name">Main Image</field>
         <field name="sequence">32</field>
         <field name="type">product_image</field>
-        <field name="field_id" ref="product.field_product_product_image"/>
+        <field name="field_id" ref="product.field_product_template_image"/>
         <field name="suffix">.PNG</field>
         <field name="delimiter">#</field>
     </record>
 
 
 
-</data></openerp>
+</odoo>

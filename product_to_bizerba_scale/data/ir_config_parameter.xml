@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-Copyright (C) 2016-Today: GRAP (http://www.grap.coop)
-@author Sylvain LE GAL (https://twitter.com/legalsylvain)
-License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
--->
 
-<openerp>
+<odoo>
     <data noupdate="1">
 
         <record id="bizerba_folder_path" model="ir.config_parameter">
@@ -14,4 +9,4 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         </record>
 
     </data>
-</openerp>
+</odoo>

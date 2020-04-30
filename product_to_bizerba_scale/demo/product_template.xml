@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-Copyright (C) 2016-Today: GRAP (http://www.grap.coop)
-@author Sylvain LE GAL (https://twitter.com/legalsylvain)
-License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
--->
 
 <odoo>
 
-    <record id="apple" model="product.product">
+    <record id="apple" model="product.template">
         <field name="name">Apple (Gala, small)</field>
         <field name="list_price">2.05</field>
         <field name="barcode">2341321000002</field>
@@ -18,7 +13,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="scale_sequence">1</field>
     </record>
 
-    <record id="salad" model="product.product">
+    <record id="salad" model="product.template">
         <field name="name">Salade (Lettuce, Mache)</field>
         <field name="list_price">1.20</field>
         <field name="barcode">2304639000003</field>
@@ -30,7 +25,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="scale_sequence">1</field>
     </record>
 
-    <record id="cucumber" model="product.product">
+    <record id="cucumber" model="product.template">
         <field name="name">Cucumber (Green)</field>
         <field name="list_price">2.40</field>
         <field name="barcode">2304062000007</field>
