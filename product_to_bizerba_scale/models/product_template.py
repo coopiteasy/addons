@@ -1,36 +1,33 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2014 GRAP (http://www.grap.coop)
-# Copyright © 2017 Coop IT Easy (http://www.coopiteasy.be)
-# @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
-# @author: Houssine BAKKALI (https://github.com/houssine78)
-# @author: Rémy TAYMANS <remy@coopiteasy.be>
+# Copyright 2014-2017 GRAP (http://www.grap.coop)
+#   - Sylvain LE GAL (https://twitter.com/legalsylvain)
+# Copyright 2017-Today Coop IT Easy SCRLfs
+#   - Houssine BAKKALI <houssine@coopiteasy.be>
+#   - Rémy TAYMANS <remy@coopiteasy.be>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 from datetime import datetime
 
-from openerp import api, fields, models, _
-import openerp.addons.decimal_precision as dp
+from odoo import api, fields, models, _
+from odoo.addons import decimal_precision as dp
 
 # TODO: scale_category is defined in beesdoo_product but this module do
 #       not depend on it. Find a way to configure these fields.
 ADDITIONAL_FIELDS = ['list_price', 'scale_category', 'image_medium']
 
+
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
     scale_group_id = fields.Many2one(
-        related="product_variant_ids.scale_group_id",
+        comodel_name='product.scale.group',
         string='Scale Group',
-        store=True
     )
     scale_sequence = fields.Integer(
-        related="product_variant_ids.scale_sequence",
         string='Scale Sequence',
-        store=True
     )
     scale_tare_weight = fields.Float(
-        related="product_variant_ids.scale_tare_weight",
+        digits=dp.get_precision('Stock Weight'),
         string='Scale Tare Weight',
-        store=True,
         help="Set here Constant tare weight"
         " for the given product. This tare will be substracted when"
         " the product is weighted. Usefull only for weightable product.\n"
