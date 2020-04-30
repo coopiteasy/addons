@@ -305,7 +305,6 @@ class ProductScaleLog(models.Model):
                 return False
 
             # Generate and Send Files
-            now = datetime.now()
             product_image_lst = []
             product_text_lst = []
             external_text_lst = []
@@ -333,7 +332,7 @@ class ProductScaleLog(models.Model):
             self.ftp_connection_close(ftp)
 
             # Mark logs as sent
-            now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            now = fields.Datetime.now()
             for log in logs:
                 log.write({
                         'sent': True,

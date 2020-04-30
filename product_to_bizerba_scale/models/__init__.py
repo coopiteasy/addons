@@ -3,4 +3,4 @@ from . import product_scale_system
 from . import product_scale_log
 from . import product_scale_group
 from . import product_template
-from . import product_uom
+from . import uom_uom

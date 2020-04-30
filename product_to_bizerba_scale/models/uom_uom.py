@@ -7,7 +7,7 @@
 from odoo import api, fields, models, _
 
 
-class ProductUom(models.Model):
-    _inherit = 'product.uom'
+class Uom(models.Model):
+    _inherit = 'uom.uom'
 
     scale_type = fields.Char(string='Scale Type')
