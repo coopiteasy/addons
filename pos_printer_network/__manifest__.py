@@ -11,9 +11,10 @@
     "license": "Other OSI approved licence",  # MIT
     "price": 340.00,
     "currency": "EUR",
-    "depends": ["pos_restaurant"],
+    "depends": ["point_of_sale"],
     "external_dependencies": {"python": [], "bin": []},
     "data": [
+        "security/ir.model.access.csv",
         "views/pos_printer_network_template.xml",
         "views/pos_printer_network_view.xml",
     ],

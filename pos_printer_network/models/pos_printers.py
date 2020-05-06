@@ -5,9 +5,16 @@ from odoo import fields, models
 _logger = logging.getLogger(__name__)
 
 
-class RestaurantPrinter(models.Model):
-    _inherit = "restaurant.printer"
+class NetworkPrinter(models.Model):
+    _name = "network.printer"
+    _description = 'Network Printer'
 
+    name = fields.Char(
+        string='Printer Name',
+        required=True,
+        default="Printer",
+        help='An internal identification of the printer'
+    )
     proxy_ip = fields.Char(
         "IP Address",
         help="IP Address of PosBox if it's USB Printer"
@@ -34,4 +41,8 @@ class PosConfig(models.Model):
         default=False,
         string="Network Printer IP",
         help="IP address of the network printer used for receipts",
+    )
+    printer_ids = fields.Many2many(
+        'network.printer',
+        string='Network Printers'
     )

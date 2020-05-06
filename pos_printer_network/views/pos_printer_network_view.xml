@@ -1,29 +1,56 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!--Copyright 2017 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
-    Copyright 2017-2018 Gabbasov Dinar <https://it-projects.info/team/GabbasovDinar>
-    Copyright 2019 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
-    License MIT (https://opensource.org/licenses/MIT).-->
 <odoo>
-    <record id="view_restaurant_printer_form" model="ir.ui.view">
-        <field name="name">Order Printer</field>
-        <field name="model">restaurant.printer</field>
-        <field name="inherit_id" ref="pos_restaurant.view_restaurant_printer_form" />
+    <record id="view_network_printer_form" model="ir.ui.view">
+        <field name="name">Network Printer</field>
+        <field name="model">network.printer</field>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='product_categories_ids']" position="before">
-                <field name="network_printer" />
-            </xpath>
+            <form string="POS Printer">
+                <group col="2">
+                    <field name="name" />
+                    <field name="proxy_ip" />
+                    <field name="network_printer"/>
+                </group>
+            </form>
         </field>
     </record>
-    <record id="view_restaurant_printer" model="ir.ui.view">
-        <field name="name">Order Printers</field>
-        <field name="model">restaurant.printer</field>
-        <field name="inherit_id" ref="pos_restaurant.view_restaurant_printer" />
+
+    <record id="view_network_printer_tree" model="ir.ui.view">
+        <field name="name">Network Printers</field>
+        <field name="model">network.printer</field>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='product_categories_ids']" position="before">
-                <field name="network_printer" />
-            </xpath>
+            <tree string="Network Printers">
+                <field name="name" />
+                <field name="proxy_ip" />
+                <field name="network_printer"/>
+            </tree>
         </field>
     </record>
+
+    <record model="ir.actions.act_window" id="action_network_printer_pos">
+        <field name="name">Network Printers</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">network.printer</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Click to add a Network Printer.
+          </p><p>
+            Order Printers are used by shop to print the ticket on selected printer.
+          </p><p>
+            Each Order Printer has an IP Address that defines the PosBox/Hardware
+            Proxy where the printer can be found.
+          </p>
+        </field>
+    </record>
+
+    <menuitem
+        parent="point_of_sale.menu_point_config_product"
+        action="action_network_printer_pos"
+        id="menu_restaurant_printer_all"
+        sequence="30"
+        groups="point_of_sale.group_pos_manager"/>
+
     <record model="ir.ui.view" id="view_pos_config_form">
         <field name="name">pos.config.form.view.inherit</field>
         <field name="model">pos.config</field>
@@ -51,6 +78,17 @@
                         class="col-md-3 o_light_label"
                     />
                     <field name="receipt_network_printer_ip" />
+                </div>
+                <div
+                    class="row"
+                    attrs="{'invisible' : ['|',('receipt_printer_type', '=', 'usb_printer'),('iface_print_via_proxy', '=', False)]}"
+                >
+                    <label
+                        string="Printers"
+                        for="printer_ids"
+                        class="col-md-3 o_light_label"
+                    />
+                    <field name="printer_ids" />
                 </div>
             </xpath>
         </field>

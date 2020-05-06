@@ -1,4 +1,4 @@
-odoo.define("pos_restaurant.network_printer", function(require) {
+odoo.define("pos_printer_network.network_printer", function(require) {
     "use strict";
 
     var models = require("point_of_sale.models");
@@ -6,18 +6,73 @@ odoo.define("pos_restaurant.network_printer", function(require) {
     var core = require("web.core");
     var Session = require("web.Session");
     var gui = require("point_of_sale.gui");
-    var Printer = require("pos_restaurant.multiprint").Printer;
     var devices = require("point_of_sale.devices");
     var chrome = require("point_of_sale.chrome");
     var PopupWidget = require("point_of_sale.popups");
+    var mixins = require("web.mixins");
     var QWeb = core.qweb;
     var _t = core._t;
 
+    var Printer = core.Class.extend(mixins.PropertiesMixin,{
+        init: function(parent,options){
+            mixins.PropertiesMixin.init.call(this);
+            this.setParent(parent);
+            options = options || {};
+            var url = options.url || 'http://localhost:8069';
+            this.connection = new Session(undefined,url, { use_cors: true});
+            this.host       = url;
+            this.receipt_queue = [];
+        },
+        print: function(receipt){
+            var self = this;
+            if(receipt){
+                this.receipt_queue.push(receipt);
+            }
+            function send_printing_job(){
+                if(self.receipt_queue.length > 0){
+                    var r = self.receipt_queue.shift();
+                    var options = {shadow: true, timeout: 5000};
+                    self.connection.rpc('/hw_proxy/print_xml_receipt', {receipt: r}, options)
+                        .then(function(){
+                            send_printing_job();
+                        },function(error, event){
+                            self.receipt_queue.unshift(r);
+                            console.log('There was an error while trying to print the order:');
+                            console.log(error);
+                        });
+                }
+            }
+            send_printing_job();
+        },
+    });
+
     models.load_models({
-        model: "restaurant.printer",
-        fields: ["network_printer"],
+        model: "network.printer",
+        fields: ["name","network_printer","proxy_ip"],
         domain: null,
         loaded: function(self, printers) {
+            var active_printers = {};
+            for (var i = 0; i < self.config.printer_ids.length; i++) {
+                active_printers[self.config.printer_ids[i]] = true;
+            }
+
+            self.printers = [];
+            for(var i = 0; i < printers.length; i++){
+                if(active_printers[printers[i].id]){
+                    var url = printers[i].proxy_ip || '';
+                    if(url.indexOf('//') < 0){
+                        url = 'http://'+url;
+                    }
+                    if(url.indexOf(':',url.indexOf('//')+2) < 0){
+                        url = url+':8069';
+                    }
+                    var printer = new Printer(self,{url:url});
+                    printer.config = printers[i];
+                    self.printers.push(printer);
+                }
+            }
+            self.config.iface_printers = !!self.printers.length;
+
             self.printers.forEach(function(item) {
                 var printer_obj = _.find(printers, function(printer) {
                     return printer.id === item.config.id;
@@ -48,42 +103,6 @@ odoo.define("pos_restaurant.network_printer", function(require) {
         },
     });
 
-    Printer.include({
-        print: function(receipt) {
-            var self = this;
-            if (this.config.network_printer) {
-                var network_proxy = this.config.proxy_ip;
-                if (receipt) {
-                    this.receipt_queue.push(receipt);
-                }
-                var send_printing_job = function() {
-                    if (self.receipt_queue.length > 0) {
-                        var r = self.receipt_queue.shift();
-                        self.connection
-                            .rpc(
-                                "/hw_proxy/print_xml_receipt",
-                                {
-                                    receipt: r,
-                                    proxy: network_proxy,
-                                },
-                                {timeout: 5000}
-                            )
-                            .then(
-                                function() {
-                                    send_printing_job();
-                                },
-                                function() {
-                                    self.receipt_queue.unshift(r);
-                                }
-                            );
-                    }
-                };
-                send_printing_job();
-            } else {
-                this._super(receipt);
-            }
-        },
-    });
 
     devices.ProxyDevice.include({
         init: function(parent, options) {
