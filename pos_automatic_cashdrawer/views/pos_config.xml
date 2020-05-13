@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_pos_config_form_auto_cashdrawer" model="ir.ui.view">
+        <field name="name">pos.automatic.cashdrawer.config.form</field>
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
+        <field name="arch" type="xml">
+        	<xpath expr="//field[@name='iface_print_via_proxy']/.." position="after">
+                <div class="row">
+                    <label string="Automatic Cashdrawer" for="iface_automatic_cashdrawer" class="col-lg-3 o_light_label"/>
+                    <field name="iface_automatic_cashdrawer"/>
+                </div>
+                <div class="row" attrs="{'invisible': [('iface_automatic_cashdrawer', '=', False)]}">
+                    <label string="IP address" for="iface_automatic_cashdrawer_ip_address" class="col-lg-3 o_light_label"/>
+                    <field name="iface_automatic_cashdrawer_ip_address" attrs="{'required': [('iface_automatic_cashdrawer', '=', True)]}"/>
+                </div>
+                <div class="row" attrs="{'invisible': [('iface_automatic_cashdrawer', '=', False)]}">
+                    <label string="TCP port" for="iface_automatic_cashdrawer_tcp_port" class="col-lg-3 o_light_label"/>
+                    <field name="iface_automatic_cashdrawer_tcp_port" attrs="{'required': [('iface_automatic_cashdrawer', '=', True)]}"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
