@@ -21,6 +21,9 @@
     "name": "Provelo Customization",
     "version": "9.0.1.0",
     "depends": [
+        "csv_export_invoice",
+        "csv_export_partner",
+        "csv_export_payment",
         "hr_holidays",
         "hr_timesheet_sheet",
         "resource_planning",
@@ -43,6 +46,7 @@
         "security/security.xml",
         "security/ir.model.access.csv",
         "wizard/hr_holidays_summary_department_view.xml",
+        "data/sftp.xml",
     ],
     "installable": True,
 }
