@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2020 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<openerp>
+    <record id="sftp_backend_configuration" model="backend.sftp">
+        <field name="host">odoo-bob.provelo.org</field>
+        <field name="username">coopiteasy</field>
+    </record>
+
+    <record id="sftp_backend_export_invoice" model="backend.sftp.export">
+        <field name="backend_id" ref="sftp_backend_configuration"/>
+        <field name="path">odoo-bob/bob-in-test</field>
+        <field name="model_id" ref="csv_export_invoice.model_csv_export_invoice"/>
+    </record>
+
+    <record id="sftp_backend_export_partner" model="backend.sftp.export">
+        <field name="backend_id" ref="sftp_backend_configuration"/>
+        <field name="path">odoo-bob/bob-in-test</field>
+        <field name="model_id" ref="csv_export_partner.model_csv_export_partner"/>
+    </record>
+
+    <record id="sftp_backend_export_payment" model="backend.sftp.export">
+        <field name="backend_id" ref="sftp_backend_configuration"/>
+        <field name="path">odoo-bob/bob-in-test</field>
+        <field name="model_id" ref="csv_export_payment.model_csv_export_payment"/>
+    </record>
+</openerp>
