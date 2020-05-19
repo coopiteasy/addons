@@ -8,6 +8,7 @@
     "version": "9.0.1.0.0",
     "category": "Human Resources",
     "summary": """Computes Leaves Request in half or full days according to employee's contracts""",
+    "description": """Computes Leaves Request in half or full days according to employee's contracts""",
     "author": "Coop IT Easy SCRLfs, Odoo Community Association (OCA)",
     "website": "www.coopiteasy.be",
     "license": "AGPL-3",
