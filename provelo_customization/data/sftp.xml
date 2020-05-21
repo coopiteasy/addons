@@ -3,11 +3,14 @@
      Copyright 2020 Coop IT Easy
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 -->
-<openerp>
-    <data noupdate="1">
+<odoo>
+<!--    <data noupdate="1">-->
+    <data noupdate="0">
         <record id="sftp_backend_configuration" model="backend.sftp">
             <field name="host">odoo-bob.provelo.org</field>
             <field name="username">coopiteasy</field>
+            <field name="auth_method">key_file</field>
+            <field name="key_file">~/.ssh/id_ed25519</field>
         </record>
 
         <record id="sftp_backend_export_invoice" model="backend.sftp.export">
@@ -31,4 +34,4 @@
                    ref="csv_export_payment.model_csv_export_payment"/>
         </record>
     </data>
-</openerp>
+</odoo>
