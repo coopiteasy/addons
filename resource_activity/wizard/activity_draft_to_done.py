@@ -9,9 +9,8 @@ class ActivityDraftToDoneWizard(models.TransientModel):
 
     @api.multi
     def draft_to_done(self):
-        activity = (
-            self.env['resource.activity']
-                .browse(self._context.get('active_ids'))[0]
-        )
-        activity.state = 'done'
-        return {'type': 'ir.actions.act_window_close'}
+        activity = self.env["resource.activity"].browse(
+            self._context.get("active_ids")
+        )[0]
+        activity.state = "done"
+        return {"type": "ir.actions.act_window_close"}

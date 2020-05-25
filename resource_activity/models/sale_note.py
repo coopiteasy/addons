@@ -13,8 +13,10 @@ class SaleNote(models.Model):
         comodel_name="res.company",
         string="Company",
         required=True,
-        default=lambda self: self.env['res.company']._company_default_get(),
+        default=lambda self: self.env["res.company"]._company_default_get(),
     )
     name = fields.Char(string="Name", required="True")
-    content = fields.Html(string="Content", required="True", translate=True, sanitize=False)
+    content = fields.Html(
+        string="Content", required="True", translate=True, sanitize=False
+    )
     active = fields.Boolean(string="Active", default=True)

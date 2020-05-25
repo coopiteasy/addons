@@ -8,14 +8,15 @@ import pytz
 
 
 class ActivityOpeningHours(models.Model):
-    _name = 'activity.opening.hours'
+    _name = "activity.opening.hours"
 
     @api.model
     def _get_default_location(self):
         location = self.env.user.resource_location
         if not location:
-            main_location = self.env.ref('resource_planning.main_location',
-                                         False)
+            main_location = self.env.ref(
+                "resource_planning.main_location", False
+            )
             if main_location:
                 return [(6, 0, [main_location.id])]
             else:
@@ -23,59 +24,55 @@ class ActivityOpeningHours(models.Model):
 
         return [(6, 0, [location.id])]
 
-    name = fields.Char(
-        string='Name',
-    )
+    name = fields.Char(string="Name",)
     location_ids = fields.Many2many(
-        comodel_name='resource.location',
-        string='Location',
+        comodel_name="resource.location",
+        string="Location",
         default=_get_default_location,
         required=True,
     )
-    start = fields.Date(
-        string='Validity Start Date',
-        required=True,
-    )
-    end = fields.Date(
-        string='Validity End Date',
-        required=True,
-    )
-    is_holiday = fields.Boolean(
-        string='Is Holiday',
-        default=False,
-    )
+    start = fields.Date(string="Validity Start Date", required=True,)
+    end = fields.Date(string="Validity End Date", required=True,)
+    is_holiday = fields.Boolean(string="Is Holiday", default=False,)
     opening_day_ids = fields.One2many(
-        comodel_name='activity.opening.hours.day',
-        inverse_name='opening_hours_id',
-        string='Opening Days'
+        comodel_name="activity.opening.hours.day",
+        inverse_name="opening_hours_id",
+        string="Opening Days",
     )
-    active = fields.Boolean(
-        default=True,
-    )
+    active = fields.Boolean(default=True,)
 
     @api.model
     def get_opening_hours(self, location, time):
         opening_hours = self.search(
-            [('location_ids', 'in', [location.id]),
-             ('start', '<=', time),
-             ('end', '>', time)],
-            order='is_holiday desc',  # (null), True, False
+            [
+                ("location_ids", "in", [location.id]),
+                ("start", "<=", time),
+                ("end", ">", time),
+            ],
+            order="is_holiday desc",  # (null), True, False
         )
 
         if not opening_hours:
             return False
         if len(opening_hours) >= 2:
             if opening_hours[0].is_holiday and opening_hours[1].is_holiday:
-                raise ValidationError(_(
-                    'Two holiday opening hours set for %s') % time)
-            elif not opening_hours[0].is_holiday and not opening_hours[1].is_holiday:
-                raise ValidationError(_(
-                    'Two opening hours set for %s') % time)
+                raise ValidationError(
+                    _("Two holiday opening hours set for %s") % time
+                )
+            elif (
+                not opening_hours[0].is_holiday
+                and not opening_hours[1].is_holiday
+            ):
+                raise ValidationError(_("Two opening hours set for %s") % time)
 
         return opening_hours[0]
 
     def _localize(self, date):
-        tz = pytz.timezone(self._context['tz']) if self._context['tz'] else pytz.utc
+        tz = (
+            pytz.timezone(self._context["tz"])
+            if self._context["tz"]
+            else pytz.utc
+        )
         return pytz.utc.localize(date).astimezone(tz)
 
     @api.model
