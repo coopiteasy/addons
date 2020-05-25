@@ -56,8 +56,8 @@
                     </t>
                 </div>
 
-                <div t-if="doc.location_id.line_ids">
-                    <t t-foreach="doc.location_id.line_ids" t-as="line">
+                <div t-if="doc.location_id.terms_ids">
+                    <t t-foreach="doc.location_id.terms_ids" t-as="line">
                         <t t-if="(line.location_id == doc.location_id) and (line.activity_type_id == doc.activity_type)">
                             <div name="resources" t-if="(doc.activity_id.booked_resources) and (line.bike_number_display)" class="col-xs-3">
                                 <strong>Resources booked:</strong>
@@ -80,10 +80,16 @@
                 </div>
              </xpath>
 
+            <xpath expr="//p[@t-field='doc.note']" position="attributes">
+                <attribute name="class">hidden</attribute>
+            </xpath>
+            <xpath expr="//p[@t-field='doc.note']" position="after">
+                <p name="note_html" t-field="doc.note_html"/>
+            </xpath>
 
             <xpath expr="//p[@id='fiscal_position_remark']" position="after">
-                <t t-if="doc.location_id.line_ids">
-                    <t t-foreach="doc.location_id.line_ids" t-as="line">
+                <t t-if="doc.location_id.terms_ids">
+                    <t t-foreach="doc.location_id.terms_ids" t-as="line">
                         <t t-if="(line.location_id == doc.location_id) and (line.activity_type_id == doc.activity_type)">
                             <p style="page-break-before:always;"/>
                             <div t-field="line.terms_id.content"/>

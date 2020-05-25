@@ -8,11 +8,15 @@ from openerp.exceptions import UserError
 
 class ResCompany(models.Model):
     _inherit = "res.company"
-    sale_note = fields.Html(string='Default Terms and Conditions', translate=True, sanitize=False)
+    sale_note_html = fields.Html(string='Default Terms and Conditions', translate=True, sanitize=False)
 
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
+
+    @api.model
+    def _default_note_html(self):
+        return self.env.user.company_id.sale_note_html
 
     activity_sale = fields.Boolean(
         string="Activity Sale?")
@@ -88,7 +92,7 @@ class SaleOrder(models.Model):
         'resource.resource',
         related='activity_id.booked_resources',
         readonly=True)
-    note = fields.Html('Terms and conditions', default=lambda self: self._default_note())
+    note_html = fields.Html('Terms and conditions', default=lambda self: self._default_note_html())
 
     @api.multi
     def action_draft(self):

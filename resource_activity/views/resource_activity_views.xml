@@ -35,7 +35,7 @@
                         </field>
                     </page>
                     <page name="terms_conditions" string="Terms and Conditions">
-                        <field name="line_ids">
+                        <field name="terms_ids">
                             <tree editable="bottom">
                                 <field name="activity_type_id"/>
                                 <field name="terms_id"/>

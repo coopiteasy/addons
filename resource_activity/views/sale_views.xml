@@ -17,6 +17,12 @@
             		<field name="date_end" attrs="{'invisible':[('activity_sale','=',False)]}"/>
             		<field name="location_id" attrs="{'invisible':[('activity_sale','=',False)]}"/>
            		</field>
+				<field name="note" position="attributes">
+					<attribute name="invisible">True</attribute>
+				</field>
+				<field name="note" position="after">
+					<field name="note_html" class="oe_inline" placeholder="Setup default terms and conditions in your company settings."/>
+				</field>
             	<group name="technical" position="after">
             		<group name="activity" string="Activity" attrs="{'invisible':[('activity_sale','=',False)]}">
 	            		<field name="description"/>
@@ -61,5 +67,19 @@
                 </xpath>
            </field>
        </record>
+
+		<record id="view_company_inherit_form2" model="ir.ui.view" >
+            <field name="name">res.company.form.inherit</field>
+            <field name="inherit_id" ref="sale.view_company_inherit_form2"/>
+            <field name="model">res.company</field>
+            <field name="arch" type="xml">
+				<field name="sale_note" position="attributes">
+					<attribute name="invisible">True</attribute>
+				</field>
+				<field name="sale_note" position="after">
+					<field name="sale_note_html" nolabel="1" placeholder="Default terms &amp; conditions..."/>
+				</field>
+            </field>
+        </record>
 	</data>
 </odoo>
