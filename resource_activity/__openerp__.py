@@ -27,7 +27,6 @@
         "resource_planning",
         "theme_light",
         "product",
-        "report_qweb_element_page_visibility",
         "sale",
         "web_tree_many2one_clickable",
         "web_tree_dynamic_colored_field",
