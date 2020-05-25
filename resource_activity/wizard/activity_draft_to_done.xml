@@ -1,5 +1,5 @@
 <odoo>
-	<data>
+    <data>
         <record id="view_activity_draft_to_done_wizard" model="ir.ui.view">
             <field name="name">Set activity as done</field>
             <field name="model">resource.activity.draft.done.wizard</field>
@@ -16,7 +16,7 @@
             </field>
         </record>
 
-		<record id="action_draft_to_done" model="ir.actions.act_window">
+        <record id="action_draft_to_done" model="ir.actions.act_window">
             <field name="name">Set activity as done</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">resource.activity.draft.done.wizard</field>
