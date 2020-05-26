@@ -26,8 +26,6 @@ odoo.define('pos_automatic_cashdrawer.models', function (require) {
         'group_pos_automatic_cashlogy_config',
     ]);
 
-    // var Session = new Model('pos.session');
-
     /*
         PosModel
     */
@@ -72,9 +70,6 @@ odoo.define('pos_automatic_cashdrawer.models', function (require) {
         // Sets the balance
         action_set_balance: function (inventory, balance) {
             var self = this;
-            console.info("action_set_balance");
-            console.info(balance);
-            console.info(inventory);
             var done = rpc.query({
                 model: 'pos.session',
                 method: 'action_set_balance',

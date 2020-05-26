@@ -37,9 +37,6 @@ odoo.define('pos_automatic_cashdrawer.screens', function (require) {
     /*
         Overload 'start' function to display correctly unauthorized function
         at the beginning of the session, based on current user
-
-        TODO: Analyze why we need this here, on the numpad..
-        Isn't it already handled by the set_cashier function?
     */
     screens.NumpadWidget.include({
         start: function () {
