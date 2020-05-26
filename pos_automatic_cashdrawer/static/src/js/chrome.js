@@ -27,7 +27,6 @@ odoo.define('pos_automatic_cashdrawer.chrome', function (require) {
             this._super.apply(this, arguments);
             this.ready.done(function () {
                 if (self.pos.config.iface_automatic_cashdrawer && self.pos.config.cash_control) {
-                	console.info("init");
                     self.pos.check_opening_balance_missing().then(function (res) {
                         var missing = res['missing'];
                         var balance_start = res['balance_start'];
@@ -104,7 +103,6 @@ odoo.define('pos_automatic_cashdrawer.chrome', function (require) {
             if (!this.pos.config.iface_automatic_cashdrawer) {
                 return this._super.apply(this, arguments);
             }
-            console.info("close");
             self.chrome.loading_show();
             self.chrome.loading_message(_t('Synchronizing automatic cashdrawer inventory'));
             self.pos.proxy.automatic_cashdrawer_get_inventory()
