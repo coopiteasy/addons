@@ -17,10 +17,10 @@
                     <attribute name="readonly">1</attribute>
                 </field>
                 <field name="number_of_days_temp" position="attributes">
-                    <attribute name="attrs">{'readonly':[('type', '=', 'remove'),('state','!=','draft')]}</attribute>
+                    <attribute name="attrs">{'readonly':['|',('state','not in',['draft','confirm']), ('type','=','remove')]}</attribute>
                 </field>
                 <xpath expr="//sheet/group/group[1]" position="inside">
-                    <field name="period" widget="radio" context="{'employee_id': employee_id}" attrs="{'readonly':[('state','!=','draft'), ('type', '=', 'add')], 'invisible':[('type', '=', 'add')]}"/>
+                    <field name="period" widget="radio" context="{'employee_id': employee_id}" attrs="{'invisible':[('type', '=', 'add')]}"/>
                 </xpath>
             </field>
         </record>
@@ -104,6 +104,7 @@
         <record model="ir.actions.act_window" id="hr_holidays.open_allocation_holidays">
             <field name="context">{
                 'default_type':'add',
+                'default_period': 'day',
                 'search_default_my_leaves':1,
                 'needaction_menu_ref':
                 [
@@ -124,6 +125,16 @@
                 ],
                 'readonly_by_pass': ['date_from', 'date_to', 'number_of_days_temp'],
             }</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="hr_holidays.open_department_holidays_allocation_approve">
+            <field name="context">{
+                'default_type':'add',
+                'default_period': 'day',
+                'search_default_department':1,
+                'search_default_approve':1
+                }
+            </field>
         </record>
 
     </data>

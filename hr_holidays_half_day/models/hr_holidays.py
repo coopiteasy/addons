@@ -21,6 +21,8 @@ class HrHolidays(models.Model):
         string="Period",
         selection=[("am", "AM"), ("pm", "PM"), ("day", "Day")],
         required=True,
+        readonly=True,
+        states={'draft':[('readonly',False)], 'confirm':[('readonly',False)]}
     )
 
     @api.multi
