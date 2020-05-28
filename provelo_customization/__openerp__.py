@@ -47,6 +47,7 @@
         "security/ir.model.access.csv",
         "wizard/hr_holidays_summary_department_view.xml",
         "data/sftp.xml",
+        "data/data.xml",
     ],
     "installable": True,
 }
