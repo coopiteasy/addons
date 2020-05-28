@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2020 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <data noupdate="0">
+        <record id="payment_term_default_0" model="ir.property">
+            <field name="name">Default Payment Term to Immediate Payment</field>
+            <field name="type">many2one</field>
+            <field name="fields_id"
+                   search="[('model','=','res.partner'),('name','=','property_payment_term_id')]"/>
+            <field name="value_reference">account.payment.term,1</field>
+        </record>
+    </data>
+</odoo>
