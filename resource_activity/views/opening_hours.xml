@@ -33,7 +33,7 @@
                         <notebook>
                             <page name="opening_days" string="Opening Days">
                                 <field name="opening_day_ids">
-                                    <tree editable="bottom" >
+                                    <tree editable="bottom">
                                         <field name="dayofweek"/>
                                         <field name="opening_time"/>
                                         <field name="closing_time"/>
@@ -60,7 +60,7 @@
             <field name="arch" type="xml">
                 <search string="Search Opening Hours">
                     <filter string="Active" name="active" domain="[('active','=',1)]"/>
-               </search>
+                </search>
             </field>
         </record>
 

@@ -1,45 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-	<data>
-		<menuitem name="Sales" id="menu_sale_activity" parent="resource_planning.menu_main_resource_planning" sequence="25"/>
-		<menuitem action="sale.action_quotations" id="resource_quotation_menu" parent="menu_sale_activity" sequence="10" groups="base.group_sale_salesman,base.group_sale_manager"/>
-		<menuitem action="sale.action_orders" id="resource_sale_order_menu" parent="menu_sale_activity" sequence="15" groups="base.group_sale_salesman,base.group_sale_manager"/>
-		
-		<record id="view_sale_order_activity_form" model="ir.ui.view">
+    <data>
+        <menuitem name="Sales" id="menu_sale_activity" parent="resource_planning.menu_main_resource_planning"
+                  sequence="25"/>
+        <menuitem action="sale.action_quotations" id="resource_quotation_menu" parent="menu_sale_activity" sequence="10"
+                  groups="base.group_sale_salesman,base.group_sale_manager"/>
+        <menuitem action="sale.action_orders" id="resource_sale_order_menu" parent="menu_sale_activity" sequence="15"
+                  groups="base.group_sale_salesman,base.group_sale_manager"/>
+
+        <record id="view_sale_order_activity_form" model="ir.ui.view">
             <field name="name">sale.order.form</field>
             <field name="model">sale.order</field>
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
-				<field name="project_id" position="after">
-           			<field name="activity_sale"/>
-            		<field name="activity_id" attrs="{'invisible':[('activity_sale','=',False)]}"/>
-            		<field name="date_start" attrs="{'invisible':[('activity_sale','=',False)]}"/>
-            		<field name="date_end" attrs="{'invisible':[('activity_sale','=',False)]}"/>
-            		<field name="location_id" attrs="{'invisible':[('activity_sale','=',False)]}"/>
-           		</field>
-            	<group name="technical" position="after">
-            		<group name="activity" string="Activity" attrs="{'invisible':[('activity_sale','=',False)]}">
-	            		<field name="description"/>
-	            		<field name="departure"/>
-	            		<field name="arrival"/>
-	            		<field name="duration"/>
-	            		<field name="langs" widget='many2many_tags'/>
-	            		<field name="registrations_expected"/>
-	            		<field name="activity_type"/>
-	            		<field name="activity_theme"/>
-	            		<field name="need_delivery"/>
-	            		<field name="delivery_place" attrs="{'invisible':[('need_delivery','=',False)]}"/>
-	            		<field name="delivery_time" attrs="{'invisible':[('need_delivery','=',False)]}"/>
-	            		<field name="pickup_place" attrs="{'invisible':[('need_delivery','=',False)]}"/>
-	            		<field name="pickup_time" attrs="{'invisible':[('need_delivery','=',False)]}"/>
-            		</group>
-	            	<group colspan="4">
-	            		<field name="booked_resources"/>
-	            	</group>
-            	</group>
+                <field name="project_id" position="after">
+                    <field name="activity_sale"/>
+                    <field name="activity_id" attrs="{'invisible':[('activity_sale','=',False)]}"/>
+                    <field name="date_start" attrs="{'invisible':[('activity_sale','=',False)]}"/>
+                    <field name="date_end" attrs="{'invisible':[('activity_sale','=',False)]}"/>
+                    <field name="location_id" attrs="{'invisible':[('activity_sale','=',False)]}"/>
+                </field>
+                <field name="note" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </field>
+                <field name="note" position="after">
+                    <field name="note_html" class="oe_inline"
+                           placeholder="Setup default terms and conditions in your company settings."/>
+                </field>
+                <group name="technical" position="after">
+                    <group name="activity" string="Activity" attrs="{'invisible':[('activity_sale','=',False)]}">
+                        <field name="description"/>
+                        <field name="departure"/>
+                        <field name="arrival"/>
+                        <field name="duration"/>
+                        <field name="langs" widget='many2many_tags'/>
+                        <field name="registrations_expected"/>
+                        <field name="activity_type"/>
+                        <field name="activity_theme"/>
+                        <field name="need_delivery"/>
+                        <field name="delivery_place" attrs="{'invisible':[('need_delivery','=',False)]}"/>
+                        <field name="delivery_time" attrs="{'invisible':[('need_delivery','=',False)]}"/>
+                        <field name="pickup_place" attrs="{'invisible':[('need_delivery','=',False)]}"/>
+                        <field name="pickup_time" attrs="{'invisible':[('need_delivery','=',False)]}"/>
+                    </group>
+                    <group colspan="4">
+                        <field name="booked_resources"/>
+                    </group>
+                </group>
             </field>
         </record>
-        
+
         <record id="product_template_delivery_view" model="ir.ui.view">
             <field name="name">product.template.delivery.form</field>
             <field name="model">product.template</field>
@@ -48,18 +58,32 @@
                 <xpath expr="//label[@for='sale_ok']/.." position="after">
                     <div>
                         <field name="is_delivery"/>
-                    	<label for="is_delivery"/>
+                        <label for="is_delivery"/>
                     </div>
                     <div>
                         <field name="is_guide"/>
-                    	<label for="is_guide"/>
+                        <label for="is_guide"/>
                     </div>
                     <div>
                         <field name="is_participation"/>
-                    	<label for="is_participation"/>
+                        <label for="is_participation"/>
                     </div>
                 </xpath>
-           </field>
-       </record>
-	</data>
+            </field>
+        </record>
+
+        <record id="view_company_inherit_form2" model="ir.ui.view">
+            <field name="name">res.company.form.inherit</field>
+            <field name="inherit_id" ref="sale.view_company_inherit_form2"/>
+            <field name="model">res.company</field>
+            <field name="arch" type="xml">
+                <field name="sale_note" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </field>
+                <field name="sale_note" position="after">
+                    <field name="sale_note_html" nolabel="1" placeholder="Default terms &amp; conditions..."/>
+                </field>
+            </field>
+        </record>
+    </data>
 </odoo>

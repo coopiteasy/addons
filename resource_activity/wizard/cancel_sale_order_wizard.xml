@@ -1,7 +1,7 @@
 <odoo>
-	<data>
-		
-		<record id="view_cancel_sale_order_wizard" model="ir.ui.view">
+    <data>
+
+        <record id="view_cancel_sale_order_wizard" model="ir.ui.view">
             <field name="name">Cancel Sale order</field>
             <field name="model">cancel.sale.order.wizard</field>
             <field name="arch" type="xml">
@@ -16,8 +16,8 @@
                 </form>
             </field>
         </record>
-        
-		<record id="action_cancel_sale_order" model="ir.actions.act_window">
+
+        <record id="action_cancel_sale_order" model="ir.actions.act_window">
             <field name="name">Cancel Sale order</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">cancel.sale.order.wizard</field>
@@ -25,6 +25,6 @@
             <field name="view_mode">form</field>
             <field name="target">new</field>
         </record>
-		
-	</data>
+
+    </data>
 </odoo>

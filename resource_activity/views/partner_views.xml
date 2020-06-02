@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-	<data>
-		<record id="act_res_partner_2_resource_activity" model="ir.actions.act_window">
+    <data>
+        <record id="act_res_partner_2_resource_activity" model="ir.actions.act_window">
             <field name="name">Resource activities</field>
             <field name="res_model">resource.activity</field>
             <field name="view_type">form</field>
@@ -9,58 +9,62 @@
             <field name="context">{'search_default_partner_id': active_id}</field>
             <field name="groups_id" eval="[(4, ref('resource_planning.group_resource_user'))]"/>
         </record>
-        
-		<record id="view_partner_form" model="ir.ui.view">
+
+        <record id="view_partner_form" model="ir.ui.view">
             <field name="name">res.partner.form</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="arch" type="xml">
-				<group name="purchase" position="after">
-					<group string="Tour" name="Tour">
-						<field name="is_partner"/>
-						<field name="is_guide"/>
-						<field name="resource_location_guide"  attrs="{'invisible':[('is_guide','=',False)],'required':[('is_guide','=',True)]}"/>
-						<field name="is_trainer"/>
-						<field name="resource_location_trainer" attrs="{'invisible':[('is_trainer','=',False)],'required':[('is_trainer','=',True)]}"/>
-					</group>
-				</group>
-				<div name="button_box" position="inside">
-                    <button class="oe_stat_button" type="action" name="%(resource_activity.act_res_partner_2_resource_activity)d" 
-                        attrs="{'invisible': [('customer', '=', False)]}"
-                        icon="fa-usd">
+                <group name="purchase" position="after">
+                    <group string="Tour" name="Tour">
+                        <field name="is_partner"/>
+                        <field name="is_guide"/>
+                        <field name="resource_location_guide"
+                               attrs="{'invisible':[('is_guide','=',False)],'required':[('is_guide','=',True)]}"/>
+                        <field name="is_trainer"/>
+                        <field name="resource_location_trainer"
+                               attrs="{'invisible':[('is_trainer','=',False)],'required':[('is_trainer','=',True)]}"/>
+                    </group>
+                </group>
+                <div name="button_box" position="inside">
+                    <button class="oe_stat_button" type="action"
+                            name="%(resource_activity.act_res_partner_2_resource_activity)d"
+                            attrs="{'invisible': [('customer', '=', False)]}"
+                            icon="fa-usd">
                         <field string="Activities" name="activity_count" widget="statinfo"/>
-                    </button>     
+                    </button>
                 </div>
             </field>
         </record>
-        
-       <record id="view_partner_property_form" model="ir.ui.view">
+
+        <record id="view_partner_property_form" model="ir.ui.view">
             <field name="name">res.partner.property.activity.inherit</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="product.view_partner_property_form"/>
-            <field name="arch" type="xml"> 
-                    <field name="property_product_pricelist" position="attributes"> 
-						<attribute name="attrs">{
-		                    'invisible': [('is_company','=',False),('parent_id','!=',False)],
-		                    'required': [('is_company', '=', True)]
-		                }</attribute>
-					</field>
+            <field name="arch" type="xml">
+                <field name="property_product_pricelist" position="attributes">
+                    <attribute name="attrs">{
+                        'invisible': [('is_company','=',False),('parent_id','!=',False)],
+                        'required': [('is_company', '=', True)]
+                        }
+                    </attribute>
+                </field>
             </field>
         </record>
-        
+
         <record id="view_res_partner_filter_activity" model="ir.ui.view">
             <field name="name">res.partner.select</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_res_partner_filter"/>
             <field name="arch" type="xml">
-            	<xpath expr="//filter[@name='supplier']" position='after'>
-                   <filter string="Guides" name="guide" domain="[('is_guide','=',1)]"/>
-                   <filter string="Trainer" name="trainer" domain="[('is_trainer','=',1)]"/>
-                   <filter string="Partner" name="partner" domain="[('is_partner','=',1)]"/>
+                <xpath expr="//filter[@name='supplier']" position='after'>
+                    <filter string="Guides" name="guide" domain="[('is_guide','=',1)]"/>
+                    <filter string="Trainer" name="trainer" domain="[('is_trainer','=',1)]"/>
+                    <filter string="Partner" name="partner" domain="[('is_partner','=',1)]"/>
                 </xpath>
             </field>
         </record>
-        
+
         <record id="action_partner_activity_tree" model="ir.actions.act_window">
             <field name="name">Contacts</field>
             <field name="type">ir.actions.act_window</field>
@@ -69,16 +73,18 @@
             <field name="view_mode">kanban,tree,form</field>
             <field name="filter" eval="True"/>
             <field name="help" type="html">
-              <p class="oe_view_nocontent_create">
-                Click to add a contact in your address book.
-              </p><p>
-                OpenERP helps you easily track all activities related to
-                a cooperator: discussions, history of business opportunities,
-                documents, etc.
-              </p>
+                <p class="oe_view_nocontent_create">
+                    Click to add a contact in your address book.
+                </p>
+                <p>
+                    OpenERP helps you easily track all activities related to
+                    a cooperator: discussions, history of business opportunities,
+                    documents, etc.
+                </p>
             </field>
         </record>
-        
-        <menuitem id="menu_partner_activity" name="Contacts" parent="menu_resource_activity" action="action_partner_activity_tree" sequence="20"/>
-	</data>
+
+        <menuitem id="menu_partner_activity" name="Contacts" parent="menu_resource_activity"
+                  action="action_partner_activity_tree" sequence="20"/>
+    </data>
 </odoo>
