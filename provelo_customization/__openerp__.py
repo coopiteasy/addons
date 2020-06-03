@@ -29,6 +29,7 @@
         "resource_planning",
         "resource_activity",
         "web_readonly_bypass",
+        "l10n_be_invoice_bba",
     ],
     "author": "Coop IT Easy - Robin Keunen <robin@coopiteasy.be>",
     "license": "AGPL-3",
