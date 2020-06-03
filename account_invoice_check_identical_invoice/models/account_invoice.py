@@ -41,7 +41,7 @@ class AccountInvoice(models.Model):
                 return i.date_invoice == invoice.date_invoice
 
             def invoiced_today(i):
-                return i.date_invoice == str(dt.date.today()) and not invoice.date_invoice
+                return i.date_invoice == dt.date.today() and not invoice.date_invoice
 
             duplicate_invoices = partner_invoices.filtered(
                 lambda i: equal_amount(i) and (same_date(i) or invoiced_today(i))
