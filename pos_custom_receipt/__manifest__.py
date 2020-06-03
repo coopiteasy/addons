@@ -7,12 +7,12 @@
     "depends": [
         "point_of_sale",
     ],
-    "author": "Houssine BAKKALI <houssine@coopiteasy.be>",
-    "category": "POS",
-    "website": "www.coopiteasy.be",
+    "author": "Coop IT Easy SCRLfs",
+    "category": "Point Of Sale",
+    "website": "https://coopiteasy.be",
     "license": "AGPL-3",
     "description": """
-    This module extends the pos receipt in order to not show some info and
+    This module extends the pos receipt in order to hide some info and
     adds other info.
     """,
     'data': [],
