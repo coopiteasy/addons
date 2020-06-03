@@ -1,10 +1,9 @@
-# -*- coding: utf-8 -*-
 # Copyright 2017 - Today Coop IT Easy SCRLfs (<http://www.coopiteasy.be>)
 # - Robin Keunen <robin@coopiteasy.be>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Account Invoice Check Identical Invoice",
-    "version": "10.0.1.0.0",
+    "version": "11.0.1.0.0",
     "depends": [
         'base',
         'account',

@@ -1,4 +1,6 @@
-# -*- coding: utf-8 -*-
+# Copyright 2017 - Today Coop IT Easy SCRLfs (<http://www.coopiteasy.be>)
+# - Robin Keunen <robin@coopiteasy.be>
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 import datetime as dt
