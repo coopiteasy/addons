@@ -6,7 +6,7 @@ import socket
 import time
 import traceback
 from threading import Thread, Lock
-from Queue import Queue, Empty
+from queue import Queue, Empty
 
 from odoo import http
 from odoo.tools import pycompat
