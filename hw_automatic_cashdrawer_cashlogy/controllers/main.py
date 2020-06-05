@@ -2,10 +2,8 @@
 # Copyright (C) 2019 Druidoo (https://www.druidoo.io)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-import simplejson
 import socket
 import time
-import json
 import traceback
 from threading import Thread, Lock
 from Queue import Queue, Empty
