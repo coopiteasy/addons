@@ -11,6 +11,7 @@ from threading import Thread, Lock
 from Queue import Queue, Empty
 
 from odoo import http
+from odoo.tools import pycompat
 import odoo.addons.hw_proxy.controllers.main as hw_proxy
 
 
@@ -84,7 +85,7 @@ class CashlogyAutomaticCashdrawerDriver(Thread):
         Utility function to transform a string '2000'
         into a float 20.00
         '''
-        if isinstance(value, basestring):
+        if isinstance(value, pycompat.string_types):
             return float(value) / 100
         elif isinstance(value, int):
             return float(value)
@@ -225,13 +226,13 @@ class CashlogyAutomaticCashdrawerDriver(Thread):
             blocking if true, the timeout will be disabled
         Returns a response parsed as list, where # is the delimiter
         '''
-        if isinstance(msg, basestring):
+        if isinstance(msg, pycompat.string_types):
             pass
         else:
             iter(msg)  # It will raise a TypeError exception if not iterable
             # Smart-transform arguments into string
             for i, v in enumerate(msg):
-                if isinstance(v, basestring):
+                if isinstance(v, pycompat.string_types):
                     continue
                 elif isinstance(v, bool):
                     msg[i] = str(int(v))
