@@ -202,8 +202,8 @@ class CashlogyAutomaticCashdrawerDriver(Thread):
             try:
                 if blocking:
                     self.socket.settimeout(None)
-                self.socket.send(msg)
-                res = self.socket.recv(BUFFER_SIZE)
+                self.socket.send(msg.encode("utf-8"))
+                res = self.socket.recv(BUFFER_SIZE).decode()
             except Exception as e:
                 self.set_status('error', repr(e))
                 raise e
