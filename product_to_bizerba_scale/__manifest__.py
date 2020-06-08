@@ -8,9 +8,6 @@
     "summary": """
         This module merges product_to_scale_bizerba and product_to_scale_bizerba_extended into one.
     """,
-    "description": """
-        Synchronize Odoo database with Bizerba Scales
-    """,
     "author": "Coop IT Easy SCRLfs, GRAP",
     "website": "https://coopiteasy.be",
     "category": "Tools",
