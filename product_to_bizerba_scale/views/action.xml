@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <odoo>
-
     <record id="action_product_scale_system" model="ir.actions.act_window">
         <field name="name">Scale Systems</field>
         <field name="type">ir.actions.act_window</field>
@@ -25,5 +24,4 @@
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
-
 </odoo>

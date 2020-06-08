@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <odoo>
-
     <record id="view_product_uom_tree" model="ir.ui.view">
         <field name="model">uom.uom</field>
         <field name="inherit_id" ref="uom.product_uom_tree_view"/>
@@ -21,5 +20,4 @@
             </field>
         </field>
     </record>
-
 </odoo>

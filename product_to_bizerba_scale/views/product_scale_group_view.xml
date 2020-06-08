@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <odoo>
-
     <record id="view_product_scale_group_tree" model="ir.ui.view">
         <field name="model">product.scale.group</field>
         <field name="arch" type="xml">
@@ -17,8 +16,9 @@
         <field name="arch" type="xml">
             <form name="scale_group" string="Scale Group" version="7.0">
                 <header>
-                    <button name="send_all_to_scale_create" type="object" string="Resend Creation All To the Scale System"
-                        groups="product_to_bizerba_scale.group_manager"/>
+                    <button name="send_all_to_scale_create" type="object"
+                            string="Resend Creation All To the Scale System"
+                            groups="product_to_bizerba_scale.group_manager"/>
                     <button name="send_all_to_scale_write" type="object" string="Resend Update All To the Scale System"
                             groups="product_to_bizerba_scale.group_manager"/>
                     <button name="send_all_to_scale_unlink" type="object" string="Send Delete All To the Scale System"
@@ -29,17 +29,21 @@
                         <group>
                             <div class="oe_title">
                                 <label for="name" class="oe_edit_only"/>
-                                <h1><field name="name"/></h1>
+                                <h1>
+                                    <field name="name"/>
+                                </h1>
                                 <label for="external_identity"/>
-                                 <h2><field name="external_identity"/></h2>
+                                <h2>
+                                    <field name="external_identity"/>
+                                </h2>
                             </div>
                         </group>
                         <group>
                             <group>
-                                <field name="scale_system_id" />
+                                <field name="scale_system_id"/>
                                 <field name="company_id" groups="base.group_multi_company"/>
                                 <field name="active"/>
-                                <field name="product_qty" />
+                                <field name="product_qty"/>
                             </group>
                         </group>
                     </group>
@@ -63,5 +67,4 @@
 
         </field>
     </record>
-
 </odoo>
