@@ -82,7 +82,6 @@ class ProductScaleSystem(models.Model):
         inverse_name='scale_system_id',
         string='Product Lines'
     )
-    # TODO
     field_ids = fields.One2many(
         comodel_name='ir.model.fields',
         compute='_get_field_ids',
