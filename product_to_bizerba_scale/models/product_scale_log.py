@@ -290,7 +290,12 @@ class ProductScaleLog(models.Model):
     def send_log(self, context=None, domain=None, order=None):
         folder_path = self.env['ir.config_parameter'].sudo().get_param('bizerba.local_folder_path')
         system_map = {}
-        for log in self.search(domain or [], order=order):
+        if domain and order:  # cron_send_to_scale
+            logs = self.search(domain, order=order)
+        else:
+            logs = self.browse(self.ids)
+
+        for log in logs:
             if log.scale_system_id in list(system_map.keys()):
                 system_map[log.scale_system_id].append(log)
             else:
