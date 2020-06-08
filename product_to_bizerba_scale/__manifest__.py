@@ -16,7 +16,7 @@
     'category': 'Tools',
     'version': '12.0.1.0.0',
     'license': 'AGPL-3',
-    'depends': ['product', 'sale_management'],
+    'depends': ['beesdoo_product', 'sale_management'],
     'data': [
         'security/ir_module_category.xml',
         'security/res_groups.xml',
