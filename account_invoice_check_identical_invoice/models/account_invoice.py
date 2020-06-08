@@ -28,8 +28,8 @@ class AccountInvoice(models.Model):
 
     @api.multi
     def _check_identical_invoice(self):
+        Invoice = self.env["account.invoice"]
         for invoice in self:
-            Invoice = self.env["account.invoice"]
             duplicate_domain = [
                 ("state", "not in", ["draft", "cancel"]),
                 ("partner_id.supplier", "=", True),
@@ -56,10 +56,7 @@ class AccountInvoice(models.Model):
                 and (same_date(i) or invoiced_today(i))
             )
 
-            if duplicate_invoices:
-                invoice.identical_invoice_detected = True
-            else:
-                invoice.identical_invoice_detected = False
+            invoice.identical_invoice_detected = bool(duplicate_invoices)
 
     @api.multi
     def invoice_validate(self):
