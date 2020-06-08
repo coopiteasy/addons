@@ -2,6 +2,7 @@
 # Copyright (C) 2019 Druidoo (https://www.druidoo.io)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
+import itertools
 import socket
 import time
 import traceback
@@ -283,7 +284,7 @@ class CashlogyAutomaticCashdrawerDriver(Thread):
         # Compute totals
         totals = {
             v: recycler.get(v, 0) + stacker.get(v, 0)
-            for v in set(recycler.keys() + stacker.keys())
+            for v in set(itertools.chain(recycler.keys(), stacker.keys()))
         }
         # Return response
         return {
