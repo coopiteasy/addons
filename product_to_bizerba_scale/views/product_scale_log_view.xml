@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <odoo>
-
     <record id="view_product_scale_log_tree" model="ir.ui.view">
         <field name="model">product.scale.log</field>
         <field name="arch" type="xml">
@@ -46,5 +45,4 @@
             </form>
         </field>
     </record>
-
 </odoo>

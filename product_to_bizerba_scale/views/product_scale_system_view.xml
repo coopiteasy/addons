@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <odoo>
-
     <record id="view_product_scale_system_form" model="ir.ui.view">
         <field name="model">product.scale.system</field>
         <field name="arch" type="xml">
             <form name="scale_system" string="Scale System">
-                <header />
+                <header/>
                 <sheet>
                     <group>
                         <div class="oe_title">
                             <label for="name" class="oe_edit_only"/>
-                            <h1><field name="name"/></h1>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
                         </div>
                     </group>
                     <group>
@@ -41,23 +42,23 @@
                                         <field name="name"/>
                                         <field name="type"/>
                                         <field name="field_id"
-                                            attrs="{'invisible': [('type', 'not in', ['external_text', 'numeric', 'text', 'many2one', 'many2many', 'product_image'])]}"/>
+                                               attrs="{'invisible': [('type', 'not in', ['external_text', 'numeric', 'text', 'many2one', 'many2many', 'product_image'])]}"/>
                                         <field name="related_field_id"
-                                            attrs="{'invisible': [('type', 'not in', ['many2many', 'many2one'])]}"/>
+                                               attrs="{'invisible': [('type', 'not in', ['many2many', 'many2one'])]}"/>
                                         <field name="x2many_range"
-                                            attrs="{'invisible': [('type', 'not in', ['many2many'])]}"/>
+                                               attrs="{'invisible': [('type', 'not in', ['many2many'])]}"/>
                                         <field name="constant_value"
-                                            attrs="{'invisible': [('type', 'not in', ['external_constant', 'constant'])]}"/>
+                                               attrs="{'invisible': [('type', 'not in', ['external_constant', 'constant'])]}"/>
                                         <field name="multiline_length"
-                                            attrs="{'invisible': [('type', 'not in', ['external_constant', 'text'])]}"/>
+                                               attrs="{'invisible': [('type', 'not in', ['external_constant', 'text'])]}"/>
                                         <field name="multiline_separator"
-                                            attrs="{'invisible': [('type', 'not in', ['text'])]}"/>
+                                               attrs="{'invisible': [('type', 'not in', ['text'])]}"/>
                                         <field name="suffix"
-                                            attrs="{'invisible': [('type', 'not in', ['product_image'])]}"/>
+                                               attrs="{'invisible': [('type', 'not in', ['product_image'])]}"/>
                                         <field name="numeric_coefficient"
-                                            attrs="{'invisible': [('type', 'not in', ['numeric'])]}"/>
+                                               attrs="{'invisible': [('type', 'not in', ['numeric'])]}"/>
                                         <field name="numeric_round"
-                                            attrs="{'invisible': [('type', 'not in', ['numeric'])]}"/>
+                                               attrs="{'invisible': [('type', 'not in', ['numeric'])]}"/>
                                         <field name="delimiter"/>
                                     </tree>
                                 </field>
@@ -68,5 +69,4 @@
             </form>
         </field>
     </record>
-
 </odoo>
