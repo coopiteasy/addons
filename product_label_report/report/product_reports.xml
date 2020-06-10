@@ -34,8 +34,8 @@
     model="product.template"
     report_type="qweb-pdf"
     paperformat="paperformat_a4_nomargin"
-    name="product_report_v10.report_producttemplate_label_repeat"
-    file="product_report_v10.product_template_label_repeat.xml"/>
+    name="product_label_report.report_producttemplate_label_repeat"
+    file="product_label_report.product_template_label_repeat.xml"/>
 
   <report
     id="product_template_label_repeat_10x4"
@@ -43,8 +43,8 @@
     model="product.template"
     report_type="qweb-pdf"
     paperformat="paperformat_a4_nomargin"
-    name="product_report_v10.report_producttemplate_label_repeat_10x4"
-    file="product_report_v10.product_template_label_repeat.xml"/>
+    name="product_label_report.report_producttemplate_label_repeat_10x4"
+    file="product_label_report.product_template_label_repeat.xml"/>
 
   <report
     id="product_template_label_repeat_65"
@@ -52,8 +52,8 @@
     model="product.template"
     report_type="qweb-pdf"
     paperformat="paperformat_a4_65_print_label"
-    name="product_report_v10.report_producttemplate_label_repeat_65"
-    file="product_report_v10.product_template_label_repeat_65.xml"/>
+    name="product_label_report.report_producttemplate_label_repeat_65"
+    file="product_label_report.product_template_label_repeat_65.xml"/>
 
   <report
     id="report_product_template_label"
@@ -61,8 +61,8 @@
     model="product.template"
     report_type="qweb-pdf"
     paperformat="paperformat_a4_nomargin"
-    name="product_report_v10.report_producttemplatelabel"
-    file="product_report_v10.product_template_templates.xml"/>
+    name="product_label_report.report_producttemplatelabel"
+    file="product_label_report.product_template_templates.xml"/>
 
   <report
     id="report_product_template_label_65"
@@ -70,7 +70,7 @@
     model="product.template"
     report_type="qweb-pdf"
     paperformat="paperformat_a4_65_print_label"
-    name="product_report_v10.report_producttemplatelabel_65"
-    file="product_report_v10.product_template_templates_65.xml"/>
+    name="product_label_report.report_producttemplatelabel_65"
+    file="product_label_report.product_template_templates_65.xml"/>
 
 </odoo>
