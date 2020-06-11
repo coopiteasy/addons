@@ -13,11 +13,8 @@
     "depends": ["base", "product", "web"],
     "data": [
         "report/layout.xml",
-        "report/product_template_label_repeat.xml",
-        "report/product_template_label_repeat_10x4.xml",
-        "report/product_template_label_repeat_65.xml",
-        "report/product_template_templates.xml",
-        "report/product_template_templates_65.xml",
+        "report/same_product_label.xml",
+        "report/product_label.xml",
         "report/product_reports.xml",
     ],
 }
