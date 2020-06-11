@@ -14,28 +14,23 @@
     <field name="dpi">96</field>
   </record>
 
-  <record id="paperformat_a4_65_print_label" model="report.paperformat">
-    <field name="name">European A4 for 65 print label</field>
-    <field name="default" eval="False"/>
-    <field name="format">A4</field>
-    <field name="orientation">Portrait</field>
-    <field name="margin_top">13</field>
-    <field name="margin_bottom">9</field>
-    <field name="margin_left">2</field>
-    <field name="margin_right">2</field>
-    <field name="header_line" eval="False"/>
-    <field name="header_spacing">0</field>
-    <field name="dpi">96</field>
-  </record>
-
   <report
-    id="product_template_label_repeat"
-    string="Same Product Labels"
+    id="product_template_label_repeat_8x3"
+    string="Same Product Labels 8x3"
     model="product.template"
     report_type="qweb-pdf"
     paperformat="paperformat_a4_nomargin"
-    name="product_label_report.report_producttemplate_label_repeat"
-    file="product_label_report.product_template_label_repeat.xml"/>
+    name="product_label_report.report_same_product_label_8x3"
+    file="product_label_report.same_product_label.xml"/>
+
+  <report
+    id="product_template_label_8x3"
+    string="Product Labels 8x3"
+    model="product.template"
+    report_type="qweb-pdf"
+    paperformat="paperformat_a4_nomargin"
+    name="product_label_report.report_product_label_8x3"
+    file="product_label_report.product_label.xml"/>
 
   <report
     id="product_template_label_repeat_10x4"
@@ -43,17 +38,38 @@
     model="product.template"
     report_type="qweb-pdf"
     paperformat="paperformat_a4_nomargin"
-    name="product_label_report.report_producttemplate_label_repeat_10x4"
-    file="product_label_report.product_template_label_repeat.xml"/>
+    name="product_label_report.report_same_product_label_10x4"
+    file="product_label_report.same_product_label.xml"/>
 
   <report
-    id="product_template_label_repeat_65"
-    string="Same Product Labels 65/page"
+    id="product_template_label_10x4"
+    string="Product Labels 10x4"
     model="product.template"
     report_type="qweb-pdf"
-    paperformat="paperformat_a4_65_print_label"
-    name="product_label_report.report_producttemplate_label_repeat_65"
-    file="product_label_report.product_template_label_repeat_65.xml"/>
+    paperformat="paperformat_a4_nomargin"
+    name="product_label_report.report_product_label_10x4"
+    file="product_label_report.product_label.xml"/>
+
+  <report
+    id="product_template_label_repeat_13x5"
+    string="Same Product Labels 13x5"
+    model="product.template"
+    report_type="qweb-pdf"
+    paperformat="paperformat_a4_nomargin"
+    name="product_label_report.report_same_product_label_13x5"
+    file="product_label_report.same_product_label.xml"/>
+
+  <report
+    id="product_template_label_13x5"
+    string="Product Labels 13x5"
+    model="product.template"
+    report_type="qweb-pdf"
+    paperformat="paperformat_a4_nomargin"
+    name="product_label_report.report_product_label_13x5"
+    file="product_label_report.product_label.xml"/>
+
+
+
 
   <report
     id="report_product_template_label"
@@ -63,14 +79,5 @@
     paperformat="paperformat_a4_nomargin"
     name="product_label_report.report_producttemplatelabel"
     file="product_label_report.product_template_templates.xml"/>
-
-  <report
-    id="report_product_template_label_65"
-    string="Products Labels 65/page"
-    model="product.template"
-    report_type="qweb-pdf"
-    paperformat="paperformat_a4_65_print_label"
-    name="product_label_report.report_producttemplatelabel_65"
-    file="product_label_report.product_template_templates_65.xml"/>
 
 </odoo>
