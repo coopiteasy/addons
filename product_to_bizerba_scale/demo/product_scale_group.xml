@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+
+    <record id="demo_scale_group_fruits" model="product.scale.group">
+        <field name="name">Fruits</field>
+        <field name="scale_system_id" ref="demo_scale_system" />
+        <field name="external_identity">1</field>
+    </record>
+
+    <record id="demo_scale_group_vegetables" model="product.scale.group">
+        <field name="name">Vegetables</field>
+        <field name="scale_system_id" ref="demo_scale_system" />
+        <field name="external_identity">2</field>
+    </record>
+
+</odoo>
