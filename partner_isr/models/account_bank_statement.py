@@ -17,6 +17,6 @@ class AccountBankStatement(models.Model):
                                                 ('isr_number', '!=', False)
                                                 ])
             for line in self.line_ids:
-                partner = customers.filtered(lambda cust: cust.isr_number == line.ref)
+                partner = customers.filtered(lambda cust: cust.isr_number == line.ref.lstrip("0"))
                 if partner:
                     line.partner_id = partner.id
