@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_pv_financing_user,access_pv_financing_user,model_pv_financing,base.group_user,1,0,0,0
+access_pv_financing_resource_manager,access_pv_financing_resource_manager,model_pv_financing,resource_planning.group_resource_manager,1,1,1,1
+access_pv_project_user,access_pv_project_user,model_pv_project,base.group_user,1,0,0,0
+access_pv_project_resource_manager,access_pv_project_resource_manager,model_pv_project,resource_planning.group_resource_manager,1,1,1,1

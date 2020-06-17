@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2020 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <record id="provelo_financing_action" model="ir.actions.act_window">
+        <field name="name">Financing Sources</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">pv.financing</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="provelo_project_action" model="ir.actions.act_window">
+        <field name="name">Pro Velo Projects</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">pv.project</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

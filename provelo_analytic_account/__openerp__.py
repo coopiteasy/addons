@@ -18,37 +18,24 @@
 #
 ##############################################################################
 {
-    "name": "Provelo Customization",
-    "version": "9.0.1.0",
-    "depends": [
-        "csv_export_invoice",
-        "csv_export_partner",
-        "csv_export_payment",
-        "hr_holidays",
-        "hr_timesheet_sheet",
-        "resource_planning",
-        "resource_activity",
-        "web_readonly_bypass",
-        "l10n_be_invoice_bba",
-    ],
+    "name": "Provelo Analytic Account",
+    "version": "9.0.1.0.0",
+    "depends": ["hr", "resource_activity",],
     "author": "Coop IT Easy SCRLfs",
     "license": "AGPL-3",
     "category": "",
     "website": "www.coopiteasy.be",
     "description": """
-        Specifics customizations for Pro Velo
+        Match BOB analytical accounts.
     """,
     "data": [
-        "views/hr_holidays_view.xml",
-        "views/hr_timesheet_sheet_view.xml",
-        "views/location_filters.xml",
-        "views/res_partner_views.xml",
-        "report/available_holidays_view.xml",
-        "security/security.xml",
         "security/ir.model.access.csv",
-        "wizard/hr_holidays_summary_department_view.xml",
-        "data/sftp.xml",
-        "data/data.xml",
+        "views/hr_department.xml",
+        "views/provelo_financing.xml",
+        "views/provelo_project.xml",
+        "views/resource_location.xml",
+        "views/actions.xml",
+        "views/menus.xml",
     ],
     "installable": True,
 }

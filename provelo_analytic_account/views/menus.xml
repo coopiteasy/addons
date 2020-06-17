@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2020 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <menuitem id="provelo_financing_menu"
+              name="Financing Sources"
+              parent="account.menu_analytic_accounting"
+              action="provelo_financing_action"
+              sequence="20"/>
+    <menuitem id="provelo_project_menu"
+              name="Analytic Projects"
+              parent="account.menu_analytic_accounting"
+              action="provelo_project_action"
+              sequence="30"/>
+
+    <menuitem id="pv_analytic_configuration_menu"
+              name="Analytics"
+              parent="resource_planning.menu_resource_configuration"
+              sequence="50"/>
+
+    <menuitem id="provelo_financing_menu"
+              name="Financing Sources"
+              parent="pv_analytic_configuration_menu"
+              action="provelo_financing_action"
+              sequence="20"/>
+    <menuitem id="provelo_project_menu"
+              name="Analytic Projects"
+              parent="pv_analytic_configuration_menu"
+              action="provelo_project_action"
+              sequence="30"/>
+</odoo>

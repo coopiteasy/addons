@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2020 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <record id="provelo_financing_view_form" model="ir.ui.view">
+        <field name="name">provelo_financing_view_form</field>
+        <field name="model">pv.financing</field>
+        <field name="arch" type="xml">
+            <form string="provelo_financing_form">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="bob_code"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="provelo_financing_view_tree" model="ir.ui.view">
+        <field name="name">provelo_financing_view_tree</field>
+        <field name="model">pv.financing</field>
+        <field name="arch" type="xml">
+            <tree string="provelo_financing_tree">
+                <field name="bob_code"/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+</odoo>
