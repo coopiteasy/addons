@@ -44,10 +44,4 @@
         </field>
     </record>
 
-    <menuitem id="menu_terms_conditions"
-              name="Terms and Conditions"
-              action="action_terms_conditions"
-              parent="resource_planning.menu_resource_configuration"
-              sequence="30"/>
-
 </odoo>
