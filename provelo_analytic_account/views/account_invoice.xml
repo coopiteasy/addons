@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2020 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <record id="invoice_supplier_form" model="ir.ui.view">
+        <field name="name">invoice_supplier_form</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_supplier_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='date_due']/.." position="after">
+                <group name="provelo_aa">
+                    <field name="financing_id"/>
+                    <field name="project_id"/>
+                    <field name="location_id"/>
+                    <field name="department_id"/>
+                </group>
+
+            </xpath>
+
+            <xpath expr="//field[@name='account_analytic_id']"
+                   position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

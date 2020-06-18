@@ -20,7 +20,7 @@
 {
     "name": "Provelo Analytic Account",
     "version": "9.0.1.0.0",
-    "depends": ["hr", "resource_activity",],
+    "depends": ["account", "hr", "resource_activity",],
     "author": "Coop IT Easy SCRLfs",
     "license": "AGPL-3",
     "category": "",
@@ -34,6 +34,7 @@
         "views/provelo_financing.xml",
         "views/provelo_project.xml",
         "views/resource_location.xml",
+        "views/account_invoice.xml",
         "views/actions.xml",
         "views/menus.xml",
     ],
