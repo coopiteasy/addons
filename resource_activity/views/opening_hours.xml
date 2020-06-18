@@ -71,10 +71,5 @@
                     context="{'search_default_active': True}"/>
 
 
-        <menuitem action="action_activity_opening_hours"
-                  id="activity_opening_hours_menu"
-                  parent="resource_planning.menu_resource_configuration"
-                  sequence="1000"/>
-
     </data>
 </odoo>

@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <menuitem name="Sales" id="menu_sale_activity" parent="resource_planning.menu_main_resource_planning"
-                  sequence="25"/>
-        <menuitem action="sale.action_quotations" id="resource_quotation_menu" parent="menu_sale_activity" sequence="10"
-                  groups="base.group_sale_salesman,base.group_sale_manager"/>
-        <menuitem action="sale.action_orders" id="resource_sale_order_menu" parent="menu_sale_activity" sequence="15"
-                  groups="base.group_sale_salesman,base.group_sale_manager"/>
 
         <record id="view_sale_order_activity_form" model="ir.ui.view">
             <field name="name">sale.order.form</field>

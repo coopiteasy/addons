@@ -44,10 +44,4 @@
         </field>
     </record>
 
-    <menuitem id="menu_sale_note"
-              name="Sale Note"
-              action="action_sale_note"
-              parent="resource_planning.menu_resource_configuration"
-              sequence="30"/>
-
 </odoo>

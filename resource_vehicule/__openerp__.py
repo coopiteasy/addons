@@ -32,6 +32,7 @@
     "data": [
         "security/ir.model.access.csv",
         "views/resource_vehicule_views.xml",
+        "views/menus.xml",
     ],
     "installable": True,
     "application": True,

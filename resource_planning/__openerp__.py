@@ -41,7 +41,7 @@
         "views/partner_views.xml",
         "views/res_config_view.xml",
         "views/actions.xml",
-        "views/menu_item.xml",
+        "views/menus.xml",
     ],
     "installable": True,
     "application": True,

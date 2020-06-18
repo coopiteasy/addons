@@ -45,16 +45,5 @@
                     view_mode="tree"
                     context="{'search_default_only_future': True}"/>
 
-        <menuitem id="menu_resource_activity_deliveries_menu"
-                  name="Deliveries"
-                  parent="resource_planning.menu_main_resource_planning"
-                  sequence="30"/>
-
-        <menuitem id="menu_resource_activity_deliveries_menu_list"
-                  name="Deliveries"
-                  action="action_resource_activity_delivery"
-                  parent="menu_resource_activity_deliveries_menu"
-                  sequence="10"/>
-
     </data>
 </odoo>
