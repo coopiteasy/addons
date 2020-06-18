@@ -7,11 +7,12 @@
     <record id="invoice_supplier_form" model="ir.ui.view">
         <field name="name">invoice_supplier_form</field>
         <field name="model">account.invoice</field>
-        <field name="inherit_id" ref="account.invoice_supplier_form"/>
+        <field name="inherit_id" ref="account.invoice_form"/>
         <field name="arch" type="xml">
 
-            <xpath expr="//field[@name='date_due']/.." position="after">
+            <xpath expr="//field[@name='date_invoice']/.." position="after">
                 <group name="provelo_aa">
+                    <field name="activity_id"/>
                     <field name="financing_id"/>
                     <field name="project_id"/>
                     <field name="location_id"/>

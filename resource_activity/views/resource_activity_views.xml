@@ -430,7 +430,6 @@
             <field name="arch" type="xml">
                 <tree string="Resource activity type" delete="false">
                     <field name="name"/>
-                    <field name="code"/>
                 </tree>
             </field>
         </record>
