@@ -17,3 +17,8 @@ class ProVeloProject(models.Model):
     department_id = fields.Many2one(
         comodel_name="hr.department", string="Department", required="True"
     )
+    allowed_financing_ids = fields.Many2many(
+        comodel_name="pv.financing",
+        string="Allowed Financing",
+        help="Restricts allowed financing for this project on the invoice.",
+    )

@@ -9,16 +9,20 @@ from openerp import models, fields, api
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
-    financing_id = fields.Many2one(
-        comodel_name="pv.financing", string="Financing", required=False
+    activity_id = fields.Many2one(
+        comodel_name="resource.activity", string="Activity",
     )
     project_id = fields.Many2one(
         comodel_name="pv.project", string="Project", store=True,
     )
     location_id = fields.Many2one(related="project_id.location_id")
     department_id = fields.Many2one(related="project_id.department_id")
-    activity_id = fields.Many2one(
-        comodel_name="resource.activity", string="Activity",
+
+    allowed_financing_ids = fields.Many2many(
+        comodel_name="pv.financing", compute="_compute_allowed_financing"
+    )
+    financing_id = fields.Many2one(
+        comodel_name="pv.financing", string="Financing", required=False,
     )
 
     @api.model
@@ -32,3 +36,15 @@ class AccountInvoice(models.Model):
             invoice.activity_id = activity
             invoice.project_id = activity.activity_type.project_id
         return invoice
+
+    @api.multi
+    @api.depends("project_id")
+    def _compute_allowed_financing(self):
+        all_financing = self.env["pv.financing"].search([])
+        for invoice in self:
+            if invoice.project_id and invoice.project_id.allowed_financing_ids:
+                invoice.allowed_financing_ids = (
+                    invoice.project_id.allowed_financing_ids
+                )
+            else:
+                invoice.allowed_financing_ids = all_financing

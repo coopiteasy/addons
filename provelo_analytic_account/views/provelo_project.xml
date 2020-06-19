@@ -16,11 +16,25 @@
                         <field name="location_id"/>
                         <field name="department_id"/>
                     </group>
+                    <notebook>
+                        <page name="allowed_financing"
+                              string="Allowed Financing">
+                            <group>
+                                <field name="allowed_financing_ids"
+                                       nolabel="1">
+                                    <tree editable="bottom">
+                                        <field name="bob_code"/>
+                                        <field name="name"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>
     </record>
-    
+
     <record id="provelo_project_view_tree" model="ir.ui.view">
         <field name="name">provelo_project_view_tree</field>
         <field name="model">pv.project</field>
