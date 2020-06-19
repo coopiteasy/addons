@@ -450,8 +450,9 @@
                                 <field name="name"/>
                             </group>
                             <group>
-                                <field name="code"/>
-                                <field name="analytic_account"/>
+                                <!-- not used -->
+                                <field name="code" invisible="1"/>
+                                <field name="analytic_account" invisible="1"/>
                             </group>
                         </group>
                         <notebook>
