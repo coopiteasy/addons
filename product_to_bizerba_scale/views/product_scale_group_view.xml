@@ -19,9 +19,11 @@
                     <button name="send_all_to_scale_create" type="object"
                             string="Resend Creation All To the Scale System"
                             groups="product_to_bizerba_scale.group_manager"/>
-                    <button name="send_all_to_scale_write" type="object" string="Resend Update All To the Scale System"
+                    <button name="send_all_to_scale_write" type="object"
+                            string="Resend Update All To the Scale System"
                             groups="product_to_bizerba_scale.group_manager"/>
-                    <button name="send_all_to_scale_unlink" type="object" string="Send Delete All To the Scale System"
+                    <button name="send_all_to_scale_unlink" type="object"
+                            string="Send Delete All To the Scale System"
                             groups="product_to_bizerba_scale.group_manager"/>
                 </header>
                 <sheet>
@@ -41,7 +43,8 @@
                         <group>
                             <group>
                                 <field name="scale_system_id"/>
-                                <field name="company_id" groups="base.group_multi_company"/>
+                                <field name="company_id"
+                                       groups="base.group_multi_company"/>
                                 <field name="active"/>
                                 <field name="product_qty"/>
                             </group>
@@ -50,7 +53,8 @@
                     <notebook>
                         <page name="products" string="Products">
                             <group>
-                                <separator name="products" string="Products" colspan="4"/>
+                                <separator name="products" string="Products"
+                                           colspan="4"/>
                                 <field name="product_ids" nolabel="1">
                                     <tree editable="bottom">
                                         <field name="scale_sequence"/>

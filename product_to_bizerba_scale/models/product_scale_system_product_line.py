@@ -4,7 +4,7 @@
 #   - Houssine BAKKALI <houssine@coopiteasy.be>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import api, fields, models, _
+from odoo import fields, models
 
 
 class ProductScaleSystemProductLine(models.Model):
@@ -48,13 +48,15 @@ class ProductScaleSystemProductLine(models.Model):
     related_field_id = fields.Many2one(
         comodel_name="ir.model.fields",
         string="M2M / M2O Field",
-        help="Used only for the x2x fields. Set here the field of the related model that you want to send to the "
+        help="Used only for the x2x fields. Set here the field of the related "
+        "model that you want to send to the "
         "scale. Let empty to send the ID. ",
     )
 
     x2many_range = fields.Integer(
         string="range of the x2Many Fields",
-        help="Used if type is 'Many2Many Field', to mention the range of the field  to send. Begin by 0. (used for "
+        help="Used if type is 'Many2Many Field', to mention the range of the "
+        "field  to send. Begin by 0. (used for "
         "exemple for product logos) ",
     )
     constant_value = fields.Char(
@@ -63,13 +65,15 @@ class ProductScaleSystemProductLine(models.Model):
     )
     multiline_length = fields.Integer(
         string="Length for Multiline",
-        help="Used if type is 'Text Field' or 'External Text Constant', to indicate the max length of a line. Set 0 "
+        help="Used if type is 'Text Field' or 'External Text Constant', "
+        "to indicate the max length of a line. Set 0 "
         "to avoid to split the value.",
         default=0,
     )
     multiline_separator = fields.Char(
         string="Separator for Multiline",
-        help="Used if type is 'Text Field' or 'External Text Constant', to indicate wich text will be used to mention "
+        help="Used if type is 'Text Field' or 'External Text Constant', "
+        "to indicate wich text will be used to mention "
         "break lines.",
         default="\n",
     )
@@ -77,19 +81,23 @@ class ProductScaleSystemProductLine(models.Model):
     # TODO Improve. Set contrains.
     suffix = fields.Char(
         string="Suffix",
-        help="Used if type is 'External Text Field', to indicate how to suffix the field.\nMake sure to have a uniq "
-        "value by Scale System, and all with the same size.\n\nUsed if type is Product Image to mention the end "
+        help="Used if type is 'External Text Field', to indicate how to "
+        "suffix the field.\nMake sure to have a uniq "
+        "value by Scale System, and all with the same size.\n\nUsed if type "
+        "is Product Image to mention the end "
         "of the file. Exemple : '_01.jpg'. ",
     )
     numeric_coefficient = fields.Float(
         string="Numeric Coefficient",
-        help="Used if type is 'Numeric Field', to mention which coefficient numeric field should be multiplied.",
+        help="Used if type is 'Numeric Field', to mention which coefficient "
+        "numeric field should be multiplied.",
         default=1,
     )
 
     numeric_round = fields.Float(
         string="Rounding Method",
-        help="Used if type is 'Numeric Field', to mention how the value should be rounded.\nDo not Use 0, because it "
+        help="Used if type is 'Numeric Field', to mention how the value "
+        "should be rounded.\nDo not Use 0, because it "
         "will truncate the value.",
         default=1,
     )

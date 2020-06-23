@@ -5,11 +5,11 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 import codecs
-import os
 import logging
+import os
 from datetime import datetime
 
-from odoo import api, fields, models, tools, _
+from odoo import api, fields, models, tools
 
 _logger = logging.getLogger(__name__)
 
@@ -17,7 +17,8 @@ try:
     from ftplib import FTP
 except ImportError:
     _logger.warning(
-        "Cannot import 'ftplib' Python Library. 'product_to_bizerba_scale' module will not work properly."
+        "Cannot import 'ftplib' Python Library. 'product_to_bizerba_scale' "
+        "module will not work properly. "
     )
 
 
@@ -36,17 +37,9 @@ class ProductScaleLog(models.Model):
         ("unlink", "Deletion"),
     ]
 
-    _ACTION_MAPPING = {
-        "create": "C",
-        "write": "C",
-        "unlink": "S",
-    }
+    _ACTION_MAPPING = {"create": "C", "write": "C", "unlink": "S"}
 
-    _ENCODING_MAPPING = {
-        "iso-8859-1": "\r\n",
-        "cp1252": "\n",
-        "utf-8": "\n",
-    }
+    _ENCODING_MAPPING = {"iso-8859-1": "\r\n", "cp1252": "\n", "utf-8": "\n"}
 
     _EXTERNAL_TEXT_ACTION_CODE = "C"
 
@@ -61,13 +54,13 @@ class ProductScaleLog(models.Model):
     send_product_image = fields.Boolean(string="Send product image")
     product_id = fields.Many2one("product.template", string="Product")
     product_text = fields.Text(
-        compute="_compute_text", string="Product Text", store=True,
+        compute="_compute_text", string="Product Text", store=True
     )
     external_text = fields.Text(
-        compute="_compute_text", string="External Text", store=True,
+        compute="_compute_text", string="External Text", store=True
     )
     external_text_display = fields.Text(
-        compute="_compute_text", string="External Text (Display)", store=True,
+        compute="_compute_text", string="External Text (Display)", store=True
     )
     action = fields.Selection(
         selection=_ACTION_SELECTION, string="Action", required=True
@@ -77,8 +70,9 @@ class ProductScaleLog(models.Model):
 
     @api.noguess
     def _auto_init(self):
-        # FIXME on install -> psycopg2.ProgrammingError: relation "product_scale_log" does not exist
-        # self.env.cr.execute("DELETE FROM product_scale_log")
+        # FIXME on install -> psycopg2.ProgrammingError: relation
+        #  "product_scale_log" does not exist self.env.cr.execute("DELETE
+        #  FROM product_scale_log")
         res = super(ProductScaleLog, self)._auto_init()
         return res
 
@@ -111,9 +105,9 @@ class ProductScaleLog(models.Model):
         return self._EXTERNAL_TEXT_DELIMITER.join(external_text_list)
 
     # Compute Section
-    @api.multi
+    @api.multi  # noqa: C901 (method too complex)
     @api.depends("scale_system_id", "product_id")
-    def _compute_text(self):
+    def _compute_text(self):  # noqa: C901 (method too complex)
         for log in self:
 
             group = log.product_id.scale_group_id
@@ -225,7 +219,7 @@ class ProductScaleLog(models.Model):
             else:
                 ftp.login()
             return ftp
-        except:
+        except:  # noqa: E722,B001 do not use bare 'except' fixme
             _logger.error(
                 "Connection to ftp://%s@%s failed."
                 % (scale_system.ftp_login, scale_system.ftp_url)
@@ -236,7 +230,7 @@ class ProductScaleLog(models.Model):
     def ftp_connection_close(self, ftp):
         try:
             ftp.quit()
-        except:
+        except:  # noqa: E722,B001 do not use bare 'except' fixme
             pass
 
     @api.model
@@ -356,9 +350,7 @@ class ProductScaleLog(models.Model):
             # Mark logs as sent
             now = fields.Datetime.now()
             for log in logs:
-                log.write(
-                    {"sent": True, "last_send_date": now,}
-                )
+                log.write({"sent": True, "last_send_date": now})
         return True
 
     @api.model

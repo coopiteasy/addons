@@ -17,7 +17,8 @@
                     </group>
                     <group>
                         <group>
-                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"/>
                             <field name="active"/>
                             <field name="encoding"/>
                             <field name="field_ids" widget="many2many_tags"/>

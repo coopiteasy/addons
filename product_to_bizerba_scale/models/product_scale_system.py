@@ -3,7 +3,7 @@
 # Copyright 2017-Today Coop IT Easy SCRLfs
 #   - Houssine BAKKALI <houssine@coopiteasy.be>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-from odoo import api, fields, models, _
+from odoo import fields, models
 
 
 class ProductScaleSystem(models.Model):
@@ -17,7 +17,7 @@ class ProductScaleSystem(models.Model):
         ("utf-8", "UTF-8"),
     ]
 
-    def _get_field_ids(self):
+    def _compute_field_ids(self):
         for system in self:
             values = []
             for product_line in system.product_line_ids:
@@ -54,13 +54,16 @@ class ProductScaleSystem(models.Model):
         string="Product Text File Pattern",
         required=True,
         default="product.csv",
-        help="Pattern of the Product file. Use % to include dated information. Ref: https://docs.python.org/2/library/time.html#time.strftime",
+        help="Pattern of the Product file. Use % to include dated information. "
+        "Ref: https://docs.python.org/2/library/time.html#time.strftime",
     )
     external_text_file_pattern = fields.Char(
         string="External Text File Pattern",
         required=True,
         default="external_text.csv",
-        help="Pattern of the External Text file. Use % to include dated information. Ref: https://docs.python.org/2/library/time.html#time.strftime",
+        help="Pattern of the External Text file. Use % to include dated "
+        "information. "
+        "Ref: https://docs.python.org/2/library/time.html#time.strftime",
     )
     product_line_ids = fields.One2many(
         comodel_name="product.scale.system.product.line",
@@ -69,6 +72,6 @@ class ProductScaleSystem(models.Model):
     )
     field_ids = fields.One2many(
         comodel_name="ir.model.fields",
-        compute="_get_field_ids",
+        compute="_compute_field_ids",
         string="Fields",
     )

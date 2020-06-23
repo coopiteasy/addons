@@ -2,19 +2,23 @@
 
 <odoo>
 
-    <record id="demo_scale_system_product_line_ABNR" model="product.scale.system.product.line">
+    <record id="demo_scale_system_product_line_ABNR"
+            model="product.scale.system.product.line">
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">ABNR</field>
         <field name="name">Bizerba Shelf ID</field>
         <field name="sequence">2</field>
         <field name="type">many2one</field>
-        <field name="field_id" ref="product_to_bizerba_scale.field_product_template__scale_group_id"/>
-        <field name="related_field_id" ref="product_to_bizerba_scale.field_product_scale_group__external_identity"/>
+        <field name="field_id"
+               ref="product_to_bizerba_scale.field_product_template__scale_group_id"/>
+        <field name="related_field_id"
+               ref="product_to_bizerba_scale.field_product_scale_group__external_identity"/>
         <field name="delimiter">#</field>
     </record>
 
 
-    <record id="demo_scale_system_product_line_PLNR" model="product.scale.system.product.line">
+    <record id="demo_scale_system_product_line_PLNR"
+            model="product.scale.system.product.line">
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">PLNR</field>
         <field name="name">Product ID</field>
@@ -23,7 +27,8 @@
         <field name="delimiter">#</field>
     </record>
 
-    <record id="demo_scale_system_product_line_ABEZ" model="product.scale.system.product.line">
+    <record id="demo_scale_system_product_line_ABEZ"
+            model="product.scale.system.product.line">
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">ABEZ</field>
         <field name="name">Product Name</field>
@@ -35,7 +40,8 @@
         <field name="delimiter">#</field>
     </record>
 
-    <record id="demo_scale_system_product_line_WGNR" model="product.scale.system.product.line">
+    <record id="demo_scale_system_product_line_WGNR"
+            model="product.scale.system.product.line">
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">WGNR</field>
         <field name="name">PoS Category ID</field>
@@ -46,19 +52,22 @@
         <field name="delimiter">#</field>
     </record>
 
-    <record id="demo_scale_system_product_line_PREI" model="product.scale.system.product.line">
+    <record id="demo_scale_system_product_line_PREI"
+            model="product.scale.system.product.line">
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">PREI</field>
         <field name="name">Public Price (x 100)</field>
         <field name="sequence">6</field>
         <field name="type">numeric</field>
-        <field name="field_id" ref="product.field_product_template__list_price"/>
+        <field name="field_id"
+               ref="product.field_product_template__list_price"/>
         <field name="numeric_coefficient">100</field>
         <field name="numeric_round">1</field>
         <field name="delimiter">#</field>
     </record>
 
-    <record id="demo_scale_system_product_line_HAL1" model="product.scale.system.product.line">
+    <record id="demo_scale_system_product_line_HAL1"
+            model="product.scale.system.product.line">
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">HAL1</field>
         <field name="name">Days before Sale End</field>
@@ -69,7 +78,8 @@
         <field name="delimiter">#</field>
     </record>
 
-    <record id="demo_scale_system_product_line_HAL2" model="product.scale.system.product.line">
+    <record id="demo_scale_system_product_line_HAL2"
+            model="product.scale.system.product.line">
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">HAL2</field>
         <field name="name">Days before Consumption End</field>
@@ -80,7 +90,8 @@
         <field name="delimiter">#</field>
     </record>
 
-    <record id="demo_scale_system_product_line_EAN1" model="product.scale.system.product.line">
+    <record id="demo_scale_system_product_line_EAN1"
+            model="product.scale.system.product.line">
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">EAN1</field>
         <field name="name">Product Barcode</field>
@@ -90,30 +101,35 @@
         <field name="delimiter">#</field>
     </record>
 
-    <record id="demo_scale_system_product_line_AART" model="product.scale.system.product.line">
+    <record id="demo_scale_system_product_line_AART"
+            model="product.scale.system.product.line">
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">AART</field>
         <field name="name">To Weight ('P' / 'F')</field>
         <field name="sequence">10</field>
         <field name="type">many2one</field>
         <field name="field_id" ref="product.field_product_template__uom_id"/>
-        <field name="related_field_id" ref="product_to_bizerba_scale.field_uom_uom__scale_type"/>
+        <field name="related_field_id"
+               ref="product_to_bizerba_scale.field_uom_uom__scale_type"/>
         <field name="delimiter">#</field>
     </record>
 
-    <record id="demo_scale_system_product_line_TARA" model="product.scale.system.product.line">
+    <record id="demo_scale_system_product_line_TARA"
+            model="product.scale.system.product.line">
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">TARA</field>
         <field name="name">Tare Weight</field>
         <field name="sequence">11</field>
         <field name="type">numeric</field>
-        <field name="field_id" ref="product_to_bizerba_scale.field_product_template__scale_tare_weight"/>
+        <field name="field_id"
+               ref="product_to_bizerba_scale.field_product_template__scale_tare_weight"/>
         <field name="numeric_coefficient">1000</field>
         <field name="numeric_round">1</field>
         <field name="delimiter">#</field>
     </record>
 
-    <record id="demo_scale_system_product_line_FIXG" model="product.scale.system.product.line">
+    <record id="demo_scale_system_product_line_FIXG"
+            model="product.scale.system.product.line">
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">FIXG</field>
         <field name="name">Fixed Weight</field>
@@ -125,7 +141,8 @@
         <field name="delimiter">#</field>
     </record>
 
-    <record id="demo_scale_system_product_line_LOG1" model="product.scale.system.product.line">
+    <record id="demo_scale_system_product_line_LOG1"
+            model="product.scale.system.product.line">
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">LOG1</field>
         <field name="name">Logo #1</field>
@@ -135,7 +152,8 @@
         <field name="delimiter">#</field>
     </record>
 
-    <record id="demo_scale_system_product_line_LOG2" model="product.scale.system.product.line">
+    <record id="demo_scale_system_product_line_LOG2"
+            model="product.scale.system.product.line">
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">LOG1</field>
         <field name="name">Logo #2</field>
@@ -146,7 +164,8 @@
         <field name="delimiter">#</field>
     </record>
 
-    <record id="demo_scale_system_product_line_LOG3" model="product.scale.system.product.line">
+    <record id="demo_scale_system_product_line_LOG3"
+            model="product.scale.system.product.line">
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">LOG3</field>
         <field name="name">Logo #3</field>
@@ -157,7 +176,8 @@
         <field name="delimiter">#</field>
     </record>
 
-    <record id="demo_scale_system_product_line_LOG4" model="product.scale.system.product.line">
+    <record id="demo_scale_system_product_line_LOG4"
+            model="product.scale.system.product.line">
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">LOG4</field>
         <field name="name">Logo #4</field>
@@ -168,7 +188,8 @@
         <field name="delimiter">#</field>
     </record>
 
-    <record id="demo_scale_system_product_line_LOG5" model="product.scale.system.product.line">
+    <record id="demo_scale_system_product_line_LOG5"
+            model="product.scale.system.product.line">
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">LOG5</field>
         <field name="name">Logo #5</field>
@@ -179,7 +200,8 @@
         <field name="delimiter">#</field>
     </record>
 
-    <record id="demo_scale_system_product_line_ZUT1" model="product.scale.system.product.line">
+    <record id="demo_scale_system_product_line_ZUT1"
+            model="product.scale.system.product.line">
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">ZUT1</field>
         <field name="name">Ingredients (#1)</field>
@@ -189,7 +211,8 @@
         <field name="delimiter">#</field>
     </record>
 
-    <record id="demo_scale_system_product_line_ZUT2" model="product.scale.system.product.line">
+    <record id="demo_scale_system_product_line_ZUT2"
+            model="product.scale.system.product.line">
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">ZUT2</field>
         <field name="name">Ingredients (#2)</field>
@@ -199,7 +222,8 @@
         <field name="delimiter">#</field>
     </record>
 
-    <record id="demo_scale_system_product_line_ZUT3" model="product.scale.system.product.line">
+    <record id="demo_scale_system_product_line_ZUT3"
+            model="product.scale.system.product.line">
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">ZUT3</field>
         <field name="name">Ingredients (#3)</field>
@@ -209,7 +233,8 @@
         <field name="delimiter">#</field>
     </record>
 
-    <record id="demo_scale_system_product_line_ZUT4" model="product.scale.system.product.line">
+    <record id="demo_scale_system_product_line_ZUT4"
+            model="product.scale.system.product.line">
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">ZUT4</field>
         <field name="name">Ingredients (#4)</field>
@@ -219,7 +244,8 @@
         <field name="delimiter">#</field>
     </record>
 
-    <record id="demo_scale_system_product_line_TX01" model="product.scale.system.product.line">
+    <record id="demo_scale_system_product_line_TX01"
+            model="product.scale.system.product.line">
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">TX01</field>
         <field name="name">Text (#01)</field>
@@ -229,7 +255,8 @@
         <field name="delimiter">#</field>
     </record>
 
-    <record id="demo_scale_system_product_line_TX02" model="product.scale.system.product.line">
+    <record id="demo_scale_system_product_line_TX02"
+            model="product.scale.system.product.line">
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">TX02</field>
         <field name="name">Text (#02)</field>
@@ -239,7 +266,8 @@
         <field name="delimiter">#</field>
     </record>
 
-    <record id="demo_scale_system_product_line_TX03" model="product.scale.system.product.line">
+    <record id="demo_scale_system_product_line_TX03"
+            model="product.scale.system.product.line">
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">TX03</field>
         <field name="name">Text (#03)</field>
@@ -250,7 +278,8 @@
         <field name="delimiter">#</field>
     </record>
 
-    <record id="demo_scale_system_product_line_TX04" model="product.scale.system.product.line">
+    <record id="demo_scale_system_product_line_TX04"
+            model="product.scale.system.product.line">
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">TX04</field>
         <field name="name">Text (#04)</field>
@@ -261,7 +290,8 @@
         <field name="delimiter">#</field>
     </record>
 
-    <record id="demo_scale_system_product_line_TX05" model="product.scale.system.product.line">
+    <record id="demo_scale_system_product_line_TX05"
+            model="product.scale.system.product.line">
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">TX05</field>
         <field name="name">Text (#05)</field>
@@ -271,7 +301,8 @@
         <field name="delimiter">#</field>
     </record>
 
-    <record id="demo_scale_system_product_line_TX06" model="product.scale.system.product.line">
+    <record id="demo_scale_system_product_line_TX06"
+            model="product.scale.system.product.line">
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">TX06</field>
         <field name="name">Text (#06)</field>
@@ -281,7 +312,8 @@
         <field name="delimiter">#</field>
     </record>
 
-    <record id="demo_scale_system_product_line_TX07" model="product.scale.system.product.line">
+    <record id="demo_scale_system_product_line_TX07"
+            model="product.scale.system.product.line">
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">TX07</field>
         <field name="name">Text (#07)</field>
@@ -291,7 +323,8 @@
         <field name="delimiter">#</field>
     </record>
 
-    <record id="demo_scale_system_product_line_TX08" model="product.scale.system.product.line">
+    <record id="demo_scale_system_product_line_TX08"
+            model="product.scale.system.product.line">
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">TX08</field>
         <field name="name">Text (#08)</field>
@@ -301,7 +334,8 @@
         <field name="delimiter">#</field>
     </record>
 
-    <record id="demo_scale_system_product_line_TX09" model="product.scale.system.product.line">
+    <record id="demo_scale_system_product_line_TX09"
+            model="product.scale.system.product.line">
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">TX09</field>
         <field name="name">Unused Text (#09)</field>
@@ -311,7 +345,8 @@
         <field name="delimiter">#</field>
     </record>
 
-    <record id="demo_scale_system_product_line_TX10" model="product.scale.system.product.line">
+    <record id="demo_scale_system_product_line_TX10"
+            model="product.scale.system.product.line">
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">TX10</field>
         <field name="name">Text (#10)</field>
@@ -321,7 +356,8 @@
         <field name="delimiter">#</field>
     </record>
 
-    <record id="demo_scale_system_product_line_MDAT" model="product.scale.system.product.line">
+    <record id="demo_scale_system_product_line_MDAT"
+            model="product.scale.system.product.line">
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">MDAT</field>
         <field name="name">Main Image</field>
@@ -331,7 +367,6 @@
         <field name="suffix">.PNG</field>
         <field name="delimiter">#</field>
     </record>
-
 
 
 </odoo>

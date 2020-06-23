@@ -6,7 +6,8 @@
 {
     "name": "Product to Bizerba Scale",
     "summary": """
-        This module merges product_to_scale_bizerba and product_to_scale_bizerba_extended into one.
+        This module merges product_to_scale_bizerba and
+        product_to_scale_bizerba_extended into one.
     """,
     "author": "Coop IT Easy SCRLfs, GRAP",
     "website": "https://coopiteasy.be",
