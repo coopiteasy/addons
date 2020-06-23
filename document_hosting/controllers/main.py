@@ -51,21 +51,17 @@ class DocumentWebsite(http.Controller):
         values = {}
         values.update(
             self.website_document_side_bar(
-                date_begin=date_begin,
-                date_end=date_end,
-                user=request.env.user,
+                date_begin=date_begin, date_end=date_end, user=request.env.user
             )
         )
         values.update(
             self.display_categories_and_documents(
-                date_begin=date_begin,
-                date_end=date_end,
-                user=request.env.user,
+                date_begin=date_begin, date_end=date_end, user=request.env.user
             )
         )
         values["size_to_str"] = self.size_to_str
         return request.render(
-            "document_hosting.template_website_document", values,
+            "document_hosting.template_website_document", values
         )
 
     def website_document_side_bar(
@@ -88,7 +84,7 @@ class DocumentWebsite(http.Controller):
                 fields=["name", "document_date"],
                 groupby="document_date",
                 order="document_date desc",
-            ),
+            )
         }
 
     def display_categories_and_documents(
@@ -112,16 +108,14 @@ class DocumentWebsite(http.Controller):
             )
         # After all the filter, remove the empty categories
         data = self._data_remove_empty_category(data)
-        return {
-            "category_tree": data,
-        }
+        return {"category_tree": data}
 
     def size_to_str(self, size):
         units = ["o", "ko", "Mo", "Go", "To"]
         size_float = float(size)
         for unit in units:
             if size_float < 1000:
-                return "%.01f %s" % (size_float, unit)
+                return "{:.01f} {}".format(size_float, unit)
             size_float /= 1000
 
     def _data_tree(self, category=None):
