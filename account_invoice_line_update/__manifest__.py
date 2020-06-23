@@ -7,15 +7,11 @@
     "summary": """
     Update invoice lines to reload the right taxes on the lines.
     """,
-    "description": """
-    """,
     "author": "Coop IT Easy SCRLfs",
     "license": "AGPL-3",
     "version": "12.0.1.0.0",
     "website": "https://www.coopiteasy.be",
     "category": "Accounting",
     "depends": ["account"],
-    "data": [
-        "wizard/invoice_lines_update.xml",
-    ],
+    "data": ["wizard/invoice_lines_update.xml"],
 }

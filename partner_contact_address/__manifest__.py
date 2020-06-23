@@ -9,8 +9,8 @@
     "category": "CRM",
     "website": "www.coopiteasy.be",
     "license": "AGPL-3",
-    "description": """
+    "summary": """
     This module allows to have company contacts with their own address.
     """,
-    'installable': True,
+    "installable": True,
 }

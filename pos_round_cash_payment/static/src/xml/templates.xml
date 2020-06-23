@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="assets" name="round_cash_payment_extension_assets" inherit_id="point_of_sale.assets">
-    	<xpath expr="." position="inside">
-        	<script type="text/javascript" src="/pos_round_cash_payment/static/src/js/pos_round_cash_payment.js"></script>
-    	</xpath>
-	</template>
+    <template id="assets" name="round_cash_payment_extension_assets"
+              inherit_id="point_of_sale.assets">
+        <xpath expr="." position="inside">
+            <script type="text/javascript"
+                    src="/pos_round_cash_payment/static/src/js/pos_round_cash_payment.js"></script>
+        </xpath>
+    </template>
 </odoo>

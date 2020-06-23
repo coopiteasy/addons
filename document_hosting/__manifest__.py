@@ -8,14 +8,12 @@
     "summary": """
     Manage documents that can be published on website with ??.
     """,
-    "description": """
-    """,
     "author": "Coop IT Easy SCRLfs",
     "license": "AGPL-3",
     "version": "12.0.1.0.0",
     "website": "www.coopiteasy.be",
     "category": "Document",
-    "depends": ["base", "web", "website", "mail",],
+    "depends": ["base", "web", "website", "mail"],
     "data": [
         "security/ir.model.access.csv",
         "views/document_hosting_menu.xml",

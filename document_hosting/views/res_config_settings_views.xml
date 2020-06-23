@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="res_config_settings_view_form" model="ir.ui.view">
-        <field name="name">res.config.settings.view.form.inherit.document.hosting</field>
+        <field name="name">
+            res.config.settings.view.form.inherit.document.hosting
+        </field>
         <field name="model">res.config.settings</field>
         <field name="inherit_id" ref="website.res_config_settings_view_form"/>
         <field name="arch" type="xml">
             <div id="webmaster_settings" position="inside">
-                <div id="document_hosting" class="col-12 col-md-6 o_setting_box">
+                <div id="document_hosting"
+                     class="col-12 col-md-6 o_setting_box">
                     <div class="o_setting_left_pane">
                         <field name="display_document_page"/>
                     </div>

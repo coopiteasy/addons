@@ -5,7 +5,8 @@
 #   - Rémy TAYMANS <remy@coopiteasy.be>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import api, fields, models, _
+from odoo import api, fields, models
+
 from odoo.addons import decimal_precision as dp
 
 # TODO: scale_category is defined in beesdoo_product but this module do
@@ -17,9 +18,9 @@ class ProductTemplate(models.Model):
     _inherit = "product.template"
 
     scale_group_id = fields.Many2one(
-        comodel_name="product.scale.group", string="Scale Group",
+        comodel_name="product.scale.group", string="Scale Group"
     )
-    scale_sequence = fields.Integer(string="Scale Sequence",)
+    scale_sequence = fields.Integer(string="Scale Sequence")
     scale_tare_weight = fields.Float(
         digits=dp.get_precision("Stock Weight"),
         string="Scale Tare Weight",

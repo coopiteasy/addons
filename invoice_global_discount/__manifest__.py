@@ -10,9 +10,10 @@
     "license": "AGPL-3",
     "website": "https://coopiteasy.be",
     "depends": ["account", "sale"],
-    "description": """
+    "summary": """
     This module give global discount on invoice.
-    It allows to set the same discount on all the invoice lines without been forced to go manually through them.    
+    It allows to set the same discount on all the invoice lines
+     without been forced to go manually through them.
     """,
     "data": ["views/account_invoice_view.xml"],
     "installable": True,

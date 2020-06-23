@@ -1,14 +1,15 @@
 <odoo>
-	<data>
+    <data>
         <record model="ir.ui.view" id="view_account_journal_pos_user_form">
-        	<field name="name">POS Journal</field>
+            <field name="name">POS Journal</field>
             <field name="model">account.journal</field>
-            <field name="inherit_id" ref="point_of_sale.view_account_journal_pos_user_form"/>
+            <field name="inherit_id"
+                   ref="point_of_sale.view_account_journal_pos_user_form"/>
             <field name="arch" type="xml">
-            	<field name="amount_authorized_diff" position="after">
-            		<field name="cash_rounding"/>
-            	</field>
+                <field name="amount_authorized_diff" position="after">
+                    <field name="cash_rounding"/>
+                </field>
             </field>
-         </record>
+        </record>
     </data>
 </odoo>

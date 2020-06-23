@@ -9,8 +9,9 @@
     "license": "AGPL-3",
     "category": "Point of Sale",
     "website": "www.coopiteasy.be",
-    "description": """
-        Allows to search in POS for products with accented characters in name using unaccented search query.
+    "summary": """
+        Allows to search in POS for products with accented characters in name
+         using unaccented search query.
     """,
     "data": ["views/templates.xml"],
     "installable": True,

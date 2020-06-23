@@ -9,23 +9,15 @@
     "license": "AGPL-3",
     "category": "Point of Sale",
     "website": "www.coopiteasy.be",
-    "description": """
+    "summary": """
         Rounds due amount to nearest 5 cents when adding a cash Payment line.
-        An line is added on the invoice to record the rounding remainder.
-
-        A Round Remainder journal must be created and assigned to the POS.
-
     """,
-    "depends": [
-        'point_of_sale',
+    "depends": ["point_of_sale"],
+    "data": [
+        "views/pos_config.xml",
+        "views/account_journal_view.xml",
+        "static/src/xml/templates.xml",
     ],
-    'data': [
-        'views/pos_config.xml',
-        'views/account_journal_view.xml',
-        'static/src/xml/templates.xml',
-    ],
-    'qweb': [
-        'static/src/xml/pos_round_cash_payment.xml'
-    ],
-    'installable': True,
+    "qweb": ["static/src/xml/pos_round_cash_payment.xml"],
+    "installable": True,
 }

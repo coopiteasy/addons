@@ -9,7 +9,8 @@
                     Update Invoice lines.
                 </p>
                 <footer>
-                    <button name="update_invoice" string="Update Info" type="object"
+                    <button name="update_invoice" string="Update Info"
+                            type="object"
                             class="btn-primary"/>
                     <button string="Cancel" class="btn-default"
                             special="cancel"/>
@@ -26,7 +27,7 @@
         <field name="view_mode">form</field>
         <field name="multi">True</field>
         <field name="target">new</field>
-        <field name="binding_model_id" ref="account.model_account_invoice" />
+        <field name="binding_model_id" ref="account.model_account_invoice"/>
         <field name="groups" ref="base.group_system"/>
     </record>
 

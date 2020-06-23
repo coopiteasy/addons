@@ -11,7 +11,8 @@
             </th>
         </xpath>
 
-        <xpath expr="//table[2]//td/span[@t-field='move.product_id']/parent::td" position="after">
+        <xpath expr="//table[2]//td/span[@t-field='move.product_id']/parent::td"
+               position="after">
             <td name="weight">
                 <span t-field="move.display_weight"/>
                 <span t-field="move.display_unit"/>
@@ -25,7 +26,9 @@
             </th>
         </xpath>
 
-        <xpath expr="//table[3]//td/span[@t-field='move_line.product_id']/parent::td" position="after">
+        <xpath
+            expr="//table[3]//td/span[@t-field='move_line.product_id']/parent::td"
+            position="after">
             <td name="weight" class="text-center">
                 <span t-field="move_line.display_weight"/>
                 <span t-field="move_line.display_unit"/>

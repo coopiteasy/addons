@@ -19,24 +19,17 @@
 {
     "name": "POS Products Display Customization",
     "version": "12.0.1.0.0",
-    "depends": [
-        "point_of_sale",
-        "beesdoo_product",
-    ],
+    "depends": ["point_of_sale", "beesdoo_product"],
     "author": "Robin Keunen <robin@coopiteasy.be>",
     "license": "AGPL-3",
     "category": "Point of Sale",
     "website": "www.coopiteasy.be",
-    "description": """
+    "summary": """
         Adds information on POS product card.
         - display weight
         - producers
     """,
-    "data": [
-        'views/assets.xml',
-    ],
-    "qweb": [
-      'static/src/xml/pos_products.xml',
-    ],
-    'installable': True,
+    "data": ["views/assets.xml"],
+    "qweb": ["static/src/xml/pos_products.xml"],
+    "installable": True,
 }
