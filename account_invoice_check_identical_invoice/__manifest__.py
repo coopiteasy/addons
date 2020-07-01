@@ -4,12 +4,14 @@
 {
     "name": "Account Invoice Check Identical Invoice",
     "summary": """
-        Check if invoices with the same partner, invoice date and total amount already exist""",
+        Check if invoices with the same partner, invoice date
+        and total amount already exist""",
     "version": "12.0.1.0.0",
-    "depends": ["base", "account",],
+    "depends": ["base", "account"],
     "author": "Coop IT Easy SCRLfs",
     "category": "Accounting & Finance",
     "website": "https://coopiteasy.be",
-    "data": ["views/account_invoice.xml",],
+    "data": ["views/account_invoice.xml"],
     "installable": True,
+    "license": "AGPL-3",
 }

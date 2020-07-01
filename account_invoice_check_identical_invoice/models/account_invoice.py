@@ -1,9 +1,10 @@
 # Copyright 2017 - Today Coop IT Easy SCRLfs (<http://www.coopiteasy.be>)
 # - Robin Keunen <robin@coopiteasy.be>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import models, fields, api, _
-from odoo.exceptions import ValidationError
 import datetime as dt
+
+from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
 
 
 class AccountInvoice(models.Model):
@@ -18,16 +19,16 @@ class AccountInvoice(models.Model):
         " invoice date and totam alount already exist.",
     )
     identical_invoice_detected = fields.Boolean(
-        "identical_invoice_detected", compute="_check_identical_invoice"
+        "identical_invoice_detected", compute="_compute_identical_invoice"
     )
 
     @api.onchange("partner_id", "date_invoice")
     @api.multi
-    def _onchange_check_identical_invoice(self):
-        self._check_identical_invoice()
+    def _onchange_compute_identical_invoice(self):
+        self._compute_identical_invoice()
 
     @api.multi
-    def _check_identical_invoice(self):
+    def _compute_identical_invoice(self):
         Invoice = self.env["account.invoice"]
         for invoice in self:
             duplicate_domain = [
@@ -60,16 +61,18 @@ class AccountInvoice(models.Model):
 
     @api.multi
     def invoice_validate(self):
-        self._check_identical_invoice()
+        self._compute_identical_invoice()
         for invoice in self:
             if (
                 invoice.identical_invoice_detected
                 and not invoice.identical_invoice_confirmed
             ):
                 raise ValidationError(
-                    "We detected invoices with the same partner, date"
-                    " and total. \n\nPlease check the"
-                    ' "Confirm Identical Invoice?" box to continue'
+                    _(
+                        "We detected invoices with the same partner, date"
+                        " and total. \n\nPlease check the"
+                        ' "Confirm Identical Invoice?" box to continue'
+                    )
                 )
 
         return super(AccountInvoice, self).invoice_validate()
