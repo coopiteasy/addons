@@ -1,6 +1,5 @@
 ![Licence](https://img.shields.io/badge/licence-AGPL--3-blue.svg)
-[![Build Status](https://travis-ci.com/coopiteasy/addons.svg?branch=12.0)](https://travis-ci.com/coopiteasy/addons?branch=12.0)
-
+[![Build Status](https://travis-ci.org/coopiteasy/addons.svg?branch=12.0)](https://travis-ci.org/coopiteasy/addons)
 # IT management tools for the social economy
 
 We are a young IT cooperative aiming at providing IT management tools and
