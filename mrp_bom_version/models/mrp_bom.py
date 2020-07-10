@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # (c) 2015 Oihane Crucelaegui - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
-import openerp.addons.decimal_precision as dp
+from openerp.addons.decimal_precision import decimal_precision as dp
 
 from openerp import models, fields, api
 from openerp.tools import config
@@ -120,7 +120,7 @@ class MrpBom(models.Model):
             'res_id': new_bom.id,
             'target': 'current',
         }
-    
+
     def _copy_bom(self):
         active_draft = self.env['mrp.config.settings']._get_parameter(
             'active.draft')
@@ -129,11 +129,13 @@ class MrpBom(models.Model):
             'active': active_draft and active_draft.value or False,
             'parent_bom': self.id,
         })
-        for bom_line in self.bom_line_ids:
-            if bom_line.product_id.product_tmpl_id.bom_ids and bom_line.product_id.product_tmpl_id.bom_count > 0:
-                for bom in bom_line.product_id.product_tmpl_id.bom_ids:
-                    if bom.version == self.version:
-                        bom.button_new_version()
+        if self.type == 'normal':
+            for bom_line in self.bom_line_ids:
+                if (bom_line.product_id.product_tmpl_id.bom_ids
+                        and bom_line.product_id.product_tmpl_id.bom_count > 0):
+                    for bom in bom_line.product_id.product_tmpl_id.bom_ids:
+                        if bom.version == self.version:
+                            bom.button_new_version()
         return new_bom
 
     @api.multi
@@ -178,7 +180,7 @@ class MrpBom(models.Model):
             product_tmpl_id=product_tmpl_id, product_id=product_id,
             properties=properties)
         return bom_id
-    
+
     @api.multi
     def name_get(self):
         res = []
