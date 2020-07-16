@@ -8,7 +8,7 @@
     "name": "MRP - BoM version",
     "summary": "BoM versioning",
     'description': "This module provides a state in the BoM whether to allow their use in manufacturing.",
-    "version": "9.0.1.0.0",
+    "version": "9.0.1.0.1",
     "license": "AGPL-3",
     "author": "OdooMRP team,"
               "AvanzOSC,"
