@@ -25,6 +25,10 @@
                         name="generate_ref_code_non_bio" type="object"
                         colspan="2"
                         attrs="{'invisible' : [('to_weight','=',False)]}"/>
+                <button string="Nouveau numéro non-alimentaire"
+                        name="generate_ref_code_non_food" type="object"
+                        colspan="2"
+                        attrs="{'invisible' : [('to_weight','=',False)]}"/>
             </field>
         </field>
     </record>
