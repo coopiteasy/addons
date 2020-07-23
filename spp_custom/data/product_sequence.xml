@@ -33,5 +33,13 @@
             <field name="suffix"></field>
             <field name="number_next">1</field>
         </record>
+        <record id="seq_ean_product_internal_ref_weight_non_food" model="ir.sequence">
+            <field name="name">Internal reference - SPP - weight - non food</field>
+            <field name="code">product.internal.code.non.food</field>
+            <field name="prefix"></field>
+            <field name="padding">3</field>
+            <field name="suffix"></field>
+            <field name="number_next">1</field>
+        </record>
     </data>
 </odoo>

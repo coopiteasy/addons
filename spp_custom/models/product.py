@@ -65,3 +65,10 @@ class ProductTemplate(models.Model):
             "spp_custom.seq_ean_product_internal_ref_weight_non_bio"
         )
         self.generate_ref_code("09", sequence)
+
+    @api.multi
+    def generate_ref_code_non_food(self):
+        sequence = self.env.ref(
+            "spp_custom.seq_ean_product_internal_ref_weight_non_food"
+        )
+        self.generate_ref_code("07", sequence)
