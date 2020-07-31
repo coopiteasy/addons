@@ -5,7 +5,9 @@
         <field name="inherit_id" ref="point_of_sale.view_pos_session_form"/>
         <field name="arch" type="xml">
             <button name="action_pos_session_validate" position="after">
-                <button name="fix_pos_orders_taxes" type="object" string="Fix POS Orders Taxes Amount" states="closing_control"
+                <button name="fix_pos_orders_taxes" type="object"
+                        string="Fix POS Orders Taxes Amount"
+                        states="closing_control"
                         groups="base.group_system"/>
             </button>
         </field>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_purchaseorder_document"
+              inherit_id="purchase.report_purchaseorder_document"
+              name="purchaseorder_weight">
+
+        <xpath expr="//tr[@t-foreach='o.order_line']/../../thead/tr/th[3]"
+               position="after">
+            <th class="text-right">
+                <span>Weight</span>
+            </th>
+        </xpath>
+
+        <xpath expr="//tr[@t-foreach='o.order_line']//td[3]" position="after">
+            <td class="text-right">
+                <span t-field="line.product_id.display_weight"/>
+                <span t-field="line.product_id.display_unit"/>
+            </td>
+        </xpath>
+
+    </template>
+</odoo>

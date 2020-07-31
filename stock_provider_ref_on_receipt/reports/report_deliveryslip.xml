@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_receipt_provider_ref"
+              inherit_id="stock.report_delivery_document"
+              name="Receipt with provider reference">
+
+        <!-- t-if="o.state!='done'" -->
+        <xpath expr="//table[2]//th[1]" position="after">
+            <th name="provider_ref">
+                <strong>Provider ref.</strong>
+            </th>
+        </xpath>
+
+        <xpath expr="//table[2]//td/span[@t-field='move.product_id']/parent::td"
+               position="after">
+            <td name="provider_ref">
+                <span t-field="move.provider_ref"/>
+            </td>
+        </xpath>
+
+        <!-- t-if="o.move_line_ids and o.state=='done'" -->
+        <xpath expr="//table[3]//th[1]" position="after">
+            <th name="provider_ref" class="text-left">
+                <span>Provider ref.</span>
+            </th>
+        </xpath>
+
+        <xpath
+            expr="//table[3]//td/span[@t-field='move_line.product_id']/parent::td"
+            position="after">
+            <td name="provider_ref" class="text-left">
+                <span t-field="move_line.provider_ref"/>
+            </td>
+        </xpath>
+
+
+    </template>
+</odoo>

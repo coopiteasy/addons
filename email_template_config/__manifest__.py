@@ -4,19 +4,15 @@
 {
     "name": "Email Configuration",
     "version": "12.0.1.0.0",
-    "depends": [
-        "mail",
-    ],
+    "depends": ["mail"],
     "author": "Coop IT Easy SCRLfs",
     "category": "Discuss",
     "website": "www.coopiteasy.be",
     "license": "AGPL-3",
-    "description": """
+    "summary": """
     This module extends the email in order to force some behaviours
     configured in the mail template(e.g. force send mail or not).
     """,
-    'data': [
-        'views/mail_template_views.xml',
-    ],
-    'installable': True,
+    "data": ["views/mail_template_views.xml"],
+    "installable": True,
 }

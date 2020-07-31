@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_receipt_weight"
+              inherit_id="stock.report_delivery_document"
+              name="Receipt with weight">
+
+        <!-- t-if="o.state!='done'" -->
+        <xpath expr="//table[2]//th[1]" position="after">
+            <th name="weight">
+                <strong>Weight</strong>
+            </th>
+        </xpath>
+
+        <xpath expr="//table[2]//td/span[@t-field='move.product_id']/parent::td"
+               position="after">
+            <td name="weight">
+                <span t-field="move.display_weight"/>
+                <span t-field="move.display_unit"/>
+            </td>
+        </xpath>
+
+        <!-- t-if="o.move_line_ids and o.state=='done'" -->
+        <xpath expr="//table[3]//th[1]" position="after">
+            <th name="weight" class="text-center">
+                <strong>Weight</strong>
+            </th>
+        </xpath>
+
+        <xpath
+            expr="//table[3]//td/span[@t-field='move_line.product_id']/parent::td"
+            position="after">
+            <td name="weight" class="text-center">
+                <span t-field="move_line.display_weight"/>
+                <span t-field="move_line.display_unit"/>
+            </td>
+        </xpath>
+
+    </template>
+</odoo>
