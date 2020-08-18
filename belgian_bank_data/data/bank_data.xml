@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
+<odoo>
     <data noupdate="1">
         <!-- Belgium Bank Information -->
         <record id="bank_belfius" model="res.bank">
@@ -11,7 +11,7 @@
             <field name="name">bpost banks</field>
             <field name="bic">BPOTBEB1</field>
         </record>
-        
+
         <record id="bank_paribas" model="res.bank">
             <field name="name">BNP Paribas Fortis</field>
             <field name="bic">GEBABEBB</field>
@@ -21,201 +21,201 @@
             <field name="name">Crelan</field>
             <field name="bic">NICABEBB</field>
         </record>
-        
+
         <record id="bank_bkcp" model="res.bank">
             <field name="name">BKCP</field>
             <field name="bic">BKCPBEB1BKB</field>
         </record>
-        
+
         <record id="bank_creditpro" model="res.bank">
             <field name="name">Crédit Professionnel</field>
             <field name="bic">BKCPBEBB</field>
         </record>
-        
+
         <record id="bank_ABK" model="res.bank">
             <field name="name">ABK Bank</field>
             <field name="bic">ABERBE21</field>
         </record>
-        
+
         <record id="bank_OBK" model="res.bank">
             <field name="name">O.B.K. Bank</field>
             <field name="bic">OBKBBE99</field>
         </record>
-        
+
         <record id="bank_CPH" model="res.bank">
             <field name="name">Banque CPH</field>
             <field name="bic">CPHBBE75</field>
         </record>
-        
+
         <record id="bank_deltalloyd" model="res.bank">
             <field name="name">Delta Lloyd Bank</field>
             <field name="bic">BNAGBEBB</field>
         </record>
-        
+
         <record id="bank_rabo" model="res.bank">
             <field name="name">Rabobank International Antwerp Branc</field>
             <field name="bic">RABOBE22</field>
         </record>
-        
+
         <record id="bank_santander" model="res.bank">
             <field name="name">Banco Santander</field>
             <field name="bic">BSHBEBR</field>
         </record>
-        
+
         <record id="bank_commerzbank" model="res.bank">
             <field name="name">Commerzbank</field>
             <field name="bic">COBABEBX</field>
         </record>
-        
+
         <record id="bank_baroda" model="res.bank">
             <field name="name">Bank of Baroda</field>
             <field name="bic">BARBBEBB</field>
         </record>
-        
+
         <record id="bank_record" model="res.bank">
             <field name="name">Record Bank</field>
             <field name="bic">HBKABE22</field>
         </record>
-        
+
         <record id="bank_smbc" model="res.bank">
             <field name="name">SMBC</field>
             <field name="bic">SMBCBEBB</field>
         </record>
-        
+
         <record id="bank_cbc" model="res.bank">
             <field name="name">CBC Banque</field>
             <field name="bic">CREGBEBB</field>
         </record>
-        
+
         <record id="bank_ing" model="res.bank">
             <field name="name">ING Belgique</field>
             <field name="bic">BBRUBEBB</field>
         </record>
-        
+
         <record id="bank_kbc" model="res.bank">
             <field name="name">KBC Bank</field>
             <field name="bic">KREDBEBB</field>
         </record>
-        
+
         <record id="bank_DHB" model="res.bank">
             <field name="name">Demir-Halk Banks</field>
             <field name="bic">DHBNBEBB</field>
         </record>
-        
+
         <record id="bank_dierckx" model="res.bank">
             <field name="name">Dierickx, Leys et Cie</field>
             <field name="bic">DIERBE21</field>
         </record>
-        
+
         <record id="bank_ABN" model="res.bank">
             <field name="name">ABN AMRO Bank</field>
             <field name="bic">ABNABE2AIPC</field>
         </record>
-        
+
         <record id="bank_vandeput" model="res.bank">
             <field name="name">van de Put et Co</field>
             <field name="bic">VAPEBE21</field>
         </record>
-        
+
         <record id="bank_NIBC" model="res.bank">
             <field name="name">NIBC Bank</field>
             <field name="bic">DNIBBE21</field>
         </record>
-        
+
         <record id="bank_socGen" model="res.bank">
             <field name="name">Société Générale Private</field>
             <field name="bic">SGPBBE99</field>
         </record>
-        
+
         <record id="bank_puilaetco" model="res.bank">
             <field name="name">Puilaeteco Dewaay</field>
             <field name="bic">PUILBEBB</field>
         </record>
-        
+
         <record id="bank_NY" model="res.bank">
             <field name="name">Bank of New York Mellon</field>
             <field name="bic">IRVTBEBB</field>
         </record>
-        
+
         <record id="bank_FCE" model="res.bank">
             <field name="name">FCE Bank</field>
             <field name="bic">FORDBE21</field>
         </record>
-        
+
         <record id="bank_Triodos" model="res.bank">
             <field name="name">Triodos Bank</field>
             <field name="bic">TRIOBEBB</field>
         </record>
-        
+
         <record id="bank_attijariwafa" model="res.bank">
             <field name="name">Attijariwafa Bank</field>
             <field name="bic">WAFABEBB</field>
         </record>
-        
+
         <record id="bank_fortuneo" model="res.bank">
             <field name="name">Fortuneo Belgium</field>
             <field name="bic">FTNOBEB1</field>
         </record>
-        
+
         <record id="bank_degroof" model="res.bank">
             <field name="name">Banque Degroof Luxembour</field>
             <field name="bic">DEGRBEBB</field>
         </record>
-        
+
         <record id="bank_beobank" model="res.bank">
             <field name="name">Beobank</field>
             <field name="bic">CTBKBEBX</field>
         </record>
-        
+
         <record id="bank_citybank" model="res.bank">
             <field name="name">Citibank International</field>
             <field name="bic">CITIBEBX</field>
         </record>
-        
+
         <record id="bank_Deutsche" model="res.bank">
             <field name="name">Deutsche Bank</field>
             <field name="bic">DEUTBEBE</field>
         </record>
-        
+
         <record id="bank_paschi" model="res.bank">
             <field name="name">Banca Monte Paschi Belgio</field>
             <field name="bic">BMPBBEBB</field>
         </record>
-        
+
         <record id="bank_vanbreda" model="res.bank">
             <field name="name">Bk J. Van Breda et C°</field>
             <field name="bic">JVBABE22</field>
         </record>
-        
+
         <record id="bank_keytrade" model="res.bank">
             <field name="name">Keytrade Bank</field>
             <field name="bic">KEYTBEBB</field>
         </record>
-        
+
         <record id="bank_europa" model="res.bank">
             <field name="name">Europabank</field>
             <field name="bic">EURBBE99</field>
         </record>
-        
+
         <record id="bank_degroof" model="res.bank">
             <field name="name">Banque Degroof</field>
             <field name="bic">DEGRBEBB</field>
         </record>
-        
+
         <record id="bank_axa" model="res.bank">
             <field name="name">AXA Bank Europe</field>
             <field name="bic">AXABBE22</field>
         </record>
-        
+
         <record id="bank_optima" model="res.bank">
             <field name="name">Optima Bank</field>
             <field name="bic">ETHIBEBB</field>
         </record>
-        
+
         <record id="bank_argenta" model="res.bank">
             <field name="name">Argenta Banque</field>
             <field name="bic">ARSPBE22</field>
         </record>
 
     </data>
-</openerp>
+</odoo>
