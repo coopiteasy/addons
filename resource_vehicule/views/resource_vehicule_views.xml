@@ -89,8 +89,7 @@
             <field name="view_mode">tree,form</field>
         </record>
         
-        <menuitem action="action_resource_brand" id="resource_brand_menu" parent="resource_planning.menu_resource_configuration" sequence="30"/>
-        
+
         <record id="resource_model_tree" model="ir.ui.view">
             <field name="name">resource.model.tree</field>
             <field name="model">resource.model</field>
@@ -133,9 +132,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
-        
-        <menuitem action="action_resource_model" id="resource_model_menu" parent="resource_planning.menu_resource_configuration" sequence="30"/>
-        
+
         <record id="resource_gearbox_tree" model="ir.ui.view">
             <field name="name">resource.gearbox.tree</field>
             <field name="model">resource.gearbox</field>
@@ -178,9 +175,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
-        
-        <menuitem action="action_resource_gearbox" id="resource_gearbox_menu" parent="resource_planning.menu_resource_configuration" sequence="50"/>
-        
+
         <record id="resource_color_tree" model="ir.ui.view">
             <field name="name">resource.color.tree</field>
             <field name="model">resource.color</field>
@@ -223,7 +218,6 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
-        
-        <menuitem action="action_resource_color" id="resource_color_menu" parent="resource_planning.menu_resource_configuration" sequence="60"/>
+
 	</data>
 </odoo>

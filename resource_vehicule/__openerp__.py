@@ -21,9 +21,7 @@
 {
     "name": "Resource vehicule",
     "version": "1.0",
-    "depends": [
-        "resource_planning",
-    ],
+    "depends": ["resource_planning",],
     "author": "Houssine BAKKALI <houssine@coopiteasy.be>",
     "category": "Resource",
     "website": "www.coopiteasy.be",
@@ -31,10 +29,11 @@
     "description": """
     This allows to manage vehicule attribute on your resources.
     """,
-    'data': [
-        'security/ir.model.access.csv',
-        'views/resource_vehicule_views.xml',
+    "data": [
+        "security/ir.model.access.csv",
+        "views/resource_vehicule_views.xml",
+        "views/menus.xml",
     ],
-    'installable': True,
-    'application': True,
+    "installable": True,
+    "application": True,
 }

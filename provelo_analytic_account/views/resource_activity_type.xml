@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2020 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <record id="view_resource_activity_type_form" model="ir.ui.view">
+        <field name="name">view_resource_activity_type_form</field>
+        <field name="model">resource.activity.type</field>
+        <field name="inherit_id"
+               ref="resource_activity.view_resource_activity_type_form"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="project_id"/>
+            </field>
+            <field name="analytic_account" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="resource_activity_type_tree" model="ir.ui.view">
+        <field name="name">resource_activity_type_tree</field>
+        <field name="model">resource.activity.type</field>
+        <field name="inherit_id"
+               ref="resource_activity.resource_activity_type_tree"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="project_id"/>
+            </field>
+        </field>
+    </record>
+</odoo>

@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <menuitem name="Activities" id="menu_resource_activity" parent="resource_planning.menu_main_resource_planning"
-                  sequence="5"/>
-
-
         <record id="resource_location_form" model="ir.ui.view">
             <field name="name">resource.location.form</field>
             <field name="model">resource.location</field>
@@ -354,9 +350,6 @@
             <field name="context">{"search_default_coming_week":1,"search_default_not_cancelled":1}</field>
         </record>
 
-        <menuitem action="action_resource_activity" id="resource_activity_menu" parent="menu_resource_activity"
-                  sequence="10"/>
-
         <record id="view_activity_registration_form" model="ir.ui.view">
             <field name="name">activity.registration.form</field>
             <field name="model">resource.activity.registration</field>
@@ -437,7 +430,6 @@
             <field name="arch" type="xml">
                 <tree string="Resource activity type" delete="false">
                     <field name="name"/>
-                    <field name="code"/>
                 </tree>
             </field>
         </record>
@@ -458,8 +450,9 @@
                                 <field name="name"/>
                             </group>
                             <group>
-                                <field name="code"/>
-                                <field name="analytic_account"/>
+                                <!-- not used -->
+                                <field name="code" invisible="1"/>
+                                <field name="analytic_account" invisible="1"/>
                             </group>
                         </group>
                         <notebook>
@@ -486,9 +479,6 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
-
-        <menuitem action="action_resource_activity_type" id="resource_activity_type_menu"
-                  parent="resource_planning.menu_resource_configuration" sequence="70"/>
 
         <record id="resource_activity_lang_tree" model="ir.ui.view">
             <field name="name">resource.activity.lang.tree</field>
@@ -533,8 +523,6 @@
             <field name="view_mode">tree,form</field>
         </record>
 
-        <menuitem action="action_resource_activity_lang" id="resource_activity_lang_menu"
-                  parent="resource_planning.menu_resource_configuration" sequence="80"/>
 
         <record id="resource_activity_theme_tree" model="ir.ui.view">
             <field name="name">resource.activity.theme.tree</field>
@@ -579,7 +567,5 @@
             <field name="view_mode">tree,form</field>
         </record>
 
-        <menuitem action="action_resource_activity_theme" id="resource_activity_theme_menu"
-                  parent="resource_planning.menu_resource_configuration" sequence="90"/>
     </data>
 </odoo>
