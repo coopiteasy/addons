@@ -24,3 +24,8 @@ class AccountAnalyticAccount(models.Model):
                 lambda l: fields.Date.from_string(l.date) >= one_month_ago
             )
             account.line_count = len(recent_lines)
+
+    @api.model
+    def cron_compute_line_count(self):
+        accounts = self.search([])
+        accounts._compute_line_count()

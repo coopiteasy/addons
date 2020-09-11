@@ -16,5 +16,17 @@
             <field name="function" eval="'reset_so_line'" />
             <field name="args" eval="'()'"/>
         </record>
+
+        <record id="cie_compute_aaa_line_count_cron" model="ir.cron">
+            <field name="name">Compute line on analytic account (over last month)</field>
+            <field name="active" eval="True"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field> <!-- don't limit the number of calls -->
+            <field name="doall" eval="False"/>
+            <field name="model">account.analytic.account</field>
+            <field name="function">cron_compute_line_count</field>
+            <field name="args">()</field>
+        </record>
     </data>
 </odoo>
