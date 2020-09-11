@@ -17,7 +17,13 @@
     "description": """
         * reset_so_line on account.analytic.line
         * fields on project.task
+        * only display active accounts on activity view
+        * sort accounts by line count
     """,
-    "data": ["data/cron.xml", "views/project_view.xml"],
+    "data": [
+        "data/cron.xml",
+        "views/project_view.xml",
+        "views/account_analytic.xml",
+    ],
     "installable": True,
 }
