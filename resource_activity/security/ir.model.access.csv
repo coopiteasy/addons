@@ -23,4 +23,5 @@ access_res_company_note_manager,res.company.note,model_res_company_note,resource
 access_res_company_note_user,res.company.note,model_res_company_note,resource_planning.group_resource_user,1,1,1,0
 access_resource_location_terms_manager,resource.location.terms,model_resource_location_terms,resource_planning.group_resource_manager,1,1,1,1
 access_resource_location_terms_user,resource.location.terms,model_resource_location_terms,resource_planning.group_resource_user,1,1,1,0
-
+access_sale_order_user,access_sale_order_user,sale.model_sale_order,resource_planning.group_resource_user,1,1,1,0
+access_sale_order_user,access_sale_order_user,sale.model_sale_order,resource_planning.group_resource_manager,1,1,1,0
