@@ -17,6 +17,7 @@ class AccountAnalyticAccount(models.Model):
     @api.depends("line_ids", "account_type")
     @api.multi
     def _compute_line_count(self):
+        # may lead to performance issues. See with time.
         for account in self:
             one_month_ago = date.today() - timedelta(days=30)
             recent_lines = account.line_ids.filtered(
