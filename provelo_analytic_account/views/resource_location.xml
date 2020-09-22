@@ -11,6 +11,7 @@
         <field name="arch" type="xml">
             <field name="address" position="after">
                 <field name="bob_code"/>
+                <field name="journal_id"/>
             </field>
         </field>
     </record>
