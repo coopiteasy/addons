@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
 	<t t-extend="XmlReceipt">
-        <t t-jquery="t[t-if='receipt.company.email']" t-operation='replace'/>
-        <t t-jquery="t[t-if='receipt.cashier']" t-operation='after'>
-        	 <t t-if='receipt.client'>
-             	<div>Customer: <t t-esc='receipt.client' /></div>
+        <t t-jquery="t[t-if='receipt.company.email']" t-operation="replace"/>
+        <t t-jquery="t[t-if='receipt.cashier']" t-operation="after">
+        	 <t t-if="receipt.client">
+             	<div>Customer: <t t-esc="receipt.client"/></div>
              </t>
         </t>
     </t>
