@@ -19,7 +19,7 @@
 ##############################################################################
 {
     "name": "Provelo Customization",
-    "version": "9.0.1.0",
+    "version": "9.0.1.1.0",
     "depends": [
         "csv_export_invoice",
         "csv_export_partner",
@@ -30,13 +30,22 @@
         "resource_activity",
         "web_readonly_bypass",
         "l10n_be_invoice_bba",
+        "account_archive_journals",
     ],
     "author": "Coop IT Easy SCRLfs",
     "license": "AGPL-3",
     "category": "",
     "website": "www.coopiteasy.be",
     "description": """
-        Specifics customizations for Pro Velo
+        * default value on invoice policy to order
+        * default value on res_partner out_inv_comm_type to bba
+        * default value on res_partner out_inv_comm_algorithm to random
+        * automatic validation of invoices
+        * add default values onavailable holidays report
+        * add security rules for hr holydays access
+        * location search  filters
+        * customize holiday, timesheet and res_partner views
+        * constraint on account journal code length
     """,
     "data": [
         "views/hr_holidays_view.xml",
