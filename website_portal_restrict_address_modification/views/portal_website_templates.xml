@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2018 Rémy Taymans <remytaymans@gmail.com>
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+
+    <!-- Modifying the form -->
+    <template id="website_portal_restrict_my_details"
+              name="Website Portal Restrict Modification"
+              inherit_id="portal.portal_my_details">
+        <xpath expr="//input[@name='name']/.." position="before">
+            <div class="col-lg-12">
+                <div class="alert alert-info">
+                    <strong>Info !</strong>
+                    To modify information that cannot be edited in this form,
+                    please contact us.
+                </div>
+            </div>
+        </xpath>
+        <xpath expr="//input[@name='street']" position="attributes">
+            <attribute name="t-att-readonly">True</attribute>
+        </xpath>
+        <xpath expr="//input[@name='city']" position="attributes">
+            <attribute name="t-att-readonly">True</attribute>
+        </xpath>
+        <xpath expr="//select[@name='country_id']" position="attributes">
+            <attribute name="t-att-readonly">True</attribute>
+            <attribute name="disabled">disabled</attribute>
+        </xpath>
+        <xpath expr="//input[@name='zipcode']" position="attributes">
+            <attribute name="t-att-readonly">True</attribute>
+        </xpath>
+        <xpath expr="//select[@name='state_id']" position="attributes">
+            <attribute name="t-att-readonly">True</attribute>
+            <attribute name="disabled">disabled</attribute>
+        </xpath>
+    </template>
+
+</odoo>
