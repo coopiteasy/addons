@@ -26,14 +26,17 @@
         </xpath>
         <xpath expr="//select[@name='country_id']" position="attributes">
             <attribute name="t-att-readonly">True</attribute>
-            <attribute name="disabled">disabled</attribute>
+<!--            <attribute name="disabled">disabled</attribute>-->
+<!--            Readonly is not fully functional for 'select' elements.-->
+<!--            This extra attribute disables the selector, while the readonly attribute only makes it grey.-->
+<!--            However, this also doesn't pass the country field to the processor, which is an issue when it's mandatory.-->
         </xpath>
         <xpath expr="//input[@name='zipcode']" position="attributes">
             <attribute name="t-att-readonly">True</attribute>
         </xpath>
         <xpath expr="//select[@name='state_id']" position="attributes">
             <attribute name="t-att-readonly">True</attribute>
-            <attribute name="disabled">disabled</attribute>
+<!--            <attribute name="disabled">disabled</attribute>-->
         </xpath>
     </template>
 
