@@ -12,10 +12,8 @@
                         groups="sale.group_discount_per_so_line, account.group_account_invoice"/>
             </button>
             <field name="reference" position="after">
-                <group>
-                    <field name="global_discount"
-                           groups="sale.group_discount_per_so_line, account.group_account_invoice"/>
-                </group>
+                <field name="global_discount"
+                       groups="sale.group_discount_per_so_line, account.group_account_invoice"/>
             </field>
         </field>
     </record>
