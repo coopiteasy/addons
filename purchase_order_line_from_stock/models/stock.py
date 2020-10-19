@@ -5,18 +5,14 @@ from odoo.exceptions import ValidationError
 class StockMove(models.Model):
     _inherit = "stock.move"
 
-    # def _action_done(self):
-    #     self.add_purchase_order_line_from_stock()
-    #     res = super(StockMove, self)._action_done()
-    #     return res
-
     def write(self, vals):
-        self.add_purchase_order_line_from_stock()
+        if "purchase_line_id" not in vals:  # Prevent recursion
+            self.add_purchase_order_line_from_stock_move()
         res = super(StockMove, self).write(vals)
         return res
 
     @api.multi
-    def add_purchase_order_line_from_stock(self):
+    def add_purchase_order_line_from_stock_move(self):
         stock_move_to_add = self.filtered(
             lambda m: m.state == "done" and not m.purchase_line_id
         )
@@ -25,7 +21,9 @@ class StockMove(models.Model):
                 raise ValidationError(
                     _("At least one of the original products must be received")
                 )
-            self.env["purchase.order.line"].create(
+            stock_move.purchase_line_id = self.env[
+                "purchase.order.line"
+            ].create(
                 {
                     "name": stock_move.name,
                     "product_id": stock_move.product_id.id,
