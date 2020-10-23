@@ -21,7 +21,6 @@ class SaleOrder(models.Model):
         values = super(SaleOrder, self).copy_data(default)
         if self.reference_type == 'bba':
             bbacomm = self.generate_bbacomm()
-            print (bbacomm.get('reference'))
             values[0]['reference'] = bbacomm.get('reference')
         return values
 
