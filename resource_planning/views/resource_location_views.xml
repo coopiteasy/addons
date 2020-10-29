@@ -31,6 +31,7 @@
 	            			</group>
 	            			<group>
 		            			<field name="address"/>
+		            			<field name="partner_bank_id"/>
 	            			</group>
 	            		</group>
 	            		<notebook>
