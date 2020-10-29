@@ -19,8 +19,9 @@
 ##############################################################################
 {
     "name": "Provelo Customization",
-    "version": "9.0.1.1.0",
+    "version": "9.0.1.2.0",
     "depends": [
+        "account",
         "csv_export_invoice",
         "csv_export_partner",
         "csv_export_payment",
@@ -35,7 +36,7 @@
     "author": "Coop IT Easy SCRLfs",
     "license": "AGPL-3",
     "category": "",
-    "website": "www.coopiteasy.be",
+    "website": "https://www.coopiteasy.be",
     "description": """
         * default value on invoice policy to order
         * default value on res_partner out_inv_comm_type to bba
@@ -46,6 +47,10 @@
         * location search  filters
         * customize holiday, timesheet and res_partner views
         * constraint on account journal code length
+        * on invoice report: structured reference on one line
+        * on invoice report: mentions when not subjet to vat
+        * on invoice report: mentions bank account of location
+        * on invoice report: hides 'comment' and 'origin' fields
     """,
     "data": [
         "views/hr_holidays_view.xml",
@@ -53,6 +58,7 @@
         "views/location_filters.xml",
         "views/res_partner_views.xml",
         "report/available_holidays_view.xml",
+        "report/report_invoice.xml",
         "security/security.xml",
         "security/ir.model.access.csv",
         "wizard/hr_holidays_summary_department_view.xml",

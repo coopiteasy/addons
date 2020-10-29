@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+
+        <xpath expr="//div[@name='reference']" position="attributes">
+            <attribute name="class">col-xs-4</attribute>
+        </xpath>
+
+        <xpath expr="//div[@t-if='o.origin']" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+
+        <xpath expr="//p[@t-if='o.comment']" position="before">
+            <p name="not_subject_vat" t-if="not o.partner_id.vat">
+                Cette facture n'est pas assujetti à la TVA.
+            </p>
+        </xpath>
+
+        <xpath expr="//p[@t-if='o.comment']" position="before">
+            <p name="location_partner_bank_id" t-if="o.location_id.partner_bank_id">
+                Merci de payer cette facture sur le compte de notre implementation a <span t-field="o.location_id"/> :
+                <span t-field="o.location_id.partner_bank_id.acc_number"/>
+            </p>
+        </xpath>
+
+        <xpath expr="//p[@t-if='o.comment']" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+
+    </template>
+</odoo>
