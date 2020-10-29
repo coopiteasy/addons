@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+
+        <xpath expr="//span[@t-field='o.amount_total']/../.." position="after">
+            <t t-if="o._get_payment_info_dict()[0]">
+                <t t-foreach="o._get_payment_info_dict()[0]['content']" t-as="payment">
+                    <tr>
+                        <td>
+                            <i> Payed on <span t-esc="payment['date']"/> </i>
+                        </td>
+                        <td class="text-right">
+                            <span t-esc="payment['amount']" t-esc-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                        </td>
+                    </tr>
+                </t>
+                <tr class="border-black">
+                    <td><strong>Amount Due</strong></td>
+                    <td class="text-right">
+                         <span t-field="o.residual" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                    </td>
+                </tr>
+            </t>
+        </xpath>
+
+    </template>
+</odoo>
