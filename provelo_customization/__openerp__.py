@@ -44,10 +44,12 @@
         * add default values onavailable holidays report
         * add security rules for hr holydays access
         * location search  filters
+        * make payments view accessible for 'billing' group
         * customize holiday, timesheet and res_partner views
         * constraint on account journal code length
     """,
     "data": [
+        "views/account_payment_view.xml",
         "views/hr_holidays_view.xml",
         "views/hr_timesheet_sheet_view.xml",
         "views/location_filters.xml",
