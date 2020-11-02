@@ -28,34 +28,13 @@
                     <field name="state" invisible="1"/>
                 </field>
 
-                <xpath expr="//notebook/page[1]" position="before">
-                    <page string="Details">
-                        <field context="{'employee_id': employee_id, 'user_id':user_id, 'timesheet_date_from': date_from, 'timesheet_date_to': date_to, 'default_is_timesheet' : 1}" name="timesheet_ids" nolabel="1">
-                                <tree editable="bottom" string="Timesheet Activities">
-                                    <field name="date"/>
-                                    <field name="account_id" options="{'no_open': True, 'no_create': True}"/>
-                                    <field name="name"/>
-                                    <field name="unit_amount" widget="float_time" string="Hours" sum="Hours"/>
-                                    <field invisible="1" name="user_id" required="1"/>
-                                    <field name="is_timesheet" invisible="1"/>
-                                </tree>
-                                <form string="Timesheet Activities">
-                                    <group>
-                                        <field name="date"/>
-                                        <field name="account_id"/>
-                                        <field name="name"/>
-                                        <field name="unit_amount" widget="float_time"/>
-                                        <field name="amount"/>
-                                        <field name="general_account_id"/>
-                                        <field name="user_id" required="1"/>
-                                        <field name="is_timesheet" invisible="1"/>
-                                    </group>
-                                </form>
-                            </field>
-                    </page>
+                <xpath expr="//notebook/page[1]" position="replace">
                 </xpath>
-                <xpath expr="//notebook/page[3]" position="attributes">
-                    <attribute name="invisible">True</attribute>
+                <xpath expr="//notebook/page[1]" position="after">
+                    <page string="Summary">
+                        <widget type="weekly_timesheet" attrs="{'readonly': [['state', 'not in', ['new', 'draft']]]}">
+                        </widget>
+                    </page>
                 </xpath>
 
             </field>
