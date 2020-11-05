@@ -12,7 +12,7 @@
 
         <xpath expr="//p[@t-if='o.comment']" position="before">
             <p name="not_subject_vat" t-if="not o.partner_id.vat">
-                Cette facture n'est pas assujetti à la TVA.
+                Ce client n'est pas assujetti à la TVA.
             </p>
         </xpath>
 
