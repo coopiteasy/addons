@@ -19,17 +19,14 @@
 {
     "name": "Invoice Default Account Date",
     "version": "12.0.1.0.0",
-    "depends": [
-        'account',
-    ],
+    "depends": ["account",],
     "author": "Robin Keunen <robin@coopiteasy.be>",
-    'license': 'AGPL-3',
+    "license": "AGPL-3",
     "category": "Invoice",
     "website": "www.coopiteasy.be",
     "summary": """
         Sets the accounting date to the invoice date by default.
     """,
-    'data': [
-    ],
-    'installable': True,
+    "data": [],
+    "installable": True,
 }
