@@ -1,5 +1,6 @@
-from odoo import models, fields, api
 from datetime import date
+
+from odoo import api, models
 
 
 class AccountInvoice(models.Model):
