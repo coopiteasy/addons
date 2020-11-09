@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # Copyright 2019 Coop IT Easy SCRL fs
-#   Houssine Bakkali <houssine@coopiteasy.be>
 #   Robin Keunen <robin@coopiteasy.be>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 from openerp import models, api
@@ -13,7 +12,7 @@ class ResPartner(models.Model):
     def create(self, vals):
         partner = super(ResPartner, self).create(vals)
 
-        if partner.country_id:
+        if partner.country_id and partner.vat:
             fiscal_position_line = self.env["fiscal.position.line"].search(
                 [("country_id", "=", partner.country_id.id)]
             )
