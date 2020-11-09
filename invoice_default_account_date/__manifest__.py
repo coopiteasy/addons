@@ -1,29 +1,14 @@
-##############################################################################
-#
-#    Copyright (C) 2017- Coop IT Easy.
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
+# Copyright 2017 - Today Coop IT Easy SCRLfs (<http://www.coopiteasy.be>)
+# - Robin Keunen <robin@coopiteasy.be>
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Invoice Default Account Date",
     "version": "12.0.1.0.0",
-    "depends": ["account",],
-    "author": "Robin Keunen <robin@coopiteasy.be>",
+    "depends": ["account"],
+    "author": "Coop IT Easy SCRLfs",
     "license": "AGPL-3",
     "category": "Invoice",
-    "website": "www.coopiteasy.be",
+    "website": "https://coopiteasy.be",
     "summary": """
         Sets the accounting date to the invoice date by default.
     """,
