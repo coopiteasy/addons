@@ -1,6 +1,4 @@
-from datetime import date
-
-from odoo import api, models
+from odoo import api, fields, models
 
 
 class AccountInvoice(models.Model):
@@ -11,10 +9,10 @@ class AccountInvoice(models.Model):
         # vendor bills
         if (
             not self.date
-            and not vals.get("date")
+            and "date" not in vals
             and self.type in ("in_invoice", "in_refund")
         ):
 
-            vals["date"] = date.today()
+            vals["date"] = fields.Date.context_today(self)
 
         return super(AccountInvoice, self).write(vals)
