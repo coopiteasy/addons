@@ -6,21 +6,6 @@ from openerp import _, api, fields, models
 from openerp.exceptions import ValidationError
 
 
-class ResourceCategory(models.Model):
-    _name = "resource.category"
-    _inherit = "mail.thread"
-
-    name = fields.Char(string="Category name", required=True, translate=True,)
-    resources = fields.One2many(
-        "resource.resource", "category_id", string="Resources"
-    )
-    is_accessory = fields.Boolean(string="Is Accessory")
-
-    active = fields.Boolean(
-        "Active", default=True, track_visibility="onchange"
-    )
-
-
 class Resource(models.Model):
     _name = "resource.resource"
     _inherit = ["resource.resource", "mail.thread"]
