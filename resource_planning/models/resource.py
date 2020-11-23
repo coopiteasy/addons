@@ -106,6 +106,7 @@ class Resource(models.Model):
 
     @api.multi
     def check_availabilities(self, date_start, date_end, location):
+        # todo refactor, use resource.allocation.get_allocations
         self.check_dates(date_start, date_end)
         available_resources = self.filtered(lambda r: r.state == "available")
         if location:

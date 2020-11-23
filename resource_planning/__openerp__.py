@@ -43,6 +43,7 @@
         "views/actions.xml",
         "views/menus.xml",
     ],
+    "demo": ["demo/demo.xml",],
     "installable": True,
     "application": True,
 }
