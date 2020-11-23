@@ -54,8 +54,8 @@ class ResourceLocation(models.Model):
     main_location = fields.Boolean(default=False)
     address = fields.Many2one("res.partner", string="Address")
     partner_bank_id = fields.Many2one(
-        'res.partner.bank',
-        string='Bank Account')
+        "res.partner.bank", string="Bank Account"
+    )
     customers = fields.One2many(
         "res.partner",
         "resource_location",
