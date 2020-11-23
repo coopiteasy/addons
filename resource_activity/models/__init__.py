@@ -1,6 +1,7 @@
 from . import partner
 from . import resource_activity
 from . import resource_activity_registration
+from . import resource_activity_delivery
 from . import sale
 from . import resource
 from . import opening_hours
