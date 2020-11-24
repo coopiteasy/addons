@@ -52,11 +52,12 @@
                 <tree>
                     <field name="is_start_outside_opening_hours" invisible="True"/>
                     <field name="is_end_outside_opening_hours" invisible="True"/>
+                    <field name="dayofweek"/>
+                    <field name="date_start" fg_color="red:is_start_outside_opening_hours==True;"/>
+                    <field name="date_end" fg_color="red:is_end_outside_opening_hours==True;"/>
                     <field name="description"/>
                     <field name="partner_id"/>
                     <field name="activity_type"/>
-                    <field name="date_start" fg_color="red:is_start_outside_opening_hours==True;"/>
-                    <field name="date_end" fg_color="red:is_end_outside_opening_hours==True;"/>
                     <field name="location_id"/>
                     <field name="state"/>
                     <field name="registrations_expected" string="Registrations"/>

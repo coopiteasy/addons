@@ -111,6 +111,12 @@ class ResourceActivity(models.Model):
             else:
                 activity.registrations_paid = False
 
+    @api.multi
+    @api.depends("date_start")
+    def _compute_dayofweek(self):
+        for activity in self:
+            activity.dayofweek = datetime.strftime(fields.Date.from_string(activity.date_start), '%A')
+
     @api.model
     def init_payments_fields(self):
         activities = self.search([])
@@ -143,6 +149,7 @@ class ResourceActivity(models.Model):
         string="Product Participation",
         domain=[("is_participation", "=", True)],
     )
+    dayofweek = fields.Char(string="Day", compute="_compute_dayofweek")
     date_start = fields.Datetime(string="Date start", required=True)
     date_end = fields.Datetime(string="Date end", required=True)
     duration = fields.Char(
