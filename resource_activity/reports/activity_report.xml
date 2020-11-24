@@ -133,7 +133,7 @@
                 </div>
                 <div class="row" name="row5" style="margin-top:5px">
                     <div class="col-xs-12" name="comments" style="border: medium dashed #00B9E4;">
-                        <h2 style="margin-top:5px">Comments</h2>
+                        <h2 style="margin-top:5px">Guide Comments</h2>
                         <p t-field="o.comment" name="comments-field" style="font-size: 16px;"/>
                     </div>
                 </div>

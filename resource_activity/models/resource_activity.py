@@ -188,7 +188,8 @@ class ResourceActivity(models.Model):
     departure = fields.Char(string="Departure")
     arrival = fields.Char(string="Arrival")
     description = fields.Char(string="Description")
-    comment = fields.Html(string="Comment")
+    comment = fields.Html(string="Guide Comment")
+    internal_comment = fields.Html(string="Internal Comment")
     activity_type = fields.Many2one(
         "resource.activity.type", string="Activity type", required=True
     )
