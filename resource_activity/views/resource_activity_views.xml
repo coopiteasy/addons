@@ -249,6 +249,14 @@
                             <page name="booked_resources" string="Booked resources">
                                 <field name="booked_resources"/>
                             </page>
+                            <page name="available_resources" string="Available resources">
+                                <field name="available_category_ids">
+                                    <tree>
+                                        <field name="category_id"/>
+                                        <field name="nb_resources"/>
+                                    </tree>
+                                </field>
+                            </page>
                             <page name="sale_orders" string="Sale orders"
                                   attrs="{'invisible':[('sale_orders','=',False)]}">
                                 <field name="sale_orders">
