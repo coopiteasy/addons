@@ -59,6 +59,19 @@ class ResourceCategoryAvailable(models.Model):
     )
     nb_resources = fields.Integer(string="Number of resources")
 
+    @api.model
+    def garbage_collect(self):
+        """cleanup resource category available for past activities"""
+        a_week_ago = datetime.now() - timedelta(days=7)
+        a_week_ago_str = fields.Datetime.to_string(a_week_ago)
+        self.search(
+            [
+                "|",
+                ("activity_id", "=", False),
+                ("activity_id.date_start", "<=", a_week_ago_str),
+            ]
+        ).unlink()
+
 
 class ResourceActivity(models.Model):
     _name = "resource.activity"
