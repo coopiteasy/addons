@@ -30,6 +30,7 @@ class ResourceActivityType(models.Model):
         groups="analytic.group_analytic_accounting",
     )
     product_ids = fields.Many2many("product.product", string="Product")
+    location_ids = fields.Many2many("resource.location",string="Locations")
     active = fields.Boolean("Active", default=True)
 
 
