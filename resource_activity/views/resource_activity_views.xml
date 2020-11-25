@@ -160,7 +160,7 @@
                                 <field name="booking_type"/>
                                 <field name="date_lock"
                                        attrs="{'invisible':[('booking_type','!=','option')],'required':[('booking_type','=','option')]}"/>
-                                <field name="activity_type" widget="selection"/>
+                                <field name="activity_type" widget="selection" domain="[('location_ids','in', location_id)]" />
                                 <field name="activity_theme" widget="selection"/>
                                 <field name="analytic_account"/>
                                 <field name="departure"/>
@@ -448,6 +448,7 @@
                         <group>
                             <group>
                                 <field name="name"/>
+                                <field name="location_ids" widget="many2many_tags"/>
                             </group>
                             <group>
                                 <!-- not used -->
