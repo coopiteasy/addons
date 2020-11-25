@@ -43,7 +43,9 @@ class StockMove(models.Model):
                     "qty_received": stock_move.product_qty,
                     "qty_invoiced": stock_move.product_qty,
                     "price_unit": stock_move.product_id.list_price,
-                    "taxes_id": [(6, 0, stock_move.product_id.taxes_id.ids)],
+                    "taxes_id": [
+                        (6, 0, stock_move.product_id.supplier_taxes_id.ids)
+                    ],
                     "product_uom": stock_move.product_uom.id,
                     "order_id": stock_move.picking_id.purchase_id.id,
                     "date_planned": stock_move.date,
