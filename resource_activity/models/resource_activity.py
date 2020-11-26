@@ -649,6 +649,17 @@ class ResourceActivity(models.Model):
                     )
                 )
 
+        if activity.need_guide and activity.partner_id:
+            prepared_lines.append(
+                OrderLine(
+                    activity.partner_id.id,
+                    activity.guide_product_id,
+                    len(activity.guides),
+                    "guide",
+                    None,
+                )
+            )
+
         return prepared_lines
 
     def _create_sale_order(self, activity, partner_id):
@@ -683,6 +694,7 @@ class ResourceActivity(models.Model):
             lambda record: record.state != "cancelled"
         )
 
+        # could probably be a whole lot simpler
         sale_orders = {}
         for registration in registrations:
             if activity.partner_id:
@@ -701,6 +713,12 @@ class ResourceActivity(models.Model):
                 else:
                     order_id = self._create_sale_order(activity, partner)
                     sale_orders[partner] = order_id
+
+        # cringe, refactor when unit tested
+        if not registrations and activity.partner_id:
+            partner = activity.partner_id.id
+            order_id = self._create_sale_order(activity, partner)
+            sale_orders[partner] = order_id
 
         return sale_orders
 
@@ -740,22 +758,18 @@ class ResourceActivity(models.Model):
                         self.create_order_line(
                             order_id, product, qty, resource_delivery=True,
                         )
+                    elif type == "guide":
+                        self.create_order_line(
+                            order_id, product, qty, resource_guide=True
+                        )
                     else:
                         self.create_order_line(
                             order_id, product, qty, participation_line=True,
                         )
 
                 for pl in partner_lines:
-                    pl.registration.write({"sale_order_id": order_id.id})
-
-            if activity.need_guide and activity.partner_id:
-                order = sale_orders.values().pop()
-                self.create_order_line(
-                    order,
-                    activity.guide_product_id,
-                    len(activity.guides),
-                    resource_guide=True,
-                )
+                    if pl.registration:
+                        pl.registration.write({"sale_order_id": order_id.id})
 
     @api.multi
     def action_quotation(self):
