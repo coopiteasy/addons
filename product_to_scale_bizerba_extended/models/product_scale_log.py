@@ -15,6 +15,7 @@ from openerp.osv.orm import Model
 
 _logger = logging.getLogger(__name__)
 
+
 class product_scale_log(Model):
     _inherit = 'product.scale.log'
 
@@ -185,13 +186,11 @@ class product_scale_log(Model):
                 lambda self, cr, uid, ids, context=None: ids, [
                     'scale_system_id', 'product_id', 'product_id'], 10)}),
     }
-    
+
     def action_send_product_image(self, cr, uid, ftp, distant_folder_path, local_folder_path, product_lst, context=None):
         if not ftp:
             return False
 
-        att_obj = self.pool['ir.attachment']
-        
         for product in product_lst:
             f_name = str(product.id) + '.jpeg'
             datas = product.image.decode('base64')
@@ -207,7 +206,7 @@ class product_scale_log(Model):
             # Delete temporary file
             os.remove(local_path)
         return True
-    
+
     def send_log(self, cr, uid, ids, context=None):
         config_obj = self.pool['ir.config_parameter']
         folder_path = config_obj.get_param(

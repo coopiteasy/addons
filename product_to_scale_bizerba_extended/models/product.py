@@ -7,12 +7,12 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 from datetime import datetime
 
-from openerp import api, fields, models, _
-import openerp.addons.decimal_precision as dp
+from openerp import api, fields, models
 
 # TODO: scale_category is defined in beesdoo_product but this module do
 #       not depend on it. Find a way to configure these fields.
 ADDITIONAL_FIELDS = ['list_price', 'scale_category', 'image_medium']
+
 
 class ProductTemplate(models.Model):
     _inherit = 'product.template'

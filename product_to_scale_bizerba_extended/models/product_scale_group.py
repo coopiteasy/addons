@@ -2,8 +2,7 @@
 # © 2017 Coop IT Easy (http://www.coopiteasy.be)
 # @author: Houssine BAKKALI (https://github.com/houssine78)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-from openerp import api, fields, models, _
-import openerp.addons.decimal_precision as dp
+from openerp import api, fields, models
 
 
 class product_scale_group(models.Model):
