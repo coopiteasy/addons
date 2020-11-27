@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="account_winbooks_export_view" model="ir.ui.view">
+             <field name="name">Accounting Entries Winbooks Export</field>
+             <field name="model">account.winbooks.export</field>
+             <field name="type">form</field>
+             <field name="arch" type="xml">
+                <form string="Accounting Winbooks Export">                    
+            		<field name="company_id" invisible="1"/>
+            		<group col="4">
+                		<field name="date_from"/>
+                		<field name="date_to"/>
+            		</group>
+                    <separator string ="Report" colspan="4"/>
+                    <field name="export_filename" invisible="1"/>               
+                    <field widget="binary" height="64" name="data" filename="export_filename"/>          
+                    <footer>
+                        <button name="action_manual_export_invoice_entries" string="Invoice Entries" type="object" class="oe_highlight"/>
+                        <button name="action_manual_export_partner_entries" string="Partner Entries" type="object" class="oe_highlight"/>
+                        <button name="action_manual_export_analytic_entries" string="Analytic Entries" type="object" class="oe_highlight"/>
+                        or 
+                        <button string="Close" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+             </field>
+         </record>
+
+        <record id="action_account_winbooks_export" model="ir.actions.act_window">
+             <field name="name">Accounting Winbooks Export</field>
+             <field name="res_model">account.winbooks.export</field>
+             <field name="type">ir.actions.act_window</field>
+             <field name="view_type">form</field>
+             <field name="view_mode">tree,form</field>
+             <field name="view_id" ref="account_winbooks_export_view"/>
+             <field name="context">{}</field>
+             <field name="target">new</field>
+       </record>
+
+	   <menuitem
+            name="Winbooks Export"
+            action="action_account_winbooks_export"
+            id="menu_account_winbooks_export"
+            parent="account.menu_finance_reports"
+            sequence="110"
+            />
+    </data>
+</odoo>
