@@ -253,7 +253,8 @@
                                 <field name="available_category_ids">
                                     <tree>
                                         <field name="category_id"/>
-                                        <field name="nb_resources"/>
+                                        <!-- type="char" allows to align left the nb_resource column-->
+                                        <field name="nb_resources" type="char"/>
                                     </tree>
                                 </field>
                             </page>
