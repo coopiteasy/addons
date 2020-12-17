@@ -41,7 +41,10 @@ class MrpProduction(models.Model):
             else:
                 master_mo = mo
 
-            mo.brew_order_name = master_mo.brew_orders[0].name
+            if master_mo.brew_orders:
+                mo.brew_order_name = master_mo.brew_orders[0].name
+            else:
+                mo.brew_order_name = '/'
 
     # fixme not used
     lot_number = fields.Many2one("stock.production.lot", string="Lot Number")
