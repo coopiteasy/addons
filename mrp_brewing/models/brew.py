@@ -118,6 +118,7 @@ class BrewOrder(models.Model):
         store=True,
         copy=False,
     )
+    get_brew_number = fields.Boolean(string="Get brew number ?")
     brew_number = fields.Char(string="Brew number", copy=False)
     brew_beer_number = fields.Integer(string="Brew beer number", copy=False)
     state = fields.Selection(
@@ -193,7 +194,6 @@ class BrewOrder(models.Model):
                 raise UserError(
                     _("You must first confirm the parent brew order.")
                 )
-            brew_sequence = parent_brew_order_id.brew_number
         else:
             brew_beer_number = (
                 self.product_id.brew_product_sequence.next_by_id()
@@ -201,7 +201,9 @@ class BrewOrder(models.Model):
             brew_year_sequence = self.env["ir.sequence"].search(
                 [("code", "=", "brew.year.sequence")]
             )
-            brew_year_number = brew_year_sequence.next_by_id()
+            brew_year_number = 0
+            if self.get_brew_number:
+                brew_year_number = brew_year_sequence.next_by_id()
         self.write(
             {
                 "state": "done",
