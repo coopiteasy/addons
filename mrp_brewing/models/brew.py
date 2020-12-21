@@ -118,7 +118,7 @@ class BrewOrder(models.Model):
         store=True,
         copy=False,
     )
-    get_brew_number = fields.Boolean(string="Get brew number ?")
+    get_brew_number = fields.Boolean(string="Get brew number ?", default=True)
     brew_number = fields.Char(string="Brew number", copy=False)
     brew_beer_number = fields.Integer(string="Brew beer number", copy=False)
     state = fields.Selection(

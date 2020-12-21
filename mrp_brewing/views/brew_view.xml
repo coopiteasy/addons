@@ -123,6 +123,7 @@
 	                    </div>
 	                    <group>
 	                        <group>
+	                            <field name="get_brew_number"/>
 	                            <field name="brew_number"/>
 	                            <field name="brew_beer_number"/>
 	                            <field name="brew_declaration_id"/>
