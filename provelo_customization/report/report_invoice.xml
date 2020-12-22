@@ -18,7 +18,7 @@
 
         <xpath expr="//p[@t-if='o.comment']" position="before">
             <p name="location_partner_bank_id" t-if="o.location_id.partner_bank_id">
-                Merci de payer cette facture sur le compte de notre implementation a <span t-field="o.location_id"/> :
+                Merci de payer cette facture sur le compte de notre implantation de <span t-field="o.location_id"/> :
                 <span t-field="o.location_id.partner_bank_id.acc_number"/>
             </p>
         </xpath>
