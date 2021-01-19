@@ -56,3 +56,16 @@ class ResourceAllocation(models.Model):
     def action_option(self):
         for allocation in self:
             allocation.state = "option"
+
+    @api.model
+    def get_allocations(self, date_start, date_end, location):
+        return self.env["resource.allocation"].search(
+            [
+                ("location", "=", location.id),
+                ("state", "!=", "cancel"),
+                "!",
+                "|",
+                ("date_end", "<=", date_start),
+                ("date_start", ">=", date_end),
+            ]
+        )

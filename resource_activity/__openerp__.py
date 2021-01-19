@@ -20,7 +20,7 @@
 ##############################################################################
 {
     "name": "Resource activity",
-    "version": "1.0",
+    "version": "9.0.1.0.1",
     "depends": [
         "base",
         "mail",
@@ -60,6 +60,7 @@
         "reports/layouts.xml",
         "views/menus.xml",
     ],
+    "demo": ["demo/demo.xml",],
     "installable": True,
     "application": True,
 }

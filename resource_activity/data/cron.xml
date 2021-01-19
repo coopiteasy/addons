@@ -36,5 +36,17 @@
             <field name="args">()</field>
             <field name="active" eval="False"/>
         </record>
+
+        <record id="ir_cron_garbage_collect_available_categories" model="ir.cron">
+            <field name="name">Garbage Collect Available Categories</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="True"/>
+            <field name="model">resource.category.available</field>
+            <field name="function">garbage_collect</field>
+            <field name="args">()</field>
+            <field name="active" eval="True"/>
+        </record>
     </data>
 </odoo>

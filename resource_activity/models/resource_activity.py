@@ -50,6 +50,30 @@ class ResourceActivityLang(models.Model):
     active = fields.Boolean("Active", default=True)
 
 
+class ResourceCategoryAvailable(models.Model):
+    _name = "resource.category.available"
+    activity_id = fields.Many2one(
+        comodel_name="resource.activity", string="Activity"
+    )
+    category_id = fields.Many2one(
+        comodel_name="resource.category", string="Category", required=True
+    )
+    nb_resources = fields.Integer(string="Number of resources")
+
+    @api.model
+    def garbage_collect(self):
+        """cleanup resource category available for past activities"""
+        a_week_ago = datetime.now() - timedelta(days=7)
+        a_week_ago_str = fields.Datetime.to_string(a_week_ago)
+        self.search(
+            [
+                "|",
+                ("activity_id", "=", False),
+                ("activity_id.date_start", "<=", a_week_ago_str),
+            ]
+        ).unlink()
+
+
 class ResourceActivity(models.Model):
     _name = "resource.activity"
     _inherit = ["mail.thread"]
@@ -310,9 +334,49 @@ class ResourceActivity(models.Model):
         string="Activity end is outside opening hours",
         compute="_compute_outside_opening_hours",
     )
+    available_category_ids = fields.One2many(
+        comodel_name="resource.category.available",
+        inverse_name="activity_id",
+        string="Available Bikes Per Category",
+        compute="_compute_available_categories",
+        store=True,
+    )
 
     @api.multi
-    @api.depends("date_end", "date_start")
+    @api.depends(
+        "date_start", "date_end", "location_id", "registrations.state"
+    )
+    def _compute_available_categories(self):
+        for activity in self:
+            activity.available_category_ids = [(5, 0, 0)]  # reset field
+            if (
+                activity.date_start
+                and activity.date_end
+                and activity.location_id
+            ):
+                available_categories = self.env[
+                    "resource.category"
+                ].get_available_categories(
+                    date_start=activity.date_start,
+                    date_end=activity.date_end,
+                    location=activity.location_id,
+                )
+                update_values = [
+                    (
+                        0,
+                        0,
+                        {
+                            "activity_id": activity.id,
+                            "category_id": category_id,
+                            "nb_resources": nb_resources,
+                        },
+                    )
+                    for category_id, nb_resources in available_categories.items()
+                ]
+                activity.available_category_ids = update_values
+
+    @api.multi
+    @api.depends("date_end", "date_start", "location_id")
     def _compute_outside_opening_hours(self):
         opening_hours = self.env["activity.opening.hours"]
         for activity in self:

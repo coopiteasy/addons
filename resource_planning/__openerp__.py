@@ -20,7 +20,7 @@
 ##############################################################################
 {
     "name": "Resource Planning",
-    "version": "1.0",
+    "version": "9.0.1.0.1",
     "depends": ["base", "mail", "resource", "web_gantt8",],
     "author": "Houssine BAKKALI <houssine@coopiteasy.be>",
     "category": "Resource",
@@ -43,6 +43,7 @@
         "views/actions.xml",
         "views/menus.xml",
     ],
+    "demo": ["demo/demo.xml",],
     "installable": True,
     "application": True,
 }
