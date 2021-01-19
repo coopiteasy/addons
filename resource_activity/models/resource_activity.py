@@ -115,8 +115,15 @@ class ResourceActivity(models.Model):
     @api.multi
     @api.depends("date_start")
     def _compute_dayofweek(self):
+        """
+        The date convertion in python depend on the LC_ALL variable.
+        To get a deterministic behaviour, number of the day is used.
+        0 to Sunday to 6 for Saturday.
+        """
         for activity in self:
-            activity.dayofweek = datetime.strftime(fields.Date.from_string(activity.date_start), '%A')
+            activity.dayofweek = datetime.strftime(
+                fields.Date.from_string(activity.date_start), '%w'
+            )
 
     @api.model
     def init_payments_fields(self):
@@ -150,7 +157,19 @@ class ResourceActivity(models.Model):
         string="Product Participation",
         domain=[("is_participation", "=", True)],
     )
-    dayofweek = fields.Char(string="Day", compute="_compute_dayofweek")
+    dayofweek = fields.Selection(
+        selection=[
+            ("1", "Monday"),
+            ("2", "Tuesday"),
+            ("3", "Wednesday"),
+            ("4", "Thursday"),
+            ("5", "Friday"),
+            ("6", "Saturday"),
+            ("0", "Sunday"),
+        ],
+        string="Day",
+        compute="_compute_dayofweek",
+    )
     date_start = fields.Datetime(string="Date start", required=True)
     date_end = fields.Datetime(string="Date end", required=True)
     duration = fields.Char(
