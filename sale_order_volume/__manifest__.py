@@ -34,5 +34,6 @@
         "reports/report_saleorder.xml",
         "security/ir.model.access.csv",
     ],
+    "demo": ["demo/demo.xml"],
     "installable": True,
 }
