@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
-    <data>
-
-        <record id="view_sale_order_form_inherit" model="ir.ui.view">
-            <field name="name">view.sale.order.form.inherit</field>
-            <field name="model">sale.order</field>
-            <field name="inherit_id" ref="sale.view_order_form"/>
-            <field name="arch" type="xml">
-                <xpath expr="//group[@name='sales_person']/../.." position="after">
-                    <page string="Volume of Products">
-                        <group>
-                            <field name="volume"/>
-                            <field name="volume_per_category">
-                                <tree>
-                                    <field name="category_id"/>
-                                    <field name="volume"/>
-                                </tree>
-                            </field>
-                        </group>
-                    </page>
-                </xpath>
-            </field>
-        </record>
-
-    </data>
-</openerp>
+<!--
+     Copyright 2020 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <record id="view_sale_order_form_inherit" model="ir.ui.view">
+        <field name="name">view.sale.order.form.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='other_information']" position="before">
+                <page string="Volume of Products">
+                    <group>
+                        <field name="volume"/>
+                        <field name="volume_per_category">
+                            <tree>
+                                <field name="category_id"/>
+                                <field name="volume"/>
+                            </tree>
+                        </field>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

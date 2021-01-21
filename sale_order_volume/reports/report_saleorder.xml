@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-<data>
-    <template id="report_saleorder_document" inherit_id="sale.report_saleorder_document">
+    <template id="report_saleorder_document"
+              inherit_id="sale.report_saleorder_document">
         <div name="total" position="after">
             <table class="table table-condensed" name="volume-per-category">
                 <thead>
                     <tr>
                         <th>Category</th>
-                        <th class="text-right">Volume (m³)  </th>
+                        <th class="text-right">Volume (m³)</th>
                     </tr>
                 </thead>
                 <tbody class="sale_tbody">
@@ -22,7 +22,9 @@
                         </tr>
                     </t>
                     <tr class="border-black">
-                        <td><strong>Total</strong></td>
+                        <td>
+                            <strong>Total</strong>
+                        </td>
                         <td class="text-right">
                             <strong>
                                 <span t-field="doc.volume"/>
@@ -33,5 +35,4 @@
             </table>
         </div>
     </template>
-</data>
 </odoo>
