@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    Copyright (C) 2017- Coop IT Easy.
@@ -19,26 +18,21 @@
 ##############################################################################
 {
     "name": "Sale Order Volume",
-    "version": "1.0",
-    "depends": [
-        'sale',
-        'website_sale',
-    ],
+    "version": "12.0.1.0.0",
+    "depends": ["sale", "website_sale"],
     "author": "Robin Keunen <robin@coopiteasy.be>",
-    'license': 'AGPL-3',
+    "license": "AGPL-3",
     "category": "Sale",
-    "website": "www.coopiteasy.be",
-    "description": """
-        Computes the volume of products per category ordered and display it on 
-        - sale order page,
-        - sale order report,
-        - website shop cart website page.
+    "website": "https://www.coopiteasy.be",
+    "summary": """
+    Computes the volume of products per
+    category ordered and display it on
     """,
-    'data': [
-        'views/sale_order.xml',
-        'views/shopping_cart.xml',
-        'reports/report_saleorder.xml',
-        'security/ir.model.access.csv',
+    "data": [
+        "views/sale_order.xml",
+        "views/shopping_cart.xml",
+        "reports/report_saleorder.xml",
+        "security/ir.model.access.csv",
     ],
-    'installable': True,
+    "installable": True,
 }
