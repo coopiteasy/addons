@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright 2021 Coop IT Easy SCRLfs (https://coopiteasy.be)
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+
+    <record model="ir.ui.view" id="view_inventory_form">
+        <field name="name">stock.inventory.form.inherit</field>
+        <field name="model">stock.inventory</field>
+        <field name="inherit_id" ref="stock.view_inventory_form"/>
+        <field name="arch" type="xml">
+            <button name="action_reset_product_qty" position="attributes">
+                <attribute name="confirm">Are you sure to set all quantities to 0 ?</attribute>
+            </button>
+        </field>
+    </record>
+
+</odoo>
