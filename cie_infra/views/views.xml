@@ -1,0 +1,78 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    <!--
+    <record model="ir.ui.view" id="cie_infra.list">
+      <field name="name">cie_infra list</field>
+      <field name="model">cie_infra.cie_infra</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+    -->
+
+    <!-- actions opening views on models -->
+    <record model="ir.actions.act_window" id="cie_infra.action_window_server">
+      <field name="name">CoopItEasy Server</field>
+      <field name="res_model">infra.server</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    <record model="ir.actions.act_window" id="cie_infra.action_window_database">
+      <field name="name">CoopItEasy Database</field>
+      <field name="res_model">infra.instance.database</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    <record model="ir.actions.act_window" id="cie_infra.action_window_module">
+      <field name="name">Module</field>
+      <field name="res_model">infra.instance.module</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    <record model="ir.actions.act_window" id="cie_infra.action_window_instance">
+      <field name="name">Instance d'Odoo</field>
+      <field name="res_model">infra.instance</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+	 
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="cie_infra.action_server">
+      <field name="name">cie_infra server</field>
+      <field name="model_id" ref="model_cie_infra_cie_infra"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": self._name,
+        }
+      </field>
+    </record>
+    -->
+
+    <!-- Top menu item -->
+    
+    <menuitem name="CoopItEasy Infrastructure" id="cie_infra_menu_root"/>
+ 
+
+     <!-- Menu item -->
+    <menuitem id="cie_infra.server" name="Server" parent="cie_infra_menu_root" action="cie_infra.action_window_server"  />
+    <menuitem name="Instance d'Odoo" id="cie_infra.instance" parent="cie_infra_menu_root" action="cie_infra.action_window_instance"/>
+    <menuitem name="Database" id="cie_infra.database" parent="cie_infra_menu_root" action="cie_infra.action_window_database"/>
+    <menuitem name="Module" id="cie_infra.module" parent="cie_infra_menu_root" action="cie_infra.action_window_module"/>
+
+ 
+    <!-- actions -->
+    <!--
+    <menuitem name="List" id="cie_infra.menu_1_list" parent="cie_infra.menu_1"
+              action="cie_infra.action_window"/>
+    <menuitem name="Server to list" id="cie_infra" parent="cie_infra.menu_2"
+              action="cie_infra.action_server"/>
+    -->
+  </data>
+</odoo>
