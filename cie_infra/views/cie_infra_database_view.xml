@@ -6,33 +6,30 @@
 <odoo>
     <record id ="cie_infra_instance_view" model="ir.ui.view">
         <field name="name">CoopIteasy Infrastructure</field>
-        <field name="model">infra.instance</field>
+        <field name="model">infra.instance.database</field>
         <field name="arch" type="xml">
-            <form string="instance">
+            <form string="database">
                 <header>
 
                 </header>
                 <sheet>
                     <group>
                         <field name="name"/>
-                        <field name="url" widget="url"/>
-                        <field name="server_id" />
-                        <field name="database_ids" />
-                        <field name="note"/>
+                        <field name="instance_id" widget="many2one"/>
+                        <field name="installed_module_ids" />
                     </group>
                 </sheet>
             </form>
         </field>
     </record>
-    <record id="view_search_instance" model="ir.ui.view">
-        <field name="name">Instance filter</field>
-        <field name="model">infra.instance</field>
+    <record id="view_search_database" model="ir.ui.view">
+        <field name="name">Database filter</field>
+        <field name="model">infra.instance.database</field>
         <field name="arch" type="xml">
             <search>
                 <field name="name"/>
-                <field name="url"/>
-                <field name="server_id"/>
-                <field name="database_ids"/>
+                <field name="instance_id"/>
+                <field name="installed_module_ids"/>
             </search>
         </field>
     </record>

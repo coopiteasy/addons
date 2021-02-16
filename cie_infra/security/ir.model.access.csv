@@ -15,8 +15,3 @@ access_cie_infra_server_user,cie_infra_server_user,model_infra_server,cie_infra_
 access_cie_infra_server_manager,cie_infra_server_manager,model_infra_server,cie_infra_managergroup,1,1,1,1
 access_cie_infra_servername_user,cie_infra_servername_user,model_infra_server_shortname,cie_infra_usergroup,1,0,0,0
 access_cie_infra_servername_manager,cie_infra_servername_manager,model_infra_server_shortname,cie_infra_managergroup,1,1,1,1
-
-
-
-
-

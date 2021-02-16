@@ -53,6 +53,10 @@
                   name="instance"
                   res_model="infra.instance"
                   view_mode="tree,form"/>
+      <act_window id="cie_infra.action_window_datacenter"
+                  name="datacenter"
+                  res_model="infra.datacenter"
+                  view_mode="tree,form"/>
 
 
 
@@ -80,6 +84,7 @@
 
      <!-- Menu item -->
     <menuitem id="cie_infra.server" name="Server" parent="cie_infra_menu_root" action="cie_infra.action_window_server"  />
+    <menuitem id="cie_infra.datacenter" name="Datacenter" parent="cie_infra_menu_root" action="cie_infra.action_window_datacenter"/>
     <menuitem name="Instance d'Odoo" id="cie_infra.instance" parent="cie_infra_menu_root" action="cie_infra.action_window_instance"/>
     <menuitem name="Database" id="cie_infra.database" parent="cie_infra_menu_root" action="cie_infra.action_window_database"/>
     <menuitem name="Module" id="cie_infra.module" parent="cie_infra_menu_root" action="cie_infra.action_window_module"/>

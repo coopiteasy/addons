@@ -4,35 +4,29 @@
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 -->
 <odoo>
-    <record id ="cie_infra_instance_view" model="ir.ui.view">
+    <record id ="cie_infra_module_view" model="ir.ui.view">
         <field name="name">CoopIteasy Infrastructure</field>
-        <field name="model">infra.instance</field>
+        <field name="model">infra.instance.module</field>
         <field name="arch" type="xml">
-            <form string="instance">
+            <form string="module">
                 <header>
 
                 </header>
                 <sheet>
                     <group>
                         <field name="name"/>
-                        <field name="url" widget="url"/>
-                        <field name="server_id" />
-                        <field name="database_ids" />
-                        <field name="note"/>
+                        <field name="module_info_ids"/>
                     </group>
                 </sheet>
             </form>
         </field>
     </record>
-    <record id="view_search_instance" model="ir.ui.view">
-        <field name="name">Instance filter</field>
-        <field name="model">infra.instance</field>
+    <record id="view_search_module" model="ir.ui.view">
+        <field name="name">Database filter</field>
+        <field name="model">infra.instance.module</field>
         <field name="arch" type="xml">
             <search>
                 <field name="name"/>
-                <field name="url"/>
-                <field name="server_id"/>
-                <field name="database_ids"/>
             </search>
         </field>
     </record>

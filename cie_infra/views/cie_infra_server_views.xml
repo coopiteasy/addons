@@ -20,8 +20,8 @@
                         <field name="datacenter_id"/>
                         <field name="ovh_address"/>
                         <field name="cie_address"/>
-                        <field name="instance_ids" widget="many2one"/>
-                        <field name="shortname_ids"/>
+                        <field name="instance_ids" />
+                        <field name="shortname_ids" />
                         <field name="note"/>
                     </group>
                 </sheet>

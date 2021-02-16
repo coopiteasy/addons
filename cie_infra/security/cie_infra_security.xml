@@ -2,9 +2,9 @@
 <odoo>
 
 	<record id="module_cie_infra_access" model="ir.module.category">
-		<field name="name">cie_infra</field>
+		<field name="name">Infrastructure</field>
 	</record>
-	
+
 	<!-- cie_infra user group-->
 	<record id="cie_infra_usergroup" model="res.groups">
 		<field name="name">User</field>
@@ -23,8 +23,8 @@
 			eval="[(4, ref('cie_infra.cie_infra_usergroup'))]"/>
 		<field name="users"
 			eval="[(4, ref('base.user_root')),(4, ref('base.user_admin'))]"/>
-	</record> 
-	
+	</record>
+
 
 
 </odoo>

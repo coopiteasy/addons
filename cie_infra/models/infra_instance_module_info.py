@@ -1,6 +1,6 @@
-from odoo import fields , models 
+from odoo import fields , models
 
-class Module_info(models.Model):
+class ModuleInfo(models.Model):
 	_name='infra.instance.module.info'
 	_description='module.info'
 	installed_version=fields.Char('installed_version',required=True)

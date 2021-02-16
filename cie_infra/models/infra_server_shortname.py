@@ -1,6 +1,6 @@
 from odoo import fields, models
 
-class Server_shortname(models.Model):
+class ServerShortName(models.Model):
 	_name='infra.server.shortname'
 	_description='server.shortname'
 	name=fields.Char('name')
