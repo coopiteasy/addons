@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_form_checkout_message" model="ir.ui.view">
+            <field name="name">Confirm sale orders</field>
+            <field name="model">confirm.sale.order.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="sale_order_ids">
+                            <!-- <tree string="Sale orders">
+                                <field name="name" />
+                                <field name="date_order" />
+                                <field name="partner_id" />
+                            </tree> -->
+                        </field>
+                    </group>
+                    <footer>
+                        <button type="object" name="button_confirm" string="Confirm sale orders" />
+                        <button special="cancel" string="Cancel" class="btn-secondary" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <act_window id="action_sale_order_confirm" multi="True" name="Confirm sale orders" res_model="confirm.sale.order.wizard" src_model="sale.order" view_mode="form" target="new" view_type="form"/>
+    </data>
+</openerp>
