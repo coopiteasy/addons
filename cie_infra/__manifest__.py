@@ -6,7 +6,7 @@
         this module allows to visualize our servers throught an inventary. """,
 
     'description': """
-        The purpose of this module is to visualize all the information 
+        The purpose of this module is to visualize all the information
 	contains on our server. It means the datacenter, the location,
 	the different instance on it and finally the different module.
     """,
@@ -29,6 +29,8 @@
         'security/ir.model.access.csv',
         'views/views.xml',
         'views/templates.xml',
+        'views/cie_infra_server_views.xml',
+        'views/cie_infra_instance_view.xml'
     ],
     # only loaded in demonstration mode
     #'demo': [

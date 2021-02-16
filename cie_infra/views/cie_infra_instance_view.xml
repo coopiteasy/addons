@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!--
+     Copyright 2018 - Today Coop IT Easy SCRLfs (<http://www.coopiteasy.be>)
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <record id ="cie_infra_instance_view" model="ir.ui.view">
+        <field name="name">CoopIteasy Infrastructure</field>
+        <field name="model">infra.instance</field>
+        <field name="arch" type="xml">
+            <form string="instance">
+                <header>
+
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="url"/>
+                        <field name="server_id"/>
+                        <field name="database_ids"/>
+                        <field name="note"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="view_search_server" model="ir.ui.view">
+        <field name="name">Instance filter</field>
+        <field name="model">infra.instance</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="url"/>
+                <field name="server_id"/>
+                <field name="database_ids"/>
+            </search>
+        </field>
+    </record>
+</odoo>

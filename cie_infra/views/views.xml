@@ -15,7 +15,7 @@
     </record>
     -->
 
-    <!-- actions opening views on models -->
+    <!-- actions opening views on models
     <record model="ir.actions.act_window" id="cie_infra.action_window_server">
       <field name="name">CoopItEasy Server</field>
       <field name="res_model">infra.server</field>
@@ -36,8 +36,26 @@
       <field name="res_model">infra.instance</field>
       <field name="view_mode">tree,form</field>
     </record>
+    -->
+      <act_window id ="cie_infra.action_window_server"
+                  name="server"
+                  res_model="infra.server"
+                  view_mode="tree,form"/>
+      <act_window id ="cie_infra.action_window_database"
+                  name="database"
+                  res_model="infra.instance.database"
+                  view_mode="tree,form"/>
+      <act_window id ="cie_infra.action_window_module"
+                  name="module"
+                  res_model="infra.instance.module"
+                  view_mode="tree,form"/>
+      <act_window id ="cie_infra.action_window_instance"
+                  name="instance"
+                  res_model="infra.instance"
+                  view_mode="tree,form"/>
 
-	 
+
+
 
     <!-- server action to the one above -->
     <!--
@@ -56,9 +74,9 @@
     -->
 
     <!-- Top menu item -->
-    
+
     <menuitem name="CoopItEasy Infrastructure" id="cie_infra_menu_root"/>
- 
+
 
      <!-- Menu item -->
     <menuitem id="cie_infra.server" name="Server" parent="cie_infra_menu_root" action="cie_infra.action_window_server"  />
@@ -66,7 +84,7 @@
     <menuitem name="Database" id="cie_infra.database" parent="cie_infra_menu_root" action="cie_infra.action_window_database"/>
     <menuitem name="Module" id="cie_infra.module" parent="cie_infra_menu_root" action="cie_infra.action_window_module"/>
 
- 
+
     <!-- actions -->
     <!--
     <menuitem name="List" id="cie_infra.menu_1_list" parent="cie_infra.menu_1"
