@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_user_product_category_volume,user.product.category.volume,model_product_category_volume,base.group_user,1,1,1,1
+access_product_category_volume_portal,user.product.category.volume,model_product_category_volume,base.group_portal,1,1,1,1
