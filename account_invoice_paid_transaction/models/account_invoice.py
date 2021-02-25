@@ -4,6 +4,9 @@
 
 
 from odoo import api, fields, models
+import logging
+
+_logger = logging.getLogger(__name__)
 
 
 class AccountInvoice(models.Model):
@@ -36,3 +39,20 @@ class AccountInvoice(models.Model):
             invoice.amount_paid_by_transactions = sum(
                 transactions.mapped("amount")
             )
+
+    @api.multi
+    def _get_so_payments_vals(self):
+        self.ensure_one()
+        if self.origin_so_id:
+            payment_txs = self.origin_so_id.payment_tx_ids.filtered(
+                lambda p: p.state == "done"
+            )
+            return [
+                {
+                    "amount": payment_tx.amount,
+                    "date": payment_tx.create_date,
+                }
+                for payment_tx in payment_txs
+            ]
+        else:
+            return []

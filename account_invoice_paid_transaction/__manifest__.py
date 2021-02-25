@@ -15,6 +15,6 @@
     "depends": [
         "sale_payment",
     ],
-    "data": ["views/account_invoice.xml"],
+    "data": ["views/account_invoice.xml", "report/report_invoice.xml"],
     "demo": [],
 }
