@@ -10,12 +10,11 @@
         <field name="arch" type="xml">
             <form string="module">
                 <header>
-
                 </header>
                 <sheet>
                     <group>
                         <field name="name"/>
-                        <field name="module_info_ids"/>
+                        <field name="module_info_ids" widget="many2many" domain="[('module_id','=',False )]"/>
                     </group>
                 </sheet>
             </form>

@@ -16,7 +16,7 @@
                     <group>
                         <field name="name"/>
                         <field name="instance_id" widget="many2one"/>
-                        <field name="installed_module_ids" />
+                        <field name="installed_module_ids"/>
                     </group>
                 </sheet>
             </form>

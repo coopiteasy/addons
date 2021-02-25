@@ -9,3 +9,4 @@ class Database(models.Model):
 	installed_module_ids=fields.One2many('infra.instance.module.info','database_id',string='installed_module')
 
 
+

@@ -17,7 +17,7 @@
                         <field name="name"/>
                         <field name="url" widget="url"/>
                         <field name="server_id" />
-                        <field name="database_ids" />
+                        <field name="database_ids" widget="many2many" domain="[('instance_id','=',False)]" />
                         <field name="note"/>
                     </group>
                 </sheet>

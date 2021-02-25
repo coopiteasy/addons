@@ -16,7 +16,7 @@
                     <group>
                         <field name="name"/>
                         <field name="location_id" widget="many2one"/>
-                        <field name="server_ids"/>
+                        <field name="server_ids" widget="many2many" domain="[('datacenter_id','=',False)]"/>
                     </group>
                 </sheet>
             </form>

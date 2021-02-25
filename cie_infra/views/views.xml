@@ -40,23 +40,23 @@
       <act_window id ="cie_infra.action_window_server"
                   name="server"
                   res_model="infra.server"
-                  view_mode="tree,form"/>
+                  view_mode="tree,form,activity,graph,pivot"/>
       <act_window id ="cie_infra.action_window_database"
                   name="database"
                   res_model="infra.instance.database"
-                  view_mode="tree,form"/>
+                  view_mode="tree,form,activity,graph,pivot"/>
       <act_window id ="cie_infra.action_window_module"
                   name="module"
                   res_model="infra.instance.module"
-                  view_mode="tree,form"/>
+                  view_mode="tree,form,activity,graph,pivot"/>
       <act_window id ="cie_infra.action_window_instance"
                   name="instance"
                   res_model="infra.instance"
-                  view_mode="tree,form"/>
+                  view_mode="tree,form,activity,graph,pivot"/>
       <act_window id="cie_infra.action_window_datacenter"
                   name="datacenter"
                   res_model="infra.datacenter"
-                  view_mode="tree,form"/>
+                  view_mode="tree,form,activity,graph,pivot"/>
 
 
 
@@ -83,11 +83,11 @@
 
 
      <!-- Menu item -->
-    <menuitem id="cie_infra.server" name="Server" parent="cie_infra_menu_root" action="cie_infra.action_window_server"  />
-    <menuitem id="cie_infra.datacenter" name="Datacenter" parent="cie_infra_menu_root" action="cie_infra.action_window_datacenter"/>
-    <menuitem name="Instance d'Odoo" id="cie_infra.instance" parent="cie_infra_menu_root" action="cie_infra.action_window_instance"/>
-    <menuitem name="Database" id="cie_infra.database" parent="cie_infra_menu_root" action="cie_infra.action_window_database"/>
-    <menuitem name="Module" id="cie_infra.module" parent="cie_infra_menu_root" action="cie_infra.action_window_module"/>
+    <menuitem id="cie_infra.server" name="Server" parent="cie_infra_menu_root" action="cie_infra.action_window_server" sequence="1" />
+    <menuitem id="cie_infra.datacenter" name="Datacenter" parent="cie_infra_menu_root" action="cie_infra.action_window_datacenter" sequence="2"/>
+    <menuitem name="Instance d'Odoo" id="cie_infra.instance" parent="cie_infra_menu_root" action="cie_infra.action_window_instance" sequence="3"/>
+    <menuitem name="Database" id="cie_infra.database" parent="cie_infra_menu_root" action="cie_infra.action_window_database" sequence="4"/>
+    <menuitem name="Module" id="cie_infra.module" parent="cie_infra_menu_root" action="cie_infra.action_window_module" sequence="5"/>
 
 
     <!-- actions -->

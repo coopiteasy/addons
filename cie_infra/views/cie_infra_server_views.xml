@@ -20,8 +20,8 @@
                         <field name="datacenter_id"/>
                         <field name="ovh_address"/>
                         <field name="cie_address"/>
-                        <field name="instance_ids" />
-                        <field name="shortname_ids" />
+                        <field name="instance_ids" widget="many2many" domain="[('server_id','=', False )]"/>
+                        <field name="shortname_ids" widget="many2many"/>
                         <field name="note"/>
                     </group>
                 </sheet>
@@ -35,7 +35,7 @@
             <search>
                 <field name="instance_ids"/>
                 <field name="ipv4"/>
-                <field name="ipv6"/>
+                <field name="ipv6" />
                 <field name="datacenter_id"/>
                 <field name="name"/>
             </search>
