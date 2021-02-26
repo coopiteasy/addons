@@ -21,20 +21,37 @@ class CieInfraDatasend(http.Controller):
 #             'object': obj
 #         })
 
-    @http.route("/web/database/list_database", type="http", auth="none")
+#    @http.route("/web/database/list_database", type="http", auth="none")
+#    def databaselist(self, **kw):
+#        result = ""
+#        list_db = http.db_list()
+#        result += " ".join(list_db)
+#        return result
+
+    @http.route("/web/database/list_database", type="json", auth="none")
     def databaselist(self, **kw):
-        result = ""
         list_db = http.db_list()
-        result += " ".join(list_db)
+        result = {"databases": list_db}
         return result
 
-    @http.route("/web/database/<string:dbname>/modules", type="http", auth="none")
+#    @http.route("/web/database/<string:dbname>/modules", type="http", auth="none")
+#    def modulelist(self,dbname, **kw):
+#        list_db = http.db_list()
+#        # List installed modules
+#        modules = []
+#        db = odoo.sql_db.db_connect(dbname)
+#        with closing(db.cursor()) as cr:
+#            cr.execute("SELECT name, latest_version, published_version, state, shortdesc FROM ir_module_module WHERE state = 'installed'")
+#            modules.append(cr.fetchall())
+#        return str(modules)
+
+    @http.route("/web/database/<string:dbname>/modules", type="json", auth="none")
     def modulelist(self,dbname, **kw):
         list_db = http.db_list()
         # List installed modules
-        modules = []
+        modules = {"database":dbname}
         db = odoo.sql_db.db_connect(dbname)
         with closing(db.cursor()) as cr:
             cr.execute("SELECT name, latest_version, published_version, state, shortdesc FROM ir_module_module WHERE state = 'installed'")
-            modules.append(cr.fetchall())
-        return str(modules)
+            modules["modules"]= cr.fetchall()
+        return modules
