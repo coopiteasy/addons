@@ -12,7 +12,7 @@ class Instance(models.Model):
     _name='infra.instance'
     _description='instance'
     name=fields.Char('name', required=True)
-    url=fields.Html('URL')
+    url=fields.Char('URL')
     note=fields.Text('text')
     server_id=fields.Many2one('infra.server', string='server')
     database_ids=fields.One2many('infra.instance.database','instance_id', string="database")
@@ -50,8 +50,32 @@ class Instance(models.Model):
         return self._process_response(response)
 
 
+    def cron_get_database(self):
+        """
+        thanks to http request, the cron will recover daily
+        the different database based on a odoo's instance
+        """
 
+        route="/web/databases"
+        instances = self.env['infra.instance'].search([])
+        for instance in instances:
+            databases = instance.http_get_content(route)
+            for db in databases["databases"]:
+                if not instance.is_db_already_exist(db) :
+                    self.env["infra.instance.database"].create({
+                        "name": db,
+                        "instance_id": instance.id,
+                    })
+                    instance.write({
+                        "database_ids": db,
+                    })
 
+    def is_db_already_exist(self, new_db):
+        databases=self.env["infra.instance.database"].search([])
+        for old_db in databases:
+            if new_db == old_db.name :
+                return 1
+        return 0
 
 
 
