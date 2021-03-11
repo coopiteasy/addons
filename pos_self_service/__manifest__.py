@@ -1,0 +1,20 @@
+# Copyright 2021 - Today Coop IT Easy SCRLfs (<http://www.coopiteasy.be>)
+# - Vincent Van Rossem <vincent@coopiteasy.be>
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
+{
+    "name": "Point Of Sale - Self-Service",
+    "summary": "POS Self-Service Module",
+    "version": "12.0.1.0.0",
+    "category": "Point of Sale",
+    "author": "",
+    "website": "https://github.com/OCA/pos",
+    "license": "AGPL-3",
+    "depends": ["point_of_sale"],
+    "data": [
+        "data/barcode_rule.xml",
+        "views/templates.xml",
+        "views/pos_config_view.xml",
+    ],
+    "qweb": ["static/src/xml/pos_self_service.xml"],
+    "installable": True,
+}

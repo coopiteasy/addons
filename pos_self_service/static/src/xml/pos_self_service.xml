@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="SelfServiceScaleWidget">
+        <div class="self-service-scale-container">
+            <div class="self-service-scale-scroller touch-scrollable">
+                <div class="self-service-scale">
+                    <div class='weight js-weight'>
+                        <t t-esc="widget.get_weight_string()" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="SelfServiceLabelWidget">
+        <div class="self-service-label-container">
+            <div class="self-service-label-scroller touch-scrollable">
+                <div class="self-service-label">
+                </div>
+            </div>
+            <div class="button print">
+                <i class='fa fa-print'></i> Print Label
+            </div>
+        </div>
+
+    </t>
+
+    <t t-name="SelfServiceScreenWidget">
+        <div class='self-service-screen screen'>
+            <div class="leftpane">
+                <div class='window'>
+                    <div class='subwindow'>
+                        <div class='subwindow-container'>
+                            <div class='subwindow-container-fix'>
+                                <div class="placeholder-SelfServiceScaleWidget"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class='subwindow collapsed'>
+                        <div class='subwindow-container'>
+                            <div class='subwindow-container-fix pads'>
+                                <!--
+                                <div class="control-buttons oe_hidden"></div>
+                                <div class="placeholder-ActionpadWidget"></div>
+                                <div class="placeholder-NumpadWidget"></div>
+                                -->
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="rightpane">
+                <!-- Here goes the SelfServiceLabelWidget -->
+                <table class="layout-table">
+
+                    <tr class="header-row">
+                        <td class="header-cell">
+                        </td>
+                    </tr>
+
+                    <tr class="content-row">
+                        <td class="content-cell">
+                            <div class="content-container">
+                                <span class="placeholder-SelfServiceLabelWidget" />
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </t>
+</templates>
