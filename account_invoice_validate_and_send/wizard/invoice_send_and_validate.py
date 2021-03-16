@@ -14,7 +14,7 @@ class AccountInvoiceConfirm(models.TransientModel):
     def invoice_validate_send(self):
         active_ids = self.env.context.get('active_ids', []) or []
 
-        template_ref = "account.mail_template_data_notification_email_account_invoice" #noqa
+        template_ref = "account.email_template_edi_invoice"
         mail_template = self.env.ref(template_ref)
 
         for invoice in self.env['account.invoice'].browse(active_ids):
