@@ -23,4 +23,5 @@ class AccountInvoiceConfirm(models.TransientModel):
                                   "they are not in 'Draft' state."))
             invoice.action_invoice_open()
             mail_template.send_mail(invoice.id, False)
+            self.env.cr.commit()
         return {'type': 'ir.actions.act_window_close'}
