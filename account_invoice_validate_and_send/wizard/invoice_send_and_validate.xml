@@ -1,0 +1,26 @@
+<odoo>
+	<record id="account_invoice_validate_send_view" model="ir.ui.view">
+		<field name="name">account.invoice.validate.send.form</field>
+		<field name="model">account.invoice.validate.send</field>
+		<field name="arch" type="xml">
+			<form string="Validate and Send Draft Invoices">
+				<p class="oe_grey">
+					Once draft invoices are confirmed, you will not be able
+					to modify them. The invoices will receive a unique
+					number and journal items will be created in your chart
+					of accounts and finally will be sent to the customers.
+				</p>
+				<footer>
+					<button string="Validate and Send Invoices" name="invoice_validate_send" type="object" default_focus="1" class="btn-primary" />
+					<button string="Cancel" class="btn-default" special="cancel" />
+				</footer>
+			</form>
+		</field>
+	</record>
+
+	<act_window id="action_account_invoice_validate_send"
+		name="Validate And Send Draft Invoices"
+		res_model="account.invoice.validate.send" src_model="account.invoice"
+		view_mode="form" multi="True" key2="client_action_multi" target="new"
+		view_type="form" />
+</odoo>
