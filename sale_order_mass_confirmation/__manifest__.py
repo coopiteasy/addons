@@ -6,9 +6,6 @@
     "name": "Mass confirmation of sale orders",
     "summary": """
         Confirm multiple sale orders (quotations) with one action""",
-    "description": """
-        Adds an action to confirm selected sale orders (quotations).
-    """,
     "author": "Coop IT Easy SCRLfs",
     "license": "AGPL-3",
     "website": "https://coopiteasy.be/",

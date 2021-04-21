@@ -4,15 +4,13 @@
 {
     "name": "POS Custom Receipt",
     "version": "12.0.1.0.0",
-    "depends": ["point_of_sale",],
+    "depends": ["point_of_sale"],
     "author": "Coop IT Easy SCRLfs",
     "category": "Point Of Sale",
     "website": "https://coopiteasy.be",
     "license": "AGPL-3",
-    "description": """
-    This module extends the POS receipt to:
-    - Hide company's email
-    - Add customer's name
+    "summary": """
+        Hide company's email and add customer's name to POS receipt
     """,
     "data": [],
     "qweb": ["static/src/xml/pos.xml"],

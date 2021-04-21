@@ -1,19 +1,19 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="view_partner_form_socialmedia" model="ir.ui.view">
         <field name="name">res.partner.form</field>
         <field name="model">res.partner</field>
-        <field eval="1" name="priority"/>
-        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field eval="1" name="priority" />
+        <field name="inherit_id" ref="base.view_partner_form" />
         <field name="arch" type="xml">
             <xpath expr="//notebook" position="inside">
                 <page name="socialmedia" string="Social Media">
                     <group>
-                        <field name="facebook"/>
-                        <field name="twitter"/>
-                        <field name="skype"/>
-                        <field name="linkedin"/>
-                        <field name="mastodon"/>
+                        <field name="facebook" />
+                        <field name="twitter" />
+                        <field name="skype" />
+                        <field name="linkedin" />
+                        <field name="mastodon" />
                     </group>
                 </page>
             </xpath>
