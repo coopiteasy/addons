@@ -13,7 +13,7 @@
     "license": "AGPL-3",
     "website": "https://coopiteasy.be/",
     "category": "Uncategorized",
-    "version": "0.1",
+    "version": "12.0.1.0.0",
     "depends": ["base", "sale"],
     "data": ["wizard/confirm_sale_orders.xml"],
 }
