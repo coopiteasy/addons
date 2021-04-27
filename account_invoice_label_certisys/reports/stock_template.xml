@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-	<template id="certicys_label_report_picking" inherit_id="stock.report_picking">
-		<xpath expr="//p[@t-if='not o.pack_operation_ids']" position="after">
+	<template id="report_picking_certisys_label" inherit_id="stock.report_picking">
+		<xpath expr="//p[@t-field='o.note']" position="before">
 			<p>
                 <img
                     src="/account_invoice_label_certisys/static/img/EU_Organic_Logo.jpg"
@@ -16,10 +16,10 @@
 	</template>
 
 	<template
-        id="certicys_label_stock_delivery_document"
+        id="report_delivery_document_certisys_label"
         inherit_id="stock.report_delivery_document"
     >
-		<xpath expr="//table[@t-if='o.pack_operation_ids']" position="after">
+		<xpath expr="//table[@t-if=&quot;o.state!='done'&quot;]" position="after">
 			<p>
                 <img
                     src="/account_invoice_label_certisys/static/img/EU_Organic_Logo.jpg"
