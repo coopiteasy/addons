@@ -6,7 +6,7 @@
     "name": "Account Invoice Label Certisys",
     "summary": "Add Certisys Label on account, stock and sale reports",
     "category": "Reporting",
-    "version": "10.0.1.0.0",
+    "version": "11.0.1.0.0",
     "author": "Coop IT Easy SCRLfs",
     "license": "AGPL-3",
     "website": "https://coopiteasy.be",
