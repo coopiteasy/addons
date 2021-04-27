@@ -12,12 +12,15 @@ class AccountInvoice(models.Model):
     account_id = fields.Many2one(readonly=False)
     origin_account_id = fields.Many2one("account.account", readonly=True)
 
-    def init(self, cr):
-        cr.execute(
+    @api.model_cr
+    def init(self):
+        res = super(AccountInvoice, self).init()
+        self._cr.execute(
             "UPDATE account_invoice "
             "SET origin_account_id = account_id "
             "WHERE state in ('open', 'paid') AND origin_account_id IS NULL;"
         )
+        return res
 
     @api.multi
     def write(self, vals):
