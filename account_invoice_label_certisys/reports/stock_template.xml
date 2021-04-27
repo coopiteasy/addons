@@ -1,24 +1,35 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-<data>
 	<template id="certicys_label_report_picking" inherit_id="stock.report_picking">
 		<xpath expr="//p[@t-if='not o.pack_operation_ids']" position="after">
 			<p>
-                <img src="/account_invoice_label_certisys/static/img/EU_Organic_Logo.jpg" style="width:98px;height:auto;padding-bottom:5px;"/>
-                <strong>All products of <span t-field="o.company_id.name"/> are certified BIO by Certisys BE-BIO-01</strong>
+                <img
+                    src="/account_invoice_label_certisys/static/img/EU_Organic_Logo.jpg"
+                    style="width:98px;height:auto;padding-bottom:5px;"
+                />
+                <strong>All products of <span
+                        t-field="o.company_id.name"
+                    /> are certified BIO by Certisys BE-BIO-01</strong>
             </p>
 		</xpath>
-		
+
 	</template>
 
-	<template id="certicys_label_stock_delivery_document" inherit_id="stock.report_delivery_document">
+	<template
+        id="certicys_label_stock_delivery_document"
+        inherit_id="stock.report_delivery_document"
+    >
 		<xpath expr="//table[@t-if='o.pack_operation_ids']" position="after">
 			<p>
-                <img src="/account_invoice_label_certisys/static/img/EU_Organic_Logo.jpg" style="width:98px;height:auto;padding-bottom:5px;"/>
-                <strong>All products of <span t-field="o.company_id.name"/> are certified BIO by Certisys BE-BIO-01</strong>
+                <img
+                    src="/account_invoice_label_certisys/static/img/EU_Organic_Logo.jpg"
+                    style="width:98px;height:auto;padding-bottom:5px;"
+                />
+                <strong>All products of <span
+                        t-field="o.company_id.name"
+                    /> are certified BIO by Certisys BE-BIO-01</strong>
             </p>
 		</xpath>
 
 	</template>
-</data>
 </odoo>
