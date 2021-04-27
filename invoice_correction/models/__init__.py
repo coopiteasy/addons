@@ -1,1 +1,1 @@
-import account
+from . import account
