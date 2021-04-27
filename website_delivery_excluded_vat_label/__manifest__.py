@@ -4,10 +4,11 @@
 
 {
     "name": "Website Sale Delivery Excuded VAT Label",
-    "version": "11.0.1.0.0",
+    "version": "12.0.1.0.0",
     "category": "E-commerce",
     "sequence": 95,
     "author": "Coop IT Easy SCRLfs",
+    "website": "https://coopiteasy.be",
     "license": "AGPL-3",
     "summary": "Display the excluded vat label on delivery method",
     "depends": ["website_sale_delivery"],
