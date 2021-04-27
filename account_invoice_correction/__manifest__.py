@@ -10,6 +10,6 @@
     "website": "https://coopiteasy.be",
     "category": "Accounting",
     "depends": ["account"],
-    "data": ["views/invoice.xml"],
+    "data": ["views/account_invoice_view.xml"],
     "installable": True,
 }
