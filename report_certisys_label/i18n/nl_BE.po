@@ -1,0 +1,33 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* report_certisys_label
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-01-08 11:09+0000\n"
+"PO-Revision-Date: 2020-01-08 11:09+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: report_certisys_label
+#: model:ir.ui.view,arch_db:report_certisys_label.account_invoice_document_certisys_label
+#: model:ir.ui.view,arch_db:report_certisys_label.report_picking_certisys_label
+#: model:ir.ui.view,arch_db:report_certisys_label.report_saleorder_document_certisys_label
+#: model:ir.ui.view,arch_db:report_certisys_label.report_delivery_document_certisys_label
+msgid "All products of"
+msgstr "Alle producten van"
+
+#. module: report_certisys_label
+#: model:ir.ui.view,arch_db:report_certisys_label.account_invoice_document_certisys_label
+#: model:ir.ui.view,arch_db:report_certisys_label.report_picking_certisys_label
+#: model:ir.ui.view,arch_db:report_certisys_label.report_saleorder_document_certisys_label
+#: model:ir.ui.view,arch_db:report_certisys_label.report_delivery_document_certisys_label
+msgid "are certified BIO by Certisys BE-BIO-01"
+msgstr "zijn BIO gecertificeerd door Certisys BE-BIO-01"
+
