@@ -1,23 +1,20 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <template
-        id="account_invoice_document_certisys_label"
-        inherit_id="account.report_invoice_document"
+        id="report_saleorder_document_certisys_label"
+        inherit_id="sale.report_saleorder_document"
     >
-        <xpath expr="//p[@t-if='o.fiscal_position_id.note']" position="after">
+        <xpath expr="//p[@id='fiscal_position_remark']" position="after">
             <p>
                 <img
-                    src="/account_invoice_label_certisys/static/img/EU_Organic_Logo.jpg"
+                    src="/report_certisys_label/static/img/EU_Organic_Logo.jpg"
                     style="width:98px;height:auto;padding-bottom:5px;"
                 />
                 <strong>All products of
-                    <span t-field="o.company_id.name" />
+                    <span t-field="doc.company_id.name" />
                     are certified BIO by Certisys BE-BIO-01
                 </strong>
             </p>
         </xpath>
-
     </template>
-
-
 </odoo>
