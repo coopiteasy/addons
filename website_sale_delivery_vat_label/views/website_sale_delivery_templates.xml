@@ -1,0 +1,32 @@
+<odoo>
+    <template
+        id="payment_delivery_methods_vat_excluded"
+        inherit_id="website_sale_delivery.payment_delivery_methods"
+        name="Delivery Method VAT Excluded"
+    >
+        <xpath expr="//span[@t-if='delivery.fixed_price > 0.0']" position="after">
+            <span t-if="delivery.fixed_price > 0.0" class="badge badge-secondary">
+                <t
+                    t-if="any([tax.price_include for tax in delivery.product_id.taxes_id])"
+                >
+                    incl. VAT
+                </t>
+                <t t-else="">
+                    excl. VAT
+                </t>
+            </span>
+        </xpath>
+        <xpath expr="//span[@t-field='delivery.fixed_price']" position="after">
+            <span class="badge badge-secondary">
+                <t
+                    t-if="any([tax.price_include for tax in delivery.product_id.taxes_id])"
+                >
+                    incl. VAT
+                </t>
+                <t t-else="">
+                    excl. VAT
+                </t>
+            </span>
+        </xpath>
+    </template>
+</odoo>
