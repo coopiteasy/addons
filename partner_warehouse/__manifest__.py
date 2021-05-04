@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    Business Open Source Solution
@@ -20,13 +19,13 @@
 ##############################################################################
 {
     "name": "Partner Warehouse",
-    "version": "11.0.1.0",
+    "version": "12.0.1.0",
     "depends": [
         'base',
         'sale',
         'sale_stock',
     ],
-    "author": "Rémy TAYMANS <remy@coopiteasy.be>",
+    "author": "Coop IT Easy SCRLfs",
     "category": "",
     "website": "www.coopiteasy.be",
     "license": "AGPL-3",
