@@ -1,5 +1,4 @@
-from openerp import api, fields, models
-
+from odoo import api, fields, models
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
