@@ -1,6 +1,6 @@
 <odoo>
      <template id="company_fields" inherit_id="auth_signup.fields" name="Auth Signup company form fields">
-     	<xpath expr="//input[@name='login']/.." position="before">
+         <xpath expr="//input[@name='login']/.." position="before">
             <div id="is_company" t-attf-class="form-group">
                 <div class="form-group field-name">
                     <div class="form-check">
@@ -9,7 +9,7 @@
                     </div>
                 </div>
             </div>
-            
+
         </xpath>
         <xpath expr="//input[@name='name']/.." position="after">
             <div name ="vat_div" class="form-group field-name" style="display:none">
