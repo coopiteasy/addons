@@ -1,7 +1,7 @@
-# -*- coding: utf-8 -*-
 # © 201 Houssine BAKKALI (Coop IT Easy SCRLds)
 import logging
-from openerp import api, fields, models
+
+from odoo import api, fields, models
 
 _logger = logging.getLogger(__name__)
 

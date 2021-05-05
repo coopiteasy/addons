@@ -1,9 +1,9 @@
-# -*- coding: utf-8 -*-
 # Part of Open Architechts Consulting sprl. See LICENSE file for full
 # copyright and licensing details.
 from datetime import datetime, timedelta
-from openerp import api, fields, models
-from openerp.tools import DEFAULT_SERVER_DATE_FORMAT
+
+from odoo import api, fields, models
+from odoo.tools import DEFAULT_SERVER_DATE_FORMAT
 
 
 class SaleOrder(models.Model):

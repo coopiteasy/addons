@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_declaration_tree" model="ir.ui.view">
+        <field name="name">brew.declaration.tree</field>
+        <field name="model">brew.declaration</field>
+        <field name="arch" type="xml">
+            <tree string="Brew Declarations">
+                <field name="brew_declaration_number" />
+                <field name="request_date" />
+                <field name="state" invisible="1" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_declaration_form" model="ir.ui.view">
+        <field name="name">brew.declaration.form</field>
+        <field name="model">brew.declaration</field>
+        <field name="arch" type="xml">
+            <form string="Brew Declaration">
+                <header>
+                    <button
+                        name="action_confirm"
+                        states="draft"
+                        string="Confirm Declaration"
+                        type="object"
+                    />
+                    <button
+                        name="action_cancel"
+                        states="draft,sent,sale"
+                        type="object"
+                        string="Cancel"
+                    />
+                    <button
+                        name="action_draft"
+                        states="cancel"
+                        type="object"
+                        string="Set to Draft"
+                    />
+                    <field name="state" widget="statusbar" />
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="brew_declaration_number" />
+                        </group>
+                        <group>
+                            <field name="request_date" />
+                        </group>
+                    </group>
+                    <field name="brew_orders">
+                        <tree>
+                            <field name="brew_number" />
+                            <field name="brew_beer_number" />
+                            <field name="name" />
+                            <field name="start_date" />
+                            <field name="product_id" />
+                            <field name="product_qty" />
+                            <field name="product_uom" />
+                            <field name="state" />
+                        </tree>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_brew_declaration_filter" model="ir.ui.view">
+        <field name="name">brew.declaration.search</field>
+        <field name="model">brew.declaration</field>
+        <field name="arch" type="xml">
+            <search string="Search Brews Declaration">
+                <field
+                    name="brew_declaration_number"
+                    string="Brew declaration number"
+                />
+                <filter string="Draft" name="draft" domain="[('state','=','draft')]" />
+                <filter
+                    string="Confirm"
+                    name="confirm"
+                    domain="[('state','=','confirm')]"
+                />
+                <filter
+                    string="Cancelled"
+                    name="cancelled"
+                    domain="[('state','=','cancel')]"
+                />
+                <separator />
+                <group expand="0" string="Group By...">
+                    <filter
+                        string="Status"
+                        domain="[]"
+                        context="{'group_by':'state'}"
+                    />
+                    <filter
+                        string="Scheduled Month"
+                        domain="[]"
+                        context="{'group_by':'date_planned'}"
+                        help="Scheduled Date by Month"
+                    />
+                </group>
+           </search>
+        </field>
+    </record>
+
+    <record id="brew_declaration_action" model="ir.actions.act_window">
+        <field name="name">Brew Declaration</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">brew.declaration</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form,calendar</field>
+        <field name="view_id" eval="view_declaration_tree" />
+        <field name="search_view_id" ref="view_brew_declaration_filter" />
+        <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Click to create a brew order.
+          </p>
+        </field>
+    </record>
+
+    <menuitem
+        action="brew_declaration_action"
+        id="menu_brew_declaration_action"
+        parent="mrp.menu_mrp_manufacturing"
+        groups="mrp.group_mrp_user"
+        sequence="9"
+    />
+
+</odoo>

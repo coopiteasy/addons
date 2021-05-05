@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
-
-from openerp import api, fields, models
 import datetime as dt
+
+from odoo import api, fields, models
 
 _parse_date = fields.Datetime.from_string
 

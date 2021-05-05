@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-from openerp import api, fields, models
+from odoo import api, fields, models
 
 MODEL_MAP = {
     "mrp_brewing.stock_raw_materials": "stock.move",

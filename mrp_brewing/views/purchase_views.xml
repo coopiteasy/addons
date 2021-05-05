@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="raw_material_purchase_product_template_form" model="ir.ui.view">
+        <field name="name">product.template.raw</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="purchase.view_product_supplier_inherit" />
+        <field name="arch" type="xml">
+            <xpath expr="//label[@for='purchase_ok']/.." position="after">
+                <div>
+                    <field name="raw_material" />
+                    <label for="raw_material" />
+                </div>
+                <div>
+                    <field name="finished_product" />
+                    <label for="finished_product" />
+                </div>
+                <div>
+                    <field name="is_brewable" />
+                    <label for="is_brewable" />
+                </div>
+                <div>
+                    <field name="is_crate" />
+                    <label for="is_crate" />
+                </div>
+            </xpath>
+            <field name="type" position="after">
+                <field
+                    name="brew_product_sequence"
+                    attrs="{'invisible':[('is_brewable','=',False)],'required':[('is_brewable','=',True)]}"
+                />
+            </field>
+        </field>
+    </record>
+</odoo>

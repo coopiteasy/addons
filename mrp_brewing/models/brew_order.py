@@ -1,52 +1,13 @@
-# -*- coding: utf-8 -*-
 # Part of Open Architechts Consulting sprl. See LICENSE file for full
 # copyright and licensing details.
 
-from openerp import api, fields, models, _
+from datetime import date, datetime
 
-from datetime import datetime, date
-import openerp.addons.decimal_precision as dp
+from odoo import _, api, fields, models
+from odoo.exceptions import UserError
+from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
-from openerp.exceptions import UserError
-from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
-
-
-class BrewDeclaration(models.Model):
-    _name = "brew.declaration"
-
-    brew_declaration_number = fields.Integer(
-        string="Brew declaration number", readonly=True, copy=False
-    )
-    request_date = fields.Date(string="Request date", required=True)
-    state = fields.Selection(
-        [("draft", "Draft"), ("confirm", "confirm"), ("cancel", "Cancelled")],
-        string="Status",
-        readonly=True,
-        default="draft",
-    )
-    brew_orders = fields.One2many(
-        "brew.order", "brew_declaration_id", string="Brew Orders"
-    )
-
-    @api.multi
-    def action_confirm(self):
-        brew_declaration_number = self.env["ir.sequence"].next_by_code(
-            "brew.declaration.sequence"
-        )
-        self.write(
-            {
-                "state": "confirm",
-                "brew_declaration_number": int(brew_declaration_number),
-            }
-        )
-
-    @api.multi
-    def action_cancel(self):
-        return self.write({"state": "cancel"})
-
-    @api.multi
-    def action_draft(self):
-        return self.write({"state": "draft"})
+import odoo.addons.decimal_precision as dp
 
 
 class BrewOrder(models.Model):
@@ -68,9 +29,10 @@ class BrewOrder(models.Model):
         if self.end_date:
             self.wort_gathering_date = self.end_date
 
-    @api.one
+    @api.multi
     @api.depends("production_order_id")
     def _get_consumed_lines(self):
+        self.ensure_one()
         for brew_order in self:
             raw_mat_moves = self.env["stock.move"]
             for child_mo in brew_order.production_order_id.child_mo_ids:
@@ -87,7 +49,7 @@ class BrewOrder(models.Model):
     @api.depends(
         "product_id", "brew_number", "brew_beer_number", "state", "start_date"
     )
-    def compute_display_name(self):
+    def _compute_display_name(self):
         year = date.today().year
         if self.start_date:
             year = datetime.strptime(
@@ -95,26 +57,22 @@ class BrewOrder(models.Model):
             ).year
         for order in self:
             if order.state in ["done", "cancel"]:
-                order.name = u"%s_%s_%s" % (
-                    order.product_id.code,
-                    year,
-                    order.brew_beer_number,
+                order.name = u"{}_{}_{}".format(
+                    order.product_id.code, year, order.brew_beer_number,
                 )
             elif order.state == "draft":
-                order.name = u"%s_%s_%s" % (
-                    order.product_id.code,
-                    year,
-                    order.state,
+                order.name = u"{}_{}_{}".format(
+                    order.product_id.code, year, order.state,
                 )
 
     @api.multi
-    def get_bom(self):
+    def _compute_bom(self):
         for brew_order in self:
             brew_order.bom = brew_order.production_order_id.bom_id
 
     name = fields.Char(
         string="Brew order",
-        compute="compute_display_name",
+        compute="_compute_display_name",
         store=True,
         copy=False,
     )
@@ -164,7 +122,7 @@ class BrewOrder(models.Model):
         "stock.move", string="Consumed lines", compute=_get_consumed_lines
     )
     bom = fields.Many2one(
-        "mrp.bom", string="Bill of material", compute="get_bom"
+        "mrp.bom", string="Bill of material", compute="_compute_bom"
     )
     parent_brew_order_id = fields.Many2one(
         "brew.order", string="parent brew order"

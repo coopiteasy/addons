@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="quant_search_view" model="ir.ui.view">
+        <field name="name">stock.quant.search</field>
+        <field name="model">stock.quant</field>
+        <field name="inherit_id" ref="stock.quant_search_view" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//filter[@groups='stock.group_production_lot']"
+                position="replace"
+            >
+                <filter
+                    name="lot"
+                    string='Lot'
+                    context="{'group_by': 'lot_id'}"
+                    groups="stock.group_production_lot"
+                />
+            </xpath>
+            <xpath
+                expr="//filter[@groups='stock.group_production_lot']/.."
+                position="attributes"
+            >
+                <attribute name="expand">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="sale_product_open_quants">
+        <field name="name">Stock On Hand</field>
+        <field
+            name="context"
+        >{'search_default_internal_loc': 1, 'search_default_locationgroup':1,
+            'search_default_productgroup':1,'search_default_lot':1}
+        </field>
+        <field name="domain">[('product_id.finished_product', '=', True)]</field>
+        <field name="res_model">stock.quant</field>
+    </record>
+
+    <menuitem
+        action="sale_product_open_quants"
+        id="menu_sale_product_open_quants_action"
+        parent="stock.menu_stock_inventory_control"
+        sequence="10"
+    />
+</odoo>

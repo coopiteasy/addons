@@ -1,8 +1,7 @@
-# -*- coding: utf-8 -*-
 # Part of Open Architechts Consulting sprl. See LICENSE file for full
 # copyright and licensing details.
 
-from openerp import api, fields, models
+from odoo import api, fields, models
 
 
 class MrpProduction(models.Model):
@@ -44,7 +43,7 @@ class MrpProduction(models.Model):
             if master_mo.brew_orders:
                 mo.brew_order_name = master_mo.brew_orders[0].name
             else:
-                mo.brew_order_name = '/'
+                mo.brew_order_name = "/"
 
     # fixme not used
     lot_number = fields.Many2one("stock.production.lot", string="Lot Number")
@@ -72,7 +71,7 @@ class MrpProduction(models.Model):
         res = []
         for record in self:
             if record.origin:
-                name = "[%s] %s" % (record.origin, record.name)
+                name = "[{}] {}".format(record.origin, record.name)
             else:
                 name = record.name
             res.append((record.id, name))

@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
-
 import time
-from openerp import api, models
+
+from odoo import api, models
 
 
 class ReportBrewRegister(models.AbstractModel):

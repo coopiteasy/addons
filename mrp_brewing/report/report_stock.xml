@@ -1,29 +1,27 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <data>
-        <report 
-            id="action_raw_materials_report"
-            model="stock.move"
-            string="Raw materials stock report"
-            report_type="qweb-pdf"
-            name="mrp_brewing.stock_raw_materials"
-            file="mrp_brewing.report_stock_raw_materials"
-            />
-        <report 
-            id="action_finished_products_report"
-            model="stock.move"
-            string="Raw materials stock report"
-            report_type="qweb-pdf"
-            name="mrp_brewing.stock_finished_products"
-            file="mrp_brewing.report_stock_finished_products"
-            />    
-        <report 
-            id="action_brew_register_report"
-            model="brew.order"
-            string="Brew register report"
-            report_type="qweb-pdf"
-            name="mrp_brewing.brew_register"
-            file="mrp_brewing.report_brew_register"
-            />
-    </data>
+    <report
+        id="action_raw_materials_report"
+        model="stock.move"
+        string="Raw materials stock report"
+        report_type="qweb-pdf"
+        name="mrp_brewing.stock_raw_materials"
+        file="mrp_brewing.report_stock_raw_materials"
+    />
+    <report
+        id="action_finished_products_report"
+        model="stock.move"
+        string="Raw materials stock report"
+        report_type="qweb-pdf"
+        name="mrp_brewing.stock_finished_products"
+        file="mrp_brewing.report_stock_finished_products"
+    />
+    <report
+        id="action_brew_register_report"
+        model="brew.order"
+        string="Brew register report"
+        report_type="qweb-pdf"
+        name="mrp_brewing.brew_register"
+        file="mrp_brewing.report_brew_register"
+    />
 </odoo>

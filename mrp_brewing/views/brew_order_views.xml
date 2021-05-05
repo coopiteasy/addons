@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_brew_tree" model="ir.ui.view">
+        <field name="name">brew.order.tree</field>
+        <field name="model">brew.order</field>
+        <field name="arch" type="xml">
+            <tree string="Brew Orders">
+                <field name="brew_number" />
+                <field name="name" />
+                <field name="start_date" />
+                <field name="wort_gathering_date" />
+                <field name="end_date" />
+                <field name="product_id" />
+                <field name="product_qty" />
+                <field name="product_uom" />
+                <field name="state" invisible="1" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_brew_order_form" model="ir.ui.view">
+        <field name="name">brew.order.form</field>
+        <field name="model">brew.order</field>
+        <field name="arch" type="xml">
+            <form string="Brew Order">
+                <header>
+                    <button
+                        name="action_confirm"
+                        states="draft"
+                        string="Confirm Brew"
+                        type="object"
+                    />
+                    <button
+                        name="action_cancel"
+                        states="draft,sent,sale"
+                        type="object"
+                        string="Cancel"
+                    />
+                    <button
+                        name="action_draft"
+                        states="cancel"
+                        type="object"
+                        string="Set to Draft"
+                    />
+                    <button
+                        name="action_draft"
+                        type="object"
+                        string="Set to Draft"
+                        groups="base.group_system"
+                    />
+                    <field name="state" widget="statusbar" />
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="get_brew_number" />
+                            <field name="brew_number" />
+                            <field name="brew_beer_number" />
+                            <field name="brew_declaration_id" />
+                            <field
+                                name="parent_brew_order_id"
+                                domain="[('brew_declaration_id','=',brew_declaration_id),('product_id','=',product_id)]"
+                            />
+                            <field name="product_id" />
+                            <field name="bom" />
+                            <field name="production_order_id" readonly="True" />
+                        </group>
+                        <group>
+                            <field name="start_date" />
+                            <field name="end_date" />
+                            <field name="wort_gathering_date" />
+                            <field name="product_qty" />
+                            <field
+                                name="product_uom"
+                                options="{'no_open':True,'no_create':True}"
+                                groups="product.group_uom"
+                            />
+                        </group>
+                        <group>
+                            <field name="used_vessels_tank" />
+                            <field name="dry_extract" />
+                            <field name="real_bulk_wort" />
+                            <field name="hl_plato_brewer" />
+                            <field name="hl_plato_agent" />
+                            <field name="collecting_vessels" />
+                        </group>
+                        <group>
+                            <field name="green_beer_volume" />
+                            <field name="sugar_quantity" />
+                            <field name="output_wort" />
+                            <field name="output_beer" />
+                            <field name="notes" />
+                        </group>
+                    </group>
+                    <field name="consumed_lines" />
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_brew_order_filter" model="ir.ui.view">
+        <field name="name">brew.order.search</field>
+        <field name="model">brew.order</field>
+        <field name="arch" type="xml">
+            <search string="Search Brew Order">
+                <field
+                    name="name"
+                    string="Brew order"
+                    filter_domain="['|',('name','ilike',self),('product_id.name','ilike',self)]"
+                />
+                <filter string="Draft" name="draft" domain="[('state','=','draft')]" />
+                <filter string="Done" name="done" domain="[('state','=','done')]" />
+                <filter
+                    string="Cancelled"
+                    name="cancelled"
+                    domain="[('state','=','cancel')]"
+                />
+                <separator />
+                <field name="product_id" />
+                <group expand="0" string="Group By...">
+                    <filter
+                        name="group_by_product"
+                        string="Product"
+                        domain="[]"
+                        context="{'group_by':'product_id'}"
+                    />
+                    <filter
+                        name="group_by_state"
+                        string="Status"
+                        domain="[]"
+                        context="{'group_by':'state'}"
+                    />
+                    <filter
+                        name="group_by_date_planned"
+                        string="Scheduled Month"
+                        domain="[]"
+                        context="{'group_by':'date_planned'}"
+                        help="Scheduled Date by Month"
+                    />
+                </group>
+           </search>
+        </field>
+    </record>
+
+    <record id="brew_order_action" model="ir.actions.act_window">
+        <field name="name">Brew Orders</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">brew.order</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form,calendar</field>
+        <field name="view_id" eval="view_brew_tree" />
+        <field name="search_view_id" ref="view_brew_order_filter" />
+        <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Click to create a brew order.
+          </p>
+        </field>
+    </record>
+
+    <menuitem
+        action="brew_order_action"
+        id="menu_brew_order_action"
+        parent="mrp.menu_mrp_manufacturing"
+        sequence="10"
+        groups="mrp.group_mrp_user"
+    />
+</odoo>

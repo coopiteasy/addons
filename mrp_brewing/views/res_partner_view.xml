@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_partner_tree" model="ir.ui.view">
+        <field name="name">res.partner.tree</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree" />
+        <field name="arch" type="xml">
+        <xpath expr="//field[@name='email']" position="attributes">
+          <attribute name="invisible">True</attribute>
+        </xpath>
+            <field name="email" position="after">
+                <field name="last_order" />
+                <field name='last_contact_date' />
+                <field name='sale_frequency' />
+                <field name='crate_per_order' />
+                <field name='crate_per_month' />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="name">res.partner.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <field name="category_id" position="before">
+                <field name="last_order" />
+                <field name='last_contact_date' />
+                <field name='last_contact_comment' />
+                <field name="crate_per_order" />
+                <field name="crate_per_month" />
+            </field>
+        </field>
+    </record>
+</odoo>

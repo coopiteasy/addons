@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*- Part of Open Architechts Consulting sprl. See LICENSE
 #  file for full copyright and licensing details.
 
-from openerp import api, fields, models
+from odoo import api, fields, models
 
 
 class ProductProduct(models.Model):
