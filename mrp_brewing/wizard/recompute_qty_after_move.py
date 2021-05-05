@@ -8,6 +8,7 @@ _logger = logging.getLogger(__name__)
 
 class StockRecomputeAfterMove(models.TransientModel):
     _name = "stock.recompute.after.move"
+    _description = "Recompute After Move"
 
     update = fields.Boolean(string="Update")
     print_log = fields.Boolean(string="Print computing in the log")

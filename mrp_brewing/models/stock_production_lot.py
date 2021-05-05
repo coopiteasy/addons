@@ -19,16 +19,16 @@ class StockProductionLot(models.Model):
     )
 
     @api.multi
-    @api.depends("quant_ids.reservation_id")
+    @api.depends("quant_ids.reserved_quantity")
     def _compute_qty_available(self):
         for lot in self:
             quants = lot.quant_ids.filtered(
                 lambda r: r.location_id.usage == "internal"
-                and not r.reservation_id
+                and not r.reserved_quantity
             )  # noqa
-            qty = sum(quants.mapped("qty"))
-            lot.qty_available = qty
-            lot.has_stock = qty > 0
+            quantity = sum(quants.mapped("quantity"))
+            lot.qty_available = quantity
+            lot.has_stock = quantity > 0
 
     @api.model
     def _batch_compute_qty_available(self):

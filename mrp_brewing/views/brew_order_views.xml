@@ -13,7 +13,7 @@
                 <field name="end_date" />
                 <field name="product_id" />
                 <field name="product_qty" />
-                <field name="product_uom" />
+                <field name="product_uom_id" />
                 <field name="state" invisible="1" />
             </tree>
         </field>
@@ -43,6 +43,7 @@
                         type="object"
                         string="Set to Draft"
                     />
+                    <!-- FIXME? is it necessary? it's declared above -->
                     <button
                         name="action_draft"
                         type="object"
@@ -77,9 +78,9 @@
                             <field name="wort_gathering_date" />
                             <field name="product_qty" />
                             <field
-                                name="product_uom"
+                                name="product_uom_id"
                                 options="{'no_open':True,'no_create':True}"
-                                groups="product.group_uom"
+                                groups="uom.group_uom"
                             />
                         </group>
                         <group>
@@ -137,11 +138,11 @@
                         context="{'group_by':'state'}"
                     />
                     <filter
-                        name="group_by_date_planned"
+                        name="group_by_start_date"
                         string="Scheduled Month"
                         domain="[]"
-                        context="{'group_by':'date_planned'}"
-                        help="Scheduled Date by Month"
+                        context="{'group_by':'start_date'}"
+                        help="Planned date"
                     />
                 </group>
            </search>
@@ -153,7 +154,7 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">brew.order</field>
         <field name="view_type">form</field>
-        <field name="view_mode">tree,form,calendar</field>
+        <field name="view_mode">tree,form</field>
         <field name="view_id" eval="view_brew_tree" />
         <field name="search_view_id" ref="view_brew_order_filter" />
         <field name="help" type="html">

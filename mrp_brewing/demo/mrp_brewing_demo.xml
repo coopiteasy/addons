@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="0">
+
+    <!-- Resource: ir.sequence -->
+    <record id="seq_brew_product_sequence_pils" model="ir.sequence">
+        <field name="name">PILS</field>
+        <field name="code">PILS</field>
+        <field name="use_date_range" eval="True"/>
+        <field name="padding">3</field>
+    </record>
+
+    <!-- Resource: uom.uom -->
+    <record id="product_uom_hectoliter" model="uom.uom">
+        <field name="name">Hectoliter(s)</field>
+        <field name="category_id" ref="uom.product_uom_categ_vol"/>
+        <field name="factor" eval="100"/>
+        <field name="uom_type">bigger</field>
+    </record>
+
+    <!-- Resource: product.product -->
+    <record id="product_product_pils_beer" model="product.product">
+        <field name="name">PILS Beer</field>
+        <field name="default_code">PILS</field>
+        <field name="purchase_ok" eval="False"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="is_brewable" eval="True"/>
+        <field name="brew_product_sequence" ref="seq_brew_product_sequence_pils"/>
+        <field name="categ_id" ref="product.product_category_all"/>
+        <field name="list_price">1.0</field>
+        <field name="standard_price">0</field>
+        <field name="type">product</field>
+        <field name="uom_id" ref="product_uom_hectoliter"/>
+        <field name="uom_po_id" ref="product_uom_hectoliter"/>
+        <field name="tracking">lot</field>
+        <field name="route_ids" eval="[(6, 0, [ref('mrp.route_warehouse0_manufacture')])]"/>
+    </record>
+
+    <record id="product_product_pils_beer_finished_must" model="product.product">
+        <field name="name">PILS Beer Finished Must</field>
+        <field name="purchase_ok" eval="False"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="categ_id" ref="product.product_category_all"/>
+        <field name="list_price">1.0</field>
+        <field name="standard_price">0</field>
+        <field name="type">product</field>
+        <field name="uom_id" ref="product_uom_hectoliter"/>
+        <field name="uom_po_id" ref="product_uom_hectoliter"/>
+        <field name="tracking">lot</field>
+        <field name="route_ids" eval="[(6, 0, [ref('stock.route_warehouse0_mto'), ref('mrp.route_warehouse0_manufacture')])]"/>
+    </record>
+
+    <record id="product_product_pils_beer_must" model="product.product">
+        <field name="name">PILS Beer Must</field>
+        <field name="purchase_ok" eval="False"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="categ_id" ref="product.product_category_all"/>
+        <field name="list_price">1.0</field>
+        <field name="standard_price">0</field>
+        <field name="type">product</field>
+        <field name="uom_id" ref="product_uom_hectoliter"/>
+        <field name="uom_po_id" ref="product_uom_hectoliter"/>
+        <field name="tracking">lot</field>
+        <field name="route_ids" eval="[(6, 0, [ref('stock.route_warehouse0_mto'), ref('mrp.route_warehouse0_manufacture')])]"/>
+    </record>
+
+    <record id="product_product_yeast" model="product.product">
+        <field name="name">Yeast</field>
+        <field name="categ_id" ref="product.product_category_all"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="True"/>
+        <field name="list_price">1.0</field>
+        <field name="standard_price">0</field>
+        <field name="type">product</field>
+        <field name="uom_id" ref="uom.product_uom_gram"/>
+        <field name="uom_po_id" ref="uom.product_uom_kgm"/>
+        <field name="tracking">lot</field>
+        <field name="route_ids" eval="[(6, 0, [ref('purchase_stock.route_warehouse0_buy')])]"/>
+    </record>
+
+    <record id="product_product_hop" model="product.product">
+        <field name="name">Hop</field>
+        <field name="categ_id" ref="product.product_category_all"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="True"/>
+        <field name="list_price">1.0</field>
+        <field name="standard_price">0</field>
+        <field name="raw_material" eval="True"/>
+        <field name="type">product</field>
+        <field name="uom_id" ref="uom.product_uom_kgm"/>
+        <field name="uom_po_id" ref="uom.product_uom_kgm"/>
+        <field name="tracking">lot</field>
+        <field name="route_ids" eval="[(6, 0, [ref('purchase_stock.route_warehouse0_buy')])]"/>
+    </record>
+
+    <record id="product_product_water" model="product.product">
+        <field name="name">Water</field>
+        <field name="categ_id" ref="product.product_category_all"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="True"/>
+        <field name="list_price">0.0</field>
+        <field name="standard_price">0.0</field>
+        <field name="raw_material" eval="True"/>
+        <field name="type">consu</field>
+        <field name="uom_id" ref="uom.product_uom_litre"/>
+        <field name="uom_po_id" ref="uom.product_uom_litre"/>
+        <field name="tracking">none</field>
+        <field name="route_ids" eval="[(6, 0, [ref('purchase_stock.route_warehouse0_buy'), ref('stock.route_warehouse0_mto')])]"/>
+        <!--TODO: seller_ids since purchase_stock raise UserError -->
+    </record>
+
+    <!-- Resource: mrp.bom -->
+    <record id="mrp_bom_pils_beer" model="mrp.bom">
+        <field name="product_tmpl_id" ref="product_product_pils_beer_product_template"/>
+        <field name="product_qty">1.0</field>
+        <field name="product_uom_id" ref="product_uom_hectoliter"/>
+    </record>
+
+    <record id="mrp_bom_pils_beer_finished_must" model="mrp.bom">
+        <field name="product_tmpl_id" ref="product_product_pils_beer_finished_must_product_template"/>
+        <field name="product_qty">1.0</field>
+        <field name="product_uom_id" ref="product_uom_hectoliter"/>
+    </record>
+
+    <record id="mrp_bom_pils_beer_must" model="mrp.bom">
+        <field name="product_tmpl_id" ref="product_product_pils_beer_must_product_template"/>
+        <field name="product_qty">1.0</field>
+        <field name="product_uom_id" ref="product_uom_hectoliter"/>
+    </record>
+
+    <!-- Resource: mrp.bom.line -->
+    <record id="mrp_bom_pils_beer_line_1" model="mrp.bom.line">
+        <field name="product_id" ref="product_product_pils_beer_finished_must"/>
+        <field name="product_qty">1</field>
+        <field name="product_uom_id" ref="product_uom_hectoliter"/>
+        <field name="bom_id" ref="mrp_bom_pils_beer"/>
+    </record>
+
+    <record id="mrp_bom_pils_beer_line_2" model="mrp.bom.line">
+        <field name="product_id" ref="product_product_yeast"/>
+        <field name="product_qty">50</field>
+        <field name="product_uom_id" ref="uom.product_uom_gram"/>
+        <field name="bom_id" ref="mrp_bom_pils_beer"/>
+    </record>
+
+    <record id="mrp_bom_pils_beer_finished_must_line_1" model="mrp.bom.line">
+        <field name="product_id" ref="product_product_pils_beer_must"/>
+        <field name="product_qty">1</field>
+        <field name="product_uom_id" ref="product_uom_hectoliter"/>
+        <field name="bom_id" ref="mrp_bom_pils_beer_finished_must"/>
+    </record>
+
+    <record id="mrp_bom_pils_beer_finished_must_line_2" model="mrp.bom.line">
+        <field name="product_id" ref="product_product_hop"/>
+        <field name="product_qty">25</field>
+        <field name="product_uom_id" ref="uom.product_uom_gram"/>
+        <field name="bom_id" ref="mrp_bom_pils_beer_finished_must"/>
+    </record>
+
+    <record id="mrp_bom_pils_beer_must_line_1" model="mrp.bom.line">
+        <field name="product_id" ref="product_product_water"/>
+        <field name="product_qty">130</field>
+        <field name="product_uom_id" ref="uom.product_uom_litre"/>
+        <field name="bom_id" ref="mrp_bom_pils_beer_must"/>
+    </record>
+
+    <!-- Resource: brew.order -->
+    <record id="brew_order_1" model="brew.order">
+        <field name="start_date">2021-05-15 08:00:00</field>
+        <field name="end_date">2021-05-15 18:00:00</field>
+        <field name="wort_gathering_date">2021-05-15 18:00:00</field>
+        <field name="product_id" ref="product_product_pils_beer"/>
+        <field name="product_uom_id" ref="product_uom_hectoliter"/>
+        <field name="product_qty">1</field>
+    </record>
+
+    <!-- Resource: brew.declaration -->
+    <record id="brew_declaration_1" model="brew.declaration">
+        <field name="request_date">2021-05-10</field>
+        <field name="brew_orders" eval="[(6,0,[ref('brew_order_1')])]"/>
+    </record>
+
+</odoo>

@@ -22,8 +22,8 @@ class StockPicking(models.Model):
     )
 
     @api.multi
-    def do_transfer(self):
-        super(StockPicking, self).do_transfer()
+    def action_done(self):
+        super(StockPicking, self).action_done()
         for picking in self:
             for move in picking.move_lines:
                 move.date = picking.date_done

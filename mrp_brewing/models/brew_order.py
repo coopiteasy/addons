@@ -4,75 +4,17 @@
 from datetime import date, datetime
 
 from odoo import _, api, fields, models
+from odoo.addons import decimal_precision as dp
 from odoo.exceptions import UserError
-from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
-
-import odoo.addons.decimal_precision as dp
 
 
 class BrewOrder(models.Model):
     _name = "brew.order"
-
-    @api.onchange("product_id")
-    def onchange_product(self):
-        if self.product_id:
-            self.product_uom = self.product_id.uom_id
-
-    @api.onchange("start_date")
-    def onchange_start_date(self):
-        if self.start_date:
-            self.end_date = self.start_date
-            self.wort_gathering_date = self.start_date
-
-    @api.onchange("end_date")
-    def onchange_end_date(self):
-        if self.end_date:
-            self.wort_gathering_date = self.end_date
-
-    @api.multi
-    @api.depends("production_order_id")
-    def _get_consumed_lines(self):
-        self.ensure_one()
-        for brew_order in self:
-            raw_mat_moves = self.env["stock.move"]
-            for child_mo in brew_order.production_order_id.child_mo_ids:
-                raw_mat_moves |= child_mo.move_lines2.filtered(
-                    lambda record: record.state == "done"
-                )
-
-            raw_mat_moves |= brew_order.production_order_id.move_lines2.filtered(
-                lambda record: record.state == "done"
-            )
-            brew_order.consumed_lines = raw_mat_moves
-
-    @api.multi
-    @api.depends(
-        "product_id", "brew_number", "brew_beer_number", "state", "start_date"
-    )
-    def _compute_display_name(self):
-        year = date.today().year
-        if self.start_date:
-            year = datetime.strptime(
-                self.start_date, DEFAULT_SERVER_DATETIME_FORMAT
-            ).year
-        for order in self:
-            if order.state in ["done", "cancel"]:
-                order.name = "{}_{}_{}".format(
-                    order.product_id.code, year, order.brew_beer_number,
-                )
-            elif order.state == "draft":
-                order.name = "{}_{}_{}".format(
-                    order.product_id.code, year, order.state,
-                )
-
-    @api.multi
-    def _compute_bom(self):
-        for brew_order in self:
-            brew_order.bom = brew_order.production_order_id.bom_id
+    _description = "Brew Order"
 
     name = fields.Char(
         string="Brew order",
-        compute="_compute_display_name",
+        compute="_compute_name",
         store=True,
         copy=False,
     )
@@ -108,8 +50,8 @@ class BrewOrder(models.Model):
         readonly=True,
         states={"draft": [("readonly", False)]},
     )
-    product_uom = fields.Many2one(
-        "product.uom",
+    product_uom_id = fields.Many2one(
+        "uom.uom",
         "Product Unit of Measure",
         required=True,
         readonly=True,
@@ -119,7 +61,7 @@ class BrewOrder(models.Model):
         "mrp.production", string="Production Order", readonly=True
     )
     consumed_lines = fields.One2many(
-        "stock.move", string="Consumed lines", compute=_get_consumed_lines
+        "stock.move", string="Consumed lines", compute="_compute_consumed_lines"
     )
     bom = fields.Many2one(
         "mrp.bom", string="Bill of material", compute="_compute_bom"
@@ -142,11 +84,68 @@ class BrewOrder(models.Model):
     output_beer = fields.Float(string="Output beer")
     notes = fields.Char(string="Notes")
 
+    @api.onchange("product_id")
+    def onchange_product(self):
+        if self.product_id:
+            self.product_uom_id = self.product_id.uom_id
+
+    @api.onchange("start_date")
+    def onchange_start_date(self):
+        if self.start_date:
+            self.end_date = self.start_date
+            self.wort_gathering_date = self.start_date
+
+    @api.onchange("end_date")
+    def onchange_end_date(self):
+        if self.end_date:
+            self.wort_gathering_date = self.end_date
+
+    @api.multi
+    @api.depends("production_order_id")
+    def _compute_consumed_lines(self):
+        self.ensure_one()
+        for brew_order in self:
+            raw_mat_moves = self.env["stock.move"]
+            for child_mo in brew_order.production_order_id.child_mo_ids:
+                raw_mat_moves |= child_mo.move_raw_ids.filtered(
+                    lambda record: record.state == "done"
+                )
+
+            raw_mat_moves |= brew_order.production_order_id.move_raw_ids.filtered(
+                lambda record: record.state == "done"
+            )
+            brew_order.consumed_lines = raw_mat_moves
+
+    @api.multi
+    @api.depends(
+        "product_id", "brew_number", "brew_beer_number", "state", "start_date"
+    )
+    def _compute_name(self):
+        year = date.today().year
+        if self.start_date:
+            year = self.start_date.year
+        for order in self:
+            if order.state in ["done", "cancel"]:
+                order.name = "{}_{}_{}".format(
+                    order.product_id.code, year, order.brew_beer_number,
+                )
+            else:
+                order.name = "{}_{}_{}".format(
+                    order.product_id.code, year, order.state,
+                )
+
+    @api.multi
+    def _compute_bom(self):
+        for brew_order in self:
+            brew_order.bom = brew_order.production_order_id.bom_id
+
     @api.multi
     def action_confirm(self):
-        bom_id = self.env["mrp.bom"]._bom_find(
-            product_id=self.product_id.id, properties=[]
-        )
+        bom_id = self.env["mrp.bom"]._bom_find(product=self.product_id)
+        if not bom_id:
+            raise UserError(
+                _("No Bill of Materials found.")
+            )
         if self.parent_brew_order_id:
             if self.parent_brew_order_id.state != "done":
                 raise UserError(
@@ -174,10 +173,10 @@ class BrewOrder(models.Model):
         vals = {
             "product_id": self.product_id.id,
             "product_qty": self.product_qty,
-            "product_uom": self.product_uom.id,
-            "date_planned": self.start_date,
+            "product_uom_id": self.product_uom_id.id,
+            "date_planned_start": self.start_date,
             "origin": self.name,
-            "bom_id": bom_id,
+            "bom_id": bom_id.id,
         }
 
         prod_order_id = self.env["mrp.production"].create(vals)

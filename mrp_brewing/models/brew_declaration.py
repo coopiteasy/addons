@@ -6,13 +6,15 @@ from odoo import api, fields, models
 
 class BrewDeclaration(models.Model):
     _name = "brew.declaration"
+    _description = "Brew Declaration"
+    _order = "brew_declaration_number desc, request_date desc"
 
     brew_declaration_number = fields.Integer(
         string="Brew declaration number", readonly=True, copy=False
     )
     request_date = fields.Date(string="Request date", required=True)
     state = fields.Selection(
-        [("draft", "Draft"), ("confirm", "confirm"), ("cancel", "Cancelled")],
+        [("draft", "Draft"), ("confirm", "Confirm"), ("cancel", "Cancelled")],
         string="Status",
         readonly=True,
         default="draft",

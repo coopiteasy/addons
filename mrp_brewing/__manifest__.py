@@ -5,7 +5,7 @@
     "name": "MRP Brewing",
     "summary": "This module allows to handle product transformation",
     "category": "Stock",
-    "version": "11.0.1.0.0",
+    "version": "12.0.1.0.0",
     "author": "Coop IT Easy SCRLfs",
     "website": "https://coopiteasy.be",
     "license": "AGPL-3",
@@ -13,9 +13,10 @@
         "mrp_byproduct",
         "stock",
         "sale",
+        "sale_stock",
         "product",
-        "sale_order_dates",
         "purchase",
+        "purchase_stock"
     ],
     "data": [
         "security/ir.model.access.csv",
@@ -24,7 +25,7 @@
         "report/report_stock_raw_materials.xml",
         "report/report_stock_finished_products.xml",
         "report/report_brew_register.xml",
-        "report/report_stock.xml",
+        "report/mrp_brewing_report.xml",
         "report/report_layout.xml",
         "wizard/stock_reports_view.xml",
         "wizard/recompute_qty_afte_move_view.xml",
@@ -45,6 +46,7 @@
         "views/res_partner_view.xml",
         "views/res_company_view.xml",
     ],
+    "demo": ["demo/mrp_brewing_demo.xml"],
     "application": True,
     "installable": True,
 }

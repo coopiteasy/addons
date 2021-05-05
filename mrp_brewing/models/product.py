@@ -33,9 +33,9 @@ class ProductProduct(models.Model):
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
-    raw_material = fields.Boolean(string="Is raw material")
-    finished_product = fields.Boolean(string="Is finished product")
-    is_brewable = fields.Boolean(string="Is brewable")
+    raw_material = fields.Boolean(string="Is Raw Material")
+    finished_product = fields.Boolean(string="Is Finished Product")
+    is_brewable = fields.Boolean(string="Is Brewable")
     is_crate = fields.Boolean(string="Is Crate", default=False)
     brew_product_sequence = fields.Many2one(
         "ir.sequence", string="Brew product sequence"
@@ -45,4 +45,6 @@ class ProductTemplate(models.Model):
 class ProductPricelist(models.Model):
     _inherit = "product.pricelist"
 
+    # TODO: could be moved to a new module `product_pricelist_conditions`
+    # that add fields `general_conditions` & `particular_conditions`
     particular_conditions = fields.Text("Particular Conditions")

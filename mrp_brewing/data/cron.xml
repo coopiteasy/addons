@@ -6,7 +6,7 @@
         <field name="numbercall">-1</field>
         <field name="doall" eval="False" />
         <field name="model_id" ref="model_stock_production_lot" />
-        <field name="function">model._batch_compute_qty_available()</field>
+        <field name="code">model._batch_compute_qty_available()</field>
     </record>
 
     <record id="ir_cron_batch_partner_compute_sales_statistics" model="ir.cron">
@@ -16,6 +16,6 @@
         <field name="numbercall">-1</field>
         <field name="doall" eval="False" />
         <field name="model_id" ref="model_res_partner" />
-        <field name="function">model._batch_compute_sales_statistics()</field>
+        <field name="code">model._batch_compute_sales_statistics()</field>
     </record>
 </odoo>

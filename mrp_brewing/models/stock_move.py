@@ -7,13 +7,6 @@ from odoo import api, fields, models
 class StockMove(models.Model):
     _inherit = "stock.move"
 
-    @api.model
-    @api.depends("state")
-    def _compute_on_hand(self):
-        for move in self:
-            if move.state == "done":
-                move.quantity_after_move = move.product_id.qty_available
-
     lot_numbers = fields.Char(
         string="Lot Numbers",
         compute="_compute_lot_numbers",
@@ -31,13 +24,24 @@ class StockMove(models.Model):
         string="Is Internal", compute="_compute_is_internal"
     )
 
+    @api.model
+    @api.depends("state")
+    def _compute_on_hand(self):
+        for move in self:
+            if move.state == "done":
+                move.quantity_after_move = move.product_id.qty_available
+
     @api.multi
-    @api.depends("quant_ids")
+    @api.depends("move_line_ids.package_id.quant_ids")
     def _compute_lot_numbers(self):
 
         for stock_move in self:
             lot_numbers = []
-            for qid in stock_move.quant_ids:
+            # for qid in stock_move.quant_ids:
+            # package_id = Source Package ;
+            # result_package_id = Destination Package
+            for qid in stock_move.mapped("move_line_ids.package_id.quant_ids"):
+
                 if (
                     qid.lot_id.display_name
                     and qid.lot_id.display_name not in lot_numbers

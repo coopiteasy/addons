@@ -52,7 +52,8 @@
                 expr="//field[@name='order_line']/tree/field[@name='name']"
                 position="after"
             >
-                <field name="product_lot_ids" widget="many2many_tags" />
+                <!-- FIXME: cf. _compute_stock_product -->
+                <!-- <field name="product_lot_ids" widget="many2many_tags" /> -->
             </xpath>
         </field>
     </record>
@@ -63,7 +64,8 @@
         <field name="inherit_id" ref="sale.view_order_line_tree" />
         <field name="arch" type="xml">
             <field name="name" position="after">
-                <field name="product_lot_ids" />
+                <!-- FIXME: cf. _compute_stock_product -->
+                <!-- <field name="product_lot_ids" widget="many2many_tags" /> -->
                 <field name="effective_date" />
             </field>
         </field>

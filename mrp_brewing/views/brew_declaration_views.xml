@@ -24,6 +24,7 @@
                         string="Confirm Declaration"
                         type="object"
                     />
+                    <!-- FIXME:`sent` and `sale` not in `state` -->
                     <button
                         name="action_cancel"
                         states="draft,sent,sale"
@@ -55,7 +56,7 @@
                             <field name="start_date" />
                             <field name="product_id" />
                             <field name="product_qty" />
-                            <field name="product_uom" />
+                            <field name="product_uom_id" />
                             <field name="state" />
                         </tree>
                     </field>
@@ -87,16 +88,20 @@
                 <separator />
                 <group expand="0" string="Group By...">
                     <filter
+                        name="group_by_state"
                         string="Status"
                         domain="[]"
                         context="{'group_by':'state'}"
                     />
+
                     <filter
+                        name="group_by_request_date"
                         string="Scheduled Month"
                         domain="[]"
-                        context="{'group_by':'date_planned'}"
-                        help="Scheduled Date by Month"
+                        context="{'group_by':'request_date'}"
+                        help="Request Date"
                     />
+
                 </group>
            </search>
         </field>
@@ -107,7 +112,7 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">brew.declaration</field>
         <field name="view_type">form</field>
-        <field name="view_mode">tree,form,calendar</field>
+        <field name="view_mode">tree,form</field>
         <field name="view_id" eval="view_declaration_tree" />
         <field name="search_view_id" ref="view_brew_declaration_filter" />
         <field name="help" type="html">

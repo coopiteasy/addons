@@ -6,7 +6,7 @@
         string="Raw materials stock report"
         report_type="qweb-pdf"
         name="mrp_brewing.stock_raw_materials"
-        file="mrp_brewing.report_stock_raw_materials"
+        file="mrp_brewing.stock_raw_materials"
     />
     <report
         id="action_finished_products_report"
@@ -14,14 +14,14 @@
         string="Raw materials stock report"
         report_type="qweb-pdf"
         name="mrp_brewing.stock_finished_products"
-        file="mrp_brewing.report_stock_finished_products"
+        file="mrp_brewing.stock_finished_products"
     />
     <report
         id="action_brew_register_report"
         model="brew.order"
-        string="Brew register report"
+        string="Brew Register Report"
         report_type="qweb-pdf"
         name="mrp_brewing.brew_register"
-        file="mrp_brewing.report_brew_register"
+        file="mrp_brewing.brew_register"
     />
 </odoo>

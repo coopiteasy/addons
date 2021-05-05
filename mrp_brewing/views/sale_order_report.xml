@@ -1,13 +1,36 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <template id="report_saleorder_brewing" inherit_id="sale.report_saleorder_document">
-        <xpath expr="//tbody[@class='sale_tbody']/../thead/tr/th[1]" position="after">
-            <th class="text-right">Production lot</th>
+        <xpath expr="//th[@name='th_description']" position="after">
+            <th name="th_productionlot" class="text-right">Production lot</th>
         </xpath>
-        <xpath expr="//span[@t-field='l.name']" position="after">
-            <td class="text-right">
+        <xpath
+            expr="//t[@t-if='not line.display_type']//span[@t-field='line.name']"
+            position="after"
+        >
+            <td name="td_productionlot" class="text-right">
                 <span
-                    t-esc="', '.join(map(lambda x: (x.name or x.ref), l.product_lot_ids))"
+                    t-esc="', '.join(map(lambda x: (x.name or x.ref), line.product_lot_ids))"
+                />
+            </td>
+        </xpath>
+        <xpath
+            expr="//t[@t-if=&quot;line.display_type == &apos;line_section&apos;&quot;]//span[@t-field='line.name']"
+            position="after"
+        >
+            <td name="td_productionlot" class="text-right">
+                <span
+                    t-esc="', '.join(map(lambda x: (x.name or x.ref), line.product_lot_ids))"
+                />
+            </td>
+        </xpath>
+        <xpath
+            expr="//t[@t-if=&quot;line.display_type == &apos;line_note&apos;&quot;]//span[@t-field='line.name']"
+            position="after"
+        >
+            <td name="td_productionlot" class="text-right">
+                <span
+                    t-esc="', '.join(map(lambda x: (x.name or x.ref), line.product_lot_ids))"
                 />
             </td>
         </xpath>

@@ -103,11 +103,12 @@ class SaleOrder(models.Model):
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
-    product_lot_ids = fields.Many2many(
-        "stock.production.lot",
-        string="Stock Product Lot",
-        compute="_compute_stock_product",
-    )
+    # FIXME: cf. _compute_stock_product
+    # product_lot_ids = fields.Many2many(
+    #     "stock.production.lot",
+    #     string="Stock Product Lot",
+    #     compute="_compute_stock_product",
+    # )
     effective_date = fields.Date(
         related="order_id.effective_date", string="Effective Date"
     )
@@ -117,6 +118,13 @@ class SaleOrderLine(models.Model):
         """Computes the delivered product lot on sale order lines, based on
         done stock moves related to its procurements
         """
+
+        # FIXME: in 11.0, `procurement` has been merged in `stock`
+        # - model `procurement.order` doesn't exist anymore
+        # - simply delete?
+        # - could `move_ids` and `_compute_qty_delivered` be used instead?
+        #   (https://github.com/OCA/OCB/blob/12.0/addons/sale_stock/models/sale_order.py#L186)
+
         for line in self:
             product_lot_ids = []
             for move in line.procurement_ids.mapped("move_ids").filtered(

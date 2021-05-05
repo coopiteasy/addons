@@ -1,9 +1,9 @@
 from odoo import api, fields, models
 
 MODEL_MAP = {
-    "mrp_brewing.stock_raw_materials": "stock.move",
-    "mrp_brewing.stock_finished_products": "stock.move",
-    "mrp_brewing.brew_register": "brew.order",
+    "mrp_brewing.action_raw_materials_report": "stock.move",
+    "mrp_brewing.action_finished_products_report": "stock.move",
+    "mrp_brewing.action_brew_register_report": "brew.order",
 }
 
 
@@ -13,11 +13,11 @@ class StockReport(models.TransientModel):
 
     report_name = fields.Selection(
         [
-            ("mrp_brewing.stock_raw_materials", "Raw Material Report"),
-            ("mrp_brewing.stock_finished_products", "Finished Product Report"),
-            ("mrp_brewing.brew_register", " Brew Register Report"),
+            ("mrp_brewing.action_raw_materials_report", "Raw Material Report"),
+            ("mrp_brewing.action_finished_products_report", "Finished Product Report"),
+            ("mrp_brewing.action_brew_register_report", " Brew Register Report"),
         ],
-        string="report Name",
+        string="Report Name",
         required=True,
     )
     date_from = fields.Date(string="Start Date")
@@ -41,4 +41,5 @@ class StockReport(models.TransientModel):
         data["form"]["used_context"] = dict(
             used_context, lang=self.env.context.get("lang", "en_US")
         )
-        return self.env["report"].get_action(self, self.report_name, data=data)
+        #return self.env["report"].get_action(self, self.report_name, data=data)
+        return self.env.ref(self.report_name).report_action(self, data=data)
