@@ -57,7 +57,7 @@ def compute_last_order(partner_orders):
 def compute_sale_frequency(partner_orders):
     partner_orders = filter_last_year_orders(partner_orders)
     order_dates = partner_orders.mapped("date_order")
-    order_dates = map(_parse_date, order_dates)
+    order_dates = list(map(_parse_date, order_dates))
     order_dates = list(sorted(order_dates))
 
     if len(order_dates) >= 2:
@@ -96,7 +96,9 @@ def compute_crate_per_month(partner_orders):
     if crate_lines:
         nb_crates = sum(crate_lines.mapped("qty_invoiced"))
 
-        order_dates = map(_parse_date, partner_orders.mapped("date_order"))
+        order_dates = list(
+            map(_parse_date, partner_orders.mapped("date_order"))
+        )
         first_order_date = sorted(order_dates, reverse=True).pop()
         nb_months = month_delta(first_order_date, dt.datetime.today())
 

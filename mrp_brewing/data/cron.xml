@@ -5,9 +5,8 @@
         <field name="interval_type">months</field>
         <field name="numbercall">-1</field>
         <field name="doall" eval="False" />
-        <field name="model">stock.production.lot</field>
-        <field name="function">_batch_compute_qty_available</field>
-        <field name="args">()</field>
+        <field name="model_id" ref="model_stock_production_lot" />
+        <field name="function">model._batch_compute_qty_available()</field>
     </record>
 
     <record id="ir_cron_batch_partner_compute_sales_statistics" model="ir.cron">
@@ -16,8 +15,7 @@
         <field name="interval_type">days</field>
         <field name="numbercall">-1</field>
         <field name="doall" eval="False" />
-        <field name="model">res.partner</field>
-        <field name="function">_batch_compute_sales_statistics</field>
-        <field name="args">()</field>
+        <field name="model_id" ref="model_res_partner" />
+        <field name="function">model._batch_compute_sales_statistics()</field>
     </record>
 </odoo>

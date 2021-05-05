@@ -1,24 +1,30 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <template id="mrp_brewing.brew_register">
-        <t t-call="report.html_container">
+        <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
-                <t t-call="report.internal_layout">
+                <t t-call="web.internal_layout">
                     <div class="page">
                         <h2 style="text-align:center">Brew Register Report</h2>
-                        <br/>
+                        <br />
                         <h3 style="text-align:center">Authorized warehousekeeper n°
-                            <span t-esc="res_company.warehousekeeper_no"/>
+                            <span t-esc="res_company.warehousekeeper_no" />
                         </h3>
-                        <br/>
-                        <br/>
+                        <br />
+                        <br />
                         <table class="table table-condensed">
                             <thead>
                                 <tr>
                                     <th>Brew date</th>
-                                    <th colspan='5' style="text-align: center;">Brew Declaration</th>
+                                    <th
+                                        colspan='5'
+                                        style="text-align: center;"
+                                    >Brew Declaration</th>
                                     <th>Used vessels for work in tank</th>
-                                    <th colspan='3' style="text-align: center;">Used raw material quantity</th>
+                                    <th
+                                        colspan='3'
+                                        style="text-align: center;"
+                                    >Used raw material quantity</th>
                                     <th>% dry extract</th>
                                     <th>Real bulk of wort</th>
                                     <th>Hl noted by the brewer</th>
@@ -32,129 +38,163 @@
                                     <th>Remark</th>
                                 </tr>
                                 <tr>
-                                    <td/>
+                                    <td />
                                     <td>Date</td>
                                     <td>Number</td>
                                     <td>Brew number</td>
                                     <td>Bom id</td>
                                     <td>Product code</td>
-                                    <td/>
+                                    <td />
                                     <td>Species</td>
                                     <td>Quantity</td>
                                     <td>UoM</td>
-                                    <td/>
-                                    <td/>
-                                    <td/>
-                                    <td/>
-                                    <td/>
-                                    <td/>
-                                    <td/>
-                                    <td/>
-                                    <td/>
-                                    <td/>
-                                    <td/>
+                                    <td />
+                                    <td />
+                                    <td />
+                                    <td />
+                                    <td />
+                                    <td />
+                                    <td />
+                                    <td />
+                                    <td />
+                                    <td />
+                                    <td />
                                 </tr>
                             </thead>
                             <tbody>
                                 <t t-foreach="get_brew_orders" t-as="a">
                                     <t t-if="a.state == 'done'">
-                                        <t t-set="lign_count" t-value="0"/>
+                                        <t t-set="lign_count" t-value="0" />
                                         <t t-foreach="a.consumed_lines" t-as="stm">
                                             <t t-if="lign_count == 0">
                                                 <tr>
                                                     <td>
-                                                        <span t-field="a.with_context(tz=a.env.user.tz).start_date"/>
+                                                        <span
+                                                            t-field="a.with_context(tz=a.env.user.tz).start_date"
+                                                        />
                                                     </td>
                                                     <td>
-                                                        <span t-field="a.with_context(tz=a.env.user.tz).brew_declaration_id.request_date"/>
+                                                        <span
+                                                            t-field="a.with_context(tz=a.env.user.tz).brew_declaration_id.request_date"
+                                                        />
                                                     </td>
                                                     <td>
-                                                        <span t-esc="a.brew_declaration_id.brew_declaration_number"/>
+                                                        <span
+                                                            t-esc="a.brew_declaration_id.brew_declaration_number"
+                                                        />
                                                     </td>
                                                     <td>
-                                                        <span t-esc="a.brew_number"/>
+                                                        <span t-esc="a.brew_number" />
                                                     </td>
                                                     <td>
-                                                        <span t-esc="a.bom.code"/>
+                                                        <span t-esc="a.bom.code" />
                                                     </td>
                                                     <td>
-                                                        <span t-esc="a.product_id.code"/>
+                                                        <span
+                                                            t-esc="a.product_id.code"
+                                                        />
                                                     </td>
                                                     <td>
-                                                        <span t-esc="a.used_vessels_tank"/>
+                                                        <span
+                                                            t-esc="a.used_vessels_tank"
+                                                        />
                                                     </td>
                                                     <td>
-                                                        <span t-esc="stm.product_id.name"/>
+                                                        <span
+                                                            t-esc="stm.product_id.name"
+                                                        />
                                                     </td>
                                                     <td>
-                                                        <span t-esc="stm.product_uom_qty"/>
+                                                        <span
+                                                            t-esc="stm.product_uom_qty"
+                                                        />
                                                     </td>
                                                     <td>
-                                                        <span t-esc="stm.product_uom.name"/>
+                                                        <span
+                                                            t-esc="stm.product_uom.name"
+                                                        />
                                                     </td>
                                                     <td>
-                                                        <span t-esc="a.dry_extract"/>
+                                                        <span t-esc="a.dry_extract" />
                                                     </td>
                                                     <td>
-                                                        <span t-esc="a.real_bulk_wort"/>
+                                                        <span
+                                                            t-esc="a.real_bulk_wort"
+                                                        />
                                                     </td>
                                                     <td>
-                                                        <span t-esc="a.hl_plato_brewer"/>
+                                                        <span
+                                                            t-esc="a.hl_plato_brewer"
+                                                        />
                                                     </td>
                                                     <td>
-                                                        <span t-esc="a.collecting_vessels"/>
+                                                        <span
+                                                            t-esc="a.collecting_vessels"
+                                                        />
                                                     </td>
                                                     <td>
-                                                        <span t-esc="a.hl_plato_agent"/>
+                                                        <span
+                                                            t-esc="a.hl_plato_agent"
+                                                        />
                                                     </td>
                                                     <td>
-                                                        <span t-esc="a.green_beer_volume"/>
+                                                        <span
+                                                            t-esc="a.green_beer_volume"
+                                                        />
                                                     </td>
                                                     <td>
-                                                        <span t-esc="a.sugar_quantity"/>
+                                                        <span
+                                                            t-esc="a.sugar_quantity"
+                                                        />
                                                     </td>
                                                     <td>
-                                                        <span t-esc="a.output_wort"/>
+                                                        <span t-esc="a.output_wort" />
                                                     </td>
                                                     <td>
-                                                        <span t-esc="a.output_beer"/>
+                                                        <span t-esc="a.output_beer" />
                                                     </td>
                                                     <td>
-                                                        <span t-esc="a.notes"/>
+                                                        <span t-esc="a.notes" />
                                                     </td>
                                                 </tr>
                                             </t>
                                             <t t-if="lign_count != 0">
                                                 <tr>
-                                                    <td/>
-                                                    <td/>
-                                                    <td/>
-                                                    <td/>
-                                                    <td/>
-                                                    <td/>
-                                                    <td/>
+                                                    <td />
+                                                    <td />
+                                                    <td />
+                                                    <td />
+                                                    <td />
+                                                    <td />
+                                                    <td />
                                                     <td>
-                                                        <span t-esc="stm.product_id.name"/>
+                                                        <span
+                                                            t-esc="stm.product_id.name"
+                                                        />
                                                     </td>
                                                     <td>
-                                                        <span t-esc="stm.product_uom_qty"/>
+                                                        <span
+                                                            t-esc="stm.product_uom_qty"
+                                                        />
                                                     </td>
                                                     <td>
-                                                        <span t-esc="stm.product_uom.name"/>
+                                                        <span
+                                                            t-esc="stm.product_uom.name"
+                                                        />
                                                     </td>
-                                                    <td/>
-                                                    <td/>
-                                                    <td/>
-                                                    <td/>
-                                                    <td/>
-                                                    <td/>
-                                                    <td/>
-                                                    <td/>
-                                                    <td/>
-                                                    <td/>
+                                                    <td />
+                                                    <td />
+                                                    <td />
+                                                    <td />
+                                                    <td />
+                                                    <td />
+                                                    <td />
+                                                    <td />
+                                                    <td />
+                                                    <td />
                                                 </tr>
                                             </t>
-                                            <t t-set="lign_count" t-value="1"/>
+                                            <t t-set="lign_count" t-value="1" />
                                         </t>
                                     </t>
                                 </t>

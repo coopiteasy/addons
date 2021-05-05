@@ -1,14 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <template id="mrp_brewing.stock_raw_materials">
-        <t t-call="report.html_container">
+        <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
-                <t t-call="report.internal_layout">
+                <t t-call="web.internal_layout">
                     <div class="page">
                         <h2 style="text-align:center">Raw Materials Stock Report</h2>
-                        <br/>
+                        <br />
                         <h3 style="text-align:center">Authorized warehousekeeper n°
-                            <span t-esc="res_company.warehousekeeper_no"/>
+                            <span t-esc="res_company.warehousekeeper_no" />
                         </h3>
 
                         <table class="table table-condensed">
@@ -39,64 +39,102 @@
                                 <tr t-foreach="get_stock_moves" t-as="a">
                                     <t t-if="a.location_id.usage == 'supplier'">
                                         <td>
-                                            <span t-esc="a.purchase_line_id.order_id.partner_ref"/>
+                                            <span
+                                                t-esc="a.purchase_line_id.order_id.partner_ref"
+                                            />
                                         </td>
                                         <td>
-                                            <span t-esc="a.origin"/>
+                                            <span t-esc="a.origin" />
                                         </td>
                                         <td>
-                                            <span t-att-style="style" t-field="a.with_context(tz=a.env.user.tz).date"/>
+                                            <span
+                                                t-att-style="style"
+                                                t-field="a.with_context(tz=a.env.user.tz).date"
+                                            />
                                         </td>
                                         <td>
-                                            <span t-att-style="style" t-esc="a.product_id.name"/>
+                                            <span
+                                                t-att-style="style"
+                                                t-esc="a.product_id.name"
+                                            />
                                         </td>
                                         <td>
-                                            <span t-att-style="style" t-esc="a.product_uom_qty"/>
+                                            <span
+                                                t-att-style="style"
+                                                t-esc="a.product_uom_qty"
+                                            />
                                         </td>
                                         <td>
-                                            <span t-att-style="style" t-esc="a.product_uom.name"/>
+                                            <span
+                                                t-att-style="style"
+                                                t-esc="a.product_uom.name"
+                                            />
                                         </td>
-                                        <td/>
-                                        <td/>
-                                        <td/>
-                                        <td/>
-                                        <td/>
-                                        <td/>
-                                        <td/>
+                                        <td />
+                                        <td />
+                                        <td />
+                                        <td />
+                                        <td />
+                                        <td />
+                                        <td />
                                         <td>
-                                            <span t-att-style="style" t-esc="a.quantity_after_move"/>
+                                            <span
+                                                t-att-style="style"
+                                                t-esc="a.quantity_after_move"
+                                            />
                                         </td>
                                     </t>
-                                    <t t-if="a.location_dest_id.usage in ['production','inventory','customer']">
-                                        <td/>
-                                        <td/>
-                                        <td/>
-                                        <td/>
-                                        <td/>
-                                        <td/>
+                                    <t
+                                        t-if="a.location_dest_id.usage in ['production','inventory','customer']"
+                                    >
+                                        <td />
+                                        <td />
+                                        <td />
+                                        <td />
+                                        <td />
+                                        <td />
                                         <td>
-                                            <span t-esc="a.raw_material_production_id.brew_order_name"/>
+                                            <span
+                                                t-esc="a.raw_material_production_id.brew_order_name"
+                                            />
                                         </td>
                                         <td>
-                                            <span t-esc="a.raw_material_production_id.brew_number"/>
+                                            <span
+                                                t-esc="a.raw_material_production_id.brew_number"
+                                            />
                                         </td>
                                         <td>
-                                            <span t-esc="a.origin"/>
+                                            <span t-esc="a.origin" />
                                         </td>
                                         <td>
-                                            <span t-att-style="style" t-field="a.with_context(tz=a.env.user.tz).date"/>
+                                            <span
+                                                t-att-style="style"
+                                                t-field="a.with_context(tz=a.env.user.tz).date"
+                                            />
                                         </td>
                                         <td>
-                                            <span t-att-style="style" t-esc="a.product_id.name"/>
+                                            <span
+                                                t-att-style="style"
+                                                t-esc="a.product_id.name"
+                                            />
                                         </td>
                                         <td>
-                                            <span t-att-style="style" t-esc="a.product_uom_qty"/>
+                                            <span
+                                                t-att-style="style"
+                                                t-esc="a.product_uom_qty"
+                                            />
                                         </td>
                                         <td>
-                                            <span t-att-style="style" t-esc="a.product_uom.name"/>
+                                            <span
+                                                t-att-style="style"
+                                                t-esc="a.product_uom.name"
+                                            />
                                         </td>
                                         <td>
-                                            <span t-att-style="style" t-esc="a.quantity_after_move"/>
+                                            <span
+                                                t-att-style="style"
+                                                t-esc="a.quantity_after_move"
+                                            />
                                         </td>
                                     </t>
                                 </tr>

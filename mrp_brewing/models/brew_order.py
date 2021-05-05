@@ -57,11 +57,11 @@ class BrewOrder(models.Model):
             ).year
         for order in self:
             if order.state in ["done", "cancel"]:
-                order.name = u"{}_{}_{}".format(
+                order.name = "{}_{}_{}".format(
                     order.product_id.code, year, order.brew_beer_number,
                 )
             elif order.state == "draft":
-                order.name = u"{}_{}_{}".format(
+                order.name = "{}_{}_{}".format(
                     order.product_id.code, year, order.state,
                 )
 

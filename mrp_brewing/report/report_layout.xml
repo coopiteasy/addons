@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <template
-        id="extend_external_layout_header"
-        inherit_id="report.external_layout_header"
+        id="extend_external_layout_background"
+        inherit_id="web.external_layout_background"
     >
-        <xpath expr="//div[@name='company_address']" position="after">
-                <div class="col-xs-3" name="company_vat">
-                    <strong>N° de TVA:</strong>
-                    <p t-field="company.vat" />
+        <xpath expr="//div[hasclass('company_address')]" position="after">
+            <div class="pull-left company_vat" name="company_vat">
+                <div>
+                    <strong>VAT number:</strong>
+                    <span t-field="company.vat" />
                 </div>
-                <div class="col-xs-3" name="account_number">
-                    <strong>Compte bancaire:</strong>
+            </div>
+            <div class="pull-left account_number" name="account_number">
+                <div>
+                    <strong>Bank account:</strong>
                     <t t-foreach="company.bank_journal_ids" t-as="journal">
                         <t t-set="b" t-value="journal.bank_account_id" />
                         <t t-if="journal.display_on_footer">
@@ -18,6 +21,66 @@
                         </t>
                     </t>
                 </div>
+            </div>
+            <br />
+        </xpath>
+    </template>
+
+    <template id="extend_external_layout_boxed" inherit_id="web.external_layout_boxed">
+        <xpath expr="//div[@name='company_address']" position="after">
+            <div class="mb4" name="company_vat">
+                <strong>VAT number:</strong>
+                <p t-field="company.vat" />
+            </div>
+            <div class="mb4" name="account_number">
+                <strong>Bank account:</strong>
+                <t t-foreach="company.bank_journal_ids" t-as="journal">
+                    <t t-set="b" t-value="journal.bank_account_id" />
+                    <t t-if="journal.display_on_footer">
+                        <p t-field="b.acc_number" />
+                    </t>
+                </t>
+            </div>
+            <br />
+        </xpath>
+    </template>
+
+    <template id="extend_external_layout_clean" inherit_id="web.external_layout_clean">
+        <xpath expr="//div[@name='company_address']" position="after">
+            <div class="col-xs-5 col-xs-offset-1" name="account_number">
+                <ul class="list-unstyled">
+                    <strong>Bank account:</strong>
+                    <t t-foreach="company.bank_journal_ids" t-as="journal">
+                        <t t-set="b" t-value="journal.bank_account_id" />
+                        <li t-if="journal.display_on_footer">
+                            <span t-field="b.acc_number" />
+                        </li>
+                    </t>
+                </ul>
+
+            </div>
+            <br />
+        </xpath>
+    </template>
+
+    <template
+        id="extend_external_layout_standard"
+        inherit_id="web.external_layout_standard"
+    >
+        <xpath expr="//div[@name='company_address']" position="after">
+            <div class="col-xs-6" name="company_vat">
+                <strong>VAT number:</strong>
+                <p t-field="company.vat" />
+            </div>
+            <div class="col-xs-6" name="account_number">
+                <strong>Bank account:</strong>
+                <t t-foreach="company.bank_journal_ids" t-as="journal">
+                    <t t-set="b" t-value="journal.bank_account_id" />
+                    <t t-if="journal.display_on_footer">
+                        <p t-field="b.acc_number" />
+                    </t>
+                </t>
+            </div>
             <br />
         </xpath>
     </template>

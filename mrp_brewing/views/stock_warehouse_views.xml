@@ -8,7 +8,7 @@
             <xpath expr="//field[@name='name']/.." position="replace">
                 <tree
                     string="Reordering Rules"
-                    colors="red:qty_available &lt; product_min_qty"
+                    decoration-danger="(qty_available &lt; product_min_qty)"
                 >
                     <field name="warehouse_id" groups="stock.group_locations" />
                     <field name="location_id" groups="stock.group_locations" />

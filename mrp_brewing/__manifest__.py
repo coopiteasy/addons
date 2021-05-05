@@ -5,7 +5,7 @@
     "name": "MRP Brewing",
     "summary": "This module allows to handle product transformation",
     "category": "Stock",
-    "version": "10.0.1.0.0",
+    "version": "11.0.1.0.0",
     "author": "Coop IT Easy SCRLfs",
     "website": "https://coopiteasy.be",
     "license": "AGPL-3",
