@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="assets_frontend"
+        inherit_id="web.assets_frontend"
+        name="Auth company signup"
+    >
+        <xpath expr="." position="inside">
+              <script
+                src="/auth_company_signup/static/src/js/auth_signup.js"
+                type="text/javascript"
+            />
+        </xpath>
+    </template>
+</odoo>

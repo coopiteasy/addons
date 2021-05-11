@@ -42,6 +42,7 @@ Authors
 ~~~~~~~
 
 * humanilog
+* Coop IT Easy SCRLfs
 
 Maintainers
 ~~~~~~~~~~~
