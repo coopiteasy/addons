@@ -17,23 +17,30 @@ Available addons
 ----------------
 addon | version | summary
 --- | --- | ---
+[account_invoice_check_bba_com](account_invoice_check_bba_com/) | 12.0.1.0.0 | Check the structured communication if the supplier invoice communication is of type bba.
+[account_invoice_check_identical_invoice](account_invoice_check_identical_invoice/) | 12.0.1.0.0 | Check if invoices with the same partner, invoice date and total amount already exist
+[account_invoice_default_account_date](account_invoice_default_account_date/) | 12.0.1.0.0 | Sets the accounting date to the invoice date by default.
 [account_invoice_line_update](account_invoice_line_update/) | 12.0.1.0.0 | Update invoice lines to reload the right taxes on the lines.
+[account_invoice_provider_reference](account_invoice_provider_reference/) | 12.0.1.0.0 | Invoice Provider Reference
+[auth_company_signup](auth_company_signup/) | 12.0.1.0.0 | This module allows a user to sign up as a company.
+[belgian_bank_data](belgian_bank_data/) | 12.0.1.0.0 | This module imports Belgian banks with their name and BIC code.
 [document_hosting](document_hosting/) | 12.0.1.0.0 | Manage documents that can be published on website with ??.
 [email_template_config](email_template_config/) | 12.0.1.0.0 | This module extends the email in order to force some behaviours configured in the mail template(e.g. force send mail or not).
-[hr_timesheet_sheet_tag](hr_timesheet_sheet_tag/) | 12.0.1.0.0 | Tag your analytic line in the timesheet sheet view.
-[hr_timesheet_tag](hr_timesheet_tag/) | 12.0.1.0.0 | Tag your timesheet activity.
 [invoice_global_discount](invoice_global_discount/) | 12.0.1.1.0 | This module give global discount on invoice. It allows to set the same discount on all the invoice lines without been forced to go manually through them.
+[mail_auto_resend](mail_auto_resend/) | 12.0.1.0.0 | Automatically resend failed emails
 [partner_contact_address](partner_contact_address/) | 12.0.1.0.0 | This module allows to have company contacts with their own address.
-[partner_socialmedia](partner_socialmedia/) | 10.0.1.0.0 | Add social media fields to contacts
-[pos_default_quantity](pos_default_quantity/) | 12.0.1.0.0 | When adding an to order line, this module sets the quantity to the default quantity set on the product unit category.
-[pos_order_taxes_fix](pos_order_taxes_fix/) | 12.0.1.0.0 | Adds a button to on pos session to fix the taxes of the orders that doesn't match the calculation on backend"
-[pos_products](pos_products/) | 12.0.1.0.0 | Adds information on POS product card. - display weight - producers
-[pos_round_cash_payment](pos_round_cash_payment/) | 12.0.1.0.0 | Rounds due amount to nearest 5 cents when adding a cash Payment line.
-[pos_search_accented_unaccented](pos_search_accented_unaccented/) | 12.0.1.0.0 | Allows to search in POS for products with accented characters in name using unaccented search query.
+[partner_socialmedia](partner_socialmedia/) | 12.0.1.0.0 | Add social media fields to contacts
+[pos_custom_receipt](pos_custom_receipt/) | 12.0.1.0.0 | Hide company's email and add customer's name to POS receipt
+[pos_self_service_base](pos_self_service_base/) | 12.0.1.0.0 | POS Self-Service Base Module
+[pos_self_service_print_zpl](pos_self_service_print_zpl/) | 12.0.1.0.0 | POS Self-Service Print ZPL from browser
+[product_label_report](product_label_report/) | 12.0.1.0.0 | This module allows to show the print barcode and name of the product.
 [product_to_bizerba_scale](product_to_bizerba_scale/) | 12.0.1.0.0 | This module merges product_to_scale_bizerba and product_to_scale_bizerba_extended into one.
-[purchase_order_line_auto_import](purchase_order_line_auto_import/) | 12.0.1.0.0 | This module allows to create automatically line with the product and minimal quantities when selecting the partner. The user can then delete the line that he doesn't want and update the quantity for each product on the line.
+[purchase_invoice_status](purchase_invoice_status/) | 12.0.1.0.0 | Add invoice status on purchase orders
+[purchase_order_line_auto_import](purchase_order_line_auto_import/) | 12.0.1.0.0 | This module allows to create automatically line with the product and minimal quantities when selecting the partner.
 [purchase_order_weight](purchase_order_weight/) | 12.0.1.0.0 | Adds weight and weight unit to Purchase Order
-[spp_custom](spp_custom/) | 12.0.1.0.0 | Specifics customizations for SPP
+[sale_order_mass_confirmation](sale_order_mass_confirmation/) | 12.0.1.0.0 | Confirm multiple sale orders (quotations) with one action
+[sale_order_volume](sale_order_volume/) | 12.0.1.0.0 | Computes the volume of products per category ordered and display it on
+[stock_inventory_confirm_reset_qty](stock_inventory_confirm_reset_qty/) | 12.0.1.0.0 | Show a confirmation dialog box when clicking on 'Set quantities to 0' in a stock.inventory
 [stock_picking_copy_qty](stock_picking_copy_qty/) | 12.0.1.0.0 | Adds a button to copy reserved quantity to received quantity
 [stock_product_weight_on_receipt](stock_product_weight_on_receipt/) | 12.0.1.0.0 | Show product weight and unit weight on each line of a receipt
 [stock_provider_ref_on_receipt](stock_provider_ref_on_receipt/) | 12.0.1.0.0 | Show provider reference on each line of a receipt
