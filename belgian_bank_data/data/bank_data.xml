@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <data noupdate="1">
         <!-- Belgium Bank Information -->
@@ -157,7 +157,7 @@
             <field name="bic">FTNOBEB1</field>
         </record>
 
-        <record id="bank_degroof" model="res.bank">
+        <record id="bank_degroof_lux" model="res.bank">
             <field name="name">Banque Degroof Luxembour</field>
             <field name="bic">DEGRBEBB</field>
         </record>

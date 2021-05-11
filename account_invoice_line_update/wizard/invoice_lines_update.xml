@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="view_invoice_line_update" model="ir.ui.view">
         <field name="name">Update invoice lines</field>
@@ -9,11 +9,13 @@
                     Update Invoice lines.
                 </p>
                 <footer>
-                    <button name="update_invoice" string="Update Info"
-                            type="object"
-                            class="btn-primary"/>
-                    <button string="Cancel" class="btn-default"
-                            special="cancel"/>
+                    <button
+                        name="update_invoice"
+                        string="Update Info"
+                        type="object"
+                        class="btn-primary"
+                    />
+                    <button string="Cancel" class="btn-default" special="cancel" />
                 </footer>
             </form>
         </field>
@@ -27,8 +29,8 @@
         <field name="view_mode">form</field>
         <field name="multi">True</field>
         <field name="target">new</field>
-        <field name="binding_model_id" ref="account.model_account_invoice"/>
-        <field name="groups" ref="base.group_system"/>
+        <field name="binding_model_id" ref="account.model_account_invoice" />
+        <field name="groups" ref="base.group_system" />
     </record>
 
 </odoo>

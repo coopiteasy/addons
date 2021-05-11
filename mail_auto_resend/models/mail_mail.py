@@ -13,7 +13,7 @@ class MailMail(models.Model):
         failed_mails = self.search([("state", "=", "exception")])
         try:
             failed_mails.write({"state": "outgoing"})
-            self.env.cr.commit()
+            self.env.cr.commit()  # pylint: disable=invalid-commit
             _logger.debug("Batch of previously failed emails are now outgoing")
         except Exception:
             self.env.cr.rollback()

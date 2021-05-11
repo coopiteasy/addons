@@ -20,7 +20,7 @@
     "name": "Sale Order Volume",
     "version": "12.0.1.0.0",
     "depends": ["sale", "website_sale"],
-    "author": "Robin Keunen <robin@coopiteasy.be>",
+    "author": "Robin Keunen <robin@coopiteasy.be>, Coop IT Easy SCRLfs",
     "license": "AGPL-3",
     "category": "Sale",
     "website": "https://www.coopiteasy.be",

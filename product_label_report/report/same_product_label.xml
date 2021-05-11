@@ -1,16 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <template id="report_same_product_label_8x3">
         <t t-call="web.basic_layout">
             <div class="page">
-                <t t-call="product_label_report.report_style_8x3"/>
+                <t t-call="product_label_report.report_style_8x3" />
                 <t t-foreach="docs" t-as="product">
 
                     <t t-foreach="range(8)" t-as="l">
                         <div class="row">
                             <t t-foreach="range(3)" t-as="c">
                                 <div class="col-4 height-8 label">
-                                    <t t-call="product_label_report.product_label_content_barcode_and_name"/>
+                                    <t
+                                        t-call="product_label_report.product_label_content_barcode_and_name"
+                                    />
                                 </div>
                             </t>
                         </div>
@@ -24,14 +26,16 @@
     <template id="report_same_product_label_10x4">
         <t t-call="web.basic_layout">
             <div class="page">
-                <t t-call="product_label_report.report_style_10x4"/>
+                <t t-call="product_label_report.report_style_10x4" />
                 <t t-foreach="docs" t-as="product">
 
                     <t t-foreach="range(10)" t-as="l">
                         <div class="row">
                             <t t-foreach="range(4)" t-as="c">
                                 <div class="col-3 height-10 label">
-                                    <t t-call="product_label_report.product_label_content_barcode_and_name"/>
+                                    <t
+                                        t-call="product_label_report.product_label_content_barcode_and_name"
+                                    />
                                 </div>
                             </t>
                         </div>
@@ -45,14 +49,16 @@
     <template id="report_same_product_label_13x5">
         <t t-call="web.basic_layout">
             <div class="page">
-                <t t-call="product_label_report.report_style_13x5"/>
+                <t t-call="product_label_report.report_style_13x5" />
                 <t t-foreach="docs" t-as="product">
 
                     <t t-foreach="range(13)" t-as="l">
                         <div class="row">
                             <t t-foreach="range(5)" t-as="c">
                                 <div class="col width-5 height-13 label">
-                                    <t t-call="product_label_report.product_label_content_barcode_and_name"/>
+                                    <t
+                                        t-call="product_label_report.product_label_content_barcode_and_name"
+                                    />
                                 </div>
                             </t>
                         </div>

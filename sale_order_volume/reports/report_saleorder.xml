@@ -1,7 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <template id="report_saleorder_document"
-              inherit_id="sale.report_saleorder_document">
+    <template
+        id="report_saleorder_document"
+        inherit_id="sale.report_saleorder_document"
+    >
         <div name="total" position="after">
             <table class="table table-condensed" name="volume-per-category">
                 <thead>
@@ -14,10 +16,10 @@
                     <t t-foreach="doc.volume_per_category" t-as="line">
                         <tr>
                             <td>
-                                <span t-field="line.category_id"/>
+                                <span t-field="line.category_id" />
                             </td>
                             <td class="text-right">
-                                <span t-field="line.volume"/>
+                                <span t-field="line.volume" />
                             </td>
                         </tr>
                     </t>
@@ -27,7 +29,7 @@
                         </td>
                         <td class="text-right">
                             <strong>
-                                <span t-field="doc.volume"/>
+                                <span t-field="doc.volume" />
                             </strong>
                         </td>
                     </tr>
