@@ -47,6 +47,7 @@ Authors
 ~~~~~~~
 
 * Robin Keunen <robin@coopiteasy.be>
+* Coop IT Easy SCRLfs
 
 Contributors
 ~~~~~~~~~~~~
