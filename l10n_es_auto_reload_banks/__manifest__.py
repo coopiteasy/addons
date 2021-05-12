@@ -2,7 +2,7 @@
 # - César López Ramírez - <cesar.lopez@coopdevs.org>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
-    "name": "Auto reload Spanish banks from BdE in module upgrade",
+    "name": "l10n_es Auto Reload Banks",
     "version": "12.0.1.0.0",
     "depends": ["base", "l10n_es_partner"],
     "author": "Coopdevs Treball SCCL",
