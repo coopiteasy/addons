@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="products_description_main_seller_total_excluding_vat_by_unit"
+        inherit_id="website_sale.products_description"
+    >
+        <xpath expr="//div[@itemprop='description']" position="before">
+            <t t-if="product.producer">
+                <div itemprop="producer" t-field="product.producer" />
+            </t>
+            <t
+                t-if="product.total_excluding_vat_by_unit and product.default_reference_unit"
+            >
+                <div itemprop="total_excluding_vat_by_default_reference_unit">
+                    <span
+                        t-field="product.total_excluding_vat_by_unit"
+                        t-options="{'widget': 'monetary', 'display_currency': product.currency_id}"
+                    />
+                    /
+                    <span t-field="product.default_reference_unit" />
+                </div>
+            </t>
+        </xpath>
+    </template>
+    <template
+        id="product_main_seller_total_excluding_vat_by_unit"
+        inherit_id="website_sale.product"
+    >
+        <xpath expr="//hr[@t-if='product.description_sale']" position="after">
+            <hr
+                t-if="not product.description_sale and (product.producer or (product.total_excluding_vat_by_unit and product.default_reference_unit))"
+            />
+        </xpath>
+        <xpath expr="//p[@t-field='product.description_sale']" position="before">
+            <t t-if="product.producer">
+                <p t-field="product.producer" class="text-muted" />
+            </t>
+            <t
+                t-if="product.total_excluding_vat_by_unit and product.default_reference_unit"
+            >
+                <p class="text-muted">
+                    <span
+                        t-field="product.total_excluding_vat_by_unit"
+                        t-options="{'widget': 'monetary', 'display_currency': product.currency_id}"
+                    />
+                    /
+                    <span t-field="product.default_reference_unit" />
+                </p>
+            </t>
+        </xpath>
+    </template>
+</odoo>
