@@ -8,8 +8,9 @@ from openerp.exceptions import UserError
 
 class ResCompany(models.Model):
     _inherit = "res.company"
-    sale_note_html = fields.Html(
-        string="Default Terms and Conditions", translate=True, sanitize=False
+    sale_note_html_id = fields.Many2one(
+        comodel_name="res.company.note",
+        string="Default Terms and Conditions",
     )
 
 
@@ -18,7 +19,7 @@ class SaleOrder(models.Model):
 
     @api.model
     def _default_note_html(self):
-        return self.env.user.company_id.sale_note_html
+        return self.env.user.company_id.sale_note_html_id
 
     activity_sale = fields.Boolean(string="Activity Sale?")
     activity_id = fields.Many2one(
@@ -91,8 +92,9 @@ class SaleOrder(models.Model):
         related="activity_id.booked_resources",
         readonly=True,
     )
-    note_html = fields.Html(
-        "Terms and conditions", default=lambda self: self._default_note_html()
+    note_html_id = fields.Many2one(
+        comodel_name="res.company.note",
+        string="Terms and conditions",
     )
 
     @api.multi

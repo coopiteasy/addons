@@ -18,7 +18,7 @@
                     <attribute name="invisible">True</attribute>
                 </field>
                 <field name="note" position="after">
-                    <field name="note_html" class="oe_inline"
+                    <field name="note_html_id" class="oe_inline"
                            placeholder="Setup default terms and conditions in your company settings."/>
                 </field>
                 <group name="technical" position="after">
@@ -75,7 +75,7 @@
                     <attribute name="invisible">True</attribute>
                 </field>
                 <field name="sale_note" position="after">
-                    <field name="sale_note_html" nolabel="1" placeholder="Default terms &amp; conditions..."/>
+                    <field name="sale_note_html_id" nolabel="1" placeholder="Default terms &amp; conditions..."/>
                 </field>
             </field>
         </record>

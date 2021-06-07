@@ -88,7 +88,7 @@
                 <attribute name="class">hidden</attribute>
             </xpath>
             <xpath expr="//p[@t-field='doc.note']" position="after">
-                <p name="note_html" t-field="doc.note_html"/>
+                <p name="note_html_id" t-field="doc.note_html_id.content"/>
             </xpath>
 
             <xpath expr="//p[@id='fiscal_position_remark']" position="after">
