@@ -176,6 +176,11 @@ class SaleOrder(models.Model):
             )
         return category_qty
 
+    @api.model
+    def cron_init_note_html(self):
+        for sale_order in self.search([]):
+            sale_order._set_note_html_id()
+
 
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
