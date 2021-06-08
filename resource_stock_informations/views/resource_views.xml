@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="resource_planning_resource_form" model="ir.ui.view">
+            <field name="name">resource_planning_resource_form_inherit</field>
+            <field name="model">resource.resource</field>
+            <field name="inherit_id" ref="resource_planning.resource_planning_resource_form"/>
+            <field name="arch" type="xml">
+                <group name="category" position="after">
+                    <group name="stock_info" string="Stock Info">
+                        <field name="purchase_invoice_ref"/>
+                        <field name="purchase_date"/>
+                        <field name="removed_from_stock"/>
+                        <field name="stock_removal_reason" attrs="{'invisible':[('removed_from_stock','=',False)]}"/>
+                        <field name="stock_removal_date" attrs="{'invisible':[('removed_from_stock','=',False)]}"/>
+                        <field name="selling_price" attrs="{'invisible':[('stock_removal_reason', '!=', 'sold')]}"/>
+                        <field name="sale_invoice_ref" attrs="{'invisible':[('stock_removal_reason', '!=', 'sold')]}"/>
+                    </group>
+                </group>
+            </field>
+        </record>
+    </data>
+</odoo>
