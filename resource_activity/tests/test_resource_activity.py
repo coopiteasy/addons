@@ -2,28 +2,10 @@
 #   Robin Keunen <robin@coopiteasy.be>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
+from . import test_base
 
-from openerp.tests import common
 
-
-class TestResourceActivity(common.TransactionCase):
-    def setUp(self):
-        super(TestResourceActivity, self).setUp()
-        self.partner_demo = self.env.ref("base.partner_demo")
-        self.guide_partner_1 = self.browse_ref(
-            "resource_activity.res_partner_friendly_guide_demo"
-        )
-        self.guide_partner_2 = self.browse_ref(
-            "resource_activity.res_partner_mean_guide_demo"
-        )
-        self.main_location = self.browse_ref("resource_planning.main_location")
-        self.activity_type = self.browse_ref(
-            "resource_activity.resource_activity_type_tour_demo"
-        )
-        self.guide_product = self.browse_ref(
-            "resource_activity.guide_product_product_demo"
-        )
-
+class TestResourceActivity(test_base.TestResourceActivityBase):
     def test_compute_available_resources(self):
         activity_obj = self.env["resource.activity"]
         activity = activity_obj.create(
@@ -118,7 +100,7 @@ class TestResourceActivity(common.TransactionCase):
         activity.create_sale_order()
         sale_order = activity.sale_orders
         self.assertEquals(len(sale_order.order_line), 1)
-        self.assertEquals(activity.sale_orders.amount_total, 230)
+        self.assertEquals(activity.sale_orders.amount_total, 200)
 
     def test_create_guide_only_sale_order_with_guides_and_registrations(self):
         activity_obj = self.env["resource.activity"]
@@ -155,4 +137,4 @@ class TestResourceActivity(common.TransactionCase):
         activity.create_sale_order()
         sale_order = activity.sale_orders
         self.assertEquals(len(sale_order.order_line), 1)
-        self.assertEquals(activity.sale_orders.amount_total, 230)
+        self.assertEquals(activity.sale_orders.amount_total, 200)

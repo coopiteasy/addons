@@ -691,22 +691,12 @@ class ResourceActivity(models.Model):
         return prepared_lines
 
     def _create_sale_order(self, activity, partner_id):
-        SaleOrder = self.env["sale.order"]
-        sale_note_html_id = (
-            activity.location_id.terms_ids.filtered(
-                lambda r: r.note_id.active
-                and r.location_id == activity.location_id
-                and r.activity_type_id == activity.activity_type
-            ).note_id
-            or SaleOrder._default_note_html()
-        )
-        order_id = SaleOrder.create(
+        order_id = self.env["sale.order"].create(
             {
                 "partner_id": partner_id,
                 "activity_id": activity.id,
                 "project_id": activity.analytic_account.id,
                 "activity_sale": True,
-                "note_html_id": sale_note_html_id.id,
             }
         )
         activity.state = "quotation"
