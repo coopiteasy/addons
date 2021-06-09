@@ -292,7 +292,7 @@ class ResourceActivity(models.Model):
         compute="_compute_registrations",
     )
     nb_allocated_resources = fields.Integer(
-        string="Allocated Resources", compute="_compute_registrations",
+        string="Allocated Resources", compute="_compute_registrations", store=True
     )
     without_resource_reg = fields.Integer(
         string="Registrations without resource",

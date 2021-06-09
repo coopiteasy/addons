@@ -58,6 +58,7 @@
         "reports/activity_registration_report.xml",
         "reports/sale_order_report.xml",
         "reports/layouts.xml",
+        "reports/resource_activity_report_view.xml",
         "views/menus.xml",
     ],
     "demo": ["demo/demo.xml",],
