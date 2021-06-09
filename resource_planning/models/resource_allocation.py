@@ -59,6 +59,9 @@ class ResourceAllocation(models.Model):
 
     @api.model
     def get_allocations(self, date_start, date_end, location):
+        """For given location, returns resource allocations intersecting
+        with date_start to date_end timespan """
+
         return self.env["resource.allocation"].search(
             [
                 ("location", "=", location.id),

@@ -32,6 +32,46 @@ class StockRemovalWizard(models.TransientModel):
     selling_price = fields.Float(string="Selling Price")
     sale_invoice_ref = fields.Char(string="Sale Invoice Ref")
 
+    need_replacement = fields.Boolean(
+        string="Replace Resource ?",
+    )
+    allocations_to_fix_ids = fields.Many2many(
+        comodel_name="resource.allocation",
+        string="Allocations to Fix",
+        compute="_compute_allocations_to_fix",
+    )
+    candidate_resource_ids = fields.Many2many(
+        comodel_name="resource.resource",
+        string="Candidate Resources",
+        compute="_compute_candidate_resource_ids",
+    )
+    replacing_resource_id = fields.Many2one(
+        comodel_name="resource.resource",
+        string="Replacing Resource",
+    )
+
+    @api.multi
+    def button_remove_resource_from_stock(self):
+        self.ensure_one()
+        assert not self.need_replacement
+
+        if self.allocations_to_fix_ids:
+            raise ValidationError(
+                _(
+                    "You must first fix existing allocations "
+                    "before removing %s from the stock"
+                )
+                % self.resource_id.name
+            )
+        self.remove_resource_from_stock()
+
+    @api.multi
+    def button_remove_resource_from_stock_and_fix_allocations(self):
+        self.ensure_one()
+        assert self.need_replacement
+        self.remove_resource_from_stock()
+        self.fix_allocations()
+
     @api.multi
     def remove_resource_from_stock(self):
         self.ensure_one()
@@ -39,7 +79,8 @@ class StockRemovalWizard(models.TransientModel):
         if not self.stock_removal_reason:
             raise ValidationError(
                 _(
-                    "Please provide a reason for the resource removal from stock"
+                    "Please provide a reason for the resource removal from "
+                    "stock "
                 )
             )
 
@@ -53,4 +94,82 @@ class StockRemovalWizard(models.TransientModel):
                 "sale_invoice_ref": self.sale_invoice_ref,
             }
         )
-        return
+
+    @api.multi
+    def fix_allocations(self):
+        self.ensure_one()
+
+        if not self.replacing_resource_id:
+            raise ValidationError(
+                _("Please select a resource to replace %s")
+                % self.resource_id.name
+            )
+
+        self.allocations_to_fix_ids.write(
+            {"resource_id": self.replacing_resource_id.id}
+        )
+
+    @api.multi
+    def _compute_allocations_to_fix(self):
+        for wiz in self:
+            wiz.allocations_to_fix_ids = wiz.resource_id.allocations.filtered(
+                lambda ra: ra.date_start >= fields.Datetime.now()
+                and ra.state != "cancel"
+            )
+
+    def _get_candidate_resources(self):
+        self.ensure_one()
+        date_clause_template = (
+            "("
+            "(ra.date_start between '{date_start}' and '{date_end}')"
+            " or "
+            "(ra.date_end between '{date_start}' and '{date_end}')"
+            ")"
+        )
+        if self.allocations_to_fix_ids:
+            join_date_clause = " or ".join(
+                (
+                    date_clause_template.format(
+                        date_start=a.date_start, date_end=a.date_end
+                    )
+                    for a in self.allocations_to_fix_ids
+                )
+            )
+            join_date_clause = "and (%s)" % join_date_clause
+        else:
+            join_date_clause = ""
+
+        query = """
+select rr.id
+from resource_resource rr
+         left join resource_allocation ra on rr.id = ra.resource_id
+    and ra.state != 'cancel'
+    {join_date_clause}
+where rr.location = %(location_id)s
+    and rr.category_id = %(category_id)s
+    and rr.id != %(resource_id)s
+    and rr.state = 'available'
+    and ra.id is null
+        """
+        self.env.cr.execute(
+            query.format(join_date_clause=join_date_clause),
+            {
+                "location_id": self.resource_id.location.id,
+                "category_id": self.resource_id.category_id.id,
+                "resource_id": self.resource_id.id,
+            },
+        )
+        resource_ids = [x for x, in self.env.cr.fetchall()]
+        return self.env["resource.resource"].browse(resource_ids)
+
+    @api.multi
+    @api.depends("resource_id")
+    def _compute_candidate_resource_ids(self):
+        for wiz in self:
+            wiz.candidate_resource_ids = wiz._get_candidate_resources()
+
+    @api.onchange("need_replacement")
+    def onchange_need_replacement(self):
+        """set domain for replacing resource"""
+        domain = [("id", "in", self.candidate_resource_ids.ids)]
+        return {"domain": {"replacing_resource_id": domain}}

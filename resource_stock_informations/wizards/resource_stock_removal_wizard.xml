@@ -10,15 +10,28 @@
             <field name="model">resource.stock.removal.wizard</field>
             <field name="arch" type="xml">
                 <form string="Resource Stock Removal">
+                    <field name="candidate_resource_ids" invisible="1"/>
                     <group>
                         <field name="stock_removal_date"/>
                         <field name="stock_removal_reason"/>
                         <field name="selling_price" attrs="{'invisible':[('stock_removal_reason', '!=', 'sold')]}"/>
                         <field name="sale_invoice_ref" attrs="{'invisible':[('stock_removal_reason', '!=', 'sold')]}"/>
                     </group>
+                    <group>
+                        <field name="allocations_to_fix_ids">
+                            <tree name="allocations_to_fix_tree">
+                                <field name="date_start"/>
+                                <field name="date_end"/>
+                                <field name="state"/>
+                            </tree>
+                        </field>
+                        <field name="need_replacement"/>
+                        <field name="replacing_resource_id" attrs="{'invisible':[('need_replacement', '=', False)]}"/>
+                    </group>
                     <footer>
                         <button string="Cancel" class="btn-default" special="cancel"/>
-                        <button name="remove_resource_from_stock" string="Remove from Stock" type="object" class="btn-primary"/>
+                        <button name="button_remove_resource_from_stock" string="Remove from Stock" type="object" class="btn-primary" attrs="{'invisible':[('need_replacement', '=', True)]}"/>
+                        <button name="button_remove_resource_from_stock_and_fix_allocations" string="Remove from Stock and Fix Allocations" type="object" class="btn-primary" attrs="{'invisible':[('need_replacement', '=', False)]}"/>
                     </footer>
                 </form>
             </field>
