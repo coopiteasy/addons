@@ -27,3 +27,21 @@ class Resource(models.Model):
     )
     selling_price = fields.Float(string="Selling Price")
     sale_invoice_ref = fields.Char(string="Sale Invoice Ref")
+
+    @api.multi
+    def action_remove_from_stock(self):
+        self.ensure_one()
+        wiz = self.env["resource.stock.removal.wizard"].create(
+            {
+                "resource_id": self.id,
+            }
+        )
+        return {
+            "type": "ir.actions.act_window",
+            "name": "Remove %s from Stock" % self.name,
+            "view_type": "form",
+            "view_mode": "form",
+            "res_model": wiz._name,
+            "res_id": wiz.id,
+            "target": "new",
+        }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2021 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+	<data>
+		<record id="view_resource_stock_removal_wizard_form" model="ir.ui.view">
+            <field name="name">Resource Stock Removal Wizard</field>
+            <field name="model">resource.stock.removal.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Resource Stock Removal">
+                    <group>
+                        <field name="stock_removal_date"/>
+                        <field name="stock_removal_reason"/>
+                        <field name="selling_price" attrs="{'invisible':[('stock_removal_reason', '!=', 'sold')]}"/>
+                        <field name="sale_invoice_ref" attrs="{'invisible':[('stock_removal_reason', '!=', 'sold')]}"/>
+                    </group>
+                    <footer>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                        <button name="remove_resource_from_stock" string="Remove from Stock" type="object" class="btn-primary"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+	</data>
+</odoo>

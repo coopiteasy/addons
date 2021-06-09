@@ -18,6 +18,7 @@
     """,
     "data": [
         "views/resource_views.xml",
+        "wizards/resource_stock_removal_wizard.xml",
     ],
     "installable": True,
     "application": True,
