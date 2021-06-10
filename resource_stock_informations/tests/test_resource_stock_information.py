@@ -87,6 +87,7 @@ class TestResourceStockInformation(common.TransactionCase):
                 "stock_removal_reason": reason,
                 "selling_price": selling_price,
                 "sale_invoice_ref": invoice_ref,
+                "force_remove": True,
             }
         )
         wiz.remove_resource_from_stock()
@@ -116,7 +117,6 @@ class TestResourceStockInformation(common.TransactionCase):
         # Cannot remove resource from stock if future allocations exist
         with self.assertRaises(ValidationError):
             wiz.button_remove_resource_from_stock()
-        wiz.need_replacement = True
 
         # Missing replacing_resource_id raises Validation Error
         with self.assertRaises(ValidationError):
@@ -164,4 +164,21 @@ class TestResourceStockInformation(common.TransactionCase):
             wiz.button_remove_resource_from_stock()
         wiz.stock_removal_reason = "other"
 
+        wiz.button_remove_resource_from_stock()
+
+    def test_force_remove_if_no_candidates(self):
+        self.alloc_r2_1.write(
+            {  # create conflict
+                "date_start": self.alloc_r1_1.date_start,
+                "date_end": self.alloc_r1_1.date_end,
+            }
+        )
+        wiz = self.env["resource.stock.removal.wizard"].create(
+            {"resource_id": self.bike_1.id, "stock_removal_reason": "other"}
+        )
+        self.assertFalse(
+            wiz.candidate_resource_ids,
+            "No candidates available for replacement",
+        )
+        wiz.force_remove = True
         wiz.button_remove_resource_from_stock()

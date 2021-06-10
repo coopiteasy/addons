@@ -4,20 +4,20 @@
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 -->
 <odoo>
-	<data>
-		<record id="view_resource_stock_removal_wizard_form" model="ir.ui.view">
+    <data>
+        <record id="view_resource_stock_removal_wizard_form" model="ir.ui.view">
             <field name="name">Resource Stock Removal Wizard</field>
             <field name="model">resource.stock.removal.wizard</field>
             <field name="arch" type="xml">
                 <form string="Resource Stock Removal">
                     <field name="candidate_resource_ids" invisible="1"/>
+                    <field name="_has_candidates" invisible="1"/>
+                    <field name="_has_allocations_to_fix" invisible="1"/>
                     <group>
                         <field name="stock_removal_date"/>
                         <field name="stock_removal_reason"/>
                         <field name="selling_price" attrs="{'invisible':[('stock_removal_reason', '!=', 'sold')]}"/>
                         <field name="sale_invoice_ref" attrs="{'invisible':[('stock_removal_reason', '!=', 'sold')]}"/>
-                    </group>
-                    <group>
                         <field name="allocations_to_fix_ids">
                             <tree name="allocations_to_fix_tree">
                                 <field name="date_start"/>
@@ -25,17 +25,39 @@
                                 <field name="state"/>
                             </tree>
                         </field>
-                        <field name="need_replacement"/>
-                        <field name="replacing_resource_id" attrs="{'invisible':[('need_replacement', '=', False)]}"/>
+                        <!-- visible if (_has_allocations_to_fix and _has_candidates and stock_removal_reason -->
+                        <field name="replacing_resource_id"
+                               attrs="{'invisible':['!', '&amp;', '&amp;', ('_has_allocations_to_fix', '=', True),
+                                                                           ('_has_candidates', '=', True),
+                                                                  ('stock_removal_reason', '!=', False)]}"/>
+                    </group>
+                    <group>
+                        <field name="force_remove"
+                               attrs="{'invisible':['|', ('_has_allocations_to_fix', '=', False), ('_has_candidates', '=', True)]}"/>
                     </group>
                     <footer>
                         <button string="Cancel" class="btn-default" special="cancel"/>
-                        <button name="button_remove_resource_from_stock" string="Remove from Stock" type="object" class="btn-primary" attrs="{'invisible':[('need_replacement', '=', True)]}"/>
-                        <button name="button_remove_resource_from_stock_and_fix_allocations" string="Remove from Stock and Fix Allocations" type="object" class="btn-primary" attrs="{'invisible':[('need_replacement', '=', False)]}"/>
+                        <!-- visible if (not _has_allocations_to_fix or (_has_allocations_to_fix and not _has_candidates and force_remove)
+                           invisible if (_has_allocations_to_fix and (_has_candidates and not force_remove -->
+                        <button string="Remove from Stock"
+                                name="button_remove_resource_from_stock"
+                                type="object"
+                                class="btn-primary"
+                                attrs="{'invisible':[('_has_allocations_to_fix', '=', True),
+                                                        '|', ('_has_candidates', '=', True),
+                                                             ('force_remove', '=', False)]}"/>
+                        <!-- visible if (_has_allocations_to_fix and _has_candidates and replacing_resource_id) -->
+                        <button string="Remove from Stock and Fix Allocations"
+                                name="button_remove_resource_from_stock_and_fix_allocations"
+                                type="object"
+                                class="btn-primary"
+                                attrs="{'invisible':['!', '&amp;', '&amp;', ('_has_allocations_to_fix', '=', True),
+                                                                            ('_has_candidates', '=', True),
+                                                                   ('replacing_resource_id', '!=', False)]}"/>
                     </footer>
                 </form>
             </field>
         </record>
 
-	</data>
+    </data>
 </odoo>
