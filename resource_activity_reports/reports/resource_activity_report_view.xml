@@ -7,8 +7,8 @@
             <field name="arch" type="xml">
                 <pivot string="Activity" disable_linking="True">
                     <field name="location_id" type="col"/>
-                    <field name="activity_type"/>
-                    <field name="total_participants" type="measure"/>
+                    <field name="activity_type_id"/>
+                    <field name="nb_registrations" type="measure"/>
                 </pivot>
             </field>
         </record>
@@ -18,13 +18,15 @@
             <field name="model">resource.activity.report</field>
             <field name="arch" type="xml">
                 <search string="Activity">
+                    <field name="location_id" string="location" groups="resource_planning.group_multi_location"/>
+                    <field name="activity_type_id" string="activity type" groups="resource_planning.group_multi_location"/>
+                    <field name="analytic_account_id" string="analytic account" groups="resource_planning.group_multi_location"/>
+
                     <filter name="need_guide" string="Need Guide"
                             domain="[('need_guide', '=', True)]"/>
                     <filter name="need_delivery" string="Need Delivery"
                             domain="[('need_delivery', '=', True)]"/>
                     <group expand="0" string="Group By">
-                        <filter string="Language" context="{'group_by':'lang_id'}"
-                                help="Group by language"/>
                         <separator/>
                         <filter string="Day" context="{'group_by':'date_start:day'}"
                                 help="Group by day of start date"/>
@@ -52,7 +54,7 @@
 
         <menuitem name="Activity" id="menu_resource_activity_report_all"
                   action="action_resource_activity_report_stat_all"
-                  parent="menu_resource_activity_reports" sequence="1"/>
+                  parent="menu_resource_activity_reports" sequence="10"/>
 
     </data>
 </openerp>

@@ -1,0 +1,130 @@
+# -*- coding: utf-8 -*-
+
+
+from openerp import tools
+from openerp import models, fields
+
+
+class ResourceActivityReport(models.Model):
+    _name = "resource.activity.report"
+    _description = "Activities Analysis"
+    _auto = False
+
+    state = fields.Selection(
+        [
+            ("draft", "Draft"),
+            ("quotation", "Quotation"),
+            ("sale", "Sale"),
+            ("done", "Done"),
+            ("cancelled", "Cancelled"),
+        ],
+        string="Status",
+        readonly=True,
+    )
+    activity_theme_id = fields.Many2one(
+        comodel_name="resource.activity.theme",
+        string="Activity Theme",
+        readonly=True,
+    )
+    activity_type_id = fields.Many2one(
+        comodel_name="resource.activity.type",
+        string="Activity Type",
+        readonly=True,
+    )
+    analytic_account_id = fields.Many2one(
+        comodel_name="account.analytic.account",
+        string="Analytic Account",
+        readonly=True,
+    )
+    project_id = fields.Many2one(
+        comodel_name="pv.project",
+        string="Project",
+        readonly=True,
+    )
+    registration_state = fields.Selection(
+        [
+            ("booked", "Booked"),
+            ("waiting", "Waiting"),
+        ],
+        string="Registration State",
+        readonly=True,
+    )
+    date_start = fields.Datetime(string="Date Start", readonly=True)
+    duration = fields.Float(string="Duration (Hours)", readonly=True)
+    location_id = fields.Many2one(
+        comodel_name="resource.location", string="Location", readonly=True
+    )
+    need_delivery = fields.Boolean(string="Need Delivery?", readonly=True)
+    need_guide = fields.Boolean(string="Need Guide?", readonly=True)
+    nb_registrations = fields.Integer(string="Paid Registrations")
+    nb_participants = fields.Integer(string="Booked Registrations")
+    nb_bikes = fields.Integer(
+        string="Number of Bikes",
+        readonly=True,
+    )
+    nb_participants_wo_bikes = fields.Integer(
+        string="Participants w/o bikes",
+        readonly=True,
+    )
+    renting_hours = fields.Float("Rented Hours", readonly=True)
+    renting_days = fields.Integer("Rented Days", readonly=True)
+    total_taxed_amount = fields.Float("Total Amount incl. tax", readonly=True)
+    total_untaxed_amount = fields.Float(
+        "Total Amount excl. tax", readonly=True
+    )
+
+    def init(self, cr):
+        tools.drop_view_if_exists(cr, self._table)
+        report_query = """
+            CREATE or REPLACE VIEW %s as (
+                with registration_metrics as (
+                    SELECT rar.resource_activity_id         AS activity_id,
+                           sum(rar.quantity)                AS nb_participants,
+                           sum(rar.nb_bikes)                AS nb_bikes,
+                           sum(rar.quantity - rar.nb_bikes) AS nb_participants_wo_bikes,
+                           sum(renting_seconds)             AS renting_seconds,
+                           sum(renting_hours)               AS renting_hours,
+                           sum(renting_days)                as renting_days
+                    FROM resource_activity_registration rar
+                             join resource_activity a on rar.resource_activity_id = a.id
+                    WHERE rar.state in ('option', 'booked')
+                    GROUP BY activity_id
+                ),
+                     sale_orders AS (
+                         SELECT ra.id                  AS activity_id,
+                                sum(so.amount_total)   AS total_taxed_amount,
+                                sum(so.amount_untaxed) AS total_untaxed_amount
+                         FROM resource_activity ra
+                                  JOIN sale_order so ON ra.id = so.activity_id
+                         GROUP BY ra.id
+                     )
+                SELECT a.id                                                 AS id,
+                       a.state                                              AS state,
+                       a.activity_theme                                     AS activity_theme_id,
+                       a.activity_type                                      AS activity_type_id,
+                       a.location_id                                        AS location_id,
+                       a.date_start                                         AS date_start,
+                       extract(epoch FROM a.date_end - a.date_start) / 3600 as duration,
+                       a.need_delivery                                      AS need_delivery,
+                       a.need_guide                                         AS need_guide,
+                       a.registration_state                                 AS registration_state,
+                       rat.analytic_account                                 AS analytic_account_id,
+                       rat.project_id                                       AS project_id,
+                       a.registrations_expected                             AS nb_registrations,
+                       rm.nb_participants                                   AS nb_participants,
+                       rm.nb_bikes                                          AS nb_bikes,
+                       rm.nb_participants_wo_bikes                          AS nb_participants_wo_bikes,
+                       rm.renting_hours                                     AS renting_hours,
+                       rm.renting_days                                      AS renting_days,
+                       so.total_taxed_amount                                AS total_taxed_amount,
+                       so.total_untaxed_amount                              AS total_untaxed_amount
+                FROM resource_activity a
+                         JOIN resource_activity_type rat ON a.activity_type = rat.id
+                         LEFT JOIN registration_metrics rm ON rm.activity_id = a.id
+                         LEFT JOIN sale_orders so on so.activity_id = a.id
+                WHERE a.state NOT IN ('draft', 'cancelled')
+                ORDER BY id
+            )""" % (
+            self._table
+        )
+        cr.execute(report_query)
