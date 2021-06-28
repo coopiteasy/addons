@@ -56,14 +56,17 @@ class ResourceActivityReport(models.Model):
     )
     need_delivery = fields.Boolean(string="Need Delivery?", readonly=True)
     need_guide = fields.Boolean(string="Need Guide?", readonly=True)
-    nb_registrations = fields.Integer(string="Paid Registrations")
-    nb_participants = fields.Integer(string="Booked Registrations")
+    nb_participants = fields.Integer(string="Number of participants")
     nb_bikes = fields.Integer(
-        string="Number of Bikes",
+        string="Number of bikes",
         readonly=True,
     )
-    nb_participants_wo_bikes = fields.Integer(
-        string="Participants w/o bikes",
+    nb_participants_wo_bike = fields.Integer(
+        string="Participants w/o bike",
+        readonly=True,
+    )
+    nb_participants_w_bikes = fields.Integer(
+        string="Participants with bikes",
         readonly=True,
     )
     renting_hours = fields.Float("Rented Hours", readonly=True)
@@ -77,14 +80,18 @@ class ResourceActivityReport(models.Model):
         tools.drop_view_if_exists(cr, self._table)
         report_query = """
             CREATE or REPLACE VIEW %s as (
-                with registration_metrics as (
-                    SELECT rar.resource_activity_id         AS activity_id,
-                           sum(rar.quantity)                AS nb_participants,
-                           sum(rar.nb_bikes)                AS nb_bikes,
-                           sum(rar.quantity - rar.nb_bikes) AS nb_participants_wo_bikes,
-                           sum(renting_seconds)             AS renting_seconds,
-                           sum(renting_hours)               AS renting_hours,
-                           sum(renting_days)                as renting_days
+               WITH registration_metrics AS (
+                    SELECT rar.resource_activity_id AS activity_id,
+                           sum(rar.quantity)        AS nb_participants,
+                           sum(rar.nb_bikes)        AS nb_bikes,
+                           sum(CASE
+                                   WHEN NOT (quantity = 0 AND quantity_needed != 0)
+                                       THEN quantity - quantity_needed
+                                   ELSE 0
+                               END)                 AS nb_participants_wo_bike,
+                           sum(renting_seconds)     AS renting_seconds,
+                           sum(renting_hours)       AS renting_hours,
+                           sum(renting_days)        as renting_days
                     FROM resource_activity_registration rar
                              join resource_activity a on rar.resource_activity_id = a.id
                     WHERE rar.state in ('option', 'booked')
@@ -98,26 +105,26 @@ class ResourceActivityReport(models.Model):
                                   JOIN sale_order so ON ra.id = so.activity_id
                          GROUP BY ra.id
                      )
-                SELECT a.id                                                 AS id,
-                       a.state                                              AS state,
-                       a.activity_theme                                     AS activity_theme_id,
-                       a.activity_type                                      AS activity_type_id,
-                       a.location_id                                        AS location_id,
-                       a.date_start                                         AS date_start,
-                       extract(epoch FROM a.date_end - a.date_start) / 3600 as duration,
-                       a.need_delivery                                      AS need_delivery,
-                       a.need_guide                                         AS need_guide,
-                       a.registration_state                                 AS registration_state,
-                       rat.analytic_account                                 AS analytic_account_id,
-                       rat.project_id                                       AS project_id,
-                       a.registrations_expected                             AS nb_registrations,
-                       rm.nb_participants                                   AS nb_participants,
-                       rm.nb_bikes                                          AS nb_bikes,
-                       rm.nb_participants_wo_bikes                          AS nb_participants_wo_bikes,
-                       rm.renting_hours                                     AS renting_hours,
-                       rm.renting_days                                      AS renting_days,
-                       so.total_taxed_amount                                AS total_taxed_amount,
-                       so.total_untaxed_amount                              AS total_untaxed_amount
+                SELECT a.id                                                  AS id,
+                       a.state                                               AS state,
+                       a.activity_theme                                      AS activity_theme_id,
+                       a.activity_type                                       AS activity_type_id,
+                       a.location_id                                         AS location_id,
+                       a.date_start                                          AS date_start,
+                       extract(epoch FROM a.date_end - a.date_start) / 3600  as duration,
+                       a.need_delivery                                       AS need_delivery,
+                       a.need_guide                                          AS need_guide,
+                       a.registration_state                                  AS registration_state,
+                       rat.analytic_account                                  AS analytic_account_id,
+                       rat.project_id                                        AS project_id,
+                       a.registrations_expected                              AS nb_participants,
+                       rm.nb_bikes                                           AS nb_bikes,
+                       rm.nb_participants_wo_bike                            AS nb_participants_wo_bike,
+                       a.registrations_expected - rm.nb_participants_wo_bike AS nb_participants_w_bikes,
+                       rm.renting_hours                                      AS renting_hours,
+                       rm.renting_days                                       AS renting_days,
+                       so.total_taxed_amount                                 AS total_taxed_amount,
+                       so.total_untaxed_amount                               AS total_untaxed_amount
                 FROM resource_activity a
                          JOIN resource_activity_type rat ON a.activity_type = rat.id
                          LEFT JOIN registration_metrics rm ON rm.activity_id = a.id

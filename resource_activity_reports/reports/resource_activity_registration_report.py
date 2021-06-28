@@ -82,8 +82,12 @@ class ResourceActivityRegistrationReport(models.Model):
         string="Number of Participants",
         readonly=True,
     )
-    nb_participants_wo_resource = fields.Integer(
+    nb_participants_wo_bike = fields.Integer(
         string="Number of Participants w/o Bike",
+        readonly=True,
+    )
+    nb_participants_w_bikes = fields.Integer(
+        string="Number of Participants with Bike",
         readonly=True,
     )
     renting_hours = fields.Float("Number of Renting Hours", readonly=True)
@@ -93,29 +97,42 @@ class ResourceActivityRegistrationReport(models.Model):
         tools.drop_view_if_exists(cr, self._table)
         report_query = (
             """
-            CREATE or REPLACE VIEW %s as (
-                SELECT rar.id                                    AS id,
-                       rar.resource_activity_id                  AS activity_id,
-                       rar.state                                 AS registration_state,
-                       a.state                                   AS activity_state,
-                       a.activity_theme                          AS activity_theme_id,
-                       a.activity_type                           AS activity_type_id,
-                       a.location_id                             AS location_id,
-                       a.date_start                              AS date_start,
-                       a.need_delivery                           AS need_delivery,
-                       a.need_guide                              AS need_guide,
-                       rat.analytic_account                      AS analytic_account_id,
-                       rat.project_id                            AS project_id,
-                       pt.id                                     AS product_id,
-                       pt.categ_id                               AS product_category_id,
-                       rar.resource_category                     AS resource_category,
-                       coalesce(rar.quantity, 0)                 AS nb_participants,
-                       coalesce(rar.nb_bikes, 0)                 AS nb_bikes,
-                       coalesce(rar.quantity, 0)
-                           - coalesce(rar.nb_bikes, 0) AS nb_participants_wo_bikes,
-                       renting_hours                             AS renting_hours, 
-                       renting_days                              AS renting_days
+            CREATE OR REPLACE VIEW %s AS (
+                WITH registration_metrics AS (
+                    SELECT id,
+                           quantity AS nb_participants,
+                           nb_bikes AS nb_bikes,
+                           CASE
+                               WHEN NOT (quantity = 0 AND quantity_needed != 0)
+                                   THEN quantity - quantity_needed
+                               ELSE 0
+                               END  AS nb_participants_wo_bike
+                    FROM resource_activity_registration
+                    ORDER BY id
+                )
+                SELECT rar.id                                          AS id,
+                       rar.resource_activity_id                        AS activity_id,
+                       rar.state                                       AS registration_state,
+                       a.state                                         AS activity_state,
+                       a.activity_theme                                AS activity_theme_id,
+                       a.activity_type                                 AS activity_type_id,
+                       a.location_id                                   AS location_id,
+                       a.date_start                                    AS date_start,
+                       a.need_delivery                                 AS need_delivery,
+                       a.need_guide                                    AS need_guide,
+                       rat.analytic_account                            AS analytic_account_id,
+                       rat.project_id                                  AS project_id,
+                       pt.id                                           AS product_id,
+                       pt.categ_id                                     AS product_category_id,
+                       rar.resource_category                           AS resource_category,
+                       rm.nb_participants                              AS nb_participants,
+                       rm.nb_bikes                                     AS nb_bikes,
+                       rm.nb_participants_wo_bike                      AS nb_participants_wo_bike,
+                       rm.nb_participants - rm.nb_participants_wo_bike AS nb_participants_w_bikes,
+                       rar.renting_hours                               AS renting_hours,
+                       rar.renting_days                                AS renting_days
                 FROM resource_activity_registration rar
+                         JOIN registration_metrics rm ON rm.id = rar.id
                          JOIN resource_activity a ON a.id = rar.resource_activity_id
                          JOIN resource_activity_type rat ON a.activity_type = rat.id
                          LEFT JOIN product_product pp ON rar.product_id = pp.id
