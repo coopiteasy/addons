@@ -90,8 +90,8 @@ class ResourceActivityRegistrationReport(models.Model):
         string="Number of Participants with Bike",
         readonly=True,
     )
-    renting_hours = fields.Float("Number of Renting Hours", readonly=True)
-    renting_days = fields.Float("Number of Renting Days", readonly=True)
+    renting_hours = fields.Float("Renting Hours", readonly=True)
+    renting_days = fields.Float("Renting Days", readonly=True)
 
     def init(self, cr):
         tools.drop_view_if_exists(cr, self._table)

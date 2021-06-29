@@ -69,8 +69,8 @@ class ResourceActivityReport(models.Model):
         string="Participants with bikes",
         readonly=True,
     )
-    renting_hours = fields.Float("Rented Hours", readonly=True)
-    renting_days = fields.Integer("Rented Days", readonly=True)
+    renting_hours = fields.Float("Renting Hours", readonly=True)
+    renting_days = fields.Integer("Renting Days", readonly=True)
     total_taxed_amount = fields.Float("Total Amount incl. tax", readonly=True)
     total_untaxed_amount = fields.Float(
         "Total Amount excl. tax", readonly=True
