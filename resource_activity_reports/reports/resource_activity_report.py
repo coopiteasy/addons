@@ -101,6 +101,7 @@ class ResourceActivityReport(models.Model):
                            sum(renting_days)        as renting_days
                     FROM resource_activity_registration rar
                              join resource_activity a on rar.resource_activity_id = a.id
+                    WHERE rar.state != 'cancelled' 
                     GROUP BY activity_id
                 ),
                      sale_orders AS (

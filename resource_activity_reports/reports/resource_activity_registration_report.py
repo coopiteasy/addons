@@ -104,7 +104,11 @@ class ResourceActivityRegistrationReport(models.Model):
             CREATE OR REPLACE VIEW %s AS (
                 WITH registration_metrics AS (
                     SELECT id,
-                           quantity AS nb_participants,
+                           CASE
+                               WHEN state != 'cancelled'
+                                   THEN quantity
+                               ELSE 0
+                               END  AS nb_participants,
                            nb_bikes AS nb_bikes,
                            CASE
                                WHEN NOT (quantity = 0 AND quantity_needed != 0)
@@ -112,8 +116,7 @@ class ResourceActivityRegistrationReport(models.Model):
                                ELSE 0
                                END  AS nb_participants_wo_bike
                     FROM resource_activity_registration
-                    ORDER BY id
-                )
+                    ORDER BY id)
                 SELECT rar.id                                          AS id,
                        rar.id                                          AS name,
                        rar.resource_activity_id                        AS activity_id,
