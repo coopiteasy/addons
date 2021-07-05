@@ -96,8 +96,8 @@
                         <group>
                             <field name="nb_participants"/>
                             <field name="nb_bikes"/>
-                            <field name="nb_participants_w_bikes"/>
-                            <field name="nb_participants_wo_bike"/>
+                            <field name="nb_participants_renting_bike"/>
+                            <field name="nb_participants_bringing_bike"/>
                             <field name="renting_hours"/>
                             <field name="renting_days"/>
                         </group>
