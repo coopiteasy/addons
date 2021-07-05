@@ -50,7 +50,6 @@ class ResourceActivityReport(models.Model):
         readonly=True,
     )
     date_start = fields.Datetime(string="Date Start", readonly=True)
-    duration = fields.Float(string="Duration (Hours)", readonly=True)
     location_id = fields.Many2one(
         comodel_name="resource.location", string="Location", readonly=True
     )
@@ -111,7 +110,6 @@ class ResourceActivityReport(models.Model):
                        a.activity_type                                       AS activity_type_id,
                        a.location_id                                         AS location_id,
                        a.date_start                                          AS date_start,
-                       extract(epoch FROM a.date_end - a.date_start) / 3600  as duration,
                        a.need_delivery                                       AS need_delivery,
                        a.need_guide                                          AS need_guide,
                        a.registration_state                                  AS registration_state,
