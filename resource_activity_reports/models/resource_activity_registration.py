@@ -2,7 +2,7 @@
 # Copyright 2021 Coop IT Easy SCRL fs
 #   Robin Keunen <robin@coopiteasy.be>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-
+from math import ceil
 
 from openerp import api, fields, models
 
@@ -53,14 +53,19 @@ class ResourceActivityRegistration(models.Model):
                 end = fields.Datetime.from_string(
                     registration.resource_activity_id.date_end
                 )
-                renting_seconds = nb_bikes * (end - start).seconds
-                renting_hours = renting_seconds / 3600.0
-                renting_days = renting_hours / 24.0
+                duration_seconds = (end - start).total_seconds()
+                duration_hours = duration_seconds / 3600.0
+                if duration_hours < 4:
+                    duration_days = 0.5
+                elif 4 <= duration_hours <= 24:
+                    duration_days = 1
+                else:
+                    duration_days = ceil(duration_hours / 24.0)
 
                 registration.nb_bikes = nb_bikes
-                registration.renting_seconds = renting_seconds
-                registration.renting_hours = renting_hours
-                registration.renting_days = renting_days
+                registration.renting_seconds = nb_bikes * duration_seconds
+                registration.renting_hours = nb_bikes * duration_hours
+                registration.renting_days = nb_bikes * duration_days
             else:
                 registration.nb_bikes = 0
                 registration.renting_seconds = 0
