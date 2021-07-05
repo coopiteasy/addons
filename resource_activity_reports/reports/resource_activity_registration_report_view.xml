@@ -1,32 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-        <record id="view_resource_activity_registration_report_pivot" model="ir.ui.view">
-            <field name="name">resource.activity.registration.report</field>
-            <field name="model">resource.activity.registration.report</field>
-            <field name="arch" type="xml">
-                <pivot string="Activity Registrations" disable_linking="True">
-                    <field name="location_id" type="col"/>
-                    <field name="activity_type_id"/>
-                    <field name="nb_participants" type="measure"/>
-                </pivot>
-            </field>
-        </record>
-
         <record id="view_resource_activity_registration_report_search" model="ir.ui.view">
             <field name="name">resource.activity.registration.report.search</field>
             <field name="model">resource.activity.registration.report</field>
             <field name="arch" type="xml">
                 <search string="Activity">
                     <field name="location_id" string="location" groups="resource_planning.group_multi_location"/>
-                    <field name="activity_type_id" string="activity type" groups="resource_planning.group_multi_location"/>
-                    <field name="analytic_account_id" string="analytic account" groups="resource_planning.group_multi_location"/>
-                    <field name="resource_categ_id" string="resource category" groups="resource_planning.group_multi_location"/>
+                    <field name="activity_type_id" string="activity type"
+                           groups="resource_planning.group_multi_location"/>
+                    <field name="analytic_account_id" string="analytic account"
+                           groups="resource_planning.group_multi_location"/>
+                    <field name="resource_categ_id" string="resource category"
+                           groups="resource_planning.group_multi_location"/>
 
-                    <filter name="need_guide" string="Need Guide"
-                            domain="[('need_guide', '=', True)]"/>
-                    <filter name="need_delivery" string="Need Delivery"
-                            domain="[('need_delivery', '=', True)]"/>
+                    <group name="activity_filters" string="Activity">
+                        <filter name="is_active_activity" string="Activity: Active"
+                                domain="[('activity_id.active', '=', True)]"/>
+                        <filter name="is_not_draft_activity" string="Not Draft"
+                                domain="[('activity_id.state', '!=', 'draft')]"/>
+                        <filter name="is_not_cancelled_activity" string="Not Cancelled"
+                                domain="[('activity_id.state', '!=', 'cancelled')]"/>
+                    </group>
                     <group expand="0" string="Group By">
                         <filter string="Day" context="{'group_by':'date_start:day'}"
                                 help="Group by day of start date"/>
@@ -41,12 +36,87 @@
             </field>
         </record>
 
+        <record id="view_resource_activity_registration_report_pivot" model="ir.ui.view">
+            <field name="name">resource.activity.registration.report</field>
+            <field name="model">resource.activity.registration.report</field>
+            <field name="arch" type="xml">
+                <pivot string="Activity Registrations">
+                    <field name="location_id" type="col"/>
+                    <field name="activity_type_id"/>
+                    <field name="nb_participants" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="view_resource_activity_registration_report_tree" model="ir.ui.view">
+            <field name="name">resource.activity.registration.report</field>
+            <field name="model">resource.activity.registration.report</field>
+            <field name="arch" type="xml">
+                <tree string="Activity Registrations">
+                    <field name="name"/>
+                    <field name="location_id" type="col"/>
+                    <field name="registration_state"/>
+                    <field name="activity_state"/>
+                    <field name="date_start"/>
+                    <field name="nb_participants"/>
+                    <field name="nb_bikes"/>
+                    <field name="date_start"/>
+                    <field name="renting_hours"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_resource_activity_registration_report_form" model="ir.ui.view">
+            <field name="name">resource.activity.registration.report</field>
+            <field name="model">resource.activity.registration.report</field>
+            <field name="arch" type="xml">
+                <form string="Activity Registrations">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="activity_id"/>
+                                <field name="registration_state"/>
+                                <field name="activity_state"/>
+                                <field name="analytic_account_id"/>
+                                <field name="activity_type_id"/>
+                                <field name="activity_theme_id"/>
+                                <field name="location_id"/>
+                            </group>
+                            <group>
+                                <field name="date_start"/>
+                                <field name="need_delivery"/>
+                                <field name="need_guide"/>
+                                <field name="project_id"/>
+                                <field name="product_id"/>
+                                <field name="product_categ_id"/>
+                                <field name="resource_categ_id"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="nb_participants"/>
+                            <field name="nb_bikes"/>
+                            <field name="nb_participants_w_bikes"/>
+                            <field name="nb_participants_wo_bike"/>
+                            <field name="renting_hours"/>
+                            <field name="renting_days"/>
+                        </group>
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+
         <record id="action_resource_activity_registration_report_stat_all" model="ir.actions.act_window">
             <field name="name">Activity Registrations Analysis</field>
             <field name="res_model">resource.activity.registration.report</field>
             <field name="view_type">form</field>
             <field name="view_mode">pivot</field>
-            <field name="context">{}</field>  <!-- force empty -->
+            <field name="context">{
+                "search_default_is_active_activity": 1,
+                "search_default_is_not_draft_activity": 1,
+                "search_default_is_not_cancelled_activity": 1,
+                }</field>
         </record>
 
         <menuitem name="Registrations" id="menu_resource_activity_registration_report_all"

@@ -14,6 +14,10 @@ class ResourceActivityRegistrationReport(models.Model):
     _description = "Activity Registrations Report"
     _auto = False
 
+    name = fields.Many2one(
+        comodel_name="resource.activity.registration",
+        string="Registration",
+    )
     registration_state = fields.Selection(
         [
             ("option", "Option"),
@@ -111,6 +115,7 @@ class ResourceActivityRegistrationReport(models.Model):
                     ORDER BY id
                 )
                 SELECT rar.id                                          AS id,
+                       rar.id                                          AS name,
                        rar.resource_activity_id                        AS activity_id,
                        rar.state                                       AS registration_state,
                        a.state                                         AS activity_state,
@@ -123,8 +128,8 @@ class ResourceActivityRegistrationReport(models.Model):
                        rat.analytic_account                            AS analytic_account_id,
                        rat.project_id                                  AS project_id,
                        pt.id                                           AS product_id,
-                       pt.categ_id                                     AS product_category_id,
-                       rar.resource_category                           AS resource_category,
+                       pt.categ_id                                     AS product_categ_id,
+                       rar.resource_category                           AS resource_categ_id,
                        rm.nb_participants                              AS nb_participants,
                        rm.nb_bikes                                     AS nb_bikes,
                        rm.nb_participants_wo_bike                      AS nb_participants_wo_bike,
@@ -137,7 +142,6 @@ class ResourceActivityRegistrationReport(models.Model):
                          JOIN resource_activity_type rat ON a.activity_type = rat.id
                          LEFT JOIN product_product pp ON rar.product_id = pp.id
                          LEFT JOIN product_template pt ON pp.product_tmpl_id = pt.id
-                WHERE rar.state IN ('option', 'booked')
             )
         """
             % self._table

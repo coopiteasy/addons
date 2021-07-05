@@ -10,6 +10,11 @@ class ResourceActivityReport(models.Model):
     _description = "Activities Analysis"
     _auto = False
 
+    name = fields.Many2one(
+        comodel_name="resource.activity", 
+        string="Activity",
+        required=False, 
+    )
     state = fields.Selection(
         [
             ("draft", "Draft"),
@@ -20,6 +25,9 @@ class ResourceActivityReport(models.Model):
         ],
         string="Status",
         readonly=True,
+    )
+    active = fields.Boolean(
+        string="Active",
     )
     activity_theme_id = fields.Many2one(
         comodel_name="resource.activity.theme",
@@ -93,7 +101,6 @@ class ResourceActivityReport(models.Model):
                            sum(renting_days)        as renting_days
                     FROM resource_activity_registration rar
                              join resource_activity a on rar.resource_activity_id = a.id
-                    WHERE rar.state in ('option', 'booked')
                     GROUP BY activity_id
                 ),
                      sale_orders AS (
@@ -105,7 +112,9 @@ class ResourceActivityReport(models.Model):
                          GROUP BY ra.id
                      )
                 SELECT a.id                                                  AS id,
+                       a.id                                                  AS name,
                        a.state                                               AS state,
+                       a.active                                              AS active,
                        a.activity_theme                                      AS activity_theme_id,
                        a.activity_type                                       AS activity_type_id,
                        a.location_id                                         AS location_id,
@@ -127,7 +136,6 @@ class ResourceActivityReport(models.Model):
                          JOIN resource_activity_type rat ON a.activity_type = rat.id
                          LEFT JOIN registration_metrics rm ON rm.activity_id = a.id
                          LEFT JOIN sale_orders so on so.activity_id = a.id
-                WHERE a.state NOT IN ('draft', 'cancelled')
                 ORDER BY id
             )""" % (
             self._table
