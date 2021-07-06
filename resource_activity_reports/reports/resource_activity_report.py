@@ -11,9 +11,10 @@ class ResourceActivityReport(models.Model):
     _auto = False
 
     name = fields.Many2one(
-        comodel_name="resource.activity", 
+        comodel_name="resource.activity",
         string="Activity",
-        required=False, 
+        required=False,
+        readonly=True,
     )
     state = fields.Selection(
         [
@@ -63,7 +64,10 @@ class ResourceActivityReport(models.Model):
     )
     need_delivery = fields.Boolean(string="Need Delivery?", readonly=True)
     need_guide = fields.Boolean(string="Need Guide?", readonly=True)
-    nb_participants = fields.Integer(string="Number of participants")
+    languages = fields.Char(string="Languages", readonly=True)
+    nb_participants = fields.Integer(
+        string="Number of participants", readonly=True
+    )
     nb_bikes = fields.Integer(
         string="Number of bikes",
         readonly=True,
@@ -96,7 +100,6 @@ WITH registration_metrics AS (
                        THEN rar.quantity
                    ELSE 0
                END)                 AS nb_participants_bringing_bike,
-           sum(renting_seconds)     AS renting_seconds,
            sum(renting_hours)       AS renting_hours,
            sum(renting_days)        as renting_days
     FROM resource_activity_registration rar
@@ -109,6 +112,14 @@ WITH registration_metrics AS (
                 sum(so.amount_untaxed) AS total_untaxed_amount
          FROM resource_activity ra
                   JOIN sale_order so ON ra.id = so.activity_id
+         GROUP BY ra.id
+     ),
+     langs as (
+         SELECT ra.id                                       as activity_id,
+                string_agg(ral.code, ',' ORDER BY ral.code) as lang_codes
+         FROM resource_activity ra
+                  LEFT JOIN resource_activity_resource_activity_lang_rel raralr ON ra.id = raralr.resource_activity_id
+                  LEFT JOIN resource_activity_lang ral ON raralr.resource_activity_lang_id = ral.id
          GROUP BY ra.id
      )
 SELECT a.id                                                        AS id,
@@ -124,6 +135,7 @@ SELECT a.id                                                        AS id,
        a.registration_state                                        AS registration_state,
        rat.analytic_account                                        AS analytic_account_id,
        rat.project_id                                              AS project_id,
+       l.lang_codes                                                as languages,
        a.registrations_expected                                    AS nb_participants,
        rm.nb_bikes                                                 AS nb_bikes,
        rm.nb_participants_bringing_bike                            AS nb_participants_bringing_bike,
@@ -135,7 +147,8 @@ SELECT a.id                                                        AS id,
 FROM resource_activity a
          JOIN resource_activity_type rat ON a.activity_type = rat.id
          LEFT JOIN registration_metrics rm ON rm.activity_id = a.id
-         LEFT JOIN sale_orders so on so.activity_id = a.id
+         LEFT JOIN sale_orders so ON so.activity_id = a.id
+         LEFT JOIN langs l ON l.activity_id = a.id
 ORDER BY id
             )""" % (
             self._table

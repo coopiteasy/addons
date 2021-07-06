@@ -15,11 +15,6 @@ class ResourceActivityRegistration(models.Model):
         compute="_compute_registration_statistics",
         store=True,
     )
-    renting_seconds = fields.Integer(
-        string="Renting Seconds",
-        compute="_compute_registration_statistics",
-        store=True,
-    )
     renting_hours = fields.Float(
         string="Renting Hours",
         compute="_compute_registration_statistics",
@@ -63,11 +58,9 @@ class ResourceActivityRegistration(models.Model):
                     duration_days = ceil(duration_hours / 24.0)
 
                 registration.nb_bikes = nb_bikes
-                registration.renting_seconds = nb_bikes * duration_seconds
                 registration.renting_hours = nb_bikes * duration_hours
                 registration.renting_days = nb_bikes * duration_days
             else:
                 registration.nb_bikes = 0
-                registration.renting_seconds = 0
                 registration.renting_hours = 0
                 registration.renting_days = 0
