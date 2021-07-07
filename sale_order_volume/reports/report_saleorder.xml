@@ -10,6 +10,7 @@
                     <tr>
                         <th>Category</th>
                         <th class="text-right">Volume (m³)</th>
+                        <th class="text-right"># Pallets</th>
                     </tr>
                 </thead>
                 <tbody class="sale_tbody">
@@ -20,6 +21,9 @@
                             </td>
                             <td class="text-right">
                                 <span t-field="line.volume" />
+                            </td>
+                            <td class="text-right">
+                                <span t-field="line.pallet_count" />
                             </td>
                         </tr>
                     </t>

@@ -9,17 +9,37 @@ def _compute_volume(order_line):
     return order_line.product_id.volume * order_line.product_uom_qty
 
 
+def _compute_pallet_count(volume, pallet_volume):
+    if not pallet_volume or not volume:
+        return 0
+    if volume <= pallet_volume:
+        return 1
+    if volume % pallet_volume == 0:
+        return volume // pallet_volume
+    return (volume // pallet_volume) + 1
+
+
 class ProductCategoryVolume(models.Model):
     _name = "product.category.volume"
     _description = "Product Volume by Category"
 
     sale_order_id = fields.Many2one(
-        comodel_name="sale.order", string="sale.order"
+        comodel_name="sale.order", string="Sale Order"
     )
     category_id = fields.Many2one(
         comodel_name="product.category", string="Product Category"
     )
     volume = fields.Float(string="Volume (m³)")
+    pallet_count = fields.Integer(string="# Pallets")
+
+    @api.model
+    def get_default_pallet_volume(self):
+        return (
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("sale_order_volume.pallet_volume")
+            or 0
+        )
 
 
 class SaleOrder(models.Model):
@@ -27,6 +47,10 @@ class SaleOrder(models.Model):
 
     volume = fields.Float(
         string="Order Volume (m³)", compute="_compute_order_volume", store=True
+    )
+
+    pallet_count = fields.Integer(
+        string="Order # Pallets", compute="_compute_order_volume", store=True
     )
 
     volume_per_category = fields.One2many(
@@ -46,6 +70,18 @@ class SaleOrder(models.Model):
             )
 
             order.volume = sum(_compute_volume(ol) for ol in order_lines)
+            order.pallet_count = _compute_pallet_count(
+                order.volume, float(self.get_default_pallet_volume())
+            )
+
+    @api.model
+    def get_default_pallet_volume(self):
+        return (
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("sale_order_volume.pallet_volume")
+            or 0
+        )
 
     @api.multi
     def compute_order_product_category_volumes(self):
@@ -71,13 +107,18 @@ class SaleOrder(models.Model):
         }
 
         for category_id, volume in volume_per_category:
+            pallet_count = _compute_pallet_count(
+                volume, float(self.get_default_pallet_volume())
+            )
             if category_id in existing_categories:
                 existing_categories[category_id].volume = volume
+                existing_categories[category_id].pallet_count = pallet_count
             else:
                 vals = {
                     "sale_order_id": self.id,
                     "category_id": category_id,
                     "volume": volume,
+                    "pallet_count": pallet_count,
                 }
                 self.env["product.category.volume"].create(vals)
 
