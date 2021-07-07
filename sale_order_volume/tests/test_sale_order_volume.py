@@ -27,4 +27,7 @@ class SaleOrderVolumeCase(TransactionCase):
         )
 
         self.assertEquals(service_volume.volume, 0)
+        self.assertEquals(service_volume.pallet_count, 1)
         self.assertEquals(office_furniture_volume.volume, 15.6)
+        # (15.6 (volume) // 1.75 (pallet volume)) + 1 = 9
+        self.assertEquals(office_furniture_volume.pallet_count, 9)

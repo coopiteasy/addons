@@ -1,33 +1,53 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
+
+    <template id="volume_per_category">
+        <div
+            id="cart_volume_per_category"
+            t-att-class="extra_class or ''"
+            t-if="website_sale_order and website_sale_order.website_order_line"
+        >
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="col-md-2 col-3 noborder">Volume (m³)</th>
+                        <th class="col-md-2 col-3 noborder"># Pallets</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-xl-left noborder">
+                            <span
+                                t-field="website_sale_order.volume"
+                                style="white-space: nowrap;"
+                            />
+                        </td>
+
+                        <td class="text-xl-right noborder">
+                            <span
+                                t-field="website_sale_order.pallet_count"
+                                style="white-space: nowrap;"
+                            />
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+            <p id="pallet_footnote"><i>1 pallet = <t
+                        t-esc="website_sale_order.get_default_pallet_volume()"
+                    /> m³</i></p>
+        </div>
+    </template>
+
     <template id="short_cart_summary" inherit_id="website_sale.short_cart_summary">
         <div class="card-body" position="after">
             <div class="card-body">
-
-                <h4 class="d-none d-xl-block">Product Volumes (m³)</h4>
-
-                <div class="extra_class">
-                    <table class="table" name="volume-per-category">
-                        <tbody class="sale_tbody">
-                            <t
-                                t-set="category_volumes"
-                                t-value="website_sale_order.compute_order_product_category_volumes()"
-                            />
-                            <t t-foreach="category_volumes" t-as="line">
-                                <tr>
-                                    <td>
-                                        <span t-field="line.category_id" />
-                                    </td>
-                                    <td class="text-right">
-                                        <span t-field="line.volume" />
-                                    </td>
-                                </tr>
-                            </t>
-                        </tbody>
-                    </table>
+                <h4 class="d-none d-xl-block">Order Volume</h4>
+                <div>
+                    <t t-call="sale_order_volume.volume_per_category">
+                    </t>
                 </div>
             </div>
         </div>
-
     </template>
 </odoo>
