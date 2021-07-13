@@ -16,7 +16,7 @@ class AccountInvoice(models.Model):
     identical_invoice_detected = fields.Boolean('identical_invoice_detected',
                                                 compute='_check_identical_invoice')
 
-    @api.onchange('partner_id', 'date_invoice')
+    @api.onchange('type', 'date_invoice', 'amount_total')
     @api.multi
     def _onchange_check_identical_invoice(self):
         self._check_identical_invoice()
@@ -27,7 +27,7 @@ class AccountInvoice(models.Model):
             Invoice = self.env['account.invoice']
             duplicate_domain = [
                 ('state', 'not in', ['draft', 'cancel']),
-                ('partner_id.supplier', '=', True),
+                ('type', '=', 'in_invoice'),
                 ('partner_id', '=', invoice.partner_id.id),
             ]
             partner_invoices = Invoice.search(duplicate_domain)
@@ -45,10 +45,7 @@ class AccountInvoice(models.Model):
                 lambda i: equal_amount(i) and (same_date(i) or invoiced_today(i))
             )
 
-            if duplicate_invoices:
-                invoice.identical_invoice_detected = True
-            else:
-                invoice.identical_invoice_detected = False
+            invoice.identical_invoice_detected = bool(duplicate_invoices)
 
     @api.multi
     def invoice_validate(self):
