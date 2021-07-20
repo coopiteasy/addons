@@ -6,13 +6,6 @@ from openerp import api, fields, models, _
 from openerp.exceptions import UserError
 
 
-class ResCompany(models.Model):
-    _inherit = "res.company"
-    sale_note_html = fields.Html(
-        string="Default Terms and Conditions", translate=True, sanitize=False
-    )
-
-
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
@@ -174,11 +167,3 @@ class SaleOrderLine(models.Model):
                         line[field]
                     )
             line.write(values)
-
-
-class ProductTemplate(models.Model):
-    _inherit = "product.template"
-
-    is_delivery = fields.Boolean(string="Delivery")
-    is_guide = fields.Boolean(string="Guide")
-    is_participation = fields.Boolean(string="Participation")

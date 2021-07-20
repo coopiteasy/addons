@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="resource_resource_tree" model="ir.ui.view">
+        <field name="name">resource.resource.tree</field>
+        <field name="model">resource.resource</field>
+        <field name="inherit_id" ref="resource.resource_resource_tree"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="serial_number"/>
+                <field name="category_id"/>
+                <field name="location" groups="resource_planning.group_multi_location"/>
+            </field>
+            <field name="time_efficiency" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="resource_planning_resource_form" model="ir.ui.view">
+        <field name="name">resource.planning.resource.form</field>
+        <field name="model">resource.resource</field>
+        <field name="priority">15</field>
+        <field name="arch" type="xml">
+            <form string="Resource">
+                <header>
+                    <button name="%(action_view_allocate_resource)d" string="Schedule Maintenance"
+                            context="{'default_active_id': active_id,'default_allocation_type': 'maintenance'}"
+                            type="action" states="available"/>
+                    <button name="action_unavailable" string="Set unavailable" type="object" states="available"/>
+                    <button name="action_available" string="Set available" type="object" states="draft,unavailable"/>
+                    <button name="action_draft" string="Set to draft" type="object" states="available"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="object" name="toggle_active" icon="fa-archive">
+                            <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+                    <group>
+                        <group name="general">
+                            <field name="name"/>
+                            <field name="serial_number"/>
+                            <field name="user_id"
+                                   attrs="{'required':[('resource_type','=','user')], 'readonly':[('resource_type','=','material')]}"/>
+                            <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
+                        </group>
+                        <group name="category">
+                            <field name="category_id" widget="selection"/>
+                            <field name="location" attrs="{'readonly':[('state','!=','draft')]}" widget="selection"
+                                   groups="resource_planning.group_multi_location"/>
+                            <field name="resource_type"/>
+                            <field name="calendar_id"/>
+                            <field name="time_efficiency" invisible="True"/>
+                        </group>
+                        <group name="stock_info" string="Stock Info">
+                            <field name="purchase_invoice_ref"/>
+                            <field name="purchase_date"/>
+                            <field name="removed_from_stock"/>
+                            <field name="stock_removal_reason"
+                                   attrs="{'invisible':[('removed_from_stock','=',False)]}"/>
+                            <field name="stock_removal_date" attrs="{'invisible':[('removed_from_stock','=',False)]}"/>
+                            <field name="selling_price" attrs="{'invisible':[('stock_removal_reason', '!=', 'sold')]}"/>
+                            <field name="sale_invoice_ref"
+                                   attrs="{'invisible':[('stock_removal_reason', '!=', 'sold')]}"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="allocations" string="Allocations">
+                            <field name="allocations">
+                                <tree delete="false" create="false">
+                                    <field name="partner_id"/>
+                                    <field name="date_start"/>
+                                    <field name="date_end"/>
+                                    <field name="date_lock"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_resource_resource_search" model="ir.ui.view">
+        <field name="name">resource.resource.search</field>
+        <field name="model">resource.resource</field>
+        <field name="inherit_id" ref="resource.view_resource_resource_search"/>
+        <field name="arch" type="xml">
+            <field name="resource_type" position="after">
+                <filter name="available_draft" string="Available and Draft"
+                        domain="[('state','in',['draft','available'])]"/>
+                <filter name="available" string="Available" domain="[('state','in',['draft','available'])]"/>
+                <filter name="unavailable" string="Unavailable" domain="[('state','=','unavailable')]"/>
+            </field>
+            <filter domain="[('active','=',False)]" position="replace"/>
+            <group expand="0" position="inside">
+                <filter name="resource_category" string="Resource category" domain="[]"
+                        context="{'group_by':'category_id'}"/>
+            </group>
+        </field>
+    </record>
+</odoo>

@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 # Copyright 2018 Coop IT Easy SCRLfs.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-from collections import defaultdict, namedtuple
+from collections import namedtuple
+from datetime import datetime, timedelta
 
 import pytz
+
 from openerp import _, api, fields, models
-from datetime import datetime, timedelta
-from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT as DTF
 from openerp.exceptions import ValidationError, UserError
+from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT as DTF
 
 OrderLine = namedtuple(
     "OrderLine", ["partner", "product", "qty", "type", "registration"]
@@ -17,73 +18,6 @@ OrderLine = namedtuple(
 def _pd(dt):
     """parse datetime"""
     return datetime.strptime(dt, DTF) if dt else dt
-
-
-class ResourceActivityType(models.Model):
-    _name = "resource.activity.type"
-
-    name = fields.Char(
-        string="Type",
-        required=True,
-        translate=True,
-    )
-    code = fields.Char(string="Code")
-    analytic_account = fields.Many2one(
-        "account.analytic.account",
-        string="Analytic account",
-        groups="analytic.group_analytic_accounting",
-    )
-    product_ids = fields.Many2many("product.product", string="Product")
-    location_ids = fields.Many2many("resource.location", string="Locations")
-    active = fields.Boolean("Active", default=True)
-
-
-class ResourceActivityTheme(models.Model):
-    _name = "resource.activity.theme"
-
-    name = fields.Char(
-        string="Type",
-        required=True,
-        translate=True,
-    )
-    code = fields.Char(string="Code")
-    active = fields.Boolean("Active", default=True)
-
-
-class ResourceActivityLang(models.Model):
-    _name = "resource.activity.lang"
-
-    name = fields.Char(
-        string="Lang",
-        required=True,
-        translate=True,
-    )
-    code = fields.Char(string="Code")
-    active = fields.Boolean("Active", default=True)
-
-
-class ResourceCategoryAvailable(models.Model):
-    _name = "resource.category.available"
-    activity_id = fields.Many2one(
-        comodel_name="resource.activity", string="Activity"
-    )
-    category_id = fields.Many2one(
-        comodel_name="resource.category", string="Category", required=True
-    )
-    nb_resources = fields.Integer(string="Number of resources")
-
-    @api.model
-    def garbage_collect(self):
-        """cleanup resource category available for past activities"""
-        a_week_ago = datetime.now() - timedelta(days=7)
-        a_week_ago_str = fields.Datetime.to_string(a_week_ago)
-        self.search(
-            [
-                "|",
-                ("activity_id", "=", False),
-                ("activity_id.date_start", "<=", a_week_ago_str),
-            ]
-        ).unlink()
 
 
 class ResourceActivity(models.Model):

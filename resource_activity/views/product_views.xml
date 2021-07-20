@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2021 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <record id="product_template_delivery_view" model="ir.ui.view">
+        <field name="name">product.template.delivery.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//label[@for='sale_ok']/.." position="after">
+                <div>
+                    <field name="is_delivery"/>
+                    <label for="is_delivery"/>
+                </div>
+                <div>
+                    <field name="is_guide"/>
+                    <label for="is_guide"/>
+                </div>
+                <div>
+                    <field name="is_participation"/>
+                    <label for="is_participation"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_resource_activity_search_product_tree" model="ir.ui.view">
+        <field name="name">resource.activity.search.product.tree</field>
+        <field name="model">product.template</field>
+        <field name="arch" type="xml">
+            <tree default_order='list_price'>
+                <field name="name"/>
+                <field name="list_price"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

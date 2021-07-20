@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2021 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <record id="resource_activity_lang_tree" model="ir.ui.view">
+        <field name="name">resource.activity.lang.tree</field>
+        <field name="model">resource.activity.lang</field>
+        <field name="arch" type="xml">
+            <tree string="Resource activity lang" delete="false">
+                <field name="name"/>
+                <field name="code"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_resource_activity_lang_form" model="ir.ui.view">
+        <field name="name">resource.activity.lang.form</field>
+        <field name="model">resource.activity.lang</field>
+        <field name="arch" type="xml">
+            <form string="Resource activity lang">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="object" name="toggle_active" icon="fa-archive">
+                            <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="code"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_resource_activity_lang" model="ir.actions.act_window">
+        <field name="name">Resource activity lang</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">resource.activity.lang</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

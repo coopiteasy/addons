@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2021 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <record id="view_activity_registration_form" model="ir.ui.view">
+        <field name="name">activity.registration.form</field>
+        <field name="model">resource.activity.registration</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button type="object" name="search_resources" string="Search" states="draft,waiting,available"
+                            help="Search resources"/>
+                    <button name="action_cancel" string="Cancel" type="object"
+                            states="draft,booked,option,waiting,available"
+                            confirm="Are you sure you want to cancel this registration?"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="partner_id" invisible="True"/>
+                            <field name="attendee_id" attrs="{'required':[('partner_id','=',False)]}"/>
+                            <field name="bring_bike"/>
+                            <field name="quantity"/>
+                            <field name="quantity_needed"
+                                   attrs="{'readonly':[('state','in',['booked','option'])]}"/>
+                            <field name="quantity_allocated"/>
+                        </group>
+                        <group>
+                            <field name="booking_type"/>
+                            <field name="date_lock" attrs="{'invisible':[('booking_type','!=','option')]}"/>
+                            <field name="activity_type" invisible="True"/>
+                            <field name="resource_category"
+                                   attrs="{'required':[('bring_bike','=',False)],'readonly':[('state','in',['booked','option','waiting','cancelled'])]}"/>
+                            <field name="product_id"
+                                   domain="[('resource_category_id','=',resource_category),('resource_activity_id','=',activity_type)]"
+                                   attrs="{'required':[('bring_bike','=',False)]}"/>
+                            <field name="registrations_max" invisible="True"/>
+                            <field name="registrations_expected" invisible="True"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Search result">
+                            <!--<button type="object" name="action_refresh" string="Refresh" help="refresh"/>-->
+                            <button type="object" name="reserve_needed_resource" string="Reserve needed Resources"
+                                    help="Reserve needed resource"/>
+                            <field name="resources_available"
+                                   options="{'reload_on_button':True,'no_open':True,'no_create':True}">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="resource_id"/>
+                                    <field name="state"/>
+                                    <button type="object" name="action_reserve" states="free" help="Book"
+                                            icon="STOCK_MEDIA_PLAY"/>
+                                    <button type="object" name="action_cancel" states="selected" help="Cancel"
+                                            icon="gtk-cancel"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Resource Allocations">
+                            <field name="allocations" options="{'reload_on_button':True}">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="serial_number"/>
+                                    <field name="resource_id"/>
+                                    <field name="resource_category_id"/>
+                                    <field name="date_start"/>
+                                    <field name="date_end"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

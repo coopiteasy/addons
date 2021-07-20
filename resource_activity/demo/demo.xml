@@ -7,13 +7,6 @@
     <record id="resource_activity_type_tour_demo" model="resource.activity.type">
         <field name="name">Tour</field>
     </record>
-    <record id="base.user_root" model="res.users">
-        <field name="resource_location" ref="resource_planning.main_location"/>
-    </record>
-    <record id="base.user_demo" model="res.users">
-        <field name="resource_location" ref="resource_planning.main_location"/>
-    </record>
-
     <record id="guide_product_product_demo" model="product.product">
         <field name="name">Guide Product</field>
         <field name="list_price">100</field>

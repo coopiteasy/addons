@@ -118,7 +118,7 @@ class TestResourceActivity(common.TransactionCase):
         activity.create_sale_order()
         sale_order = activity.sale_orders
         self.assertEquals(len(sale_order.order_line), 1)
-        self.assertEquals(activity.sale_orders.amount_total, 230)
+        self.assertEquals(activity.sale_orders.amount_total, 200)
 
     def test_create_guide_only_sale_order_with_guides_and_registrations(self):
         activity_obj = self.env["resource.activity"]
@@ -155,4 +155,4 @@ class TestResourceActivity(common.TransactionCase):
         activity.create_sale_order()
         sale_order = activity.sale_orders
         self.assertEquals(len(sale_order.order_line), 1)
-        self.assertEquals(activity.sale_orders.amount_total, 230)
+        self.assertEquals(activity.sale_orders.amount_total, 200)

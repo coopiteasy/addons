@@ -5,37 +5,6 @@
 from openerp import _, api, fields, models
 
 
-class ResUsers(models.Model):
-    _inherit = "res.users"
-
-    resource_location = fields.Many2one("resource.location", string="Location")
-
-
-class ResPartner(models.Model):
-    _inherit = "res.partner"
-
-    @api.model
-    def _get_default_location(self):
-        location = self.env.user.resource_location
-        if not location:
-            main_location = self.env.ref(
-                "resource_planning.main_location", False
-            )
-            return (
-                main_location
-                if main_location
-                else self.env["resource.location"]
-            )
-        return location
-
-    resource_location = fields.Many2one(
-        "resource.location",
-        string="Location",
-        default=_get_default_location,
-        domain=[("main_location", "=", True)],
-    )
-
-
 class ResourceLocation(models.Model):
     _name = "resource.location"
     _inherit = "mail.thread"

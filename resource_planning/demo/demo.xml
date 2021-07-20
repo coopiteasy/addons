@@ -10,7 +10,12 @@
     <record id="resource_category_ebike_demo" model="resource.category">
         <field name="name">E-Bike</field>
     </record>
-
+    <record id="base.user_root" model="res.users">
+        <field name="resource_location" ref="main_location"/>
+    </record>
+    <record id="base.user_demo" model="res.users">
+        <field name="resource_location" ref="main_location"/>
+    </record>
     <record id="resource_resource_bike_1_demo" model="resource.resource">
         <field name="name">Bike 1</field>
         <field name="serial_number">BK1</field>
