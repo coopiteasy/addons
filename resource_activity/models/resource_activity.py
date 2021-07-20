@@ -356,6 +356,7 @@ class ResourceActivity(models.Model):
         "set_allocation_span",
     )
     def default_allocation_span(self):
+        # fixme not triggered when created in demo data
         if self.date_start:
             if self.need_delivery:
                 if self.set_allocation_span:
@@ -616,26 +617,16 @@ class ResourceActivity(models.Model):
         return prepared_lines
 
     def _create_sale_order(self, activity, partner_id):
-        SaleOrder = self.env["sale.order"]
-        sale_note_html = (
-            activity.location_id.terms_ids.filtered(
-                lambda r: r.note_id.active
-                and r.location_id == activity.location_id
-                and r.activity_type_id == activity.activity_type
-            ).note_id.content
-            or SaleOrder._default_note_html()
-        )
-        order_id = SaleOrder.create(
+        order = self.env["sale.order"].create(
             {
                 "partner_id": partner_id,
                 "activity_id": activity.id,
                 "project_id": activity.analytic_account.id,
                 "activity_sale": True,
-                "note_html": sale_note_html,
             }
         )
         activity.state = "quotation"
-        return order_id
+        return order
 
     def prepare_sale_orders(self, activity):
         """

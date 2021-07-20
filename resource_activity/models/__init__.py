@@ -1,6 +1,5 @@
 from . import partner
 from . import product
-from . import res_company
 from . import resource_activity
 from . import resource_activity_delivery
 from . import resource_activity_lang
@@ -11,7 +10,4 @@ from . import resource_allocation
 from . import resource_available
 from . import resource_category
 from . import resource_location
-from . import resource_location_terms
 from . import sale_order
-from . import sale_note
-from . import terms_conditions

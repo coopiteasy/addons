@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_res_company_terms_manager,res.company.terms,model_res_company_terms,resource_planning.group_resource_manager,1,1,1,1
+access_res_company_terms_user,res.company.terms,model_res_company_terms,resource_planning.group_resource_user,1,1,1,0
+access_resource_location_terms_manager,resource.location.terms,model_resource_location_terms,resource_planning.group_resource_manager,1,1,1,1
+access_resource_location_terms_user,resource.location.terms,model_resource_location_terms,resource_planning.group_resource_user,1,1,1,0
+access_res_company_note_manager,res.company.note,model_res_company_note,resource_planning.group_resource_manager,1,1,1,1
+access_res_company_note_user,res.company.note,model_res_company_note,resource_planning.group_resource_user,1,1,1,0

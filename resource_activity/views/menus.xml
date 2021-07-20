@@ -61,16 +61,4 @@
               id="resource_activity_lang_menu"
               parent="activity_configuration_menu"
               sequence="80"/>
-
-    <menuitem id="menu_sale_note"
-              name="Sale Note"
-              action="action_sale_note"
-              parent="resource_planning.resource_location_category_menu"
-              sequence="30"/>
-
-        <menuitem id="menu_terms_conditions"
-              name="Terms and Conditions"
-              action="action_terms_conditions"
-              parent="resource_planning.resource_location_category_menu"
-              sequence="40"/>
 </odoo>

@@ -140,6 +140,8 @@ class ActivityRegistration(models.Model):
     date_start = fields.Datetime(
         related="resource_activity_id.resource_allocation_start",
         string="Date start",
+        help="Takes the longest range between Start Date and End Date"
+        " or Delivery Time and Pickup Time.",
     )
     date_end = fields.Datetime(
         related="resource_activity_id.resource_allocation_end",

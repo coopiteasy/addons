@@ -8,14 +8,17 @@
         <field name="name">Tour</field>
         <field name="location_ids" eval="[(4, ref('resource_planning.main_location'))]"/>
     </record>
+
     <record id="resource_activity_lang_fr_demo" model="resource.activity.lang">
         <field name="name">French</field>
         <field name="code">FR</field>
     </record>
+
     <record id="resource_activity_lang_nl_demo" model="resource.activity.lang">
         <field name="name">Dutch</field>
         <field name="code">NL</field>
     </record>
+
     <record id="resource_activity_theme_1_demo" model="resource.activity.theme">
         <field name="name">Discovery</field>
         <field name="code">DIS</field>
@@ -24,27 +27,53 @@
     <record id="guide_product_product_demo" model="product.product">
         <field name="name">Guide Product</field>
         <field name="list_price">100</field>
+        <field name="is_guide" eval="True"/>
     </record>
+
     <record id="res_partner_friendly_guide_demo" model="res.partner">
         <field name="name">Friendly Guide</field>
         <field name="is_guide" eval="True"/>
+        <field name="phone">0472947202</field>
+        <field name="email">friendly@coopiteasy.be</field>
     </record>
+
     <record id="res_partner_mean_guide_demo" model="res.partner">
         <field name="name">Mean Guide</field>
         <field name="is_guide" eval="True"/>
     </record>
-    
+
+    <record id="product_product_bike_rent_demo" model="product.product">
+        <field name="name">Bike Day Product</field>
+        <field name="resource_category_id" eval="[(4, ref('resource_planning.resource_category_bike_demo'))]"/>
+        <field name="resource_activity_id" eval="[(4, ref('resource_activity_type_tour_demo'))]"/>
+    </record>
+
+    <record id="product_product_ebike_rent_demo" model="product.product">
+        <field name="name">E-Bike Day Product</field>
+        <field name="resource_category_id" eval="[(4, ref('resource_planning.resource_category_ebike_demo'))]"/>
+        <field name="resource_activity_id" eval="[(4, ref('resource_activity_type_tour_demo'))]"/>
+    </record>
+
     <record id="resource_activity_1_demo" model="resource.activity">
         <field name="description">Brussels Tour</field>
         <field name="date_start" eval="(DateTime.now() + timedelta(days=3)).strftime('%Y-%m-%d 10:30:00')"/>
+        <!-- not triggered when created through demo data -->
+        <field name="resource_allocation_start" eval="(DateTime.now() + timedelta(days=3)).strftime('%Y-%m-%d 10:30:00')"/>
         <field name="date_end" eval="(DateTime.now() + timedelta(days=3)).strftime('%Y-%m-%d 14:30:00')"/>
+        <field name="resource_allocation_end" eval="(DateTime.now() + timedelta(days=3)).strftime('%Y-%m-%d 14:30:00')"/>
         <field name="activity_type" ref="resource_activity_type_tour_demo"/>
+        <field name="partner_id" ref="base.partner_demo"/>
+        <field name="guide_product_id" ref="guide_product_product_demo"/>
+        <field name="guides" eval="[(4, ref('res_partner_friendly_guide_demo'))]"/>
     </record>
 
     <record id="resource_activity_2_demo" model="resource.activity">
-        <field name="description">Brussels Tour</field>
+        <field name="description">Liège Tour</field>
         <field name="date_start" eval="(DateTime.now() + timedelta(days=3)).strftime('%Y-%m-%d 05:30:00')"/>
+        <field name="resource_allocation_start" eval="(DateTime.now() + timedelta(days=3)).strftime('%Y-%m-%d 05:30:00')"/>
         <field name="date_end" eval="(DateTime.now() + timedelta(days=3)).strftime('%Y-%m-%d 22:30:00')"/>
+        <field name="resource_allocation_end" eval="(DateTime.now() + timedelta(days=3)).strftime('%Y-%m-%d 22:30:00')"/>
         <field name="activity_type" ref="resource_activity_type_tour_demo"/>
+        <field name="partner_id" ref="base.partner_demo"/>
     </record>
 </odoo>

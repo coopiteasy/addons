@@ -9,9 +9,11 @@ class ProductProduct(models.Model):
     _inherit = "product.product"
     _order = "registration_counter desc"
 
+    # fixme bad naming: ids
     resource_category_id = fields.Many2many(
         "resource.category", string="Resource category"
     )
+    # fixme really bad naming
     resource_activity_id = fields.Many2many(
         "resource.activity.type", string="Activity type"
     )

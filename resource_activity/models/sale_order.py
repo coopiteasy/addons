@@ -9,10 +9,6 @@ from openerp.exceptions import UserError
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
-    @api.model
-    def _default_note_html(self):
-        return self.env.user.company_id.sale_note_html
-
     activity_sale = fields.Boolean(string="Activity Sale?")
     activity_id = fields.Many2one(
         "resource.activity", string="Activity", readonly=True
@@ -83,9 +79,6 @@ class SaleOrder(models.Model):
         "resource.resource",
         related="activity_id.booked_resources",
         readonly=True,
-    )
-    note_html = fields.Html(
-        "Terms and conditions", default=lambda self: self._default_note_html()
     )
 
     @api.multi

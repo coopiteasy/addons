@@ -5,9 +5,9 @@
 -->
 <odoo>
 
-    <record id="view_form_sale_note" model="ir.ui.view">
-        <field name="name">res.company.note.form</field>
-        <field name="model">res.company.note</field>
+    <record id="view_form_terms_conditions" model="ir.ui.view">
+        <field name="name">res.company.terms.form</field>
+        <field name="model">res.company.terms</field>
         <field name="arch" type="xml">
             <form>
                 <group>
@@ -21,9 +21,9 @@
         </field>
     </record>
 
-    <record id="view_tree_sale_note" model="ir.ui.view">
-        <field name="name">res.company.note.tree</field>
-        <field name="model">res.company.note</field>
+    <record id="view_tree_terms_conditions" model="ir.ui.view">
+        <field name="name">res.company.terms.tree</field>
+        <field name="model">res.company.terms</field>
         <field name="arch" type="xml">
             <tree>
                 <field name="name"/>
@@ -33,10 +33,10 @@
         </field>
     </record>
 
-    <record id="action_sale_note" model="ir.actions.act_window">
-        <field name="name">Sale Notes</field>
+    <record id="action_terms_conditions" model="ir.actions.act_window">
+        <field name="name">Terms and Conditions</field>
         <field name="type">ir.actions.act_window</field>
-        <field name="res_model">res.company.note</field>
+        <field name="res_model">res.company.terms</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="domain">
@@ -44,4 +44,9 @@
         </field>
     </record>
 
+    <menuitem id="menu_terms_conditions"
+              name="Terms and Conditions"
+              action="action_terms_conditions"
+              parent="resource_planning.resource_location_category_menu"
+              sequence="40"/>
 </odoo>

@@ -55,51 +55,6 @@
                         </t>
                     </t>
                 </div>
-
-                <div t-if="doc.location_id.terms_ids">
-                    <t t-foreach="doc.location_id.terms_ids" t-as="line">
-                        <t t-if="(line.location_id == doc.location_id) and (line.activity_type_id == doc.activity_type)">
-                            <div name="resources"
-                                 t-if="(doc.activity_id.booked_resources) and (line.bike_number_display)"
-                                 class="col-xs-3">
-                                <strong>Resources booked:</strong>
-                                <div name="booked_resources_list"
-                                     t-if="(line.bike_number_display == 'list')">
-                                    <t t-foreach="doc.booked_resources" t-as="booked_resource">
-                                        <div t-field="booked_resource.name"/>
-                                    </t>
-                                </div>
-
-                                <div name="booked_resources_category"
-                                     t-if="(line.bike_number_display == 'type')">
-                                    <t t-foreach="doc.get_category_quantity()" t-as="category">
-                                        <t t-esc="category_value"/>
-                                        <t t-esc="category"/>
-                                        <br/>
-                                    </t>
-                                </div>
-                            </div>
-                        </t>
-                    </t>
-                </div>
-            </xpath>
-
-            <xpath expr="//p[@t-field='doc.note']" position="attributes">
-                <attribute name="class">hidden</attribute>
-            </xpath>
-            <xpath expr="//p[@t-field='doc.note']" position="after">
-                <p name="note_html" t-field="doc.note_html"/>
-            </xpath>
-
-            <xpath expr="//p[@id='fiscal_position_remark']" position="after">
-                <t t-if="doc.location_id.terms_ids">
-                    <t t-foreach="doc.location_id.terms_ids" t-as="line">
-                        <t t-if="(line.location_id == doc.location_id) and (line.activity_type_id == doc.activity_type)">
-                            <p style="page-break-before:always;"/>
-                            <div t-field="line.terms_id.content"/>
-                        </t>
-                    </t>
-                </t>
             </xpath>
         </template>
     </data>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2021 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <record id="view_sale_order_activity_form" model="ir.ui.view">
+        <field name="name">sale.order.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <field name="note" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </field>
+            <field name="note" position="after">
+                <field name="note_html" class="oe_inline"
+                       placeholder="Setup default terms and conditions in your company settings."/>
+            </field>
+        </field>
+    </record>
+</odoo>

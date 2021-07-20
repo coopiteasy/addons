@@ -18,19 +18,21 @@ class ResourceLocationTerms(models.Model):
     ]
 
     location_id = fields.Many2one(
-        "resource.location",
+        comodel_name="resource.location",
         string="Location",
     )
     activity_type_id = fields.Many2one(
-        "resource.activity.type", string="Activity Type", required=True
+        comodel_name="resource.activity.type",
+        string="Activity Type",
+        required=True,
     )
     terms_id = fields.Many2one(
-        "res.company.terms",
+        comodel_name="res.company.terms",
         string="Terms and Conditions",
         help="Terms and Conditions related to this location",
     )
     note_id = fields.Many2one(
-        "res.company.note",
+        comodel_name="res.company.note",
         string="Sale note",
         help="Sale note related to this location",
     )

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2021 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <record id="res_company_note_demo" model="res.company.note">
+        <field name="name">Demo Company Sale Note</field>
+        <field name="content" type="html">
+            <div>
+                <strong>
+                    The participants will be refunded if their registration
+                    is cancelled at most 2 days before the activity.
+                </strong>
+            </div>
+        </field>
+    </record>
+
+    <record id="res_company_terms_demo" model="res.company.terms">
+        <field name="name">Demo Company Terms</field>
+        <field name="content" type="html">
+            <div>
+                <strong>
+                    The activity price includes an insurance for
+                    bike crashed.
+                </strong>
+            </div>
+        </field>
+    </record>
+
+    <record id="resource_location_terms_tour_demo" model="resource.location.terms">
+        <field name="location_id" ref="resource_planning.main_location"/>
+        <field name="activity_type_id" ref="resource_activity.resource_activity_type_tour_demo"/>
+        <field name="terms_id" ref="res_company_terms_demo"/>
+        <field name="note_id" ref="res_company_note_demo"/>
+        <field name="bike_number_display">type</field>
+    </record>
+</odoo>

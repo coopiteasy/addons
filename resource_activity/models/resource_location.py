@@ -20,5 +20,3 @@ class ResourceLocation(models.Model):
         domain=[("is_trainer", "=", True)],
         string="Trainers",
     )
-
-    terms_ids = fields.One2many("resource.location.terms", "location_id")
