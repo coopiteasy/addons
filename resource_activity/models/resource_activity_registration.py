@@ -165,7 +165,9 @@ class ActivityRegistration(models.Model):
         string="Available Categories",
         related="location_id.resource_categories",
     )
-    is_paid = fields.Boolean(string="Paid",)
+    is_paid = fields.Boolean(
+        string="Paid",
+    )
     is_accessory_registration = fields.Boolean(
         related="resource_category.is_accessory"
     )

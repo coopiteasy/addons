@@ -25,7 +25,8 @@ class ProductProduct(models.Model):
         "resource.activity.type", string="Activity type"
     )
     registration_counter = fields.Integer(
-        string="Registration counter", default=0,
+        string="Registration counter",
+        default=0,
     )
 
     @api.model
@@ -75,7 +76,10 @@ class ResourceLocationTerms(models.Model):
         ),  # Message
     ]
 
-    location_id = fields.Many2one("resource.location", string="Location",)
+    location_id = fields.Many2one(
+        "resource.location",
+        string="Location",
+    )
     activity_type_id = fields.Many2one(
         "resource.activity.type", string="Activity Type", required=True
     )

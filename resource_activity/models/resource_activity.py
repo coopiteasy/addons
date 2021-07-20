@@ -22,7 +22,11 @@ def _pd(dt):
 class ResourceActivityType(models.Model):
     _name = "resource.activity.type"
 
-    name = fields.Char(string="Type", required=True, translate=True,)
+    name = fields.Char(
+        string="Type",
+        required=True,
+        translate=True,
+    )
     code = fields.Char(string="Code")
     analytic_account = fields.Many2one(
         "account.analytic.account",
@@ -30,14 +34,18 @@ class ResourceActivityType(models.Model):
         groups="analytic.group_analytic_accounting",
     )
     product_ids = fields.Many2many("product.product", string="Product")
-    location_ids = fields.Many2many("resource.location",string="Locations")
+    location_ids = fields.Many2many("resource.location", string="Locations")
     active = fields.Boolean("Active", default=True)
 
 
 class ResourceActivityTheme(models.Model):
     _name = "resource.activity.theme"
 
-    name = fields.Char(string="Type", required=True, translate=True,)
+    name = fields.Char(
+        string="Type",
+        required=True,
+        translate=True,
+    )
     code = fields.Char(string="Code")
     active = fields.Boolean("Active", default=True)
 
@@ -45,7 +53,11 @@ class ResourceActivityTheme(models.Model):
 class ResourceActivityLang(models.Model):
     _name = "resource.activity.lang"
 
-    name = fields.Char(string="Lang", required=True, translate=True,)
+    name = fields.Char(
+        string="Lang",
+        required=True,
+        translate=True,
+    )
     code = fields.Char(string="Code")
     active = fields.Boolean("Active", default=True)
 
@@ -121,7 +133,9 @@ class ResourceActivity(models.Model):
 
     @api.multi
     @api.depends(
-        "registrations.is_paid", "registrations.state", "state",
+        "registrations.is_paid",
+        "registrations.state",
+        "state",
     )
     def _compute_registrations_paid(self):
         for activity in self:
@@ -146,7 +160,7 @@ class ResourceActivity(models.Model):
         """
         for activity in self:
             activity.dayofweek = datetime.strftime(
-                fields.Date.from_string(activity.date_start), '%w'
+                fields.Date.from_string(activity.date_start), "%w"
             )
 
     @api.model
@@ -292,7 +306,8 @@ class ResourceActivity(models.Model):
         compute="_compute_registrations",
     )
     nb_allocated_resources = fields.Integer(
-        string="Allocated Resources", compute="_compute_registrations",
+        string="Allocated Resources",
+        compute="_compute_registrations",
     )
     without_resource_reg = fields.Integer(
         string="Registrations without resource",
@@ -780,11 +795,16 @@ class ResourceActivity(models.Model):
 
                     if type == "resource":
                         self.create_order_line(
-                            order_id, product, qty,
+                            order_id,
+                            product,
+                            qty,
                         )
                     elif type == "delivery":
                         self.create_order_line(
-                            order_id, product, qty, resource_delivery=True,
+                            order_id,
+                            product,
+                            qty,
+                            resource_delivery=True,
                         )
                     elif type == "guide":
                         self.create_order_line(
@@ -792,7 +812,10 @@ class ResourceActivity(models.Model):
                         )
                     else:
                         self.create_order_line(
-                            order_id, product, qty, participation_line=True,
+                            order_id,
+                            product,
+                            qty,
+                            participation_line=True,
                         )
 
                 for pl in partner_lines:
@@ -811,7 +834,8 @@ class ResourceActivity(models.Model):
     def print_last_sale_order(self):
         self.ensure_one()
         sale_orders = self.sale_orders.sorted(
-            lambda so: so.create_date, reverse=True,
+            lambda so: so.create_date,
+            reverse=True,
         )
         if sale_orders:
             return sale_orders[0].print_quotation()

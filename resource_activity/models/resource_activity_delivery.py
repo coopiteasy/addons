@@ -15,7 +15,8 @@ class ResourceActivityDelivery(models.Model):
         ondelete="cascade",
     )
     activity_description = fields.Char(
-        related="activity_id.description", string="Description",
+        related="activity_id.description",
+        string="Description",
     )
     activity_type = fields.Many2one(
         "resource.activity.type",
@@ -28,7 +29,10 @@ class ResourceActivityDelivery(models.Model):
         related="activity_id.location_id",
     )
     delivery_type = fields.Selection(
-        [("delivery", "Delivery"), ("pickup", "Pick up"),],
+        [
+            ("delivery", "Delivery"),
+            ("pickup", "Pick up"),
+        ],
         string="Type",
         required=True,
     )
@@ -36,9 +40,19 @@ class ResourceActivityDelivery(models.Model):
         string="Allocated Resources",
         related="activity_id.nb_allocated_resources",
     )
-    state = fields.Selection(related="activity_id.state", string="State",)
-    date = fields.Datetime(string="Date", compute="_compute_date", store=True,)
-    place = fields.Char(string="Place", compute="_compute_place",)
+    state = fields.Selection(
+        related="activity_id.state",
+        string="State",
+    )
+    date = fields.Datetime(
+        string="Date",
+        compute="_compute_date",
+        store=True,
+    )
+    place = fields.Char(
+        string="Place",
+        compute="_compute_place",
+    )
 
     @api.multi
     @api.depends("activity_id.delivery_time", "activity_id.pickup_time")

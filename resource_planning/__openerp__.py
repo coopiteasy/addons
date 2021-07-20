@@ -21,7 +21,12 @@
 {
     "name": "Resource Planning",
     "version": "9.0.1.0.1",
-    "depends": ["base", "mail", "resource", "web_gantt8",],
+    "depends": [
+        "base",
+        "mail",
+        "resource",
+        "web_gantt8",
+    ],
     "author": "Houssine BAKKALI <houssine@coopiteasy.be>",
     "category": "Resource",
     "website": "www.coopiteasy.be",
@@ -43,7 +48,9 @@
         "views/actions.xml",
         "views/menus.xml",
     ],
-    "demo": ["demo/demo.xml",],
+    "demo": [
+        "demo/demo.xml",
+    ],
     "installable": True,
     "application": True,
 }

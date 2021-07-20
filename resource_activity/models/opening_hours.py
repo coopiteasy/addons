@@ -24,22 +24,35 @@ class ActivityOpeningHours(models.Model):
 
         return [(6, 0, [location.id])]
 
-    name = fields.Char(string="Name",)
+    name = fields.Char(
+        string="Name",
+    )
     location_ids = fields.Many2many(
         comodel_name="resource.location",
         string="Location",
         default=_get_default_location,
         required=True,
     )
-    start = fields.Date(string="Validity Start Date", required=True,)
-    end = fields.Date(string="Validity End Date", required=True,)
-    is_holiday = fields.Boolean(string="Is Holiday", default=False,)
+    start = fields.Date(
+        string="Validity Start Date",
+        required=True,
+    )
+    end = fields.Date(
+        string="Validity End Date",
+        required=True,
+    )
+    is_holiday = fields.Boolean(
+        string="Is Holiday",
+        default=False,
+    )
     opening_day_ids = fields.One2many(
         comodel_name="activity.opening.hours.day",
         inverse_name="opening_hours_id",
         string="Opening Days",
     )
-    active = fields.Boolean(default=True,)
+    active = fields.Boolean(
+        default=True,
+    )
 
     @api.model
     def get_opening_hours(self, location, time):

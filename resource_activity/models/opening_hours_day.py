@@ -28,10 +28,14 @@ class OpeningHoursDay(models.Model):
         required=True,
     )
     opening_time = fields.Char(
-        string="Opening Time", help="format: HH:mm", required=True,
+        string="Opening Time",
+        help="format: HH:mm",
+        required=True,
     )
     closing_time = fields.Char(
-        string="Closing Time", help="format: HH:MM", required=True,
+        string="Closing Time",
+        help="format: HH:MM",
+        required=True,
     )
 
     @api.one

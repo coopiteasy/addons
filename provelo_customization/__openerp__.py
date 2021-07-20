@@ -18,6 +18,7 @@
 #
 ##############################################################################
 {
+    # fixme: rename as provelo_custom
     "name": "Provelo Customization",
     "version": "9.0.1.2.0",
     "depends": [
@@ -28,6 +29,7 @@
         "hr_holidays",
         "hr_timesheet_sheet",
         "resource_planning",
+        # todo watchout for dependencies when splitting modules
         "resource_activity",
         "web_readonly_bypass",
         "l10n_be_invoice_bba",

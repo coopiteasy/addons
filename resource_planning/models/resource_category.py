@@ -9,7 +9,11 @@ class ResourceCategory(models.Model):
     _name = "resource.category"
     _inherit = "mail.thread"
 
-    name = fields.Char(string="Category name", required=True, translate=True,)
+    name = fields.Char(
+        string="Category name",
+        required=True,
+        translate=True,
+    )
     resources = fields.One2many(
         "resource.resource", "category_id", string="Resources"
     )

@@ -21,7 +21,9 @@
 {
     "name": "Resource vehicule",
     "version": "1.0",
-    "depends": ["resource_planning",],
+    "depends": [
+        "resource_planning",
+    ],
     "author": "Houssine BAKKALI <houssine@coopiteasy.be>",
     "category": "Resource",
     "website": "www.coopiteasy.be",
