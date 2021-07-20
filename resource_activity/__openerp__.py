@@ -42,8 +42,6 @@
         "security/ir.model.access.csv",
         "data/resource_activity_data.xml",
         "data/cron.xml",
-        "data/opening_hours.xml",
-        "views/opening_hours.xml",
         "views/partner_views.xml",
         "views/product_views.xml",
         "views/res_company_views.xml",

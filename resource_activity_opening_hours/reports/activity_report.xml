@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2021 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <template id="resource_activity_report_document"
+              inherit_id="resource_activity.resource_activity_report_document">
+        <xpath expr="//span[@t-field='o.departure']" position="after">
+            <br/>
+            <span t-if="o.is_start_outside_opening_hours" style="color:Red;">
+                Activity start is outside opening hours
+            </span>
+        </xpath>
+        <xpath expr="//span[@t-field='o.arrival']" position="after">
+            <br/>
+            <span t-if="o.is_end_outside_opening_hours" style="color:Red;">
+                Activity end is outside opening hours
+            </span>
+        </xpath>
+    </template>
+</odoo>

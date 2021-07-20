@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2021 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+
+    <!-- WINTER 2020 -->
+    <record id="activity_opening_hours_winter_2020" model="activity.opening.hours">
+        <field name="location_ids" eval="[(6, 0, [ref('resource_planning.main_location')])]"/>
+        <field name="name">Winter 2020</field>
+        <field name="start">2020-10-01</field>
+        <field name="end">2021-05-01</field>
+        <field name="is_holiday" eval="False"/>
+    </record>
+
+    <record id="activity_opening_hours_day_w2020_monday_1" model="activity.opening.hours.day">
+        <field name="opening_hours_id" ref="activity_opening_hours_winter_2020"/>
+        <field name="dayofweek">1</field>
+        <field name="opening_time">10:00</field>
+        <field name="closing_time">13:00</field>
+    </record>
+    <record id="activity_opening_hours_day_w2020_wednesday_1" model="activity.opening.hours.day">
+        <field name="opening_hours_id" ref="activity_opening_hours_winter_2020"/>
+        <field name="dayofweek">2</field>
+        <field name="opening_time">10:00</field>
+        <field name="closing_time">13:00</field>
+    </record>
+    <record id="activity_opening_hours_day_w2020_thursday_1" model="activity.opening.hours.day">
+        <field name="opening_hours_id" ref="activity_opening_hours_winter_2020"/>
+        <field name="dayofweek">3</field>
+        <field name="opening_time">10:00</field>
+        <field name="closing_time">13:00</field>
+    </record>
+    <record id="activity_opening_hours_day_w2020_friday_1" model="activity.opening.hours.day">
+        <field name="opening_hours_id" ref="activity_opening_hours_winter_2020"/>
+        <field name="dayofweek">4</field>
+        <field name="opening_time">10:00</field>
+        <field name="closing_time">13:00</field>
+    </record>
+
+    <record id="activity_opening_hours_day_w2020_monday_2" model="activity.opening.hours.day">
+        <field name="opening_hours_id" ref="activity_opening_hours_winter_2020"/>
+        <field name="dayofweek">1</field>
+        <field name="opening_time">13:30</field>
+        <field name="closing_time">17:00</field>
+    </record>
+    <record id="activity_opening_hours_day_w2020_tuesday_2" model="activity.opening.hours.day">
+        <field name="opening_hours_id" ref="activity_opening_hours_winter_2020"/>
+        <field name="dayofweek">1</field>
+        <field name="opening_time">13:30</field>
+        <field name="closing_time">17:00</field>
+    </record>
+    <record id="activity_opening_hours_day_w2020_wednesday_2" model="activity.opening.hours.day">
+        <field name="opening_hours_id" ref="activity_opening_hours_winter_2020"/>
+        <field name="dayofweek">2</field>
+        <field name="opening_time">13:30</field>
+        <field name="closing_time">17:00</field>
+    </record>
+    <record id="activity_opening_hours_day_w2020_thursday_2" model="activity.opening.hours.day">
+        <field name="opening_hours_id" ref="activity_opening_hours_winter_2020"/>
+        <field name="dayofweek">3</field>
+        <field name="opening_time">13:30</field>
+        <field name="closing_time">17:00</field>
+    </record>
+    <record id="activity_opening_hours_day_w2020_friday_2" model="activity.opening.hours.day">
+        <field name="opening_hours_id" ref="activity_opening_hours_winter_2020"/>
+        <field name="dayofweek">4</field>
+        <field name="opening_time">13:30</field>
+        <field name="closing_time">17:00</field>
+    </record>
+
+    <!-- SUMMER 2021 -->
+    <record id="activity_opening_hours_summer_2021" model="activity.opening.hours">
+        <field name="location_ids" eval="[(6, 0, [ref('resource_planning.main_location')])]"/>
+        <field name="name">Summer 2021</field>
+        <field name="start">2021-05-01</field>
+        <field name="end">2022-05-01</field>
+        <field name="is_holiday" eval="False"/>
+    </record>
+
+    <record id="activity_opening_hours_day_s2021_monday_1" model="activity.opening.hours.day">
+        <field name="opening_hours_id" ref="activity_opening_hours_summer_2021"/>
+        <field name="dayofweek">1</field>
+        <field name="opening_time">10:00</field>
+        <field name="closing_time">13:00</field>
+    </record>
+    <record id="activity_opening_hours_day_s2021_wednesday_1" model="activity.opening.hours.day">
+        <field name="opening_hours_id" ref="activity_opening_hours_summer_2021"/>
+        <field name="dayofweek">2</field>
+        <field name="opening_time">10:00</field>
+        <field name="closing_time">13:00</field>
+    </record>
+    <record id="activity_opening_hours_day_s2021_thursday_1" model="activity.opening.hours.day">
+        <field name="opening_hours_id" ref="activity_opening_hours_summer_2021"/>
+        <field name="dayofweek">3</field>
+        <field name="opening_time">10:00</field>
+        <field name="closing_time">13:00</field>
+    </record>
+    <record id="activity_opening_hours_day_s2021_friday_1" model="activity.opening.hours.day">
+        <field name="opening_hours_id" ref="activity_opening_hours_summer_2021"/>
+        <field name="dayofweek">4</field>
+        <field name="opening_time">10:00</field>
+        <field name="closing_time">13:00</field>
+    </record>
+    <record id="activity_opening_hours_day_s2021_saturday_1" model="activity.opening.hours.day">
+        <field name="opening_hours_id" ref="activity_opening_hours_summer_2021"/>
+        <field name="dayofweek">5</field>
+        <field name="opening_time">10:00</field>
+        <field name="closing_time">13:00</field>
+    </record>
+    <record id="activity_opening_hours_day_s2021_sunday_1" model="activity.opening.hours.day">
+        <field name="opening_hours_id" ref="activity_opening_hours_summer_2021"/>
+        <field name="dayofweek">6</field>
+        <field name="opening_time">10:00</field>
+        <field name="closing_time">13:00</field>
+    </record>
+
+    <record id="activity_opening_hours_day_s2021_monday_2" model="activity.opening.hours.day">
+        <field name="opening_hours_id" ref="activity_opening_hours_summer_2021"/>
+        <field name="dayofweek">1</field>
+        <field name="opening_time">13:30</field>
+        <field name="closing_time">18:00</field>
+    </record>
+    <record id="activity_opening_hours_day_s2021_tuesday_2" model="activity.opening.hours.day">
+        <field name="opening_hours_id" ref="activity_opening_hours_summer_2021"/>
+        <field name="dayofweek">1</field>
+        <field name="opening_time">13:30</field>
+        <field name="closing_time">18:00</field>
+    </record>
+    <record id="activity_opening_hours_day_s2021_wednesday_2" model="activity.opening.hours.day">
+        <field name="opening_hours_id" ref="activity_opening_hours_summer_2021"/>
+        <field name="dayofweek">2</field>
+        <field name="opening_time">13:30</field>
+        <field name="closing_time">18:00</field>
+    </record>
+    <record id="activity_opening_hours_day_s2021_thursday_2" model="activity.opening.hours.day">
+        <field name="opening_hours_id" ref="activity_opening_hours_summer_2021"/>
+        <field name="dayofweek">3</field>
+        <field name="opening_time">13:30</field>
+        <field name="closing_time">18:00</field>
+    </record>
+    <record id="activity_opening_hours_day_s2021_friday_2" model="activity.opening.hours.day">
+        <field name="opening_hours_id" ref="activity_opening_hours_summer_2021"/>
+        <field name="dayofweek">4</field>
+        <field name="opening_time">13:30</field>
+        <field name="closing_time">18:00</field>
+    </record>
+    <record id="activity_opening_hours_day_s2021_saturday_2" model="activity.opening.hours.day">
+        <field name="opening_hours_id" ref="activity_opening_hours_summer_2021"/>
+        <field name="dayofweek">5</field>
+        <field name="opening_time">13:30</field>
+        <field name="closing_time">18:00</field>
+    </record>
+    <record id="activity_opening_hours_day_s2021_sunday_2" model="activity.opening.hours.day">
+        <field name="opening_hours_id" ref="activity_opening_hours_summer_2021"/>
+        <field name="dayofweek">6</field>
+        <field name="opening_time">13:30</field>
+        <field name="closing_time">18:00</field>
+    </record>
+
+</odoo>

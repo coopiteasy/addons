@@ -20,7 +20,5 @@ class ResourceLocation(models.Model):
         domain=[("is_trainer", "=", True)],
         string="Trainers",
     )
-    opening_hours_ids = fields.Many2many(
-        "activity.opening.hours", string="Opening Hours"
-    )
+
     terms_ids = fields.One2many("resource.location.terms", "location_id")

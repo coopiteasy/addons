@@ -6,12 +6,25 @@
 <odoo>
     <record id="resource_activity_type_tour_demo" model="resource.activity.type">
         <field name="name">Tour</field>
+        <field name="location_ids" eval="[(4, ref('resource_planning.main_location'))]"/>
     </record>
+    <record id="resource_activity_lang_fr_demo" model="resource.activity.lang">
+        <field name="name">French</field>
+        <field name="code">FR</field>
+    </record>
+    <record id="resource_activity_lang_nl_demo" model="resource.activity.lang">
+        <field name="name">Dutch</field>
+        <field name="code">NL</field>
+    </record>
+    <record id="resource_activity_theme_1_demo" model="resource.activity.theme">
+        <field name="name">Discovery</field>
+        <field name="code">DIS</field>
+    </record>
+
     <record id="guide_product_product_demo" model="product.product">
         <field name="name">Guide Product</field>
         <field name="list_price">100</field>
     </record>
-
     <record id="res_partner_friendly_guide_demo" model="res.partner">
         <field name="name">Friendly Guide</field>
         <field name="is_guide" eval="True"/>
@@ -19,5 +32,19 @@
     <record id="res_partner_mean_guide_demo" model="res.partner">
         <field name="name">Mean Guide</field>
         <field name="is_guide" eval="True"/>
+    </record>
+    
+    <record id="resource_activity_1_demo" model="resource.activity">
+        <field name="description">Brussels Tour</field>
+        <field name="date_start" eval="(DateTime.now() + timedelta(days=3)).strftime('%Y-%m-%d 10:30:00')"/>
+        <field name="date_end" eval="(DateTime.now() + timedelta(days=3)).strftime('%Y-%m-%d 14:30:00')"/>
+        <field name="activity_type" ref="resource_activity_type_tour_demo"/>
+    </record>
+
+    <record id="resource_activity_2_demo" model="resource.activity">
+        <field name="description">Brussels Tour</field>
+        <field name="date_start" eval="(DateTime.now() + timedelta(days=3)).strftime('%Y-%m-%d 05:30:00')"/>
+        <field name="date_end" eval="(DateTime.now() + timedelta(days=3)).strftime('%Y-%m-%d 22:30:00')"/>
+        <field name="activity_type" ref="resource_activity_type_tour_demo"/>
     </record>
 </odoo>

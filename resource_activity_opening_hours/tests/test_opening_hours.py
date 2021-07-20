@@ -21,7 +21,7 @@ class TestOpeningHours(common.SavepointCase):
         )
 
         data_oh = self.env.ref(
-            "resource_activity.activity_opening_hours_winter_2018"
+            "resource_activity_opening_hours.activity_opening_hours_winter_2018"
         )
         self.assertEqual(searched_oh.id, data_oh.id)
 
@@ -33,7 +33,7 @@ class TestOpeningHours(common.SavepointCase):
         )
 
         data_oh = self.env.ref(
-            "resource_activity.activity_opening_hours_summer_2019"
+            "resource_activity_opening_hours.activity_opening_hours_summer_2019"
         )
         self.assertEqual(searched_oh.id, data_oh.id)
 
@@ -45,7 +45,7 @@ class TestOpeningHours(common.SavepointCase):
         )
 
         data_oh = self.env.ref(
-            "resource_activity.activity_opening_hours_christmas_2018"
+            "resource_activity_opening_hours.activity_opening_hours_christmas_2018"
         )
         self.assertEqual(searched_oh.id, data_oh.id)
 
@@ -63,7 +63,7 @@ class TestOpeningHours(common.SavepointCase):
 
     def test_opening_hours_day_is_open(self):
         day = self.env.ref(
-            "resource_activity.activity_opening_hours_day_christmas_2018"
+            "resource_activity_opening_hours.activity_opening_hours_day_christmas_2018"
         )
 
         time = dt.datetime(2018, 12, 25, 11, 11)
@@ -161,7 +161,7 @@ class TestOpeningHours(common.SavepointCase):
     def test_check_time_format(self):
         ohd = self.env["activity.opening.hours.day"]
         oh = self.env.ref(
-            "resource_activity" ".activity_opening_hours_christmas_2018"
+            "resource_activity_opening_hours.activity_opening_hours_christmas_2018"
         )
 
         ohd.create(

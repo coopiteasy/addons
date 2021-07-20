@@ -6,11 +6,9 @@
             <field name="model">resource.activity</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="is_start_outside_opening_hours" invisible="True"/>
-                    <field name="is_end_outside_opening_hours" invisible="True"/>
                     <field name="dayofweek"/>
-                    <field name="date_start" fg_color="red:is_start_outside_opening_hours==True;"/>
-                    <field name="date_end" fg_color="red:is_end_outside_opening_hours==True;"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
                     <field name="description"/>
                     <field name="partner_id"/>
                     <field name="activity_type"/>
@@ -58,17 +56,6 @@
                         <h1 class="mt0">
                             <field name="name" readonly="1" class="oe_inline"/>
                         </h1>
-                        <div>
-                            <field name="is_start_outside_opening_hours" attrs="{'invisible': 1}"/>
-                            <label for="is_start_outside_opening_hours" style="color:Red"
-                                   attrs="{'invisible': [('is_start_outside_opening_hours', '!=', True)]}"/>
-                        </div>
-                        <div>
-                            <field name="is_end_outside_opening_hours" attrs="{'invisible': 1}"/>
-                            <label for="is_end_outside_opening_hours" style="color:Red"
-                                   attrs="{'invisible': [('is_end_outside_opening_hours', '!=', True)]}"/>
-                        </div>
-
                         <group>
                             <field name="need_push" invisible="True"/>
                             <field name="company_id" invisible="True"/>

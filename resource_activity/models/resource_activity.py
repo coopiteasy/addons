@@ -275,14 +275,7 @@ class ResourceActivity(models.Model):
         compute="_compute_registrations_paid",
         store=True,
     )
-    is_start_outside_opening_hours = fields.Boolean(
-        string="Activity start is outside opening hours",
-        compute="_compute_outside_opening_hours",
-    )
-    is_end_outside_opening_hours = fields.Boolean(
-        string="Activity end is outside opening hours",
-        compute="_compute_outside_opening_hours",
-    )
+
     available_category_ids = fields.One2many(
         comodel_name="resource.category.available",
         inverse_name="activity_id",
@@ -323,23 +316,6 @@ class ResourceActivity(models.Model):
                     for category_id, nb_resources in available_categories.items()
                 ]
                 activity.available_category_ids = update_values
-
-    @api.multi
-    @api.depends("date_end", "date_start", "location_id")
-    def _compute_outside_opening_hours(self):
-        opening_hours = self.env["activity.opening.hours"]
-        for activity in self:
-            if activity.date_start and activity.date_end:
-                activity.is_start_outside_opening_hours = not (
-                    opening_hours.is_location_open(
-                        activity.location_id, activity.date_start
-                    )
-                )
-                activity.is_end_outside_opening_hours = not (
-                    opening_hours.is_location_open(
-                        activity.location_id, activity.date_end
-                    )
-                )
 
     @api.onchange("location_id")
     def onchange_location_id(self):
