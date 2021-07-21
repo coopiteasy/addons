@@ -72,6 +72,10 @@ class ResourceActivityReport(models.Model):
         string="Number of bikes",
         readonly=True,
     )
+    nb_accessories = fields.Integer(
+        string="Number of accessories",
+        readonly=True,
+    )
     nb_participants_renting_bike = fields.Integer(
         string="Participants renting bikes",
         readonly=True,
@@ -95,15 +99,16 @@ WITH registration_metrics AS (
     SELECT rar.resource_activity_id AS activity_id,
            sum(rar.quantity)        AS nb_participants,
            sum(rar.nb_bikes)        AS nb_bikes,
+           sum(rar.nb_accessories)  AS nb_accessories,
            sum(CASE
                    WHEN rar.state != 'cancelled' and rar.bring_bike
                        THEN rar.quantity
                    ELSE 0
                END)                 AS nb_participants_bringing_bike,
            sum(renting_hours)       AS renting_hours,
-           sum(renting_days)        as renting_days
+           sum(renting_days)        AS renting_days
     FROM resource_activity_registration rar
-             join resource_activity a on rar.resource_activity_id = a.id
+             JOIN resource_activity a ON rar.resource_activity_id = a.id
     GROUP BY activity_id
 ),
      sale_orders AS (
@@ -138,6 +143,7 @@ SELECT a.id                                                        AS id,
        l.lang_codes                                                as languages,
        a.registrations_expected                                    AS nb_participants,
        rm.nb_bikes                                                 AS nb_bikes,
+       rm.nb_accessories                                           AS nb_accessories,
        rm.nb_participants_bringing_bike                            AS nb_participants_bringing_bike,
        a.registrations_expected - rm.nb_participants_bringing_bike AS nb_participants_renting_bike,
        rm.renting_hours                                            AS renting_hours,

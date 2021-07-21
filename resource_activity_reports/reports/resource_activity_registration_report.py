@@ -82,6 +82,9 @@ class ResourceActivityRegistrationReport(models.Model):
         readonly=True,
     )
     nb_bikes = fields.Integer(string="Number of Bikes", readonly=True)
+    nb_accessories = fields.Integer(
+        string="Number of Accessories", readonly=True
+    )
     nb_participants = fields.Integer(
         string="Number of Participants",
         readonly=True,
@@ -108,13 +111,14 @@ WITH registration_metrics AS (
                WHEN state != 'cancelled'
                    THEN quantity
                ELSE 0
-               END  AS nb_participants,
-           nb_bikes AS nb_bikes,
+               END        AS nb_participants,
+           nb_bikes       AS nb_bikes,
+           nb_accessories AS nb_accessories,
            CASE
                WHEN state != 'cancelled' and bring_bike
                    THEN quantity
                ELSE 0
-               END  AS nb_participants_bringing_bike
+               END        AS nb_participants_bringing_bike
     FROM resource_activity_registration
     ORDER BY id)
 SELECT rar.id                                                AS id,
@@ -135,6 +139,7 @@ SELECT rar.id                                                AS id,
        rar.resource_category                                 AS resource_categ_id,
        rm.nb_participants                                    AS nb_participants,
        rm.nb_bikes                                           AS nb_bikes,
+       rm.nb_accessories                                     AS nb_accessories,
        rm.nb_participants_bringing_bike                      AS nb_participants_bringing_bike,
        rm.nb_participants - rm.nb_participants_bringing_bike AS nb_participants_renting_bike,
        rar.renting_hours                                     AS renting_hours,
