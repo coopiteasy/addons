@@ -18,9 +18,9 @@
 ##############################################################################
 {
     "name": "Sale Order Volume",
-    "version": "12.0.1.0.0",
-    "depends": ["sale", "website_sale"],
-    "author": "Robin Keunen <robin@coopiteasy.be>, Coop IT Easy SCRLfs",
+    "version": "12.0.1.1.0",
+    "depends": ["sale", "stock", "website_sale"],
+    "author": "Coop IT Easy SCRLfs",
     "license": "AGPL-3",
     "category": "Sale",
     "website": "https://www.coopiteasy.be",
@@ -29,9 +29,11 @@
     category ordered and display it on
     """,
     "data": [
+        "data/pallet_volume_data.xml",
         "views/sale_order.xml",
         "views/shopping_cart.xml",
         "reports/report_saleorder.xml",
+        "views/res_config_settings_views.xml",
         "security/ir.model.access.csv",
     ],
     "demo": ["demo/demo.xml"],

@@ -13,8 +13,14 @@
                 <page string="Volume of Products">
                     <group>
                         <field name="volume" />
+                        <field name="pallet_count" />
+                    </group>
+                    <group>
                         <field name="volume_per_category">
-                            <tree>
+                            <tree
+                                name="volume_per_category"
+                                string="Volume per Product Category"
+                            >
                                 <field name="category_id" />
                                 <field name="volume" />
                             </tree>

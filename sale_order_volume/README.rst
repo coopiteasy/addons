@@ -19,16 +19,27 @@ Sale Order Volume
 
 |badge1| |badge2| |badge3| 
 
-Computes the volume of products per category ordered and display it on
+Computes the volume of products (and its corresponding number of pallets) per category ordered and display it on
 
 - sale order page,
 - sale order report,
 - website shop cart website page.
 
+Pallet volume is configurable.
+
 **Table of contents**
 
 .. contents::
    :local:
+
+Configuration
+=============
+
+Pallet Volume
+~~~~~~~~~~~~~
+
+On Settings > General Settings > Sale (or Sales > Configuration > Settings),
+set a default pallet volume in "Volumes" section.
 
 Bug Tracker
 ===========
@@ -46,13 +57,14 @@ Credits
 Authors
 ~~~~~~~
 
-* Robin Keunen <robin@coopiteasy.be>
 * Coop IT Easy SCRLfs
 
 Contributors
 ~~~~~~~~~~~~
 
 * Robin Keunen <robin@coopiteasy.be>
+* Elouan Le Bars <elouan@coopiteasy.be>
+* Vincent Van Rossem <vincent@coopiteasy.be>
 
 Maintainers
 ~~~~~~~~~~~
