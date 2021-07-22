@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="product_template_form_view">
+            <field
+            name="name"
+        >product.template.website.sale.detailed.product.description.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="website_sale.product_template_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='shop']" position="inside">
+                    <group
+                    string="Detailed Product Description"
+                    name="website_sale_detailed_product_description"
+                >
+                        <field name="producer" />
+                        <field name="total_excluding_vat_by_unit" />
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+</odoo>
