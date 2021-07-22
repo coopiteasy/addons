@@ -16,11 +16,15 @@ class AccountInvoice(models.Model):
     )
 
     def check_bbacomm(self):
-        supported_chars = "0-9+*/ "
-        pattern = re.compile("[^" + supported_chars + "]")
-        if pattern.findall(self.reference or ""):
+        self.ensure_one()
+        pattern = re.compile(r"^\+\+\+\d{3}/\d{4}/\d{5}\+\+\+$")
+        if not pattern.fullmatch(self.reference or ""):
             raise ValidationError(
-                _("Invalid structured communication for %s" % self.reference)
+                _(
+                    "Invalid structured communication for %s. "
+                    "Please enter a reference with the form "
+                    "+++.../..../.....+++." % self.reference
+                )
             )
         bbacomm = re.sub(r"\D", "", self.reference or "")
         if len(bbacomm) == 12:
