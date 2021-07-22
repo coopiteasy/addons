@@ -66,25 +66,6 @@ class ResourceActivity(models.Model):
             )
 
     @api.multi
-    @api.depends(
-        "registrations.is_paid",
-        "registrations.state",
-        "state",
-    )
-    def _compute_registrations_paid(self):
-        for activity in self:
-            if activity.state in ("sale", "done"):
-                registrations = activity.registrations.filtered(
-                    lambda record: record.state == "booked"
-                )
-
-                activity.registrations_paid = all(
-                    registrations.mapped("is_paid")
-                )
-            else:
-                activity.registrations_paid = False
-
-    @api.multi
     @api.depends("date_start")
     def _compute_dayofweek(self):
         """
@@ -96,12 +77,6 @@ class ResourceActivity(models.Model):
             activity.dayofweek = datetime.strftime(
                 fields.Date.from_string(activity.date_start), "%w"
             )
-
-    @api.model
-    def init_payments_fields(self):
-        activities = self.search([])
-        activities._compute_registrations_paid()
-        return
 
     def _default_location(self):
         location = self.env.user.resource_location
@@ -269,11 +244,6 @@ class ResourceActivity(models.Model):
     )
     sale_orders = fields.One2many(
         "sale.order", string="Sale orders", compute="_compute_sale_orders"
-    )
-    registrations_paid = fields.Boolean(
-        string="All Registrations Paid",
-        compute="_compute_registrations_paid",
-        store=True,
     )
 
     available_category_ids = fields.One2many(
@@ -490,11 +460,6 @@ class ResourceActivity(models.Model):
                     registrations |= registration
         registrations.action_cancel()
         registrations.action_draft()
-
-    @api.multi
-    def mark_all_as_paid(self):
-        for activity in self:
-            activity.registrations.mark_as_paid()
 
     @api.multi
     def action_done(self):

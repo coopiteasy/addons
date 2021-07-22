@@ -17,7 +17,6 @@
                     <field name="registrations_expected" string="Registrations"/>
                     <field name="nb_allocated_resources" string="Resources"/>
                     <field name="need_delivery" string="Delivery"/>
-                    <field name="registrations_paid" string="Paid"/>
                 </tree>
             </field>
         </record>
@@ -114,7 +113,6 @@
                                         help="refresh"/>
                                 <button type="object" name="unreserve_resources" string="Unreserve Resources"
                                         help="Change all booked registrations to draft status"/>
-                                <button type="object" name="mark_all_as_paid" string="Mark all as paid"/>
                                 <field name="registrations"
                                        options="{'reload_on_button':True}"
                                        context="{'default_partner_id': partner_id,
@@ -153,7 +151,6 @@
                                         <field name="booking_type"/>
                                         <field name="date_lock" attrs="{'required':[('booking_type','=','option')]}"/>
                                         <field name="state"/>
-                                        <field name="is_paid"/>
                                         <button type="object" name="search_resources" states="draft,waiting"
                                                 help="Search resources" icon="gtk-apply"/>
                                         <button type="object" name="action_cancel"

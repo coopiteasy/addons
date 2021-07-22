@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2021 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <record id="view_resource_activity_tree" model="ir.ui.view">
+        <field name="name">resource.activity.tree</field>
+        <field name="model">resource.activity</field>
+        <field name="inherit_id" ref="resource_activity.view_resource_activity_tree"/>
+        <field name="arch" type="xml">
+            <field name="nb_allocated_resources" position="after">
+                <field name="registrations_paid" string="Paid"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_resource_activity_form" model="ir.ui.view">
+        <field name="name">resource.activity.form</field>
+        <field name="model">resource.activity</field>
+        <field name="inherit_id" ref="resource_activity.view_resource_activity_form"/>
+        <field name="arch" type="xml">
+            <button name="unreserve_resources" position="after">
+                <button type="object" name="mark_all_as_paid" string="Mark all as paid"/>
+            </button>
+            <xpath expr="//field[@name='registrations']//field[@name='state']" position="after">
+                <field name="is_paid"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

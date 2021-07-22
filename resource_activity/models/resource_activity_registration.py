@@ -166,9 +166,6 @@ class ActivityRegistration(models.Model):
         string="Available Categories",
         related="location_id.resource_categories",
     )
-    is_paid = fields.Boolean(
-        string="Paid",
-    )
     is_accessory_registration = fields.Boolean(
         related="resource_category.is_accessory"
     )
@@ -263,11 +260,6 @@ class ActivityRegistration(models.Model):
                     registration.resource_activity_id.registrations.action_refresh()
                 )
         return True
-
-    @api.multi
-    def mark_as_paid(self):
-        for registration in self:
-            registration.is_paid = True
 
     @api.multi
     def action_cancel(self):
