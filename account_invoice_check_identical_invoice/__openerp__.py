@@ -21,8 +21,8 @@
     "name": "Account Invoice Check Identical Invoice",
     "version": "1.0",
     "depends": [
-        'base',
-        'account',
+        "base",
+        "account",
     ],
     "author": "Robin Keunen <robin@coopiteasy.be>",
     "category": "",
@@ -32,8 +32,8 @@
         if invoices with the same partner, invoice date and totam alount already
         exist.
     """,
-    'data': [
+    "data": [
         "views/account_invoice.xml",
     ],
-    'installable': True,
+    "installable": True,
 }
