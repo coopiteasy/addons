@@ -27,7 +27,6 @@
         "data/cron.xml",
         "views/partner_views.xml",
         "views/product_views.xml",
-        "views/resource_activity_delivery_views.xml",
         "views/resource_activity_lang_views.xml",
         "views/resource_activity_registration_views.xml",
         "views/resource_activity_theme_views.xml",

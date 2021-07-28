@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2021 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <template id="resource_activity_registration_report_document"
+              inherit_id="resource_activity.resource_activity_registration_report_document">
+        <xpath expr="//div[@name='comments']" position="after">
+<!--        <xpath expr="//div[name='comments']" position="after">-->
+            <div t-if="o.need_delivery" class="row" name="delivery">
+                <div class="col-xs-12" style="border: medium dashed #00B9E4;margin-top:20px;">
+                    <h2 style="margin-top:5px">Delivery</h2>
+                    <p>
+                        <strong>Delivery:</strong>
+                        <span t-field="o.delivery_place"/>
+                        <span t-field="o.delivery_time"/>
+                    </p>
+                    <p>
+                        <strong>Pick up:</strong>
+                        <span t-field="o.pickup_place"/>
+                        <span t-field="o.pickup_time"/>
+                    </p>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

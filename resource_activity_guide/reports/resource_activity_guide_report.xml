@@ -2,7 +2,7 @@
 <odoo>
     <!-- fixme name attributes should be in english -->
     <data>
-        <template id="resource_activity.resource_activity_report_document">
+        <template id="resource_activity_report_document">
             <!-- Explicitely copying content of theme_light.invoice_layout_002 so that we don't call its footer altogether -->
             <!-- Multicompany -->
             <t t-if="o and 'company_id' in o">
@@ -84,7 +84,7 @@
                 <div class="row" name="row4" style="position:relative;top:10px;">
                     <div class="col-xs-12">
                         <h3>Participants and resources</h3>
-                        <table class="table table-striped border-easymy-coop" style="width:90%;align:center;">
+                        <table name="registrations" class="table table-striped border-easymy-coop" style="width:90%;align:center;">
                             <thead class="invoice_tbody easymy-coop-normal">
                                 <tr>
                                     <th style="border-bottom: 2pt dotted #00B9E4 !important;">Attendee</th>
@@ -111,24 +111,12 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <div t-if="o.need_delivery">
-                            <p>
-                                <strong>Delivery:</strong>
-                                <span t-field="o.delivery_place"/>
-                                <span t-field="o.delivery_time"/>
-                            </p>
-                            <p>
-                                <strong>Pick up:</strong>
-                                <span t-field="o.pickup_place"/>
-                                <span t-field="o.pickup_time"/>
-                            </p>
-                        </div>
                     </div>
                 </div>
                 <div class="row" name="row5" style="margin-top:5px">
                     <div class="col-xs-12" name="comments" style="border: medium dashed #00B9E4;">
                         <h2 style="margin-top:5px">Guide Comments</h2>
-                        <p t-field="o.comment" name="comments-field" style="font-size: 16px;"/>
+                        <p t-field="o.comment" name="guide-comments-field" style="font-size: 16px;"/>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_resource_activity_delivery_user,access_resource_activity_delivery_user,model_resource_activity_delivery,resource_planning.group_resource_user,1,1,1,1
+access_resource_activity_delivery_manager,access_resource_activity_delivery_manager,model_resource_activity_delivery,resource_planning.group_resource_manager,1,1,1,1

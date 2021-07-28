@@ -30,19 +30,6 @@
               parent="menu_sale_activity" sequence="15"
               groups="base.group_sale_salesman,base.group_sale_manager"/>
 
-
-    <menuitem id="menu_resource_activity_deliveries_menu"
-              name="Deliveries"
-              parent="resource_planning.menu_main_resource_planning"
-              sequence="40"/>
-
-    <menuitem id="menu_resource_activity_deliveries_menu_list"
-              name="Deliveries"
-              action="action_resource_activity_delivery"
-              parent="menu_resource_activity_deliveries_menu"
-              sequence="10"/>
-
-
     <menuitem id="activity_configuration_menu" name="Activities"
               parent="resource_planning.menu_resource_configuration"
               sequence="40"/>

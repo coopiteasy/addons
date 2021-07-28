@@ -139,13 +139,11 @@ class ActivityRegistration(models.Model):
     # depends of the resource type
     date_start = fields.Datetime(
         related="resource_activity_id.resource_allocation_start",
-        string="Date start",
-        help="Takes the longest range between Start Date and End Date"
-        " or Delivery Time and Pickup Time.",
+        string="Date Start",
     )
     date_end = fields.Datetime(
         related="resource_activity_id.resource_allocation_end",
-        string="Date end",
+        string="Date End",
     )
     location_id = fields.Many2one(
         related="resource_activity_id.location_id", string="Location"

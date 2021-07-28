@@ -37,7 +37,7 @@ class ResourceActivity(models.Model):
                     activity.registrations.mapped("need_push")
                 )
                 activity.need_push = (
-                    activity.need_push or registrations_need_push
+                        activity.need_push or registrations_need_push
                 )
         return
 
@@ -50,8 +50,8 @@ class ResourceActivity(models.Model):
                     registration.allocations.filtered(
                         lambda record: record.state in ["option", "booked"]
                     )
-                    .mapped("resource_id")
-                    .ids
+                        .mapped("resource_id")
+                        .ids
                 )
                 if res_ids:
                     booked_resources = booked_resources + res_ids
@@ -62,8 +62,8 @@ class ResourceActivity(models.Model):
         for activity in self:
             activity.sale_orders = (
                 self.env["sale.order"]
-                .search([("activity_id", "=", activity.id)])
-                .ids
+                    .search([("activity_id", "=", activity.id)])
+                    .ids
             )
 
     @api.multi
@@ -90,11 +90,7 @@ class ResourceActivity(models.Model):
     partner_id = fields.Many2one(
         "res.partner", string="Customer", domain=[("customer", "=", True)]
     )
-    delivery_product_id = fields.Many2one(
-        "product.product",
-        string="Product delivery",
-        domain=[("is_delivery", "=", True)],
-    )
+
     guide_product_id = fields.Many2one(
         "product.product",
         string="Product Guide",
@@ -188,17 +184,6 @@ class ResourceActivity(models.Model):
         "resource.activity.theme", string="Activity theme"
     )
     need_participation = fields.Boolean(string="Need participation?")
-    need_delivery = fields.Boolean(string="Need delivery?")
-    delivery_ids = fields.One2many(
-        "resource.activity.delivery",
-        "activity_id",
-        string="Delivery",
-        ondelete="set null",
-    )
-    delivery_place = fields.Char(string="Delivery place")
-    delivery_time = fields.Datetime(string="Delivery time")
-    pickup_place = fields.Char(string="Pick up place")
-    pickup_time = fields.Datetime(string="Pick up time")
     set_allocation_span = fields.Boolean(
         string="Set Allocation Span Manually", default=False
     )
@@ -263,9 +248,9 @@ class ResourceActivity(models.Model):
         for activity in self:
             activity.available_category_ids = [(5, 0, 0)]  # reset field
             if (
-                activity.date_start
-                and activity.date_end
-                and activity.location_id
+                    activity.date_start
+                    and activity.date_end
+                    and activity.location_id
             ):
                 available_categories = self.env[
                     "resource.category"
@@ -284,7 +269,8 @@ class ResourceActivity(models.Model):
                             "nb_resources": nb_resources,
                         },
                     )
-                    for category_id, nb_resources in available_categories.items()
+                    for category_id, nb_resources in
+                    available_categories.items()
                 ]
                 activity.available_category_ids = update_values
 
@@ -320,64 +306,29 @@ class ResourceActivity(models.Model):
 
     @api.onchange(
         "date_start",
-        "need_delivery",
-        "delivery_time",
         "set_allocation_span",
     )
     def _onchange_allocation_start(self):
         """
-        Sets allocation start to the soonest date between
-        date_start and delivery_time.
+        Sets allocation start date_start
         resource_allocation_start can however still be
         manually set by user if set_allocation_span is true.
         """
-        if not self.date_start:
-            return
-
-        if self.need_delivery:
-            if self.set_allocation_span:
-                start = _pd(self.date_start) - timedelta(minutes=90)
-            else:
-                # get utc, set it to local time midnight
-                #  send it back as utc because we send fields
-                #  directly to the frontend
-                start = (
-                    self.delivery_time
-                    if self.delivery_time
-                    else self.date_start
-                )
-                start = self._trunc_day(start)
-        else:
-            start = _pd(self.date_start)
-        # fixme use Datetime.to_string
-        self.resource_allocation_start = start.strftime(DTF)
+        if self.date_start:
+            self.resource_allocation_start = self.date_start
 
     @api.onchange(
         "date_end",
-        "need_delivery",
-        "pickup_time",
         "set_allocation_span",
     )
     def _onchange_allocation_end(self):
         """
-        sets allocation end to the latest date between date_end and pickup time.
+        sets allocation end to date_end.
         resource_allocation_end can however still be
         manually set by user if set_allocation_span is true.
         """
-        if not self.date_end:
-            return
-
-        if self.need_delivery:
-            if self.set_allocation_span:
-                end = _pd(self.date_end) + timedelta(minutes=90)
-            else:
-                end = (
-                    self.pickup_time if self.pickup_time else self.date_end
-                )
-                end = self._trunc_day(end) + timedelta(days=1)
-        else:
-            end = _pd(self.date_end)
-        self.resource_allocation_end = end.strftime(DTF)
+        if self.date_end:
+            self.resource_allocation_end = self.date_end
 
     @api.one
     @api.constrains("date_start", "date_end")
@@ -391,16 +342,13 @@ class ResourceActivity(models.Model):
         "date_end",
         "resource_allocation_start",
         "resource_allocation_end",
-        "need_delivery",
-        "delivery_time",
-        "pickup_time",
     )
-    def _activity_fields_blocked_if_resource_booked(self):
+    def _check_booked_resources_blocks_dates(self):
         if self.booked_resources:
             raise ValidationError(
                 _(
                     "You cannot modify activity dates, resource allocation dates "
-                    "or delivery information when a resource is already booked. "
+                    "when a resource is already booked. "
                     "You must either delete this activity and create a new one or "
                     "release all booked resources for this activity."
                 )
@@ -437,9 +385,9 @@ class ResourceActivity(models.Model):
 
         for activity in self:
             if (
-                activity.date_start
-                and activity.date_end
-                and activity.date_start < activity.date_end
+                    activity.date_start
+                    and activity.date_end
+                    and activity.date_start < activity.date_end
             ):
 
                 datetime_end = datetime.strptime(activity.date_end, DTF)
@@ -457,10 +405,10 @@ class ResourceActivity(models.Model):
 
                 elif date_end == date_start:
                     activity.duration = (
-                        str(delta_time.seconds / 3600)
-                        + " hour(s) "
-                        + str(delta_time.seconds % 3600 // 60)
-                        + " minute(s)"
+                            str(delta_time.seconds / 3600)
+                            + " hour(s) "
+                            + str(delta_time.seconds % 3600 // 60)
+                            + " minute(s)"
                     )
 
     @api.multi
@@ -497,7 +445,7 @@ class ResourceActivity(models.Model):
             )
             # warn if in draft and invoiced resources booked
             if activity.state == "draft" and (
-                registrations or activity.guides or activity.trainers
+                    registrations or activity.guides or activity.trainers
             ):
                 action = self.env.ref("resource_activity.action_draft_to_done")
                 return {
@@ -536,44 +484,42 @@ class ResourceActivity(models.Model):
                 "res_model": action.res_model,
             }
 
-    def create_order_line(self, order, product, qty, **kwargs):
+    # move to sale order line ?
+    def _create_order_line(self, order, line_type, product, qty):
         line_values = {
             "order_id": order.id,
             "product_id": product.id,
             "product_uom_qty": qty,
             "product_uom": product.uom_id.id,
         }
-        line_values.update(kwargs)
-        line_id = self.env["sale.order.line"].create(line_values)
-        line_id.update_line()
-        return line_id
 
-    def prepare_lines(self, activity):
-        registrations = activity.registrations.filtered(
+        if line_type == "guide":
+            line_values.update(resource_guide=True)
+        elif line_type == "participation":
+            line_values.update(participation_line=True)
+
+        order_line = self.env["sale.order.line"].create(line_values)
+        order_line.update_line()
+        return order_line
+
+    def _prepare_lines(self):
+        """Returns a list of OrderLine based on activity registrations"""
+        self.ensure_one()
+        registrations = self.registrations.filtered(
             lambda record: record.state != "cancelled"
         )
         prepared_lines = []
         for registration in registrations:
-            if activity.partner_id:
-                partner = activity.partner_id.id
+            if self.partner_id:
+                partner = self.partner_id.id
             else:
                 partner = registration.attendee_id.id
 
-            if activity.need_delivery and registration.quantity_needed > 0:
+            if self.need_participation:
                 prepared_lines.append(
                     OrderLine(
                         partner,
-                        activity.delivery_product_id,
-                        registration.quantity_needed,
-                        "delivery",
-                        registration,
-                    )
-                )
-            if activity.need_participation:
-                prepared_lines.append(
-                    OrderLine(
-                        partner,
-                        activity.participation_product_id,
+                        self.participation_product_id,
                         registration.quantity,
                         "participation",
                         registration,
@@ -590,12 +536,12 @@ class ResourceActivity(models.Model):
                     )
                 )
 
-        if activity.need_guide and activity.partner_id:
+        if self.need_guide and self.partner_id:
             prepared_lines.append(
                 OrderLine(
-                    activity.partner_id.id,
-                    activity.guide_product_id,
-                    len(activity.guides),
+                    self.partner_id.id,
+                    self.guide_product_id,
+                    len(self.guides),
                     "guide",
                     None,
                 )
@@ -615,9 +561,10 @@ class ResourceActivity(models.Model):
         activity.state = "quotation"
         return order
 
-    def prepare_sale_orders(self, activity):
+    def _prepare_sale_orders(self, activity):
         """
-        create sale orders or get sale order ids and unlink sale order lines
+        create empty sale order for each partner
+         or get sale order ids and unlink sale order lines
         :param activity:
         :return:
         """
@@ -635,8 +582,8 @@ class ResourceActivity(models.Model):
 
             if partner not in sale_orders:
                 if (
-                    registration.sale_order_id
-                    and registration.sale_order_id.state != "cancel"
+                        registration.sale_order_id
+                        and registration.sale_order_id.state != "cancel"
                 ):
                     sale_orders[partner] = registration.sale_order_id
                     for order_line in registration.sale_order_id.order_line:
@@ -657,13 +604,13 @@ class ResourceActivity(models.Model):
     def create_sale_order(self):
         for activity in self:
 
-            order_lines = self.prepare_lines(activity)
+            order_lines = self._prepare_lines()
             if not order_lines:
                 raise ValidationError(
                     _("Nothing to invoice on this activity.")
                 )
 
-            sale_orders = self.prepare_sale_orders(activity)
+            sale_orders = self._prepare_sale_orders(activity)
 
             partners = set(ol.partner for ol in order_lines)
             for partner in partners:
@@ -681,34 +628,17 @@ class ResourceActivity(models.Model):
                     qty = sum(pl.qty for pl in product_lines)
                     type = product_lines.pop().type
 
-                    if type == "resource":
-                        self.create_order_line(
-                            order_id,
-                            product,
-                            qty,
-                        )
-                    elif type == "delivery":
-                        self.create_order_line(
-                            order_id,
-                            product,
-                            qty,
-                            resource_delivery=True,
-                        )
-                    elif type == "guide":
-                        self.create_order_line(
-                            order_id, product, qty, resource_guide=True
-                        )
-                    else:
-                        self.create_order_line(
-                            order_id,
-                            product,
-                            qty,
-                            participation_line=True,
-                        )
+                    self._create_order_line(
+                        order_id,
+                        type,
+                        product,
+                        qty,
+                    )
 
-                for pl in partner_lines:
-                    if pl.registration:
-                        pl.registration.write({"sale_order_id": order_id.id})
+            for pl in partner_lines:
+                if pl.registration:
+                    pl.registration.write({"sale_order_id": order_id.id})
+
 
     @api.multi
     def action_quotation(self):
@@ -717,6 +647,7 @@ class ResourceActivity(models.Model):
                 sale_order.with_context(activity_action=True).action_cancel()
                 sale_order.with_context(activity_action=True).action_draft()
                 activity.state = "quotation"
+
 
     @api.multi
     def print_last_sale_order(self):
@@ -729,6 +660,7 @@ class ResourceActivity(models.Model):
             return sale_orders[0].print_quotation()
         else:
             raise ValidationError(_("No Sale Order defined on this activity"))
+
 
     @api.multi
     def action_sale_order(self):
@@ -764,6 +696,7 @@ class ResourceActivity(models.Model):
         self.create_sale_order()
         self.action_sale_order()
 
+
     @api.multi
     def action_back_to_sale_order(self):
         for activity in self:
@@ -776,6 +709,7 @@ class ResourceActivity(models.Model):
                 )
             activity.state = "sale"
 
+
     def update_resource_booking_line(self, registration, sale_order_id):
         self.update_order_line(
             sale_order_id,
@@ -786,21 +720,6 @@ class ResourceActivity(models.Model):
             registration.product_id,
         )
 
-    def update_delivery_line(self, activity, sale_order_id, nb_delivery):
-
-        delivery_line = sale_order_id.order_line.filtered(
-            lambda record: record.resource_delivery
-        )
-        line_vals = {"resource_delivery": True}
-
-        self.update_order_line(
-            sale_order_id,
-            activity.need_delivery,
-            line_vals,
-            delivery_line,
-            nb_delivery,
-            activity.delivery_product_id,
-        )
 
     def update_guide_line(self, activity, sale_order_id):
         guide_line = activity.sale_order_id.order_line.filtered(
@@ -818,8 +737,9 @@ class ResourceActivity(models.Model):
             activity.guide_product_id,
         )
 
+
     def update_participation_line(
-        self, activity, sale_order_id, nb_registrations
+            self, activity, sale_order_id, nb_registrations
     ):
         participation_line = sale_order_id.order_line.filtered(
             lambda record: record.participation_line
@@ -835,6 +755,7 @@ class ResourceActivity(models.Model):
             activity.participation_product_id,
         )
 
+
     @api.multi
     def push_changes_to_sale_order(self):
         self.create_sale_order()
@@ -844,14 +765,15 @@ class ResourceActivity(models.Model):
                 registration.need_push = False
         return
 
+
     def update_order_line(
-        self,
-        order_id,
-        need_resource,
-        line_vals,
-        resource_line,
-        resource_qty,
-        resource_product_id,
+            self,
+            order_id,
+            need_resource,
+            line_vals,
+            resource_line,
+            resource_qty,
+            resource_product_id,
     ):
         if need_resource:
             line_vals["product_uom_qty"] = resource_qty
@@ -867,88 +789,24 @@ class ResourceActivity(models.Model):
             if resource_line:
                 resource_line.unlink()
 
-    def has_valid_delivery(self):
-        """Return True if the attribute `delivery_ids` is coherent, else
-        False"""
-        for activity in self:
-            if activity.need_delivery:
-                if len(activity.delivery_ids) != 2:
-                    return False
-                elif (
-                    activity.delivery_ids[0].delivery_type
-                    == activity.delivery_ids[1].delivery_type
-                ):
-                    return False
-                elif activity.delivery_ids[0].delivery_type == "":
-                    return False
-                elif activity.delivery_ids[1].delivery_type == "":
-                    return False
-            else:
-                if len(activity.delivery_ids) != 0:
-                    return False
-        return True
-
-    @api.model
-    def _set_valid_deliveries_cron(self):
-        """Check if activities has valid deliveries. If not, valid
-        deliveries are set."""
-        activities = (
-            self.env["resource.activity"]
-            .search([])
-            .filtered(lambda rec: not rec.has_valid_delivery())
-        )
-        for activity in activities:
-            activity.write(
-                {
-                    "delivery_ids": [
-                        (5, False, False),
-                        (0, False, {"delivery_type": "delivery"}),
-                        (0, False, {"delivery_type": "pickup"}),
-                    ],
-                }
-            )
-
-    @api.model
-    def create(self, vals):
-        if "need_delivery" in vals and vals.get("need_delivery"):
-            vals["delivery_ids"] = [
-                (0, False, {"delivery_type": "delivery"}),
-                (0, False, {"delivery_type": "pickup"}),
-            ]
-        return super(ResourceActivity, self).create(vals)
 
     @api.multi
     def write(self, vals):
         for activity in self:
-            if "need_delivery" in vals and not vals.get("need_delivery"):
-                vals["delivery_ids"] = [(5,)]
-            else:
-                vals["delivery_ids"] = [
-                    (5, False, False),
-                    (0, False, {"delivery_type": "delivery"}),
-                    (0, False, {"delivery_type": "pickup"}),
-                ]
-
             if activity.sale_orders:
-                if "need_delivery" in vals and not vals.get("need_delivery"):
-                    vals["delivery_place"] = ""
-                    vals["delivery_time"] = False
-                    vals["pickup_place"] = ""
-                    vals["pickup_time"] = False
-                    vals["delivery_product_id"] = False
-
                 if "need_guide" in vals and not vals.get("need_guide"):
                     vals["guide_product_id"] = False
                     vals["guides"] = [[6, False, []]]
 
                 if "need_participation" in vals and not vals.get(
-                    "need_participation"
+                        "need_participation"
                 ):
                     vals["need_participation"] = False
 
+                # if sale order was generated and these values
+                #   are updated, the sale order is flagged as
+                #   "need push to sale order"
                 watches = (
-                    "need_delivery",
-                    "delivery_product_id",
                     "need_guide",
                     "guide_product_id",
                     "guides",
@@ -959,6 +817,7 @@ class ResourceActivity(models.Model):
                 if any(map(lambda var: var in vals, watches)):
                     vals["need_push"] = True
         return super(ResourceActivity, self).write(vals)
+
 
     @api.multi
     @api.depends("partner_id", "registrations_max", "registrations_expected")

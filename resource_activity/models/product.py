@@ -39,6 +39,5 @@ class ProductProduct(models.Model):
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
-    is_delivery = fields.Boolean(string="Delivery")
     is_guide = fields.Boolean(string="Guide")
     is_participation = fields.Boolean(string="Participation")

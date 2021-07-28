@@ -9,7 +9,9 @@ from openerp.tests import common
 class TestResourceActivity(common.TransactionCase):
     def setUp(self):
         super(TestResourceActivity, self).setUp()
-        self.partner_demo = self.env.ref("base.partner_demo")
+        self.partner_demo = self.browse_ref("base.partner_demo")
+        self.bike_category = self.browse_ref("resource_planning.resource_category_bike_demo")
+        self.bike_product = self.browse_ref("resource_activity.product_product_bike_rent_demo")
         self.guide_partner_1 = self.browse_ref(
             "resource_activity.res_partner_friendly_guide_demo"
         )

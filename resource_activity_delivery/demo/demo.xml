@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2021 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <record id="product_product_delivery_demo" model="product.product">
+        <field name="name">Delivery</field>
+        <field name="list_price">10</field>
+        <field name="is_delivery" eval="True"/>
+    </record>
+</odoo>

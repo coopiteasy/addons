@@ -27,22 +27,6 @@
                     <strong>Arrival:</strong>
                     <p t-field="doc.arrival"/>
                 </div>
-                <div name="delivery_place" t-if="doc.delivery_place" class="col-xs-3">
-                    <strong>Delivery place:</strong>
-                    <p t-field="doc.delivery_place"/>
-                </div>
-                <div name="delivery_time" t-if="doc.delivery_time" class="col-xs-3">
-                    <strong>Delivery time:</strong>
-                    <p t-field="doc.delivery_time"/>
-                </div>
-                <div name="pickup_place" t-if="doc.pickup_place" class="col-xs-3">
-                    <strong>Pickup place:</strong>
-                    <p t-field="doc.pickup_place"/>
-                </div>
-                <div name="pickup_time" t-if="doc.pickup_time" class="col-xs-3">
-                    <strong>Pickup time:</strong>
-                    <p t-field="doc.pickup_time"/>
-                </div>
                 <div name="registrations_expected" t-if="doc.registrations_expected" class="col-xs-3">
                     <strong>Registrations expected:</strong>
                     <p t-field="doc.registrations_expected"/>

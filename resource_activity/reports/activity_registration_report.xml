@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
-        <template id="resource_activity.resource_activity_registration_report_document">
+        <template id="resource_activity_registration_report_document">
             <!-- Explicitely copying content of theme_light.invoice_layout_002 so that we don't call its footer altogether -->
             <!-- Multicompany -->
             <t t-if="o and 'company_id' in o">
@@ -158,35 +158,16 @@
                         </table>
                     </div>
                 </div>
-                <div class="row" name="row5" style="margin-top:5px">
+                <div name="comments" class="row" style="margin-top:5px">
                     <div class="col-xs-12" name="comments" style="border: medium dashed #00B9E4;">
                         <h2 style="margin-top:5px">Guide Comments</h2>
-                        <p t-field="o.comment" name="comments-field" style="font-size: 16px;"/>
+                        <p t-field="o.comment" name="guide-comments-field" style="font-size: 16px;"/>
                     </div>
                     <div class="col-xs-12" name="internal_comments" style="border: medium dashed #00B9E4;margin-top:5px;">
                         <h2 style="margin-top:5px">Internal Comments</h2>
                         <p t-field="o.internal_comment" name="internal-comments-field" style="font-size: 16px;"/>
                     </div>
                 </div>
-
-                <div t-if="o.need_delivery" class="row" name="row6">
-
-                    <div class="col-xs-12" name="Delivery" style="border: medium dashed #00B9E4;margin-top:20px;">
-                        <h2 style="margin-top:5px">Delivery</h2>
-                        <p>
-                            <strong>Delivery:</strong>
-                            <span t-field="o.delivery_place"/>
-                            <span t-field="o.delivery_time"/>
-                        </p>
-                        <p>
-                            <strong>Pick up:</strong>
-                            <span t-field="o.pickup_place"/>
-                            <span t-field="o.pickup_time"/>
-                        </p>
-                    </div>
-
-                </div>
-
             </div>
         </template>
         <template id="resource_activity.resource_activity_registration_report">
