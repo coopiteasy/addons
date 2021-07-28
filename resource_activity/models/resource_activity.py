@@ -15,6 +15,7 @@ OrderLine = namedtuple(
 )
 
 
+# fixme use Datetime.from_string
 def _pd(dt):
     """parse datetime"""
     return datetime.strptime(dt, DTF) if dt else dt
@@ -310,7 +311,7 @@ class ResourceActivity(models.Model):
         )
         return pytz.utc.localize(date).astimezone(tz)
 
-    def trunc_day(self, datetime_):
+    def _trunc_day(self, datetime_):
         datetime_ = self._localize(_pd(datetime_))
         datetime_ = datetime_.replace(
             hour=0, minute=0, second=0, microsecond=0
@@ -319,43 +320,64 @@ class ResourceActivity(models.Model):
 
     @api.onchange(
         "date_start",
-        "date_end",
         "need_delivery",
         "delivery_time",
+        "set_allocation_span",
+    )
+    def _onchange_allocation_start(self):
+        """
+        Sets allocation start to the soonest date between
+        date_start and delivery_time.
+        resource_allocation_start can however still be
+        manually set by user if set_allocation_span is true.
+        """
+        if not self.date_start:
+            return
+
+        if self.need_delivery:
+            if self.set_allocation_span:
+                start = _pd(self.date_start) - timedelta(minutes=90)
+            else:
+                # get utc, set it to local time midnight
+                #  send it back as utc because we send fields
+                #  directly to the frontend
+                start = (
+                    self.delivery_time
+                    if self.delivery_time
+                    else self.date_start
+                )
+                start = self._trunc_day(start)
+        else:
+            start = _pd(self.date_start)
+        # fixme use Datetime.to_string
+        self.resource_allocation_start = start.strftime(DTF)
+
+    @api.onchange(
+        "date_end",
+        "need_delivery",
         "pickup_time",
         "set_allocation_span",
     )
-    def default_allocation_span(self):
-        # fixme not triggered when created in demo data
-        if self.date_start:
-            if self.need_delivery:
-                if self.set_allocation_span:
-                    start = _pd(self.date_start) - timedelta(minutes=90)
-                else:
-                    # get utc, set it to local time midnight
-                    # send it back as utc
-                    start = (
-                        self.delivery_time
-                        if self.delivery_time
-                        else self.date_start
-                    )
-                    start = self.trunc_day(start)
-            else:
-                start = _pd(self.date_start)
-            self.resource_allocation_start = start.strftime(DTF)
+    def _onchange_allocation_end(self):
+        """
+        sets allocation end to the latest date between date_end and pickup time.
+        resource_allocation_end can however still be
+        manually set by user if set_allocation_span is true.
+        """
+        if not self.date_end:
+            return
 
-        if self.date_end:
-            if self.need_delivery:
-                if self.set_allocation_span:
-                    end = _pd(self.date_end) + timedelta(minutes=90)
-                else:
-                    end = (
-                        self.pickup_time if self.pickup_time else self.date_end
-                    )
-                    end = self.trunc_day(end) + timedelta(days=1)
+        if self.need_delivery:
+            if self.set_allocation_span:
+                end = _pd(self.date_end) + timedelta(minutes=90)
             else:
-                end = _pd(self.date_end)
-            self.resource_allocation_end = end.strftime(DTF)
+                end = (
+                    self.pickup_time if self.pickup_time else self.date_end
+                )
+                end = self._trunc_day(end) + timedelta(days=1)
+        else:
+            end = _pd(self.date_end)
+        self.resource_allocation_end = end.strftime(DTF)
 
     @api.one
     @api.constrains("date_start", "date_end")
