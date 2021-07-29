@@ -121,7 +121,6 @@ class SaleOrder(models.Model):
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
-    resource_guide = fields.Boolean(string="Resource Guide")
     participation_line = fields.Boolean(string="Participation")
 
     @api.multi

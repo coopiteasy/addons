@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2021 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <template id="resource_activity_report_document"
+              inherit_id="resource_activity.resource_activity_report_document">
+        <xpath expr="//t[@t-call='theme_light.invoice_header']" position="after">
+            <div class="row" style="margin-top:50px;" name="guides">
+                <div class="col-xs-5 col-xs-offset-7 provelo-guides">
+                    <t t-if="o.guides">
+                        <h4>Guide(s):</h4>
+                        <t t-foreach="o.guides" t-as="guide">
+                            <t t-if="guide">
+                                <div t-field="guide.name"/>
+                            </t>
+                        </t>
+                    </t>
+                </div>
+            </div>
+        </xpath>
+        <xpath expr="//div[@name='registrations']" position="after">
+            <div class="row" name="guide-comments" style="margin-top:5px">
+                <div class="col-xs-12" name="comments" style="border: medium dashed #00B9E4;">
+                    <h2 style="margin-top:5px">Guide Comments</h2>
+                    <p t-field="o.comment" name="guide-comments-field" style="font-size: 16px;"/>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

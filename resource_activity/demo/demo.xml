@@ -24,24 +24,6 @@
         <field name="code">DIS</field>
     </record>
 
-    <record id="guide_product_product_demo" model="product.product">
-        <field name="name">Guide Product</field>
-        <field name="list_price">100</field>
-        <field name="is_guide" eval="True"/>
-    </record>
-
-    <record id="res_partner_friendly_guide_demo" model="res.partner">
-        <field name="name">Friendly Guide</field>
-        <field name="is_guide" eval="True"/>
-        <field name="phone">0472947202</field>
-        <field name="email">friendly@coopiteasy.be</field>
-    </record>
-
-    <record id="res_partner_mean_guide_demo" model="res.partner">
-        <field name="name">Mean Guide</field>
-        <field name="is_guide" eval="True"/>
-    </record>
-
     <record id="product_product_bike_rent_demo" model="product.product">
         <field name="name">Bike Day Product</field>
         <field name="resource_category_id" eval="[(4, ref('resource_planning.resource_category_bike_demo'))]"/>
@@ -67,8 +49,6 @@
                eval="(DateTime.now() + timedelta(days=3)).strftime('%Y-%m-%d 14:30:00')"/>
         <field name="activity_type" ref="resource_activity_type_tour_demo"/>
         <field name="partner_id" ref="base.partner_demo"/>
-        <field name="guide_product_id" ref="guide_product_product_demo"/>
-        <field name="guides" eval="[(4, ref('res_partner_friendly_guide_demo'))]"/>
     </record>
 
     <record id="resource_activity_2_demo" model="resource.activity">

@@ -14,12 +14,12 @@
         "web_tree_many2one_clickable",
         "web_tree_dynamic_colored_field",
     ],
-    "author": "Coop IT Easy SCRL fs",
+    "author": "Coop IT Easy SCRLfs",
     "category": "Resource",
     "website": "https://www.coopiteasy.be",
     "license": "AGPL-3",
     "description": """
-    This allows to manage sale activities on your resources.
+        Manage activities, book resources and generate sale orders.
     """,
     "data": [
         "security/ir.model.access.csv",

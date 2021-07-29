@@ -22,15 +22,20 @@
     "name": "Provelo Customization",
     "version": "9.0.1.2.0",
     "depends": [
+        "resource_planning",
+        # todo watchout for dependencies when splitting modules
+        "resource_activity",
+        "resource_activity_delivery",
+        "resource_activity_guide",
+        "resource_activity_opening_hours",
+        "resource_activity_paid_registrations",
+        "resource_activity_terms",
         "account",
         "csv_export_invoice",
         "csv_export_partner",
         "csv_export_payment",
         "hr_holidays",
         "hr_timesheet_sheet",
-        "resource_planning",
-        # todo watchout for dependencies when splitting modules
-        "resource_activity",
         "web_readonly_bypass",
         "l10n_be_invoice_bba",
         "account_archive_journals",

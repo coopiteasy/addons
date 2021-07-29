@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2021 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <record id="guide_product_product_demo" model="product.product">
+        <field name="name">Guide Product</field>
+        <field name="list_price">100</field>
+        <field name="is_guide" eval="True"/>
+    </record>
+
+    <record id="res_partner_friendly_guide_demo" model="res.partner">
+        <field name="name">Friendly Guide</field>
+        <field name="is_guide" eval="True"/>
+        <field name="phone">0472947202</field>
+        <field name="email">friendly@coopiteasy.be</field>
+    </record>
+
+    <record id="res_partner_mean_guide_demo" model="res.partner">
+        <field name="name">Mean Guide</field>
+        <field name="is_guide" eval="True"/>
+    </record>
+
+    <record id="resource_activity.resource_activity_1_demo" model="resource.activity">
+        <field name="guide_product_id" ref="guide_product_product_demo"/>
+        <field name="guides" eval="[(4, ref('res_partner_friendly_guide_demo'))]"/>
+
+    </record>
+
+</odoo>

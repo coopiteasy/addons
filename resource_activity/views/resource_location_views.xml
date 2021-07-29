@@ -7,13 +7,6 @@
             <field name="inherit_id" ref="resource_planning.resource_location_form"/>
             <field name="arch" type="xml">
                 <page name="users" position="after">
-                    <page name="guides" string="Guides">
-                        <field name="guides">
-                            <tree delete="false" create="false">
-                                <field name="name"/>
-                            </tree>
-                        </field>
-                    </page>
                     <page name="trainers" string="Trainers">
                         <field name="trainers">
                             <tree delete="false" create="false">

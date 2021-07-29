@@ -12,7 +12,9 @@ from datetime import datetime, timedelta
 class TestResourceActivityDelivery(TestResourceActivity):
     def setUp(self):
         super(TestResourceActivityDelivery, self).setUp()
-        self.delivery_product = self.browse_ref("resource_activity_delivery.product_product_delivery_demo")
+        self.delivery_product = self.browse_ref(
+            "resource_activity_delivery.product_product_delivery_demo"
+        )
 
     def test_delivery_lines_set_in_sale_order(self):
         date_start = datetime.now()
@@ -25,7 +27,6 @@ class TestResourceActivityDelivery(TestResourceActivity):
             "booking_type": "booked",
             "resource_category": self.bike_category.id,
             "product_id": self.bike_product.id,
-
         }
         activity = self.env["resource.activity"].create(
             {

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2021 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <record id="view_res_partner_filter_activity" model="ir.ui.view">
+        <field name="name">res.partner.select</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='supplier']" position='after'>
+                <filter string="Guides" name="guide" domain="[('is_guide','=',1)]"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="name">res.partner.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="resource_activity.view_partner_form"/>
+        <field name="arch" type="xml">
+            <group name="tour" position="inside">
+                <field name="is_guide"/>
+                <field name="resource_location_guide"
+                       attrs="{'invisible':[('is_guide','=',False)],'required':[('is_guide','=',True)]}"/>
+
+            </group>
+        </field>
+    </record>
+</odoo>

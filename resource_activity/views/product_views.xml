@@ -11,10 +11,6 @@
         <field name="arch" type="xml">
             <xpath expr="//label[@for='sale_ok']/.." position="after">
                 <div>
-                    <field name="is_guide"/>
-                    <label for="is_guide"/>
-                </div>
-                <div>
                     <field name="is_participation"/>
                     <label for="is_participation"/>
                 </div>

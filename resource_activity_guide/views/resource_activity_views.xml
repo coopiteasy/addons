@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2021 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <record id="view_resource_activity_form" model="ir.ui.view">
+        <field name="name">resource.activity.form</field>
+        <field name="model">resource.activity</field>
+        <field name="inherit_id" ref="resource_activity.view_resource_activity_form"/>
+        <field name="arch" type="xml">
+            <page name="registrations" position="after">
+                <page name="guides" string="Guides">
+                    <group>
+                        <group>
+                            <field name="guide_product_id" attrs="{'required':[('need_guide','=',True)]}"
+                                   options="{'no_create':True}"/>
+                        </group>
+                    </group>
+                    <field name="guides" domain="[('resource_location_guide','=',location_id)]"
+                           options="{'no_create':True}"/>
+                </page>
+            </page>
+
+            <field name="internal_comment" position="before">
+                <field name="comment"/>
+            </field>
+        </field>
+    </record>
+</odoo>

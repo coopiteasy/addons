@@ -7,13 +7,6 @@ from openerp import fields, models
 
 class ResourceLocation(models.Model):
     _inherit = "resource.location"
-
-    guides = fields.One2many(
-        "res.partner",
-        "resource_location_guide",
-        domain=[("is_guide", "=", True)],
-        string="Guides",
-    )
     trainers = fields.One2many(
         "res.partner",
         "resource_location_trainer",
