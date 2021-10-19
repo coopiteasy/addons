@@ -22,6 +22,7 @@ addon | version | summary
 [account_invoice_default_account_date](account_invoice_default_account_date/) | 12.0.1.0.0 | Sets the accounting date to the invoice date by default.
 [account_invoice_line_update](account_invoice_line_update/) | 12.0.1.0.0 | Update invoice lines to reload the right taxes on the lines.
 [account_invoice_provider_reference](account_invoice_provider_reference/) | 12.0.1.0.0 | Invoice Provider Reference
+[account_invoice_save_check_duplicate](account_invoice_save_check_duplicate/) | 12.0.1.0.0 | Check that account invoice hasn't been encoded twice when creating or saving. This step is normally done when validating. This step doesn't replace the validation.
 [auth_company_signup](auth_company_signup/) | 12.0.1.0.0 | This module allows a user to sign up as a company.
 [belgian_bank_data](belgian_bank_data/) | 12.0.1.0.0 | This module imports Belgian banks with their name and BIC code.
 [document_hosting](document_hosting/) | 12.0.1.0.0 | Manage documents that can be published on website with ??.
@@ -39,11 +40,12 @@ addon | version | summary
 [purchase_order_line_auto_import](purchase_order_line_auto_import/) | 12.0.1.0.0 | This module allows to create automatically line with the product and minimal quantities when selecting the partner.
 [purchase_order_weight](purchase_order_weight/) | 12.0.1.0.0 | Adds weight and weight unit to Purchase Order
 [sale_order_mass_confirmation](sale_order_mass_confirmation/) | 12.0.1.0.0 | Confirm multiple sale orders (quotations) with one action
-[sale_order_volume](sale_order_volume/) | 12.0.1.0.0 | Computes the volume of products per category ordered and display it on
+[sale_order_volume](sale_order_volume/) | 12.0.1.1.0 | Computes the volume of products per category ordered and display it on
 [stock_inventory_confirm_reset_qty](stock_inventory_confirm_reset_qty/) | 12.0.1.0.0 | Show a confirmation dialog box when clicking on 'Set quantities to 0' in a stock.inventory
 [stock_picking_copy_qty](stock_picking_copy_qty/) | 12.0.1.0.0 | Adds a button to copy reserved quantity to received quantity
 [stock_product_weight_on_receipt](stock_product_weight_on_receipt/) | 12.0.1.0.0 | Show product weight and unit weight on each line of a receipt
 [stock_provider_ref_on_receipt](stock_provider_ref_on_receipt/) | 12.0.1.0.0 | Show provider reference on each line of a receipt
+[website_sale_detailed_product_description](website_sale_detailed_product_description/) | 12.0.1.0.0 | Adds fields to Product Template and e-commerce's product list and page.
 
 [//]: # (end addons)
 <!-- prettier-ignore-end -->
