@@ -11,9 +11,12 @@
     "license": "AGPL-3",
     "author": "Coop IT Easy SCRLfs",
     "website": "https://coopiteasy.be",
+    "category": "Human Resources",
     "depends": [
         "hr_contract",
     ],
-    "data": [],
+    "data": [
+        "views/hr_employee.xml",
+    ],
     "demo": [],
 }

@@ -4,12 +4,15 @@
 import datetime
 from collections import defaultdict
 
-from odoo import models
+from odoo import fields, models
 
 
 class ResourceMixin(models.AbstractModel):
 
     _inherit = "resource.mixin"
+
+    # make this field read-only.
+    resource_calendar_id = fields.Many2one("resource.calendar", readonly=True)
 
     def list_work_time_per_day(
         self, from_datetime, to_datetime, calendar=None, domain=None
@@ -33,6 +36,39 @@ class ResourceMixin(models.AbstractModel):
                 hours += work_time[day]
             result.append((day, hours))
         return result
+
+    def get_work_days_data(
+        self,
+        from_datetime,
+        to_datetime,
+        compute_leaves=True,
+        calendar=None,
+        domain=None,
+    ):
+        if calendar or not hasattr(self, "contract_ids"):
+            return super().get_work_days_data(
+                from_datetime, to_datetime, compute_leaves, calendar, domain
+            )
+        normal_work_time_per_day = super().list_work_time_per_day(
+            from_datetime.replace(hour=0, minute=0, second=0),
+            to_datetime.replace(hour=0, minute=0, second=0)
+            + datetime.timedelta(days=1),
+            calendar=None,
+            domain=domain,
+        )
+        work_time_per_day = self.list_work_time_per_day(
+            from_datetime, to_datetime, calendar=None, domain=domain
+        )
+        num_days = 0.0
+        num_hours = 0.0
+        for (_, work_time), (_, normal_work_time) in zip(
+            work_time_per_day, normal_work_time_per_day
+        ):
+            if work_time == 0.0:
+                continue
+            num_days += work_time / normal_work_time
+            num_hours += work_time
+        return {"days": num_days, "hours": num_hours}
 
     def _get_active_contracts(self, date_start, date_end):
         """
