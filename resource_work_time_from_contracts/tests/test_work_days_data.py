@@ -1,22 +1,49 @@
 # Copyright 2021 Coop IT Easy SCRLfs
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from datetime import date, datetime, timedelta
+from datetime import datetime, timedelta
 
 from .test_work_time_base import TestWorkTimeBase
 
 
-class TestWorkTime(TestWorkTimeBase):
+class TestWorkDaysData(TestWorkTimeBase):
+    def setUp(self):
+        super().setUp()
+        self.company_calendar = self.env["resource.calendar"].create(
+            {"name": "Company", "attendance_ids": False}
+        )
+        # the company calendar must contain full-time days
+        for day in range(7):
+            self.env["resource.calendar.attendance"].create(
+                {
+                    "name": "Attendance",
+                    "dayofweek": str(day),
+                    "hour_from": "08",
+                    "hour_to": "12",
+                    "calendar_id": self.company_calendar.id,
+                }
+            )
+            self.env["resource.calendar.attendance"].create(
+                {
+                    "name": "Attendance",
+                    "dayofweek": str(day),
+                    "hour_from": "13",
+                    "hour_to": "17",
+                    "calendar_id": self.company_calendar.id,
+                }
+            )
+        self.employee1.company_id.resource_calendar_id = self.company_calendar
+
     def test_no_contract(self):
         """
-        Work time for an employee without a contract should be 0
+        Work days for an employee without a contract should be 0
         """
         self.assertEqual(
-            self._get_employee_work_time(),
-            [
-                (date(2021, 10, 19), 0.0),
-                (date(2021, 10, 20), 0.0),
-            ],
+            self._get_employee_work_days(),
+            {
+                "days": 0.0,
+                "hours": 0.0,
+            },
         )
 
     def test_single_contract(self):
@@ -29,15 +56,15 @@ class TestWorkTime(TestWorkTimeBase):
                 "employee_id": self.employee1.id,
                 "wage": 0.0,
                 "resource_calendar_id": self.full_time_calendar.id,
-                "date_start": "2020-10-18",
+                "date_start": "2020-10-24",
             }
         )
         self.assertEqual(
-            self._get_employee_work_time(),
-            [
-                (date(2021, 10, 19), 8.0),
-                (date(2021, 10, 20), 8.0),
-            ],
+            self._get_employee_work_days(),
+            {
+                "days": 5.0,
+                "hours": 40.0,
+            },
         )
 
     def test_single_contract_with_start_date(self):
@@ -50,15 +77,15 @@ class TestWorkTime(TestWorkTimeBase):
                 "employee_id": self.employee1.id,
                 "wage": 0.0,
                 "resource_calendar_id": self.full_time_calendar.id,
-                "date_start": "2021-10-20",
+                "date_start": "2021-10-27",
             }
         )
         self.assertEqual(
-            self._get_employee_work_time(),
-            [
-                (date(2021, 10, 19), 0.0),
-                (date(2021, 10, 20), 8.0),
-            ],
+            self._get_employee_work_days(),
+            {
+                "days": 3.0,
+                "hours": 24.0,
+            },
         )
 
     def test_single_contract_with_end_date(self):
@@ -71,16 +98,16 @@ class TestWorkTime(TestWorkTimeBase):
                 "employee_id": self.employee1.id,
                 "wage": 0.0,
                 "resource_calendar_id": self.full_time_calendar.id,
-                "date_start": "2020-10-18",
-                "date_end": "2021-10-19",
+                "date_start": "2020-10-24",
+                "date_end": "2021-10-26",
             }
         )
         self.assertEqual(
-            self._get_employee_work_time(),
-            [
-                (date(2021, 10, 19), 8.0),
-                (date(2021, 10, 20), 0.0),
-            ],
+            self._get_employee_work_days(),
+            {
+                "days": 2.0,
+                "hours": 16.0,
+            },
         )
 
     def test_multiple_contracts(self):
@@ -93,7 +120,7 @@ class TestWorkTime(TestWorkTimeBase):
                 "employee_id": self.employee1.id,
                 "wage": 0.0,
                 "resource_calendar_id": self.morning_calendar.id,
-                "date_start": "2020-10-18",
+                "date_start": "2020-10-24",
             }
         )
         self.env["hr.contract"].create(
@@ -102,15 +129,15 @@ class TestWorkTime(TestWorkTimeBase):
                 "employee_id": self.employee1.id,
                 "wage": 0.0,
                 "resource_calendar_id": self.afternoon_calendar.id,
-                "date_start": "2020-10-18",
+                "date_start": "2020-10-24",
             }
         )
         self.assertEqual(
-            self._get_employee_work_time(),
-            [
-                (date(2021, 10, 19), 8.0),
-                (date(2021, 10, 20), 8.0),
-            ],
+            self._get_employee_work_days(),
+            {
+                "days": 5.0,
+                "hours": 40.0,
+            },
         )
 
     def test_multiple_contracts_with_dates(self):
@@ -123,8 +150,8 @@ class TestWorkTime(TestWorkTimeBase):
                 "employee_id": self.employee1.id,
                 "wage": 0.0,
                 "resource_calendar_id": self.morning_calendar.id,
-                "date_start": "2020-10-18",
-                "date_end": "2021-10-19",
+                "date_start": "2020-10-24",
+                "date_end": "2021-10-25",
             }
         )
         self.env["hr.contract"].create(
@@ -133,20 +160,18 @@ class TestWorkTime(TestWorkTimeBase):
                 "employee_id": self.employee1.id,
                 "wage": 0.0,
                 "resource_calendar_id": self.four_fifths_calendar.id,
-                "date_start": "2020-10-19",
+                "date_start": "2020-10-24",
             }
         )
         self.assertEqual(
-            self._get_employee_work_time(),
-            [
-                (date(2021, 10, 19), 4.0),
-                (date(2021, 10, 20), 8.0),
-            ],
+            self._get_employee_work_days(),
+            {
+                "days": 4.5,
+                "hours": 36.0,
+            },
         )
 
-    def _get_employee_work_time(self):
-        from_datetime = datetime(2021, 10, 19)
-        to_datetime = from_datetime + timedelta(days=2)
-        return self.employee1.list_work_time_per_day(
-            from_datetime, to_datetime
-        )
+    def _get_employee_work_days(self):
+        from_datetime = datetime(2021, 10, 25)
+        to_datetime = from_datetime + timedelta(days=7)
+        return self.employee1.get_work_days_data(from_datetime, to_datetime)
