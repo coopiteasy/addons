@@ -1,12 +1,18 @@
 # Copyright 2021 Coop IT Easy SCRLfs
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+import datetime
+
+import pytz
+
 from odoo.tests.common import TransactionCase
 
 
 class TestWorkTimeBase(TransactionCase):
     def setUp(self):
         super().setUp()
+
+        self.timezone = pytz.timezone(self.env.user.tz)
 
         # users
         user1_dict = {"name": "User 1", "login": "user1", "password": "user1"}
@@ -95,3 +101,11 @@ class TestWorkTimeBase(TransactionCase):
                     "calendar_id": self.four_fifths_calendar.id,
                 }
             )
+
+    def to_utc_datetime(self, year, month, day, *args, **kwargs):
+        """
+        Create a UTC datetime from local time values
+        """
+        return self.timezone.localize(
+            datetime.datetime(year, month, day, *args, **kwargs)
+        ).astimezone(pytz.utc)
