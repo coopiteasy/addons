@@ -1,7 +1,7 @@
 # Copyright 2021 Coop IT Easy SCRLfs
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from datetime import datetime, timedelta
+from datetime import timedelta
 
 from .test_work_time_base import TestWorkTimeBase
 
@@ -125,7 +125,7 @@ class TestWorkDaysData(TestWorkTimeBase):
         )
         self.env["hr.contract"].create(
             {
-                "name": "Contract 1",
+                "name": "Contract 2",
                 "employee_id": self.employee1.id,
                 "wage": 0.0,
                 "resource_calendar_id": self.afternoon_calendar.id,
@@ -156,7 +156,7 @@ class TestWorkDaysData(TestWorkTimeBase):
         )
         self.env["hr.contract"].create(
             {
-                "name": "Contract 1",
+                "name": "Contract 2",
                 "employee_id": self.employee1.id,
                 "wage": 0.0,
                 "resource_calendar_id": self.four_fifths_calendar.id,
@@ -171,7 +171,89 @@ class TestWorkDaysData(TestWorkTimeBase):
             },
         )
 
+    def test_with_leaves(self):
+        """
+        Existing leaves should be subtracted from the work time
+        """
+        self.env["hr.contract"].create(
+            {
+                "name": "Contract 1",
+                "employee_id": self.employee1.id,
+                "wage": 0.0,
+                "resource_calendar_id": self.full_time_calendar.id,
+                "date_start": "2020-10-24",
+            }
+        )
+
+        self.env["resource.calendar.leaves"].create(
+            {
+                "name": "Tuesday morning",
+                "calendar_id": self.employee1.resource_calendar_id.id,
+                "date_from": self.to_utc_datetime(2021, 10, 26, 8),
+                "date_to": self.to_utc_datetime(2021, 10, 26, 12),
+                "resource_id": self.employee1.resource_id.id,
+                "time_type": "leave",
+            }
+        )
+        self.env["resource.calendar.leaves"].create(
+            {
+                "name": "Wednesday afternoon",
+                "calendar_id": self.employee1.resource_calendar_id.id,
+                "date_from": self.to_utc_datetime(2021, 10, 27, 13),
+                "date_to": self.to_utc_datetime(2021, 10, 27, 17),
+                "resource_id": self.employee1.resource_id.id,
+                "time_type": "leave",
+            }
+        )
+        self.env["resource.calendar.leaves"].create(
+            {
+                "name": "Friday",
+                "calendar_id": self.employee1.resource_calendar_id.id,
+                "date_from": self.to_utc_datetime(2021, 10, 29, 8),
+                "date_to": self.to_utc_datetime(2021, 10, 29, 17),
+                "resource_id": self.employee1.resource_id.id,
+                "time_type": "leave",
+            }
+        )
+        self.assertEqual(
+            self._get_employee_work_days(),
+            {
+                "days": 3.0,
+                "hours": 24.0,
+            },
+        )
+        self.assertEqual(
+            self.employee1.get_work_days_data(
+                self.to_utc_datetime(2021, 10, 26, 8),
+                self.to_utc_datetime(2021, 10, 26, 12),
+            ),
+            {
+                "days": 0.0,
+                "hours": 0.0,
+            },
+        )
+        self.assertEqual(
+            self.employee1.get_work_days_data(
+                self.to_utc_datetime(2021, 10, 26, 13),
+                self.to_utc_datetime(2021, 10, 26, 17),
+            ),
+            {
+                "days": 0.5,
+                "hours": 4.0,
+            },
+        )
+        self.assertEqual(
+            self.employee1.get_work_days_data(
+                self.to_utc_datetime(2021, 10, 27, 8),
+                self.to_utc_datetime(2021, 10, 27, 17),
+            ),
+            {
+                "days": 0.5,
+                "hours": 4.0,
+            },
+        )
+
     def _get_employee_work_days(self):
-        from_datetime = datetime(2021, 10, 25)
+        from_datetime = self.to_utc_datetime(2021, 10, 25)
         to_datetime = from_datetime + timedelta(days=7)
         return self.employee1.get_work_days_data(from_datetime, to_datetime)
