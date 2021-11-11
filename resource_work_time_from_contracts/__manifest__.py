@@ -17,6 +17,7 @@
     ],
     "data": [
         "views/hr_employee.xml",
+        "views/resource_resource.xml",
     ],
     "demo": [],
 }

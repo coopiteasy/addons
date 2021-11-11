@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 Coop IT Easy SCRLfs
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record model="ir.ui.view" id="resource_resource_tree_view">
+        <field
+            name="name"
+        >resource.resource.tree (in resource_work_time_from_contracts)</field>
+        <field name="model">resource.resource</field>
+        <field name="inherit_id" ref="resource.resource_resource_tree" />
+        <field name="arch" type="xml">
+            <field name="calendar_id" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>
