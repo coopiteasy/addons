@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="report_picking_certisys_label" inherit_id="stock.report_picking">
+        <xpath expr="//p[@t-field='o.note']" position="before">
+            <p>
+                <img
+                    src="/report_certisys_label/static/img/EU_Organic_Logo.jpg"
+                    style="width:98px;height:auto;padding-bottom:5px;"
+                />
+                <strong>All products of
+                    <span t-field="o.company_id.name" />
+                    are certified BIO by Certisys BE-BIO-01
+                </strong>
+            </p>
+        </xpath>
+
+    </template>
+
+    <template
+        id="report_delivery_document_certisys_label"
+        inherit_id="stock.report_delivery_document"
+    >
+        <xpath expr="//table[@t-if=&quot;o.state!='done'&quot;]" position="after">
+            <p>
+                <img
+                    src="/report_certisys_label/static/img/EU_Organic_Logo.jpg"
+                    style="width:98px;height:auto;padding-bottom:5px;"
+                />
+                <strong>All products of
+                    <span t-field="o.company_id.name" />
+                    are certified BIO by Certisys BE-BIO-01
+                </strong>
+            </p>
+        </xpath>
+    </template>
+</odoo>
