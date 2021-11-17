@@ -36,8 +36,8 @@ class TestWorkTimeBase(TransactionCase):
                 {
                     "name": "Attendance",
                     "dayofweek": str(day),
-                    "hour_from": "08",
-                    "hour_to": "12",
+                    "hour_from": 8.7,
+                    "hour_to": 12.5,
                     "calendar_id": self.full_time_calendar.id,
                 }
             )
@@ -45,8 +45,8 @@ class TestWorkTimeBase(TransactionCase):
                 {
                     "name": "Attendance",
                     "dayofweek": str(day),
-                    "hour_from": "13",
-                    "hour_to": "17",
+                    "hour_from": 13.5,
+                    "hour_to": 17.3,
                     "calendar_id": self.full_time_calendar.id,
                 }
             )
@@ -59,8 +59,8 @@ class TestWorkTimeBase(TransactionCase):
                 {
                     "name": "Attendance",
                     "dayofweek": str(day),
-                    "hour_from": "08",
-                    "hour_to": "12",
+                    "hour_from": 8.7,
+                    "hour_to": 12.5,
                     "calendar_id": self.morning_calendar.id,
                 }
             )
@@ -73,8 +73,8 @@ class TestWorkTimeBase(TransactionCase):
                 {
                     "name": "Attendance",
                     "dayofweek": str(day),
-                    "hour_from": "13",
-                    "hour_to": "17",
+                    "hour_from": 13.5,
+                    "hour_to": 17.3,
                     "calendar_id": self.afternoon_calendar.id,
                 }
             )
@@ -87,8 +87,8 @@ class TestWorkTimeBase(TransactionCase):
                 {
                     "name": "Attendance",
                     "dayofweek": str(day),
-                    "hour_from": "08",
-                    "hour_to": "12",
+                    "hour_from": 8.7,
+                    "hour_to": 12.5,
                     "calendar_id": self.four_fifths_calendar.id,
                 }
             )
@@ -96,11 +96,45 @@ class TestWorkTimeBase(TransactionCase):
                 {
                     "name": "Attendance",
                     "dayofweek": str(day),
-                    "hour_from": "13",
-                    "hour_to": "17",
+                    "hour_from": 13.5,
+                    "hour_to": 17.3,
                     "calendar_id": self.four_fifths_calendar.id,
                 }
             )
+
+        self.company_calendar = self.env["resource.calendar"].create(
+            {"name": "Company", "attendance_ids": False}
+        )
+        # the company calendar must contain full-time days
+        # we use a non-default calendar to ensure it works.
+        for day in range(7):
+            self.env["resource.calendar.attendance"].create(
+                {
+                    "name": "Attendance",
+                    "dayofweek": str(day),
+                    "hour_from": 8.7,
+                    "hour_to": 12.5,
+                    "calendar_id": self.company_calendar.id,
+                }
+            )
+            self.env["resource.calendar.attendance"].create(
+                {
+                    "name": "Attendance",
+                    "dayofweek": str(day),
+                    "hour_from": 13.5,
+                    "hour_to": 17.3,
+                    "calendar_id": self.company_calendar.id,
+                }
+            )
+        self.employee1.company_id.resource_calendar_id = self.company_calendar
+
+    def local_datetime(self, year, month, day, *args, **kwargs):
+        """
+        Create a datetime with the local timezone from local time values
+        """
+        return self.timezone.localize(
+            datetime.datetime(year, month, day, *args, **kwargs)
+        )
 
     def to_utc_datetime(self, year, month, day, *args, **kwargs):
         """
