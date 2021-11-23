@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="account_invoice_correction_form" model="ir.ui.view">
+        <field name="name">Invoice Correction Form</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_invoice_draft']" position="after">
+                <button
+                    name="start_correction"
+                    string="Start Correction"
+                    type="object"
+                    groups="account.group_account_manager"
+                    attrs="{'invisible': ['|', ('state', 'not in', ['open', 'paid']), ('correction', '=', True)]}"
+                />
+                <button
+                    name="validate_correction"
+                    string="Validate Correction"
+                    type="object"
+                    groups="account.group_account_manager"
+                    attrs="{'invisible': ['|', ('state', 'not in', ['open', 'paid']), ('correction', '=', False)]}"
+                />
+            </xpath>
+            <xpath expr="//field[@name='date_invoice']" position="after">
+                <field name="correction" invisible="1" />
+                <field name="origin_account_id" invisible="1" />
+            </xpath>
+            <xpath expr="//field[@name='invoice_line_ids']" position="attributes">
+                <attribute
+                    name="attrs"
+                >{'readonly': [('correction', '=', False), ('state', 'in', ['open', 'paid'])]}</attribute>
+            </xpath>
+            <xpath
+                expr="//page[@name='other_info']//field[@name='account_id']"
+                position="attributes"
+            >
+                <attribute
+                    name="attrs"
+                >{'readonly': [('correction', '=', False), ('state', 'in', ['open', 'paid'])]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='tax_line_ids']" position="attributes">
+                <attribute
+                    name="attrs"
+                >{'readonly': [('correction', '=', False), ('state', 'in', ['open', 'paid'])]}</attribute>
+            </xpath>
+            <xpath expr="//form//tree" position="inside">
+                <field name="correction" invisible="1" />
+                <field name="state" invisible="1" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="invoice_line_correction_form" model="ir.ui.view">
+        <field name="name">Invoice Line Correction Form</field>
+        <field name="model">account.invoice.line</field>
+        <field name="inherit_id" ref="account.view_invoice_line_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <field name="state" invisible="1" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="invoice_line_correction_tree" model="ir.ui.view">
+        <field name="name">Invoice Line Correction Tree</field>
+        <field name="model">account.invoice.line</field>
+        <field name="inherit_id" ref="account.view_invoice_line_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="inside">
+                <field name="state" invisible="1" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="account_invoice_correction_form_supplier" model="ir.ui.view">
+        <field name="name">Invoice Correction Form Supplier</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_supplier_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_invoice_draft']" position="after">
+                <button
+                    name="start_correction"
+                    string="Start Correction"
+                    type="object"
+                    groups="account.group_account_manager"
+                    attrs="{'invisible': ['|', ('state', 'not in', ['open', 'paid']), ('correction', '=', True)]}"
+                />
+                <button
+                    name="validate_correction"
+                    string="Validate Correction"
+                    type="object"
+                    groups="account.group_account_manager"
+                    attrs="{'invisible': ['|', ('state', 'not in', ['open', 'paid']), ('correction', '=', False)]}"
+                />
+            </xpath>
+            <xpath expr="//field[@name='date_invoice']" position="after">
+                <field name="correction" invisible="1" />
+                <field name="origin_account_id" invisible="1" />
+            </xpath>
+            <xpath expr="//field[@name='invoice_line_ids']" position="attributes">
+                <attribute
+                    name="attrs"
+                >{'readonly': [('correction', '=', False), ('state', 'in', ['open', 'paid'])]}</attribute>
+            </xpath>
+            <xpath
+                expr="//page[@name='other_info']//field[@name='account_id']"
+                position="attributes"
+            >
+                <attribute
+                    name="attrs"
+                >{'readonly': [('correction', '=', False), ('state', 'in', ['open', 'paid'])]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='tax_line_ids']" position="attributes">
+                <attribute
+                    name="attrs"
+                >{'readonly': [('correction', '=', False), ('state', 'in', ['open', 'paid'])]}</attribute>
+            </xpath>
+            <xpath expr="//form//tree" position="inside">
+                <field name="correction" invisible="1" />
+                <field name="state" invisible="1" />
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
