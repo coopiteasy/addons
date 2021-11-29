@@ -19,6 +19,7 @@ addon | version | summary
 --- | --- | ---
 [account_invoice_check_bba_com](account_invoice_check_bba_com/) | 12.0.1.0.0 | Check the structured communication if the supplier invoice communication is of type bba.
 [account_invoice_check_identical_invoice](account_invoice_check_identical_invoice/) | 12.0.1.0.0 | Check if invoices with the same partner, invoice date and total amount already exist
+[account_invoice_correction](account_invoice_correction/) | 12.0.1.0.0 | Correction of taxes and account on invoice
 [account_invoice_default_account_date](account_invoice_default_account_date/) | 12.0.1.0.0 | Sets the accounting date to the invoice date by default.
 [account_invoice_line_update](account_invoice_line_update/) | 12.0.1.0.0 | Update invoice lines to reload the right taxes on the lines.
 [account_invoice_provider_reference](account_invoice_provider_reference/) | 12.0.1.0.0 | Invoice Provider Reference
@@ -39,6 +40,7 @@ addon | version | summary
 [purchase_invoice_status](purchase_invoice_status/) | 12.0.1.0.0 | Add invoice status on purchase orders
 [purchase_order_line_auto_import](purchase_order_line_auto_import/) | 12.0.1.0.0 | This module allows to create automatically line with the product and minimal quantities when selecting the partner.
 [purchase_order_weight](purchase_order_weight/) | 12.0.1.0.0 | Adds weight and weight unit to Purchase Order
+[report_certisys_label](report_certisys_label/) | 12.0.1.0.0 | Add Certisys Label on account, stock and sale reports
 [resource_work_time_from_contracts](resource_work_time_from_contracts/) | 12.0.1.0.0 | Take the contracts of an employee into account when computing work time per day
 [sale_order_mass_confirmation](sale_order_mass_confirmation/) | 12.0.1.0.0 | Confirm multiple sale orders (quotations) with one action
 [sale_order_volume](sale_order_volume/) | 12.0.1.1.0 | Computes the volume of products per category ordered and display it on
@@ -46,6 +48,7 @@ addon | version | summary
 [stock_picking_copy_qty](stock_picking_copy_qty/) | 12.0.1.0.0 | Adds a button to copy reserved quantity to received quantity
 [stock_product_weight_on_receipt](stock_product_weight_on_receipt/) | 12.0.1.0.0 | Show product weight and unit weight on each line of a receipt
 [stock_provider_ref_on_receipt](stock_provider_ref_on_receipt/) | 12.0.1.0.0 | Show provider reference on each line of a receipt
+[website_sale_delivery_vat_label](website_sale_delivery_vat_label/) | 12.0.1.0.0 | Display the included/excluded VAT label on delivery method
 [website_sale_detailed_product_description](website_sale_detailed_product_description/) | 12.0.1.0.0 | Adds fields to Product Template and e-commerce's product list and page.
 
 [//]: # (end addons)
