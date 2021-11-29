@@ -39,6 +39,7 @@ addon | version | summary
 [purchase_invoice_status](purchase_invoice_status/) | 12.0.1.0.0 | Add invoice status on purchase orders
 [purchase_order_line_auto_import](purchase_order_line_auto_import/) | 12.0.1.0.0 | This module allows to create automatically line with the product and minimal quantities when selecting the partner.
 [purchase_order_weight](purchase_order_weight/) | 12.0.1.0.0 | Adds weight and weight unit to Purchase Order
+[resource_work_time_from_contracts](resource_work_time_from_contracts/) | 12.0.1.0.0 | Take the contracts of an employee into account when computing work time per day
 [sale_order_mass_confirmation](sale_order_mass_confirmation/) | 12.0.1.0.0 | Confirm multiple sale orders (quotations) with one action
 [sale_order_volume](sale_order_volume/) | 12.0.1.1.0 | Computes the volume of products per category ordered and display it on
 [stock_inventory_confirm_reset_qty](stock_inventory_confirm_reset_qty/) | 12.0.1.0.0 | Show a confirmation dialog box when clicking on 'Set quantities to 0' in a stock.inventory
