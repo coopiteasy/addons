@@ -32,6 +32,7 @@ addon | version | summary
 [mail_auto_resend](mail_auto_resend/) | 12.0.1.0.0 | Automatically resend failed emails
 [partner_contact_address](partner_contact_address/) | 12.0.1.0.0 | This module allows to have company contacts with their own address.
 [partner_socialmedia](partner_socialmedia/) | 12.0.1.0.0 | Add social media fields to contacts
+[partner_warehouse](partner_warehouse/) | 12.0.1.0.0 | Let the warehouse of the sale order be set accordingly to a default warehouse set on the partner.
 [pos_custom_receipt](pos_custom_receipt/) | 12.0.1.0.0 | Hide company's email and add customer's name to POS receipt
 [pos_self_service_base](pos_self_service_base/) | 12.0.1.0.0 | POS Self-Service Base Module
 [pos_self_service_print_zpl](pos_self_service_print_zpl/) | 12.0.1.0.0 | POS Self-Service Print ZPL from browser
@@ -44,10 +45,13 @@ addon | version | summary
 [resource_work_time_from_contracts](resource_work_time_from_contracts/) | 12.0.1.0.0 | Take the contracts of an employee into account when computing work time per day
 [sale_order_mass_confirmation](sale_order_mass_confirmation/) | 12.0.1.0.0 | Confirm multiple sale orders (quotations) with one action
 [sale_order_volume](sale_order_volume/) | 12.0.1.1.0 | Computes the volume of products per category ordered and display it on
+[sale_report_partner_category](sale_report_partner_category/) | 12.0.1.0.0 | Add a category field to sale reports
 [stock_inventory_confirm_reset_qty](stock_inventory_confirm_reset_qty/) | 12.0.1.0.0 | Show a confirmation dialog box when clicking on 'Set quantities to 0' in a stock.inventory
 [stock_picking_copy_qty](stock_picking_copy_qty/) | 12.0.1.0.0 | Adds a button to copy reserved quantity to received quantity
 [stock_product_weight_on_receipt](stock_product_weight_on_receipt/) | 12.0.1.0.0 | Show product weight and unit weight on each line of a receipt
 [stock_provider_ref_on_receipt](stock_provider_ref_on_receipt/) | 12.0.1.0.0 | Show provider reference on each line of a receipt
+[web_m2x_options_no_partner](web_m2x_options_no_partner/) | 12.0.1.0.0 | web_m2x_options_no_partner
+[web_m2x_options_no_product](web_m2x_options_no_product/) | 12.0.1.0.0 | web_m2x_options_no_product
 [website_sale_delivery_vat_label](website_sale_delivery_vat_label/) | 12.0.1.0.0 | Display the included/excluded VAT label on delivery method
 [website_sale_detailed_product_description](website_sale_detailed_product_description/) | 12.0.1.0.0 | Adds fields to Product Template and e-commerce's product list and page.
 
