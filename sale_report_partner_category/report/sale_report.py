@@ -1,4 +1,4 @@
-from odoo import api, fields, models, _
+from odoo import fields, models
 
 
 class SaleReport(models.Model):
@@ -8,7 +8,7 @@ class SaleReport(models.Model):
         "res.partner.category", string="Partner Category", readonly=True
     )
 
-    def _query(self, with_clause="", fields={}, groupby="", from_clause=""):
+    def _query(self, with_clause="", fields=None, groupby="", from_clause=""):
         if fields is None:
             fields = {}
         select_str = """ ,
@@ -19,9 +19,14 @@ class SaleReport(models.Model):
                 "category_id": select_str,
             }
         )
-        from_clause += "left join res_partner_res_partner_category_rel pcr on (pcr.partner_id=s.partner_id)"
+        from_clause += (
+            "left join res_partner_res_partner_category_rel pcr "
+            "on (pcr.partner_id=s.partner_id)"
+        )
         groupby += """,
             pcr.category_id
         """
 
-        return super(SaleReport, self)._query(with_clause, fields, groupby, from_clause)
+        return super(SaleReport, self)._query(
+            with_clause, fields, groupby, from_clause
+        )
