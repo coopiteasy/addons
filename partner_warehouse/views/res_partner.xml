@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <!-- Add warehouse_id field to res_partner view -->
+  <record id="view_partner_form" model="ir.ui.view">
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="base.view_partner_form" />
+    <field name="priority" eval="10" />
+    <field name="arch" type="xml">
+      <xpath expr="//group[@name='sale']" position="inside">
+        <field name="warehouse_id" />
+      </xpath>
+    </field>
+  </record>
+</odoo>
