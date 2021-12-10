@@ -2,9 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 {
     "name": "Sale Report Partner Category",
-    "summary": """
-        This module extends the sale report to extra fields.
-    """,
+    "summary": "Add a category field to sale reports",
     "author": "Coop IT Easy SCRL",
     "website": "https://coopiteasy.be",
     "category": "Sales",
