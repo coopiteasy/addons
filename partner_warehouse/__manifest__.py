@@ -4,8 +4,8 @@
     "name": "Partner Warehouse",
     "version": "12.0.1.0.0",
     "depends": [
-        'sale',
-        'sale_stock',
+        "sale",
+        "sale_stock",
     ],
     "author": "Coop IT Easy SCRLfs",
     "category": "Warehouse",
@@ -15,8 +15,7 @@
     Let the warehouse of the sale order be set accordingly to a default
     warehouse set on the partner.
     """,
-    'data': [
-        'views/res_partner.xml',
+    "data": [
+        "views/res_partner.xml",
     ],
-    'installable': True,
 }
