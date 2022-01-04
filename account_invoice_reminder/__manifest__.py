@@ -20,7 +20,7 @@
 ##############################################################################
 {
     "name": "Simple Payment reminder",
-    "version": "1.0",
+    "version": "10.0.1.0.0",
     "depends": ["account"],
     "author": "Houssine BAKKALI <houssine.bakkali@gmail.com>",
     "category": "Accounting",
@@ -28,8 +28,8 @@
     This module just adds two fields to say when we sent a payment reminder to the 
     customer and the level of the reminder.    
     """,
-    'data': [
-        'views/invoice_view.xml',
+    "data": [
+        "views/invoice_view.xml",
     ],
-    'installable': True,
+    "installable": True,
 }
