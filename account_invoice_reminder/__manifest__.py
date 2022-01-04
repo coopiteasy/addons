@@ -21,14 +21,14 @@
     "name": "Simple Payment reminder",
     "version": "12.0.1.0.0",
     "depends": ["account"],
-    "author": "Houssine BAKKALI <houssine.bakkali@gmail.com>",
+    "author": "Coop IT Easy SCRLfs",
+    "license": "AGPL-3",
     "category": "Accounting",
-    "description": """
+    "summary": """
     This module just adds two fields to say when we sent a payment reminder to the
     customer and the level of the reminder.
     """,
     "data": [
         "views/invoice_view.xml",
     ],
-    "installable": True,
 }
