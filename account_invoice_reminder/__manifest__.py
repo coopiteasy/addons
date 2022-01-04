@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    OAC, Business Open Source Solution
@@ -20,7 +19,7 @@
 ##############################################################################
 {
     "name": "Simple Payment reminder",
-    "version": "10.0.1.0.0",
+    "version": "11.0.1.0.0",
     "depends": ["account"],
     "author": "Houssine BAKKALI <houssine.bakkali@gmail.com>",
     "category": "Accounting",
