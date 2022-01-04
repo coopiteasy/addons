@@ -20,9 +20,9 @@
             <label for="currency_id" position="before">
                 <field name="reminder" attrs="{'invisible':[('state','!=','open')]}" />
                 <field
-                name="last_reminder_date"
-                attrs="{'invisible':[('state','!=','open')]}"
-            />
+                    name="last_reminder_date"
+                    attrs="{'invisible':[('state','!=','open')]}"
+                />
             </label>
         </field>
     </record>

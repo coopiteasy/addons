@@ -24,8 +24,8 @@
     "author": "Houssine BAKKALI <houssine.bakkali@gmail.com>",
     "category": "Accounting",
     "description": """
-    This module just adds two fields to say when we sent a payment reminder to the 
-    customer and the level of the reminder.    
+    This module just adds two fields to say when we sent a payment reminder to the
+    customer and the level of the reminder.
     """,
     "data": [
         "views/invoice_view.xml",
