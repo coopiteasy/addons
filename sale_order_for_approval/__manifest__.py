@@ -6,7 +6,8 @@
     "version": "12.0.1.0.0",
     "category": "Sales",
     "sequence": 95,
-    "author": "Robin KEUNEN- Coop IT Easy SCRLfs",
+    "author": "Coop IT Easy SCRLfs",
+    "website": "https://coopiteasy.be",
     "summary": 'Display "For Approval" mention on Sale Orders',
     "depends": ["sale"],
     "data": [
