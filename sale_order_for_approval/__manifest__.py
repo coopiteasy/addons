@@ -3,18 +3,11 @@
 
 {
     "name": "Sale Order - For Approval Mention",
-    "version": "11.0.1.0.0",
+    "version": "12.0.1.0.0",
     "category": "Sales",
     "sequence": 95,
     "author": "Robin KEUNEN- Coop IT Easy SCRLfs",
     "summary": 'Display "For Approval" mention on Sale Orders',
-    "description": """
-
-============================
-
-This module adds a "For approval section to sale orders"
-
-    """,
     "depends": ["sale"],
     "data": [
         "views/report_saleorder.xml",
