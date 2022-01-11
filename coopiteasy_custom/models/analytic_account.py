@@ -15,7 +15,7 @@ class AccountAnalyticAccount(models.Model):
         string="Line Count", compute="_compute_line_count", store=True
     )
 
-    @api.depends("line_ids", "account_type")
+    @api.depends("line_ids")
     @api.multi
     def _compute_line_count(self):
         # may lead to performance issues. See with time.
