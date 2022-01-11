@@ -5,7 +5,7 @@
 
 {
     "name": "Coop IT Easy Customization",
-    "version": "10.0.1.0.0",
+    "version": "11.0.1.0.0",
     "depends": ["analytic", "project"],
     "author": "Coop IT Easy SCRLfs",
     "license": "AGPL-3",
