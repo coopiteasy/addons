@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!--
      Copyright 2017-2018 Coop IT Easy
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
@@ -7,16 +7,16 @@
     <record id="view_task_form2" model="ir.ui.view">
         <field name="name">project.task.form.pr</field>
         <field name="model">project.task</field>
-        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="inherit_id" ref="project.view_task_form2" />
         <field name="arch" type="xml">
 
             <field name="tag_ids" position="after">
-                <field name="int_priority"/>
+                <field name="int_priority" />
             </field>
 
             <xpath expr="//field[@name='project_id']/../.." position="after">
                 <group>
-                    <field name="pr_uri" widget="url"/>
+                    <field name="pr_uri" widget="url" />
                 </group>
             </xpath>
 
@@ -39,17 +39,17 @@
     <record id="view_task_kanban" model="ir.ui.view">
         <field name="name">project.task.kanban</field>
         <field name="model">project.task</field>
-        <field name="inherit_id" ref="project.view_task_kanban"/>
+        <field name="inherit_id" ref="project.view_task_kanban" />
         <field name="arch" type="xml">
 
             <field name="priority" position="after">
-                <field name="int_priority"/>
+                <field name="int_priority" />
             </field>
             <xpath expr="//templates//field[@name='priority']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
             <xpath expr="//templates//field[@name='priority']" position="after">
-                <div>p:<field name="int_priority"/></div>
+                <div>p:<field name="int_priority" /></div>
             </xpath>
 
         </field>
@@ -58,11 +58,11 @@
     <record id="view_task_tree2" model="ir.ui.view">
         <field name="name">project.task.tree</field>
         <field name="model">project.task</field>
-        <field name="inherit_id" ref="project.view_task_tree2"/>
+        <field name="inherit_id" ref="project.view_task_tree2" />
         <field name="arch" type="xml">
 
             <field name="stage_id" position="after">
-                <field name="int_priority"/>
+                <field name="int_priority" />
             </field>
 
         </field>
