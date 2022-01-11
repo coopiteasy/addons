@@ -22,7 +22,7 @@ class AccountAnalyticAccount(models.Model):
         for account in self:
             one_month_ago = date.today() - timedelta(days=30)
             recent_lines = account.line_ids.filtered(
-                lambda l: fields.Date.from_string(l.date) >= one_month_ago
+                lambda l: l.date >= one_month_ago
             )
             account.line_count = len(recent_lines)
 
