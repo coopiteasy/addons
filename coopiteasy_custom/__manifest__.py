@@ -5,7 +5,7 @@
 
 {
     "name": "Coop IT Easy Customization",
-    "version": "11.0.1.0.0",
+    "version": "12.0.1.0.0",
     "depends": ["analytic", "project"],
     "author": "Coop IT Easy SCRLfs",
     "license": "AGPL-3",
@@ -13,12 +13,6 @@
     "website": "www.coopiteasy.be",
     "summary": """
         Specifics customizations for Coop IT Easy
-    """,
-    "description": """
-        * reset_so_line on account.analytic.line
-        * fields on project.task
-        * only display active accounts on activity view
-        * sort accounts by line count
     """,
     "data": [
         "data/cron.xml",
