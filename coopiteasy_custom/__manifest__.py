@@ -17,7 +17,6 @@
     "data": [
         "data/cron.xml",
         "views/project_view.xml",
-        "views/account_analytic.xml",
     ],
     "installable": True,
 }
