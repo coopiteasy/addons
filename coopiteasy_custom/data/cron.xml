@@ -4,7 +4,7 @@
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 -->
 <odoo>
-    <data noupdate="0">  <!-- fixme-->
+    <data>  <!-- fixme-->
         <record id="cie_fix_account_analytic_line_so_line" model="ir.cron">
             <field name="name">cie fix account_analytic_line so_line</field>
             <field name="active" eval="False"/>
