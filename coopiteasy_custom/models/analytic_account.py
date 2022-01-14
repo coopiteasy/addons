@@ -28,5 +28,6 @@ class AccountAnalyticAccount(models.Model):
 
     @api.model
     def cron_compute_line_count(self):
+        # update of the analytic line count for the account over the last month.
         accounts = self.search([])
         accounts._compute_line_count()
