@@ -1,7 +1,7 @@
 from odoo import fields, models
 
 
-class account_invoice(models.Model):
+class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
     reminder = fields.Selection(
