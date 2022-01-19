@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="invoice_tree_reminder" model="ir.ui.view">
+        <field name="name">account.invoice.tree</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_tree" />
+        <field name="arch" type="xml">
+            <field name="state" position="after">
+                <field name="reminder" />
+                <field name="last_reminder_date" />
+            </field>
+        </field>
+    </record>
+
+    <record id="invoice_form_reminder" model="ir.ui.view">
+        <field name="name">account.invoice.form</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form" />
+        <field name="arch" type="xml">
+            <label for="currency_id" position="before">
+                <field name="reminder" attrs="{'invisible':[('state','!=','open')]}" />
+                <field
+                    name="last_reminder_date"
+                    attrs="{'invisible':[('state','!=','open')]}"
+                />
+            </label>
+        </field>
+    </record>
+</odoo>
