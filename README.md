@@ -43,6 +43,7 @@ addon | version | summary
 [purchase_order_weight](purchase_order_weight/) | 12.0.1.0.0 | Adds weight and weight unit to Purchase Order
 [report_certisys_label](report_certisys_label/) | 12.0.1.0.0 | Add Certisys Label on account, stock and sale reports
 [resource_work_time_from_contracts](resource_work_time_from_contracts/) | 12.0.1.0.0 | Take the contracts of an employee into account when computing work time per day
+[sale_order_for_approval](sale_order_for_approval/) | 12.0.1.0.0 | Display "For Approval" mention on Sale Orders
 [sale_order_mass_confirmation](sale_order_mass_confirmation/) | 12.0.1.0.0 | Confirm multiple sale orders (quotations) with one action
 [sale_order_volume](sale_order_volume/) | 12.0.1.1.0 | Computes the volume of products per category ordered and display it on
 [sale_report_partner_category](sale_report_partner_category/) | 12.0.1.0.0 | Add a category field to sale reports

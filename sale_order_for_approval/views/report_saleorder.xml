@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="report_saleorder_document"
+        inherit_id="sale.report_saleorder_document"
+    >
+        <div name="total" position="after">
+            <div
+                class="col-xs-5"
+                style="position:absolute;top:850px; page-break-inside: avoid;"
+            >
+                <strong>For approval</strong> <br />
+                Last Name and First Name <br />
+                Date <br />
+                Signature<br />
+            </div>
+        </div>
+    </template>
+</odoo>
