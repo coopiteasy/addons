@@ -14,5 +14,8 @@ class Company(models.Model):
         comodel_name="account.account",
         string="Fallback Account",
         help="Moves for which the tax was undefined will be assigned to this account.",
-        required=True,
+        # This field is technically required, but can't be set to required,
+        # because res.company row(s) already exist before the installation of
+        # this module.
+        # required=True,
     )
