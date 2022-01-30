@@ -51,6 +51,7 @@ addon | version | summary
 [sale_report_partner_category](sale_report_partner_category/) | 12.0.1.0.0 | Add a category field to sale reports
 [stock_inventory_confirm_reset_qty](stock_inventory_confirm_reset_qty/) | 12.0.1.0.0 | Show a confirmation dialog box when clicking on 'Set quantities to 0' in a stock.inventory
 [stock_picking_copy_qty](stock_picking_copy_qty/) | 12.0.1.0.0 | Adds a button to copy reserved quantity to received quantity
+[stock_picking_only_suppliers_products](stock_picking_only_suppliers_products/) | 12.0.1.0.0 | On a stock picking, only display the supplier's products.
 [stock_product_weight_on_receipt](stock_product_weight_on_receipt/) | 12.0.1.0.0 | Show product weight and unit weight on each line of a receipt
 [stock_provider_ref_on_receipt](stock_provider_ref_on_receipt/) | 12.0.1.0.0 | Show provider reference on each line of a receipt
 [web_m2x_options_no_partner](web_m2x_options_no_partner/) | 12.0.1.0.0 | web_m2x_options_no_partner
