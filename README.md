@@ -32,6 +32,7 @@ addon | version | summary
 [email_template_config](email_template_config/) | 12.0.1.0.0 | This module extends the email in order to force some behaviours configured in the mail template(e.g. force send mail or not).
 [invoice_global_discount](invoice_global_discount/) | 12.0.1.1.0 | This module give global discount on invoice. It allows to set the same discount on all the invoice lines without been forced to go manually through them.
 [mail_auto_resend](mail_auto_resend/) | 12.0.1.0.0 | Automatically resend failed emails
+[mrp_unbuild_product_mo_filter](mrp_unbuild_product_mo_filter/) | 12.0.1.0.0 | Filter unbuild manufacturing orders by selected product
 [partner_contact_address](partner_contact_address/) | 12.0.1.0.0 | This module allows to have company contacts with their own address.
 [partner_socialmedia](partner_socialmedia/) | 12.0.1.0.0 | Add social media fields to contacts
 [partner_warehouse](partner_warehouse/) | 12.0.1.0.0 | Let the warehouse of the sale order be set accordingly to a default warehouse set on the partner.
