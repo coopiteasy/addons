@@ -25,6 +25,7 @@ addon | version | summary
 [account_invoice_provider_reference](account_invoice_provider_reference/) | 12.0.1.0.0 | Invoice Provider Reference
 [account_invoice_reminder](account_invoice_reminder/) | 12.0.1.0.0 | This module just adds two fields to say when we sent a payment reminder to the customer and the level of the reminder.
 [account_invoice_save_check_duplicate](account_invoice_save_check_duplicate/) | 12.0.1.0.0 | Check that account invoice hasn't been encoded twice when creating or saving. This step is normally done when validating. This step doesn't replace the validation.
+[account_invoice_ubl_mass_download](account_invoice_ubl_mass_download/) | 12.0.1.0.0 | Account Invoice UBL Mass Download
 [auth_company_signup](auth_company_signup/) | 12.0.1.0.0 | This module allows a user to sign up as a company.
 [belgian_bank_data](belgian_bank_data/) | 12.0.1.0.0 | This module imports Belgian banks with their name and BIC code.
 [document_hosting](document_hosting/) | 12.0.1.0.0 | Manage documents that can be published on website with ??.
