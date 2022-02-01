@@ -16,6 +16,7 @@
     ],
     "excludes": [],
     "data": [
+        "data/portion_attributes.xml",
         "views/product_views.xml",
     ],
     "demo": [],
