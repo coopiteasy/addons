@@ -12,6 +12,17 @@
                     <label for="is_meal" />
                 </div>
             </xpath>
+
+            <field name="barcode" position="after">
+                <field
+                    name="container_1"
+                    attrs="{'invisible':[('is_meal','=',False)]}"
+                />
+                <field
+                    name="container_2"
+                    attrs="{'invisible':[('is_meal','=',False)]}"
+                />
+            </field>
         </field>
     </record>
 
