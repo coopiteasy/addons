@@ -9,7 +9,7 @@
         <field name="name">Adult</field>
         <field name="attribute_id" eval="ref('portion_size')"></field>
     </record>
-    <record id="child" model="product.attribute.value">
+    <record id="child_portion" model="product.attribute.value">
         <field name="name">Child</field>
         <field name="attribute_id" eval="ref('portion_size')"></field>
     </record>
