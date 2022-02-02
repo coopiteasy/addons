@@ -13,6 +13,7 @@
     "application": False,
     "depends": [
         "product",
+        "uom_extra_data",  # mL
     ],
     "excludes": [],
     "data": [
