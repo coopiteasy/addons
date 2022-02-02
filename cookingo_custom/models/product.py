@@ -13,11 +13,11 @@ class ProductTemplate(models.Model):
             (
                 "categ_id",
                 "child_of",
-                self.env.ref("cookingo_custom.category_containers"),
+                self.env.ref("cookingo_custom.category_containers").id,
             )
         ]
 
-    is_meal = fields.Boolean(string="Is Meal?", compute="_compute_is_meal", store=True)
+    is_meal = fields.Boolean(string="Is Meal?", default=False)
 
     container_1 = fields.Many2one(
         comodel_name="product.template", string="Container 1", domain=_container_domain
@@ -26,10 +26,3 @@ class ProductTemplate(models.Model):
         comodel_name="product.template", string="Container 2", domain=_container_domain
     )
 
-    @api.depends("categ_id")
-    def _compute_is_meal(self):
-        meal_categories = self.env["product.category"].search(
-            [("id", "child_of", self.env.ref("cookingo_custom.category_meals").id)]
-        )
-        for product in self:
-            product.is_meal = product.categ_id in meal_categories
