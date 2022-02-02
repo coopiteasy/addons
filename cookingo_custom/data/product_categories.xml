@@ -1,0 +1,10 @@
+<odoo noupdate="1">
+    <record id="category_meals" model="product.category">
+        <field name="parent_id" ref="product.product_category_all"/>
+        <field name="name">Meals</field>
+    </record>
+    <record id="category_containers" model="product.category">
+        <field name="parent_id" ref="product.product_category_all"/>
+        <field name="name">Containers</field>
+    </record>
+</odoo>

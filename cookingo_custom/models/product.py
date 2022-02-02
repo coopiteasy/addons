@@ -3,7 +3,33 @@
 
 from odoo import api, fields, models
 
+
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
-    is_meal = fields.Boolean(string="Is Meal?", default=False)
+    @api.model
+    def _container_domain(self):
+        return [
+            (
+                "categ_id",
+                "child_of",
+                self.env.ref("cookingo_custom.category_containers"),
+            )
+        ]
+
+    is_meal = fields.Boolean(string="Is Meal?", compute="_compute_is_meal", store=True)
+
+    container_1 = fields.Many2one(
+        comodel_name="product.template", string="Container 1", domain=_container_domain
+    )
+    container_2 = fields.Many2one(
+        comodel_name="product.template", string="Container 2", domain=_container_domain
+    )
+
+    @api.depends("categ_id")
+    def _compute_is_meal(self):
+        meal_categories = self.env["product.category"].search(
+            [("id", "child_of", self.env.ref("cookingo_custom.category_meals").id)]
+        )
+        for product in self:
+            product.is_meal = product.categ_id in meal_categories
