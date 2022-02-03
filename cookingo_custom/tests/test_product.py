@@ -18,26 +18,6 @@ class TestProduct(TransactionCase):
             "cookingo_custom.product_attribute_portion_size_value_child"
         )
 
-        self.attribute_flavor = self.env["product.attribute"].create(
-            {
-                "name": "Flavor",
-            }
-        )
-        self.attribute_flavor_bland = self.env["product.attribute.value"].create(
-            {
-                "name": "Bland",
-                "attribute_id": self.attribute_flavor.id,
-                "sequence": 1,
-            }
-        )
-        self.attribute_flavor_spicy = self.env["product.attribute.value"].create(
-            {
-                "name": "Spicy",
-                "attribute_id": self.attribute_flavor.id,
-                "sequence": 2,
-            }
-        )
-
         # fmt: off
         self.salad_template = self.env["product.template"].create({
             "name": "Salad",
@@ -47,21 +27,6 @@ class TestProduct(TransactionCase):
             "container_1_volume": 600,
             "container_2_volume": 300,
             "attribute_line_ids": [(
-                0,
-                0,
-                {
-                    "attribute_id": self.attribute_flavor.id,
-                    "value_ids": [(
-                        6,
-                        0,
-                        [
-                            self.attribute_flavor_bland.id,
-                            self.attribute_flavor_spicy.id,
-                        ],
-                    )],
-                },
-            ),
-            (
                 0,
                 0,
                 {
@@ -85,29 +50,15 @@ class TestProduct(TransactionCase):
             ]
         )
 
-        def get_product_attribute_value(attribute, name):
-            return self.env["product.attribute.value"].search(
-                [("attribute_id", "=", attribute.id), ("name", "=", name)]
-            )
-
         # This is hacky and stupid, and there is doubtlessly a
         # better way.
         for product in products:
-            values = []
+            # There should only be one value, but looping anyway.
             for value in product.product_template_attribute_value_ids:
-                values.append(
-                    get_product_attribute_value(value.attribute_id, value.name)
-                )
-            if (
-                self.attribute_portion_size_adult in values
-                and self.attribute_flavor_bland in values
-            ):
-                self.salad_product_adult_bland = product
-            elif (
-                self.attribute_portion_size_child in values
-                and self.attribute_flavor_spicy in values
-            ):
-                self.salad_product_child_spicy = product
+                if value.name == self.attribute_portion_size_adult.name:
+                    self.salad_product_adult = product
+                else:
+                    self.salad_product_child = product
 
         return result
 
@@ -117,11 +68,11 @@ class TestProduct(TransactionCase):
         """
         self.assertAlmostEqual(
             self.salad_template.container_1_volume * (2 / 3),
-            self.salad_product_child_spicy.container_1_volume,
+            self.salad_product_child.container_1_volume,
         )
         self.assertAlmostEqual(
             self.salad_template.container_2_volume * (2 / 3),
-            self.salad_product_child_spicy.container_2_volume,
+            self.salad_product_child.container_2_volume,
         )
 
     def test_container_volume_identical_for_adults(self):
@@ -130,9 +81,9 @@ class TestProduct(TransactionCase):
         """
         self.assertAlmostEqual(
             self.salad_template.container_1_volume,
-            self.salad_product_adult_bland.container_1_volume,
+            self.salad_product_adult.container_1_volume,
         )
         self.assertAlmostEqual(
             self.salad_template.container_2_volume,
-            self.salad_product_adult_bland.container_2_volume,
+            self.salad_product_adult.container_2_volume,
         )
