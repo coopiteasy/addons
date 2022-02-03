@@ -1,7 +1,11 @@
 # Copyright 2022 Coop IT Easy SCRL fs
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
+import logging
+
 from odoo import api, fields, models
+
+_logger = logging.getLogger(__name__)
 
 
 class Product(models.Model):
@@ -25,13 +29,26 @@ class Product(models.Model):
         "product_tmpl_id",
         "product_tmpl_id.container_1_volume",
         "product_tmpl_id.container_2_volume",
+        "product_template_attribute_value_ids",
     )
     def _compute_container_volume(self):
-        child_portion_attribute_value = self.env.ref("cookingo_custom.child_portion")
+        try:
+            child_portion_attribute_value = self.env.ref(
+                "cookingo_custom.child_portion"
+            )
+        except ValueError:
+            _logger.warning(
+                "'cookingo_custom.child_portion' does not exist; container volume"
+                " calculation may misbehave."
+            )
+            child_portion_attribute_value = self.env["product.attribute.value"]
         for product in self:
             modifier = 1
-            if child_portion_attribute_value in product_template_attribute_value_ids:
-                modifier = 0.66
+            if (
+                child_portion_attribute_value
+                in product.product_template_attribute_value_ids.product_attribute_value_id
+            ):
+                modifier = 2 / 3
             product.container_1_volume = (
                 product.product_tmpl_id.container_1_volume * modifier
             )
