@@ -14,6 +14,7 @@
     "depends": [
         "product",
         "uom_extra_data",  # mL
+        "website_sale",
     ],
     "excludes": [],
     "data": [
