@@ -34,12 +34,12 @@ class Product(models.Model):
     def _compute_container_volume(self):
         try:
             child_portion_attribute_value = self.env.ref(
-                "cookingo_custom.child_portion"
+                "cookingo_custom.product_attribute_portion_size_value_child"
             )
         except ValueError:
             _logger.warning(
-                "'cookingo_custom.child_portion' does not exist; container volume"
-                " calculation may misbehave."
+                "'cookingo_custom.product_attribute_portion_size_value_child'"
+                " does not exist; container volume calculation may misbehave."
             )
             child_portion_attribute_value = self.env["product.attribute.value"]
         for product in self:
