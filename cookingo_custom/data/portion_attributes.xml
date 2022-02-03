@@ -1,16 +1,24 @@
 <odoo noupdate="1">
-    <record id="portion_size" model="product.attribute">
+    <record id="product_attribute_portion_size" model="product.attribute">
         <field name="name">Portion Size</field>
         <field name="create_variant">always</field>
         <field name="display_type">radio</field>
     </record>
 
-    <record id="adult_portion" model="product.attribute.value">
+    <record
+        id="product_attribute_portion_size_value_adult"
+        model="product.attribute.value"
+    >
         <field name="name">Adult</field>
-        <field name="attribute_id" eval="ref('portion_size')"></field>
+        <field name="attribute_id" eval="ref('product_attribute_portion_size')" />
+        <field name="sequence">1</field>
     </record>
-    <record id="child_portion" model="product.attribute.value">
+    <record
+        id="product_attribute_portion_size_value_child"
+        model="product.attribute.value"
+    >
         <field name="name">Child</field>
-        <field name="attribute_id" eval="ref('portion_size')"></field>
+        <field name="attribute_id" eval="ref('product_attribute_portion_size')" />
+        <field name="sequence">2</field>
     </record>
 </odoo>
