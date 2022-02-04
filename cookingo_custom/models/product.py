@@ -48,6 +48,7 @@ class Product(models.Model):
                 child_portion_attribute_value
                 in product.product_template_attribute_value_ids.product_attribute_value_id
             ):
+                # TODO: Make this configurable.
                 modifier = 2 / 3
             product.container_1_volume = (
                 product.product_tmpl_id.container_1_volume * modifier
@@ -64,10 +65,16 @@ class ProductTemplate(models.Model):
     def _get_container_uom_domain(self):
         return [("category_id", "=", self.env.ref("uom.product_uom_categ_vol").id)]
 
-    is_meal = fields.Boolean(string="Is Meal?", default=False)
+    # Container
+    is_container = fields.Boolean(string="Is Container?", default=False)
+    container_volume = fields.Float("Container Volume", digits="Volume")
 
+    # Meal
+    is_meal = fields.Boolean(string="Is Meal?", default=False)
     container_1_volume = fields.Float("Container 1 Volume", digits="Volume")
     container_2_volume = fields.Float("Container 2 Volume", digits="Volume")
+
+    # Common
     container_uom_id = fields.Many2one(
         comodel_name="uom.uom",
         string="Container Unit of Measure",

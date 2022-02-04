@@ -60,4 +60,17 @@ class TestCommon(TransactionCase):
                 else:
                     self.salad_product_child = product
 
+        self.container_volumes = (400, 600, 1000, 1200, 1800, 3100)
+        self.containers = {
+            key: self.env["product.template"].create(
+                {
+                    "name": f"Container {key} mL",
+                    "list_price": key,
+                    "is_container": True,
+                    "container_volume": key,
+                }
+            )
+            for key in self.container_volumes
+        }
+
         return result
