@@ -114,3 +114,25 @@ class TestSaleOrder(common.TestCommon):
         result = self.sale_order.calculate_volume_containers()
 
         self.assertFalse(result)
+
+    def test_find_containers(self):
+        """Find containers that will fit the required volumes."""
+        order_line = self.env["sale.order.line"].create(
+            {
+                "name": self.salad_product_adult.name,
+                "product_id": self.salad_product_adult.id,
+                "product_uom_qty": 2,
+                "product_uom": self.salad_product_adult.uom_id.id,
+                "price_unit": self.salad_product_adult.list_price,
+                "order_id": self.sale_order.id,
+                "tax_id": False,
+            }
+        )
+        result = self.sale_order.find_containers_for_template(
+            self.salad_template,
+            self.sale_order.calculate_volume_containers()[self.salad_template],
+        )
+
+        self.assertEqual(len(result), 2)
+        self.assertEqual(result[0], self.containers[1200].product_variant_id)
+        self.assertEqual(result[1], self.containers[600].product_variant_id)

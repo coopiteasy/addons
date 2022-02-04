@@ -11,6 +11,10 @@
                     <field name="is_meal" />
                     <label for="is_meal" />
                 </div>
+                <div>
+                    <field name="is_container" />
+                    <label for="is_container" />
+                </div>
             </xpath>
         </field>
     </record>
@@ -22,8 +26,19 @@
         <field name="arch" type="xml">
             <field name="type" position="before">
                 <field name="is_meal" invisible="True" />
+                <field name="is_container" invisible="True" />
             </field>
             <xpath expr="//group[@name='group_general']" position="after">
+                <group
+                    name="group_container"
+                    attrs="{'invisible':[('is_container','=',False)]}"
+                >
+                    <label for="container_volume" />
+                    <div class="o_row">
+                        <field name="container_volume" />
+                        <span><field name="container_uom_name" /></span>
+                    </div>
+                </group>
                 <group
                     name="group_containers"
                     attrs="{'invisible':[('is_meal','=',False)]}"
