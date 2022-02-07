@@ -128,14 +128,35 @@ class TestSaleOrder(common.TestCommon):
                 "tax_id": False,
             }
         )
-        result = self.sale_order.find_containers_for_template(
-            self.salad_template,
-            self.sale_order.calculate_volume_containers()[self.salad_template],
-        )
+        volumes = self.sale_order.calculate_volume_containers()[self.salad_template]
+        result_1 = self.sale_order.find_containers_for_volume(volumes[0])
+        result_2 = self.sale_order.find_containers_for_volume(volumes[1])
 
-        self.assertEqual(len(result), 2)
-        self.assertEqual(result[0], self.containers[1200].product_variant_id)
-        self.assertEqual(result[1], self.containers[600].product_variant_id)
+        self.assertEqual(len(result_1), 1)
+        self.assertEqual(result_1, [self.containers[1200].product_variant_id])
+        self.assertEqual(len(result_2), 1)
+        self.assertEqual(result_2, [self.containers[600].product_variant_id])
+
+    def test_find_containers_container_is_zero(self):
+        """When the value of container_2_volume is 0, don't add two containers."""
+        self.salad_template.container_2_volume = 0
+        order_line = self.env["sale.order.line"].create(
+            {
+                "name": self.salad_product_adult.name,
+                "product_id": self.salad_product_adult.id,
+                "product_uom_qty": 1,
+                "product_uom": self.salad_product_adult.uom_id.id,
+                "price_unit": self.salad_product_adult.list_price,
+                "order_id": self.sale_order.id,
+                "tax_id": False,
+            }
+        )
+        volumes = self.sale_order.calculate_volume_containers()[self.salad_template]
+        result_1 = self.sale_order.find_containers_for_volume(volumes[0])
+        result_2 = self.sale_order.find_containers_for_volume(volumes[1])
+
+        self.assertEqual(len(result_1), 1)
+        self.assertEqual(len(result_2), 0)
 
     def test_add_to_cart(self):
         """When adding a single meal to the cart, two containers are also added."""
