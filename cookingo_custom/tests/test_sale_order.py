@@ -136,3 +136,47 @@ class TestSaleOrder(common.TestCommon):
         self.assertEqual(len(result), 2)
         self.assertEqual(result[0], self.containers[1200].product_variant_id)
         self.assertEqual(result[1], self.containers[600].product_variant_id)
+
+    def test_add_to_cart(self):
+        """When adding a single meal to the cart, two containers are also added."""
+        self.sale_order._cart_update(
+            product_id=self.salad_product_adult.id, line_id=None, add_qty=1, set_qty=0
+        )
+
+        self.assertEqual(len(self.sale_order.order_line), 3)
+
+        products = [line.product_id for line in self.sale_order.order_line]
+        self.assertIn(self.salad_product_adult, products)
+        self.assertIn(self.containers[600].product_variant_id, products)
+        self.assertIn(self.containers[400].product_variant_id, products)
+
+        lines = self.sale_order.order_line.filtered(
+            lambda line: line.product_id.is_container
+        )
+        for line in lines:
+            self.assertEqual(line.product_uom_qty, 1)
+
+    def test_add_to_cart_twice(self):
+        """When adding a single meal twice, don't end up with four containers."""
+        self.sale_order._cart_update(
+            product_id=self.salad_product_adult.id, line_id=None, add_qty=1, set_qty=0
+        )
+        salad_line = self.sale_order.order_line[0]
+        self.sale_order._cart_update(
+            product_id=self.salad_product_adult.id,
+            line_id=salad_line.id,
+            add_qty=1,
+            set_qty=0,
+        )
+        self.assertEqual(len(self.sale_order.order_line), 3)
+
+        products = [line.product_id for line in self.sale_order.order_line]
+        self.assertIn(self.salad_product_adult, products)
+        self.assertIn(self.containers[1200].product_variant_id, products)
+        self.assertIn(self.containers[600].product_variant_id, products)
+
+        lines = self.sale_order.order_line.filtered(
+            lambda line: line.product_id.is_container
+        )
+        for line in lines:
+            self.assertEqual(line.product_uom_qty, 1)
