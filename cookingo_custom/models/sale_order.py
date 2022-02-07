@@ -65,3 +65,31 @@ class SaleOrder(models.Model):
                 container_2 = container.product_variant_id
         # TODO: This may return None if no container is big enough!
         return (container_1, container_2)
+
+    def _cart_update(
+        self, product_id=None, line_id=None, add_qty=0, set_qty=0, **kwargs
+    ):
+        values = super()._cart_update(product_id, line_id, add_qty, set_qty, **kwargs)
+        if not self.env["product.product"].browse(product_id).is_meal:
+            return values
+
+        template_volumes_dict = self.calculate_volume_containers()
+        lines_to_remove = self.order_line.filtered(
+            lambda line: line.product_id.is_container
+        )
+        containers_to_add = {}  # container: amount
+
+        for line in lines_to_remove:
+            self._cart_update(
+                line.product_id.id, line.id, add_qty=0, set_qty=-1, **kwargs
+            )
+
+        for template, volumes in template_volumes_dict.items():
+            containers = self.find_containers_for_template(template, volumes)
+            for container in containers:
+                containers_to_add[container] = 1 + containers_to_add.get(container, 0)
+
+        for container, amount in containers_to_add.items():
+            self._cart_update(container.id, None, add_qty=0, set_qty=amount, **kwargs)
+
+        return values
