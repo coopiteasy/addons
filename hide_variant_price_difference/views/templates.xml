@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="product_variants" inherit_id="website_sale.product_variants">
+        <xpath expr="//span[hasclass('badge')]" position="attributes">
+            <!--
+            The value '1' is not necessary, but I've found that Odoo doesn't
+            like empty attributes.
+            -->
+            <attribute name="hidden">1</attribute>
+        </xpath>
+    </template>
+
+    <template id="variants" inherit_id="sale.variants">
+        <xpath expr="//option/span[hasclass('badge')]" position="attributes">
+            <attribute name="hidden">1</attribute>
+        </xpath>
+        <xpath expr="//div/span[hasclass('badge')]" position="attributes">
+            <attribute name="hidden">1</attribute>
+        </xpath>
+    </template>
+</odoo>
