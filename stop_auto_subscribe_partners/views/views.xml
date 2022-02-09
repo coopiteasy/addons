@@ -1,0 +1,27 @@
+<odoo>
+    <record id="res_config_settings_view_form_debrand" model="ir.ui.view">
+        <field name="name">Stop Auto Subscribe</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='business_documents']" position="after">
+                <div id="auto_email_subscribe">
+                    <h2>Auto Emails and Auto Subscribe</h2>
+                    <div class="row mt16 o_settings_container" >
+                        <div class="col-xs-12 col-md-6 o_setting_box"  title="By default, new users will be in Auto Subscribe." >
+                            <div class="o_setting_left_pane">
+                                <field name="app_stop_subscribe"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label string="Stop" for="app_stop_subscribe"/>
+                                <div class="text-muted">
+                                    Stop Auto Emails and Auto Subscribe
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
