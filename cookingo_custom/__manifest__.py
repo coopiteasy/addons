@@ -14,12 +14,14 @@
     "depends": [
         "product",
         "uom_extra_data",  # mL
+        "sale",
         "website_sale",
     ],
     "excludes": [],
     "data": [
         "data/portion_attributes.xml",
         "views/product_views.xml",
+        "views/res_config_settings_views.xml",
     ],
     "demo": [],
     "qweb": [],
