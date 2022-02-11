@@ -158,11 +158,13 @@ class TestSaleOrder(common.TestCommon):
         self.assertEqual(len(result_1), 1)
         self.assertEqual(len(result_2), 0)
 
-    def test_add_to_cart(self):
-        """When adding a single meal to the cart, two containers are also added."""
+    def test_add_containers(self):
+        """When adding containers to a cart that contains a single item, expect
+        two correctly sized containers."""
         self.sale_order._cart_update(
             product_id=self.salad_product_adult.id, line_id=None, add_qty=1, set_qty=0
         )
+        self.sale_order.add_containers()
 
         self.assertEqual(len(self.sale_order.order_line), 3)
 
@@ -171,6 +173,21 @@ class TestSaleOrder(common.TestCommon):
         self.assertIn(self.containers[600].product_variant_id, products)
         self.assertIn(self.containers[400].product_variant_id, products)
 
+        lines = self.sale_order.order_line.filtered(
+            lambda line: line.product_id.is_container
+        )
+        for line in lines:
+            self.assertEqual(line.product_uom_qty, 1)
+
+    def test_add_containers_twice(self):
+        """When doing add_containers() twice, don't end up with four containers."""
+        self.sale_order._cart_update(
+            product_id=self.salad_product_adult.id, line_id=None, add_qty=1, set_qty=0
+        )
+        self.sale_order.add_containers()
+        self.sale_order.add_containers()
+
+        self.assertEqual(len(self.sale_order.order_line), 3)
         lines = self.sale_order.order_line.filtered(
             lambda line: line.product_id.is_container
         )
@@ -189,6 +206,8 @@ class TestSaleOrder(common.TestCommon):
             add_qty=1,
             set_qty=0,
         )
+        self.sale_order.add_containers()
+
         self.assertEqual(len(self.sale_order.order_line), 3)
 
         products = [line.product_id for line in self.sale_order.order_line]
@@ -201,3 +220,19 @@ class TestSaleOrder(common.TestCommon):
         )
         for line in lines:
             self.assertEqual(line.product_uom_qty, 1)
+
+    def test_remove_containers_after_adding_to_cart(self):
+        """When a new item is added to the cart, remove all containers."""
+        self.sale_order._cart_update(
+            product_id=self.salad_product_adult.id, line_id=None, add_qty=1, set_qty=0
+        )
+        salad_line = self.sale_order.order_line[0]
+        self.sale_order.add_containers()
+        self.sale_order._cart_update(
+            product_id=self.salad_product_adult.id,
+            line_id=salad_line.id,
+            add_qty=1,
+            set_qty=0,
+        )
+
+        self.assertEqual(len(self.sale_order.order_line), 1)

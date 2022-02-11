@@ -80,31 +80,44 @@ class SaleOrder(models.Model):
 
         return result
 
-    def _cart_update(
-        self, product_id=None, line_id=None, add_qty=0, set_qty=0, **kwargs
-    ):
-        values = super()._cart_update(product_id, line_id, add_qty, set_qty, **kwargs)
-        if not self.env["product.product"].browse(product_id).is_meal:
-            return values
+    def add_containers(self):
+        self.ensure_one()
+        self._remove_containers()
 
         template_volumes_dict = self.calculate_volume_containers()
-        lines_to_remove = self.order_line.filtered(
-            lambda line: line.product_id.is_container
-        )
         containers_to_add = {}  # container: amount
-
-        for line in lines_to_remove:
-            self._cart_update(
-                line.product_id.id, line.id, add_qty=0, set_qty=-1, **kwargs
-            )
 
         for template, volumes in template_volumes_dict.items():
             for volume in volumes:
                 containers = self.find_containers_for_volume(volume)
                 for container in containers:
-                    containers_to_add[container] = 1 + containers_to_add.get(container, 0)
+                    containers_to_add[container] = 1 + containers_to_add.get(
+                        container, 0
+                    )
 
         for container, amount in containers_to_add.items():
-            self._cart_update(container.id, None, add_qty=0, set_qty=amount, **kwargs)
+            values = {
+                "order_id": self.id,
+                "name": container.name,
+                "product_uom_qty": amount,
+                "product_uom": container.uom_id.id,
+                "product_id": container.id,
+                "price_unit": container.lst_price,
+                # TODO: tax_id
+            }
+            self.env["sale.order.line"].sudo().create(values)
 
+    def _cart_update(
+        self, product_id=None, line_id=None, add_qty=0, set_qty=0, **kwargs
+    ):
+        self._remove_containers()
+
+        values = super()._cart_update(product_id, line_id, add_qty, set_qty, **kwargs)
         return values
+
+    def _remove_containers(self):
+        self.ensure_one()
+        lines_to_remove = self.order_line.filtered(
+            lambda line: line.product_id.is_container
+        )
+        lines_to_remove.unlink()
