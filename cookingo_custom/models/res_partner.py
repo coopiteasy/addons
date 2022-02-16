@@ -11,19 +11,16 @@ class Partner(models.Model):
         string="Total amount spent on containers",
         digits="Product Price",
         compute="_compute_containers_deposits",
-        store=True,
     )
     total_deposit_price = fields.Float(
         string="Total discount received from deposit products",
         digits="Product Price",
         compute="_compute_containers_deposits",
-        store=True,
     )
     current_deposit = fields.Float(
         string="Current Container Deposit",
         digits="Product Price",
         compute="_compute_containers_deposits",
-        store=True,
     )
     container_order_line_ids = fields.One2many(
         comodel_name="sale.order.line",
