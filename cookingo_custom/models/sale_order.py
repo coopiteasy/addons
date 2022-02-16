@@ -115,9 +115,7 @@ class SaleOrder(models.Model):
             .sudo()
             .get_param("cookingo_custom.container_deposit_product_id")
         )
-        deposit_product = self.env["product.product"].browse(
-            int(deposit_product_id)
-        )
+        deposit_product = self.env["product.product"].browse(int(deposit_product_id))
         if discount and deposit_product:
             values = {
                 "order_id": self.id,

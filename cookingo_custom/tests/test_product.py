@@ -5,7 +5,6 @@ from . import common
 
 
 class TestProduct(common.TestCommon):
-
     def test_container_volume_smaller_for_children(self):
         """A child portion's container volume is 2/3 as big as an
         adult portion.
