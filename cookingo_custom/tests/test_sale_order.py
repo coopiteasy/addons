@@ -4,25 +4,7 @@
 from . import common
 
 
-class TestSaleOrder(common.TestCommon):
-    def setUp(self, *args, **kwargs):
-        result = super().setUp(*args, **kwargs)
-
-        self.pricelist = self.env["product.pricelist"].create(
-            {"name": "Default Pricelist"}
-        )
-
-        self.sale_order = self.env["sale.order"].create(
-            {
-                "name": "Sale",
-                "partner_id": self.env.ref("base.user_admin").id,
-                "partner_invoice_id": self.env.ref("base.user_admin").id,
-                "partner_shipping_id": self.env.ref("base.user_admin").id,
-                "pricelist_id": self.pricelist.id,
-            }
-        )
-
-        return result
+class TestSaleOrder(common.TestCommonSaleOrder):
 
     def test_double_volume_two_meals(self):
         """When two meals are added, the required volume doubles."""
