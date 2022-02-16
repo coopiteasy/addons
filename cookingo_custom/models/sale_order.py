@@ -30,7 +30,6 @@ class SaleOrder(models.Model):
         return ``{product.template(salad,): (900*2+600, 600*2+400)}``.
         """
         self.ensure_one()
-        templates = self.env["product.template"]
         result = dict()
         for line in self.order_line:
             product_id = line.product_id
@@ -90,7 +89,7 @@ class SaleOrder(models.Model):
         containers_to_add = {}  # container: amount
         total_container_price = 0
 
-        for template, volumes in template_volumes_dict.items():
+        for volumes in template_volumes_dict.values():
             for volume in volumes:
                 containers = self.find_containers_for_volume(volume)
                 for container in containers:
