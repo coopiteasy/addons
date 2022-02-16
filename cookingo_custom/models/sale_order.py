@@ -110,12 +110,9 @@ class SaleOrder(models.Model):
             total_container_price += line.price_total
 
         discount = min(total_container_price, self.partner_id.current_deposit)
-        deposit_product_id = (
-            self.env["ir.config_parameter"]
-            .sudo()
-            .get_param("cookingo_custom.container_deposit_product_id")
-        )
-        deposit_product = self.env["product.product"].browse(int(deposit_product_id))
+        deposit_product = self.env[
+            "ir.config_parameter"
+        ].get_container_deposit_product_id()
         if discount and deposit_product:
             values = {
                 "order_id": self.id,
@@ -138,12 +135,9 @@ class SaleOrder(models.Model):
 
     def _remove_containers(self):
         self.ensure_one()
-        deposit_product_id = (
-            self.env["ir.config_parameter"]
-            .sudo()
-            .get_param("cookingo_custom.container_deposit_product_id")
-        )
-        deposit_product = self.env["product.product"].browse(int(deposit_product_id))
+        deposit_product = self.env[
+            "ir.config_parameter"
+        ].get_container_deposit_product_id()
 
         lines_to_remove = self.order_line.filtered(
             lambda line: line.product_id.is_container

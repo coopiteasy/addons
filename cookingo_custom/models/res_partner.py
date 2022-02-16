@@ -49,12 +49,9 @@ class Partner(models.Model):
     def _compute_container_order_line_ids(self):
         # TODO: This is not declared in `@api.depends`. If this value were to
         # change, the field won't be recomputed.
-        deposit_product_id = (
-            self.env["ir.config_parameter"]
-            .sudo()
-            .get_param("cookingo_custom.container_deposit_product_id")
-        )
-        deposit_product = self.env["product.product"].browse(int(deposit_product_id))
+        deposit_product = self.env[
+            "ir.config_parameter"
+        ].get_container_deposit_product_id()
         for partner in self:
             partner.container_order_line_ids = (
                 self.env["sale.order.line"]
