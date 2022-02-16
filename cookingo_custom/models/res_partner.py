@@ -31,14 +31,16 @@ class Partner(models.Model):
         compute="_compute_container_order_line_ids",
     )
 
-    @api.depends("container_order_line_ids")
+    @api.depends("container_order_line_ids", "sale_order_ids.order_line.not_returned")
     def _compute_containers_deposits(self):
         for partner in self:
             total_container_price = 0
             total_deposit_price = 0
             for line in partner.container_order_line_ids:
                 if line.product_id.is_container:
-                    total_container_price += line.price_total
+                    total_container_price += line.price_unit * (
+                        line.product_uom_qty - line.not_returned
+                    )
                 else:
                     total_deposit_price += line.price_total
             partner.total_container_price = total_container_price

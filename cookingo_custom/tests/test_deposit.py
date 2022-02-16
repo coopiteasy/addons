@@ -86,3 +86,13 @@ class TestDeposit(common.TestCommonDeposit):
             lambda line: line.product_id == self.container_deposit_product
         )
         self.assertFalse(deposit_line)
+
+    def test_container_not_returned(self):
+        """If a container was not returned, dock it from the customer's deposit."""
+        previous_deposit = self.partner.current_deposit
+        container_line = self.previous_sale_order.order_line.filtered(
+            lambda line: line.product_id == self.containers[400].product_variant_id
+        )
+        container_line.not_returned = 1
+
+        self.assertLess(self.partner.current_deposit, previous_deposit)
