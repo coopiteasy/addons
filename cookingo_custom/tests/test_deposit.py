@@ -45,7 +45,6 @@ class TestDeposit(common.TestCommonDeposit):
         self.assertGreater(self.partner.current_deposit, previous_deposit)
         self.assertAlmostEqual(self.partner.current_deposit, container_price)
 
-
     def test_buy_less_expensive_meal(self):
         """When buying a less expensive meal than the previous one---even though
         the deposit could cover a greater amount---don't cover that much.
