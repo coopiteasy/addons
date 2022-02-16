@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="name">cookingo_custom.view_partner_form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='internal_notes']" position="before">
+                <page
+                    name="deposits"
+                    string="Deposits"
+                    attrs="{'invisible':[('is_customer','=',False)]}"
+                >
+                    <field name="container_order_line_ids">
+                        <tree create="false" delete="false" edit="false">
+                            <field name="order_id" />
+                            <field name="product_id" />
+                            <field name="product_uom_qty" />
+                            <field name="price_unit" />
+                            <field name="price_total" />
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -12,6 +12,7 @@
     "license": "AGPL-3",
     "application": False,
     "depends": [
+        "partner_manual_rank",  # is_customer
         "product",
         "uom_extra_data",  # mL
         "sale",
@@ -22,6 +23,7 @@
         "data/portion_attributes.xml",
         "views/product_views.xml",
         "views/res_config_settings_views.xml",
+        "views/res_partner_views.xml",
     ],
     "demo": [],
     "qweb": [],

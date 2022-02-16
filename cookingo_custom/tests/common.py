@@ -1,25 +1,26 @@
 # Copyright 2022 Coop IT Easy SCRL fs
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from odoo.tests.common import TransactionCase
+from odoo.tests.common import SavepointCase
 
 
-class TestCommon(TransactionCase):
-    def setUp(self, *args, **kwargs):
-        result = super().setUp(*args, **kwargs)
+class TestCommon(SavepointCase):
+    @classmethod
+    def setUpClass(cls, *args, **kwargs):
+        super().setUpClass(*args, **kwargs)
 
-        self.attribute_portion_size = self.env.ref(
+        cls.attribute_portion_size = cls.env.ref(
             "cookingo_custom.product_attribute_portion_size"
         )
-        self.attribute_portion_size_adult = self.env.ref(
+        cls.attribute_portion_size_adult = cls.env.ref(
             "cookingo_custom.product_attribute_portion_size_value_adult"
         )
-        self.attribute_portion_size_child = self.env.ref(
+        cls.attribute_portion_size_child = cls.env.ref(
             "cookingo_custom.product_attribute_portion_size_value_child"
         )
 
         # fmt: off
-        self.salad_template = self.env["product.template"].create({
+        cls.salad_template = cls.env["product.template"].create({
             "name": "Salad",
             "type": "consu",
             "list_price": 12,
@@ -30,13 +31,13 @@ class TestCommon(TransactionCase):
                 0,
                 0,
                 {
-                    "attribute_id": self.attribute_portion_size.id,
+                    "attribute_id": cls.attribute_portion_size.id,
                     "value_ids": [(
                         6,
                         0,
                         [
-                            self.attribute_portion_size_adult.id,
-                            self.attribute_portion_size_child.id,
+                            cls.attribute_portion_size_adult.id,
+                            cls.attribute_portion_size_child.id,
                         ],
                     )],
                 },
@@ -44,9 +45,9 @@ class TestCommon(TransactionCase):
         })
         # fmt: on
 
-        products = self.env["product.product"].search(
+        products = cls.env["product.product"].search(
             [
-                ("product_tmpl_id", "=", self.salad_template.id),
+                ("product_tmpl_id", "=", cls.salad_template.id),
             ]
         )
 
@@ -55,22 +56,83 @@ class TestCommon(TransactionCase):
         for product in products:
             # There should only be one value, but looping anyway.
             for value in product.product_template_attribute_value_ids:
-                if value.name == self.attribute_portion_size_adult.name:
-                    self.salad_product_adult = product
+                if value.name == cls.attribute_portion_size_adult.name:
+                    cls.salad_product_adult = product
                 else:
-                    self.salad_product_child = product
+                    cls.salad_product_child = product
 
-        self.container_volumes = (400, 600, 1000, 1200, 1800, 3100)
-        self.containers = {
-            key: self.env["product.template"].create(
+        cls.container_volumes = (400, 600, 1000, 1200, 1800, 3100)
+        cls.containers = {
+            key: cls.env["product.template"].create(
                 {
                     "name": f"Container {key} mL",
-                    "list_price": key,
+                    "list_price": key / 100,
                     "is_container": True,
                     "container_volume": key,
+                    "taxes_id": None,
                 }
             )
-            for key in self.container_volumes
+            for key in cls.container_volumes
         }
 
-        return result
+        container_deposit_product_template = cls.env["product.template"].create(
+            {
+                "name": "Deposit",
+                "list_price": 0,
+                "taxes_id": None,
+            }
+        )
+        cls.container_deposit_product = (
+            container_deposit_product_template.product_variant_id
+        )
+        cls.env["ir.config_parameter"].sudo().set_param(
+            "cookingo_custom.container_deposit_product_id",
+            cls.container_deposit_product.id,
+        )
+
+
+class TestCommonSaleOrder(TestCommon):
+    @classmethod
+    def setUpClass(cls, *args, **kwargs):
+        super().setUpClass(*args, **kwargs)
+
+        cls.pricelist = cls.env["product.pricelist"].create(
+            {"name": "Default Pricelist"}
+        )
+        cls.partner = cls.env["res.partner"].create(
+            {
+                "name": "Customer",
+            }
+        )
+
+        cls.sale_order = cls.env["sale.order"].create(
+            {
+                "name": "Sale",
+                "partner_id": cls.partner.id,
+                "partner_invoice_id": cls.partner.id,
+                "partner_shipping_id": cls.partner.id,
+                "pricelist_id": cls.pricelist.id,
+            }
+        )
+
+
+class TestCommonDeposit(TestCommonSaleOrder):
+    @classmethod
+    def setUpClass(cls, *args, **kwargs):
+        super().setUpClass(*args, **kwargs)
+
+        cls.previous_sale_order = cls.env["sale.order"].create(
+            {
+                "name": "Previous Sale",
+                "partner_id": cls.partner.id,
+                "partner_invoice_id": cls.partner.id,
+                "partner_shipping_id": cls.partner.id,
+                "pricelist_id": cls.pricelist.id,
+            }
+        )
+
+        cls.previous_sale_order._cart_update(
+            product_id=cls.salad_product_adult.id, line_id=None, add_qty=1, set_qty=0
+        )
+        cls.previous_sale_order.add_containers()
+        cls.previous_sale_order.action_done()

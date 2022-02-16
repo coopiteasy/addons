@@ -86,6 +86,7 @@ class SaleOrder(models.Model):
 
         template_volumes_dict = self.calculate_volume_containers()
         containers_to_add = {}  # container: amount
+        total_container_price = 0
 
         for template, volumes in template_volumes_dict.items():
             for volume in volumes:
@@ -105,6 +106,28 @@ class SaleOrder(models.Model):
                 "price_unit": container.lst_price,
                 # TODO: tax_id
             }
+            line = self.env["sale.order.line"].sudo().create(values)
+            total_container_price += line.price_total
+
+        discount = min(total_container_price, self.partner_id.current_deposit)
+        deposit_product_id = (
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("cookingo_custom.container_deposit_product_id")
+        )
+        deposit_product = self.env["product.product"].browse(
+            int(deposit_product_id)
+        )
+        if discount and deposit_product:
+            values = {
+                "order_id": self.id,
+                "name": deposit_product.name,
+                "product_uom_qty": 1,
+                "product_uom": deposit_product.uom_id.id,
+                "product_id": deposit_product.id,
+                "price_unit": -discount,
+                # TODO: tax_id
+            }
             self.env["sale.order.line"].sudo().create(values)
 
     def _cart_update(
@@ -117,7 +140,15 @@ class SaleOrder(models.Model):
 
     def _remove_containers(self):
         self.ensure_one()
+        deposit_product_id = (
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("cookingo_custom.container_deposit_product_id")
+        )
+        deposit_product = self.env["product.product"].browse(int(deposit_product_id))
+
         lines_to_remove = self.order_line.filtered(
             lambda line: line.product_id.is_container
+            or line.product_id == deposit_product
         )
         lines_to_remove.unlink()
