@@ -19,6 +19,19 @@ _logger = logging.getLogger(__name__)
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
+    # Used for views.
+    contains_containers = fields.Boolean(
+        string="Contains Containers",
+        compute="_compute_contains_containers",
+    )
+
+    @api.depends("order_line", "order_line.product_id")
+    def _compute_contains_containers(self):
+        for order in self:
+            order.contains_containers = bool(
+                order.order_line.filtered("product_id.is_container")
+            )
+
     def calculate_volume_containers(self):
         """For every product template found in this sale order that
         is a meal, return a tuple (combined_container_1_volume,
