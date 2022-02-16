@@ -168,7 +168,9 @@ class SaleOrderLine(models.Model):
     @api.constrains("not_returned", "product_uom_qty")
     def _check_not_returned(self):
         for line in self:
-            if line.not_returned < 0:
+            if line.not_returned != 0 and not line.product_id.is_container:
+                raise ValidationError(_("'Not Returned' is only for containers."))
+            elif line.not_returned < 0:
                 raise ValidationError(_("'Not Returned' must be zero or higher."))
             elif line.not_returned > line.product_uom_qty:
                 raise ValidationError(

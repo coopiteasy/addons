@@ -1,6 +1,8 @@
 # Copyright 2022 Coop IT Easy SCRL fs
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
+from odoo.exceptions import ValidationError
+
 from . import common
 
 
@@ -96,3 +98,17 @@ class TestDeposit(common.TestCommonDeposit):
         container_line.not_returned = 1
 
         self.assertLess(self.partner.current_deposit, previous_deposit)
+
+    def test_container_not_returned_invalid_values(self):
+        """Test the constraints of not_returned."""
+        container_line = self.previous_sale_order.order_line.filtered(
+            lambda line: line.product_id == self.containers[400].product_variant_id
+        )
+        meal_line = self.previous_sale_order.order_line.filtered("product_id.is_meal")
+
+        with self.assertRaises(ValidationError):
+            container_line.not_returned = -1
+        with self.assertRaises(ValidationError):
+            container_line.not_returned = 2
+        with self.assertRaises(ValidationError):
+            meal_line.not_returned = 1
