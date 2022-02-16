@@ -5,7 +5,6 @@ from . import common
 
 
 class TestSaleOrder(common.TestCommonSaleOrder):
-
     def test_double_volume_two_meals(self):
         """When two meals are added, the required volume doubles."""
         order_line = self.env["sale.order.line"].create(
