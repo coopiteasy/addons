@@ -7,7 +7,7 @@ from . import common
 class TestSaleOrder(common.TestCommonSaleOrder):
     def test_double_volume_two_meals(self):
         """When two meals are added, the required volume doubles."""
-        order_line = self.env["sale.order.line"].create(
+        self.env["sale.order.line"].create(
             {
                 "name": self.salad_product_adult.name,
                 "product_id": self.salad_product_adult.id,
@@ -35,7 +35,7 @@ class TestSaleOrder(common.TestCommonSaleOrder):
         """When an adult and child portion are added, the required volume
         (almost) doubles.
         """
-        order_line_adult = self.env["sale.order.line"].create(
+        self.env["sale.order.line"].create(
             {
                 "name": self.salad_product_adult.name,
                 "product_id": self.salad_product_adult.id,
@@ -46,7 +46,7 @@ class TestSaleOrder(common.TestCommonSaleOrder):
                 "tax_id": False,
             }
         )
-        order_line_child = self.env["sale.order.line"].create(
+        self.env["sale.order.line"].create(
             {
                 "name": self.salad_product_child.name,
                 "product_id": self.salad_product_child.id,
@@ -80,7 +80,7 @@ class TestSaleOrder(common.TestCommonSaleOrder):
         volumes.
         """
         desk = self.env.ref("product.product_product_4")
-        order_line = self.env["sale.order.line"].create(
+        self.env["sale.order.line"].create(
             {
                 "name": desk.name,
                 "product_id": desk.id,
@@ -98,7 +98,7 @@ class TestSaleOrder(common.TestCommonSaleOrder):
 
     def test_find_containers(self):
         """Find containers that will fit the required volumes."""
-        order_line = self.env["sale.order.line"].create(
+        self.env["sale.order.line"].create(
             {
                 "name": self.salad_product_adult.name,
                 "product_id": self.salad_product_adult.id,
@@ -121,7 +121,7 @@ class TestSaleOrder(common.TestCommonSaleOrder):
     def test_find_containers_container_is_zero(self):
         """When the value of container_2_volume is 0, don't add two containers."""
         self.salad_template.container_2_volume = 0
-        order_line = self.env["sale.order.line"].create(
+        self.env["sale.order.line"].create(
             {
                 "name": self.salad_product_adult.name,
                 "product_id": self.salad_product_adult.id,
