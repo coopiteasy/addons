@@ -1,10 +1,12 @@
 # Copyright 2022 Coop IT Easy SCRL fs
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from collections import namedtuple
 import logging
+from collections import namedtuple
 
 from odoo import api, fields, models
+from odoo.exceptions import ValidationError
+from odoo.tools.translate import _
 
 ContainerVolumes = namedtuple(
     "ContainerVolumes", ["container_1_volume", "container_2_volume"]
@@ -144,3 +146,19 @@ class SaleOrder(models.Model):
             or line.product_id == deposit_product
         )
         lines_to_remove.unlink()
+
+
+class SaleOrderLine(models.Model):
+    _inherit = "sale.order.line"
+
+    not_returned = fields.Integer(string="Not Returned", default=0)
+
+    @api.constrains("not_returned", "product_uom_qty")
+    def _check_not_returned(self):
+        for line in self:
+            if line.not_returned < 0:
+                raise ValidationError(_("'Not Returned' must be zero or higher."))
+            elif line.not_returned > line.product_uom_qty:
+                raise ValidationError(
+                    _("'Not Returned' may not be higher than Quantity.")
+                )
