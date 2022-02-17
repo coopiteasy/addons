@@ -57,7 +57,6 @@ class Partner(models.Model):
                 .search(
                     [
                         ("order_id.partner_id", "=", partner.id),
-                        # TODO: Think harder about the states.
                         ("order_id.state", "in", ("sale", "done")),
                         "|",
                         ("product_id.is_container", "=", True),
