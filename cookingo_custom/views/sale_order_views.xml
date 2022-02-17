@@ -12,6 +12,42 @@
         </field>
     </record>
 
+    <record id="sale_order_line_view_tree_not_returned" model="ir.ui.view">
+        <field
+            name="name"
+        >cookingo_custom.sale_order_line_view_tree_not_returned</field>
+        <field name="model">sale.order.line</field>
+        <field name="priority">100</field>
+        <field name="arch" type="xml">
+            <tree string="Sales Order Lines" create="false" editable="top">
+                <field name="order_id" readonly="1" />
+                <field name="order_partner_id" readonly="1" />
+                <field name="name" readonly="1" />
+                <field name="product_uom_qty" string="Qty" readonly="1" />
+                <field name="not_returned" />
+                <field name="product_uom_category_id" invisible="1" />
+                <field
+                    name="product_uom"
+                    string="Unit of Measure"
+                    groups="uom.group_uom"
+                />
+                <field
+                    name="price_unit"
+                    sum="Unit Price"
+                    widget="monetary"
+                    readonly="1"
+                />
+                <field
+                    name="price_subtotal"
+                    sum="Total"
+                    widget="monetary"
+                    readonly="1"
+                />
+                <field name="currency_id" invisible="1" />
+            </tree>
+        </field>
+    </record>
+
     <record id="sale_order_line_view_form_readonly" model="ir.ui.view">
         <field name="name">cookingo_custom.sale_order_line_view_form_readonly</field>
         <field name="model">sale.order.line</field>

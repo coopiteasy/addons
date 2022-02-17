@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="action_unreturned_containers" model="ir.actions.act_window">
+        <field name="name">Unreturned Containers</field>
+        <field name="res_model">sale.order.line</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="sale_order_line_view_tree_not_returned" />
+        <field
+            name="domain"
+        >[('product_id.is_container', '=', True), ('not_returned', '>', 0)]</field>
+        <field name="context" /> <!-- TODO -->
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No orders with unreturned containers found
+            </p><p>
+                You can set unreturned containers on the orders themselves,<br />
+                or set them on the customer.
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+        id="unreturned_containers"
+        name="Unreturned Containers"
+        parent="sale.sale_order_menu"
+        groups="sales_team.group_sale_manager"
+        action="action_unreturned_containers"
+        sequence="10"
+    />
+</odoo>
