@@ -12,6 +12,22 @@
         </field>
     </record>
 
+    <record id="sale_order_line_view_form_readonly" model="ir.ui.view">
+        <field name="name">cookingo_custom.sale_order_line_view_form_readonly</field>
+        <field name="model">sale.order.line</field>
+        <field name="inherit_id" ref="sale.sale_order_line_view_form_readonly" />
+        <field name="arch" type="xml">
+            <field name="qty_invoiced" position="after">
+                <field name="is_container" invisible="1" />
+                <field
+                    name="not_returned"
+                    readonly="1"
+                    attrs="{'invisible': [('is_container', '=', False)]}"
+                />
+            </field>
+        </field>
+    </record>
+
     <record id="view_order_form" model="ir.ui.view">
         <field name="name">cookingo_custom.view_order_form</field>
         <field name="model">sale.order</field>
@@ -19,6 +35,26 @@
         <field name="arch" type="xml">
             <xpath expr="//page[@name='order_lines']" position="after">
                 <field name="contains_containers" invisible="1" />
+            </xpath>
+            <xpath
+                expr="//page[@name='order_lines']//form//div[@name='invoiced_qty']"
+                position="after"
+            >
+                <field name="is_container" invisible="1" />
+                <label
+                    for="not_returned"
+                    string="Not Returned"
+                    attrs="{'invisible': [('is_container', '=', False)]}"
+                />
+                <div
+                    name="not_returned_div"
+                    attrs="{'invisible': [('is_container', '=', False)]}"
+                >
+                    <field
+                        name="not_returned"
+                        attrs="{'invisible': [('is_container', '=', False)]}"
+                    />
+                </div>
             </xpath>
             <xpath
                 expr="//page[@name='order_lines']//tree/field[@name='price_unit']"
