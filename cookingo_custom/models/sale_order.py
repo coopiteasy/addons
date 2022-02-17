@@ -164,6 +164,7 @@ class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
     not_returned = fields.Integer(string="Not Returned", default=0)
+    is_container = fields.Boolean(related="product_id.is_container")
 
     @api.constrains("not_returned", "product_uom_qty")
     def _check_not_returned(self):
