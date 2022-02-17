@@ -9,34 +9,34 @@ from odoo.tools.translate import _
 class Picking(models.Model):
     _inherit = "stock.picking"
 
-    zero_received_move_ids = fields.One2many(
-        "stock.move",
-        string="Stock moves that were not received",
+    zero_received_move_line_ids = fields.One2many(
+        "stock.move.line",
+        string="Stock move lines that were not received",
         compute="_compute_move_discrepancy",
     )
-    zero_expected_move_ids = fields.One2many(
-        "stock.move",
-        string="Stock moves of which some were received, but none were expected",
+    zero_expected_move_line_ids = fields.One2many(
+        "stock.move.line",
+        string="Stock move lines of which some were received, but none were expected",
         compute="_compute_move_discrepancy",
     )
-    too_few_received_move_ids = fields.One2many(
-        "stock.move",
-        string="Stock moves of which too few were received",
+    too_few_received_move_line_ids = fields.One2many(
+        "stock.move.line",
+        string="Stock move lines of which too few were received",
         compute="_compute_move_discrepancy",
     )
-    too_many_received_move_ids = fields.One2many(
-        "stock.move",
-        string="Stock moves of which too many were received",
+    too_many_received_move_line_ids = fields.One2many(
+        "stock.move.line",
+        string="Stock move lines of which too many were received",
         compute="_compute_move_discrepancy",
     )
 
     @api.multi
-    @api.depends("move_lines")
+    @api.depends("move_line_ids")
     def _compute_move_discrepancy(self):
         for picking in self:
             # The following filter is also used in upstream action_done()
-            filtered_moves = picking.mapped("move_lines").filtered(
-                lambda move: move.state
+            filtered_moves = picking.mapped("move_line_ids").filtered(
+                lambda line: line.state
                 in [
                     "draft",
                     "waiting",
@@ -46,19 +46,19 @@ class Picking(models.Model):
                 ]
             )
 
-            picking.zero_received_move_ids = filtered_moves.filtered(
-                lambda move: move.quantity_done == 0 and move.reserved_availability
+            picking.zero_received_move_line_ids = filtered_moves.filtered(
+                lambda line: line.qty_done == 0 and line.product_qty
             )
-            picking.zero_expected_move_ids = filtered_moves.filtered(
-                lambda move: move.quantity_done and move.reserved_availability == 0
+            picking.zero_expected_move_line_ids = filtered_moves.filtered(
+                lambda line: line.qty_done and line.product_qty == 0
             )
-            picking.too_few_received_move_ids = filtered_moves.filtered(
-                lambda move: move.quantity_done != 0
-                and move.quantity_done < move.reserved_availability
+            picking.too_few_received_move_line_ids = filtered_moves.filtered(
+                lambda line: line.qty_done != 0
+                and line.qty_done < line.product_qty
             )
-            picking.too_many_received_move_ids = filtered_moves.filtered(
-                lambda move: move.quantity_done > move.reserved_availability
-                and move.reserved_availability != 0
+            picking.too_many_received_move_line_ids = filtered_moves.filtered(
+                lambda line: line.qty_done > line.product_qty
+                and line.product_qty != 0
             )
 
     @api.multi
@@ -136,10 +136,10 @@ class Picking(models.Model):
         for picking in self:
             if any(
                 (
-                    picking.zero_received_move_ids,
-                    picking.zero_expected_move_ids,
-                    picking.too_few_received_move_ids,
-                    picking.too_many_received_move_ids,
+                    picking.zero_received_move_line_ids,
+                    picking.zero_expected_move_line_ids,
+                    picking.too_few_received_move_line_ids,
+                    picking.too_many_received_move_line_ids,
                 )
             ):
                 self.env.ref(
