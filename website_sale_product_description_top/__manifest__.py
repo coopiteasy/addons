@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
-    "name": "website_sale_product_description_top",
+    "name": "Website Sale Product Description On Top",
     "summary": """
         Move the product description above the product image carousel.""",
     "version": "14.0.1.0.0",
