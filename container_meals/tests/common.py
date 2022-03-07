@@ -10,13 +10,13 @@ class TestCommon(SavepointCase):
         super().setUpClass(*args, **kwargs)
 
         cls.attribute_portion_size = cls.env.ref(
-            "cookingo_custom.product_attribute_portion_size"
+            "container_meals.product_attribute_portion_size"
         )
         cls.attribute_portion_size_adult = cls.env.ref(
-            "cookingo_custom.product_attribute_portion_size_value_adult"
+            "container_meals.product_attribute_portion_size_value_adult"
         )
         cls.attribute_portion_size_child = cls.env.ref(
-            "cookingo_custom.product_attribute_portion_size_value_child"
+            "container_meals.product_attribute_portion_size_value_child"
         )
 
         # fmt: off
@@ -86,7 +86,7 @@ class TestCommon(SavepointCase):
             container_deposit_product_template.product_variant_id
         )
         cls.env["ir.config_parameter"].sudo().set_param(
-            "cookingo_custom.container_deposit_product_id",
+            "container_meals.container_deposit_product_id",
             cls.container_deposit_product.id,
         )
 

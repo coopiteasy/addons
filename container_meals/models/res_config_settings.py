@@ -11,6 +11,6 @@ class ResConfigSettings(models.TransientModel):
         "product.product",
         "Container Deposit Product",
         domain="[('type', '=', 'service')]",
-        config_parameter="cookingo_custom.container_deposit_product_id",
+        config_parameter="container_meals.container_deposit_product_id",
         help="Product used as deposit for containers",
     )

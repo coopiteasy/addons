@@ -34,11 +34,11 @@ class Product(models.Model):
     def _compute_container_volume(self):
         try:
             child_portion_attribute_value = self.env.ref(
-                "cookingo_custom.product_attribute_portion_size_value_child"
+                "container_meals.product_attribute_portion_size_value_child"
             )
         except ValueError:
             _logger.warning(
-                "'cookingo_custom.product_attribute_portion_size_value_child'"
+                "'container_meals.product_attribute_portion_size_value_child'"
                 " does not exist; container volume calculation may misbehave."
             )
             child_portion_attribute_value = self.env["product.attribute.value"]
@@ -46,7 +46,7 @@ class Product(models.Model):
             modifier = 1
             if (
                 child_portion_attribute_value
-                in product.product_template_attribute_value_ids.product_attribute_value_id
+                in product.product_template_attribute_value_ids.product_attribute_value_id  # noqa: B950
             ):
                 # TODO: Make this configurable.
                 modifier = 2 / 3
