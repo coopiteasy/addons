@@ -10,6 +10,6 @@ class ConfigParameter(models.Model):
     @api.model
     def get_container_deposit_product_id(self):
         deposit_product_id = self.sudo().get_param(
-            "cookingo_custom.container_deposit_product_id"
+            "container_meals.container_deposit_product_id"
         )
         return self.env["product.product"].browse(int(deposit_product_id))

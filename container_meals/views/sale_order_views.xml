@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="view_order_line_tree" model="ir.ui.view">
-        <field name="name">cookingo_custom.view_order_line_tree</field>
+        <field name="name">container_meals.view_order_line_tree</field>
         <field name="model">sale.order.line</field>
         <field name="inherit_id" ref="sale.view_order_line_tree" />
         <field name="arch" type="xml">
@@ -15,7 +15,7 @@
     <record id="sale_order_line_view_tree_not_returned" model="ir.ui.view">
         <field
             name="name"
-        >cookingo_custom.sale_order_line_view_tree_not_returned</field>
+        >container_meals.sale_order_line_view_tree_not_returned</field>
         <field name="model">sale.order.line</field>
         <field name="priority">100</field>
         <field name="arch" type="xml">
@@ -49,7 +49,7 @@
     </record>
 
     <record id="sale_order_line_view_form_readonly" model="ir.ui.view">
-        <field name="name">cookingo_custom.sale_order_line_view_form_readonly</field>
+        <field name="name">container_meals.sale_order_line_view_form_readonly</field>
         <field name="model">sale.order.line</field>
         <field name="inherit_id" ref="sale.sale_order_line_view_form_readonly" />
         <field name="arch" type="xml">
@@ -65,7 +65,7 @@
     </record>
 
     <record id="view_order_form" model="ir.ui.view">
-        <field name="name">cookingo_custom.view_order_form</field>
+        <field name="name">container_meals.view_order_form</field>
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form" />
         <field name="arch" type="xml">
