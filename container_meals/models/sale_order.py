@@ -61,8 +61,6 @@ class SaleOrder(models.Model):
     def find_containers_for_volume(self, volume):
         """Given a volume, find a list of containers that will hold it.
 
-        Example: TODO
-
         Important to note is that the list may:
 
         - include 0 items (volume is (sub-)zero)
@@ -118,7 +116,6 @@ class SaleOrder(models.Model):
                 "product_uom": container.uom_id.id,
                 "product_id": container.id,
                 "price_unit": container.lst_price,
-                # TODO: tax_id
             }
             line = self.env["sale.order.line"].sudo().create(values)
             total_container_price += line.price_total
@@ -135,7 +132,6 @@ class SaleOrder(models.Model):
                 "product_uom": deposit_product.uom_id.id,
                 "product_id": deposit_product.id,
                 "price_unit": -discount,
-                # TODO: tax_id
             }
             self.env["sale.order.line"].sudo().create(values)
 
