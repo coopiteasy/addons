@@ -1,0 +1,2 @@
+- Support differing units of measurement.
+- Better support for changing the deposit product.
