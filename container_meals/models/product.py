@@ -49,7 +49,11 @@ class Product(models.Model):
                 in product.product_template_attribute_value_ids.product_attribute_value_id  # noqa: B950
             ):
                 # TODO: Make this configurable.
-                modifier = 2 / 3
+                modifier = float(
+                    self.env["ir.config_parameter"]
+                    .sudo()
+                    .get_param("container_meals.child_portion_size_ratio")
+                )
             product.container_1_volume = (
                 product.product_tmpl_id.container_1_volume * modifier
             )

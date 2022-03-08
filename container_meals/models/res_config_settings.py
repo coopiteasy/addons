@@ -14,3 +14,9 @@ class ResConfigSettings(models.TransientModel):
         config_parameter="container_meals.container_deposit_product_id",
         help="Product used as deposit for containers",
     )
+    child_portion_size_ratio = fields.Float(
+        string="Child Portion Size Ratio",
+        digits=(4, 3),
+        config_parameter="container_meals.child_portion_size_ratio",
+        default=2 / 3,
+    )
