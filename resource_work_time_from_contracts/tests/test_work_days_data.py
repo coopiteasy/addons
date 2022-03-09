@@ -396,9 +396,7 @@ class TestWorkDaysData(TestWorkTimeBase):
         self.assertEqual(
             self.employee1.get_work_days_data(
                 self.to_utc_datetime(2021, 10, 26, 8, 42).replace(tzinfo=None),
-                self.to_utc_datetime(2021, 10, 26, 12, 30).replace(
-                    tzinfo=None
-                ),
+                self.to_utc_datetime(2021, 10, 26, 12, 30).replace(tzinfo=None),
             ),
             {
                 "days": 0.375,
@@ -408,9 +406,7 @@ class TestWorkDaysData(TestWorkTimeBase):
         self.assertEqual(
             self.employee1.get_work_days_data(
                 self.to_utc_datetime(2021, 10, 26, 8, 42).replace(tzinfo=None),
-                self.to_utc_datetime(2021, 10, 26, 12, 30).replace(
-                    tzinfo=None
-                ),
+                self.to_utc_datetime(2021, 10, 26, 12, 30).replace(tzinfo=None),
                 compute_leaves=False,
             ),
             {
