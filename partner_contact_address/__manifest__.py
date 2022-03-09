@@ -7,7 +7,7 @@
     "depends": ["base"],
     "author": "Coop IT Easy SCRLfs",
     "category": "CRM",
-    "website": "www.coopiteasy.be",
+    "website": "https://coopiteasy.be",
     "license": "AGPL-3",
     "summary": """
     This module allows to have company contacts with their own address.
