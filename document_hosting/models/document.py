@@ -71,9 +71,7 @@ class Category(models.Model):
 
     name = fields.Char("Name", required=True)
     description = fields.Text("Description")
-    parent_id = fields.Many2one(
-        "document_hosting.category", string="Parent Category"
-    )
+    parent_id = fields.Many2one("document_hosting.category", string="Parent Category")
     child_ids = fields.One2many(
         "document_hosting.category", "parent_id", string="Child Categories"
     )
