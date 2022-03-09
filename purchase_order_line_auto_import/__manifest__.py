@@ -8,6 +8,7 @@
     """,
     "author": "Houssine BAKKALI, Coop IT Easy SCRLfs",
     "category": "Purchase Management",
+    "website": "https://coopiteasy.be",
     "version": "12.0.1.0.0",
     "license": "AGPL-3",
     "depends": ["purchase"],

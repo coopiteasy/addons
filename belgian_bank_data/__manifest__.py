@@ -12,6 +12,7 @@
     "author": "Coop IT Easy SCRLfs",
     "license": "AGPL-3",
     "category": "Banking addons",
+    "website": "https://coopiteasy.be",
     "data": ["data/bank_data.xml"],
     "installable": True,
 }

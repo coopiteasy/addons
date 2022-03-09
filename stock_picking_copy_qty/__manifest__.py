@@ -9,7 +9,7 @@
         Adds a button to copy reserved quantity to received quantity
     """,
     "author": "Coop IT Easy SCRLfs",
-    "website": "https://github.com/coopiteasy/addons",
+    "website": "https://coopiteasy.be",
     "category": "Sales Management",
     "version": "12.0.1.0.0",
     "depends": ["stock"],

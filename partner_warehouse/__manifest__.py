@@ -9,7 +9,7 @@
     ],
     "author": "Coop IT Easy SCRLfs",
     "category": "Warehouse",
-    "website": "https://www.coopiteasy.be",
+    "website": "https://coopiteasy.be",
     "license": "AGPL-3",
     "summary": """
     Let the warehouse of the sale order be set accordingly to a default

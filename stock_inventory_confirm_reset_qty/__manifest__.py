@@ -9,7 +9,7 @@
     "version": "12.0.1.0.0",
     "license": "AGPL-3",
     "author": "Coop IT Easy SCRLfs",
-    "website": "https://github.com/coopiteasy/addons",
+    "website": "https://coopiteasy.be",
     "depends": ["stock"],
     "data": ["views/stock_inventory_views.xml"],
     "demo": [],
