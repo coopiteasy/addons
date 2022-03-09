@@ -15,9 +15,9 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - container: ghcr.io/oca/oca-ci/py3.6-ocb12.0:latest
-            include: "account_invoice_ubl_mass_download"
-            name: test with OCB
+          # - container: ghcr.io/oca/oca-ci/py3.6-ocb12.0:latest
+          #   include: "account_invoice_ubl_mass_download"
+          #   name: test with OCB
           - container: ghcr.io/oca/oca-ci/py3.6-ocb12.0:latest
             exclude: "account_invoice_ubl_mass_download"
             name: test with OCB
