@@ -133,9 +133,9 @@ class ProductScaleLog(models.Model):
                     product_text += self._clean_value(value, product_line)
 
                 elif product_line.type == "external_text":
-                    external_id = str(log.product_id.id) + str(
-                        product_line.id
-                    ).rjust(self._EXTERNAL_SIZE_ID_RIGHT, "0")
+                    external_id = str(log.product_id.id) + str(product_line.id).rjust(
+                        self._EXTERNAL_SIZE_ID_RIGHT, "0"
+                    )
                     external_texts.append(
                         self._generate_external_text(
                             value, product_line, external_id, log
@@ -167,9 +167,7 @@ class ProductScaleLog(models.Model):
                     if value and not product_line.related_field_id:
                         product_text += value.id
                     elif value and product_line.related_field_id:
-                        item_value = getattr(
-                            value, product_line.related_field_id.name
-                        )
+                        item_value = getattr(value, product_line.related_field_id.name)
                         product_text += item_value and str(item_value) or ""
 
                 elif product_line.type == "many2many":
@@ -182,14 +180,10 @@ class ProductScaleLog(models.Model):
                             )
                         else:
                             item_value = item.id
-                        product_text += self._clean_value(
-                            item_value, product_line
-                        )
+                        product_text += self._clean_value(item_value, product_line)
 
                 elif product_line.type == "product_image":
-                    product_text += (
-                        str(log.product_id.id) + product_line.suffix
-                    )
+                    product_text += str(log.product_id.id) + product_line.suffix
 
                 if product_line.delimiter:
                     product_text += product_line.delimiter
