@@ -1,10 +1,10 @@
 # Copyright 2019 Simone Orsi - Camptocamp SA
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-import requests
-
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
+
+import requests
 
 URL = "https://www.google.com/recaptcha/api/siteverify"
 
@@ -19,7 +19,9 @@ class Website(models.Model):
     def _get_error_message(self, errorcode=None):
         mapping = {
             "missing-input-secret": _("The secret parameter is missing."),
-            "invalid-input-secret": _("The secret parameter is invalid or malformed."),
+            "invalid-input-secret": _(
+                "The secret parameter is invalid or malformed."
+            ),
             "missing-input-response": _("The response parameter is missing."),
             "invalid-input-response": _(
                 "The response parameter is invalid or malformed."
@@ -35,7 +37,8 @@ class Website(models.Model):
         res = requests.post(URL, data=get_res).json()
 
         error_msg = "\n".join(
-            self._get_error_message(error) for error in res.get("error-codes", [])
+            self._get_error_message(error)
+            for error in res.get("error-codes", [])
         )
         if error_msg:
             raise ValidationError(error_msg)
