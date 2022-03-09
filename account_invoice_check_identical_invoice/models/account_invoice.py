@@ -35,22 +35,16 @@ class AccountInvoice(models.Model):
             )
 
             def equal_amount(i):
-                return round(i.amount_total, 2) == round(
-                    invoice.amount_total, 2
-                )
+                return round(i.amount_total, 2) == round(invoice.amount_total, 2)
 
             def same_date(i):
                 return i.date_invoice == invoice.date_invoice
 
             def invoiced_today(i):
-                return (
-                    i.date_invoice == dt.date.today()
-                    and not invoice.date_invoice
-                )
+                return i.date_invoice == dt.date.today() and not invoice.date_invoice
 
             duplicate_invoices = partner_invoices.filtered(
-                lambda i: equal_amount(i)
-                and (same_date(i) or invoiced_today(i))
+                lambda i: equal_amount(i) and (same_date(i) or invoiced_today(i))
             )
 
             invoice.identical_invoice_detected = bool(duplicate_invoices)

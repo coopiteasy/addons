@@ -17,6 +17,4 @@ class MailMail(models.Model):
             _logger.debug("Batch of previously failed emails are now outgoing")
         except Exception:
             self.env.cr.rollback()
-            _logger.exception(
-                "An error occured while changing failed emails' state"
-            )
+            _logger.exception("An error occured while changing failed emails' state")

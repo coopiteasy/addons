@@ -287,9 +287,7 @@ class TestWorkTime(TestWorkTimeBase):
         self.assertEqual(
             self.employee1.list_work_time_per_day(
                 self.to_utc_datetime(2021, 10, 19, 8, 42).replace(tzinfo=None),
-                self.to_utc_datetime(2021, 10, 19, 12, 30).replace(
-                    tzinfo=None
-                ),
+                self.to_utc_datetime(2021, 10, 19, 12, 30).replace(tzinfo=None),
             ),
             [
                 (date(2021, 10, 19), 3.0),
@@ -298,9 +296,7 @@ class TestWorkTime(TestWorkTimeBase):
         self.assertEqual(
             self.employee1.list_normal_work_time_per_day(
                 self.to_utc_datetime(2021, 10, 19, 8, 42).replace(tzinfo=None),
-                self.to_utc_datetime(2021, 10, 19, 12, 30).replace(
-                    tzinfo=None
-                ),
+                self.to_utc_datetime(2021, 10, 19, 12, 30).replace(tzinfo=None),
             ),
             [
                 (date(2021, 10, 19), 3.8),
@@ -336,6 +332,4 @@ class TestWorkTime(TestWorkTimeBase):
     def _get_employee_work_time(self):
         from_datetime = self.local_datetime(2021, 10, 19)
         to_datetime = from_datetime + timedelta(days=2)
-        return self.employee1.list_work_time_per_day(
-            from_datetime, to_datetime
-        )
+        return self.employee1.list_work_time_per_day(from_datetime, to_datetime)

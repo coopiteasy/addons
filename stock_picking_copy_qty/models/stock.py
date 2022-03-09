@@ -14,7 +14,5 @@ class StockPicking(models.Model):
     def copy_qty(self):
         self.ensure_one()
         for move_without_package in self.move_ids_without_package:
-            move_without_package.quantity_done = (
-                move_without_package.product_uom_qty
-            )
+            move_without_package.quantity_done = move_without_package.product_uom_qty
         return True

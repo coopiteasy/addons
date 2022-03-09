@@ -8,7 +8,7 @@
     "author": "Coop IT Easy SCRLfs",
     "category": "Accounting",
     "license": "AGPL-3",
-    "website": "https://www.coopiteasy.be",
+    "website": "https://coopiteasy.be",
     "depends": ["account"],
     "data": ["views/account_invoice_view.xml"],
     "installable": True,

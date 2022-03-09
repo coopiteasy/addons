@@ -11,7 +11,7 @@
     "depends": ["account", "l10n_be_invoice_bba"],
     "author": "Coop IT Easy SCRLfs",
     "category": "Accounting & Finance",
-    "website": "https://www.coopiteasy.be",
+    "website": "https://coopiteasy.be",
     "data": ["views/account_invoice.xml"],
     "installable": True,
 }

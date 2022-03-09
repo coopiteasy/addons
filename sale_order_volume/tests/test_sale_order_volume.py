@@ -13,9 +13,7 @@ class SaleOrderVolumeCase(TransactionCase):
         office_furniture_cat = self.browse_ref("product.product_category_5")
 
         # trigger
-        order_line = sale_order.order_line.filtered(
-            lambda ol: ol.product_id == product
-        )
+        order_line = sale_order.order_line.filtered(lambda ol: ol.product_id == product)
         order_line.product_uom_qty = 3
 
         # assert

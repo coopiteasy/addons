@@ -23,9 +23,7 @@ class ProductCategoryVolume(models.Model):
     _name = "product.category.volume"
     _description = "Product Volume by Category"
 
-    sale_order_id = fields.Many2one(
-        comodel_name="sale.order", string="Sale Order"
-    )
+    sale_order_id = fields.Many2one(comodel_name="sale.order", string="Sale Order")
     category_id = fields.Many2one(
         comodel_name="product.category", string="Product Category"
     )
@@ -60,9 +58,7 @@ class SaleOrder(models.Model):
     )
 
     @api.multi
-    @api.depends(
-        "order_line", "order_line.product_id", "order_line.product_uom_qty"
-    )
+    @api.depends("order_line", "order_line.product_id", "order_line.product_uom_qty")
     def _compute_order_volume(self):
         for order in self:
             order_lines = order.order_line.filtered(
@@ -87,9 +83,7 @@ class SaleOrder(models.Model):
     def compute_order_product_category_volumes(self):
         self.ensure_one()
 
-        order_lines = self.order_line.filtered(
-            lambda ol: ol.state not in ["cancel"]
-        )
+        order_lines = self.order_line.filtered(lambda ol: ol.state not in ["cancel"])
 
         accumulator = defaultdict(list)
         for order_line in order_lines:
@@ -98,8 +92,7 @@ class SaleOrder(models.Model):
             accumulator[category_id].append(volume)
 
         volume_per_category = [
-            (category_id, sum(volumes))
-            for category_id, volumes in accumulator.items()
+            (category_id, sum(volumes)) for category_id, volumes in accumulator.items()
         ]
 
         existing_categories = {

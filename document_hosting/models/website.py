@@ -8,6 +8,4 @@ from odoo import fields, models
 class Website(models.Model):
     _inherit = "website"
 
-    display_document_page = fields.Boolean(
-        "Display documents on website", default=True
-    )
+    display_document_page = fields.Boolean("Display documents on website", default=True)

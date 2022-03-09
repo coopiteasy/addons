@@ -11,9 +11,7 @@ from odoo.exceptions import ValidationError
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
-    bypass_check_bbacom = fields.Boolean(
-        string="By pass the bba com validation"
-    )
+    bypass_check_bbacom = fields.Boolean(string="By pass the bba com validation")
 
     def check_bbacomm(self):
         self.ensure_one()
