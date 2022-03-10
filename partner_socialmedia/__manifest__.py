@@ -5,7 +5,7 @@
     "summary": "Add social media fields to contacts",
     "version": "12.0.1.0.0",
     "author": "humanilog, Coop IT Easy SCRLfs, Odoo Community Association (OCA)",
-    "website": "https://github.com/OCA/partner-contact",
+    "website": "https://coopiteasy.be",
     "category": "CRM",
     "license": "AGPL-3",
     "installable": True,

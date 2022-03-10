@@ -92,12 +92,8 @@ class AccountInvoice(models.Model):
         m2m_command = [(2, rec.id, 0) for rec in to_delete_move]
         # 4 prepate line to create
         iml = self.invoice_line_move_line_get() + self.tax_line_move_line_get()
-        _, _, iml = self.compute_invoice_totals(
-            self.company_id.currency_id, iml
-        )
-        part = self.env["res.partner"]._find_accounting_partner(
-            self.partner_id
-        )
+        _a, _b, iml = self.compute_invoice_totals(self.company_id.currency_id, iml)
+        part = self.env["res.partner"]._find_accounting_partner(self.partner_id)
         line = [(0, 0, self.line_get_convert(l, part.id)) for l in iml]
         line = self.group_lines(iml, line)
         line = self.finalize_invoice_move_lines(line)
@@ -110,9 +106,7 @@ class AccountInvoice(models.Model):
         self.invalidate_cache()
         self.move_id.write({"state": "posted"})
         # 6 Clean correction
-        self.write(
-            {"origin_account_id": self.account_id.id, "correction": False}
-        )
+        self.write({"origin_account_id": self.account_id.id, "correction": False})
 
 
 class AccountInvoiceLine(models.Model):
@@ -121,16 +115,10 @@ class AccountInvoiceLine(models.Model):
     correction = fields.Boolean(related="invoice_id.correction", readonly=True)
     state = fields.Selection(related="invoice_id.state", default="draft")
     # Make all these fields readonly when the invoice is not in draft
-    price_unit = fields.Float(
-        readonly=True, states={"draft": [("readonly", False)]}
-    )
-    product_id = fields.Many2one(
-        readonly=True, states={"draft": [("readonly", False)]}
-    )
+    price_unit = fields.Float(readonly=True, states={"draft": [("readonly", False)]})
+    product_id = fields.Many2one(readonly=True, states={"draft": [("readonly", False)]})
     name = fields.Char(readonly=True, states={"draft": [("readonly", False)]})
-    quantity = fields.Float(
-        readonly=True, states={"draft": [("readonly", False)]}
-    )
+    quantity = fields.Float(readonly=True, states={"draft": [("readonly", False)]})
 
     @api.multi
     def write(self, vals):

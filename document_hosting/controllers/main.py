@@ -43,8 +43,7 @@ class DocumentWebsite(http.Controller):
 
     @http.route("/documents", auth="public", website=True)
     def template_website_document(self, date_begin=None, date_end=None, **kw):
-        """
-        """
+        """"""
         if not request.website.display_document_page:
             return request.not_found()
 
@@ -60,13 +59,9 @@ class DocumentWebsite(http.Controller):
             )
         )
         values["size_to_str"] = self.size_to_str
-        return request.render(
-            "document_hosting.template_website_document", values
-        )
+        return request.render("document_hosting.template_website_document", values)
 
-    def website_document_side_bar(
-        self, date_begin=None, date_end=None, user=None
-    ):
+    def website_document_side_bar(self, date_begin=None, date_end=None, user=None):
         domains = []
         # Show only doc that are published
         domains.append(("published", "=", True))
@@ -102,8 +97,7 @@ class DocumentWebsite(http.Controller):
             data = self._data_filter_document(
                 data,
                 lambda r: (
-                    r.document_date >= date_begin
-                    and r.document_date < date_end
+                    r.document_date >= date_begin and r.document_date < date_end
                 ),
             )
         # After all the filter, remove the empty categories
@@ -174,8 +168,7 @@ class DocumentWebsite(http.Controller):
 
     def _is_authorized_user(self, user=None):
         return user is not None and (
-            user.has_group("base.group_portal")
-            or user.has_group("base.group_user")
+            user.has_group("base.group_portal") or user.has_group("base.group_user")
         )
 
     def _get_archive_groups(

@@ -3,9 +3,7 @@ from odoo import api, fields, models
 
 class SaleOrderConfirm(models.TransientModel):
     _name = "confirm.sale.order.wizard"
-    sale_order_ids = fields.Many2many(
-        comodel_name="sale.order", string="Sale orders"
-    )
+    sale_order_ids = fields.Many2many(comodel_name="sale.order", string="Sale orders")
 
     @api.model
     def default_get(self, field_names):

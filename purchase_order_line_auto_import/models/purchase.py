@@ -2,11 +2,11 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 from datetime import datetime
 
+from dateutil.relativedelta import relativedelta
+
 from odoo import SUPERUSER_ID, api, fields, models
 
 from odoo.addons import decimal_precision as dp
-
-from dateutil.relativedelta import relativedelta
 
 UNIT = dp.get_precision("Product Unit of Measure")
 

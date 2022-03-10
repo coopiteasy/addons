@@ -7,7 +7,7 @@
     "depends": ["purchase", "stock"],
     "author": "Coop IT Easy SCRLfs",
     "license": "AGPL-3",
-    "website": "www.coopiteasy.be",
+    "website": "https://coopiteasy.be",
     "summary": """
         Show provider reference on each line of a receipt
     """,

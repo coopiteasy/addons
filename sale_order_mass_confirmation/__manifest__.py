@@ -8,7 +8,7 @@
         Confirm multiple sale orders (quotations) with one action""",
     "author": "Coop IT Easy SCRLfs",
     "license": "AGPL-3",
-    "website": "https://coopiteasy.be/",
+    "website": "https://coopiteasy.be",
     "category": "Uncategorized",
     "version": "12.0.1.0.0",
     "depends": ["base", "sale"],

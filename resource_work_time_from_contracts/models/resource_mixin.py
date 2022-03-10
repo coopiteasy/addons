@@ -75,9 +75,7 @@ class ResourceMixin(models.AbstractModel):
             result.append((day, total_hours))
         return result
 
-    def list_normal_work_time_per_day(
-        self, from_datetime, to_datetime, domain=None
-    ):
+    def list_normal_work_time_per_day(self, from_datetime, to_datetime, domain=None):
         """
         Same as list_work_time_per_day(), but ignoring leaves
         """
@@ -126,9 +124,7 @@ class ResourceMixin(models.AbstractModel):
         )
         normal_work_time_per_day = dict(
             super().list_work_time_per_day(
-                from_datetime.replace(
-                    hour=0, minute=0, second=0, microsecond=0
-                ),
+                from_datetime.replace(hour=0, minute=0, second=0, microsecond=0),
                 to_datetime.replace(hour=0, minute=0, second=0, microsecond=0)
                 + datetime.timedelta(days=1),
                 self.resource_calendar_id,
@@ -152,9 +148,7 @@ class ResourceMixin(models.AbstractModel):
             # we use the same rounding computation as in
             # resource.resource_mixin.get_work_days_data().
             num_days += (
-                float_utils.round(
-                    ROUNDING_FACTOR * work_time / normal_work_time
-                )
+                float_utils.round(ROUNDING_FACTOR * work_time / normal_work_time)
                 / ROUNDING_FACTOR
             )
             num_hours += work_time
@@ -219,15 +213,11 @@ class ResourceMixin(models.AbstractModel):
             )
         return work_time_results
 
-    def _get_work_time_from_contracts(
-        self, from_datetime, to_datetime, domain=None
-    ):
+    def _get_work_time_from_contracts(self, from_datetime, to_datetime, domain=None):
         from_datetime, to_datetime = self._localize_datetimes(
             from_datetime, to_datetime
         )
-        contracts = self._get_active_contracts(
-            from_datetime.date(), to_datetime.date()
-        )
+        contracts = self._get_active_contracts(from_datetime.date(), to_datetime.date())
         work_time_results = self._get_work_time_per_contract(
             contracts, from_datetime, to_datetime, domain
         )

@@ -23,7 +23,7 @@
     "author": "Coop IT Easy SCRLfs",
     "license": "AGPL-3",
     "category": "",
-    "website": "www.coopiteasy.be",
+    "website": "https://coopiteasy.be",
     "summary": """
         Adds weight and weight unit to Purchase Order
     """,

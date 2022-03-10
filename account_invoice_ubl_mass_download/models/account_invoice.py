@@ -29,10 +29,14 @@ class AccountInvoice(models.Model):
                 buffer, mode="w", compression=zipfile.ZIP_DEFLATED
             ) as ziparc:
                 for invoice in self:
-                    if invoice.type not in (
-                        "out_invoice",
-                        "out_refund",
-                    ) or invoice.state not in ("open", "paid"):
+                    if (
+                        invoice.type
+                        not in (
+                            "out_invoice",
+                            "out_refund",
+                        )
+                        or invoice.state not in ("open", "paid")
+                    ):
                         raise UserError(
                             _(
                                 "Cannot generate file because Invoice {} "
@@ -42,9 +46,7 @@ class AccountInvoice(models.Model):
                         )
                     # XML UBL
                     version = invoice.get_ubl_version()
-                    xml_string = invoice.generate_ubl_xml_string(
-                        version=version
-                    )
+                    xml_string = invoice.generate_ubl_xml_string(version=version)
                     xmlname = "{}-{}".format(
                         invoice.number.replace("/", "-"),
                         invoice.get_ubl_filename(version=version),
@@ -53,9 +55,7 @@ class AccountInvoice(models.Model):
                     # PDF
                     reportinv = (
                         self.env["ir.actions.report"]
-                        ._get_report_from_name(
-                            "account.report_invoice_with_payments"
-                        )
+                        ._get_report_from_name("account.report_invoice_with_payments")
                         .render_qweb_pdf([invoice.id])
                     )
                     invpdf = reportinv[0]
@@ -93,7 +93,5 @@ class AccountInvoice(models.Model):
         Find temporary zipped file created and delete it.
         """
         _logger.info("Running autovacuum UBL zipped file.")
-        attachs = self.env["ir.attachment"].search(
-            [("name", "=", ATTACHMENT_TMP_NAME)]
-        )
+        attachs = self.env["ir.attachment"].search([("name", "=", ATTACHMENT_TMP_NAME)])
         attachs.unlink()

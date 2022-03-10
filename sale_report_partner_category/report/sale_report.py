@@ -27,6 +27,4 @@ class SaleReport(models.Model):
             pcr.category_id
         """
 
-        return super(SaleReport, self)._query(
-            with_clause, fields, groupby, from_clause
-        )
+        return super(SaleReport, self)._query(with_clause, fields, groupby, from_clause)

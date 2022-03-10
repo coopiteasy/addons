@@ -9,7 +9,7 @@
     "license": "AGPL-3",
     "summary": "Add invoice status on purchase orders",
     "author": "Coop IT Easy SCRLfs,Odoo Community Association (OCA)",
-    "website": "https://github.com/OCA/purchase-workflow",
+    "website": "https://coopiteasy.be",
     "depends": ["purchase"],
     "data": ["views/purchase_order.xml"],
     "installable": True,

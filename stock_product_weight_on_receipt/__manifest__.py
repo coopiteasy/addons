@@ -7,7 +7,7 @@
     "depends": ["stock", "beesdoo_product"],
     "author": "Coop IT Easy SCRLfs",
     "license": "AGPL-3",
-    "website": "www.coopiteasy.be",
+    "website": "https://coopiteasy.be",
     "summary": """
         Show product weight and unit weight on each line of a receipt
     """,

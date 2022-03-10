@@ -5,12 +5,14 @@
 {
     "name": "Account invoice check duplicate on save",
     "summary": """
-    Check that account invoice hasn't been encoded twice when creating or saving. This step is normally done when validating. This step doesn't replace the validation.
+        Check that account invoice hasn't been encoded twice when creating or saving.
+        This step is normally done when validating. This step doesn't replace the
+        validation.
     """,
     "author": "Coop IT Easy SCRLfs",
     "license": "AGPL-3",
     "version": "12.0.1.0.0",
-    "website": "https://www.coopiteasy.be",
+    "website": "https://coopiteasy.be",
     "category": "Accounting",
     "depends": ["account"],
 }

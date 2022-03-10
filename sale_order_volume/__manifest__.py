@@ -23,7 +23,7 @@
     "author": "Coop IT Easy SCRLfs",
     "license": "AGPL-3",
     "category": "Sale",
-    "website": "https://www.coopiteasy.be",
+    "website": "https://coopiteasy.be",
     "summary": """
     Computes the volume of products per
     category ordered and display it on
