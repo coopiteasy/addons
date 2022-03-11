@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* account_invoice_provider_reference
+# 	* account_invoice_provider_reference
 #
 msgid ""
 msgstr ""
@@ -10,17 +10,18 @@ msgstr ""
 "PO-Revision-Date: 2019-02-27 13:44+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#. module: account_invoice_structured_communication
-#: model:ir.model,name:account_invoice_structured_communication.model_account_invoice
+#. module: account_invoice_provider_reference
+#: model:ir.model,name:account_invoice_provider_reference.model_account_invoice
 msgid "Invoice"
 msgstr "Facture"
 
-#. module: account_invoice_structured_communication
-#: model:ir.model.fields,field_description:account_invoice_structured_communication.field_account_invoice_provider_reference
+#. module: account_invoice_provider_reference
+#: model:ir.model.fields,field_description:account_invoice_provider_reference.field_account_invoice__provider_reference
 msgid "Provider Reference Invoice"
 msgstr "Référence Facture Fournisseur"
