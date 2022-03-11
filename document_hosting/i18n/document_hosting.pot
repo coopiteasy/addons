@@ -1,0 +1,282 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* document_hosting
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: document_hosting
+#: model:ir.model.fields,field_description:document_hosting.field_document_hosting_document__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: document_hosting
+#: model_terms:ir.ui.view,arch_db:document_hosting.website_document_side_bar
+msgid "Archives"
+msgstr ""
+
+#. module: document_hosting
+#: model:ir.model.fields,field_description:document_hosting.field_document_hosting_document__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: document_hosting
+#: model:ir.actions.act_window,name:document_hosting.action_document_hosting_category
+#: model:ir.ui.menu,name:document_hosting.menu_category
+#: model_terms:ir.ui.view,arch_db:document_hosting.view_form_category
+msgid "Categories"
+msgstr ""
+
+#. module: document_hosting
+#: model:ir.model,name:document_hosting.model_document_hosting_category
+#: model:ir.model.fields,field_description:document_hosting.field_document_hosting_document__category
+#: model_terms:ir.ui.view,arch_db:document_hosting.view_search_document
+msgid "Category"
+msgstr ""
+
+#. module: document_hosting
+#: model:ir.model.fields,field_description:document_hosting.field_document_hosting_category__child_ids
+msgid "Child Categories"
+msgstr ""
+
+#. module: document_hosting
+#: model:ir.model,name:document_hosting.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: document_hosting
+#: model:ir.model.fields,field_description:document_hosting.field_document_hosting_category__create_uid
+#: model:ir.model.fields,field_description:document_hosting.field_document_hosting_document__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: document_hosting
+#: model:ir.model.fields,field_description:document_hosting.field_document_hosting_category__create_date
+#: model:ir.model.fields,field_description:document_hosting.field_document_hosting_document__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: document_hosting
+#: model:ir.model.fields,field_description:document_hosting.field_document_hosting_category__description
+#: model:ir.model.fields,field_description:document_hosting.field_document_hosting_document__description
+msgid "Description"
+msgstr ""
+
+#. module: document_hosting
+#: model:ir.model.fields,field_description:document_hosting.field_document_hosting_category__display_name
+#: model:ir.model.fields,field_description:document_hosting.field_document_hosting_document__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: document_hosting
+#: model:ir.model.fields,field_description:document_hosting.field_res_config_settings__display_document_page
+#: model:ir.model.fields,field_description:document_hosting.field_website__display_document_page
+msgid "Display documents on website"
+msgstr ""
+
+#. module: document_hosting
+#: model:ir.actions.act_window,name:document_hosting.action_document_hosting
+#: model:ir.model,name:document_hosting.model_document_hosting_document
+#: model:ir.model.fields,field_description:document_hosting.field_document_hosting_document__document
+msgid "Document"
+msgstr ""
+
+#. module: document_hosting
+#: model:ir.model.fields,field_description:document_hosting.field_document_hosting_document__document_date
+msgid "Document Date"
+msgstr ""
+
+#. module: document_hosting
+#: model:ir.model.fields,field_description:document_hosting.field_document_hosting_document__filename
+msgid "Document File Name"
+msgstr ""
+
+#. module: document_hosting
+#: model:ir.model.fields,field_description:document_hosting.field_document_hosting_category__document_ids
+#: model:ir.ui.menu,name:document_hosting.menu_document
+#: model:ir.ui.menu,name:document_hosting.menu_main_document_hosting
+#: model_terms:ir.ui.view,arch_db:document_hosting.template_website_document
+#: model_terms:ir.ui.view,arch_db:document_hosting.view_form_document
+#: model:website.menu,name:document_hosting.menu_website_document
+msgid "Documents"
+msgstr ""
+
+#. module: document_hosting
+#: model:ir.model.fields,field_description:document_hosting.field_document_hosting_document__file_size
+msgid "File Size"
+msgstr ""
+
+#. module: document_hosting
+#: model:ir.model.fields,field_description:document_hosting.field_document_hosting_document__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: document_hosting
+#: model:ir.model.fields,field_description:document_hosting.field_document_hosting_document__message_channel_ids
+msgid "Followers (Channels)"
+msgstr ""
+
+#. module: document_hosting
+#: model:ir.model.fields,field_description:document_hosting.field_document_hosting_document__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: document_hosting
+#: model:ir.model.fields,field_description:document_hosting.field_document_hosting_category__id
+#: model:ir.model.fields,field_description:document_hosting.field_document_hosting_document__id
+msgid "ID"
+msgstr ""
+
+#. module: document_hosting
+#: model:ir.model.fields,help:document_hosting.field_document_hosting_document__message_unread
+msgid "If checked new messages require your attention."
+msgstr ""
+
+#. module: document_hosting
+#: model:ir.model.fields,help:document_hosting.field_document_hosting_document__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: document_hosting
+#: model:ir.model.fields,help:document_hosting.field_document_hosting_document__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: document_hosting
+#: model:ir.model.fields,field_description:document_hosting.field_document_hosting_document__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: document_hosting
+#: model:ir.model.fields,field_description:document_hosting.field_document_hosting_category____last_update
+#: model:ir.model.fields,field_description:document_hosting.field_document_hosting_document____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: document_hosting
+#: model:ir.model.fields,field_description:document_hosting.field_document_hosting_category__write_uid
+#: model:ir.model.fields,field_description:document_hosting.field_document_hosting_document__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: document_hosting
+#: model:ir.model.fields,field_description:document_hosting.field_document_hosting_category__write_date
+#: model:ir.model.fields,field_description:document_hosting.field_document_hosting_document__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: document_hosting
+#: model:ir.model.fields,field_description:document_hosting.field_document_hosting_document__message_main_attachment_id
+msgid "Main Attachment"
+msgstr ""
+
+#. module: document_hosting
+#: model:ir.model.fields,field_description:document_hosting.field_document_hosting_document__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: document_hosting
+#: model:ir.model.fields,field_description:document_hosting.field_document_hosting_document__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: document_hosting
+#: model:ir.model.fields,field_description:document_hosting.field_document_hosting_document__mimetype
+msgid "Mime-Type"
+msgstr ""
+
+#. module: document_hosting
+#: model:ir.model.fields,field_description:document_hosting.field_document_hosting_category__name
+#: model:ir.model.fields,field_description:document_hosting.field_document_hosting_document__name
+msgid "Name"
+msgstr ""
+
+#. module: document_hosting
+#: model:ir.model.fields,field_description:document_hosting.field_document_hosting_document__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: document_hosting
+#: model:ir.model.fields,field_description:document_hosting.field_document_hosting_document__message_has_error_counter
+msgid "Number of error"
+msgstr ""
+
+#. module: document_hosting
+#: model:ir.model.fields,help:document_hosting.field_document_hosting_document__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr ""
+
+#. module: document_hosting
+#: model:ir.model.fields,help:document_hosting.field_document_hosting_document__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: document_hosting
+#: model:ir.model.fields,help:document_hosting.field_document_hosting_document__message_unread_counter
+msgid "Number of unread messages"
+msgstr ""
+
+#. module: document_hosting
+#: model:ir.model.fields,field_description:document_hosting.field_document_hosting_category__parent_id
+#: model_terms:ir.ui.view,arch_db:document_hosting.view_search_category
+msgid "Parent Category"
+msgstr ""
+
+#. module: document_hosting
+#: model_terms:ir.ui.view,arch_db:document_hosting.view_search_document
+msgid "Public"
+msgstr ""
+
+#. module: document_hosting
+#: model:ir.model.fields,field_description:document_hosting.field_document_hosting_document__public
+msgid "Public?"
+msgstr ""
+
+#. module: document_hosting
+#: model:ir.model.fields,field_description:document_hosting.field_document_hosting_document__publication_date
+msgid "Publication Date"
+msgstr ""
+
+#. module: document_hosting
+#: model_terms:ir.ui.view,arch_db:document_hosting.view_search_document
+msgid "Published"
+msgstr ""
+
+#. module: document_hosting
+#: model:ir.model.fields,field_description:document_hosting.field_document_hosting_document__published
+msgid "Published?"
+msgstr ""
+
+#. module: document_hosting
+#: model:ir.model.fields,field_description:document_hosting.field_document_hosting_document__message_unread
+msgid "Unread Messages"
+msgstr ""
+
+#. module: document_hosting
+#: model:ir.model.fields,field_description:document_hosting.field_document_hosting_document__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr ""
+
+#. module: document_hosting
+#: model:ir.model,name:document_hosting.model_website
+msgid "Website"
+msgstr ""
+
+#. module: document_hosting
+#: model:ir.model.fields,field_description:document_hosting.field_document_hosting_document__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: document_hosting
+#: model:ir.model.fields,help:document_hosting.field_document_hosting_document__website_message_ids
+msgid "Website communication history"
+msgstr ""
+
