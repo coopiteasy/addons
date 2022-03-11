@@ -1,0 +1,37 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* account_invoice_check_bba_com
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_invoice_check_bba_com
+#: model:ir.model.fields,field_description:account_invoice_check_bba_com.field_account_invoice__bypass_check_bbacom
+msgid "By pass the bba com validation"
+msgstr ""
+
+#. module: account_invoice_check_bba_com
+#: code:addons/account_invoice_check_bba_com/models/account_invoice.py:34
+#, python-format
+msgid "Invalid structured communication for %s"
+msgstr ""
+
+#. module: account_invoice_check_bba_com
+#: code:addons/account_invoice_check_bba_com/models/account_invoice.py:21
+#, python-format
+msgid "Invalid structured communication for %s. Please enter a reference with the form +++.../..../.....+++."
+msgstr ""
+
+#. module: account_invoice_check_bba_com
+#: model:ir.model,name:account_invoice_check_bba_com.model_account_invoice
+msgid "Invoice"
+msgstr ""
+
