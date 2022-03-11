@@ -1,0 +1,27 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* mail_auto_resend
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mail_auto_resend
+#: model:ir.actions.server,name:mail_auto_resend.ir_cron_mail_auto_resend_ir_actions_server
+#: model:ir.cron,cron_name:mail_auto_resend.ir_cron_mail_auto_resend
+#: model:ir.cron,name:mail_auto_resend.ir_cron_mail_auto_resend
+msgid "Mail: Auto Resend Failed Emails"
+msgstr ""
+
+#. module: mail_auto_resend
+#: model:ir.model,name:mail_auto_resend.model_mail_mail
+msgid "Outgoing Mails"
+msgstr ""
+
