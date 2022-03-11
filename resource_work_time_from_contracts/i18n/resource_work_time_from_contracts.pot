@@ -1,0 +1,54 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* resource_work_time_from_contracts
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: resource_work_time_from_contracts
+#: model:ir.model.fields,help:resource_work_time_from_contracts.field_hr_employee__resource_calendar_id
+#: model:ir.model.fields,help:resource_work_time_from_contracts.field_mrp_workcenter__resource_calendar_id
+#: model:ir.model.fields,help:resource_work_time_from_contracts.field_resource_calendar_leaves__calendar_id
+#: model:ir.model.fields,help:resource_work_time_from_contracts.field_resource_mixin__resource_calendar_id
+#: model:ir.model.fields,help:resource_work_time_from_contracts.field_resource_resource__calendar_id
+#: model:ir.model.fields,help:resource_work_time_from_contracts.field_resource_test__resource_calendar_id
+msgid "Define the schedule of resource"
+msgstr ""
+
+#. module: resource_work_time_from_contracts
+#: model:ir.model,name:resource_work_time_from_contracts.model_resource_calendar_leaves
+msgid "Resource Leaves Detail"
+msgstr ""
+
+#. module: resource_work_time_from_contracts
+#: model:ir.model,name:resource_work_time_from_contracts.model_resource_mixin
+msgid "Resource Mixin"
+msgstr ""
+
+#. module: resource_work_time_from_contracts
+#: model:ir.model,name:resource_work_time_from_contracts.model_resource_resource
+msgid "Resources"
+msgstr ""
+
+#. module: resource_work_time_from_contracts
+#: model:ir.model.fields,field_description:resource_work_time_from_contracts.field_hr_employee__resource_calendar_id
+#: model:ir.model.fields,field_description:resource_work_time_from_contracts.field_mrp_workcenter__resource_calendar_id
+#: model:ir.model.fields,field_description:resource_work_time_from_contracts.field_resource_calendar_leaves__calendar_id
+#: model:ir.model.fields,field_description:resource_work_time_from_contracts.field_resource_mixin__resource_calendar_id
+#: model:ir.model.fields,field_description:resource_work_time_from_contracts.field_resource_test__resource_calendar_id
+msgid "Working Hours"
+msgstr ""
+
+#. module: resource_work_time_from_contracts
+#: model:ir.model.fields,field_description:resource_work_time_from_contracts.field_resource_resource__calendar_id
+msgid "Working Time"
+msgstr ""
+
