@@ -97,6 +97,11 @@ class SaleOrder(models.Model):
         return result
 
     def add_containers(self):
+        """Execute all the logic to add the appropriate amount of containers
+        to this sale order.
+
+        Pre-existing containers in the sale order will be cleared for new ones.
+        """
         self.ensure_one()
         self._remove_containers()
 
