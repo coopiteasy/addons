@@ -66,11 +66,11 @@ class ProductTemplate(models.Model):
         return [("category_id", "=", self.env.ref("uom.product_uom_categ_vol").id)]
 
     # Container
-    is_container = fields.Boolean(string="Is Container?", default=False)
+    is_container = fields.Boolean(string="Is a Container", default=False)
     container_volume = fields.Float("Container Volume", digits="Volume")
 
     # Meal
-    is_meal = fields.Boolean(string="Is Meal?", default=False)
+    is_meal = fields.Boolean(string="Is a Meal", default=False)
     container_1_volume = fields.Float("Container 1 Volume", digits="Volume")
     container_2_volume = fields.Float("Container 2 Volume", digits="Volume")
 
