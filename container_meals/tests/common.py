@@ -3,6 +3,10 @@
 
 from odoo.tests.common import SavepointCase
 
+# TODO: Deep-inheriting TestCommon is probably an anti-pattern. Instead consider
+# defining several setup methods in the base class, and in the setup of child
+# classes, call only the ones that are really needed (composition).
+
 
 class TestCommon(SavepointCase):
     @classmethod
