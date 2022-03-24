@@ -7,6 +7,8 @@ from odoo import api, fields, models
 
 _logger = logging.getLogger(__name__)
 
+CHILD_PORTION_RATIO = 2 / 3
+
 
 class Product(models.Model):
     _inherit = "product.product"
@@ -49,7 +51,7 @@ class Product(models.Model):
                 in product.product_template_attribute_value_ids.product_attribute_value_id  # noqa: B950
             ):
                 # TODO: Make this configurable.
-                modifier = 2 / 3
+                modifier = CHILD_PORTION_RATIO
             product.container_1_volume = (
                 product.product_tmpl_id.container_1_volume * modifier
             )
