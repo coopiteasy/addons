@@ -65,8 +65,12 @@ class SaleOrder(models.Model):
 
         - include 0 items (volume is (sub-)zero)
         - include 1 item (volume fits into one container)
-        - include more than 2 items (need more containers to hold the total
+        - include 2 or more items (need more containers to hold the total
           volume)
+
+        The algorithm used below is naive. Find the smallest container that will
+        hold the volume. If the candidate container is smaller than the volume,
+        add another container repeating the algorithm.
         """
         self.ensure_one()
 
