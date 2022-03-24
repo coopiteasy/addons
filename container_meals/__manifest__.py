@@ -14,7 +14,6 @@
         "partner_manual_rank",  # is_customer
         "product",
         "uom_extra_data",  # mL
-        "sale",
         "website_sale",
     ],
     "excludes": [],
