@@ -22,18 +22,20 @@ class Partner(models.Model):
         digits="Product Price",
         compute="_compute_containers_deposits",
     )
-    container_order_line_ids = fields.One2many(
+    deposit_related_order_line_ids = fields.One2many(
         comodel_name="sale.order.line",
-        string="Container Order Lines",
-        compute="_compute_container_order_line_ids",
+        string="Container & Deposit Order Lines",
+        compute="_compute_deposit_related_order_line_ids",
     )
 
-    @api.depends("container_order_line_ids", "sale_order_ids.order_line.not_returned")
+    @api.depends(
+        "deposit_related_order_line_ids", "sale_order_ids.order_line.not_returned"
+    )
     def _compute_containers_deposits(self):
         for partner in self:
             total_container_price = 0
             total_deposit_price = 0
-            for line in partner.container_order_line_ids:
+            for line in partner.deposit_related_order_line_ids:
                 if line.product_id.is_container:
                     total_container_price += line.price_unit * (
                         line.product_uom_qty - line.not_returned
@@ -45,14 +47,14 @@ class Partner(models.Model):
             partner.current_deposit = total_container_price + total_deposit_price
 
     @api.depends("sale_order_ids", "sale_order_ids.state", "sale_order_ids.order_line")
-    def _compute_container_order_line_ids(self):
+    def _compute_deposit_related_order_line_ids(self):
         # TODO: This is not declared in `@api.depends`. If this value were to
         # change, the field won't be recomputed.
         deposit_product = self.env[
             "ir.config_parameter"
         ].get_container_deposit_product_id()
         for partner in self:
-            partner.container_order_line_ids = (
+            partner.deposit_related_order_line_ids = (
                 self.env["sale.order.line"]
                 .search(
                     [

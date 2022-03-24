@@ -19,7 +19,7 @@
                     editable at all, but we don't want any field other than not_returned
                     to be editable, hence the massive readonly repeats going on
                     -->
-                    <field name="container_order_line_ids" readonly="0">
+                    <field name="deposit_related_order_line_ids" readonly="0">
                         <tree create="false" delete="false" editable="top">
                             <field name="order_id" readonly="1" />
                             <field name="product_id" readonly="1" />
