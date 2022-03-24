@@ -18,7 +18,7 @@ class TestSaleOrder(common.TestCommonSaleOrder):
                 "tax_id": False,
             }
         )
-        result = self.sale_order.calculate_volume_containers()
+        result = self.sale_order.calculate_containers_volumes()
 
         # One product template.
         self.assertEqual(len(result), 1)
@@ -58,7 +58,7 @@ class TestSaleOrder(common.TestCommonSaleOrder):
             }
         )
 
-        result = self.sale_order.calculate_volume_containers()
+        result = self.sale_order.calculate_containers_volumes()
 
         # One product template.
         self.assertEqual(len(result), 1)
@@ -92,7 +92,7 @@ class TestSaleOrder(common.TestCommonSaleOrder):
             }
         )
 
-        result = self.sale_order.calculate_volume_containers()
+        result = self.sale_order.calculate_containers_volumes()
 
         self.assertFalse(result)
 
@@ -109,7 +109,7 @@ class TestSaleOrder(common.TestCommonSaleOrder):
                 "tax_id": False,
             }
         )
-        volumes = self.sale_order.calculate_volume_containers()[self.salad_template]
+        volumes = self.sale_order.calculate_containers_volumes()[self.salad_template]
         result_1 = self.sale_order.find_containers_for_volume(volumes[0])
         result_2 = self.sale_order.find_containers_for_volume(volumes[1])
 
@@ -132,7 +132,7 @@ class TestSaleOrder(common.TestCommonSaleOrder):
                 "tax_id": False,
             }
         )
-        volumes = self.sale_order.calculate_volume_containers()[self.salad_template]
+        volumes = self.sale_order.calculate_containers_volumes()[self.salad_template]
         result_1 = self.sale_order.find_containers_for_volume(volumes[0])
         result_2 = self.sale_order.find_containers_for_volume(volumes[1])
 

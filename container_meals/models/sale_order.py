@@ -32,7 +32,7 @@ class SaleOrder(models.Model):
                 order.order_line.filtered("product_id.is_container")
             )
 
-    def calculate_volume_containers(self):
+    def calculate_containers_volumes(self):
         """For every product template found in this sale order that
         is a meal, return a tuple (combined_container_1_volume,
         combined_container_2_volume).
@@ -96,7 +96,7 @@ class SaleOrder(models.Model):
         self.ensure_one()
         self._remove_containers()
 
-        template_volumes_dict = self.calculate_volume_containers()
+        template_volumes_dict = self.calculate_containers_volumes()
         containers_to_add = {}  # container: amount
         total_container_price = 0
 
