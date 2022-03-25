@@ -89,10 +89,11 @@ class SaleOrder(models.Model):
 
         result.extend(int(quotient) * [containers[-1].product_variant_id])
 
-        for container in containers:
-            if container.container_volume >= remainder:
-                result.append(container.product_variant_id)
-                break
+        if remainder:
+            for container in containers:
+                if container.container_volume >= remainder:
+                    result.append(container.product_variant_id)
+                    break
 
         return result
 

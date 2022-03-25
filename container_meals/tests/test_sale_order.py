@@ -217,3 +217,22 @@ class TestSaleOrder(common.TestCommonSaleOrder):
         )
 
         self.assertEqual(len(self.sale_order.order_line), 1)
+
+    def test_rounding_error_biggest_container(self):
+        """When adding two meals that each have half the volume of the biggest
+        container, only add a single container.
+        """
+        self.salad_template.container_1_volume = 3100 / 2
+        self.salad_template.container_2_volume = 0
+
+        self.sale_order._cart_update(
+            product_id=self.salad_product_adult.id, line_id=None, add_qty=2, set_qty=0
+        )
+        self.sale_order.add_containers()
+
+        self.assertEqual(len(self.sale_order.order_line), 2)
+        container_line = self.sale_order.order_line.filtered(
+            lambda line: line.product_id == self.containers[3100].product_variant_id
+        )
+        self.assertTrue(container_line)
+        self.assertEqual(container_line.product_uom_qty, 1)
