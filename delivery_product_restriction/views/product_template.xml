@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 Coop IT Easy SCRLfs
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="product_template_form_view">
+        <field name="name">product.template.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view" />
+        <field name="arch" type="xml">
+            <group name="email_template_and_project" position="before">
+                <group name="delivery-restriction">
+                    <separator string="Delivery Options" />
+                    <field
+                        name="restrict_delivery_carrier_to"
+                        widget="many2many_tags"
+                    />
+                </group>
+            </group>
+        </field>
+    </record>
+
+</odoo>
