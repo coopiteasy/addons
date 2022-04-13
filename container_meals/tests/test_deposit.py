@@ -37,7 +37,9 @@ class TestDeposit(common.TestCommonDeposit):
         deposit_line = self.sale_order.order_line.filtered(
             lambda line: line.product_id == self.container_deposit_product
         )
-        self.assertAlmostEqual(deposit_line.price_total, -self.partner.current_deposit)
+        self.assertAlmostEqual(
+            abs(deposit_line.price_total), self.partner.current_deposit
+        )
 
         previous_deposit = self.partner.current_deposit
         container_lines = self.sale_order.order_line.filtered("product_id.is_container")
@@ -48,8 +50,8 @@ class TestDeposit(common.TestCommonDeposit):
         self.assertAlmostEqual(self.partner.current_deposit, container_price)
 
     def test_buy_less_expensive_meal(self):
-        """When buying a less expensive meal than the previous one---even though
-        the deposit could cover a greater amount---don't cover that much.
+        """When buying a less expensive meal than the previous one, give the
+        entire deposit as discount. The deposit goes down in this way.
         """
         self.salad_template.container_2_volume = 0
         self.sale_order._cart_update(
@@ -64,13 +66,63 @@ class TestDeposit(common.TestCommonDeposit):
         )
         container_lines = self.sale_order.order_line.filtered("product_id.is_container")
         container_price = sum(line.price_total for line in container_lines)
-        self.assertGreater(deposit_line.price_total, -self.partner.current_deposit)
-        self.assertAlmostEqual(deposit_line.price_total, -container_price)
+        other_lines = self.sale_order.order_line.filtered(
+            lambda line: line != deposit_line
+        )
+        self.assertGreater(abs(deposit_line.price_total), container_price)
+        self.assertAlmostEqual(
+            self.sale_order.amount_total,
+            sum(line.price_total for line in other_lines)
+            - abs(deposit_line.price_total),
+        )
 
         previous_deposit = self.partner.current_deposit
         self.sale_order.action_done()
 
-        self.assertAlmostEqual(self.partner.current_deposit, previous_deposit)
+        self.assertLess(self.partner.current_deposit, previous_deposit)
+        self.assertAlmostEqual(
+            self.partner.current_deposit
+            + (abs(deposit_line.price_total) - container_price),
+            previous_deposit,
+        )
+
+    def test_massive_deposit_small_order(self):
+        """If a customer has a huge deposit, don't give a discount greater than
+        the total price of the order.
+        """
+        big_sale_order = self.env["sale.order"].create(
+            {
+                "name": "Big Sale",
+                "partner_id": self.partner.id,
+                "partner_invoice_id": self.partner.id,
+                "partner_shipping_id": self.partner.id,
+                "pricelist_id": self.pricelist.id,
+            }
+        )
+        big_sale_order._cart_update(
+            product_id=self.salad_product_adult.id, line_id=None, add_qty=100, set_qty=0
+        )
+        big_sale_order.add_containers()
+        big_sale_order.action_done()
+
+        self.sale_order._cart_update(
+            product_id=self.salad_product_adult.id, line_id=None, add_qty=1, set_qty=0
+        )
+        self.sale_order.add_containers()
+
+        self.assertAlmostEqual(self.sale_order.amount_total, 0)
+
+        deposit_line = self.sale_order.order_line.filtered(
+            lambda line: line.product_id == self.container_deposit_product
+        )
+        other_lines = self.sale_order.order_line.filtered(
+            lambda line: line != deposit_line
+        )
+        cum_price_other_lines = sum(line.price_total for line in other_lines)
+
+        self.assertAlmostEqual(
+            abs(deposit_line.price_total), abs(cum_price_other_lines)
+        )
 
     def test_no_deposit_yet(self):
         """If the customer has no deposit yet, don't add a deposit line to the
