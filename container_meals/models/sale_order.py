@@ -130,11 +130,11 @@ class SaleOrder(models.Model):
             line = self.env["sale.order.line"].sudo().create(values)
             total_container_price += line.price_total
 
-        discount = min(total_container_price, self.partner_id.current_deposit)
+        discount = min(self.amount_total, self.partner_id.current_deposit)
         deposit_product = self.env[
             "ir.config_parameter"
         ].get_container_deposit_product_id()
-        if discount and deposit_product:
+        if discount > 0 and deposit_product:
             values = {
                 "order_id": self.id,
                 "name": deposit_product.name,
