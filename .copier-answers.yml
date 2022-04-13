@@ -1,14 +1,17 @@
 # Do NOT update manually; changes here will be overwritten by Copier
-_commit: v1.5.1-16-gc0e4fba
+_commit: v2.0.10
 _src_path: gh:coopiteasy/oca-addons-repo-template
 ci: GitHub
 dependency_installation_mode: OCA
 generate_requirements_txt: true
 include_wkhtmltopdf: false
 odoo_version: 14.0
+org_name: Coop IT Easy SCRLfs
+org_slug: coopiteasy
 rebel_module_groups: []
 repo_description: TODO
 repo_name: IT management tools for the social economy
-repo_slug: cie-addons
+repo_slug: addons
+repo_website: https://coopiteasy.be
 travis_apt_packages: []
 travis_apt_sources: []
