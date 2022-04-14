@@ -13,46 +13,40 @@
             <field name="lang">${ctx.get("lang")}</field>
             <field name="body_html" type="html">
 <div>
-    <p>One or several products in <a
-                            href="${object.form_view_url()}"
-                        >${object.name}</a> were received in incorrect amounts.</p>
+    <p>One or several products in <a href="${object.form_view_url()}">${object.name}</a> were received in incorrect amounts.</p>
 
-    % if object.zero_received_move_line_ids:
+    % if object.zero_received_move_ids:
     <p>Zero received:</p>
     <ul>
-        % for line in object.zero_received_move_line_ids:
-            <li
-                        >${line.product_id.name} --- Received ${line.qty_done} out of expected ${line.product_qty}</li>
+        % for move in object.zero_received_move_ids:
+            <li>${move.name} --- Received ${move.quantity_done} out of expected ${move.reserved_availability}</li>
         % endfor
     </ul>
     % endif
 
-    % if object.zero_expected_move_line_ids:
+    % if object.zero_expected_move_ids:
     <p>Received, but expected zero:</p>
     <ul>
-        % for line in object.zero_expected_move_line_ids:
-            <li
-                        >${line.product_id.name} --- Received ${line.qty_done} out of expected ${line.product_qty}</li>
+        % for move in object.zero_expected_move_ids:
+            <li>${move.name} --- Received ${move.quantity_done} out of expected ${move.reserved_availability}</li>
         % endfor
     </ul>
     % endif
 
-    % if object.too_few_received_move_line_ids:
+    % if object.too_few_received_move_ids:
     <p>Received too few:</p>
     <ul>
-        % for line in object.too_few_received_move_line_ids:
-            <li
-                        >${line.product_id.name} --- Received ${line.qty_done} out of expected ${line.product_qty}</li>
+        % for move in object.too_few_received_move_ids:
+            <li>${move.name} --- Received ${move.quantity_done} out of expected ${move.reserved_availability}</li>
         % endfor
     </ul>
     % endif
 
-    % if object.too_many_received_move_line_ids:
+    % if object.too_many_received_move_ids:
     <p>Received too many:</p>
     <ul>
-        % for line in object.too_many_received_move_line_ids:
-            <li
-                        >${line.product_id.name} --- Received ${line.qty_done} out of expected ${line.product_qty}</li>
+        % for move in object.too_many_received_move_ids:
+            <li>${move.name} --- Received ${move.quantity_done} out of expected ${move.reserved_availability}</li>
         % endfor
     </ul>
     % endif
