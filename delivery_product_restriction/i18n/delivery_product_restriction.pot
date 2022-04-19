@@ -1,0 +1,47 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* delivery_product_restriction
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: delivery_product_restriction
+#: model:ir.model,name:delivery_product_restriction.model_delivery_carrier
+msgid "Delivery Methods"
+msgstr ""
+
+#. module: delivery_product_restriction
+#: model_terms:ir.ui.view,arch_db:delivery_product_restriction.product_template_form_view
+msgid "Delivery Options"
+msgstr ""
+
+#. module: delivery_product_restriction
+#: model:ir.model,name:delivery_product_restriction.model_product_template
+msgid "Product Template"
+msgstr ""
+
+#. module: delivery_product_restriction
+#: model:ir.model.fields,field_description:delivery_product_restriction.field_product_product__restrict_delivery_carrier_to
+#: model:ir.model.fields,field_description:delivery_product_restriction.field_product_template__restrict_delivery_carrier_to
+msgid "Restrict Delivery Carrier To"
+msgstr ""
+
+#. module: delivery_product_restriction
+#: model:ir.model,name:delivery_product_restriction.model_sale_order
+msgid "Sale Order"
+msgstr ""
+
+#. module: delivery_product_restriction
+#: model:ir.model.fields,help:delivery_product_restriction.field_product_product__restrict_delivery_carrier_to
+#: model:ir.model.fields,help:delivery_product_restriction.field_product_template__restrict_delivery_carrier_to
+msgid "This product can only be shipped with the following delivery carrier. Left empty to allow all delivery carrier to be used."
+msgstr ""
+
