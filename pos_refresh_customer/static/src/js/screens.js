@@ -10,13 +10,13 @@ odoo.define("pos_customer_wallet.screens", function (require) {
             if (client) {
                 this.pos.load_partners_by_ids([client.id]).then(function () {
                     // partners may have changed in the backend
-                    self.partner_cache = new screens.DomCache();
-
-                    self.render_list(self.pos.db.get_partners_sorted(1000));
+                    var clientlist = self.gui.screen_instances["clientlist"];
+                    clientlist.partner_cache = new screens.DomCache();
+                    clientlist.render_list(self.pos.db.get_partners_sorted(1000));
 
                     self.pos
                         .get_order()
-                        .set_client(self.pos.get_partner_by_id(client.id));
+                        .set_client(self.pos.db.get_partner_by_id(client.id));
                 });
             }
 
