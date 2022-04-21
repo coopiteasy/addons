@@ -35,4 +35,4 @@ class Partner(models.Model):
             )
 
             # This is needed by pos_refresh_customer.
-            partner.write_date = fields.Datetime.now()
+            partner.write({"write_date": fields.Datetime.now()})
