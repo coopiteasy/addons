@@ -2,6 +2,8 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 
+from odoo.exceptions import UserError
+
 from .common import TestBalance
 
 
@@ -47,6 +49,17 @@ class TestAccountBalance(TestBalance):
         self._create_move(debit=50)
 
         self.assertEqual(self.partner.customer_wallet_balance, 50)
+
+    def test_payment(self):
+        """Prevent wallet to be negative, by blocking payments"""
+        self._create_move(credit=100)
+
+        # New balance will be 60 : OK
+        self._create_payment(amount=40)
+
+        # New balance will be -10 : should raise an error
+        with self.assertRaises(UserError):
+            self._create_payment(amount=70)
 
     def test_no_wallet_account(self):
         """If no wallet account is set, expect balances to be zero."""

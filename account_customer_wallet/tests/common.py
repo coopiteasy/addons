@@ -16,6 +16,7 @@ class TestBalance(SavepointCase):
         cls.customer_wallet_journal = cls.env.ref(
             "account_customer_wallet.account_journal_customer_wallet_demo"
         )
+        cls.payment_method = cls.env.ref("account.account_payment_method_manual_in")
         cls.cash_account = cls.env["account.account"].search(
             [("user_type_id.type", "=", "liquidity")], limit=1
         )
@@ -54,3 +55,19 @@ class TestBalance(SavepointCase):
                 ],
             }
         )
+
+    def _create_payment(self, amount=0, partner=None):
+        if partner is None:
+            partner = self.partner
+
+        payment = self.env["account.payment"].create(
+            {
+                "payment_type": "inbound",
+                "partner_type": "customer",
+                "partner_id": partner.id,
+                "amount": amount,
+                "journal_id": self.customer_wallet_journal.id,
+                "payment_method_id": self.payment_method.id,
+            }
+        )
+        payment.post()
