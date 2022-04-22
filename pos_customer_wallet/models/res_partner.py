@@ -35,7 +35,7 @@ class Partner(models.Model):
         account_bank_statement_line._apply_ir_rules(where_query, "read")
         from_clause, where_clause, where_clause_params = where_query.get_sql()
 
-        # balance is in the company currency
+        # amount is in the company currency
         query = (
             """
             SELECT SUM(amount) as total, partner_id
