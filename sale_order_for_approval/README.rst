@@ -10,11 +10,14 @@ Sale Order - For Approval Mention
 .. |badge1| image:: https://img.shields.io/badge/maturity-Beta-yellow.png
     :target: https://odoo-community.org/page/development-status
     :alt: Beta
-.. |badge2| image:: https://img.shields.io/badge/github-coopiteasy%2Faddons-lightgray.png?logo=github
+.. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
+    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
+    :alt: License: AGPL-3
+.. |badge3| image:: https://img.shields.io/badge/github-coopiteasy%2Faddons-lightgray.png?logo=github
     :target: https://github.com/coopiteasy/addons/tree/12.0/sale_order_for_approval
     :alt: coopiteasy/addons
 
-|badge1| |badge2| 
+|badge1| |badge2| |badge3| 
 
 This module adds a "For approval section to sale orders"
 

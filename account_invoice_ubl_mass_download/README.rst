@@ -42,7 +42,7 @@ Credits
 Authors
 ~~~~~~~
 
-* Coop IT Easy SRCLfs
+* Coop IT Easy SCRLfs
 
 Contributors
 ~~~~~~~~~~~~

@@ -43,7 +43,7 @@ Credits
 Authors
 ~~~~~~~
 
-* Houssine BAKKALI <houssine.bakkali@gmail.com>
+* Coop IT Easy SCRLfs
 
 Contributors
 ~~~~~~~~~~~~
