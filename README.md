@@ -27,6 +27,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
+[account_customer_wallet](account_customer_wallet/) | 12.0.1.0.0 |  | Allow customers to pay using a wallet which is tracked by the company.
 [account_invoice_check_bba_com](account_invoice_check_bba_com/) | 12.0.1.0.0 |  | Check the structured communication if the supplier invoice communication is of type bba.
 [account_invoice_check_identical_invoice](account_invoice_check_identical_invoice/) | 12.0.1.0.0 |  | Check if invoices with the same partner, invoice date and total amount already exist
 [account_invoice_correction](account_invoice_correction/) | 12.0.1.0.0 |  | Correction of taxes and account on invoice
@@ -38,6 +39,8 @@ addon | version | maintainers | summary
 [account_invoice_ubl_mass_download](account_invoice_ubl_mass_download/) | 12.0.1.0.0 |  | Account Invoice UBL Mass Download
 [auth_company_signup](auth_company_signup/) | 12.0.1.0.0 |  | This module allows a user to sign up as a company.
 [belgian_bank_data](belgian_bank_data/) | 12.0.1.0.0 |  | This module imports Belgian banks with their name and BIC code.
+[delivery_carrier_combine_price_rule](delivery_carrier_combine_price_rule/) | 12.0.1.0.0 |  | Chose how to combine price rule on a delivery carrier.
+[delivery_product_restriction](delivery_product_restriction/) | 12.0.1.0.0 |  | Allow some product to be shipped only by some delivery carrier.
 [document_hosting](document_hosting/) | 12.0.1.0.0 |  | Manage documents that can be published on website with ??.
 [email_template_config](email_template_config/) | 12.0.1.0.0 |  | This module extends the email in order to force some behaviours configured in the mail template(e.g. force send mail or not).
 [invoice_global_discount](invoice_global_discount/) | 12.0.1.1.0 |  | This module give global discount on invoice. It allows to set the same discount on all the invoice lines without been forced to go manually through them.
@@ -47,6 +50,7 @@ addon | version | maintainers | summary
 [partner_socialmedia](partner_socialmedia/) | 12.0.1.0.0 |  | Add social media fields to contacts
 [partner_warehouse](partner_warehouse/) | 12.0.1.0.0 |  | Let the warehouse of the sale order be set accordingly to a default warehouse set on the partner.
 [pos_custom_receipt](pos_custom_receipt/) | 12.0.1.0.0 |  | Hide company's email and add customer's name to POS receipt
+[pos_customer_wallet](pos_customer_wallet/) | 12.0.1.0.0 |  | Enable usage of the Customer Wallet in the Point of Sale.
 [pos_self_service_base](pos_self_service_base/) | 12.0.1.0.0 |  | POS Self-Service Base Module
 [pos_self_service_print_zpl](pos_self_service_print_zpl/) | 12.0.1.0.0 |  | POS Self-Service Print ZPL from browser
 [product_label_report](product_label_report/) | 12.0.1.0.0 |  | This module allows to show the print barcode and name of the product.
