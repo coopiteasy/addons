@@ -52,7 +52,7 @@ odoo.define("pos_customer_wallet.screens", function (require) {
                     this.gui.show_popup("error", {
                         title: _t("No customer selected"),
                         body: _t(
-                            "Cannot user customer wallet payment method without selecting a customer.\n\n Please select a customer or use a different payment method."
+                            "Cannot use customer wallet payment method without selecting a customer.\n\n Please select a customer or use a different payment method."
                         ),
                     });
                     return false;
