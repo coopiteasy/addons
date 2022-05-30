@@ -30,7 +30,7 @@ class DocumentWebsite(http.Controller):
             download=True,
         )
         if status == 304:
-            return Response(status, headers)
+            return Response(status=status, headers=headers)
         elif status == 301:
             # TODO: test this case not sure if this render the same
             # return werkzeug.utils.redirect(content, code=301)
