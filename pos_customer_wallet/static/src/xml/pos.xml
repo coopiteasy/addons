@@ -46,7 +46,7 @@
     </t>
 
     <t t-extend="XmlReceipt">
-        <t t-jquery="before-footer" t-operation="before">
+        <t t-jquery=".before-footer" t-operation="before">
             <line class="total_foodprint_amount">
                 <left>Customer Wallet Balance:</left>
                 <right><t
