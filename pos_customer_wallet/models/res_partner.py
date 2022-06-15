@@ -10,7 +10,7 @@ class Partner(models.Model):
     def _compute_customer_wallet_balance(self):
         super()._compute_customer_wallet_balance()
 
-        account_bank_statement_line = self.env["account.bank.statement.line"]
+        account_bank_statement_line = self.env["account.bank.statement.line"].sudo()
         if not self.ids:
             return True
 
