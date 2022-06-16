@@ -1,0 +1,1 @@
+Customer wallet balance is now displayed on tickets.
