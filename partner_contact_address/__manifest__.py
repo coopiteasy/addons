@@ -3,7 +3,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Partner contact address",
-    "version": "13.0.1.0.0",
+    "version": "14.0.1.0.0",
     "depends": ["base"],
     "author": "Coop IT Easy SCRLfs",
     "category": "CRM",

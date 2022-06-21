@@ -9,5 +9,6 @@ class ResPartner(models.Model):
 
     type = fields.Selection(
         selection_add=[("representative", "Representative")],
+        ondelete={"representative": "set null"},
         default="representative",
     )
