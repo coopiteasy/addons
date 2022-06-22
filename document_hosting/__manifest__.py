@@ -10,7 +10,7 @@
     """,
     "author": "Coop IT Easy SCRLfs",
     "license": "AGPL-3",
-    "version": "12.0.1.0.0",
+    "version": "13.0.1.0.0",
     "website": "https://coopiteasy.be",
     "category": "Document",
     "depends": ["base", "web", "website", "mail"],
