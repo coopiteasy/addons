@@ -6,20 +6,18 @@
 <odoo>
 
     <!-- Action to open document list -->
-    <act_window
-        id="action_document_hosting"
-        name="Document"
-        res_model="document_hosting.document"
-        view_mode="tree,form"
-    />
+    <record model="ir.actions.act_window" id="action_document_hosting">
+        <field name="name">Document</field>
+        <field name="res_model">document_hosting.document</field>
+        <field name="view_mode">tree,form</field>
+    </record>
 
     <!-- Action to open category list -->
-    <act_window
-        id="action_document_hosting_category"
-        name="Categories"
-        res_model="document_hosting.category"
-        view_mode="tree,form"
-    />
+    <record model="ir.actions.act_window" id="action_document_hosting_category">
+        <field name="name">Categories</field>
+        <field name="res_model">document_hosting.category</field>
+        <field name="view_mode">tree,form</field>
+    </record>
 
     <!-- Root menu for document -->
     <menuitem id="menu_main_document_hosting" name="Documents" sequence="45" />
