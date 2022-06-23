@@ -53,7 +53,7 @@ addon | version | maintainers | summary
 [pos_auto_invoice](pos_auto_invoice/) | 12.0.1.0.0 |  | In the POS, set orders as to-invoice by default.
 [pos_auto_invoice_default_partner](pos_auto_invoice_default_partner/) | 12.0.1.0.0 |  | Compatibility layer between pos_auto_invoice and pos_default_partner.
 [pos_custom_receipt](pos_custom_receipt/) | 12.0.1.0.0 |  | Hide company's email and add customer's name to POS receipt
-[pos_customer_wallet](pos_customer_wallet/) | 12.0.1.0.0 |  | Enable usage of the Customer Wallet in the Point of Sale.
+[pos_customer_wallet](pos_customer_wallet/) | 12.0.1.0.1 |  | Enable usage of the Customer Wallet in the Point of Sale.
 [pos_self_service_base](pos_self_service_base/) | 12.0.1.0.0 |  | POS Self-Service Base Module
 [pos_self_service_print_zpl](pos_self_service_print_zpl/) | 12.0.1.0.0 |  | POS Self-Service Print ZPL from browser
 [product_label_report](product_label_report/) | 12.0.1.0.0 |  | This module allows to show the print barcode and name of the product.
