@@ -1,4 +1,4 @@
-from odoo import api, fields, models
+from odoo import fields, models
 
 
 class MailTemplate(models.Model):
@@ -6,7 +6,6 @@ class MailTemplate(models.Model):
 
     force_email_send = fields.Boolean(string="Force mail send?")
 
-    @api.multi
     def send_mail(
         self,
         res_id,
