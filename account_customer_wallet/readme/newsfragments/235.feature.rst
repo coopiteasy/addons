@@ -1,2 +1,0 @@
-Make ``customer_wallet_balance`` searchable, and add a filter for non-zero
-balances.
