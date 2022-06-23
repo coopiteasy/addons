@@ -50,6 +50,11 @@ msgid "Customer Wallet Balance"
 msgstr ""
 
 #. module: account_customer_wallet
+#: model_terms:ir.ui.view,arch_db:account_customer_wallet.view_res_partner_filter
+msgid "Customer Wallet Balance Not Zero"
+msgstr ""
+
+#. module: account_customer_wallet
 #: model:ir.model.fields,field_description:account_customer_wallet.field_account_bank_statement_import_journal_creation__is_customer_wallet_journal
 #: model:ir.model.fields,field_description:account_customer_wallet.field_account_journal__is_customer_wallet_journal
 msgid "Customer Wallet Journal"
