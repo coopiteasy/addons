@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+SPDX-FileCopyrightText: 2022 Coop IT Easy SCRLfs
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<odoo>
+    <template id="product" inherit_id="website_sale.product">
+        <xpath
+            expr="//div[@id='product_details']//t[@t-call='website_sale.product_price']"
+            position="before"
+        >
+            <p class="oe_product_weight">Weight: <span
+                    class="oe_product_weight_value"
+                    t-field="product_variant.weight"
+                /> <span
+                    class="oe_product_weight_uom_name_value"
+                    t-field="product_variant.weight_uom_name"
+                /></p>
+        </xpath>
+    </template>
+</odoo>
