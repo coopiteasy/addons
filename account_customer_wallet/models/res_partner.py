@@ -2,6 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 from odoo import fields, models
+from odoo.tools.safe_eval import safe_eval
 
 
 class Partner(models.Model):
@@ -16,6 +17,7 @@ class Partner(models.Model):
         string="Customer Wallet Balance",
         compute="_compute_customer_wallet_balance",
         readonly=True,
+        search="_search_customer_wallet_balance",
     )
 
     def get_topmost_parent_id(self):
@@ -71,3 +73,23 @@ class Partner(models.Model):
             partner.customer_wallet_balance = sum(
                 -total["total"] for total in totals if total["partner_id"] in child_ids
             )
+
+    def _search_customer_wallet_balance(self, operator, value):
+        # This is a complete and utter hack. Don't do what I did.
+        if operator in ("=", "!=", ">", ">=", "<", "<=", "=?", "in", "not in"):
+            if operator in ("=", "=?"):
+                operator = "=="
+            filter_string = "partner.customer_wallet_balance {operator} {value}".format(
+                operator=operator, value=value
+            )
+            filtered = self.search([]).filtered(
+                lambda partner: safe_eval(
+                    filter_string,
+                    {"partner": partner},
+                )
+            )
+            if filtered:
+                return [("id", "in", [partner.id for partner in filtered])]
+        else:
+            # TODO maybe
+            raise NotImplementedError()
