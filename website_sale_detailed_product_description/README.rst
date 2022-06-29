@@ -46,12 +46,12 @@ Credits
 Authors
 ~~~~~~~
 
-* Coop IT Easy SCRLfs
+* Coop IT Easy SC
 
 Contributors
 ~~~~~~~~~~~~
 
-* `Coop IT Easy SCRLfs <https://coopiteasy.be>`:
+* `Coop IT Easy SC <https://coopiteasy.be>`:
     * Grégoire Leeuwerck <gregoire@coopiteasy.be>
     * Vincent Van Rossem <vincent@coopiteasy.be>
 

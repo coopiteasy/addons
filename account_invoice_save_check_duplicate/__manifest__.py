@@ -1,4 +1,4 @@
-# Copyright 2020 - Today Coop IT Easy SCRLfs (<http://www.coopiteasy.be>)
+# Copyright 2020 - Today Coop IT Easy SC (<http://www.coopiteasy.be>)
 # - Grégoire Leeuwerck  <gregoire@coopiteasy.be>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
@@ -9,7 +9,7 @@
         This step is normally done when validating. This step doesn't replace the
         validation.
     """,
-    "author": "Coop IT Easy SCRLfs",
+    "author": "Coop IT Easy SC",
     "license": "AGPL-3",
     "version": "12.0.1.0.0",
     "website": "https://coopiteasy.be",

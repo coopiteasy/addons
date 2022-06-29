@@ -1,4 +1,4 @@
-# Copyright 2020 - Today Coop IT Easy SCRLfs (<http://www.coopiteasy.be>)
+# Copyright 2020 - Today Coop IT Easy SC (<http://www.coopiteasy.be>)
 # - Vincent Van Rossem <vincent@coopiteasy.be>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 

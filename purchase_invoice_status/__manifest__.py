@@ -1,4 +1,4 @@
-# Copyright 2020 - Today Coop IT Easy SCRLfs (<http://www.coopiteasy.be>)
+# Copyright 2020 - Today Coop IT Easy SC (<http://www.coopiteasy.be>)
 # - Vincent Van Rossem <vincent@coopiteasy.be>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
@@ -8,7 +8,7 @@
     "category": "Purchases",
     "license": "AGPL-3",
     "summary": "Add invoice status on purchase orders",
-    "author": "Coop IT Easy SCRLfs,Odoo Community Association (OCA)",
+    "author": "Coop IT Easy SC,Odoo Community Association (OCA)",
     "website": "https://coopiteasy.be",
     "depends": ["purchase"],
     "data": ["views/purchase_order.xml"],

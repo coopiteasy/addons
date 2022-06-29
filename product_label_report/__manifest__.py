@@ -5,7 +5,7 @@
     "summary": """
         This module allows to show the print barcode and name of the product.
     """,
-    "author": "Coop IT Easy SCRLfs",
+    "author": "Coop IT Easy SC",
     "category": "Product",
     "version": "12.0.1.0.0",
     "website": "https://coopiteasy.be",

@@ -1,4 +1,4 @@
-# Copyright 2020 - Coop IT Easy SCRLfs
+# Copyright 2020 - Coop IT Easy SC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 
 {
@@ -6,7 +6,7 @@
     "summary": "Correction of taxes and account on invoice",
     "version": "12.0.1.0.0",
     "license": "AGPL-3",
-    "author": "Coop IT Easy SCRLfs",
+    "author": "Coop IT Easy SC",
     "website": "https://coopiteasy.be",
     "category": "Accounting",
     "depends": ["account"],

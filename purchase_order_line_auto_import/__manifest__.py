@@ -1,4 +1,4 @@
-# © 2016 Houssine BAKKALI, Coop IT Easy SCRLfs
+# © 2016 Houssine BAKKALI, Coop IT Easy SC
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 {
     "name": "Purchase order line auto import",
@@ -6,7 +6,7 @@
         This module allows to create automatically line with the product and
         minimal quantities when selecting the partner.
     """,
-    "author": "Houssine BAKKALI, Coop IT Easy SCRLfs",
+    "author": "Houssine BAKKALI, Coop IT Easy SC",
     "category": "Purchase Management",
     "website": "https://coopiteasy.be",
     "version": "12.0.1.0.0",

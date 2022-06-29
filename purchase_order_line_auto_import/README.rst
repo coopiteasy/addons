@@ -45,7 +45,7 @@ Authors
 ~~~~~~~
 
 * Houssine BAKKALI
-* Coop IT Easy SCRLfs
+* Coop IT Easy SC
 
 Contributors
 ~~~~~~~~~~~~
