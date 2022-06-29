@@ -1,6 +1,6 @@
 # Copyright 2014-2017 GRAP (http://www.grap.coop)
 #   - Sylvain LE GAL (https://twitter.com/legalsylvain)
-# Copyright 2017-Today Coop IT Easy SCRLfs
+# Copyright 2017-Today Coop IT Easy SC
 #   - Houssine BAKKALI <houssine@coopiteasy.be>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 {
@@ -9,7 +9,7 @@
         This module merges product_to_scale_bizerba and
         product_to_scale_bizerba_extended into one.
     """,
-    "author": "Coop IT Easy SCRLfs, GRAP",
+    "author": "Coop IT Easy SC, GRAP",
     "website": "https://coopiteasy.be",
     "category": "Tools",
     "version": "12.0.1.0.0",
