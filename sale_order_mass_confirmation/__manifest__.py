@@ -1,4 +1,4 @@
-# Copyright 2021 - Today Coop IT Easy SCRLfs (<http://www.coopiteasy.be>)
+# Copyright 2021 - Today Coop IT Easy SC (<http://www.coopiteasy.be>)
 # - Grégoire Leeuwerck <gregoire@coopiteasy.be>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
@@ -6,7 +6,7 @@
     "name": "Mass confirmation of sale orders",
     "summary": """
         Confirm multiple sale orders (quotations) with one action""",
-    "author": "Coop IT Easy SCRLfs",
+    "author": "Coop IT Easy SC",
     "license": "AGPL-3",
     "website": "https://coopiteasy.be",
     "category": "Uncategorized",

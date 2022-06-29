@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Copyright 2021 Coop IT Easy SCRLfs
+<!-- Copyright 2021 Coop IT Easy SC
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
     <record model="ir.ui.view" id="resource_resource_tree_view">

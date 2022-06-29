@@ -1,4 +1,4 @@
-# Copyright 2021 - Today Coop IT Easy SCRLfs (<http://www.coopiteasy.be>)
+# Copyright 2021 - Today Coop IT Easy SC (<http://www.coopiteasy.be>)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Partner Warehouse",
@@ -7,7 +7,7 @@
         "sale",
         "sale_stock",
     ],
-    "author": "Coop IT Easy SCRLfs",
+    "author": "Coop IT Easy SC",
     "category": "Warehouse",
     "website": "https://coopiteasy.be",
     "license": "AGPL-3",

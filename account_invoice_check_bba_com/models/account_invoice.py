@@ -1,4 +1,4 @@
-# Copyright 2017 - Today Coop IT Easy SCRLfs (<http://www.coopiteasy.be>)
+# Copyright 2017 - Today Coop IT Easy SC (<http://www.coopiteasy.be>)
 # - Houssine Bakkali <houssine@coopiteasy.be>
 # Copyright (c) 2011 Noviat nv/sa (www.noviat.be).
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).

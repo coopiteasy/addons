@@ -1,4 +1,4 @@
-# Copyright 2017 - Today Coop IT Easy SCRLfs (<http://www.coopiteasy.be>)
+# Copyright 2017 - Today Coop IT Easy SC (<http://www.coopiteasy.be>)
 # - Robin Keunen <robin@coopiteasy.be>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 import datetime as dt

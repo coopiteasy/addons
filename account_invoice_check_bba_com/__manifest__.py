@@ -1,4 +1,4 @@
-# Copyright 2021 - Today Coop IT Easy SCRLfs (<http://www.coopiteasy.be>)
+# Copyright 2021 - Today Coop IT Easy SC (<http://www.coopiteasy.be>)
 # - Houssine Bakkali <houssine@coopiteasy.be>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
@@ -9,7 +9,7 @@
     """,
     "version": "12.0.1.0.0",
     "depends": ["account", "l10n_be_invoice_bba"],
-    "author": "Coop IT Easy SCRLfs",
+    "author": "Coop IT Easy SC",
     "category": "Accounting & Finance",
     "website": "https://coopiteasy.be",
     "data": ["views/account_invoice.xml"],

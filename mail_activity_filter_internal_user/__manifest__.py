@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2022 Coop IT Easy SCRLfs
+# SPDX-FileCopyrightText: 2022 Coop IT Easy SC
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
@@ -9,7 +9,7 @@
     "version": "12.0.1.0.0",
     "category": "Uncategorized",
     "website": "https://coopiteasy.be",
-    "author": "Coop IT Easy SCRLfs",
+    "author": "Coop IT Easy SC",
     "license": "AGPL-3",
     "application": False,
     "depends": ["mail"],
