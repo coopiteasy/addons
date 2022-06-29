@@ -1,4 +1,4 @@
-# Copyright 2021 Coop IT Easy SCRLfs
+# Copyright 2021 Coop IT Easy SC
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from datetime import timedelta, timezone
