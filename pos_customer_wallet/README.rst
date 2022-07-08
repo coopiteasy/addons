@@ -25,6 +25,16 @@ Point of Sale Customer Wallet
 .. contents::
    :local:
 
+Changelog
+=========
+
+12.0.1.1.0 (2022-07-08)
+~~~~~~~~~~~~~~~~~~~~~~~
+
+**Features**
+
+- Customer wallet balance is now displayed on tickets. (`#237 <https://github.com/coopiteasy/addons/issues/237>`_)
+
 Bug Tracker
 ===========
 
@@ -49,6 +59,7 @@ Contributors
 * `Coop IT Easy SC <https://coopiteasy.be>`_:
 
   * Carmen Bianca Bakker
+  * Rémy Taymans
 
 Maintainers
 ~~~~~~~~~~~
