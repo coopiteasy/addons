@@ -17,7 +17,7 @@ msgstr ""
 #. openerp-web
 #: code:addons/pos_customer_wallet/static/src/js/screens.js:54
 #, python-format
-msgid "Cannot user customer wallet payment method without selecting a customer.\n"
+msgid "Cannot use customer wallet payment method without selecting a customer.\n"
 "\n"
 " Please select a customer or use a different payment method."
 msgstr ""
@@ -33,6 +33,14 @@ msgstr ""
 #: code:addons/pos_customer_wallet/static/src/xml/pos.xml:12
 #, python-format
 msgid "Customer Wallet Balance"
+msgstr ""
+
+#. module: pos_customer_wallet
+#. openerp-web
+#: code:addons/pos_customer_wallet/static/src/xml/pos.xml:37
+#: code:addons/pos_customer_wallet/static/src/xml/pos.xml:51
+#, python-format
+msgid "Customer Wallet Balance:"
 msgstr ""
 
 #. module: pos_customer_wallet
