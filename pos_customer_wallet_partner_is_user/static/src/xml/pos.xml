@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+SPDX-FileCopyrightText: 2022 Coop IT Easy SC
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<template id="template">
+    <t t-extend="PosTicket">
+        <t t-jquery=".receipt-customer-wallet-balance" t-operation="attributes">
+            <!--
+                FIXME: There's a nicer way of doing this with
+                `name="class" separator=" " add="oe_hidden"`, but it doesn't work.
+                Find out why.
+            -->
+            <attribute
+                name="t-if"
+            >order.pos.get_client() and order.pos.get_client().is_customer_wallet_user
+            </attribute>
+        </t>
+    </t>
+
+    <t t-extend="XmlReceipt">
+        <t t-jquery=".total_foodprint_amount" t-operation="attributes">
+            <!-- FIXME: Same as above. -->
+            <attribute
+                name="t-if"
+            >receipt.is_customer_wallet_user !== null and receipt.is_customer_wallet_user
+            </attribute>
+        </t>
+    </t>
+</template>

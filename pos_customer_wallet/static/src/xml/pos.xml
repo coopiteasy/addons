@@ -24,4 +24,35 @@
             </div>
         </t>
     </t>
+
+    <t t-extend="PosTicket">
+        <!--
+            Customer must see his balance even if it does not use
+            customer wallet as a payement method for this order.
+            Because it's the only way he can check his balance.
+        -->
+        <t t-jquery=".receipt-change" t-operation="after">
+            <table class="receipt-customer-wallet-balance">
+                <tr>
+                    <td>Customer Wallet Balance:</td>
+                    <td class="pos-right-align">
+                        <t
+                            t-esc="widget.format_currency(order.pos.get_client().customer_wallet_balance)"
+                        />
+                    </td>
+                </tr>
+            </table>
+        </t>
+    </t>
+
+    <t t-extend="XmlReceipt">
+        <t t-jquery=".before-footer" t-operation="before">
+            <line class="total_foodprint_amount">
+                <left>Customer Wallet Balance:</left>
+                <right><t
+                        t-esc="widget.format_currency(receipt.customer_wallet_balance)"
+                    /></right>
+            </line>
+        </t>
+    </t>
 </template>
