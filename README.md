@@ -55,6 +55,7 @@ addon | version | maintainers | summary
 [pos_auto_invoice_default_partner](pos_auto_invoice_default_partner/) | 12.0.1.0.0 |  | Compatibility layer between pos_auto_invoice and pos_default_partner.
 [pos_custom_receipt](pos_custom_receipt/) | 12.0.1.0.0 |  | Hide company's email and add customer's name to POS receipt
 [pos_customer_wallet](pos_customer_wallet/) | 12.0.1.0.1 |  | Enable usage of the Customer Wallet in the Point of Sale.
+[pos_customer_wallet_partner_is_user](pos_customer_wallet_partner_is_user/) | 12.0.1.0.0 | [![coopiteasy](https://github.com/coopiteasy.png?size=30px)](https://github.com/coopiteasy) | Add a field on partners that shows whether they have used customer wallet functionality, and don't show some parts of customer wallet functionality to partners who haven't already used it.
 [pos_self_service_base](pos_self_service_base/) | 12.0.1.0.0 |  | POS Self-Service Base Module
 [pos_self_service_print_zpl](pos_self_service_print_zpl/) | 12.0.1.0.0 |  | POS Self-Service Print ZPL from browser
 [product_label_report](product_label_report/) | 12.0.1.0.0 |  | This module allows to show the print barcode and name of the product.
