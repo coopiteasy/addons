@@ -8,7 +8,7 @@
         Add a field on partners that shows whether they have used customer wallet
         functionality, and don't show some parts of customer wallet functionality
         to partners who haven't already used it.""",
-    "version": "12.0.1.0.0",
+    "version": "12.0.1.1.0",
     "category": "Point of Sale",
     "website": "https://coopiteasy.be",
     "author": "Coop IT Easy SC",
