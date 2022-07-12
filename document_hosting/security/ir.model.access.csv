@@ -1,0 +1,5 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+access_document_hosting,access_document_hosting,model_document_hosting_document,,1,0,0,0
+access_document_hosting_category,access_document_hosting_category,model_document_hosting_category,,1,0,0,0
+access_document_hosting_user_group,access_document_hosting,model_document_hosting_document,base.group_user,1,1,1,1
+access_document_hosting_category_user_group,access_document_hosting_category,model_document_hosting_category,base.group_user,1,1,1,1
