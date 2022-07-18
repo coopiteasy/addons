@@ -46,6 +46,10 @@ class DocumentWebsite(http.Controller):
         """"""
         if not request.website.display_document_page:
             return request.not_found()
+        if date_begin:
+            date_begin = Date.from_string(date_begin)
+        if date_end:
+            date_end = Date.from_string(date_end)
 
         values = {}
         values.update(
