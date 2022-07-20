@@ -1,1 +1,0 @@
-Allow to schedule activity on internal users by default instead of all users.
