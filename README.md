@@ -79,6 +79,7 @@ addon | version | maintainers | summary
 [website_sale_delivery_vat_label](website_sale_delivery_vat_label/) | 12.0.1.0.0 |  | Display the included/excluded VAT label on delivery method
 [website_sale_detailed_product_description](website_sale_detailed_product_description/) | 12.0.1.0.0 |  | Adds fields to Product Template and e-commerce's product list and page.
 [website_sale_product_weight](website_sale_product_weight/) | 12.0.1.0.0 |  | Display the weight of a product on the e-commerce product page.
+[website_sale_sort_variants_by_availability](website_sale_sort_variants_by_availability/) | 12.0.1.0.0 |  | Sort the selection of product variants in e-commerce such that available ones are always displayed first.
 
 [//]: # (end addons)
 
