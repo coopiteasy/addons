@@ -26,6 +26,16 @@ Add a field to filter on internal user when assigning someone to an activity.
 .. contents::
    :local:
 
+Changelog
+=========
+
+12.0.1.0.1 (2022-07-20)
+~~~~~~~~~~~~~~~~~~~~~~~
+
+**Features**
+
+- Allow to schedule activity on internal users by default instead of all users. (`#1 <https://github.com/coopiteasy/addons/issues/1>`_)
+
 Bug Tracker
 ===========
 
