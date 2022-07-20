@@ -19,12 +19,8 @@ class MailActivity(models.Model):
         Change the domain on the user_id field based on the value of
         filter_internal_user.
         """
-        if "user_id" in self._fields:
-            filter_internal_user_domain = ("share", "=", False)
-            previous_domain = self._fields["user_id"].domain
-            if self.filter_internal_user:
-                if filter_internal_user_domain not in previous_domain:
-                    previous_domain.append(filter_internal_user_domain)
-            else:
-                previous_domain.remove(filter_internal_user_domain)
-            return {"domain": {"user_id": previous_domain}}
+        # copy to ensure original domain is not modified
+        user_domain = self._fields["user_id"].domain.copy()
+        if self.filter_internal_user:
+            user_domain.append(("share", "=", False))
+        return {"domain": {"user_id": user_domain}}
