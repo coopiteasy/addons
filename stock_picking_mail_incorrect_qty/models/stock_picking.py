@@ -133,7 +133,13 @@ class Picking(models.Model):
     @api.multi
     def _notify_incorrect_delivery(self):
         """Send a notification e-mail about the incorrect delivery."""
+        PosOrder = self.env.get("pos.order")
         for picking in self:
+            # This function is indirectly called by the POS without defining
+            # reserved availability for moves. Let's simply not send any mails for
+            # pickings done by the POS.
+            if PosOrder and PosOrder.search([("name", "==", record.origin)]):
+                continue
             if any(
                 (
                     picking.zero_received_move_ids,
