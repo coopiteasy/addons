@@ -1,4 +1,4 @@
-# Copyright 2021 Coop IT Easy SCRL fs
+# Copyright 2021 Coop IT Easy SC
 #   Carmen Bianca Bakker <carmen@coopiteasy.be>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
