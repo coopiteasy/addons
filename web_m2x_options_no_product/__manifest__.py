@@ -3,7 +3,7 @@
 
 {
     "name": "web_m2x_options_no_product",
-    "description": """
+    "summary": """
         Removes creation options from (some) product dropdown menus.""",
     "version": "12.0.1.0.0",
     "license": "AGPL-3",
