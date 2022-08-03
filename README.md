@@ -44,11 +44,11 @@ addon | version | maintainers | summary
 [delivery_product_restriction](delivery_product_restriction/) | 12.0.1.0.0 |  | Allow some product to be shipped only by some delivery carrier.
 [document_hosting](document_hosting/) | 12.0.1.0.0 |  | Manage documents that can be published on website with ??.
 [email_template_config](email_template_config/) | 12.0.1.0.0 |  | This module extends the email in order to force some behaviours configured in the mail template(e.g. force send mail or not).
-[hr_holidays_custom_duration](hr_holidays_custom_duration/) | 12.0.1.0.0 |  | Allow to override the duration of a leave.
+[hr_holidays_custom_duration](hr_holidays_custom_duration/) | 12.0.1.0.1 |  | Allow to override the duration of a leave.
 [invoice_global_discount](invoice_global_discount/) | 12.0.1.1.0 |  | This module give global discount on invoice. It allows to set the same discount on all the invoice lines without been forced to go manually through them.
 [mail_activity_filter_internal_user](mail_activity_filter_internal_user/) | 12.0.1.0.1 |  | Filter on internal user by default when assigning someone to an activity.
 [mail_auto_resend](mail_auto_resend/) | 12.0.1.0.0 |  | Automatically resend failed emails
-[mrp_unbuild_product_mo_filter](mrp_unbuild_product_mo_filter/) | 12.0.1.0.0 |  | Filter unbuild manufacturing orders by selected product
+[mrp_unbuild_product_mo_filter](mrp_unbuild_product_mo_filter/) | 12.0.1.0.1 |  | Filter unbuild manufacturing orders by selected product
 [partner_contact_address](partner_contact_address/) | 12.0.1.0.0 |  | This module allows to have company contacts with their own address.
 [partner_socialmedia](partner_socialmedia/) | 12.0.1.0.0 |  | Add social media fields to contacts
 [partner_warehouse](partner_warehouse/) | 12.0.1.0.0 |  | Let the warehouse of the sale order be set accordingly to a default warehouse set on the partner.
@@ -68,15 +68,15 @@ addon | version | maintainers | summary
 [resource_work_time_from_contracts](resource_work_time_from_contracts/) | 12.0.1.0.0 |  | Take the contracts of an employee into account when computing work time per day
 [sale_order_for_approval](sale_order_for_approval/) | 12.0.1.0.0 |  | Display "For Approval" mention on Sale Orders
 [sale_order_mass_confirmation](sale_order_mass_confirmation/) | 12.0.1.0.0 |  | Confirm multiple sale orders (quotations) with one action
-[sale_order_volume](sale_order_volume/) | 12.0.1.1.0 |  | Computes the volume of products per category ordered and display it on
-[sale_report_partner_category](sale_report_partner_category/) | 12.0.1.0.0 |  | Add a category field to sale reports
+[sale_order_volume](sale_order_volume/) | 12.0.1.1.1 |  | Computes the volume of products per category ordered and display it on
+[sale_report_partner_category](sale_report_partner_category/) | 12.0.1.0.1 |  | Add a category field to sale reports
 [stock_inventory_confirm_reset_qty](stock_inventory_confirm_reset_qty/) | 12.0.1.0.0 |  | Show a confirmation dialog box when clicking on 'Set quantities to 0' in a stock.inventory
 [stock_picking_copy_qty](stock_picking_copy_qty/) | 12.0.1.0.0 |  | Adds a button to copy reserved quantity to received quantity
 [stock_picking_only_suppliers_products](stock_picking_only_suppliers_products/) | 12.0.1.0.0 |  | On a stock picking, only display the supplier's products.
 [stock_product_weight_on_receipt](stock_product_weight_on_receipt/) | 12.0.1.0.0 |  | Show product weight and unit weight on each line of a receipt
 [stock_provider_ref_on_receipt](stock_provider_ref_on_receipt/) | 12.0.1.0.0 |  | Show provider reference on each line of a receipt
-[web_m2x_options_no_partner](web_m2x_options_no_partner/) | 12.0.1.0.0 |  | Removes creation options from (some) partner dropdown menus.
-[web_m2x_options_no_product](web_m2x_options_no_product/) | 12.0.1.0.0 |  | Removes creation options from (some) product dropdown menus.
+[web_m2x_options_no_partner](web_m2x_options_no_partner/) | 12.0.1.0.1 |  | Removes creation options from (some) partner dropdown menus.
+[web_m2x_options_no_product](web_m2x_options_no_product/) | 12.0.1.0.1 |  | Removes creation options from (some) product dropdown menus.
 [website_sale_delivery_vat_label](website_sale_delivery_vat_label/) | 12.0.1.0.0 |  | Display the included/excluded VAT label on delivery method
 [website_sale_detailed_product_description](website_sale_detailed_product_description/) | 12.0.1.0.0 |  | Adds fields to Product Template and e-commerce's product list and page.
 [website_sale_product_display_unit](website_sale_product_display_unit/) | 12.0.1.0.0 |  | Display the price per unit on the e-commerce pages.
