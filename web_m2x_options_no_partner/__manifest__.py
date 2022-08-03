@@ -3,7 +3,7 @@
 
 {
     "name": "web_m2x_options_no_partner",
-    "description": """
+    "summary": """
         Removes creation options from (some) partner dropdown menus.""",
     "version": "12.0.1.0.0",
     "license": "AGPL-3",
