@@ -4,7 +4,7 @@
 {
     "name": "Leave Custom Duration",
     "summary": "Allow to override the duration of a leave.",
-    "version": "12.0.1.0.0",
+    "version": "12.0.1.0.1",
     "category": "Human Resources",
     "website": "https://coopiteasy.be",
     "author": "Coop IT Easy SC",
