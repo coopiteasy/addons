@@ -21,7 +21,13 @@ How ? We provide tailored-made solutions for your business using Odoo Community,
 
 [//]: # (addons)
 
-This part will be replaced when running the oca-gen-addons-table script from OCA/maintainer-tools.
+Available addons
+----------------
+addon | version | maintainers | summary
+--- | --- | --- | ---
+[container_meals](container_meals/) | 14.0.1.1.0 |  | Deliver meals in containers.
+[hide_variant_price_difference](hide_variant_price_difference/) | 14.0.1.0.0 |  | On website sale views, hide the tags next to product variants that show the price difference compared to the current price.
+[partner_contact_address](partner_contact_address/) | 14.0.1.0.0 |  | This module allows to have company contacts with their own address.
 
 [//]: # (end addons)
 
