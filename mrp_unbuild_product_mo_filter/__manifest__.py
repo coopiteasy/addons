@@ -4,7 +4,7 @@
 {
     "name": "Filter unbuild MO by product",
     "summary": "Filter unbuild manufacturing orders by selected product",
-    "version": "12.0.1.0.0",
+    "version": "12.0.1.0.1",
     "category": "Manufacturing",
     "website": "https://coopiteasy.be",
     "author": "Coop IT Easy SC",
