@@ -32,7 +32,7 @@
             Because it's the only way he can check his balance.
         -->
         <t t-jquery=".receipt-change" t-operation="after">
-            <table class="receipt-customer-wallet-balance">
+            <table class="receipt-customer-wallet-balance" t-if="receipt.client">
                 <tr>
                     <td>Customer Wallet Balance:</td>
                     <td class="pos-right-align">
@@ -47,7 +47,7 @@
 
     <t t-extend="XmlReceipt">
         <t t-jquery=".before-footer" t-operation="before">
-            <line class="total_foodprint_amount">
+            <line class="total_foodprint_amount" t-if="receipt.client">
                 <left>Customer Wallet Balance:</left>
                 <right><t
                         t-esc="widget.format_currency(receipt.customer_wallet_balance)"
