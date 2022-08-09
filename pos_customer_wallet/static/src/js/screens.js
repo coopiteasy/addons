@@ -36,8 +36,13 @@ odoo.define("pos_customer_wallet.screens", function (require) {
             }
 
             var client = this.pos.get_client();
-            var [wallet_amount, payment_lines_qty] =
+            var [payment_wallet_amount, payment_lines_qty] =
                 this.get_amount_debit_with_customer_wallet_journal();
+
+            var [product_wallet_amount, product_lines_qty] =
+                this.get_amount_credit_with_customer_wallet_product();
+
+            var wallet_amount = payment_wallet_amount - product_wallet_amount;
 
             if (!client) {
                 if (payment_lines_qty > 0) {
@@ -46,6 +51,23 @@ odoo.define("pos_customer_wallet.screens", function (require) {
                         body: _t(
                             "Cannot use customer wallet payment method without selecting a customer.\n\n Please select a customer or use a different payment method."
                         ),
+                    });
+                    return false;
+                }
+                if (product_lines_qty > 0) {
+                    var wallet_product_names = [];
+                    var wallet_products = this.find_customer_wallet_products();
+                    wallet_products.forEach(function (product) {
+                        wallet_product_names.push(product.display_name);
+                    });
+                    this.gui.show_popup("error", {
+                        title: _t("No customer selected"),
+                        body:
+                            _t("Cannot sell the product '") +
+                            wallet_product_names.join(",") +
+                            _t(
+                                "' without selecting a customer. Please select a customer or remove the order line(s)."
+                            ),
                     });
                     return false;
                 }
@@ -71,8 +93,12 @@ odoo.define("pos_customer_wallet.screens", function (require) {
          * of the current customer, if defined.
          */
         finalize_validation: function () {
-            var [wallet_amount, _] =
+            var [payment_wallet_amount, _] =
                 this.get_amount_debit_with_customer_wallet_journal();
+            var [product_wallet_amount, _] =
+                this.get_amount_credit_with_customer_wallet_product();
+            var wallet_amount = payment_wallet_amount - product_wallet_amount;
+
             var client = this.pos.get_client();
 
             if (client) {
@@ -97,6 +123,21 @@ odoo.define("pos_customer_wallet.screens", function (require) {
         },
 
         /**
+         * Return the wallet products, if exist.
+         *
+         */
+        find_customer_wallet_products() {
+            var self = this;
+            var wallet_products = [];
+            Object.keys(this.pos.db.product_by_id).forEach(function (key) {
+                if (self.pos.db.product_by_id[key].is_customer_wallet_product) {
+                    wallet_products.push(self.pos.db.product_by_id[key]);
+                }
+            });
+            return wallet_products;
+        },
+
+        /**
          * Return the payment amount with wallet journals.
          *
          * @return {wallet_total, lines_qty}
@@ -115,6 +156,33 @@ odoo.define("pos_customer_wallet.screens", function (require) {
                     lines_qty += 1;
                 }
             }
+            return [wallet_amount, lines_qty];
+        },
+
+        /**
+         * Return the amount credited by wallet products.
+         *
+         * @return {wallet_total, lines_qty}
+         *  - wallet_total is the balance of order lines done with wallet product
+         *  - lines_qty is the number of order lines
+         */
+        get_amount_credit_with_customer_wallet_product() {
+            var order = this.pos.get_order();
+            var wallet_product_ids = [];
+            var wallet_products = this.find_customer_wallet_products();
+            wallet_products.forEach(function (product) {
+                wallet_product_ids.push(product.id);
+            });
+            var wallet_amount = 0;
+            var lines_qty = 0;
+
+            order.orderlines.forEach(function (orderline) {
+                if (wallet_product_ids.includes(orderline.product.id)) {
+                    wallet_amount += orderline.get_price_without_tax();
+                    lines_qty += 1;
+                }
+            });
+
             return [wallet_amount, lines_qty];
         },
     });

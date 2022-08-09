@@ -21,6 +21,7 @@
     ],
     "demo": [
         "demo/account_journal_demo.xml",
+        "demo/product_product_demo.xml",
     ],
     "qweb": [
         "static/src/xml/pos.xml",
