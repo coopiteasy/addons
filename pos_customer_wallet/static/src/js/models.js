@@ -5,6 +5,7 @@ odoo.define("pos_customer_wallet.models", function (require) {
 
     models.load_fields("res.partner", ["customer_wallet_balance"]);
     models.load_fields("account.journal", ["is_customer_wallet_journal"]);
+    models.load_fields("product.product", ["is_customer_wallet_product"]);
 
     var order_prototype = models.Order.prototype;
     models.Order = models.Order.extend({
