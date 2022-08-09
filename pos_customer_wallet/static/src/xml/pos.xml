@@ -37,7 +37,7 @@
                     <td>Customer Wallet Balance:</td>
                     <td class="pos-right-align">
                         <t
-                            t-esc="widget.format_currency(order.pos.get_client().customer_wallet_balance)"
+                            t-esc="widget.format_currency(receipt.customer_wallet_balance)"
                         />
                     </td>
                 </tr>
