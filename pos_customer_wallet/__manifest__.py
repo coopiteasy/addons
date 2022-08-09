@@ -8,7 +8,7 @@
     "version": "12.0.1.1.0",
     "category": "Point of Sale",
     "website": "https://coopiteasy.be",
-    "author": "Coop IT Easy SC",
+    "author": "Coop IT Easy SC,GRAP",
     "license": "AGPL-3",
     "application": False,
     "depends": [
