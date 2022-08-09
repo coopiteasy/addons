@@ -36,10 +36,11 @@ odoo.define("pos_customer_wallet.screens", function (require) {
             }
 
             var client = this.pos.get_client();
-            var wallet_amount = this.amount_paid_with_customer_wallet();
+            var [wallet_amount, payment_lines_qty] =
+                this.get_amount_debit_with_customer_wallet_journal();
 
             if (!client) {
-                if (wallet_amount > 0) {
+                if (payment_lines_qty > 0) {
                     this.gui.show_popup("error", {
                         title: _t("No customer selected"),
                         body: _t(
@@ -70,7 +71,8 @@ odoo.define("pos_customer_wallet.screens", function (require) {
          * of the current customer, if defined.
          */
         finalize_validation: function () {
-            var wallet_amount = this.amount_paid_with_customer_wallet();
+            var [wallet_amount, _] =
+                this.get_amount_debit_with_customer_wallet_journal();
             var client = this.pos.get_client();
 
             if (client) {
@@ -95,20 +97,25 @@ odoo.define("pos_customer_wallet.screens", function (require) {
         },
 
         /**
-         * Return the amount paid with a wallet amount.
+         * Return the payment amount with wallet journals.
          *
+         * @return {wallet_total, lines_qty}
+         *  - wallet_total is the balance of payment done with wallet journal
+         *  - lines_qty is the number of payment lines
          */
-        amount_paid_with_customer_wallet() {
+        get_amount_debit_with_customer_wallet_journal() {
             var order = this.pos.get_order();
             var cashregister = this.find_customer_wallet_payment_method();
-            var total = 0;
+            var wallet_amount = 0;
+            var lines_qty = 0;
             var lines = order.paymentlines.models;
             for (var i = 0; i < lines.length; i++) {
                 if (lines[i].cashregister === cashregister) {
-                    total += lines[i].amount;
+                    wallet_amount += lines[i].amount;
+                    lines_qty += 1;
                 }
             }
-            return total;
+            return [wallet_amount, lines_qty];
         },
     });
 });
