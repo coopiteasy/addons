@@ -8,7 +8,7 @@
     "version": "12.0.1.2.0",
     "category": "Accounting & Finance",
     "website": "https://coopiteasy.be",
-    "author": "Coop IT Easy SC",
+    "author": "Coop IT Easy SC,GRAP",
     "license": "AGPL-3",
     "application": False,
     "depends": [
