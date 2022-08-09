@@ -34,6 +34,26 @@ class Partner(models.Model):
         self.env.cr.execute(query, where_clause_params)
         return self.env.cr.dictfetchall()
 
+    @api.model
+    def get_wallet_balance_pos_order_line(self, all_partner_ids):
+        # Note the current algorithm could not work in a multi company
+        # context, for partner shared in many companies.
+        # TODO : ask to carmen how `_where_calc` works, and how to make
+        # join.
+        query = """
+            SELECT sum(pol.price_subtotal) as total, po.partner_id
+            FROM pos_order_line pol
+            INNER JOIN pos_order po on pol.order_id = po.id
+            INNER JOIN product_product pp on pol.product_id = pp.id
+            INNER JOIN product_template pt on pp.product_tmpl_id = pt.id
+            WHERE po.state = 'paid'
+            AND pt.is_customer_wallet_product = true
+            AND po.partner_id in %s
+            GROUP BY po.partner_id;
+            """
+        self.env.cr.execute(query, (tuple(all_partner_ids),))
+        return self.env.cr.dictfetchall()
+
     def _compute_customer_wallet_balance(self):
         super()._compute_customer_wallet_balance()
 
@@ -49,9 +69,14 @@ class Partner(models.Model):
         statement_line_totals = self.get_wallet_balance_bank_statement_line(
             all_partner_ids
         )
+        order_line_totals = self.get_wallet_balance_pos_order_line(all_partner_ids)
         for partner, child_ids in all_partner_families.items():
             partner.customer_wallet_balance += sum(
                 -total["total"]
                 for total in statement_line_totals
+                if total["partner_id"] in child_ids
+            ) + sum(
+                total["total"]
+                for total in order_line_totals
                 if total["partner_id"] in child_ids
             )
