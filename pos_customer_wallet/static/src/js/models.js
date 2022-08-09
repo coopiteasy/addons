@@ -13,7 +13,7 @@ odoo.define("pos_customer_wallet.models", function (require) {
             var client = this.get("client");
             receipt.customer_wallet_balance = client
                 ? client.customer_wallet_balance
-                : null;
+                : 0;
             return receipt;
         },
     });
