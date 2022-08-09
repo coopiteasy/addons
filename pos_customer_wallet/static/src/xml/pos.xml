@@ -55,4 +55,33 @@
             </line>
         </t>
     </t>
+
+    <t t-extend="ClientDetails">
+        <t t-jquery=".client-details-right:last-child" t-operation="append">
+            <div
+                t-attf-class='client-detail #{partner.customer_wallet_balance == 0 ? "oe_hidden" : ""}'
+                t-if="widget.pos.config.is_enabled_customer_wallet"
+            >
+                <span class='label'>Customer Wallet Balance</span>
+                <span class='detail wallet_balance'><t
+                        t-esc='widget.format_currency(partner.customer_wallet_balance) or ""'
+                    /></span>
+            </div>
+        </t>
+    </t>
+
+    <t t-extend="ClientDetailsEdit">
+        <t t-jquery=".client-details-right:last-child" t-operation="append">
+            <div
+                t-attf-class='client-detail #{partner.wallet_balance == 0 ? "oe_hidden" : ""}'
+                t-if="widget.pos.config.is_enabled_customer_wallet"
+            >
+                <span class='label'>Customer Wallet Balance</span>
+                <span class='detail wallet_balance'><t
+                        t-esc='widget.format_currency(partner.wallet_balance) or ""'
+                    /></span>
+            </div>
+        </t>
+    </t>
+
 </template>
