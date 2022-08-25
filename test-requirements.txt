@@ -1,2 +1,7 @@
 git+https://github.com/beescoop/obeesdoo@12.0#subdirectory=setup/beesdoo_base
 git+https://github.com/beescoop/obeesdoo@12.0#subdirectory=setup/beesdoo_product
+git+https://github.com/beescoop/obeesdoo@12.0#subdirectory=setup/member_card
+git+https://github.com/beescoop/obeesdoo@12.0#subdirectory=setup/eater
+git+https://github.com/beescoop/obeesdoo@12.0#subdirectory=setup/eater_member_card
+# Terrible workaround. Dependency of beesdoo_base.
+git+https://github.com/coopiteasy/addons@12.0#subdirectory=setup/company_supplier_context
