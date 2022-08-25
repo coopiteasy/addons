@@ -42,7 +42,7 @@ addon | version | maintainers | summary
 [company_supplier_context](company_supplier_context/) | 12.0.1.0.0 |  | When creating a new supplier, make it a company partner type by default.
 [company_today](company_today/) | 12.0.1.0.0 |  | Store today's date on the company model.
 [delivery_carrier_combine_price_rule](delivery_carrier_combine_price_rule/) | 12.0.1.0.0 |  | Chose how to combine price rule on a delivery carrier.
-[delivery_product_restriction](delivery_product_restriction/) | 12.0.1.0.0 |  | Allow some product to be shipped only by some delivery carrier.
+[delivery_product_restriction](delivery_product_restriction/) | 12.0.1.0.1 |  | Allow some product to be shipped only by some delivery carrier.
 [document_hosting](document_hosting/) | 12.0.1.0.0 |  | Manage documents that can be published on website with ??.
 [email_template_config](email_template_config/) | 12.0.1.0.0 |  | This module extends the email in order to force some behaviours configured in the mail template(e.g. force send mail or not).
 [hr_holidays_custom_duration](hr_holidays_custom_duration/) | 12.0.1.0.1 |  | Allow to override the duration of a leave.
