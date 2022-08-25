@@ -18,17 +18,14 @@ class DeliveryCarrier(models.Model):
 
     def available_carriers(self, partner, products=None):
         """
-        Overwrite the `available_carriers` function in the
+        Override the `available_carriers` function in the
         delivery.carrier in the delivery module.
 
         Returns a recordset of the available delivery carrier given the
         partner location and the authorised carrier for the products.
         """
-        delivery_carriers = self
-        if partner:
-            delivery_carriers = delivery_carriers.filtered(
-                lambda c: c._match_address(partner)
-            )
+        # the default behavior is to filter by the address of the partner.
+        delivery_carriers = super().available_carriers(partner)
         if products:
             delivery_carriers = delivery_carriers.filtered(
                 lambda c: c._can_be_used_to_deliver_products(products)
