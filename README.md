@@ -26,6 +26,7 @@ Available addons
 addon | version | maintainers | summary
 --- | --- | --- | ---
 [container_meals](container_meals/) | 14.0.1.1.0 |  | Deliver meals in containers.
+[email_template_config](email_template_config/) | 14.0.1.0.0 |  | This module extends the email in order to force some behaviours configured in the mail template(e.g. force send mail or not).
 [hide_variant_price_difference](hide_variant_price_difference/) | 14.0.1.0.0 |  | On website sale views, hide the tags next to product variants that show the price difference compared to the current price.
 [partner_contact_address](partner_contact_address/) | 14.0.1.0.0 |  | This module allows to have company contacts with their own address.
 
