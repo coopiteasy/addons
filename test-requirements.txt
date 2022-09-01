@@ -3,5 +3,8 @@ git+https://github.com/beescoop/obeesdoo@12.0#subdirectory=setup/beesdoo_product
 git+https://github.com/beescoop/obeesdoo@12.0#subdirectory=setup/member_card
 git+https://github.com/beescoop/obeesdoo@12.0#subdirectory=setup/eater
 git+https://github.com/beescoop/obeesdoo@12.0#subdirectory=setup/eater_member_card
+git+https://github.com/beescoop/obeesdoo@12.0#subdirectory=setup/product_main_supplier
+git+https://github.com/beescoop/obeesdoo@12.0#subdirectory=setup/sale_adapt_price_wizard
+git+https://github.com/beescoop/obeesdoo@12.0#subdirectory=setup/sale_suggested_price
 # Terrible workaround. Dependency of beesdoo_base.
 git+https://github.com/coopiteasy/addons@12.0#subdirectory=setup/company_supplier_context

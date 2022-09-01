@@ -1,11 +1,12 @@
 # Copyright 2021 Coop IT Easy SCRLfs
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import api, fields, models
-
 import logging
 
+from odoo import fields, models
+
 _logger = logging.getLogger(__name__)
+
 
 class Company(models.Model):
     _inherit = "res.company"
