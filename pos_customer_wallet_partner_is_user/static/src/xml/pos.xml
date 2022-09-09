@@ -20,7 +20,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </t>
 
     <t t-extend="XmlReceipt">
-        <t t-jquery=".total_foodprint_amount" t-operation="attributes">
+        <t t-jquery=".wallet_balance_amount" t-operation="attributes">
             <!-- FIXME: Same as above. -->
             <attribute
                 name="t-if"
