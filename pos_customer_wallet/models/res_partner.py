@@ -66,6 +66,9 @@ class Partner(models.Model):
             all_partner_families[partner] = partner.get_all_partners_in_family()
             all_partner_ids |= set(all_partner_families[partner])
 
+        if not all_partner_ids:
+            return True
+
         statement_line_totals = self.get_wallet_balance_bank_statement_line(
             all_partner_ids
         )
