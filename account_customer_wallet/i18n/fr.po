@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-10 11:58+0000\n"
-"PO-Revision-Date: 2022-08-10 11:58+0000\n"
+"POT-Creation-Date: 2022-09-12 21:29+0000\n"
+"PO-Revision-Date: 2022-09-12 21:29+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -99,7 +99,7 @@ msgid "The account where all wallet transactions will be recorded"
 msgstr "Le compte dans lequel toutes les transactions de compte client seront enregistrés"
 
 #. module: account_customer_wallet
-#: code:addons/account_customer_wallet/models/account_payment.py:37
+#: code:addons/account_customer_wallet/models/account_payment.py:31
 #, python-format
 msgid "There is not enough balance in the customer's wallet to perform this payment. \n"
 " - Customer : %s\n"
