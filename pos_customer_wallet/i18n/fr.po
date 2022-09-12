@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-10 12:00+0000\n"
-"PO-Revision-Date: 2022-08-10 12:00+0000\n"
+"POT-Creation-Date: 2022-09-12 21:31+0000\n"
+"PO-Revision-Date: 2022-09-12 21:31+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -17,12 +17,17 @@ msgstr ""
 
 #. module: pos_customer_wallet
 #. openerp-web
-#: code:addons/pos_customer_wallet/static/src/js/screens.js:60
+#: code:addons/pos_customer_wallet/static/src/js/screens.js:68
 #, python-format
-msgid "Cannot use customer wallet Product without selecting a customer.\n"
-"\n"
-" Please select a customer or use a different payment method."
-msgstr ""
+msgid "' without selecting a customer. Please select a customer or remove the order line(s)."
+msgstr "' sans sélectionner un client. Veuillez sélectionner un client, ou bien retirer la ou les lignes de ventes."
+
+#. module: pos_customer_wallet
+#. openerp-web
+#: code:addons/pos_customer_wallet/static/src/js/screens.js:66
+#, python-format
+msgid "Cannot sell the product '"
+msgstr "Impossible de vendre ce produit '"
 
 #. module: pos_customer_wallet
 #. openerp-web
@@ -31,7 +36,9 @@ msgstr ""
 msgid "Cannot use customer wallet payment method without selecting a customer.\n"
 "\n"
 " Please select a customer or use a different payment method."
-msgstr ""
+msgstr "Vous ne pouvez pas utiliser un moyen de paiement de type compte client sans sélectionner un client.\n"
+"\n"
+" Veuillez sélectionner un client ou changer de moyen de paiement."
 
 #. module: pos_customer_wallet
 #: model:ir.model,name:pos_customer_wallet.model_res_partner
@@ -58,7 +65,7 @@ msgstr "Solde de compte client :"
 
 #. module: pos_customer_wallet
 #. openerp-web
-#: code:addons/pos_customer_wallet/static/src/js/screens.js:69
+#: code:addons/pos_customer_wallet/static/src/js/screens.js:77
 #, python-format
 msgid "Customer wallet balance not sufficient"
 msgstr "Le solde du compte client n'est pas suffisant"
@@ -71,7 +78,7 @@ msgstr "Compte client activé"
 #. module: pos_customer_wallet
 #. openerp-web
 #: code:addons/pos_customer_wallet/static/src/js/screens.js:50
-#: code:addons/pos_customer_wallet/static/src/js/screens.js:59
+#: code:addons/pos_customer_wallet/static/src/js/screens.js:64
 #, python-format
 msgid "No customer selected"
 msgstr "Aucun client sélectionné"
@@ -83,7 +90,7 @@ msgstr "Paramétrage du point de vente"
 
 #. module: pos_customer_wallet
 #. openerp-web
-#: code:addons/pos_customer_wallet/static/src/js/screens.js:70
+#: code:addons/pos_customer_wallet/static/src/js/screens.js:78
 #, python-format
 msgid "There is not enough balance in the customer's wallet to perform this order."
 msgstr "Le solde du compte client est insuffisant pour réaliser cette vente."
