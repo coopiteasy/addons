@@ -36,22 +36,28 @@ class Partner(models.Model):
 
     @api.model
     def get_wallet_balance_pos_order_line(self, all_partner_ids):
-        # Note the current algorithm could not work in a multi company
-        # context, for partner shared in many companies.
-        # TODO : ask to carmen how `_where_calc` works, and how to make
-        # join.
-        query = """
-            SELECT sum(pol.price_subtotal) as total, po.partner_id
-            FROM pos_order_line pol
-            INNER JOIN pos_order po on pol.order_id = po.id
-            INNER JOIN product_product pp on pol.product_id = pp.id
-            INNER JOIN product_template pt on pp.product_tmpl_id = pt.id
-            WHERE po.state = 'paid'
-            AND pt.is_customer_wallet_product = true
-            AND po.partner_id in %s
-            GROUP BY po.partner_id;
+        pos_order_line = self.env["pos.order.line"].sudo()
+        where_query = pos_order_line._where_calc(
+            [
+                ("order_id.partner_id", "in", list(all_partner_ids)),
+                ("order_id.state", "=", "paid"),
+                ("product_id.is_customer_wallet_product", "=", True),
+            ]
+        )
+        pos_order_line._apply_ir_rules(where_query, "read")
+        from_clause, where_clause, where_clause_params = where_query.get_sql()
+
+        query = (
             """
-        self.env.cr.execute(query, (tuple(all_partner_ids),))
+            SELECT SUM(pos_order_line.price_subtotal) as total, po.partner_id
+            FROM pos_order_line pos_order_line
+            INNER JOIN pos_order po ON pos_order_line.order_id = po.id
+            WHERE %s
+            GROUP BY po.partner_id
+            """
+            % where_clause
+        )
+        self.env.cr.execute(query, where_clause_params)
         return self.env.cr.dictfetchall()
 
     def _compute_customer_wallet_balance(self):
