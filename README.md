@@ -51,6 +51,7 @@ addon | version | maintainers | summary
 [mail_auto_resend](mail_auto_resend/) | 12.0.1.0.0 |  | Automatically resend failed emails
 [mrp_unbuild_product_mo_filter](mrp_unbuild_product_mo_filter/) | 12.0.1.0.1 |  | Filter unbuild manufacturing orders by selected product
 [partner_contact_address](partner_contact_address/) | 12.0.1.0.0 |  | This module allows to have company contacts with their own address.
+[partner_no_unique_bank](partner_no_unique_bank/) | 12.0.1.0.0 |  | Do not mandate that bank account numbers be unique between partners.
 [partner_socialmedia](partner_socialmedia/) | 12.0.1.0.0 |  | Add social media fields to contacts
 [partner_warehouse](partner_warehouse/) | 12.0.1.0.0 |  | Let the warehouse of the sale order be set accordingly to a default warehouse set on the partner.
 [pos_auto_invoice](pos_auto_invoice/) | 12.0.1.0.0 |  | In the POS, set orders as to-invoice by default.
