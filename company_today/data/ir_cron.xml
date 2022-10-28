@@ -10,9 +10,19 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <field name="model_id" ref="model_res_company" />
         <field name="code">model.cron_update_today()</field>
         <field name="active" eval="True" />
-        <field name="interval_number">1</field>
+        <field name="interval_number">15</field>
         <field name="interval_type">minutes</field>
+        <!-- Round to nearest 15 min -->
+        <field
+            name="nextcall"
+            eval="datetime.min
+            + round(
+                (datetime.now() - datetime.min + timedelta(minutes=15))
+                / timedelta(minutes=15)
+            )
+            * timedelta(minutes=15)"
+        />
         <field name="numbercall">-1</field>
-        <field name="doall">1</field>
+        <field name="doall">0</field>
     </record>
 </odoo>
