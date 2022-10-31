@@ -17,4 +17,6 @@ class Company(models.Model):
     @api.model
     def cron_update_today(self):
         companies = self.search([])
-        companies.write({"today": fields.Date.today()})
+        today = fields.Date.today()
+        if companies and companies[0].today != today:
+            companies.write({"today": today})
