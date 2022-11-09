@@ -5,7 +5,7 @@
     "name": "Partner No Unique Bank",
     "summary": """
         Do not mandate that bank account numbers be unique between partners.""",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.0.1",
     "category": "Tools",
     "website": "https://coopiteasy.be",
     "author": "Coop IT Easy SC",
