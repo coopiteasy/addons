@@ -11,7 +11,7 @@ github_enable_stale_action: true
 github_enforce_dev_status_compatibility: true
 include_wkhtmltopdf: false
 odoo_version: 14.0
-org_name: Coop IT Easy SCRLfs
+org_name: Coop IT Easy SC
 org_slug: coopiteasy
 rebel_module_groups: []
 repo_description: TODO

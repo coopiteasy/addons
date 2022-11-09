@@ -2,22 +2,20 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
-    "name": "hide_variant_price_difference",
+    "name": "Partner No Unique Bank",
     "summary": """
-        On website sale views, hide the tags next to product variants that show
-        the price difference compared to the current price.""",
+        Do not mandate that bank account numbers be unique between partners.""",
     "version": "14.0.1.0.0",
-    "category": "Website",
+    "category": "Tools",
     "website": "https://coopiteasy.be",
     "author": "Coop IT Easy SC",
     "license": "AGPL-3",
     "application": False,
     "depends": [
-        "sale",
-        "website_sale",
+        "base",
     ],
     "excludes": [],
-    "data": ["views/templates.xml"],
+    "data": [],
     "demo": [],
     "qweb": [],
 }
