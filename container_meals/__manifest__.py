@@ -4,7 +4,7 @@
 {
     "name": "Container Meals",
     "summary": """Deliver meals in containers.""",
-    "version": "14.0.1.1.0",
+    "version": "14.0.1.1.1",
     "category": "Uncategorized",
     "website": "https://coopiteasy.be",
     "author": "Coop IT Easy SC",
