@@ -5,7 +5,7 @@
     "name": "Account For Missing Tax",
     "summary": """
         Define an account for when the tax is unassigned, for each company.""",
-    "version": "12.0.1.0.0",
+    "version": "12.0.1.0.1",
     "category": "Accounting & Finance",
     "website": "https://coopiteasy.be",
     "author": "Coop IT Easy SC",
