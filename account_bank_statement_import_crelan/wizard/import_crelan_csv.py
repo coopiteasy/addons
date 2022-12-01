@@ -129,7 +129,7 @@ class CodaBankStatementImport(models.TransientModel):
                 delimiter=self._csv_delimiter,
                 quotechar=self._csv_quote,
             )
-            if not data.fieldnames == self._header:
+            if data.fieldnames != self._header:
                 raise ValueError()
         except ValueError:
             return super(CodaBankStatementImport, self)._parse_file(data_file)
