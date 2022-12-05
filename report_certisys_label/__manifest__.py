@@ -6,7 +6,7 @@
     "name": "Report Certisys Label",
     "summary": "Add Certisys Label on account, stock and sale reports",
     "category": "Reporting",
-    "version": "12.0.1.0.0",
+    "version": "11.0.1.0.0",
     "author": "Coop IT Easy SC",
     "license": "AGPL-3",
     "website": "https://coopiteasy.be",
