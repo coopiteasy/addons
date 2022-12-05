@@ -27,6 +27,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
+[account_bank_statement_import_crelan](account_bank_statement_import_crelan/) | 12.0.1.0.0 |  | Import Crelan CSV Wizard
 [account_customer_wallet](account_customer_wallet/) | 12.0.1.2.0 |  | Allow customers to pay using a wallet which is tracked by the company.
 [account_invoice_check_bba_com](account_invoice_check_bba_com/) | 12.0.1.0.0 |  | Check the structured communication if the supplier invoice communication is of type bba.
 [account_invoice_check_identical_invoice](account_invoice_check_identical_invoice/) | 12.0.1.0.0 |  | Check if invoices with the same partner, invoice date and total amount already exist
