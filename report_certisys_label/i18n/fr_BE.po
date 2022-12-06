@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-16 08:50+0000\n"
+"POT-Creation-Date: 2022-12-06 07:25+0000\n"
 "PO-Revision-Date: 2021-11-16 08:50+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
@@ -17,17 +17,17 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: report_certisys_label
-#: model_terms:ir.ui.view,arch_db:report_certisys_label.account_invoice_document_certisys_label
-#: model_terms:ir.ui.view,arch_db:report_certisys_label.report_delivery_document_certisys_label
-#: model_terms:ir.ui.view,arch_db:report_certisys_label.report_picking_certisys_label
-#: model_terms:ir.ui.view,arch_db:report_certisys_label.report_saleorder_document_certisys_label
+#: model:ir.ui.view,arch_db:report_certisys_label.account_invoice_document_certisys_label
+#: model:ir.ui.view,arch_db:report_certisys_label.report_delivery_document_certisys_label
+#: model:ir.ui.view,arch_db:report_certisys_label.report_picking_certisys_label
+#: model:ir.ui.view,arch_db:report_certisys_label.report_saleorder_document_certisys_label
 msgid "All products of"
 msgstr "Tous les produits de"
 
 #. module: report_certisys_label
-#: model_terms:ir.ui.view,arch_db:report_certisys_label.account_invoice_document_certisys_label
-#: model_terms:ir.ui.view,arch_db:report_certisys_label.report_delivery_document_certisys_label
-#: model_terms:ir.ui.view,arch_db:report_certisys_label.report_picking_certisys_label
-#: model_terms:ir.ui.view,arch_db:report_certisys_label.report_saleorder_document_certisys_label
+#: model:ir.ui.view,arch_db:report_certisys_label.account_invoice_document_certisys_label
+#: model:ir.ui.view,arch_db:report_certisys_label.report_delivery_document_certisys_label
+#: model:ir.ui.view,arch_db:report_certisys_label.report_picking_certisys_label
+#: model:ir.ui.view,arch_db:report_certisys_label.report_saleorder_document_certisys_label
 msgid "are certified BIO by Certisys BE-BIO-01"
 msgstr "sont certifiés BIO par Certisys BE-BIO-01"
