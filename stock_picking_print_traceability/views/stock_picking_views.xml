@@ -1,14 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="view_picking_form_last_print" model="ir.ui.view">
         <field name="name">stock.picking.form.last.print</field>
         <field name="model">stock.picking</field>
-        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="inherit_id" ref="stock.view_picking_form" />
         <field name="arch" type="xml">
             <xpath expr="//page[@name='extra']//group" position="inside">
                 <group name="last_print">
-                    <field name="printed" invisible="1"/>
-                    <field name="print_date" string="Last Print Date"/>
+                    <field name="printed" invisible="1" />
+                    <field name="print_date" string="Last Print Date" />
                 </group>
             </xpath>
         </field>
@@ -17,12 +17,22 @@
     <record id="view_picking_internal_search_last_print" model="ir.ui.view">
         <field name="name">stock.picking.internal.search.last.print</field>
         <field name="model">stock.picking</field>
-        <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+        <field name="inherit_id" ref="stock.view_picking_internal_search" />
         <field name="arch" type="xml">
             <xpath expr="//filter[@name='activities_upcoming_all']" position="after">
-                <separator/>
-                <filter string="To Print" name="to_print" domain="[('printed', '!=', True)]" help="Pickings not printed"/>
-                <filter string="Printed" name="printed" domain="[('printed', '=', True)]" help="Pickings already printed"/>
+                <separator />
+                <filter
+                    string="To Print"
+                    name="to_print"
+                    domain="[('printed', '!=', True)]"
+                    help="Pickings not printed"
+                />
+                <filter
+                    string="Printed"
+                    name="printed"
+                    domain="[('printed', '=', True)]"
+                    help="Pickings already printed"
+                />
             </xpath>
         </field>
     </record>

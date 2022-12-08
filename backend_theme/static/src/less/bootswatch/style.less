@@ -1,4 +1,4 @@
-// Put Loading indicator in the right bottom of the screen 
+// Put Loading indicator in the right bottom of the screen
 .o_loading {
     background-color: darken(@brand-primary, 13.5%) !important;
     top: inherit;
@@ -11,11 +11,9 @@
 
 // Font
 
-.ui-autocomplete
-{
-	font-family: @font-family-sans-serif;
+.ui-autocomplete {
+    font-family: @font-family-sans-serif;
 }
-
 
 // Navbar =========================================
 #oe_main_menu_navbar {
@@ -30,19 +28,21 @@
 #oe_main_menu_navbar,
 .navbar-nav {
     li {
-        a, button {
+        a,
+        button {
             font-size: 13px !important;
-         //   padding: 14px 10px !important;
+            //   padding: 14px 10px !important;
             margin-top: 0 !important;
             line-height: 21px !important;
         }
     }
     .dropdown-menu {
         li {
-            a, button {
+            a,
+            button {
                 padding: 4px 10px !important;
                 font-size: 13px !important;
-			}
+            }
         }
     }
 }
@@ -66,43 +66,54 @@
     max-width: 90% !important;
 }
 
-
 // Kanban
 
 //Project
-.o_kanban_view.o_kanban_dashboard.o_project_kanban .o_project_kanban_boxes .o_project_kanban_box:nth-child(2n+1) {
+.o_kanban_view.o_kanban_dashboard.o_project_kanban
+    .o_project_kanban_boxes
+    .o_project_kanban_box:nth-child(2n + 1) {
     background-color: @brand-primary !important;
-    }
+}
 
 // Search filter
 
 .o_searchview .o_searchview_facet .o_searchview_facet_label {
     background-color: @brand-primary;
-    }
-
+}
 
 .o_primary {
     color: @brand-primary;
-    }
+}
 
-.o_kanban_view.o_kanban_dashboard.o_salesteam_kanban .o_sales_dashboard > div > table > tbody > tr > td.o_main {
+.o_kanban_view.o_kanban_dashboard.o_salesteam_kanban
+    .o_sales_dashboard
+    > div
+    > table
+    > tbody
+    > tr
+    > td.o_main {
     background-color: @brand-primary !important;
-    }
+}
 
 // Input field
 
-input[type="text"], input[type="password"], input[type="number"],
-textarea, select, .o_form_view.o_form_editable .o_form_field_many2manytags,
-.o_searchview
-{
+input[type="text"],
+input[type="password"],
+input[type="number"],
+textarea,
+select,
+.o_form_view.o_form_editable .o_form_field_many2manytags,
+.o_searchview {
     border: 0;
     border-radius: 0;
     border-bottom: 1px solid #ccc;
 }
 
-.o_web_client input:focus, .o_web_client textarea:focus, .o_web_client select:focus {
+.o_web_client input:focus,
+.o_web_client textarea:focus,
+.o_web_client select:focus {
     outline: none;
-	border-bottom: 2px solid @brand-info;
+    border-bottom: 2px solid @brand-info;
 }
 
 // Control panel
@@ -116,28 +127,26 @@ textarea, select, .o_form_view.o_form_editable .o_form_field_many2manytags,
     background-color: transparent;
 }
 
-
 // Explorer 11 fix to use fullscreen
 
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-
-	.oe-view-manager-view-kanban, .oe-view-manager-view-form, .oe-view-manager-view-list, .oe-view-manager-view-calendar, .oe-view-manager-view-pivot, .oe-view-manager-view-graph {
+    .oe-view-manager-view-kanban,
+    .oe-view-manager-view-form,
+    .oe-view-manager-view-list,
+    .oe-view-manager-view-calendar,
+    .oe-view-manager-view-pivot,
+    .oe-view-manager-view-graph {
         width: 100% !important;
-	}
+    }
 
-	// Fix user preference height	
-	.modal .modal-content .modal-body .oe-view-manager-content {
-		position: static;
-		height: 400px;
-	}
-	
-	// Fix salesboard width
-	.oe-view-manager-view-sales_team_dashboard {
-		width: 100%;
-	}
+    // Fix user preference height
+    .modal .modal-content .modal-body .oe-view-manager-content {
+        position: static;
+        height: 400px;
+    }
 
+    // Fix salesboard width
+    .oe-view-manager-view-sales_team_dashboard {
+        width: 100%;
+    }
 }
-
-
-
-

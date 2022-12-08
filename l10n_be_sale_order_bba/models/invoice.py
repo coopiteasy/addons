@@ -5,13 +5,13 @@ from odoo import models
 
 
 class AccountInvoice(models.Model):
-    _inherit = 'account.invoice'
+    _inherit = "account.invoice"
 
+    # pylint: disable=redefined-builtin
     def generate_bbacomm(self, type, reference_type, partner_id, reference):
         if self.reference:
-            return {'value': {'reference': self.reference}}
+            return {"value": {"reference": self.reference}}
         else:
-            return super(AccountInvoice, self).generate_bbacomm(type,
-                                                                reference_type,
-                                                                partner_id,
-                                                                reference)
+            return super(AccountInvoice, self).generate_bbacomm(
+                type, reference_type, partner_id, reference
+            )

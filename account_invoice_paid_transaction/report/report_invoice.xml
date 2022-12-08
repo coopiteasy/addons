@@ -1,23 +1,28 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!--
      Copyright 2021 Coop IT Easy
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 -->
 <odoo>
-    <template id="report_invoice_document_with_so_payments" inherit_id="account.report_invoice_document_with_payments">
+    <template
+        id="report_invoice_document_with_so_payments"
+        inherit_id="account.report_invoice_document_with_payments"
+    >
         <xpath expr="//t[@t-set='payments_vals']" position="after">
             <t t-if="len(payments_vals) == 0">
-                <t t-set="so_payments_vals" t-value="o._get_so_payments_vals()"/>
+                <t t-set="so_payments_vals" t-value="o._get_so_payments_vals()" />
                 <t t-foreach="so_payments_vals" t-as="so_payment_vals">
                     <tr>
                         <td>
                             <i class="oe_form_field text-right oe_payment_label">Paid on
-                                <t t-esc="so_payment_vals['date']"/>
+                                <t t-esc="so_payment_vals['date']" />
                             </i>
                         </td>
                         <td class="text-right">
-                            <span t-esc="so_payment_vals['amount']"
-                                  t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                            <span
+                                t-esc="so_payment_vals['amount']"
+                                t-options='{"widget": "monetary", "display_currency": o.currency_id}'
+                            />
                         </td>
                     </tr>
                 </t>
@@ -27,8 +32,10 @@
                             <strong>Amount Due</strong>
                         </td>
                         <td class="text-right">
-                            <span t-esc="o.amount_total - o.amount_paid_by_transactions"
-                                  t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                            <span
+                                t-esc="o.amount_total - o.amount_paid_by_transactions"
+                                t-options='{"widget": "monetary", "display_currency": o.currency_id}'
+                            />
                         </td>
                     </tr>
                 </t>

@@ -1,4 +1,4 @@
-# Copyright 2021+ Coop IT Easy SCRL fs
+# Copyright 2021+ Coop IT Easy SC
 #   Robin Keunen <robin@coopiteasy.be>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
@@ -7,8 +7,8 @@
     "summary": "Mark invoice as paid if an online transaction exists",
     "version": "11.0.1.0.0",
     "category": "Sales",
-    "website": "https://www.coopiteasy.be",
-    "author": "Coop IT Easy SCRLfs",
+    "website": "https://coopiteasy.be",
+    "author": "Coop IT Easy SC",
     "license": "AGPL-3",
     "application": False,
     "installable": True,

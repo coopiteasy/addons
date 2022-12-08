@@ -1,10 +1,11 @@
-# Copyright 2021 Coop IT Easy SCRL fs
+# Copyright 2021 Coop IT Easy SC
 #   Robin Keunen <robin@coopiteasy.be>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 
-from odoo import api, fields, models
 import logging
+
+from odoo import api, fields, models
 
 _logger = logging.getLogger(__name__)
 
@@ -36,9 +37,7 @@ class AccountInvoice(models.Model):
             transactions = invoice.origin_so_id.payment_tx_ids.filtered(
                 lambda p: p.state == "done"
             )
-            invoice.amount_paid_by_transactions = sum(
-                transactions.mapped("amount")
-            )
+            invoice.amount_paid_by_transactions = sum(transactions.mapped("amount"))
 
     @api.multi
     def _get_so_payments_vals(self):

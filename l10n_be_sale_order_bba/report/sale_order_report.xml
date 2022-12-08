@@ -1,13 +1,16 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-	<data>
-		<template id="report_saleorder_document_bba" inherit_id="sale.report_saleorder_document">
-			<div name="payment_term" position="before">	
-				<div name="reference" t-if="doc.reference" class="col-xs-3">
+    <data>
+        <template
+            id="report_saleorder_document_bba"
+            inherit_id="sale.report_saleorder_document"
+        >
+            <div name="payment_term" position="before">
+                <div name="reference" t-if="doc.reference" class="col-xs-3">
                     <strong>Payment reference:</strong>
-                    <p t-field="doc.reference"/>
+                    <p t-field="doc.reference" />
                 </div>
             </div>
         </template>
-	</data>
+    </data>
 </odoo>
