@@ -1,18 +1,23 @@
 <odoo>
-	<data>
-		<record id="view_partner_form_isr" model="ir.ui.view">
-			<field name="name">res.partner.form</field>
-		    <field name="model">res.partner</field>
-		    <field name="inherit_id" ref="base.view_partner_form"/>
-		    <field name="arch" type="xml">
-		    	<group name="sale" position="inside">
-		    		<field name="isr_number"/>
-		    		<field name="customer_number"/>
-		    	</group>
-		    	<group name="container_row_2" position="before">
-		    		<button string="Create ISR" type="object" name="action_generate_isr" attrs="{'invisible':[('customer','=',False)]}"/>
-		    	</group>
-		    </field>
-		</record>
-	</data>
+    <data>
+        <record id="view_partner_form_isr" model="ir.ui.view">
+            <field name="name">res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="arch" type="xml">
+                <group name="sale" position="inside">
+                    <field name="isr_number" />
+                    <field name="customer_number" />
+                </group>
+                <group name="container_row_2" position="before">
+                    <button
+                        string="Create ISR"
+                        type="object"
+                        name="action_generate_isr"
+                        attrs="{'invisible':[('customer','=',False)]}"
+                    />
+                </group>
+            </field>
+        </record>
+    </data>
 </odoo>

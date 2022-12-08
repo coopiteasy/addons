@@ -1,4 +1,4 @@
-# Copyright 2021+ Coop IT Easy SCRL fs
+# Copyright 2021+ Coop IT Easy SC
 #   Robin Keunen <robin@coopiteasy.be>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
@@ -24,7 +24,6 @@ class SaleOrder(models.Model):
             invoice.origin_so_id = self
         except ValueError:
             _logger.warning(
-                "Could not link invoices to sale orders %s"
-                % self.mapped("name")
+                "Could not link invoices to sale orders %s" % self.mapped("name")
             )
         return invoice_ids

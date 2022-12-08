@@ -6,12 +6,14 @@ from odoo.http import request
 
 
 class PortalISR(http.Controller):
-
     @http.route("/isr", type="http", auth="user", website=True)
     def isr(self):
         partner = request.env.user.partner_id
         if partner.isr_number:
-            url = "https://tools.hsolutions.ch/outils/bvrlignon/?bvr=" + partner.isr_number
+            url = (
+                "https://tools.hsolutions.ch/outils/bvrlignon/?bvr="
+                + partner.isr_number
+            )
             return request.redirect(url)
         else:
             return request.redirect("my/credit_account")

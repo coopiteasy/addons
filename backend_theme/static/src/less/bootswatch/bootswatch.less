@@ -6,42 +6,36 @@
 
 @font-face {
     font-family: Roboto;
-    src: url(/backend_theme/static/src/font/Roboto-Regular.ttf)
+    src: url(/backend_theme/static/src/font/Roboto-Regular.ttf);
 }
 
 // Navbar =====================================================================
 
 .navbar {
-
-  &-default {
-
-    .badge {
-      background-color: #fff;
-      color: @navbar-default-bg;
+    &-default {
+        .badge {
+            background-color: #fff;
+            color: @navbar-default-bg;
+        }
     }
-  }
 
-  &-inverse {
-
-    .badge {
-      background-color: #fff;
-      color: @navbar-inverse-bg;
+    &-inverse {
+        .badge {
+            background-color: #fff;
+            color: @navbar-inverse-bg;
+        }
     }
-  }
 }
 
 @media (max-width: @grid-float-breakpoint-max) {
-
-  .navbar {
-
-    .dropdown-menu {
-      a {
-        color: #fff;
-      }
+    .navbar {
+        .dropdown-menu {
+            a {
+                color: #fff;
+            }
+        }
     }
-  }
 }
-
 
 // Buttons ====================================================================
 

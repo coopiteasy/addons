@@ -1,4 +1,4 @@
-from odoo import models, api, _
+from odoo import _, api, models
 from odoo.exceptions import UserError
 
 
@@ -12,16 +12,21 @@ class AccountInvoiceConfirm(models.TransientModel):
 
     @api.multi
     def invoice_validate_send(self):
-        active_ids = self.env.context.get('active_ids', []) or []
+        active_ids = self.env.context.get("active_ids", []) or []
 
         template_ref = "account.email_template_edi_invoice"
         mail_template = self.env.ref(template_ref)
 
-        for invoice in self.env['account.invoice'].browse(active_ids):
-            if invoice.state != 'draft':
-                raise UserError(_("Selected invoice(s) cannot be confirmed as "
-                                  "they are not in 'Draft' state."))
+        for invoice in self.env["account.invoice"].browse(active_ids):
+            if invoice.state != "draft":
+                raise UserError(
+                    _(
+                        "Selected invoice(s) cannot be confirmed as "
+                        "they are not in 'Draft' state."
+                    )
+                )
             invoice.action_invoice_open()
             mail_template.send_mail(invoice.id, False)
+            # pylint: disable=E8102
             self.env.cr.commit()
-        return {'type': 'ir.actions.act_window_close'}
+        return {"type": "ir.actions.act_window_close"}

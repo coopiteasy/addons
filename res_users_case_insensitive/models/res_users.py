@@ -1,16 +1,15 @@
-# -*- coding: utf-8 -*-
 # © 2015-TODAY LasLabs Inc.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import models, api, fields
+from odoo import api, fields, models
 
 
 class ResUsers(models.Model):
-    _inherit = 'res.users'
+    _inherit = "res.users"
     login = fields.Char(
-        'Login',
+        "Login",
         required=True,
-        help='Used to log into the system. Case insensitive.',
+        help="Used to log into the system. Case insensitive.",
     )
 
     @api.model
@@ -20,20 +19,26 @@ class ResUsers(models.Model):
         search method due to the field not being computed
         """
         for idx, _domain in enumerate(domain):
-            if _domain[0] == 'login':
+            if _domain[0] == "login":
                 lower = _domain[2].lower() if _domain[2] else False
                 domain[idx] = (_domain[0], _domain[1], lower)
         return super(ResUsers, self).search(domain, *args, **kwargs)
 
     @api.model
-    def create(self, vals, ):
+    def create(
+        self,
+        vals,
+    ):
         """ Overload create to lowercase login """
-        vals['login'] = vals.get('login', '').lower()
+        vals["login"] = vals.get("login", "").lower()
         return super(ResUsers, self).create(vals)
 
     @api.multi
-    def write(self, vals, ):
+    def write(
+        self,
+        vals,
+    ):
         """ Overload write to lowercase login """
-        if vals.get('login'):
-            vals['login'] = vals['login'].lower()
+        if vals.get("login"):
+            vals["login"] = vals["login"].lower()
         return super(ResUsers, self).write(vals)
