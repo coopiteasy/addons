@@ -5,7 +5,7 @@ SPDX-FileCopyrightText: 2022 Coop IT Easy SC
 SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 <odoo>
-    <template id="products_item" inherit_id="website_sale.products_item">
+    <template id="products_item" inherit_id="website_sale.products_item" priority="2">
         <xpath
             expr="//div[@itemscope='itemscope']//div[hasclass('product_price')]//b"
             position="after"
@@ -16,7 +16,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         </xpath>
     </template>
 
-    <template id="product_price" inherit_id="website_sale.product_price">
+    <template id="product_price" inherit_id="website_sale.product_price" priority="2">
         <xpath expr="//b[hasclass('oe_price')]" position="after">
             <span>
                  / <t t-esc="product.sudo().uom_id.name" id="product_uom_name" />
