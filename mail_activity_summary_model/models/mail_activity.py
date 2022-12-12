@@ -8,7 +8,11 @@ from odoo import api, fields, models
 class MailActivity(models.Model):
     _inherit = "mail.activity"
 
-    summary = fields.Char(compute="_compute_summary", inverse="_inverse_summary")
+    summary = fields.Char(
+        compute="_compute_summary",
+        inverse="_inverse_summary",
+        store=True,
+    )
     summary_id = fields.Many2one(
         comodel_name="mail.activity.summary",
         string="Summary",
