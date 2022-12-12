@@ -6,7 +6,7 @@
     "name": "Website Sale Product Display Unit",
     "summary": """
         Display the price per unit on the e-commerce pages.""",
-    "version": "12.0.1.0.0",
+    "version": "12.0.1.0.1",
     "category": "Website",
     "website": "https://coopiteasy.be",
     "author": "Coop IT Easy SC",
