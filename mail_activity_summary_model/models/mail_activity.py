@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class MailActivity(models.Model):
@@ -15,6 +15,7 @@ class MailActivity(models.Model):
         ondelete="set null",
     )
 
+    @api.depends("summary_id", "summary_id.name")
     def _compute_summary(self):
         for record in self:
             if record.summary_id:
