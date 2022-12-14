@@ -16,6 +16,7 @@
     "depends": ["mail"],
     "excludes": [],
     "data": [
+        "security/res_groups.xml",
         "security/ir.model.access.csv",
         "views/mail_activity_views.xml",
     ],
