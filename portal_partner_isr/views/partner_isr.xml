@@ -8,7 +8,6 @@
     <template id="partner_isr" name="Partner ISR" inherit_id="distribution_circuits_website_sale.credit_account">
         <xpath expr="//h3" position="after">
             <p t-if="user_id.partner_id.isr_number">
-                <span>Your ISR number is:</span> <span t-field="user_id.partner_id.isr_number"/>
                 <a href="/isr" class="btn btn-default btn-xs">Print ISR slip</a>
             </p>
             <p t-else="">
