@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <record id="l10n_be_national_number_category" model="res.partner.id_category">
+    <field name="code">l10n_be_national_number</field>
+    <field name="name">Belgium National Number</field>
+  </record>
+
+</odoo>
