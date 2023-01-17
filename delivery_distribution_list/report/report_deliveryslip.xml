@@ -1,29 +1,32 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
 
-    <template id="report_delivery_ddl_document" inherit_id="stock.report_delivery_document">
-		<xpath expr="//div[@name='partner_header']/.." position="before">
-		    <div class="col-xs-6">
-		        <div>
-		            <span><strong>Carrier:</strong></span>
-		        </div>
-		        <div t-if="o.carrier_id" name="carrier">
-		            <div t-field="o.carrier_id"/>
-		        </div>
-		    </div>    
-		</xpath>
+    <template
+        id="report_delivery_ddl_document"
+        inherit_id="stock.report_delivery_document"
+    >
+        <xpath expr="//div[@name='partner_header']/.." position="before">
+            <div class="col-xs-6">
+                <div>
+                    <span><strong>Carrier:</strong></span>
+                </div>
+                <div t-if="o.carrier_id" name="carrier">
+                    <div t-field="o.carrier_id" />
+                </div>
+            </div>
+        </xpath>
     </template>
-    
+
     <template id="report_picking" inherit_id="stock.report_picking">
         <xpath expr="//div[@name='partner_header']/.." position="before">
-		    <div class="col-xs-6">
-		        <div>
-		            <span><strong>Carrier:</strong></span>
-		        </div>
-		        <div t-if="o.carrier_id" name="carrier">
-		            <div t-field="o.carrier_id"/>
-		        </div>
-		    </div>    
-		</xpath>
-	</template>
+            <div class="col-xs-6">
+                <div>
+                    <span><strong>Carrier:</strong></span>
+                </div>
+                <div t-if="o.carrier_id" name="carrier">
+                    <div t-field="o.carrier_id" />
+                </div>
+            </div>
+        </xpath>
+    </template>
 </odoo>
