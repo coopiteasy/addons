@@ -11,7 +11,6 @@
     "depends": [
         "sale",
         "account",
-        "sale_stock",
     ],
     "data": [
         "security/delivery_distribution_list_security.xml",
@@ -20,9 +19,7 @@
         "views/partner_view.xml",
         "views/sale_view.xml",
         "views/delivery_distribution_list_view.xml",
-        "views/stock_view.xml",
         "views/product_view.xml",
         "report/sale_order_report_template.xml",
-        "report/report_deliveryslip.xml",
     ],
 }
