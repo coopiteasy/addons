@@ -1,5 +1,3 @@
-import openerp.addons.decimal_precision as dp
-
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
@@ -132,7 +130,6 @@ class DeliveryDistributionList(models.Model):
                     vals["delivered_qty"] = deposit_point.quantity_to_deliver
                     self.env["delivery.distribution.line"].create(vals)
 
-    @api.multi
     def unlink(self):
         for distri_list in self:
             if distri_list.state != "draft":
@@ -150,7 +147,6 @@ class DeliveryDistributionLine(models.Model):
 
     _order = "distribution_list_id desc, partner_id, date"
 
-    @api.multi
     def _compute_sold_qty(self):
         for line in self:
             line.sold_qty = line.delivered_qty - line.returned_qty
@@ -176,24 +172,24 @@ class DeliveryDistributionLine(models.Model):
     )
     ordered_qty = fields.Float(
         string="Quantity Ordered",
-        digits=dp.get_precision("Product Unit of Measure"),
+        digits="Product Unit of Measure",
         required=True,
     )
     delivered_qty = fields.Float(
         string="Quantity Delivered",
-        digits=dp.get_precision("Product Unit of Measure"),
+        digits="Product Unit of Measure",
         default=0.0,
         required=True,
     )
     returned_qty = fields.Float(
         string="Quantity Returned",
-        digits=dp.get_precision("Product Unit of Measure"),
+        digits="Product Unit of Measure",
         default=0.0,
         required=True,
     )
     sold_qty = fields.Float(
         string="Quantity Sold",
-        digits=dp.get_precision("Product Unit of Measure"),
+        digits="Product Unit of Measure",
         compute="_compute_sold_qty",
     )
     carrier_id = fields.Many2one(
@@ -234,19 +230,16 @@ class DeliveryDistributionLine(models.Model):
             )
         super(DeliveryDistributionLine, self).unlink()
 
-    @api.multi
     def action_validate(self):
         for line in self:
             if line.state == "draft":
                 line.state = "validated"
 
-    @api.multi
     def action_draft(self):
         for line in self:
             if line.state == "validated":
                 line.state = "draft"
 
-    @api.multi
     def generate_sale_order(self):
         sale_order_obj = self.env["sale.order"]
         order_line_obj = self.env["sale.order.line"]
@@ -269,7 +262,6 @@ class DeliveryDistributionLine(models.Model):
             order_id.action_confirm()
             line.state = "sale"
 
-    @api.multi
     def send_sale_order(self):
         ir_model_data = self.env["ir.model.data"]
         mail_template_obj = self.env["mail.template"]
@@ -281,7 +273,6 @@ class DeliveryDistributionLine(models.Model):
             mail_template.send_mail(line.sale_order.id, False)
             line.state = "sale_sent"
 
-    @api.multi
     def invoice_sale_order(self):
         for line in self:
             if line.state in ["sale", "sale_sent"]:
@@ -326,14 +317,12 @@ class DeliveryDistributionLine(models.Model):
                     )
                     line.state = "invoiced"
 
-    @api.multi
     def validate_invoice(self):
         for line in self:
             if line.state == "invoiced":
                 line.sale_order.invoice_ids.signal_workflow("invoice_open")
                 line.state = "invoice_validated"
 
-    @api.multi
     def send_invoice(self):
         mail_template = self.env.ref("account.email_template_edi_invoice", False)
         for line in self:

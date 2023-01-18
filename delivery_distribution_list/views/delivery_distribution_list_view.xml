@@ -268,7 +268,6 @@
         <field name="name">Delivery Distribution List</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">delivery.distribution.list</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="search_view_id" ref="view_ddl_filter" />
     </record>
@@ -417,7 +416,6 @@
         <field name="name">Delivery Distribution Line</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">delivery.distribution.line</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="search_view_id" ref="view_distribution_line_filter" />
     </record>
