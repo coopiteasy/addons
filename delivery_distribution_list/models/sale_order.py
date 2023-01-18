@@ -28,9 +28,9 @@ class StockPicking(models.Model):
         store=True,
     )
 
-    @api.multi
     @api.depends("move_lines")
     def _compute_distribution_fields(self):
+        self.distribution_list_id = False
         for picking in self:
             if picking.sale_id:
                 picking.distribution_carrier_id = (
