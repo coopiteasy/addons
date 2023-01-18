@@ -236,21 +236,25 @@
                 />
                 <separator />
                 <filter
+                    name="invoiced"
                     string="Invoiced"
                     domain="[('state','in',['invoiced','invoice_sent'])]"
                 />
                 <filter
+                    name="invoices_validated"
                     string="Invoices validated"
                     domain="[('state','=','invoice_validated')]"
                 />
                 <separator />
-                <group string="Group By">
+                <group name="group_by" string="Group By">
                     <filter
+                        name="responsible"
                         string="Responsible"
                         domain="[]"
                         context="{'group_by':'user_id'}"
                     />
                     <filter
+                        name="created_month"
                         string="Created Month"
                         domain="[]"
                         context="{'group_by':'create_date'}"
@@ -368,29 +372,42 @@
                     domain="[('state','=','sale')]"
                 />
                 <separator />
-                <filter string="Invoiced" domain="[('state','=','invoiced')]" />
+                <filter
+                    string="Invoiced"
+                    name="invoiced"
+                    domain="[('state','=','invoiced')]"
+                />
                 <filter
                     string="Invoices validated"
+                    name="invoice_validated"
                     domain="[('state','in',['invoice_validated','invoice_sent'])]"
                 />
                 <separator />
                 <group string="Group By">
                     <filter
                         string="Product"
+                        name="product"
                         domain="[]"
                         context="{'group_by':'product_id'}"
                     />
                     <filter
                         string="Carrier"
+                        name="carrier"
                         domain="[]"
                         context="{'group_by':'carrier_id'}"
                     />
                     <filter
                         string="Created Month"
+                        name="created_month"
                         domain="[]"
                         context="{'group_by':'date'}"
                     />
-                    <filter string="State" domain="[]" context="{'group_by':'state'}" />
+                    <filter
+                        string="State"
+                        name="state"
+                        domain="[]"
+                        context="{'group_by':'state'}"
+                    />
                 </group>
             </search>
         </field>
