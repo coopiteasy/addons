@@ -100,7 +100,7 @@
                                 attrs="{'readonly': [('state', 'in', ['done','invoiced','invoice_sent'])]}"
                             >
                                 <tree editable="bottom">
-                                    <field name="date" readonly="True" />
+                                    <field name="date" readonly="1" />
                                     <field
                                         name="partner_id"
                                         attrs="{'readonly': [('state', '!=', 'draft')]}"
