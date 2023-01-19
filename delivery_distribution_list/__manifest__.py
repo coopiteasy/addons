@@ -11,6 +11,7 @@
     "depends": [
         "sale",
         "account",
+        "contacts",
     ],
     "data": [
         "security/delivery_distribution_list_security.xml",

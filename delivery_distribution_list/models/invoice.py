@@ -1,7 +1,7 @@
 from odoo import fields, models
 
 
-class AccountInvoice(models.Model):
-    _inherit = "account.invoice"
+class AccountMove(models.Model):
+    _inherit = "account.move"
 
     deposit_point = fields.Boolean(string="Deposit/Sale", readonly=True)
