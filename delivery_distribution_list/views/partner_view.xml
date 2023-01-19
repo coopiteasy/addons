@@ -3,7 +3,7 @@
     <menuitem
         name="Delivery Distribution"
         id="menu_delivery_distribution"
-        parent="base.menu_base_partner"
+        parent="contacts.menu_contacts"
         sequence="10"
         groups="delivery_distribution_list.group_distribution_user"
     />
@@ -24,9 +24,9 @@
                         groups="delivery_distribution_list.group_distribution_user"
                     />
                 </group>
-             </xpath>
-             <xpath
-                expr="/form/sheet/notebook/page[@name='sales_purchases']/group/group[@name='sale']/field[@name='customer']"
+            </xpath>
+            <xpath
+                expr="//page[@name='sales_purchases']//group[@name='sale']/field[@name='user_id']"
                 position="after"
             >
                 <field

@@ -113,10 +113,7 @@
                                         name="ordered_qty"
                                         attrs="{'readonly': [('state', '!=', 'draft')]}"
                                     />
-                                    <field
-                                        name="product_uom"
-                                        groups="product.group_uom"
-                                    />
+                                    <field name="product_uom" groups="uom.group_uom" />
                                     <field
                                         name="delivered_qty"
                                         attrs="{'readonly': [('state', 'not in', ['draft','validated'])]}"
@@ -289,7 +286,7 @@
                 <field name="date" />
                 <field name="partner_id" />
                 <field name="product_id" />
-                <field name="product_uom" groups="product.group_uom" />
+                <field name="product_uom" groups="uom.group_uom" />
                 <field name="delivered_qty" />
                 <field name="returned_qty" />
                 <field name="sold_qty" />
@@ -327,7 +324,7 @@
                                 name="ordered_qty"
                                 attrs="{'readonly': [('state', '!=', 'draft')]}"
                             />
-                            <field name="product_uom" groups="product.group_uom" />
+                            <field name="product_uom" groups="uom.group_uom" />
                             <field name="sold_qty" />
                             <field name="sale_order" />
                         </group>
