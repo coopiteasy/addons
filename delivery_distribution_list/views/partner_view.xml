@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <menuitem
-        name="Delivery Distribution"
-        id="menu_delivery_distribution"
-        parent="contacts.menu_contacts"
-        sequence="10"
-        groups="delivery_distribution_list.group_distribution_user"
-    />
 
     <record id="view_partner_form_ddl" model="ir.ui.view">
         <field name="name">res.partner.form.ddl</field>

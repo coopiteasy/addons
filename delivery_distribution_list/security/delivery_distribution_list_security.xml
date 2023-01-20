@@ -1,12 +1,26 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
+
+    <record model="ir.module.category" id="module_category_distribution_list">
+        <field name="name">Distribution List</field>
+    </record>
+
     <record id="group_distribution_user" model="res.groups">
         <field name="name">Distribution User</field>
+        <field name="category_id" ref="module_category_distribution_list" />
+        <field name="implied_ids" eval="[(4, ref('base.group_no_one'))]" />
     </record>
 
     <record id="group_distribution_manager" model="res.groups">
         <field name="name">Distribution Manager</field>
-        <field name="implied_ids" eval="[(4, ref('group_distribution_user'))]" />
-        <field name="users" eval="[(4, ref('base.user_root'))]" />
+        <field name="category_id" ref="module_category_distribution_list" />
+        <field
+            name="implied_ids"
+            eval="[(4, ref('delivery_distribution_list.group_distribution_user'))]"
+        />
+        <field
+            name="users"
+            eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
+        />
     </record>
 </odoo>
