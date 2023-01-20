@@ -9,9 +9,8 @@
     "website": "https://coopiteasy.be",
     "category": "Sales",
     "depends": [
-        "sale",
+        "sale_management",
         "account",
-        "contacts",
     ],
     "data": [
         "security/delivery_distribution_list_security.xml",
