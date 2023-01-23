@@ -300,7 +300,7 @@ class DeliveryDistributionLine(models.Model):
     def onchage_partner_id(self):
         self.delivered_qty = self.partner_id.quantity_to_deliver
         self.ordered_qty = self.partner_id.quantity_to_deliver
-        self.distribution_carrier_id = self.partner_id.carrier_id.id
+        self.carrier_id = self.partner_id.carrier_id.id
 
     @api.onchange("ordered_qty")
     def onchage_orderer_qty(self):
