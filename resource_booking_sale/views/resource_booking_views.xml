@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_resource_booking_form" model="ir.ui.view">
+        <field name="name">Resource booking form</field>
+        <field name="model">resource.booking</field>
+        <field name="inherit_id" ref="resource_booking.resource_booking_form" />
+        <field name="arch" type="xml">
+            <field name="type_id" position="after">
+                <field name="product_id" />
+            </field>
+            <group name='main' position='inside'>
+                <group name="sale" string="Sales">
+                    <field name="sale_order_line_id" invisible="1" />
+                    <field name="sale_order_id" />
+                    <!-- <field name="sale_order_state" /> -->
+                </group>
+            </group>
+        </field>
+    </record>
+</odoo>
