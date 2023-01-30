@@ -3,4 +3,4 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 from . import resource_booking
-from . import sale_order_line
+from . import sale_order

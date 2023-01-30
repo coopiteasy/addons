@@ -5,11 +5,11 @@
 from odoo import fields, models
 
 
-class SaleOrderLine(models.Model):
-    _inherit = "sale.order.line"
+class SaleOrder(models.Model):
+    _inherit = "sale.order"
 
     resource_booking_ids = fields.One2many(
         comodel_name="resource.booking",
-        inverse_name="sale_order_line_id",
+        inverse_name="sale_order_id",
         string="Resource Booking",
     )
