@@ -4,7 +4,7 @@
 
 from datetime import datetime, timedelta
 
-from odoo.tests.common import SavepointCase
+from odoo.tests.common import Form, SavepointCase
 
 
 class TestResourceBooking(SavepointCase):
@@ -52,6 +52,7 @@ class TestResourceBooking(SavepointCase):
                 "name": "Test Booking Type",
                 "duration": 1,
                 "resource_calendar_id": cls.calendar_id.id,
+                "default_product_id": cls.product_id.id,
             }
         )
         cls.env["resource.booking.type.combination.rel"].create(
@@ -79,3 +80,11 @@ class TestResourceBooking(SavepointCase):
         )
         self.assertTrue(booking_id.sale_order_id)
         self.assertEqual(booking_id.sale_order_line_ids[0].product_id, self.product_id)
+
+    def test_default_product_id(self):
+        """When a product is defined on the type, use that as default."""
+        with Form(self.env["resource.booking"]) as form:
+            form.partner_id = self.partner_id
+            self.assertFalse(form.product_id)
+            form.type_id = self.booking_type_id
+            self.assertEqual(form.product_id, self.product_id)

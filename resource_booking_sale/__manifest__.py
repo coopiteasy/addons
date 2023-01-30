@@ -20,6 +20,7 @@
     "excludes": [],
     "data": [
         "views/resource_booking_views.xml",
+        "views/resource_booking_type_views.xml",
     ],
     "demo": [],
     "qweb": [],

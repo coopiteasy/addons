@@ -44,6 +44,12 @@ class ResourceBooking(models.Model):
         readonly=True,
     )
 
+    @api.onchange("type_id")
+    def _onchange_type_id(self):
+        default_product_id = self.type_id.default_product_id
+        if default_product_id:
+            self.product_id = default_product_id
+
     @api.model
     def create(self, vals):
         # FIXME: I think it would be nicer to do this with magic numbers, but I
