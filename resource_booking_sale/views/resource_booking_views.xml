@@ -11,7 +11,7 @@
             <group name='main' position='inside'>
                 <group
                     name="sale"
-                    string="Sale Order"
+                    string="Sales Order"
                     attrs="{'invisible': [('sale_order_id', '=', False)]}"
                 >
                     <field name="sale_order_company_id" invisible="1" />
@@ -22,7 +22,7 @@
                     <field name="sale_order_state" />
                     <button
                         name="action_sale_order_confirm"
-                        string="Confirm Sale Order"
+                        string="Confirm Sales Order"
                         type="object"
                         attrs="{'invisible': [('sale_order_state', 'not in', ['draft', 'sent'])]}"
                     />
@@ -38,7 +38,7 @@
                         This is effectively copied from the sale module with minimal
                         adjustments.
                     -->
-                    <tree string="Sale Order Lines" editable="bottom">
+                    <tree string="Sales Order Lines" editable="bottom">
                         <control>
                             <create name="add_product_control" string="Add a product" />
                             <create

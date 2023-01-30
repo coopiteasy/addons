@@ -18,7 +18,7 @@ class ResourceBooking(models.Model):
 
     sale_order_id = fields.Many2one(
         comodel_name="sale.order",
-        string="Sale Order",
+        string="Sales Order",
         copy=False,
         readonly=True,
         track_visibility="onchange",
@@ -28,7 +28,7 @@ class ResourceBooking(models.Model):
     )
     sale_order_state = fields.Selection(
         related="sale_order_id.state",
-        string="Sale Order State",
+        string="Sales Order State",
         readonly=True,
     )
     sale_order_company_id = fields.Many2one(
