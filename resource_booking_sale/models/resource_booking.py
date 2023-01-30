@@ -66,3 +66,7 @@ class ResourceBooking(models.Model):
                 }
             )
         return booking_id
+
+    def action_sale_order_confirm(self):
+        for booking in self:
+            booking.sale_order_id.action_confirm()

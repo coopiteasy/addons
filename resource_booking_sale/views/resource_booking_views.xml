@@ -20,6 +20,12 @@
 
                     <field name="sale_order_id" />
                     <field name="sale_order_state" />
+                    <button
+                        name="action_sale_order_confirm"
+                        string="Confirm Sale Order"
+                        type="object"
+                        attrs="{'invisible': [('sale_order_state', 'not in', ['draft', 'sent'])]}"
+                    />
                 </group>
                 <field
                     name="sale_order_line_ids"
