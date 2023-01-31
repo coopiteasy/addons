@@ -20,12 +20,34 @@
 
                     <field name="sale_order_id" />
                     <field name="sale_order_state" />
-                    <button
-                        name="action_sale_order_confirm"
-                        string="Confirm Sales Order"
-                        type="object"
-                        attrs="{'invisible': [('sale_order_state', 'not in', ['draft', 'sent'])]}"
-                    />
+                    <div>
+                        <button
+                            name="action_sale_order_quotation_send"
+                            string="Send Sales Order by Email"
+                            class="btn-primary"
+                            type="object"
+                            attrs="{'invisible': [('sale_order_state', 'not in', ['draft'])]}"
+                        />
+                        <button
+                            name="action_sale_order_confirm"
+                            string="Confirm Sales Order"
+                            class="btn-primary"
+                            type="object"
+                            attrs="{'invisible': [('sale_order_state', 'not in', ['sent'])]}"
+                        />
+                        <button
+                            name="action_sale_order_confirm"
+                            string="Confirm Sales Order"
+                            type="object"
+                            attrs="{'invisible': [('sale_order_state', 'not in', ['draft'])]}"
+                        />
+                        <button
+                            name="action_sale_order_quotation_send"
+                            string="Send Sales Order by Email"
+                            type="object"
+                            attrs="{'invisible': [('sale_order_state', 'not in', ['sent','sale'])]}"
+                        />
+                    </div>
                 </group>
                 <field
                     name="sale_order_line_ids"

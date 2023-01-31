@@ -76,3 +76,8 @@ class ResourceBooking(models.Model):
     def action_sale_order_confirm(self):
         for booking in self:
             booking.sale_order_id.action_confirm()
+        return True
+
+    def action_sale_order_quotation_send(self):
+        self.ensure_one()
+        return self.sale_order_id.action_quotation_send()
