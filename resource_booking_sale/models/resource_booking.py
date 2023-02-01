@@ -25,6 +25,7 @@ class ResourceBooking(models.Model):
     )
     sale_order_line_ids = fields.One2many(
         related="sale_order_id.order_line",
+        readonly=False,
     )
     sale_order_state = fields.Selection(
         related="sale_order_id.state",
