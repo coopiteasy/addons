@@ -62,16 +62,20 @@
                     -->
                     <tree string="Sales Order Lines" editable="bottom">
                         <control>
-                            <create name="add_product_control" string="Add a product" />
+                            <create
+                                name="add_product_control"
+                                string="Add a product"
+                                context="{'default_order_id': parent.sale_order_id}"
+                            />
                             <create
                                 name="add_section_control"
                                 string="Add a section"
-                                context="{'default_display_type': 'line_section'}"
+                                context="{'default_display_type': 'line_section', 'default_order_id': parent.sale_order_id}"
                             />
                             <create
                                 name="add_note_control"
                                 string="Add a note"
-                                context="{'default_display_type': 'line_note'}"
+                                context="{'default_display_type': 'line_note', 'default_order_id': parent.sale_order_id}"
                             />
                         </control>
 
