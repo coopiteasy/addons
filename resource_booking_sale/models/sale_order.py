@@ -13,3 +13,7 @@ class SaleOrder(models.Model):
         inverse_name="sale_order_id",
         string="Resource Booking",
     )
+
+    def action_cancel(self):
+        # TODO: cancel resource_booking_ids. Verify before implementing.
+        return super().action_cancel()

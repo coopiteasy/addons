@@ -67,17 +67,27 @@ class TestResourceBooking(SavepointCase):
             target_date += timedelta(days=1)
         cls.target_date = target_date.replace(hour=9, minute=0, second=0)
 
-    def test_create_sale_order(self):
-        """When creating a resource.booking, also create and link a sale order."""
-        booking_id = self.env["resource.booking"].create(
+    def create_booking(
+        self,
+        partner_id=None,
+        booking_type_id=None,
+        product_id=None,
+        target_date=None,
+        duration=None,
+    ):
+        return self.env["resource.booking"].create(
             {
-                "partner_id": self.partner_id.id,
-                "type_id": self.booking_type_id.id,
-                "product_id": self.product_id.id,
-                "start": self.target_date,
-                "duration": 1,
+                "partner_id": partner_id or self.partner_id.id,
+                "type_id": booking_type_id or self.booking_type_id.id,
+                "product_id": product_id or self.product_id.id,
+                "start": target_date or self.target_date,
+                "duration": duration or 1,
             }
         )
+
+    def test_create_sale_order(self):
+        """When creating a resource.booking, also create and link a sale order."""
+        booking_id = self.create_booking()
         self.assertTrue(booking_id.sale_order_id)
         self.assertEqual(booking_id.sale_order_line_ids[0].product_id, self.product_id)
 
@@ -88,3 +98,20 @@ class TestResourceBooking(SavepointCase):
             self.assertFalse(form.product_id)
             form.type_id = self.booking_type_id
             self.assertEqual(form.product_id, self.product_id)
+
+    def test_cancel_booking_cancels_sale_order(self):
+        """When cancelling a booking, cancel its sale order."""
+        booking_id = self.create_booking()
+        booking_id.action_cancel()
+        self.assertEqual(booking_id.sale_order_id.state, "cancel")
+
+    def test_sale_order_confirm(self):
+        booking_id = self.create_booking()
+        booking_id.action_sale_order_confirm()
+        self.assertEqual(booking_id.sale_order_id.state, "sale")
+
+    def test_sale_order_quotation_send(self):
+        booking_id = self.create_booking()
+        result = booking_id.action_sale_order_quotation_send()
+        self.assertEqual(result["type"], "ir.actions.act_window")
+        self.assertEqual(result["res_model"], "mail.compose.message")

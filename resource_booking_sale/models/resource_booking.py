@@ -74,6 +74,11 @@ class ResourceBooking(models.Model):
             )
         return booking_id
 
+    def action_cancel(self):
+        for booking in self:
+            booking.sale_order_id.action_cancel()
+        return super().action_cancel()
+
     def action_sale_order_confirm(self):
         for booking in self:
             booking.sale_order_id.action_confirm()
