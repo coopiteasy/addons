@@ -229,6 +229,33 @@
                         <field name="company_id" invisible="1" />
                     </tree>
                 </field>
+                <group
+                    class="oe_subtotal_footer oe_right"
+                    colspan="2"
+                    name="sale_total"
+                >
+                    <field
+                        name="sale_order_amount_untaxed"
+                        widget='monetary'
+                        options="{'currency_field': 'sale_order_currency_id'}"
+                    />
+                    <field
+                        name="sale_order_amount_tax"
+                        widget='monetary'
+                        options="{'currency_field': 'sale_order_currency_id'}"
+                    />
+                    <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                        <label for="sale_order_amount_total" />
+                    </div>
+                    <field
+                        name="sale_order_amount_total"
+                        nolabel="1"
+                        class="oe_subtotal_footer_separator"
+                        widget='monetary'
+                        options="{'currency_field': 'sale_order_currency_id'}"
+                    />
+                </group>
+                <!-- <div class="oe_clear"/> -->
             </group>
         </field>
     </record>

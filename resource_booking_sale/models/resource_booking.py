@@ -23,17 +23,31 @@ class ResourceBooking(models.Model):
         readonly=True,
         track_visibility="onchange",
     )
+    sale_order_amount_tax = fields.Monetary(
+        related="sale_order_id.amount_tax",
+        currency_field="sale_order_currency_id",
+        readonly=True,
+    )
+    sale_order_amount_total = fields.Monetary(
+        related="sale_order_id.amount_total",
+        currency_field="sale_order_currency_id",
+        readonly=True,
+    )
+    sale_order_amount_untaxed = fields.Monetary(
+        related="sale_order_id.amount_untaxed",
+        currency_field="sale_order_currency_id",
+        readonly=True,
+    )
     sale_order_line_ids = fields.One2many(
         related="sale_order_id.order_line",
         readonly=False,
     )
-    sale_order_state = fields.Selection(
-        related="sale_order_id.state",
-        string="Sales Order State",
-        readonly=True,
-    )
     sale_order_company_id = fields.Many2one(
         related="sale_order_id.company_id",
+        readonly=True,
+    )
+    sale_order_currency_id = fields.Many2one(
+        related="sale_order_id.currency_id",
         readonly=True,
     )
     sale_order_partner_id = fields.Many2one(
@@ -42,6 +56,11 @@ class ResourceBooking(models.Model):
     )
     sale_order_pricelist_id = fields.Many2one(
         related="sale_order_id.pricelist_id",
+        readonly=True,
+    )
+    sale_order_state = fields.Selection(
+        related="sale_order_id.state",
+        string="Sales Order State",
         readonly=True,
     )
 
