@@ -93,6 +93,14 @@ class ResourceBooking(models.Model):
             )
         return booking_id
 
+    def toggle_active(self):
+        super().toggle_active()
+        for booking in self:
+            # If the booking becomes active again, re-set the sale order's state
+            # to draft.
+            if booking.active:
+                booking.sale_order_id.action_draft()
+
     def action_cancel(self):
         for booking in self:
             booking.sale_order_id.action_cancel()
