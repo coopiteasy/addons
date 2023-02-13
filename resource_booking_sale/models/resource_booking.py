@@ -76,22 +76,19 @@ class ResourceBooking(models.Model):
         # couldn't get that to work.
         booking_id = super().create(vals)
         if not booking_id.sale_order_id:
-            order_id = self.env["sale.order"].create(
+            self.env["sale.order"].create(
                 {
                     "partner_id": booking_id.partner_id.id,
                     "resource_booking_ids": [booking_id.id],
                 }
             )
-            self.env["sale.order.line"].create(
-                {
-                    # TODO: Verify this.
-                    "name": _("Booking for %s") % booking_id.partner_id.name,
-                    "sequence": 1,
-                    "product_id": booking_id.product_id.id,
-                    "order_id": order_id.id,
-                }
-            )
+            booking_id.sync_sale_order_lines()
         return booking_id
+
+    def write(self, vals):
+        super().write(vals)
+        if vals.get("combination_id"):
+            self.sync_sale_order_lines()
 
     def toggle_active(self):
         super().toggle_active()
@@ -114,3 +111,38 @@ class ResourceBooking(models.Model):
     def action_sale_order_quotation_send(self):
         self.ensure_one()
         return self.sale_order_id.action_quotation_send()
+
+    def sync_sale_order_lines(self):
+        for booking in self:
+            booking_line = booking.sale_order_line_ids.filtered(
+                lambda line: line.product_id == booking.product_id
+            )
+            if not booking_line:
+                self.env["sale.order.line"].create(
+                    {
+                        # TODO: Verify this.
+                        "name": _("Booking for %s") % booking.partner_id.name,
+                        "sequence": 1,
+                        "product_id": booking.product_id.id,
+                        "order_id": booking.sale_order_id.id,
+                    }
+                )
+            booking_resources = booking.combination_id.resource_ids
+            order_line_resource_map = {
+                line.product_id.resource_ids: line
+                for line in booking.sale_order_line_ids
+            }
+            order_line_resources = self.env["resource.resource"].union(
+                *order_line_resource_map.keys()
+            )
+            # Add missing sale order lines.
+            for resource in booking_resources - order_line_resources:
+                self.env["sale.order.line"].create(
+                    {
+                        "product_id": resource.product_id.id,
+                        "order_id": booking.sale_order_id.id,
+                    }
+                )
+            # Remove superfluous sale order lines.
+            for resource in order_line_resources - booking_resources:
+                order_line_resource_map[resource].unlink()

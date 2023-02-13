@@ -13,3 +13,8 @@ class ProductProduct(models.Model):
         inverse_name="product_id",
         string="Resources",
     )
+    resource_booking_ids = fields.One2many(
+        comodel_name="resource.booking",
+        inverse_name="product_id",
+        string="Bookings",
+    )
