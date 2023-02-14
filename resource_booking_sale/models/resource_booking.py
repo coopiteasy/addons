@@ -145,4 +145,7 @@ class ResourceBooking(models.Model):
                 )
             # Remove superfluous sale order lines.
             for resource in order_line_resources - booking_resources:
-                order_line_resource_map[resource].unlink()
+                try:
+                    order_line_resource_map[resource].unlink()
+                except KeyError:
+                    pass
