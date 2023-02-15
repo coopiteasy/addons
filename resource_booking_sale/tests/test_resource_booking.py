@@ -220,3 +220,16 @@ class TestResourceBooking(SavepointCase):
         )
         booking_id.combination_id = self.many_combinations[-1]
         self.assertIn(product_id, booking_id.sale_order_line_ids.mapped("product_id"))
+
+    def test_sync_sale_order_lines_resources_share_product(self):
+        product_id = self.many_combinations[0].resource_ids[0].product_id
+        self.many_combinations[0].resource_ids[1].product_id = product_id
+        booking_id = self.create_booking(combination_id=self.many_combinations[0].id)
+        # Two resources share same product, ergo length is 2 instead of 3.
+        self.assertEqual(len(booking_id.sale_order_line_ids), 2)
+        # Correctly remove the shared sale order line.
+        booking_id.combination_id = self.many_combinations[-1]
+        self.assertEqual(len(booking_id.sale_order_line_ids), 3)
+        self.assertNotIn(
+            product_id, booking_id.sale_order_line_ids.mapped("product_id")
+        )

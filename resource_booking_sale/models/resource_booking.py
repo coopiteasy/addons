@@ -129,23 +129,30 @@ class ResourceBooking(models.Model):
                 )
             booking_resources = booking.combination_id.resource_ids
             order_line_resource_map = {
-                line.product_id.resource_ids: line
+                resource: line
                 for line in booking.sale_order_line_ids
+                for resource in line.product_id.resource_ids
             }
             order_line_resources = self.env["resource.resource"].union(
                 *order_line_resource_map.keys()
             )
             # Add missing sale order lines.
             for resource in booking_resources - order_line_resources:
-                self.env["sale.order.line"].create(
-                    {
-                        "product_id": resource.product_id.id,
-                        "order_id": booking.sale_order_id.id,
-                    }
-                )
+                # The same product can be used by multiple resources, so don't
+                # add a line if a line for that product already exists.
+                if resource.product_id not in booking.sale_order_line_ids.mapped(
+                    "product_id"
+                ):
+                    self.env["sale.order.line"].create(
+                        {
+                            "product_id": resource.product_id.id,
+                            "order_id": booking.sale_order_id.id,
+                        }
+                    )
             # Remove superfluous sale order lines.
             for resource in order_line_resources - booking_resources:
-                try:
-                    order_line_resource_map[resource].unlink()
-                except KeyError:
-                    pass
+                line = order_line_resource_map.get(resource)
+                # The same resource may be linked to multiple lines, so we check
+                # whether the line was already unlinked.
+                if line.exists():
+                    line.unlink()
