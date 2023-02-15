@@ -260,3 +260,11 @@ class TestResourceBooking(SavepointCase):
         booking_id = self.create_booking(combination_id=self.many_combinations[0].id)
         for combination_id in self.many_combinations:
             booking_id.combination_id = combination_id
+
+    def test_sync_sale_order_lines_manually_deleted(self):
+        """If a sale order line linked to a resource is manually deleted, don't
+        blow up.
+        """
+        booking_id = self.create_booking(combination_id=self.many_combinations[0].id)
+        booking_id.sale_order_line_ids[-1].unlink()
+        booking_id.combination_id = self.many_combinations[-1]
