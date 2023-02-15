@@ -127,12 +127,20 @@ class TestResourceBooking(SavepointCase):
     ):
         return self.env["resource.booking"].create(
             {
-                "partner_id": partner_id or self.partner_id.id,
-                "type_id": booking_type_id or self.booking_type_id.id,
-                "product_id": product_id or self.product_id.id,
-                "start": target_date or self.target_date,
-                "duration": duration or 1,
-                "combination_id": combination_id or self.combination_id.id,
+                "partner_id": partner_id
+                if partner_id is not None
+                else self.partner_id.id,
+                "type_id": booking_type_id
+                if booking_type_id is not None
+                else self.booking_type_id.id,
+                "product_id": product_id
+                if product_id is not None
+                else self.product_id.id,
+                "start": target_date if target_date is not None else self.target_date,
+                "duration": duration if duration is not None else 1,
+                "combination_id": combination_id
+                if combination_id is not None
+                else self.combination_id.id,
                 "combination_auto_assign": False,
             }
         )
@@ -145,6 +153,14 @@ class TestResourceBooking(SavepointCase):
         self.assertEqual(
             booking_id.sale_order_line_ids[1].product_id, self.resource_product_id
         )
+
+    def test_create_sale_order_no_product(self):
+        """When creating a resource booking without a product, don't include a
+        sale order line for the non-existent product.
+        """
+        self.resource_id.product_id = False
+        booking_id = self.create_booking(product_id=False)
+        self.assertEqual(len(booking_id.sale_order_line_ids), 0)
 
     def test_default_product_id(self):
         """When a product is defined on the type, use that as default."""
@@ -233,3 +249,14 @@ class TestResourceBooking(SavepointCase):
         self.assertNotIn(
             product_id, booking_id.sale_order_line_ids.mapped("product_id")
         )
+
+    def test_sync_sale_order_lines_no_product(self):
+        """Expect regular behaviour (i.e., no exceptions) when some resources
+        have no products.
+        """
+        # Get every other resource
+        resources = self.many_resources[::2]
+        resources.write({"product_id": False})
+        booking_id = self.create_booking(combination_id=self.many_combinations[0].id)
+        for combination_id in self.many_combinations:
+            booking_id.combination_id = combination_id

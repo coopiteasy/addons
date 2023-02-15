@@ -12,8 +12,6 @@ class ResourceBooking(models.Model):
     product_id = fields.Many2one(
         "product.product",
         string="Product",
-        # TODO: Verify this.
-        required=True,
     )
 
     sale_order_id = fields.Many2one(
@@ -117,7 +115,7 @@ class ResourceBooking(models.Model):
             booking_line = booking.sale_order_line_ids.filtered(
                 lambda line: line.product_id == booking.product_id
             )
-            if not booking_line:
+            if booking.product_id and not booking_line:
                 self.env["sale.order.line"].create(
                     {
                         # TODO: Verify this.
@@ -140,8 +138,10 @@ class ResourceBooking(models.Model):
             for resource in booking_resources - order_line_resources:
                 # The same product can be used by multiple resources, so don't
                 # add a line if a line for that product already exists.
-                if resource.product_id not in booking.sale_order_line_ids.mapped(
-                    "product_id"
+                if (
+                    resource.product_id
+                    and resource.product_id
+                    not in booking.sale_order_line_ids.mapped("product_id")
                 ):
                     self.env["sale.order.line"].create(
                         {

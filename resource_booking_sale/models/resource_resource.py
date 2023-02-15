@@ -11,6 +11,4 @@ class Resource(models.Model):
     product_id = fields.Many2one(
         "product.product",
         string="Product",
-        # TODO: Verify this.
-        required=True,
     )
