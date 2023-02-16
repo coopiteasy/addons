@@ -98,7 +98,10 @@ class ResourceBooking(models.Model):
 
     def action_cancel(self):
         for booking in self:
-            booking.sale_order_id.action_cancel()
+            # FIXME: Wouldn't it be better if there were a warning pop-up here?
+            booking.sale_order_id.with_context(
+                disable_cancel_warning=True
+            ).action_cancel()
         return super().action_cancel()
 
     def action_sale_order_confirm(self):
