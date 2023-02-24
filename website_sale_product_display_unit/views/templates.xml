@@ -11,7 +11,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             position="after"
         >
             <span t-if="combination_info['price']">
-                 / <t t-esc="product.sudo().uom_id.name" id="product_uom_name" />
+                 / <b><t t-esc="product.sudo().uom_id.name" id="product_uom_name" /></b>
             </span>
         </xpath>
     </template>
