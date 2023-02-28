@@ -13,15 +13,8 @@ odoo.define("pos_customer_wallet.screens", function (require) {
          */
         customer_changed: function () {
             this._super();
-            if (this.pos.config.is_enabled_customer_wallet) {
-                var client = this.pos.get_client();
-                this.$(".balance").text(
-                    client ? this.format_currency(client.customer_wallet_balance) : ""
-                );
-                this.$(".balance-header").text(
-                    client ? _t("Customer Wallet Balance") : ""
-                );
-            }
+            this.render_current_balance();
+            this.render_new_balance();
         },
 
         /**
@@ -82,7 +75,6 @@ odoo.define("pos_customer_wallet.screens", function (require) {
                     return false;
                 }
             }
-
             return true;
         },
 
@@ -106,6 +98,60 @@ odoo.define("pos_customer_wallet.screens", function (require) {
             }
 
             this._super();
+        },
+
+        /**
+         * Overload function.
+         *
+         * Update new wallet balance, when selecting / changing payment line
+         */
+        render_paymentlines: function () {
+            this._super.apply(this, arguments);
+            this.render_new_balance();
+        },
+
+        render_current_balance: function () {
+            if (this.pos.config.is_enabled_customer_wallet) {
+                var client = this.pos.get_client();
+                this.$(".current-balance").text(
+                    client ? this.format_currency(client.customer_wallet_balance) : ""
+                );
+                this.$(".balance-header").text(
+                    client ? _t("Customer Wallet Balance") : ""
+                );
+            }
+        },
+        render_new_balance: function () {
+            if (this.pos.config.is_enabled_customer_wallet) {
+                var new_amount = this.get_new_wallet_amount();
+                if (new_amount !== false) {
+                    this.$(".new-balance").text(
+                        "(" + this.format_currency(new_amount) + ")"
+                    );
+                } else {
+                    this.$(".new-balance").text("");
+                }
+            }
+        },
+
+        get_new_wallet_amount: function () {
+            var client = this.pos.get_client();
+            if (client) {
+                var [payment_wallet_amount, _] =
+                    this.get_amount_debit_with_customer_wallet_journal();
+                var [product_wallet_amount, _] =
+                    this.get_amount_credit_with_customer_wallet_product();
+                if (payment_wallet_amount === 0 && product_wallet_amount === 0) {
+                    return false;
+                }
+                return (
+                    client.customer_wallet_balance -
+                    payment_wallet_amount +
+                    product_wallet_amount
+                );
+            } else {
+                return false;
+            }
         },
 
         /**
