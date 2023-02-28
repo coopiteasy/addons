@@ -12,11 +12,20 @@
                     </t>
                 </h3>
                 <div class='balance'>
-                    <t t-if="widget.pos.get_client()">
-                        <t
-                            t-esc="widget.format_currency(widget.pos.get_client().customer_wallet_balance)"
-                        />
-                    </t>
+                    <span class="current-balance">
+                        <t t-if="widget.pos.get_client()">
+                            <t
+                                t-esc="widget.format_currency(widget.pos.get_client().customer_wallet_balance)"
+                            />
+                        </t>
+                    </span>
+                    <span class="new-balance">
+                        <t t-if="widget.get_new_wallet_amount()">
+                            (<t
+                                t-esc="widget.format_currency(widget.get_new_wallet_amount())"
+                            />)
+                        </t>
+                    </span>
                 </div>
             </div>
         </t>
