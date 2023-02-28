@@ -64,6 +64,12 @@ class Partner(models.Model):
         self.env.cr.execute(query, where_clause_params)
         return self.env.cr.dictfetchall()
 
+    def get_wallet_balance_all(self, all_partner_ids, all_account_ids):
+        # Overload in other modules (like pos_customer_wallet)
+        return [
+            self.get_wallet_balance_account_move_line(all_partner_ids, all_account_ids)
+        ]
+
     def _compute_customer_wallet_balance(self):
         if not self.ids:
             return True
@@ -76,16 +82,16 @@ class Partner(models.Model):
             all_partner_ids |= set(all_partner_families[partner])
             all_account_ids.add(partner.customer_wallet_account_id.id)
 
-        move_line_totals = self.get_wallet_balance_account_move_line(
-            all_partner_ids, all_account_ids
-        )
+        all_totals = self.get_wallet_balance_all(all_partner_ids, all_account_ids)
 
         for partner, child_ids in all_partner_families.items():
-            partner.customer_wallet_balance = sum(
-                -total["total"]
-                for total in move_line_totals
-                if total["partner_id"] in child_ids
-            )
+            partner.customer_wallet_balance = 0.0
+            for totals in all_totals:
+                partner.customer_wallet_balance += sum(
+                    -total["total"]
+                    for total in totals
+                    if total["partner_id"] in child_ids
+                )
 
     def _search_customer_wallet_balance(self, operator, value):
         # This is a complete and utter hack. Don't do what I did.
