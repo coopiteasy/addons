@@ -18,6 +18,7 @@
     "excludes": [],
     "data": [
         "templates/assets.xml",
+        "views/view_pos_config.xml",
     ],
     "demo": [
         "demo/account_journal_demo.xml",
