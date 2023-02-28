@@ -56,32 +56,8 @@ class Partner(models.Model):
         self.env.cr.execute(query, (tuple(order_lines.ids),))
         return self.env.cr.dictfetchall()
 
-    def _compute_customer_wallet_balance(self):
-        super()._compute_customer_wallet_balance()
-
-        if not self.ids:
-            return True
-
-        all_partner_families = {}
-        all_partner_ids = set()
-        for partner in self:
-            all_partner_families[partner] = partner.get_all_partners_in_family()
-            all_partner_ids |= set(all_partner_families[partner])
-
-        if not all_partner_ids:
-            return True
-
-        statement_line_totals = self.get_wallet_balance_bank_statement_line(
-            all_partner_ids
-        )
-        order_line_totals = self.get_wallet_balance_pos_order_line(all_partner_ids)
-        for partner, child_ids in all_partner_families.items():
-            partner.customer_wallet_balance += sum(
-                -total["total"]
-                for total in statement_line_totals
-                if total["partner_id"] in child_ids
-            ) + sum(
-                total["total"]
-                for total in order_line_totals
-                if total["partner_id"] in child_ids
-            )
+    def get_wallet_balance_all(self, all_partner_ids, all_account_ids):
+        res = super().get_wallet_balance_all(all_partner_ids, all_account_ids)
+        res.append(self.get_wallet_balance_bank_statement_line(all_partner_ids))
+        res.append(self.get_wallet_balance_pos_order_line(all_partner_ids))
+        return res
