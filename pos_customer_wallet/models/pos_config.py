@@ -13,7 +13,7 @@ class PosConfig(models.Model):
     )
 
     minimum_wallet_amount = fields.Monetary(
-        string="Minimum Wallet amount",
+        string="Minimum Wallet Amount",
         default=0.0,
         help="usually 0. You can enter a negative value,"
         " if you want to accept that the customer wallet"
