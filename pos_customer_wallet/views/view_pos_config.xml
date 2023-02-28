@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_pos_config_form" model="ir.ui.view">
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="point_of_sale.pos_config_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='iface_precompute_cash']/../.." position="after">
+                <div class="col-12 col-lg-6 o_setting_box">
+                    <div class="o_setting_right_pane">
+                        <span class="o_form_label">Minimum Wallet Amount</span>
+                        <div class="text-muted">
+                            Usually 0. You can enter a negative value, if you want to accept that the customer wallet is negative. Maybe useful if the sale amount is slightly higher than the wallet amount, to avoid charging the customer a small amount.
+                        </div>
+                        <div class="content-group mt16">
+                            <field
+                                name="minimum_wallet_amount"
+                                colspan="4"
+                                nolabel="1"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
