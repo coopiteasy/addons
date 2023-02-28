@@ -85,13 +85,14 @@ class Partner(models.Model):
         all_totals = self.get_wallet_balance_all(all_partner_ids, all_account_ids)
 
         for partner, child_ids in all_partner_families.items():
-            partner.customer_wallet_balance = 0.0
+            wallet_balance = 0.0
             for totals in all_totals:
-                partner.customer_wallet_balance += sum(
+                wallet_balance += sum(
                     -total["total"]
                     for total in totals
                     if total["partner_id"] in child_ids
                 )
+            partner.customer_wallet_balance = wallet_balance
 
     def _search_customer_wallet_balance(self, operator, value):
         # This is a complete and utter hack. Don't do what I did.
