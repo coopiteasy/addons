@@ -36,28 +36,24 @@ class Partner(models.Model):
 
     @api.model
     def get_wallet_balance_pos_order_line(self, all_partner_ids):
-        pos_order_line = self.env["pos.order.line"].sudo()
-        where_query = pos_order_line._where_calc(
+        order_lines = self.env["pos.order.line"].search(
             [
-                ("order_id.partner_id", "in", list(all_partner_ids)),
                 ("order_id.state", "=", "paid"),
+                ("order_id.partner_id", "in", list(all_partner_ids)),
                 ("product_id.is_customer_wallet_product", "=", True),
             ]
         )
-        pos_order_line._apply_ir_rules(where_query, "read")
-        from_clause, where_clause, where_clause_params = where_query.get_sql()
+        if not order_lines:
+            return []
 
-        query = (
-            """
-            SELECT SUM(pos_order_line.price_subtotal) as total, po.partner_id
-            FROM pos_order_line pos_order_line
-            INNER JOIN pos_order po ON pos_order_line.order_id = po.id
-            WHERE %s
+        query = """
+            SELECT SUM(pol.price_subtotal) as total, po.partner_id
+            FROM pos_order_line pol
+            INNER JOIN pos_order po ON pol.order_id = po.id
+            WHERE pol.id in %s
             GROUP BY po.partner_id
             """
-            % where_clause
-        )
-        self.env.cr.execute(query, where_clause_params)
+        self.env.cr.execute(query, (tuple(order_lines.ids),))
         return self.env.cr.dictfetchall()
 
     def _compute_customer_wallet_balance(self):
