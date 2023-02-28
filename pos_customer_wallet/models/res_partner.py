@@ -47,7 +47,7 @@ class Partner(models.Model):
             return []
 
         query = """
-            SELECT SUM(pol.price_subtotal) as total, po.partner_id
+            SELECT - SUM(pol.price_subtotal) as total, po.partner_id
             FROM pos_order_line pol
             INNER JOIN pos_order po ON pol.order_id = po.id
             WHERE pol.id in %s
