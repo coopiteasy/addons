@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 {
-    "name": "Display Tag When Adding Contact to Partner",
+    "name": "Partner Contact Tag",
     "summary": """
         Display tag in the pop-up form view when adding a contact to a partner.""",
     "version": "16.0.1.0.0",
