@@ -9,7 +9,11 @@
                 expr="//notebook/page/field[@name='child_ids']/form/sheet//field[@name='mobile']"
                 position="after"
             >
-                <field name="category_id" />
+                <field
+                    name="category_id"
+                    widget="many2many_tags"
+                    options="{'color_field': 'color'}"
+                />
             </xpath>
         </field>
     </record>
