@@ -81,6 +81,9 @@ class Partner(models.Model):
         for partner in self:
             all_account_ids.add(partner.customer_wallet_account_id.id)
 
+        # we split the calculation in two part to optimize it
+        # because the call of get_all_partners_in_family take time
+        # and is not necessary for most partners
         for partner in self.filtered(lambda x: x.parent_id or x.child_ids):
             all_partner_families[partner] = partner.get_all_partners_in_family()
             all_partner_ids |= set(all_partner_families[partner])
