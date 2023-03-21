@@ -5,7 +5,7 @@
     "name": "Account Customer Wallet",
     "summary": """
         Allow customers to pay using a wallet which is tracked by the company.""",
-    "version": "12.0.1.2.0",
+    "version": "12.0.2.0.1",
     "category": "Accounting & Finance",
     "website": "https://coopiteasy.be",
     "author": "Coop IT Easy SC,GRAP",
