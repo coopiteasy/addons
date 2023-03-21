@@ -14,6 +14,7 @@
     "depends": [
         "point_of_sale",
         "account_customer_wallet",
+        "base_suspend_security",
     ],
     "excludes": [],
     "data": [
