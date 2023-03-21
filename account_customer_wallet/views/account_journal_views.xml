@@ -7,6 +7,10 @@
         <field name="arch" type="xml">
             <field name="type" position="after">
                 <field name="is_customer_wallet_journal" />
+                <field
+                    name="minimum_wallet_amount"
+                    attrs="{'invisible': [('is_customer_wallet_journal', '=', False)]}"
+                />
             </field>
         </field>
     </record>
