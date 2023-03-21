@@ -12,14 +12,10 @@
     "author": "Coop IT Easy SC",
     "maintainers": ["carmenbianca"],
     "license": "AGPL-3",
-    "application": False,
     "depends": [
         "base",
     ],
-    "excludes": [],
     "data": [
         "views/res_partner_views.xml",
     ],
-    "demo": [],
-    "qweb": [],
 }
