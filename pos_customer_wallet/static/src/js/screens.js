@@ -65,10 +65,7 @@ odoo.define("pos_customer_wallet.screens", function (require) {
                     return false;
                 }
             } else {
-                if (
-                    client.customer_wallet_balance - wallet_amount <=
-                    this.pos.config.minimum_wallet_amount - 0.00001
-                ) {
+                if (this.is_balance_above_minimum(client, wallet_amount)) {
                     this.gui.show_popup("error", {
                         title: _t("Customer wallet balance not sufficient"),
                         body: _t(
@@ -111,6 +108,13 @@ odoo.define("pos_customer_wallet.screens", function (require) {
         render_paymentlines: function () {
             this._super.apply(this, arguments);
             this.render_new_balance();
+        },
+
+        is_balance_above_minimum: function (client, wallet_amount) {
+            return (
+                client.customer_wallet_balance - wallet_amount <=
+                this.pos.config.minimum_wallet_amount - 0.00001
+            );
         },
 
         render_current_balance: function () {
