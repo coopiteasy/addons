@@ -36,12 +36,18 @@ class Partner(models.Model):
 
     @api.model
     def get_wallet_balance_pos_order_line(self, all_partner_ids):
-        order_lines = self.env["pos.order.line"].search(
-            [
-                ("order_id.state", "=", "paid"),
-                ("order_id.partner_id", "in", list(all_partner_ids)),
-                ("product_id.is_customer_wallet_product", "=", True),
-            ]
+        # Suspend security because some users can not be member of
+        # 'point of sale / user' group
+        order_lines = (
+            self.env["pos.order.line"]
+            .suspend_security()
+            .search(
+                [
+                    ("order_id.state", "=", "paid"),
+                    ("order_id.partner_id", "in", list(all_partner_ids)),
+                    ("product_id.is_customer_wallet_product", "=", True),
+                ]
+            )
         )
         if not order_lines:
             return []
