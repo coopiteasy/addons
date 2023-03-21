@@ -7,7 +7,7 @@
     "summary": """
         Display tag in the pop-up form view when adding a contact to a partner.""",
     "version": "16.0.1.0.0",
-    "category": "Uncategorized",
+    "category": "Customer Relationship Management",
     "website": "https://github.com/coopiteasy/addons",
     "author": "Coop IT Easy SC",
     "maintainers": ["carmenbianca"],
