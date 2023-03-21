@@ -84,6 +84,13 @@ class TestAccountBalance(TestBalance):
 
         # Sale and debit wallet (70)
         invoice_2 = self._create_sale_invoice("out_invoice", 70)
-        # Try to debit wallet (New balance will be 60 should raise an error)
+        # Try to debit wallet (New balance will be -10 should raise an error)
         with self.assertRaises(UserError):
             self._create_payment(invoice_2, amount=70)
+
+        # Change minimum wallet amount allowed
+        self.customer_wallet_journal.minimum_wallet_amount = -20
+        # Try to debit wallet (New balance will be -10 should be allowed)
+        self._create_payment(invoice_2, amount=70)
+        self.partner._compute_customer_wallet_balance()
+        self.assertEqual(self.partner.customer_wallet_balance, -10)

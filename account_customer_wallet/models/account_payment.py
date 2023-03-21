@@ -26,7 +26,11 @@ class AccountPayment(models.Model):
         )
 
         for payment in wallet_payments:
-            if payment.partner_id and payment.customer_wallet_balance < payment.amount:
+            if (
+                payment.partner_id
+                and (payment.customer_wallet_balance - payment.amount)
+                < payment.journal_id.minimum_wallet_amount
+            ):
                 raise UserError(
                     _(
                         "There is not enough balance in the customer's wallet"
