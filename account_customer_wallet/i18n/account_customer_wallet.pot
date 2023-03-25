@@ -1,13 +1,11 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#   * account_customer_wallet
+#	* account_customer_wallet
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-28 23:05+0000\n"
-"PO-Revision-Date: 2023-02-28 23:05+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -37,6 +35,8 @@ msgid "Contact"
 msgstr ""
 
 #. module: account_customer_wallet
+#: model:account.account,name:account_customer_wallet.account_account_customer_wallet_demo
+#: model:account.journal,name:account_customer_wallet.account_journal_customer_wallet_demo
 #: model_terms:ir.ui.view,arch_db:account_customer_wallet.view_partner_form
 msgid "Customer Wallet"
 msgstr ""
@@ -84,6 +84,12 @@ msgid "Let customers pay from a wallet account"
 msgstr ""
 
 #. module: account_customer_wallet
+#: model:ir.model.fields,field_description:account_customer_wallet.field_account_bank_statement_import_journal_creation__minimum_wallet_amount
+#: model:ir.model.fields,field_description:account_customer_wallet.field_account_journal__minimum_wallet_amount
+msgid "Minimum Wallet Amount"
+msgstr ""
+
+#. module: account_customer_wallet
 #: model:ir.model,name:account_customer_wallet.model_account_payment
 msgid "Payments"
 msgstr ""
@@ -99,7 +105,7 @@ msgid "The account where all wallet transactions will be recorded"
 msgstr ""
 
 #. module: account_customer_wallet
-#: code:addons/account_customer_wallet/models/account_payment.py:31
+#: code:addons/account_customer_wallet/models/account_payment.py:35
 #, python-format
 msgid "There is not enough balance in the customer's wallet to perform this payment. \n"
 " - Customer : %s\n"
@@ -111,6 +117,12 @@ msgstr ""
 #: model:product.product,uom_name:account_customer_wallet.product_wallet_demo
 #: model:product.template,uom_name:account_customer_wallet.product_wallet_demo_product_template
 msgid "Unit(s)"
+msgstr ""
+
+#. module: account_customer_wallet
+#: model:ir.model.fields,help:account_customer_wallet.field_account_bank_statement_import_journal_creation__minimum_wallet_amount
+#: model:ir.model.fields,help:account_customer_wallet.field_account_journal__minimum_wallet_amount
+msgid "Usually 0. You can enter a negative value, if you want to accept that the customer wallet is negative. Maybe useful if the sale amount is slightly higher than the wallet amount, to avoid charging the customer a small amount."
 msgstr ""
 
 #. module: account_customer_wallet
@@ -126,3 +138,4 @@ msgstr ""
 #: model:product.template,weight_uom_name:account_customer_wallet.product_wallet_demo_product_template
 msgid "kg"
 msgstr ""
+
