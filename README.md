@@ -28,7 +28,7 @@ Available addons
 addon | version | maintainers | summary
 --- | --- | --- | ---
 [account_bank_statement_import_crelan](account_bank_statement_import_crelan/) | 12.0.1.0.1 |  | Import Crelan CSV Wizard
-[account_customer_wallet](account_customer_wallet/) | 12.0.1.2.0 |  | Allow customers to pay using a wallet which is tracked by the company.
+[account_customer_wallet](account_customer_wallet/) | 12.0.2.0.1 |  | Allow customers to pay using a wallet which is tracked by the company.
 [account_invoice_check_bba_com](account_invoice_check_bba_com/) | 12.0.1.0.0 |  | Check the structured communication if the supplier invoice communication is of type bba.
 [account_invoice_check_identical_invoice](account_invoice_check_identical_invoice/) | 12.0.1.0.0 |  | Check if invoices with the same partner, invoice date and total amount already exist
 [account_invoice_correction](account_invoice_correction/) | 12.0.1.0.0 |  | Correction of taxes and account on invoice
@@ -59,7 +59,7 @@ addon | version | maintainers | summary
 [pos_auto_invoice](pos_auto_invoice/) | 12.0.1.0.0 |  | In the POS, set orders as to-invoice by default.
 [pos_auto_invoice_default_partner](pos_auto_invoice_default_partner/) | 12.0.1.0.0 |  | Compatibility layer between pos_auto_invoice and pos_default_partner.
 [pos_custom_receipt](pos_custom_receipt/) | 12.0.1.0.0 |  | Hide company's email and add customer's name to POS receipt
-[pos_customer_wallet](pos_customer_wallet/) | 12.0.1.1.0 |  | Enable usage of the Customer Wallet in the Point of Sale.
+[pos_customer_wallet](pos_customer_wallet/) | 12.0.2.0.1 |  | Enable usage of the Customer Wallet in the Point of Sale.
 [pos_customer_wallet_partner_is_user](pos_customer_wallet_partner_is_user/) | 12.0.1.1.0 | [![coopiteasy](https://github.com/coopiteasy.png?size=30px)](https://github.com/coopiteasy) | Add a field on partners that shows whether they have used customer wallet functionality, and don't show some parts of customer wallet functionality to partners who haven't already used it.
 [pos_self_service_base](pos_self_service_base/) | 12.0.1.0.0 |  | POS Self-Service Base Module
 [pos_self_service_print_zpl](pos_self_service_print_zpl/) | 12.0.1.0.0 |  | POS Self-Service Print ZPL from browser
