@@ -34,19 +34,8 @@ class Partner(models.Model):
             .ids
         )
 
-    def _compute_customer_wallet_balance(self):
+    def get_wallet_balance_account_move_line(self, all_partner_ids, all_account_ids):
         account_move_line = self.env["account.move.line"]
-        if not self.ids:
-            return True
-
-        all_partner_families = {}
-        all_partner_ids = set()
-        all_account_ids = set()
-        for partner in self:
-            all_partner_families[partner] = partner.get_all_partners_in_family()
-            all_partner_ids |= set(all_partner_families[partner])
-            all_account_ids.add(partner.customer_wallet_account_id.id)
-
         # generate where clause to include multicompany rules
         where_query = account_move_line._where_calc(
             [
@@ -73,11 +62,47 @@ class Partner(models.Model):
             % where_clause
         )
         self.env.cr.execute(query, where_clause_params)
-        totals = self.env.cr.dictfetchall()
+        return self.env.cr.dictfetchall()
+
+    def get_wallet_balance_all(self, all_partner_ids, all_account_ids):
+        # Overload in other modules (like pos_customer_wallet)
+        return [
+            self.get_wallet_balance_account_move_line(all_partner_ids, all_account_ids)
+        ]
+
+    def _compute_customer_wallet_balance(self):
+        if not self.ids:
+            return True
+
+        all_partner_families = {}
+        all_partner_ids = set()
+        all_account_ids = set()
+
+        for partner in self:
+            all_account_ids.add(partner.customer_wallet_account_id.id)
+
+        # we split the calculation in two part to optimize it
+        # because the call of get_all_partners_in_family take time
+        # and is not necessary for most partners
+        for partner in self.filtered(lambda x: x.parent_id or x.child_ids):
+            all_partner_families[partner] = partner.get_all_partners_in_family()
+            all_partner_ids |= set(all_partner_families[partner])
+
+        for partner in self.filtered(lambda x: not x.parent_id and not x.child_ids):
+            all_partner_families[partner] = [partner.id]
+            all_partner_ids |= set(all_partner_families[partner])
+
+        all_totals = self.get_wallet_balance_all(all_partner_ids, all_account_ids)
+
         for partner, child_ids in all_partner_families.items():
-            partner.customer_wallet_balance = sum(
-                -total["total"] for total in totals if total["partner_id"] in child_ids
-            )
+            wallet_balance = 0.0
+            for totals in all_totals:
+                wallet_balance += sum(
+                    -total["total"]
+                    for total in totals
+                    if total["partner_id"] in child_ids
+                )
+            partner.customer_wallet_balance = wallet_balance
 
     def _search_customer_wallet_balance(self, operator, value):
         # This is a complete and utter hack. Don't do what I did.

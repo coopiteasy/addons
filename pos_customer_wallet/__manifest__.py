@@ -5,15 +5,16 @@
     "name": "Point of Sale Customer Wallet",
     "summary": """
         Enable usage of the Customer Wallet in the Point of Sale.""",
-    "version": "12.0.1.1.0",
+    "version": "12.0.2.0.1",
     "category": "Point of Sale",
     "website": "https://coopiteasy.be",
-    "author": "Coop IT Easy SC",
+    "author": "Coop IT Easy SC,GRAP",
     "license": "AGPL-3",
     "application": False,
     "depends": [
         "point_of_sale",
         "account_customer_wallet",
+        "base_suspend_security",
     ],
     "excludes": [],
     "data": [
@@ -21,6 +22,7 @@
     ],
     "demo": [
         "demo/account_journal_demo.xml",
+        "demo/product_product_demo.xml",
     ],
     "qweb": [
         "static/src/xml/pos.xml",

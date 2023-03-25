@@ -1,25 +1,15 @@
 # Copyright 2022 Coop IT Easy SC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from odoo import models
+from odoo import api, models
 
 
 class Partner(models.Model):
     _inherit = "res.partner"
 
-    def _compute_customer_wallet_balance(self):
-        super()._compute_customer_wallet_balance()
-
+    @api.model
+    def get_wallet_balance_bank_statement_line(self, all_partner_ids):
         account_bank_statement_line = self.env["account.bank.statement.line"].sudo()
-        if not self.ids:
-            return True
-
-        all_partner_families = {}
-        all_partner_ids = set()
-        for partner in self:
-            all_partner_families[partner] = partner.get_all_partners_in_family()
-            all_partner_ids |= set(all_partner_families[partner])
-
         # generate where clause to include multicompany rules
         where_query = account_bank_statement_line._where_calc(
             [
@@ -42,8 +32,38 @@ class Partner(models.Model):
             % where_clause
         )
         self.env.cr.execute(query, where_clause_params)
-        totals = self.env.cr.dictfetchall()
-        for partner, child_ids in all_partner_families.items():
-            partner.customer_wallet_balance += sum(
-                -total["total"] for total in totals if total["partner_id"] in child_ids
+        return self.env.cr.dictfetchall()
+
+    @api.model
+    def get_wallet_balance_pos_order_line(self, all_partner_ids):
+        # Suspend security because some users can not be member of
+        # 'point of sale / user' group
+        order_lines = (
+            self.env["pos.order.line"]
+            .suspend_security()
+            .search(
+                [
+                    ("order_id.state", "=", "paid"),
+                    ("order_id.partner_id", "in", list(all_partner_ids)),
+                    ("product_id.is_customer_wallet_product", "=", True),
+                ]
             )
+        )
+        if not order_lines:
+            return []
+
+        query = """
+            SELECT - SUM(pol.price_subtotal) as total, po.partner_id
+            FROM pos_order_line pol
+            INNER JOIN pos_order po ON pol.order_id = po.id
+            WHERE pol.id in %s
+            GROUP BY po.partner_id
+            """
+        self.env.cr.execute(query, (tuple(order_lines.ids),))
+        return self.env.cr.dictfetchall()
+
+    def get_wallet_balance_all(self, all_partner_ids, all_account_ids):
+        res = super().get_wallet_balance_all(all_partner_ids, all_account_ids)
+        res.append(self.get_wallet_balance_bank_statement_line(all_partner_ids))
+        res.append(self.get_wallet_balance_pos_order_line(all_partner_ids))
+        return res

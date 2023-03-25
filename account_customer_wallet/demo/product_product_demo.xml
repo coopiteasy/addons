@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright (C) 2022 - Today: GRAP (http://www.grap.coop)
+     @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).-->
+<odoo>
+   <record id="product_wallet_demo" model="product.product">
+         <field name="name">Wallet Product</field>
+         <field name="type">service</field>
+         <field name="is_customer_wallet_product" eval="True" />
+         <field
+            name="property_account_expense_id"
+            ref="account_account_customer_wallet_demo"
+        />
+         <field
+            name="property_account_income_id"
+            ref="account_account_customer_wallet_demo"
+        />
+   </record>
+
+</odoo>
