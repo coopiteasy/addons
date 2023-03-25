@@ -52,6 +52,7 @@ Authors
 ~~~~~~~
 
 * Coop IT Easy SC
+* GRAP
 
 Contributors
 ~~~~~~~~~~~~
