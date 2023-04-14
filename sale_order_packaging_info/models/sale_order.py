@@ -12,15 +12,27 @@ class SaleOrder(models.Model):
         comodel_name="sale.order.packaging.line",
         inverse_name="sale_order_id",
         string="Packaging Lines",
-        default=lambda self: None,  # TODO
     )
     packaging_amount_total = fields.Monetary(
         string="Packaging Total", compute="_compute_packaging_amount"
     )
     packaging_other_text = fields.Text(string="Other (Packaging)")
 
+    @api.model
+    def create(self, vals):
+        result = super().create(vals)
+        for product in result.company_id.packaging_product_ids:
+            self.env["sale.order.packaging.line"].create(
+                {
+                    "sale_order_id": result.id,
+                    "product_id": product.id,
+                }
+            )
+        return result
+
     @api.depends(
-        "sale_order_packaging_line_ids", "sale_order_packaging_line_ids.price_subtotal"
+        "sale_order_packaging_line_ids",
+        "sale_order_packaging_line_ids.price_subtotal",
     )
     def _compute_packaging_amount(self):
         for order in self:
