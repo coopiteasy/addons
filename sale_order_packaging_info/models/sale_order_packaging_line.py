@@ -23,8 +23,7 @@ class SaleOrderPackagingLine(models.Model):
     product_uom = fields.Many2one(
         "uom.uom",
         string="Unit of Measure",
-        default=lambda self: self.product_id.uom_id,
-        required=True,
+        related="product_id.uom_id",
     )
     product_uom_qty = fields.Float(
         string="Quantity",
@@ -44,14 +43,6 @@ class SaleOrderPackagingLine(models.Model):
         string="Subtotal", compute="_compute_price_subtotal"
     )
     sequence = fields.Integer(string="Sequence", default=10)
-
-    @api.onchange("product_id")
-    def _onchange_product_id(self):
-        vals = {}
-        if not self.product_uom or (self.product_id.uom_id.id != self.product_uom.id):
-            vals["product_uom"] = self.product_id.uom_id
-            vals["product_uom_qty"] = self.product_uom_qty or 0
-        self.update(vals)
 
     @api.depends("price_unit", "product_uom_qty")
     def _compute_price_subtotal(self):
