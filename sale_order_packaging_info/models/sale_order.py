@@ -19,15 +19,18 @@ class SaleOrder(models.Model):
     packaging_other_text = fields.Text(string="Other (Packaging)")
 
     @api.model
-    def create(self, vals):
-        result = super().create(vals)
-        for product in result.company_id.packaging_product_ids:
-            self.env["sale.order.packaging.line"].create(
-                {
-                    "sale_order_id": result.id,
-                    "product_id": product.id,
-                }
-            )
+    def default_get(self, fields_list):
+        result = super().default_get(fields_list)
+        company_id = result.get("company_id")
+        if company_id:
+            # price_unit is specified here because it will show as empty if I
+            # don't. I don't know why, but it's no problem.
+            result["sale_order_packaging_line_ids"] = [
+                (0, False, {"product_id": product.id, "price_unit": product.lst_price})
+                for product in self.env["res.company"]
+                .browse(company_id)
+                .packaging_product_ids
+            ]
         return result
 
     @api.depends(
