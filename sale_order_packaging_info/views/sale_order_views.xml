@@ -42,7 +42,10 @@
                             options="{'currency_field': 'currency_id'}"
                         />
                     </group>
-                    <field name="packaging_other_text" />
+                    <label for="packaging_other_text" />
+                    <div>
+                        <field name="packaging_other_text" class="oe_inline" />
+                    </div>
                     <div class="oe_clear" />
                 </page>
             </page>
