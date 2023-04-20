@@ -56,6 +56,7 @@ class CustomerWalletAmountPortal(CustomerPortal):
             if year not in years:
                 ordered.append(
                     {
+                        "year_month": (year, None),
                         "month": str(year),
                         "amount": per_year[year],
                     }
@@ -63,6 +64,7 @@ class CustomerWalletAmountPortal(CustomerPortal):
                 years.add(year)
             ordered.append(
                 {
+                    "year_month": (year, month),
                     "month": f"{translate_month(month)} {year}",
                     "amount": value,
                 }
