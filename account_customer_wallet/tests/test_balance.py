@@ -48,7 +48,9 @@ class TestAccountBalance(TestBalance):
         """Move lines for other partners do not affect the balances of all
         clients.
         """
-        other_partner = self.env.ref("base.res_partner_address_31")
+        other_partner = self.env["res.partner"].create(
+            {"name": "Other Partner Test", "company_id": self.env.company.id}
+        )
         self._create_move(debit=100, partner=other_partner)
 
         self.assertEqual(self.partner.customer_wallet_balance, 0)
