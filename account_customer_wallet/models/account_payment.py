@@ -2,7 +2,7 @@
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import _, api, fields, models
+from odoo import _, fields, models
 from odoo.exceptions import UserError
 
 
@@ -19,7 +19,6 @@ class AccountPayment(models.Model):
         related="partner_id.customer_wallet_balance",
     )
 
-    @api.multi
     def post(self):
         wallet_payments = self.filtered(
             lambda x: x.journal_id.is_customer_wallet_journal
@@ -35,14 +34,14 @@ class AccountPayment(models.Model):
                     _(
                         "There is not enough balance in the customer's wallet"
                         " to perform this payment. \n"
-                        " - Customer : %s\n"
-                        " - Customer Wallet : %s\n"
-                        " - Amount Payment : %s"
+                        " - Customer : %(partner)s\n"
+                        " - Customer Wallet : %(balance)s\n"
+                        " - Amount Payment : %(amount)s"
                     )
-                    % (
-                        payment.partner_id.display_name,
-                        payment.customer_wallet_balance,
-                        payment.amount,
-                    )
+                    % {
+                        "partner": payment.partner_id.display_name,
+                        "balance": payment.customer_wallet_balance,
+                        "amount": payment.amount,
+                    }
                 )
         return super().post()
