@@ -9,17 +9,29 @@ class TestBalance(TransactionCase):
     def setUpClass(cls, *args, **kwargs):
         super().setUpClass(*args, **kwargs)
 
-        cls.partner = cls.env.ref("base.res_partner_address_30")
-        cls.sale_product = cls.env.ref("product.product_product_4d")
+        cls.partner_parent = cls.env["res.partner"].create(
+            {"name": "Test Partner Parent", "company_id": cls.env.company.id}
+        )
+        cls.partner = cls.env["res.partner"].create(
+            {
+                "name": "Test Partner",
+                "company_id": cls.env.company.id,
+                "parent_id": cls.partner_parent.id,
+            }
+        )
+        template = cls.env["product.template"].create(
+            {"name": "Sale Product Test", "standard_price": 500}
+        )
+        cls.sale_product = template.product_variant_id
         cls.customer_wallet_account = cls.env.ref(
             "account_customer_wallet.account_account_customer_wallet_demo"
         )
         cls.sale_account = cls.env["account.account"].search(
             [
                 (
-                    "user_type_id.id",
+                    "account_type",
                     "=",
-                    cls.env.ref("account.data_account_type_revenue").id,
+                    "income",
                 )
             ],
             limit=1,
@@ -32,7 +44,7 @@ class TestBalance(TransactionCase):
         )
         cls.payment_method = cls.env.ref("account.account_payment_method_manual_in")
         cls.cash_account = cls.env["account.account"].search(
-            [("user_type_id.type", "=", "liquidity")], limit=1
+            [("account_type", "=", "asset_cash")], limit=1
         )
         cls.company_id = cls.env.company
 
