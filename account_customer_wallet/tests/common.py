@@ -34,7 +34,7 @@ class TestBalance(SavepointCase):
         cls.cash_account = cls.env["account.account"].search(
             [("user_type_id.type", "=", "liquidity")], limit=1
         )
-        cls.company_id = cls.env.user.company_id
+        cls.company_id = cls.env.company
 
     def _create_move(self, debit=0, credit=0, partner=None):
         if partner is None:
