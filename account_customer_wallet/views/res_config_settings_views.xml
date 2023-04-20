@@ -9,7 +9,10 @@
                 The o_settings_container div annoyingly doesn't have an id of its own.
                 Using one of its children.
             -->
-            <xpath expr="//div[@id='account_followup']/.." position="inside">
+            <xpath
+                expr="//div[@id='pay_invoice_online_setting_container']"
+                position="inside"
+            >
                 <div class="col-12 col-lg-6 o_setting_box" id="account_customer_wallet">
                     <div class="o_setting_left_pane" />
                     <div class="o_setting_right_pane">
