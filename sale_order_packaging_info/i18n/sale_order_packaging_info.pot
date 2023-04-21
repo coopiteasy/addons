@@ -1,0 +1,153 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* sale_order_packaging_info
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sale_order_packaging_info
+#: model_terms:ir.ui.view,arch_db:sale_order_packaging_info.sale_order_view_form
+msgid "Add a product"
+msgstr ""
+
+#. module: sale_order_packaging_info
+#: model:ir.model,name:sale_order_packaging_info.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: sale_order_packaging_info
+#: model:ir.model,name:sale_order_packaging_info.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: sale_order_packaging_info
+#: model:ir.model.fields,field_description:sale_order_packaging_info.field_sale_order_packaging_line__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: sale_order_packaging_info
+#: model:ir.model.fields,field_description:sale_order_packaging_info.field_sale_order_packaging_line__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: sale_order_packaging_info
+#: model:ir.model.fields,field_description:sale_order_packaging_info.field_sale_order_packaging_line__currency_id
+msgid "Currency"
+msgstr ""
+
+#. module: sale_order_packaging_info
+#: model:ir.model.fields,help:sale_order_packaging_info.field_sale_order_packaging_line__product_uom
+msgid "Default unit of measure used for all stock operations."
+msgstr ""
+
+#. module: sale_order_packaging_info
+#: model:ir.model.fields,field_description:sale_order_packaging_info.field_sale_order_packaging_line__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: sale_order_packaging_info
+#: model:ir.model.fields,field_description:sale_order_packaging_info.field_sale_order_packaging_line__id
+msgid "ID"
+msgstr ""
+
+#. module: sale_order_packaging_info
+#: model:ir.model.fields,field_description:sale_order_packaging_info.field_sale_order_packaging_line____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: sale_order_packaging_info
+#: model:ir.model.fields,field_description:sale_order_packaging_info.field_sale_order_packaging_line__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: sale_order_packaging_info
+#: model:ir.model.fields,field_description:sale_order_packaging_info.field_sale_order_packaging_line__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: sale_order_packaging_info
+#: model:ir.model.fields,field_description:sale_order_packaging_info.field_sale_order__packaging_notes
+msgid "Notes (Packaging)"
+msgstr ""
+
+#. module: sale_order_packaging_info
+#: model:ir.model.fields,field_description:sale_order_packaging_info.field_sale_order__sale_order_packaging_line_ids
+#: model_terms:ir.ui.view,arch_db:sale_order_packaging_info.sale_order_view_form
+msgid "Packaging Lines"
+msgstr ""
+
+#. module: sale_order_packaging_info
+#: model:ir.model.fields,field_description:sale_order_packaging_info.field_sale_order_packaging_line__product_id
+msgid "Packaging Product"
+msgstr ""
+
+#. module: sale_order_packaging_info
+#: model:ir.model.fields,field_description:sale_order_packaging_info.field_res_company__packaging_product_ids
+#: model:ir.model.fields,field_description:sale_order_packaging_info.field_res_config_settings__packaging_product_ids
+msgid "Packaging Products"
+msgstr ""
+
+#. module: sale_order_packaging_info
+#: model:ir.model.fields,field_description:sale_order_packaging_info.field_sale_order__packaging_amount_total
+msgid "Packaging Total"
+msgstr ""
+
+#. module: sale_order_packaging_info
+#: model:ir.model.fields,help:sale_order_packaging_info.field_res_config_settings__packaging_product_ids
+#: model_terms:ir.ui.view,arch_db:sale_order_packaging_info.res_config_settings_view_form
+msgid "Products that are added to the packaging section of a sales order by default."
+msgstr ""
+
+#. module: sale_order_packaging_info
+#: model:ir.model.fields,field_description:sale_order_packaging_info.field_sale_order_packaging_line__product_uom_qty
+msgid "Quantity"
+msgstr ""
+
+#. module: sale_order_packaging_info
+#: model:ir.model,name:sale_order_packaging_info.model_sale_order
+msgid "Sale Order"
+msgstr ""
+
+#. module: sale_order_packaging_info
+#: model:ir.model.fields,field_description:sale_order_packaging_info.field_sale_order_packaging_line__sale_order_id
+msgid "Sales Order"
+msgstr ""
+
+#. module: sale_order_packaging_info
+#: model:ir.model.fields,field_description:sale_order_packaging_info.field_sale_order_packaging_line__sequence
+msgid "Sequence"
+msgstr ""
+
+#. module: sale_order_packaging_info
+#: model:ir.model.fields,field_description:sale_order_packaging_info.field_sale_order_packaging_line__price_subtotal
+msgid "Subtotal"
+msgstr ""
+
+#. module: sale_order_packaging_info
+#: model:ir.model.fields,help:sale_order_packaging_info.field_sale_order_packaging_line__price_unit
+msgid "The sale price is managed from the product template. Click on the 'Configure Variants' button to set the extra attribute prices."
+msgstr ""
+
+#. module: sale_order_packaging_info
+#: model:ir.model.fields,field_description:sale_order_packaging_info.field_sale_order_packaging_line__price_unit
+msgid "Unit Price"
+msgstr ""
+
+#. module: sale_order_packaging_info
+#: model:ir.model.fields,field_description:sale_order_packaging_info.field_sale_order_packaging_line__product_uom
+msgid "Unit of Measure"
+msgstr ""
+
+#. module: sale_order_packaging_info
+#: model:ir.model,name:sale_order_packaging_info.model_sale_order_packaging_line
+msgid "sale.order.packaging.line"
+msgstr ""
+
