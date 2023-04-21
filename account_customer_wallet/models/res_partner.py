@@ -14,7 +14,6 @@ class Partner(models.Model):
         readonly=True,
     )
     customer_wallet_balance = fields.Monetary(
-        string="Customer Wallet Balance",
         compute="_compute_customer_wallet_balance",
         readonly=True,
         search="_search_customer_wallet_balance",
