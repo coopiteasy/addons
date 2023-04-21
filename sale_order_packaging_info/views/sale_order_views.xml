@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="sale_order_view_form" model="ir.ui.view">
+        <field name="sale_order_packaging_info.sale_order_view_form" />
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <page name="order_lines" position="after">
+                <page string="Packaging Lines">
+                    <field
+                        name="sale_order_packaging_line_ids"
+                        widget="section_and_note_one2many"
+                        mode="tree,kanban"
+                    >
+                        <tree string="Packaging Lines" editable="bottom">
+                            <control>
+                                <create string="Add a product" />
+                            </control>
+                            <field name="sequence" widget="handle" />
+                            <field name="product_id" />
+                            <field name="product_uom_qty" />
+                            <field name="price_unit" />
+                            <field name="price_subtotal" widget="monetary" />
+                            <field name="currency_id" invisible="1" />
+                        </tree>
+                    </field>
+
+                    <group
+                        class="oe_subtotal_footer oe_right"
+                        colspan="2"
+                        name="packaging_total"
+                    >
+                        <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                            <label for="packaging_amount_total" />
+                        </div>
+                        <field
+                            name="packaging_amount_total"
+                            nolabel="1"
+                            class="oe_subtotal_footer_separator"
+                            widget='monetary'
+                            options="{'currency_field': 'currency_id'}"
+                        />
+                    </group>
+                    <label for="packaging_notes" />
+                    <div>
+                        <field name="packaging_notes" class="oe_inline" />
+                    </div>
+                    <div class="oe_clear" />
+                </page>
+            </page>
+        </field>
+
+    </record>
+</odoo>
