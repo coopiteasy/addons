@@ -16,7 +16,7 @@ class SaleOrder(models.Model):
     packaging_amount_total = fields.Monetary(
         string="Packaging Total", compute="_compute_packaging_amount"
     )
-    packaging_other_text = fields.Text(string="Other (Packaging)")
+    packaging_notes = fields.Text(string="Notes (Packaging)")
 
     @api.model
     def default_get(self, fields_list):
