@@ -42,9 +42,9 @@
                             options="{'currency_field': 'currency_id'}"
                         />
                     </group>
-                    <label for="packaging_other_text" />
+                    <label for="packaging_notes" />
                     <div>
-                        <field name="packaging_other_text" class="oe_inline" />
+                        <field name="packaging_notes" class="oe_inline" />
                     </div>
                     <div class="oe_clear" />
                 </page>
