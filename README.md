@@ -72,6 +72,7 @@ addon | version | maintainers | summary
 [resource_work_time_from_contracts](resource_work_time_from_contracts/) | 12.0.1.0.0 |  | Take the contracts of an employee into account when computing work time per day
 [sale_order_for_approval](sale_order_for_approval/) | 12.0.1.0.0 |  | Display "For Approval" mention on Sale Orders
 [sale_order_mass_confirmation](sale_order_mass_confirmation/) | 12.0.1.0.0 |  | Confirm multiple sale orders (quotations) with one action
+[sale_order_packaging_info](sale_order_packaging_info/) | 12.0.1.0.0 | [![carmenbianca](https://github.com/carmenbianca.png?size=30px)](https://github.com/carmenbianca) | Creates a table of packaging products on sales orders.
 [sale_order_volume](sale_order_volume/) | 12.0.1.1.1 |  | Computes the volume of products per category ordered and display it on
 [sale_report_partner_category](sale_report_partner_category/) | 12.0.1.0.1 |  | Add a category field to sale reports
 [stock_inventory_confirm_reset_qty](stock_inventory_confirm_reset_qty/) | 12.0.1.0.0 |  | Show a confirmation dialog box when clicking on 'Set quantities to 0' in a stock.inventory
