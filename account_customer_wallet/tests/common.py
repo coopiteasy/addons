@@ -83,12 +83,12 @@ class TestBalance(TransactionCase):
     def _create_sale_invoice(self, invoice_type, amount, partner=None):
         if partner is None:
             partner = self.partner
-        invoice = self.env["account.invoice"].create(
+        invoice = self.env["account.move"].create(
             {
                 "journal_id": self.sale_journal.id,
-                "type": invoice_type,
+                "move_type": invoice_type,
                 "partner_id": partner.id,
-                "invoice_line_ids": [
+                "line_ids": [
                     (
                         0,
                         0,
@@ -103,25 +103,22 @@ class TestBalance(TransactionCase):
                 ],
             }
         )
-        invoice.action_invoice_open()
+        invoice.action_post()
         return invoice
 
     def _create_payment(self, invoice, amount=0, partner=None):
         if partner is None:
             partner = self.partner
-
-        payment = (
-            self.env["account.payment"]
+        register = (
+            self.env["account.payment.register"]
             .with_context(
-                active_model="account.invoice",
+                active_model="account.move",
                 active_ids=invoice.ids,
             )
             .create(
                 {
-                    "amount": amount,
                     "journal_id": self.customer_wallet_journal.id,
-                    "payment_method_id": self.payment_method.id,
                 }
             )
         )
-        payment.post()
+        return register._create_payments()

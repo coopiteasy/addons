@@ -19,7 +19,7 @@ class AccountPayment(models.Model):
         related="partner_id.customer_wallet_balance",
     )
 
-    def post(self):
+    def action_post(self):
         wallet_payments = self.filtered(
             lambda x: x.journal_id.is_customer_wallet_journal
         )
@@ -44,4 +44,4 @@ class AccountPayment(models.Model):
                         "amount": payment.amount,
                     }
                 )
-        return super().post()
+        return super().action_post()
