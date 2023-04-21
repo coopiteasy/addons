@@ -8,11 +8,6 @@ from odoo.tools.safe_eval import safe_eval
 class Partner(models.Model):
     _inherit = "res.partner"
 
-    customer_wallet_account_id = fields.Many2one(
-        comodel_name="account.account",
-        related="company_id.customer_wallet_account_id",
-        readonly=True,
-    )
     customer_wallet_balance = fields.Monetary(
         compute="_compute_customer_wallet_balance",
         readonly=True,
@@ -33,7 +28,7 @@ class Partner(models.Model):
             .ids
         )
 
-    def get_wallet_balance_account_move_line(self, all_partner_ids, all_account_ids):
+    def get_wallet_balance_account_move_line(self, all_partner_ids, wallet_account):
         account_move_line = self.env["account.move.line"]
         # generate where clause to include multicompany rules
         where_query = account_move_line._where_calc(
@@ -44,7 +39,7 @@ class Partner(models.Model):
                 # FIXME: This should ideally be something like
                 # `("account_id", "=", partner.customer_wallet_account_id)`,
                 # but that may not be possible.
-                ("account_id", "in", list(all_account_ids)),
+                ("account_id", "=", wallet_account.id),
             ]
         )
         account_move_line._apply_ir_rules(where_query, "read")
@@ -63,10 +58,10 @@ class Partner(models.Model):
         self.env.cr.execute(query, where_clause_params)
         return self.env.cr.dictfetchall()
 
-    def get_wallet_balance_all(self, all_partner_ids, all_account_ids):
+    def get_wallet_balance_all(self, all_partner_ids, wallet_account):
         # Overload in other modules (like pos_customer_wallet)
         return [
-            self.get_wallet_balance_account_move_line(all_partner_ids, all_account_ids)
+            self.get_wallet_balance_account_move_line(all_partner_ids, wallet_account)
         ]
 
     def _compute_customer_wallet_balance(self):
@@ -75,10 +70,12 @@ class Partner(models.Model):
 
         all_partner_families = {}
         all_partner_ids = set()
-        all_account_ids = set()
-
-        for partner in self:
-            all_account_ids.add(partner.customer_wallet_account_id.id)
+        wallet_account = self.env.company.customer_wallet_account_id
+        if not wallet_account:
+            # No wallet account defined in the current context
+            for partner in self:
+                partner.customer_wallet_balance = 0.0
+            return
 
         # we split the calculation in two part to optimize it
         # because the call of get_all_partners_in_family take time
@@ -91,7 +88,7 @@ class Partner(models.Model):
             all_partner_families[partner] = [partner.id]
             all_partner_ids |= set(all_partner_families[partner])
 
-        all_totals = self.get_wallet_balance_all(all_partner_ids, all_account_ids)
+        all_totals = self.get_wallet_balance_all(all_partner_ids, wallet_account)
 
         for partner, child_ids in all_partner_families.items():
             wallet_balance = 0.0
