@@ -52,7 +52,7 @@ class TestBalance(TransactionCase):
         if partner is None:
             partner = self.partner
 
-        self.env["account.move"].create(
+        move = self.env["account.move"].create(
             {
                 "journal_id": self.customer_wallet_journal.id,
                 "line_ids": [
@@ -79,6 +79,9 @@ class TestBalance(TransactionCase):
                 ],
             }
         )
+        move.action_post()
+        partner._compute_customer_wallet_balance()
+        return move
 
     def _create_sale_invoice(self, invoice_type, amount, partner=None):
         if partner is None:

@@ -1,6 +1,8 @@
 # Copyright 2022 Coop IT Easy SC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
+from collections import defaultdict
+
 from odoo import fields, models
 from odoo.tools.safe_eval import safe_eval
 
@@ -34,34 +36,27 @@ class Partner(models.Model):
         )
 
     def get_wallet_balance_account_move_line(self, all_partner_ids, all_account_ids):
-        account_move_line = self.env["account.move.line"]
-        # generate where clause to include multicompany rules
-        where_query = account_move_line._where_calc(
-            [
-                ("partner_id", "in", list(all_partner_ids)),
-                # TODO: Filter on state?
-                # ("state", "not in", ["draft", "cancel"]),
-                # FIXME: This should ideally be something like
-                # `("account_id", "=", partner.customer_wallet_account_id)`,
-                # but that may not be possible.
-                ("account_id", "in", list(all_account_ids)),
-            ]
-        )
-        account_move_line._apply_ir_rules(where_query, "read")
-        from_clause, where_clause, where_clause_params = where_query.get_sql()
-
-        # balance is in the company currency
-        query = (
-            """
-            SELECT SUM(balance) as total, partner_id
-            FROM account_move_line account_move_line
-            WHERE %s
-            GROUP BY partner_id
-            """
-            % where_clause
-        )
-        self.env.cr.execute(query, where_clause_params)
-        return self.env.cr.dictfetchall()
+        pre_result = defaultdict(float)
+        for line in (
+            self.env["account.move.line"]
+            .sudo()
+            .search(
+                [
+                    ("partner_id", "in", list(all_partner_ids)),
+                    # Check state
+                    ("parent_state", "=", "posted"),
+                    # FIXME: This should ideally be something like
+                    # `("account_id", "=", partner.customer_wallet_account_id)`,
+                    # but that may not be possible.
+                    ("account_id", "in", list(all_account_ids)),
+                ]
+            )
+        ):
+            pre_result[line.partner_id.id] += line.balance
+        return [
+            {"partner_id": partner_id, "total": total}
+            for partner_id, total in pre_result.items()
+        ]
 
     def get_wallet_balance_all(self, all_partner_ids, all_account_ids):
         # Overload in other modules (like pos_customer_wallet)

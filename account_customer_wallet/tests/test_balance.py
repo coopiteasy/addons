@@ -68,8 +68,9 @@ class TestAccountBalance(TestBalance):
         self._create_move(credit=100)
 
         self.company_id.customer_wallet_account_id = None
-
         self.assertFalse(self.company_id.is_enabled_customer_wallet)
+
+        self.partner._compute_customer_wallet_balance()
         self.assertEqual(self.partner.customer_wallet_balance, 0)
 
     def test_payment(self):
