@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_mail_activity_summary_all,mail.activity.summary.all,model_mail_activity_summary,,0,0,0,0
+access_mail_activity_summary_user,mail.activity.summary.user,model_mail_activity_summary,base.group_user,1,0,0,0
+access_mail_activity_summary_system,mail.activity.summary.system,model_mail_activity_summary,base.group_system,1,1,1,1
+access_mail_activity_summary_group,mail.activity.summary.group,model_mail_activity_summary,mail_activity_summary_model.group_summary_manager,1,1,1,1

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="mail_activity_view_form_popup" model="ir.ui.view">
+        <field name="name">mail.activity.view.form.popup</field>
+        <field name="model">mail.activity</field>
+        <field name="inherit_id" ref="mail.mail_activity_view_form_popup" />
+        <field name="arch" type="xml">
+            <field name="summary" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="summary" position="after">
+                <field name="summary_id" />
+            </field>
+        </field>
+    </record>
+
+    <record id="mail_activity_view_search" model="ir.ui.view">
+        <field name="name">mail.activity.view.search</field>
+        <field name="model">mail.activity</field>
+        <field name="inherit_id" ref="mail.mail_activity_view_search" />
+        <field name="arch" type="xml">
+            <field name="summary" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="summary" position="after">
+                <field name="summary_id" />
+            </field>
+        </field>
+    </record>
+
+    <record id="mail_activity_view_tree" model="ir.ui.view">
+        <field name="name">mail.activity.view.tree</field>
+        <field name="model">mail.activity</field>
+        <field name="inherit_id" ref="mail.mail_activity_view_tree" />
+        <field name="arch" type="xml">
+            <field name="summary" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="summary" position="after">
+                <field name="summary_id" />
+            </field>
+        </field>
+    </record>
+
+    <record id="mail_activity_view_calendar" model="ir.ui.view">
+        <field name="name">mail.activity.view.calendar</field>
+        <field name="model">mail.activity</field>
+        <field name="priority" eval="2" />
+        <field name="inherit_id" ref="mail.mail_activity_view_calendar" />
+        <field name="arch" type="xml">
+            <field name="summary" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="summary" position="after">
+                <field name="summary_id" />
+            </field>
+        </field>
+    </record>
+</odoo>
