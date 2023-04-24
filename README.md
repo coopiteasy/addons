@@ -50,6 +50,7 @@ addon | version | maintainers | summary
 [hr_holidays_custom_duration](hr_holidays_custom_duration/) | 12.0.1.0.1 |  | Allow to override the duration of a leave.
 [invoice_global_discount](invoice_global_discount/) | 12.0.1.1.0 |  | This module give global discount on invoice. It allows to set the same discount on all the invoice lines without been forced to go manually through them.
 [mail_activity_filter_internal_user](mail_activity_filter_internal_user/) | 12.0.1.0.1 |  | Filter on internal user by default when assigning someone to an activity.
+[mail_activity_summary_model](mail_activity_summary_model/) | 12.0.1.0.0 | [![carmenbianca](https://github.com/carmenbianca.png?size=30px)](https://github.com/carmenbianca) | Instead of using a simple text field for the summary, use a model.
 [mail_auto_resend](mail_auto_resend/) | 12.0.1.0.0 |  | Automatically resend failed emails
 [mrp_unbuild_product_mo_filter](mrp_unbuild_product_mo_filter/) | 12.0.1.0.1 |  | Filter unbuild manufacturing orders by selected product
 [partner_contact_address](partner_contact_address/) | 12.0.1.0.0 |  | This module allows to have company contacts with their own address.
