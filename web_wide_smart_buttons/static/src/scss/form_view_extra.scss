@@ -1,0 +1,12 @@
+.o_form_view {
+    .oe_button_box {
+        width: 500px;
+        .oe_stat_button {
+            width: 250px !important;
+            .o_stat_info,
+            > span {
+                max-width: 90%;
+            }
+        }
+    }
+}
