@@ -101,6 +101,7 @@ class TestBalance(TransactionCase):
                             "price_unit": amount,
                             "product_id": self.sale_product.id,
                             "account_id": self.sale_account.id,
+                            "tax_ids": False,
                         },
                     )
                 ],
