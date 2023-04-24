@@ -11,6 +11,20 @@
             eval="account_account_customer_wallet_demo"
         />
             <field name="sequence">30</field>
+            <field
+            name="inbound_payment_method_line_ids"
+            eval="[
+                Command.clear(),
+                Command.create({'payment_method_id': ref('account.account_payment_method_manual_in'), 'name': 'Manual', 'payment_account_id': ref('account_customer_wallet.account_account_customer_wallet_demo')})
+            ]"
+        />
+            <field
+            name="outbound_payment_method_line_ids"
+            eval="[
+                Command.clear(),
+                Command.create({'payment_method_id': ref('account.account_payment_method_manual_out'), 'name': 'Manual', 'payment_account_id': ref('account_customer_wallet.account_account_customer_wallet_demo')})
+            ]"
+        />
    </record>
 
 </odoo>

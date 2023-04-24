@@ -25,6 +25,9 @@ class AccountPayment(models.Model):
         )
 
         for payment in wallet_payments:
+            # TODO: Figure out why/whether this statement is needed. At time of
+            # writing, the tests do not pass without it.
+            payment.partner_id._compute_customer_wallet_balance()
             if (
                 payment.partner_id
                 and (payment.customer_wallet_balance - payment.amount)
