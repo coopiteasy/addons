@@ -32,6 +32,17 @@ class TestAccountBalance(TestBalance):
 
         self.assertEqual(self.partner.customer_wallet_balance, -100)
 
+    def test_multiple_moves(self):
+        """test if the balance is correctly recomputed each time"""
+        self._create_move(credit=100)
+        self.assertEqual(self.partner.customer_wallet_balance, 100)
+
+        self._create_move(credit=100)
+        self.assertEqual(self.partner.customer_wallet_balance, 200)
+
+        self._create_move(debit=150)
+        self.assertEqual(self.partner.customer_wallet_balance, 50)
+
     def test_balance_to_parent(self):
         """Credit child partner should impact parent partner balance"""
         self._create_move(credit=1000)
@@ -70,7 +81,6 @@ class TestAccountBalance(TestBalance):
         self.company_id.customer_wallet_account_id = None
         self.assertFalse(self.company_id.is_enabled_customer_wallet)
 
-        self.partner._compute_customer_wallet_balance()
         self.assertEqual(self.partner.customer_wallet_balance, 0)
 
     def test_payment(self):
@@ -82,7 +92,6 @@ class TestAccountBalance(TestBalance):
         self.assertEqual(self.partner.customer_wallet_balance, 100)
         # Try to debit wallet (New balance will be 60 should be OK)
         self._create_payment(invoice_1, amount=40)
-        self.partner._compute_customer_wallet_balance()
         self.assertEqual(self.partner.customer_wallet_balance, 60)
 
         # Sale and debit wallet (70)
@@ -95,5 +104,4 @@ class TestAccountBalance(TestBalance):
         self.customer_wallet_journal.minimum_wallet_amount = -20
         # Try to debit wallet (New balance will be -10 should be allowed)
         self._create_payment(invoice_2, amount=70)
-        self.partner._compute_customer_wallet_balance()
         self.assertEqual(self.partner.customer_wallet_balance, -10)

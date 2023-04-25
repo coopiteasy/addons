@@ -3,7 +3,7 @@
 
 from collections import defaultdict
 
-from odoo import fields, models
+from odoo import api, fields, models
 from odoo.tools.safe_eval import safe_eval
 
 
@@ -12,7 +12,6 @@ class Partner(models.Model):
 
     customer_wallet_balance = fields.Monetary(
         compute="_compute_customer_wallet_balance",
-        readonly=True,
         search="_search_customer_wallet_balance",
     )
 
@@ -61,6 +60,7 @@ class Partner(models.Model):
             )
         ]
 
+    @api.depends_context("company")
     def _compute_customer_wallet_balance(self):
         if not self.ids:
             return True

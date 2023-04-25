@@ -23,3 +23,10 @@ class Company(models.Model):
             company.is_enabled_customer_wallet = bool(
                 company.customer_wallet_account_id
             )
+
+    def write(self, vals):
+        res = super().write(vals)
+        if "customer_wallet_account_id" in vals.keys():
+            partners = self.env["res.partner"].search([])
+            partners._compute_customer_wallet_balance()
+        return res
