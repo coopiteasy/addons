@@ -23,10 +23,8 @@ class Partner(models.Model):
 
     def get_all_partners_in_family(self):
         self.ensure_one()
-        return (
-            self.with_context(active_test=False)
-            .search([("id", "child_of", self.get_topmost_parent_id().id)])
-            .ids
+        return self.with_context(active_test=False).search(
+            [("id", "child_of", self.get_topmost_parent_id().id)]
         )
 
     def get_wallet_balance_account_move_line(self, all_partner_ids, wallet_account_id):
@@ -78,7 +76,7 @@ class Partner(models.Model):
         # because the call of get_all_partners_in_family take time
         # and is not necessary for most partners
         for partner in self.filtered(lambda x: x.parent_id or x.child_ids):
-            all_partner_families[partner] = partner.get_all_partners_in_family()
+            all_partner_families[partner] = partner.get_all_partners_in_family().ids
             all_partner_ids |= set(all_partner_families[partner])
 
         for partner in self.filtered(lambda x: not x.parent_id and not x.child_ids):

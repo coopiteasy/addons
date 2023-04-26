@@ -10,8 +10,8 @@ class AccountMove(models.Model):
     def _post(self, soft=True):
         res = super()._post(soft=soft)
         if not soft:
-            partners = self.mapped("line_ids.partner_id")
-            partners |= partners.mapped("child_ids")
-            partners |= partners.mapped("parent_id")
+            partners = self.env["res.partner"]
+            for partner in self.mapped("line_ids.partner_id"):
+                partners |= partner.get_all_partners_in_family()
             partners._compute_customer_wallet_balance()
         return res
