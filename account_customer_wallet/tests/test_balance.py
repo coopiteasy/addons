@@ -32,17 +32,54 @@ class TestAccountBalance(TestBalance):
 
         self.assertEqual(self.partner.customer_wallet_balance, -100)
 
+    def test_multiple_moves(self):
+        """test if the balance is correctly recomputed each time"""
+        self._create_move(credit=100)
+        self.assertEqual(self.partner.customer_wallet_balance, 100)
+
+        self._create_move(credit=100)
+        self.assertEqual(self.partner.customer_wallet_balance, 200)
+
+        self._create_move(debit=150)
+        self.assertEqual(self.partner.customer_wallet_balance, 50)
+
     def test_balance_to_parent(self):
         """Credit child partner should impact parent partner balance"""
         self._create_move(credit=1000)
         self.assertEqual(self.partner.customer_wallet_balance, 1000)
-        self.assertEqual(self.partner.parent_id.customer_wallet_balance, 1000)
+        self.assertEqual(self.partner_parent.customer_wallet_balance, 1000)
 
     def test_balance_to_child(self):
         """Credit parent partner should impact child partner balance"""
-        self._create_move(credit=2000, partner=self.partner.parent_id)
+        self._create_move(credit=2000, partner=self.partner_parent)
         self.assertEqual(self.partner.customer_wallet_balance, 2000)
-        self.assertEqual(self.partner.parent_id.customer_wallet_balance, 2000)
+        self.assertEqual(self.partner_parent.customer_wallet_balance, 2000)
+
+    def test_balance_to_grandchild(self):
+        """Credit grandparent partner should impact grandchild partner balance."""
+        partner_child = self.env["res.partner"].create(
+            {
+                "name": "Test Partner Child",
+                "company_id": self.partner.company_id.id,
+                "parent_id": self.partner.id,
+            }
+        )
+        self._create_move(credit=100, partner=self.partner_parent)
+        self.assertEqual(self.partner_parent.customer_wallet_balance, 100)
+        self.assertEqual(partner_child.customer_wallet_balance, 100)
+
+    def test_balance_to_grandparent(self):
+        """Credit grandchild partner should impact grandparent partner balance."""
+        partner_child = self.env["res.partner"].create(
+            {
+                "name": "Test Partner Child",
+                "company_id": self.partner.company_id.id,
+                "parent_id": self.partner.id,
+            }
+        )
+        self._create_move(credit=100, partner=partner_child)
+        self.assertEqual(partner_child.customer_wallet_balance, 100)
+        self.assertEqual(self.partner_parent.customer_wallet_balance, 100)
 
     def test_different_partner(self):
         """Move lines for other partners do not affect the balances of all
@@ -70,7 +107,6 @@ class TestAccountBalance(TestBalance):
         self.company_id.customer_wallet_account_id = None
         self.assertFalse(self.company_id.is_enabled_customer_wallet)
 
-        self.partner._compute_customer_wallet_balance()
         self.assertEqual(self.partner.customer_wallet_balance, 0)
 
     def test_payment(self):
@@ -82,7 +118,6 @@ class TestAccountBalance(TestBalance):
         self.assertEqual(self.partner.customer_wallet_balance, 100)
         # Try to debit wallet (New balance will be 60 should be OK)
         self._create_payment(invoice_1, amount=40)
-        self.partner._compute_customer_wallet_balance()
         self.assertEqual(self.partner.customer_wallet_balance, 60)
 
         # Sale and debit wallet (70)
@@ -95,5 +130,4 @@ class TestAccountBalance(TestBalance):
         self.customer_wallet_journal.minimum_wallet_amount = -20
         # Try to debit wallet (New balance will be -10 should be allowed)
         self._create_payment(invoice_2, amount=70)
-        self.partner._compute_customer_wallet_balance()
         self.assertEqual(self.partner.customer_wallet_balance, -10)

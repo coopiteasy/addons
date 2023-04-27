@@ -3,7 +3,7 @@
 
 from collections import defaultdict
 
-from odoo import fields, models
+from odoo import api, fields, models
 from odoo.tools.safe_eval import safe_eval
 
 
@@ -13,7 +13,13 @@ class Partner(models.Model):
     customer_wallet_balance = fields.Monetary(
         compute="_compute_customer_wallet_balance",
         readonly=True,
+        recursive=True,
         search="_search_customer_wallet_balance",
+    )
+    account_move_line_ids = fields.One2many(
+        comodel_name="account.move.line",
+        inverse_name="partner_id",
+        readonly=True,
     )
 
     def get_topmost_parent_id(self):
@@ -61,6 +67,19 @@ class Partner(models.Model):
             )
         ]
 
+    def _customer_wallet_balance_depends(self):
+        return [
+            "account_move_line_ids",
+            "account_move_line_ids.account_id",
+            "account_move_line_ids.balance",
+            "account_move_line_ids.parent_state",
+            "child_ids",
+            "child_ids.customer_wallet_balance",
+            "parent_id",
+            "parent_id.customer_wallet_balance",
+        ]
+
+    @api.depends(lambda self: self._customer_wallet_balance_depends())
     def _compute_customer_wallet_balance(self):
         if not self.ids:
             return True

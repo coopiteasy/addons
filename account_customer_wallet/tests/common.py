@@ -80,7 +80,6 @@ class TestBalance(TransactionCase):
             }
         )
         move.action_post()
-        partner._compute_customer_wallet_balance()
         return move
 
     def _create_sale_invoice(self, invoice_type, amount, partner=None):
