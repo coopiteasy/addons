@@ -80,6 +80,7 @@ class Partner(models.Model):
         ]
 
     @api.depends(lambda self: self._customer_wallet_balance_depends())
+    @api.depends_context("company")
     def _compute_customer_wallet_balance(self):
         if not self.ids:
             return True
