@@ -17,7 +17,11 @@ None
 
 [//]: # (addons)
 
-This part will be replaced when running the oca-gen-addons-table script from OCA/maintainer-tools.
+Available addons
+----------------
+addon | version | maintainers | summary
+--- | --- | --- | ---
+[partner_contact_type_default](partner_contact_type_default/) | 16.0.1.0.0 | [![carmenbianca](https://github.com/carmenbianca.png?size=30px)](https://github.com/carmenbianca) | Set 'contact' as default type when creating a partner as a contact of another partner.
 
 [//]: # (end addons)
 
