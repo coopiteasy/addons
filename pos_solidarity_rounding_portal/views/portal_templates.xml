@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="portal_my_details"
+        inherit_id="portal.portal_my_details"
+        name="Portal user details"
+    >
+        <xpath expr="//select[@name='state_id']/../.." position="inside">
+            <div
+                t-attf-class="form-check #{error.get('enable_solidarity_rounding') and 'o_has_error' or ''} col-xl-6"
+            >
+                <input
+                    type="checkbox"
+                    name="enable_solidarity_rounding"
+                    t-attf-class="form-check-input position-relative ml-0 mr-1 #{error.get('enable_solidarity_rounding') and 'is-invalid' or ''}"
+                    t-att-checked="enable_solidarity_rounding or partner.enable_solidarity_rounding"
+                />
+                <label
+                    class="form-check-label"
+                    for="enable_solidarity_rounding"
+                >Solidarity Rounding</label>
+            </div>
+        </xpath>
+    </template>
+</odoo>
