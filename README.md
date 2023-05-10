@@ -53,7 +53,6 @@ addon | version | maintainers | summary
 [mail_activity_summary_model](mail_activity_summary_model/) | 12.0.1.0.0 | [![carmenbianca](https://github.com/carmenbianca.png?size=30px)](https://github.com/carmenbianca) | Instead of using a simple text field for the summary, use a model.
 [mail_auto_resend](mail_auto_resend/) | 12.0.1.0.0 |  | Automatically resend failed emails
 [mrp_unbuild_product_mo_filter](mrp_unbuild_product_mo_filter/) | 12.0.1.0.1 |  | Filter unbuild manufacturing orders by selected product
-[partner_contact_address](partner_contact_address/) | 12.0.1.0.0 |  | This module allows to have company contacts with their own address.
 [partner_no_unique_bank](partner_no_unique_bank/) | 12.0.1.0.0 |  | Do not mandate that bank account numbers be unique between partners.
 [partner_socialmedia](partner_socialmedia/) | 12.0.1.0.0 |  | Add social media fields to contacts
 [partner_warehouse](partner_warehouse/) | 12.0.1.0.0 |  | Let the warehouse of the sale order be set accordingly to a default warehouse set on the partner.
