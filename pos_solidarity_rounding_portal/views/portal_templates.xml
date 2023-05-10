@@ -7,18 +7,18 @@
     >
         <xpath expr="//select[@name='state_id']/../.." position="inside">
             <div
-                t-attf-class="form-group #{error.get('enable_solidarity_rounding') and 'o_has_error' or ''} col-xl-6"
+                t-attf-class="form-check #{error.get('enable_solidarity_rounding') and 'o_has_error' or ''} col-xl-6"
             >
+                <input
+                    type="checkbox"
+                    name="enable_solidarity_rounding"
+                    t-attf-class="form-check-input #{error.get('enable_solidarity_rounding') and 'is-invalid' or ''}"
+                    t-att-checked="enable_solidarity_rounding or partner.enable_solidarity_rounding"
+                />
                 <label
                     class="col-form-label"
                     for="enable_solidarity_rounding"
                 >Solidarity Rounding</label>
-                <input
-                    type="checkbox"
-                    name="enable_solidarity_rounding"
-                    t-attf-class="form-control #{error.get('enable_solidarity_rounding') and 'is-invalid' or ''}"
-                    t-att-checked="'1' if (enable_solidarity_rounding or partner.enable_solidarity_rounding) else None"
-                />
             </div>
         </xpath>
     </template>
