@@ -12,11 +12,11 @@
                 <input
                     type="checkbox"
                     name="enable_solidarity_rounding"
-                    t-attf-class="form-check-input #{error.get('enable_solidarity_rounding') and 'is-invalid' or ''}"
+                    t-attf-class="form-check-input position-relative ml-0 mr-1 #{error.get('enable_solidarity_rounding') and 'is-invalid' or ''}"
                     t-att-checked="enable_solidarity_rounding or partner.enable_solidarity_rounding"
                 />
                 <label
-                    class="col-form-label"
+                    class="form-check-label"
                     for="enable_solidarity_rounding"
                 >Solidarity Rounding</label>
             </div>
