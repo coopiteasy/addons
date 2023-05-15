@@ -1,11 +1,11 @@
-odoo.define("pos_solidarity_rounding.gui", function (require) {
+odoo.define("pos_solidarity_rounding.gui", function(require) {
     "use strict";
 
     var gui = require("point_of_sale.gui");
 
     gui.Gui.include({
         // Before showing the payment screen, add a rounded up tip.
-        show_screen: function (screen_name, params, refresh, skip_close_popup) {
+        show_screen: function(screen_name, params, refresh, skip_close_popup) {
             if (screen_name === "payment") {
                 var order = this.pos.get_order();
                 var client = order.get_client();
