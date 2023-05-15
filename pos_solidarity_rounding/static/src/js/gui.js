@@ -9,10 +9,13 @@ odoo.define("pos_solidarity_rounding.gui", function (require) {
             if (screen_name === "payment") {
                 var order = this.pos.get_order();
                 var client = order.get_client();
+
                 // Only do this for clients that have enabled it.
-                if (client && client.enable_solidarity_rounding) {
-                    // Don't tip on top of tips; set tip to 0 first.
-                    order.set_tip(0);
+                if (
+                    client &&
+                    client.enable_solidarity_rounding &&
+                    !order.tip_exists()
+                ) {
                     var tip = order.determine_tip();
                     order.set_tip(tip);
                 }
