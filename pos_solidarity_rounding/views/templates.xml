@@ -9,6 +9,10 @@
                 type="text/javascript"
                 src="/pos_solidarity_rounding/static/src/js/models.js"
             />
+            <script
+                type="text/javascript"
+                src="/pos_solidarity_rounding/static/src/js/screens.js"
+            />
         </xpath>
     </template>
 </odoo>
