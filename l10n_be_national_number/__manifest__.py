@@ -6,7 +6,7 @@
     "name": "Belgium - National Number",
     "summary": """
         Belgian National Number""",
-    "version": "13.0.1.0.0",
+    "version": "14.0.1.0.0",
     "category": "Contact",
     "website": "https://github.com/OCA/l10n-belgium",
     "author": "Coop IT Easy SC, Odoo Community Association (OCA)",
