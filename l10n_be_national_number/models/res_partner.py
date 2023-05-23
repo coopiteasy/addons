@@ -5,8 +5,6 @@ from odoo import fields, models
 
 
 class ResPartner(models.Model):
-    _inherit = 'res.partner'
+    _inherit = "res.partner"
 
-    national_number = fields.Char(
-        string='National Number'
-    )
+    national_number = fields.Char(string="National Number")

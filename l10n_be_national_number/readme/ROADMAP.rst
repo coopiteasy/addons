@@ -1,1 +1,1 @@
-Implement a validation method. 
+Implement a validation method.

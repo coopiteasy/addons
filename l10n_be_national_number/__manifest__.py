@@ -15,7 +15,7 @@
     "application": False,
     "depends": [
         "partner_identification",
-        ],
+    ],
     "excludes": [],
     "data": ["data/res_partner_id_category.xml"],
     "demo": [],
