@@ -8,7 +8,7 @@
         Allow registered users to change their solidarity rounding configuration in the
         account settings.""",
     "version": "12.0.1.0.0",
-    "category": "Uncategorized",
+    "category": "Portal",
     "website": "https://coopiteasy.be",
     "author": "Coop IT Easy SC",
     "maintainers": ["carmenbianca"],
