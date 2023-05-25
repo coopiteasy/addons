@@ -63,6 +63,8 @@ addon | version | maintainers | summary
 [pos_customer_wallet_partner_is_user](pos_customer_wallet_partner_is_user/) | 12.0.1.1.0 | [![coopiteasy](https://github.com/coopiteasy.png?size=30px)](https://github.com/coopiteasy) | Add a field on partners that shows whether they have used customer wallet functionality, and don't show some parts of customer wallet functionality to partners who haven't already used it.
 [pos_self_service_base](pos_self_service_base/) | 12.0.1.0.0 |  | POS Self-Service Base Module
 [pos_self_service_print_zpl](pos_self_service_print_zpl/) | 12.0.1.0.0 |  | POS Self-Service Print ZPL from browser
+[pos_solidarity_rounding](pos_solidarity_rounding/) | 12.0.1.0.0 | [![carmenbianca](https://github.com/carmenbianca.png?size=30px)](https://github.com/carmenbianca) | Round POS payments up for willing customers as a gesture of solidarity.
+[pos_solidarity_rounding_portal](pos_solidarity_rounding_portal/) | 12.0.1.0.0 | [![carmenbianca](https://github.com/carmenbianca.png?size=30px)](https://github.com/carmenbianca) | Allow registered users to change their solidarity rounding configuration in the account settings.
 [product_label_report](product_label_report/) | 12.0.1.0.0 |  | This module allows to show the print barcode and name of the product.
 [product_to_bizerba_scale](product_to_bizerba_scale/) | 12.0.1.0.0 |  | This module merges product_to_scale_bizerba and product_to_scale_bizerba_extended into one.
 [purchase_invoice_status](purchase_invoice_status/) | 12.0.1.0.0 |  | Add invoice status on purchase orders
