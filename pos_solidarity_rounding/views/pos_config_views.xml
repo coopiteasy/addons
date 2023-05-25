@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="pos_config_view_form" model="ir.ui.view">
+        <field name="name">pos_solidarity_rounding.pos_config_view_form</field>
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="point_of_sale.pos_config_view_form" />
+        <field name="arch" type="xml">
+            <div id="iface_invoicing" position="before">
+                <!-- This is effectively a duplicate implementation from pos_restaurant.
+                If both modules are installed, we should probably deal with that. -->
+                <div
+                    class="col-12 col-lg-6 o_setting_box"
+                    id="iface_tipproduct_solidarity"
+                    title="This product is used as reference on customer receipts."
+                >
+                    <div class="o_setting_left_pane">
+                        <field name="iface_tipproduct" />
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="tip_product_id" string="Tips" />
+                        <div class="text-muted">
+                            Accept customer tips or convert their change to a tip
+                        </div>
+                        <div
+                            class="content-group"
+                            attrs="{'invisible': [('iface_tipproduct', '=', False)]}"
+                        >
+                            <div class="mt16">
+                                <label
+                                    string="Tip Product"
+                                    for="tip_product_id"
+                                    class="o_light_label"
+                                />
+                                <field
+                                    name="tip_product_id"
+                                    domain="[('available_in_pos', '=', True)]"
+                                    context="{'default_available_in_pos': True}"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </field>
+    </record>
+
+</odoo>
