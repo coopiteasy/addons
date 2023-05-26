@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-from datetime import datetime, timedelta
+from datetime import datetime
 from itertools import combinations
 
 from odoo.tests.common import Form, SavepointCase
@@ -110,11 +110,8 @@ class TestResourceBooking(SavepointCase):
                 }
             )
 
-        # Grab the next Monday. We can book resources on that day.
-        target_date = datetime.now() + timedelta(days=1)
-        while target_date.weekday() != 0:
-            target_date += timedelta(days=1)
-        cls.target_date = target_date.replace(hour=9, minute=0, second=0)
+        # A Monday.
+        cls.target_date = datetime(2023, 1, 2)
 
     def create_booking(
         self,
