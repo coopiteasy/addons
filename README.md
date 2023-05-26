@@ -31,6 +31,7 @@ addon | version | maintainers | summary
 [hide_variant_price_difference](hide_variant_price_difference/) | 14.0.1.0.1 |  | On website sale views, hide the tags next to product variants that show the price difference compared to the current price.
 [partner_no_unique_bank](partner_no_unique_bank/) | 14.0.1.0.1 |  | Do not mandate that bank account numbers be unique between partners.
 [resource_booking_remove_default_filter](resource_booking_remove_default_filter/) | 14.0.1.0.0 | [![carmenbianca](https://github.com/carmenbianca.png?size=30px)](https://github.com/carmenbianca) | Remove the 'Involving me' filter as default filter when viewing resource bookings.
+[resource_booking_sale](resource_booking_sale/) | 14.0.1.0.0 | [![carmenbianca](https://github.com/carmenbianca.png?size=30px)](https://github.com/carmenbianca) | Create a link between resource bookings and sales orders.
 
 [//]: # (end addons)
 
