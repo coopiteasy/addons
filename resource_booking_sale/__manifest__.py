@@ -5,7 +5,7 @@
 {
     "name": "Resource Bookings Sale",
     "summary": """
-        An alternative implementation of sale_resource_booking (v12).""",
+        Create a link between resource bookings and sales orders.""",
     "version": "14.0.1.0.0",
     "category": "Appointments",
     "website": "https://coopiteasy.be",
