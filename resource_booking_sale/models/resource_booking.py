@@ -121,7 +121,6 @@ class ResourceBooking(models.Model):
             if booking.product_id and not booking_line:
                 self.env["sale.order.line"].create(
                     {
-                        # TODO: Verify this.
                         "name": _("Booking for %s") % booking.partner_id.name,
                         "sequence": 1,
                         "product_id": booking.product_id.id,

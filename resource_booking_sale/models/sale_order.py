@@ -15,5 +15,7 @@ class SaleOrder(models.Model):
     )
 
     def action_cancel(self):
-        # TODO: cancel resource_booking_ids. Verify before implementing.
+        # TODO: Should we cancel resource_booking_ids here? The reverse is true.
+        # If we implement this, we might get stuck in a recursive loop unless we
+        # pass some context flags.
         return super().action_cancel()
