@@ -14,16 +14,33 @@ Account Customer Wallet
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-coopiteasy%2Faddons-lightgray.png?logo=github
-    :target: https://github.com/coopiteasy/addons/tree/12.0/account_customer_wallet
+    :target: https://github.com/coopiteasy/addons/tree/16.0/account_customer_wallet
     :alt: coopiteasy/addons
 
 |badge1| |badge2| |badge3| 
 
+Allow customers to pay using a wallet which is tracked by the company.
 
 **Table of contents**
 
 .. contents::
    :local:
+
+Usage
+=====
+
+Setting this up requires a few careful steps:
+
+- Make sure your user has access to all accounting features.
+- Create an account (Customer Wallet) that is a liability.
+- Create a journal (Customer Wallet). Enable the 'Customer Wallet Journal'
+  toggle, set the Bank Account to the previously created account, and in the
+  payment methods (both incoming and outgoing), set the Outstanding Receipts
+  accounts to the previously created account.
+- In the Invoicing settings, set the Customer Wallet Account to the previously
+  created account.
+- (Optional) Create a product (Wallet Product), and enable the Wallet Product
+  toggle. Set the income and expense account to the previously created account.
 
 Changelog
 =========
@@ -48,7 +65,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/coopiteasy/addons/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us smashing it by providing a detailed and welcomed
-`feedback <https://github.com/coopiteasy/addons/issues/new?body=module:%20account_customer_wallet%0Aversion:%2012.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/coopiteasy/addons/issues/new?body=module:%20account_customer_wallet%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -71,6 +88,6 @@ Contributors
 Maintainers
 ~~~~~~~~~~~
 
-This module is part of the `coopiteasy/addons <https://github.com/coopiteasy/addons/tree/12.0/account_customer_wallet>`_ project on GitHub.
+This module is part of the `coopiteasy/addons <https://github.com/coopiteasy/addons/tree/16.0/account_customer_wallet>`_ project on GitHub.
 
 You are welcome to contribute.
