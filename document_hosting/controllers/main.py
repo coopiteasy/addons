@@ -46,6 +46,8 @@ class DocumentWebsite(http.Controller):
         """"""
         if not request.website.display_document_page:
             return request.not_found()
+        date_begin = Date.from_string(date_begin)
+        date_end = Date.from_string(date_end)
 
         values = {}
         values.update(
@@ -201,8 +203,8 @@ class DocumentWebsite(http.Controller):
                         date_end = leaf[2]
             groups.append(
                 {
-                    "date_begin": Date.to_string(Date.from_string(date_begin)),
-                    "date_end": Date.to_string(Date.from_string(date_end)),
+                    "date_begin": date_begin,
+                    "date_end": date_end,
                     "name": label,
                     "item_count": group[groupby + "_count"],
                 }
