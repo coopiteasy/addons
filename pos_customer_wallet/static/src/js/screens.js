@@ -23,8 +23,8 @@ odoo.define("pos_customer_wallet.screens", function (require) {
          * - If wallet journal is selected, check if customer is selected.
          * - if wallet journal is selected, check if wallet amount is sufficient.
          */
-        order_is_valid: function () {
-            if (!this._super()) {
+        order_is_valid: function (force_validation) {
+            if (!this._super(force_validation)) {
                 return false;
             }
 
