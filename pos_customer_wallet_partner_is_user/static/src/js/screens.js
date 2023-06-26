@@ -21,9 +21,12 @@ odoo.define("pos_customer_wallet_partner_is_user.screens", function (require) {
                 this.get_amount_debit_with_customer_wallet_journal();
             var [product_wallet_amount, product_lines_qty] =
                 this.get_amount_credit_with_customer_wallet_product();
-            var wallet_amount = payment_wallet_amount - product_wallet_amount;
 
-            if (wallet_amount && client && !client.is_customer_wallet_user) {
+            if (
+                (payment_lines_qty || product_lines_qty) &&
+                client &&
+                !client.is_customer_wallet_user
+            ) {
                 this.gui.show_popup("error", {
                     title: _t("Customer cannot use customer wallet"),
                     body: _t(
