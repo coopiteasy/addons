@@ -11,8 +11,8 @@ odoo.define("pos_customer_wallet_partner_is_user.screens", function (require) {
          *
          * - If client hasn't enabled functionality, don't allow wallet payments.
          */
-        order_is_valid: function () {
-            if (!this._super()) {
+        order_is_valid: function (force_validation) {
+            if (!this._super(force_validation)) {
                 return false;
             }
 
