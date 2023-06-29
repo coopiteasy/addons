@@ -11,6 +11,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                 type="text/javascript"
                 src="/pos_customer_wallet_partner_is_user/static/src/js/models.js"
             />
+            <script
+                type="text/javascript"
+                src="/pos_customer_wallet_partner_is_user/static/src/js/screens.js"
+            />
         </xpath>
     </template>
 </odoo>
