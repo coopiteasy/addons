@@ -19,6 +19,20 @@ msgid "Contact"
 msgstr ""
 
 #. module: pos_customer_wallet_partner_is_user
+#. openerp-web
+#: code:addons/pos_customer_wallet_partner_is_user/static/src/js/screens.js:34
+#, python-format
+msgid "Customer cannot use customer wallet"
+msgstr ""
+
+#. module: pos_customer_wallet_partner_is_user
+#. openerp-web
+#: code:addons/pos_customer_wallet_partner_is_user/static/src/js/screens.js:35
+#, python-format
+msgid "Customer has not enabled the usage of a customer wallet. Before the user can use this payment method, they must enable it."
+msgstr ""
+
+#. module: pos_customer_wallet_partner_is_user
 #: model:ir.model.fields,field_description:pos_customer_wallet_partner_is_user.field_res_partner__is_customer_wallet_user
 #: model:ir.model.fields,field_description:pos_customer_wallet_partner_is_user.field_res_users__is_customer_wallet_user
 #: model_terms:ir.ui.view,arch_db:pos_customer_wallet_partner_is_user.view_res_partner_filter
