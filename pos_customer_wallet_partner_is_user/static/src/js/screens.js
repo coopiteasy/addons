@@ -22,6 +22,9 @@ odoo.define("pos_customer_wallet_partner_is_user.screens", function (require) {
             var [product_wallet_amount, product_lines_qty] =
                 this.get_amount_credit_with_customer_wallet_product();
 
+            // If the client is not a customer wallet user, and if a customer
+            // wallet operation is being made (via the payment method or via the
+            // wallet product), display an error.
             if (
                 (payment_lines_qty || product_lines_qty) &&
                 client &&
