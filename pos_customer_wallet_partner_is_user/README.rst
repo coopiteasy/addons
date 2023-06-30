@@ -62,13 +62,13 @@ Contributors
 Maintainers
 ~~~~~~~~~~~
 
-.. |maintainer-coopiteasy| image:: https://github.com/coopiteasy.png?size=40px
-    :target: https://github.com/coopiteasy
-    :alt: coopiteasy
+.. |maintainer-carmenbianca| image:: https://github.com/carmenbianca.png?size=40px
+    :target: https://github.com/carmenbianca
+    :alt: carmenbianca
 
 Current maintainer:
 
-|maintainer-coopiteasy| 
+|maintainer-carmenbianca| 
 
 This module is part of the `coopiteasy/addons <https://github.com/coopiteasy/addons/tree/12.0/pos_customer_wallet_partner_is_user>`_ project on GitHub.
 
