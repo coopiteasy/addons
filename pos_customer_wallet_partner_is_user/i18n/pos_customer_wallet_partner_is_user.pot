@@ -20,14 +20,14 @@ msgstr ""
 
 #. module: pos_customer_wallet_partner_is_user
 #. openerp-web
-#: code:addons/pos_customer_wallet_partner_is_user/static/src/js/screens.js:34
+#: code:addons/pos_customer_wallet_partner_is_user/static/src/js/screens.js:38
 #, python-format
 msgid "Customer cannot use customer wallet"
 msgstr ""
 
 #. module: pos_customer_wallet_partner_is_user
 #. openerp-web
-#: code:addons/pos_customer_wallet_partner_is_user/static/src/js/screens.js:35
+#: code:addons/pos_customer_wallet_partner_is_user/static/src/js/screens.js:39
 #, python-format
 msgid "Customer has not enabled the usage of a customer wallet. Before the user can use this payment method, they must enable it."
 msgstr ""
