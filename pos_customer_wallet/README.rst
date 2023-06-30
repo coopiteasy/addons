@@ -65,6 +65,14 @@ Contributors
 Maintainers
 ~~~~~~~~~~~
 
+.. |maintainer-carmenbianca| image:: https://github.com/carmenbianca.png?size=40px
+    :target: https://github.com/carmenbianca
+    :alt: carmenbianca
+
+Current maintainer:
+
+|maintainer-carmenbianca| 
+
 This module is part of the `coopiteasy/addons <https://github.com/coopiteasy/addons/tree/12.0/pos_customer_wallet>`_ project on GitHub.
 
 You are welcome to contribute.
