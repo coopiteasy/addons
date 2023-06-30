@@ -12,8 +12,7 @@
     "category": "Point of Sale",
     "website": "https://coopiteasy.be",
     "author": "Coop IT Easy SC",
-    "maintainer": "Coop IT Easy SC",
-    "maintainers": ["coopiteasy"],
+    "maintainers": ["carmenbianca"],
     "license": "AGPL-3",
     "application": False,
     "depends": [

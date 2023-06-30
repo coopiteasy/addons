@@ -53,7 +53,7 @@
 
     <t t-extend="XmlReceipt">
         <t t-jquery=".before-footer" t-operation="before">
-            <line class="total_foodprint_amount" t-if="receipt.client">
+            <line class="wallet_balance_amount" t-if="receipt.client">
                 <left>Customer Wallet Balance:</left>
                 <right><t
                         t-esc="widget.format_currency(receipt.customer_wallet_balance)"
