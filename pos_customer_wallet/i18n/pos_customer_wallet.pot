@@ -15,21 +15,21 @@ msgstr ""
 
 #. module: pos_customer_wallet
 #. openerp-web
-#: code:addons/pos_customer_wallet/static/src/js/screens.js:61
+#: code:addons/pos_customer_wallet/static/src/js/screens.js:65
 #, python-format
 msgid "' without selecting a customer. Please select a customer or remove the order line(s)."
 msgstr ""
 
 #. module: pos_customer_wallet
 #. openerp-web
-#: code:addons/pos_customer_wallet/static/src/js/screens.js:59
+#: code:addons/pos_customer_wallet/static/src/js/screens.js:63
 #, python-format
 msgid "Cannot sell the product '"
 msgstr ""
 
 #. module: pos_customer_wallet
 #. openerp-web
-#: code:addons/pos_customer_wallet/static/src/js/screens.js:44
+#: code:addons/pos_customer_wallet/static/src/js/screens.js:48
 #, python-format
 msgid "Cannot use customer wallet payment method without selecting a customer.\n"
 "\n"
@@ -43,7 +43,7 @@ msgstr ""
 
 #. module: pos_customer_wallet
 #. openerp-web
-#: code:addons/pos_customer_wallet/static/src/js/screens.js:127
+#: code:addons/pos_customer_wallet/static/src/js/screens.js:135
 #: code:addons/pos_customer_wallet/static/src/xml/pos.xml:10
 #: code:addons/pos_customer_wallet/static/src/xml/pos.xml:71
 #: code:addons/pos_customer_wallet/static/src/xml/pos.xml:85
@@ -61,7 +61,7 @@ msgstr ""
 
 #. module: pos_customer_wallet
 #. openerp-web
-#: code:addons/pos_customer_wallet/static/src/js/screens.js:70
+#: code:addons/pos_customer_wallet/static/src/js/screens.js:74
 #, python-format
 msgid "Customer wallet balance not sufficient"
 msgstr ""
@@ -78,8 +78,8 @@ msgstr ""
 
 #. module: pos_customer_wallet
 #. openerp-web
-#: code:addons/pos_customer_wallet/static/src/js/screens.js:43
-#: code:addons/pos_customer_wallet/static/src/js/screens.js:57
+#: code:addons/pos_customer_wallet/static/src/js/screens.js:47
+#: code:addons/pos_customer_wallet/static/src/js/screens.js:61
 #, python-format
 msgid "No customer selected"
 msgstr ""
@@ -91,7 +91,7 @@ msgstr ""
 
 #. module: pos_customer_wallet
 #. openerp-web
-#: code:addons/pos_customer_wallet/static/src/js/screens.js:71
+#: code:addons/pos_customer_wallet/static/src/js/screens.js:75
 #, python-format
 msgid "There is not enough balance in the customer's wallet to perform this order."
 msgstr ""
