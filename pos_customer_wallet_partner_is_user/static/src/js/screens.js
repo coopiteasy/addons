@@ -1,4 +1,4 @@
-odoo.define("pos_customer_wallet_partner_is_user.screens", function (require) {
+odoo.define("pos_customer_wallet_partner_is_user.screens", function(require) {
     "use strict";
     var core = require("web.core");
     var screens = require("point_of_sale.screens");
@@ -11,16 +11,20 @@ odoo.define("pos_customer_wallet_partner_is_user.screens", function (require) {
          *
          * - If client hasn't enabled functionality, don't allow wallet payments.
          */
-        order_is_valid: function (force_validation) {
+        order_is_valid: function(force_validation) {
             if (!this._super(force_validation)) {
                 return false;
             }
 
             var client = this.pos.get_client();
-            var [payment_wallet_amount, payment_lines_qty] =
-                this.get_amount_debit_with_customer_wallet_journal();
-            var [product_wallet_amount, product_lines_qty] =
-                this.get_amount_credit_with_customer_wallet_product();
+            var [
+                payment_wallet_amount,
+                payment_lines_qty,
+            ] = this.get_amount_debit_with_customer_wallet_journal();
+            var [
+                product_wallet_amount,
+                product_lines_qty,
+            ] = this.get_amount_credit_with_customer_wallet_product();
 
             // If the client is not a customer wallet user, and if a customer
             // wallet operation is being made (via the payment method or via the
