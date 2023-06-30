@@ -60,8 +60,8 @@ addon | version | maintainers | summary
 [pos_auto_invoice](pos_auto_invoice/) | 12.0.1.0.0 |  | In the POS, set orders as to-invoice by default.
 [pos_auto_invoice_default_partner](pos_auto_invoice_default_partner/) | 12.0.1.0.0 |  | Compatibility layer between pos_auto_invoice and pos_default_partner.
 [pos_custom_receipt](pos_custom_receipt/) | 12.0.1.0.0 |  | Hide company's email and add customer's name to POS receipt
-[pos_customer_wallet](pos_customer_wallet/) | 12.0.2.1.0 | [![carmenbianca](https://github.com/carmenbianca.png?size=30px)](https://github.com/carmenbianca) | Enable usage of the Customer Wallet in the Point of Sale.
-[pos_customer_wallet_partner_is_user](pos_customer_wallet_partner_is_user/) | 12.0.1.2.0 | [![carmenbianca](https://github.com/carmenbianca.png?size=30px)](https://github.com/carmenbianca) | Add a field on partners that shows whether they have used customer wallet functionality, and don't show some parts of customer wallet functionality to partners who haven't already used it.
+[pos_customer_wallet](pos_customer_wallet/) | 12.0.2.1.1 | [![carmenbianca](https://github.com/carmenbianca.png?size=30px)](https://github.com/carmenbianca) | Enable usage of the Customer Wallet in the Point of Sale.
+[pos_customer_wallet_partner_is_user](pos_customer_wallet_partner_is_user/) | 12.0.1.2.1 | [![carmenbianca](https://github.com/carmenbianca.png?size=30px)](https://github.com/carmenbianca) | Add a field on partners that shows whether they have used customer wallet functionality, and don't show some parts of customer wallet functionality to partners who haven't already used it.
 [pos_self_service_base](pos_self_service_base/) | 12.0.1.0.0 |  | POS Self-Service Base Module
 [pos_self_service_print_zpl](pos_self_service_print_zpl/) | 12.0.1.0.0 |  | POS Self-Service Print ZPL from browser
 [pos_solidarity_rounding](pos_solidarity_rounding/) | 12.0.1.0.0 | [![carmenbianca](https://github.com/carmenbianca.png?size=30px)](https://github.com/carmenbianca) | Round POS payments up for willing customers as a gesture of solidarity.
