@@ -71,8 +71,6 @@ class CustomerWalletAmountPortal(CustomerPortal):
             )
 
         values["customer_wallet_payments_per_month"] = ordered
-        values["company_currency"] = (
-            request.env["res.company"]._company_default_get().currency_id
-        )
+        values["company_currency"] = request.env.company.currency_id
         values["customer_wallet_balance"] = partner_id.customer_wallet_balance
         return values
