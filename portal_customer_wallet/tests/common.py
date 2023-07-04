@@ -4,10 +4,11 @@
 
 import datetime
 
-from odoo.tests.common import SavepointCase
+from odoo import fields
+from odoo.tests.common import TransactionCase
 
 
-class TestCommon(SavepointCase):
+class TestCommon(TransactionCase):
     @classmethod
     def setUpClass(cls, *args, **kwargs):
         super().setUpClass(*args, **kwargs)
@@ -64,9 +65,7 @@ class TestCommon(SavepointCase):
                 "journal_id": self.customer_wallet_journal.id,
                 "date": date,
                 "line_ids": [
-                    (
-                        0,
-                        0,
+                    fields.Command.create(
                         {
                             "debit": debit,
                             "credit": credit,
@@ -74,9 +73,7 @@ class TestCommon(SavepointCase):
                             "account_id": self.customer_wallet_account.id,
                         },
                     ),
-                    (
-                        0,
-                        0,
+                    fields.Command.create(
                         {
                             "debit": credit,
                             "credit": debit,

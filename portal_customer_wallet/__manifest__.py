@@ -6,7 +6,7 @@
     "name": "Portal Customer Wallet",
     "summary": """
         My Home displays expenditures using customer wallet""",
-    "version": "14.0.1.0.0",
+    "version": "15.0.1.0.0",
     "category": "Website",
     "website": "https://github.com/coopiteasy/addons",
     "author": "Coop IT Easy SC",
@@ -23,5 +23,9 @@
         "views/portal_templates.xml",
     ],
     "demo": [],
-    "qweb": [],
+    "assets": {
+        "web.assets_frontend": [
+            "portal_customer_wallet/static/src/css/portal_customer_wallet.css"
+        ],
+    },
 }
