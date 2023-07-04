@@ -17,15 +17,11 @@ class ResPartner(models.Model):
         self.ensure_one()
         # Like in account_customer_wallet, search against all partners in family.
         all_partners_in_family = self.get_all_partners_in_family()
-        all_account_ids = (
-            self.env["res.partner"]
-            .browse(all_partners_in_family)
-            .mapped("customer_wallet_account_id")
-        )
+        wallet_account_id = self.env.company.customer_wallet_account_id
         move_lines = self.env["account.move.line"].search(
             [
                 ("partner_id", "in", all_partners_in_family),
-                ("account_id", "in", all_account_ids.ids),
+                ("account_id", "=", wallet_account_id.id),
                 # Negative balances = fill up the customer wallet. We're only
                 # interested in customer wallet spendings here, so let's skip
                 # them.

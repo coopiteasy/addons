@@ -20,9 +20,7 @@ class TestCommon(TransactionCase):
             {
                 "name": "Test Wallet Account",
                 "code": "10101010101",
-                "user_type_id": cls.env.ref(
-                    "account.data_account_type_current_liabilities"
-                ).id,
+                "account_type": "liability_current",
             }
         )
         cls.company_id.customer_wallet_account_id = cls.customer_wallet_account
@@ -32,15 +30,19 @@ class TestCommon(TransactionCase):
                 "code": "TSTWLLT",
                 "type": "bank",
                 "is_customer_wallet_journal": True,
-                "default_debit_account_id": cls.customer_wallet_account.id,
-                "default_credit_account_id": cls.customer_wallet_account.id,
             }
+        )
+        cls.customer_wallet_journal.inbound_payment_method_line_ids.payment_account_id = (
+            cls.customer_wallet_account
+        )
+        cls.customer_wallet_journal.outbound_payment_method_line_ids.payment_account_id = (
+            cls.customer_wallet_account
         )
         cls.cash_account = cls.env["account.account"].create(
             {
                 "name": "Test Cash Account",
                 "code": "654321",
-                "user_type_id": cls.env.ref("account.data_account_type_liquidity").id,
+                "account_type": "asset_cash",
             }
         )
         cls.cash_journal = cls.env["account.journal"].create(
@@ -48,10 +50,13 @@ class TestCommon(TransactionCase):
                 "name": "Test Cash Journal",
                 "code": "TSTCASH",
                 "type": "cash",
-                "journal_user": True,
-                "default_debit_account_id": cls.cash_account.id,
-                "default_credit_account_id": cls.cash_account.id,
             }
+        )
+        cls.cash_journal.inbound_payment_method_line_ids.payment_account_id = (
+            cls.cash_account
+        )
+        cls.cash_journal.outbound_payment_method_line_ids.payment_account_id = (
+            cls.cash_account
         )
 
     def _create_move(self, debit=0, credit=0, date=None, partner=None):
