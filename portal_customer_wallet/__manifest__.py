@@ -8,7 +8,7 @@
         My Home displays expenditures using customer wallet""",
     "version": "12.0.1.0.0",
     "category": "Website",
-    "website": "https://coopiteasy.be",
+    "website": "https://github.com/coopiteasy/addons",
     "author": "Coop IT Easy SC",
     "maintainers": ["carmenbianca"],
     "license": "AGPL-3",
