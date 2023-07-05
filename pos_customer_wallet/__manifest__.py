@@ -5,7 +5,7 @@
     "name": "Point of Sale Customer Wallet",
     "summary": """
         Enable usage of the Customer Wallet in the Point of Sale.""",
-    "version": "13.0.1.0.0",
+    "version": "14.0.1.0.0",
     "category": "Point of Sale",
     "website": "https://github.com/coopiteasy/addons",
     "author": "Coop IT Easy SC,GRAP",
