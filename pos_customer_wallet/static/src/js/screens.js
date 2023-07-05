@@ -1,4 +1,4 @@
-odoo.define("pos_customer_wallet.screens", function(require) {
+odoo.define("pos_customer_wallet.screens", function (require) {
     "use strict";
     var core = require("web.core");
     var screens = require("point_of_sale.screens");
@@ -11,7 +11,7 @@ odoo.define("pos_customer_wallet.screens", function(require) {
          *
          * Update balance wallet amount when customer changed.
          */
-        customer_changed: function() {
+        customer_changed: function () {
             this._super();
             this.render_current_balance();
             this.render_new_balance();
@@ -23,21 +23,17 @@ odoo.define("pos_customer_wallet.screens", function(require) {
          * - If wallet journal is selected, check if customer is selected.
          * - if wallet journal is selected, check if wallet amount is sufficient.
          */
-        order_is_valid: function(force_validation) {
+        order_is_valid: function (force_validation) {
             if (!this._super(force_validation)) {
                 return false;
             }
 
             var client = this.pos.get_client();
-            var [
-                payment_wallet_amount,
-                payment_lines_qty,
-            ] = this.get_amount_debit_with_customer_wallet_journal();
+            var [payment_wallet_amount, payment_lines_qty] =
+                this.get_amount_debit_with_customer_wallet_journal();
 
-            var [
-                product_wallet_amount,
-                product_lines_qty,
-            ] = this.get_amount_credit_with_customer_wallet_product();
+            var [product_wallet_amount, product_lines_qty] =
+                this.get_amount_credit_with_customer_wallet_product();
 
             var wallet_amount = payment_wallet_amount - product_wallet_amount;
 
@@ -54,7 +50,7 @@ odoo.define("pos_customer_wallet.screens", function(require) {
                 if (product_lines_qty > 0) {
                     var wallet_product_names = [];
                     var wallet_products = this.find_customer_wallet_products();
-                    wallet_products.forEach(function(product) {
+                    wallet_products.forEach(function (product) {
                         wallet_product_names.push(product.display_name);
                     });
                     this.gui.show_popup("error", {
@@ -68,8 +64,7 @@ odoo.define("pos_customer_wallet.screens", function(require) {
                     });
                     return false;
                 }
-            } else {
-                if (this.is_balance_above_minimum(client, wallet_amount)) {
+            } else if (this.is_balance_above_minimum(client, wallet_amount)) {
                     this.gui.show_popup("error", {
                         title: _t("Customer wallet balance not sufficient"),
                         body: _t(
@@ -78,7 +73,6 @@ odoo.define("pos_customer_wallet.screens", function(require) {
                     });
                     return false;
                 }
-            }
             return true;
         },
 
@@ -88,15 +82,11 @@ odoo.define("pos_customer_wallet.screens", function(require) {
          * Once the order is validated, update the wallet amount
          * of the current customer, if defined.
          */
-        finalize_validation: function() {
-            var [
-                payment_wallet_amount,
-                _,
-            ] = this.get_amount_debit_with_customer_wallet_journal();
-            var [
-                product_wallet_amount,
-                _,
-            ] = this.get_amount_credit_with_customer_wallet_product();
+        finalize_validation: function () {
+            var [payment_wallet_amount, _] =
+                this.get_amount_debit_with_customer_wallet_journal();
+            var [product_wallet_amount, _] =
+                this.get_amount_credit_with_customer_wallet_product();
             var wallet_amount = payment_wallet_amount - product_wallet_amount;
 
             var client = this.pos.get_client();
@@ -113,19 +103,19 @@ odoo.define("pos_customer_wallet.screens", function(require) {
          *
          * Update new wallet balance, when selecting / changing payment line
          */
-        render_paymentlines: function() {
+        render_paymentlines: function () {
             this._super.apply(this, arguments);
             this.render_new_balance();
         },
 
-        is_balance_above_minimum: function(client, wallet_amount) {
+        is_balance_above_minimum: function (client, wallet_amount) {
             return (
                 client.customer_wallet_balance - wallet_amount <=
                 this.pos.config.minimum_wallet_amount - 0.00001
             );
         },
 
-        render_current_balance: function() {
+        render_current_balance: function () {
             if (this.pos.config.is_enabled_customer_wallet) {
                 var client = this.pos.get_client();
                 this.$(".current-balance").text(
@@ -136,7 +126,7 @@ odoo.define("pos_customer_wallet.screens", function(require) {
                 );
             }
         },
-        render_new_balance: function() {
+        render_new_balance: function () {
             if (this.pos.config.is_enabled_customer_wallet) {
                 var new_amount = this.get_new_wallet_amount();
                 if (new_amount !== false) {
@@ -149,17 +139,13 @@ odoo.define("pos_customer_wallet.screens", function(require) {
             }
         },
 
-        get_new_wallet_amount: function() {
+        get_new_wallet_amount: function () {
             var client = this.pos.get_client();
             if (client) {
-                var [
-                    payment_wallet_amount,
-                    _,
-                ] = this.get_amount_debit_with_customer_wallet_journal();
-                var [
-                    product_wallet_amount,
-                    _,
-                ] = this.get_amount_credit_with_customer_wallet_product();
+                var [payment_wallet_amount, _] =
+                    this.get_amount_debit_with_customer_wallet_journal();
+                var [product_wallet_amount, _] =
+                    this.get_amount_credit_with_customer_wallet_product();
                 if (payment_wallet_amount === 0 && product_wallet_amount === 0) {
                     return false;
                 }
@@ -168,9 +154,9 @@ odoo.define("pos_customer_wallet.screens", function(require) {
                     payment_wallet_amount +
                     product_wallet_amount
                 );
-            } else {
-                return false;
             }
+                return false;
+
         },
 
         /**
@@ -194,7 +180,7 @@ odoo.define("pos_customer_wallet.screens", function(require) {
         find_customer_wallet_products() {
             var self = this;
             var wallet_products = [];
-            Object.keys(this.pos.db.product_by_id).forEach(function(key) {
+            Object.keys(this.pos.db.product_by_id).forEach(function (key) {
                 if (self.pos.db.product_by_id[key].is_customer_wallet_product) {
                     wallet_products.push(self.pos.db.product_by_id[key]);
                 }
@@ -235,13 +221,13 @@ odoo.define("pos_customer_wallet.screens", function(require) {
             var order = this.pos.get_order();
             var wallet_product_ids = [];
             var wallet_products = this.find_customer_wallet_products();
-            wallet_products.forEach(function(product) {
+            wallet_products.forEach(function (product) {
                 wallet_product_ids.push(product.id);
             });
             var wallet_amount = 0;
             var lines_qty = 0;
 
-            order.orderlines.forEach(function(orderline) {
+            order.orderlines.forEach(function (orderline) {
                 if (wallet_product_ids.includes(orderline.product.id)) {
                     wallet_amount += orderline.get_price_without_tax();
                     lines_qty += 1;

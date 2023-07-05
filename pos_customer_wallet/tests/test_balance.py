@@ -71,12 +71,12 @@ class TestPosBalance(TestBalance):
 
         # Make an order
         order_data = {
-            "id": u"0006-001-0010",
+            "id": "0006-001-0010",
             "to_invoice": False,
             "data": {
-                "creation_date": u"2022-01-01 12:00:00",
+                "creation_date": "2022-01-01 12:00:00",
                 "name": "Order 0006-001-0010",
-                "uid": u"00001-001-0001",
+                "uid": "00001-001-0001",
                 "pricelist_id": self.pricelist.id,
                 "user_id": self.env.user.id,
                 "partner_id": self.partner.id,
