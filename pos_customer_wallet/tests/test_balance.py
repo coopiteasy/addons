@@ -31,7 +31,7 @@ class TestPosBalance(TestBalance):
         self.pricelist = self.env["product.pricelist"].create(
             {
                 "name": "Test pricelist",
-                "currency_id": self.env.user.company_id.currency_id.id,
+                "currency_id": self.env.company.currency_id.id,
                 "item_ids": [
                     (
                         0,

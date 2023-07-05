@@ -40,7 +40,7 @@ class Partner(models.Model):
         # 'point of sale / user' group
         order_lines = (
             self.env["pos.order.line"]
-            .suspend_security()
+            .sudo()
             .search(
                 [
                     ("order_id.state", "=", "paid"),
