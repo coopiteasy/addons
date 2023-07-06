@@ -18,11 +18,17 @@ class PosConfig(models.Model):
     )
 
     @api.depends(
-        "journal_ids.is_customer_wallet_journal",
-        "journal_ids.minimum_wallet_amount",
+        "payment_method_ids.journal_id.is_customer_wallet_journal",
+        "payment_method_ids.journal_id.minimum_wallet_amount",
     )
     def _compute_minimum_wallet_amount(self):
         for config in self:
-            config.minimum_wallet_amount = min(
-                config.mapped("journal_ids.minimum_wallet_amount")
+            wallet_method = config.payment_method_ids.filtered(
+                lambda method: method.journal_id.is_customer_wallet_journal
             )
+            if wallet_method:
+                config.minimum_wallet_amount = min(
+                    wallet_method.mapped("journal_id.minimum_wallet_amount")
+                )
+            else:
+                config.minimum_wallet_amount = False
