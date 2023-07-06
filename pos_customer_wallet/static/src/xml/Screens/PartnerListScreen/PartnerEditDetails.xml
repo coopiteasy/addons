@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<templates id="template" xml:space="preserve">
+
+    <t
+        t-name="PartnerDetailsEdit"
+        t-inherit="point_of_sale.PartnerDetailsEdit"
+        t-inherit-mode="extension"
+        owl="1"
+    >
+        <xpath expr="//div[hasclass('partner-details-right')]" position="inside">
+            <div class="partner-detail">
+                <span class="label">Customer Wallet</span>
+                <span
+                    class="detail"
+                    t-esc="env.pos.format_currency(props.partner.customer_wallet_balance)"
+                />
+            </div>
+        </xpath>
+    </t>
+
+</templates>
