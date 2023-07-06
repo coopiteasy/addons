@@ -15,14 +15,14 @@
                     <span class="current-balance">
                         <t t-if="widget.pos.get_client()">
                             <t
-                                t-esc="widget.format_currency(widget.pos.get_client().customer_wallet_balance)"
+                                t-out="widget.format_currency(widget.pos.get_client().customer_wallet_balance)"
                             />
                         </t>
                     </span>
                     <span class="new-balance">
                         <t t-if="widget.get_new_wallet_amount()">
                             (<t
-                                t-esc="widget.format_currency(widget.get_new_wallet_amount())"
+                                t-out="widget.format_currency(widget.get_new_wallet_amount())"
                             />)
                         </t>
                     </span>
@@ -43,7 +43,7 @@
                     <td>Customer Wallet Balance:</td>
                     <td class="pos-right-align">
                         <t
-                            t-esc="widget.format_currency(receipt.customer_wallet_balance)"
+                            t-out="widget.format_currency(receipt.customer_wallet_balance)"
                         />
                     </td>
                 </tr>
@@ -56,7 +56,7 @@
             <line class="wallet_balance_amount" t-if="receipt.client">
                 <left>Customer Wallet Balance:</left>
                 <right><t
-                        t-esc="widget.format_currency(receipt.customer_wallet_balance)"
+                        t-out="widget.format_currency(receipt.customer_wallet_balance)"
                     /></right>
             </line>
         </t>
@@ -70,7 +70,7 @@
             >
                 <span class='label'>Customer Wallet Balance</span>
                 <span class='detail wallet_balance'><t
-                        t-esc='widget.format_currency(partner.customer_wallet_balance) or ""'
+                        t-out='widget.format_currency(partner.customer_wallet_balance) or ""'
                     /></span>
             </div>
         </t>
@@ -84,7 +84,7 @@
             >
                 <span class='label'>Customer Wallet Balance</span>
                 <span class='detail wallet_balance'><t
-                        t-esc='widget.format_currency(partner.customer_wallet_balance) or ""'
+                        t-out='widget.format_currency(partner.customer_wallet_balance) or ""'
                     /></span>
             </div>
         </t>
