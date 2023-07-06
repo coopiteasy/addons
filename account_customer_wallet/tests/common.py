@@ -43,6 +43,7 @@ class TestBalance(TransactionCase):
             [("type", "=", "sale")], limit=1
         )
         cls.payment_method = cls.env.ref("account.account_payment_method_manual_in")
+        cls.wallet_product = cls.env.ref("account_customer_wallet.product_wallet_demo")
         cls.cash_account = cls.env["account.account"].search(
             [("account_type", "=", "asset_cash")], limit=1
         )
