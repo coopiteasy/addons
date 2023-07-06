@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<templates id="template" xml:space="preserve">
+
+    <t
+        t-name="OrderReceipt"
+        t-inherit="point_of_sale.OrderReceipt"
+        t-inherit-mode="extension"
+        owl="1"
+    >
+        <xpath expr="//div[hasclass('before-footer')]" position="inside">
+            <div class="customer-wallet-balance">
+                Customer Wallet Balance
+                <span
+                    t-esc="env.pos.format_currency(receipt.customer_wallet_balance)"
+                    class="pos-receipt-right-align"
+                />
+            </div>
+        </xpath>
+    </t>
+
+</templates>

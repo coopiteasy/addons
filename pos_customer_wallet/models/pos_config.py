@@ -13,7 +13,6 @@ class PosConfig(models.Model):
     )
 
     minimum_wallet_amount = fields.Monetary(
-        string="Minimum Wallet Amount",
         compute="_compute_minimum_wallet_amount",
     )
 
