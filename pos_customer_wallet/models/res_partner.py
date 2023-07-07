@@ -63,8 +63,9 @@ class Partner(models.Model):
         # 'point of sale / user' group
         order_lines = (
             self.env["pos.order.line"]
-            .suspend_security()
-            .search(
+            # FIXME: This used to be suspend_security(). Verify that this still
+            # works.
+            .sudo().search(
                 [
                     ("order_id.state", "=", "paid"),
                     ("order_id.partner_id", "in", list(all_partner_ids)),
