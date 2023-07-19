@@ -4,6 +4,7 @@
 from datetime import date, timedelta, timezone
 
 from .test_work_time_base import TestWorkTimeBase
+from odoo.addons.test_resource.tests.test_resource import datetime_str
 
 
 class TestWorkTime(TestWorkTimeBase):

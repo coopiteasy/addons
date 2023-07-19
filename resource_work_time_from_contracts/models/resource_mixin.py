@@ -96,7 +96,7 @@ class ResourceMixin(models.AbstractModel):
             day += delta
         return result
 
-    def get_work_days_data(
+    def _get_work_days_data_batch(
         self,
         from_datetime,
         to_datetime,
@@ -105,7 +105,7 @@ class ResourceMixin(models.AbstractModel):
         domain=None,
     ):
         if calendar or not hasattr(self, "contract_ids"):
-            return super().get_work_days_data(
+            return super()._get_work_days_data_batch(
                 from_datetime, to_datetime, compute_leaves, calendar, domain
             )
         # we need the normal work time per day for each day to be able to
@@ -146,7 +146,7 @@ class ResourceMixin(models.AbstractModel):
                 continue
             normal_work_time = normal_work_time_per_day[day]
             # we use the same rounding computation as in
-            # resource.resource_mixin.get_work_days_data().
+            # resource.resource_mixin._get_work_days_data_batch().
             num_days += (
                 float_utils.round(ROUNDING_FACTOR * work_time / normal_work_time)
                 / ROUNDING_FACTOR

@@ -200,7 +200,7 @@ class TestWorkDaysData(TestWorkTimeBase):
             },
         )
         self.assertEqual(
-            self.employee1.get_work_days_data(
+            self.employee1._get_work_days_data_batch(
                 self.local_datetime(2021, 10, 25),
                 self.local_datetime(2021, 11, 1),
                 compute_leaves=False,
@@ -211,7 +211,7 @@ class TestWorkDaysData(TestWorkTimeBase):
             },
         )
         self.assertEqual(
-            self.employee1.get_work_days_data(
+            self.employee1._get_work_days_data_batch(
                 self.local_datetime(2021, 10, 26, 8, 42),
                 self.local_datetime(2021, 10, 26, 12, 30),
             ),
@@ -221,7 +221,7 @@ class TestWorkDaysData(TestWorkTimeBase):
             },
         )
         self.assertEqual(
-            self.employee1.get_work_days_data(
+            self.employee1._get_work_days_data_batch(
                 self.local_datetime(2021, 10, 26, 8, 42),
                 self.local_datetime(2021, 10, 26, 12, 30),
                 compute_leaves=False,
@@ -232,7 +232,7 @@ class TestWorkDaysData(TestWorkTimeBase):
             },
         )
         self.assertEqual(
-            self.employee1.get_work_days_data(
+            self.employee1._get_work_days_data_batch(
                 self.local_datetime(2021, 10, 26, 13, 30),
                 self.local_datetime(2021, 10, 26, 17, 18),
             ),
@@ -242,7 +242,7 @@ class TestWorkDaysData(TestWorkTimeBase):
             },
         )
         self.assertEqual(
-            self.employee1.get_work_days_data(
+            self.employee1._get_work_days_data_batch(
                 self.local_datetime(2021, 10, 26, 13, 30),
                 self.local_datetime(2021, 10, 26, 17, 18),
                 compute_leaves=False,
@@ -253,7 +253,7 @@ class TestWorkDaysData(TestWorkTimeBase):
             },
         )
         self.assertEqual(
-            self.employee1.get_work_days_data(
+            self.employee1._get_work_days_data_batch(
                 self.local_datetime(2021, 10, 27, 8, 42),
                 self.local_datetime(2021, 10, 27, 17, 18),
             ),
@@ -263,7 +263,7 @@ class TestWorkDaysData(TestWorkTimeBase):
             },
         )
         self.assertEqual(
-            self.employee1.get_work_days_data(
+            self.employee1._get_work_days_data_batch(
                 self.local_datetime(2021, 10, 27, 8, 42),
                 self.local_datetime(2021, 10, 27, 17, 18),
                 compute_leaves=False,
@@ -288,7 +288,7 @@ class TestWorkDaysData(TestWorkTimeBase):
             }
         )
         self.assertEqual(
-            self.employee1.get_work_days_data(
+            self.employee1._get_work_days_data_batch(
                 self.local_datetime(2021, 10, 26, 8, 42),
                 self.local_datetime(2021, 10, 26, 8, 48),
             ),
@@ -298,7 +298,7 @@ class TestWorkDaysData(TestWorkTimeBase):
             },
         )
         self.assertEqual(
-            self.employee1.get_work_days_data(
+            self.employee1._get_work_days_data_batch(
                 self.local_datetime(2021, 10, 26, 8, 42),
                 self.local_datetime(2021, 10, 26, 9, 6),
             ),
@@ -308,7 +308,7 @@ class TestWorkDaysData(TestWorkTimeBase):
             },
         )
         self.assertEqual(
-            self.employee1.get_work_days_data(
+            self.employee1._get_work_days_data_batch(
                 self.local_datetime(2021, 10, 26, 8, 42),
                 self.local_datetime(2021, 10, 26, 9, 18),
             ),
@@ -318,7 +318,7 @@ class TestWorkDaysData(TestWorkTimeBase):
             },
         )
         self.assertEqual(
-            self.employee1.get_work_days_data(
+            self.employee1._get_work_days_data_batch(
                 self.local_datetime(2021, 10, 26, 8, 42),
                 self.local_datetime(2021, 10, 26, 9, 36),
             ),
@@ -352,7 +352,7 @@ class TestWorkDaysData(TestWorkTimeBase):
             }
         )
         self.assertEqual(
-            self.employee1.get_work_days_data(
+            self.employee1._get_work_days_data_batch(
                 self.local_datetime(2021, 10, 26, 8, 42),
                 self.local_datetime(2021, 10, 26, 12, 30),
             ),
@@ -362,7 +362,7 @@ class TestWorkDaysData(TestWorkTimeBase):
             },
         )
         self.assertEqual(
-            self.employee1.get_work_days_data(
+            self.employee1._get_work_days_data_batch(
                 self.local_datetime(2021, 10, 26, 8, 42),
                 self.local_datetime(2021, 10, 26, 12, 30),
                 compute_leaves=False,
@@ -373,7 +373,7 @@ class TestWorkDaysData(TestWorkTimeBase):
             },
         )
         self.assertEqual(
-            self.employee1.get_work_days_data(
+            self.employee1._get_work_days_data_batch(
                 self.to_utc_datetime(2021, 10, 26, 8, 42),
                 self.to_utc_datetime(2021, 10, 26, 12, 30),
             ),
@@ -383,7 +383,7 @@ class TestWorkDaysData(TestWorkTimeBase):
             },
         )
         self.assertEqual(
-            self.employee1.get_work_days_data(
+            self.employee1._get_work_days_data_batch(
                 self.to_utc_datetime(2021, 10, 26, 8, 42),
                 self.to_utc_datetime(2021, 10, 26, 12, 30),
                 compute_leaves=False,
@@ -394,7 +394,7 @@ class TestWorkDaysData(TestWorkTimeBase):
             },
         )
         self.assertEqual(
-            self.employee1.get_work_days_data(
+            self.employee1._get_work_days_data_batch(
                 self.to_utc_datetime(2021, 10, 26, 8, 42).replace(tzinfo=None),
                 self.to_utc_datetime(2021, 10, 26, 12, 30).replace(tzinfo=None),
             ),
@@ -404,7 +404,7 @@ class TestWorkDaysData(TestWorkTimeBase):
             },
         )
         self.assertEqual(
-            self.employee1.get_work_days_data(
+            self.employee1._get_work_days_data_batch(
                 self.to_utc_datetime(2021, 10, 26, 8, 42).replace(tzinfo=None),
                 self.to_utc_datetime(2021, 10, 26, 12, 30).replace(tzinfo=None),
                 compute_leaves=False,
@@ -415,7 +415,7 @@ class TestWorkDaysData(TestWorkTimeBase):
             },
         )
         self.assertEqual(
-            self.employee1.get_work_days_data(
+            self.employee1._get_work_days_data_batch(
                 self.to_utc_datetime(2021, 10, 26, 8, 42).astimezone(
                     timezone(timedelta(hours=23))
                 ),
@@ -429,7 +429,7 @@ class TestWorkDaysData(TestWorkTimeBase):
             },
         )
         self.assertEqual(
-            self.employee1.get_work_days_data(
+            self.employee1._get_work_days_data_batch(
                 self.to_utc_datetime(2021, 10, 26, 8, 42).astimezone(
                     timezone(timedelta(hours=23))
                 ),
@@ -447,4 +447,4 @@ class TestWorkDaysData(TestWorkTimeBase):
     def _get_employee_work_days(self):
         from_datetime = self.local_datetime(2021, 10, 25)
         to_datetime = from_datetime + timedelta(days=7)
-        return self.employee1.get_work_days_data(from_datetime, to_datetime)
+        return self.employee1._get_work_days_data_batch(from_datetime, to_datetime)
