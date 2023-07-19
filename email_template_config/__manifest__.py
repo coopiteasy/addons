@@ -7,7 +7,7 @@
     "depends": ["mail"],
     "author": "Coop IT Easy SC",
     "category": "Discuss",
-    "website": "https://coopiteasy.be",
+    "website": "https://github.com/coopiteasy/addons",
     "license": "AGPL-3",
     "summary": """
     This module extends the email in order to force some behaviours
