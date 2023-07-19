@@ -12,12 +12,12 @@ class MailTemplate(models.Model):
         force_send=False,
         raise_exception=False,
         email_values=None,
-        notif_layout=False,
+        email_layout_xmlid=False,
     ):
         return super(MailTemplate, self).send_mail(
             res_id,
             force_send=self.force_email_send,
             raise_exception=raise_exception,
             email_values=email_values,
-            notif_layout=notif_layout,
+            email_layout_xmlid=email_layout_xmlid,
         )
