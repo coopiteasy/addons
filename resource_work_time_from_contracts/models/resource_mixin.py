@@ -9,7 +9,7 @@ from pytz import timezone, utc
 from odoo import fields, models
 from odoo.tools import float_utils
 
-from odoo.addons.resource.models.resource_mixin import ROUNDING_FACTOR
+from odoo.addons.resource.models.resource import ROUNDING_FACTOR
 
 
 class ResourceMixin(models.AbstractModel):
