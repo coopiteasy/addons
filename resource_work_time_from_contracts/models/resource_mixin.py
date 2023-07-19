@@ -194,15 +194,12 @@ class ResourceMixin(models.AbstractModel):
             if date_end and to_dt.date() > date_end:
                 # limit to midnight on the day after date_end to completely
                 # include date_end.
-                to_dt = (
-                    datetime.datetime(
-                        date_end.year,
-                        date_end.month,
-                        date_end.day,
-                        tzinfo=from_dt.tzinfo,
-                    )
-                    + datetime.timedelta(days=1)
-                )
+                to_dt = datetime.datetime(
+                    date_end.year,
+                    date_end.month,
+                    date_end.day,
+                    tzinfo=from_dt.tzinfo,
+                ) + datetime.timedelta(days=1)
             work_time_results.append(
                 super().list_work_time_per_day(
                     from_dt,
