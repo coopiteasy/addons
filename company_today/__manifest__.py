@@ -11,14 +11,10 @@
     "website": "https://github.com/coopiteasy/addons",
     "author": "Coop IT Easy SC",
     "license": "AGPL-3",
-    "application": False,
     "depends": [
         "base",
     ],
-    "excludes": [],
     "data": [
         "data/ir_cron.xml",
     ],
-    "demo": [],
-    "qweb": [],
 }
