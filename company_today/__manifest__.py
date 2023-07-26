@@ -8,7 +8,7 @@
         Store today's date on the company model.""",
     "version": "12.0.1.1.0",
     "category": "Uncategorized",
-    "website": "https://coopiteasy.be",
+    "website": "https://github.com/coopiteasy/addons",
     "author": "Coop IT Easy SC",
     "license": "AGPL-3",
     "application": False,
