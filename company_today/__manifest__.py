@@ -6,7 +6,7 @@
     "name": "Company Today",
     "summary": """
         Store today's date on the company model.""",
-    "version": "14.0.1.0.0",
+    "version": "15.0.1.0.0",
     "category": "Uncategorized",
     "website": "https://github.com/coopiteasy/addons",
     "author": "Coop IT Easy SC",
