@@ -17,10 +17,7 @@
                     </group>
                     <group>
                         <field name="volume_per_category">
-                            <tree
-                                name="volume_per_category"
-                                string="Volume per Product Category"
-                            >
+                            <tree name="volume_per_category">
                                 <field name="category_id" />
                                 <field name="volume" />
                             </tree>

@@ -23,7 +23,7 @@
     "author": "Coop IT Easy SC",
     "license": "AGPL-3",
     "category": "Sale",
-    "website": "https://coopiteasy.be",
+    "website": "https://github.com/coopiteasy/addons",
     "summary": """
     Computes the volume of products per
     category ordered and display it on

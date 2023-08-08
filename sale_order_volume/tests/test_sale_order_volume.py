@@ -27,8 +27,8 @@ class SaleOrderVolumeCase(TransactionCase):
             lambda vpc: vpc.category_id == office_furniture_cat
         )
 
-        self.assertEquals(service_volume.volume, 0)
-        self.assertEquals(service_volume.pallet_count, 1)
-        self.assertEquals(office_furniture_volume.volume, 15.6)
+        self.assertEqual(service_volume.volume, 0)
+        self.assertEqual(service_volume.pallet_count, 1)
+        self.assertEqual(office_furniture_volume.volume, 15.6)
         # (15.6 (volume) // 1.75 (pallet volume)) + 1 = 9
-        self.assertEquals(office_furniture_volume.pallet_count, 9)
+        self.assertEqual(office_furniture_volume.pallet_count, 9)
