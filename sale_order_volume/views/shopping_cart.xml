@@ -34,7 +34,7 @@
                 </tbody>
             </table>
             <p id="pallet_footnote"><i>1 pallet = <t
-                        t-esc="website_sale_order.get_default_pallet_volume()"
+                        t-out="website_sale_order.get_default_pallet_volume()"
                     /> m³</i></p>
         </div>
     </template>
