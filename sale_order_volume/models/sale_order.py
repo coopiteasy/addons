@@ -57,7 +57,6 @@ class SaleOrder(models.Model):
         string="Volume per Product Category",
     )
 
-    @api.multi
     @api.depends("order_line", "order_line.product_id", "order_line.product_uom_qty")
     def _compute_order_volume(self):
         for order in self:
@@ -79,7 +78,6 @@ class SaleOrder(models.Model):
             or 0
         )
 
-    @api.multi
     def compute_order_product_category_volumes(self):
         self.ensure_one()
 
@@ -117,12 +115,10 @@ class SaleOrder(models.Model):
 
         return self.volume_per_category
 
-    @api.multi
     def compute_product_category_volumes(self):
         for order in self:
             order.compute_order_product_category_volumes()
 
-    @api.multi
     def write(self, values):
         ret = super(SaleOrder, self).write(values)
         self.compute_product_category_volumes()
