@@ -18,7 +18,7 @@
 ##############################################################################
 {
     "name": "Sale Order Volume",
-    "version": "13.0.1.0.0",
+    "version": "14.0.1.0.0",
     "depends": ["sale", "stock", "website_sale"],
     "author": "Coop IT Easy SC",
     "license": "AGPL-3",
