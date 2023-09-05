@@ -3,8 +3,6 @@
 
 from datetime import date, timedelta, timezone
 
-from odoo.addons.test_resource.tests.test_resource import datetime_str
-
 from .test_work_time_base import TestWorkTimeBase
 
 

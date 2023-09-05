@@ -140,6 +140,13 @@ class TestWorkTimeBase(TransactionCase):
         """
         Create a UTC datetime from local time values
         """
-        return self.timezone.localize(
-            datetime.datetime(year, month, day, *args, **kwargs)
-        ).astimezone(pytz.utc)
+        return (
+            self.timezone.localize(
+                datetime.datetime(year, month, day, *args, **kwargs)
+            ).astimezone(pytz.utc)
+            # Odoo's ORM refuses to work with datetime objects that have tzinfo
+            # set. Unset it here instead of doing it manually every time. The
+            # tzinfo is implicit as a result of this function's name being
+            # 'to_utc_datetime'.
+            .replace(tzinfo=None)
+        )
