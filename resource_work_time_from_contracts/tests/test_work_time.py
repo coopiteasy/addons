@@ -3,8 +3,9 @@
 
 from datetime import date, timedelta, timezone
 
-from .test_work_time_base import TestWorkTimeBase
 from odoo.addons.test_resource.tests.test_resource import datetime_str
+
+from .test_work_time_base import TestWorkTimeBase
 
 
 class TestWorkTime(TestWorkTimeBase):
@@ -167,12 +168,14 @@ class TestWorkTime(TestWorkTimeBase):
                 "time_type": "leave",
             }
         )
+        # Across Tuesday and Wednesday, only work half a day.
         self.assertEqual(
             self._get_employee_work_time(),
             [
                 (date(2021, 10, 19), 3.8),
             ],
         )
+        # On Tuesday morning, don't work.
         self.assertEqual(
             self.employee1.list_work_time_per_day(
                 self.local_datetime(2021, 10, 19, 8, 42),
@@ -180,6 +183,7 @@ class TestWorkTime(TestWorkTimeBase):
             ),
             [],
         )
+        # On Tuesday morning, work when ignoring leaves.
         self.assertEqual(
             self.employee1.list_normal_work_time_per_day(
                 self.local_datetime(2021, 10, 19, 8, 42),
@@ -189,6 +193,7 @@ class TestWorkTime(TestWorkTimeBase):
                 (date(2021, 10, 19), 3.8),
             ],
         )
+        # On Tuesday afternoon, work.
         self.assertEqual(
             self.employee1.list_work_time_per_day(
                 self.local_datetime(2021, 10, 19, 13, 30),
@@ -207,6 +212,7 @@ class TestWorkTime(TestWorkTimeBase):
                 (date(2021, 10, 19), 3.8),
             ],
         )
+        # On all of Tuesday, work half a day.
         self.assertEqual(
             self.employee1.list_work_time_per_day(
                 self.local_datetime(2021, 10, 19, 8, 42),
@@ -216,6 +222,7 @@ class TestWorkTime(TestWorkTimeBase):
                 (date(2021, 10, 19), 3.8),
             ],
         )
+        # On all of Tuesday, work the entire day ignoring leaves.
         self.assertEqual(
             self.employee1.list_normal_work_time_per_day(
                 self.local_datetime(2021, 10, 19, 8, 42),

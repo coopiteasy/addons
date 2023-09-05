@@ -36,8 +36,8 @@ class TestWorkTimeBase(TransactionCase):
                 {
                     "name": "Attendance",
                     "dayofweek": str(day),
-                    "hour_from": 8.7,
-                    "hour_to": 12.5,
+                    "hour_from": 8.7,  # 8:42
+                    "hour_to": 12.5,  # 12:30
                     "calendar_id": self.full_time_calendar.id,
                 }
             )
@@ -45,8 +45,8 @@ class TestWorkTimeBase(TransactionCase):
                 {
                     "name": "Attendance",
                     "dayofweek": str(day),
-                    "hour_from": 13.5,
-                    "hour_to": 17.3,
+                    "hour_from": 13.5,  # 13:30
+                    "hour_to": 17.3,  # 17:18
                     "calendar_id": self.full_time_calendar.id,
                 }
             )
@@ -59,8 +59,8 @@ class TestWorkTimeBase(TransactionCase):
                 {
                     "name": "Attendance",
                     "dayofweek": str(day),
-                    "hour_from": 8.7,
-                    "hour_to": 12.5,
+                    "hour_from": 8.7,  # 8:42
+                    "hour_to": 12.5,  # 12:30
                     "calendar_id": self.morning_calendar.id,
                 }
             )
@@ -73,8 +73,8 @@ class TestWorkTimeBase(TransactionCase):
                 {
                     "name": "Attendance",
                     "dayofweek": str(day),
-                    "hour_from": 13.5,
-                    "hour_to": 17.3,
+                    "hour_from": 13.5,  # 13:30
+                    "hour_to": 17.3,  # 17:18
                     "calendar_id": self.afternoon_calendar.id,
                 }
             )
@@ -87,8 +87,8 @@ class TestWorkTimeBase(TransactionCase):
                 {
                     "name": "Attendance",
                     "dayofweek": str(day),
-                    "hour_from": 8.7,
-                    "hour_to": 12.5,
+                    "hour_from": 8.7,  # 8:42
+                    "hour_to": 12.5,  # 12:30
                     "calendar_id": self.four_fifths_calendar.id,
                 }
             )
@@ -96,8 +96,8 @@ class TestWorkTimeBase(TransactionCase):
                 {
                     "name": "Attendance",
                     "dayofweek": str(day),
-                    "hour_from": 13.5,
-                    "hour_to": 17.3,
+                    "hour_from": 13.5,  # 13:30
+                    "hour_to": 17.3,  # 17:18
                     "calendar_id": self.four_fifths_calendar.id,
                 }
             )
@@ -112,8 +112,8 @@ class TestWorkTimeBase(TransactionCase):
                 {
                     "name": "Attendance",
                     "dayofweek": str(day),
-                    "hour_from": 8.7,
-                    "hour_to": 12.5,
+                    "hour_from": 8.7,  # 8:42
+                    "hour_to": 12.5,  # 12:30
                     "calendar_id": self.company_calendar.id,
                 }
             )
@@ -121,8 +121,8 @@ class TestWorkTimeBase(TransactionCase):
                 {
                     "name": "Attendance",
                     "dayofweek": str(day),
-                    "hour_from": 13.5,
-                    "hour_to": 17.3,
+                    "hour_from": 13.5,  # 13:30
+                    "hour_to": 17.3,  # 17:18
                     "calendar_id": self.company_calendar.id,
                 }
             )
