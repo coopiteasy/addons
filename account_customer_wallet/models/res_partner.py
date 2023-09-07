@@ -15,6 +15,7 @@ class Partner(models.Model):
         readonly=True,
         recursive=True,
         search="_search_customer_wallet_balance",
+        default=0,
     )
     account_move_line_ids = fields.One2many(
         comodel_name="account.move.line",
