@@ -10,26 +10,6 @@ class Partner(models.Model):
     _inherit = "res.partner"
 
     @api.model
-    def get_wallet_balance_bank_statement_line(self, all_partner_ids):
-        pre_result = defaultdict(float)
-        for line in (
-            self.env["account.bank.statement.line"]
-            .sudo()
-            .search(
-                [
-                    ("partner_id", "in", list(all_partner_ids)),
-                    ("state", "=", "open"),
-                    ("statement_id.journal_id.is_customer_wallet_journal", "=", True),
-                ]
-            )
-        ):
-            pre_result[line.partner_id.id] += line.amount
-        return [
-            {"partner_id": partner_id, "total": total}
-            for partner_id, total in pre_result.items()
-        ]
-
-    @api.model
     def get_wallet_balance_pos_payment(self, all_partner_ids):
         pre_result = defaultdict(float)
         for line in (
@@ -72,7 +52,6 @@ class Partner(models.Model):
 
     def get_wallet_balance_all(self, all_partner_ids, all_account_ids):
         res = super().get_wallet_balance_all(all_partner_ids, all_account_ids)
-        res.append(self.get_wallet_balance_bank_statement_line(all_partner_ids))
         res.append(self.get_wallet_balance_pos_order_line(all_partner_ids))
         res.append(self.get_wallet_balance_pos_payment(all_partner_ids))
         return res

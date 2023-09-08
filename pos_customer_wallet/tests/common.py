@@ -17,27 +17,6 @@ class TestPosBalance(TestBalance):
             "pos_customer_wallet.customer_wallet_payment_method"
         )
 
-    def _create_statement(self, amount=0, partner=None):
-        if partner is None:
-            partner = self.partner
-
-        self.env["account.bank.statement"].create(
-            {
-                "line_ids": [
-                    (
-                        0,
-                        0,
-                        {
-                            "name": "Name",
-                            "amount": amount,
-                            "partner_id": partner.id,
-                            "journal_id": self.customer_wallet_journal.id,
-                        },
-                    ),
-                ],
-            }
-        )
-
     def _create_random_uid(self):
         return "%05d-%03d-%04d" % (randint(1, 99999), randint(1, 999), randint(1, 9999))
 
