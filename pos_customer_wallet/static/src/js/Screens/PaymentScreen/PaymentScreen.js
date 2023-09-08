@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2022 Coop IT Easy SC
+//
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 odoo.define("pos_customer_wallet.PaymentScreen", function (require) {
     "use strict";
     const PaymentScreen = require("point_of_sale.PaymentScreen");
