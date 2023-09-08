@@ -5,39 +5,13 @@ from collections import defaultdict
 from odoo import api, fields, models
 
 
-def _compute_volume(order_line):
-    return order_line.product_id.volume * order_line.product_uom_qty
-
-
 def _compute_pallet_count(volume, pallet_volume):
-    if not pallet_volume or not volume:
+    if not pallet_volume:
         return 0
-    if volume <= pallet_volume:
-        return 1
-    if volume % pallet_volume == 0:
-        return volume // pallet_volume
-    return (volume // pallet_volume) + 1
-
-
-class ProductCategoryVolume(models.Model):
-    _name = "product.category.volume"
-    _description = "Product Volume by Category"
-
-    sale_order_id = fields.Many2one(comodel_name="sale.order", string="Sale Order")
-    category_id = fields.Many2one(
-        comodel_name="product.category", string="Product Category"
-    )
-    volume = fields.Float(string="Volume (m³)")
-    pallet_count = fields.Integer(string="# Pallets")
-
-    @api.model
-    def get_default_pallet_volume(self):
-        return (
-            self.env["ir.config_parameter"]
-            .sudo()
-            .get_param("sale_order_volume.pallet_volume")
-            or 0
-        )
+    quotient, remainder = divmod(volume, pallet_volume)
+    if remainder:
+        return quotient + 1
+    return quotient
 
 
 class SaleOrder(models.Model):
@@ -57,14 +31,15 @@ class SaleOrder(models.Model):
         string="Volume per Product Category",
     )
 
-    @api.depends("order_line", "order_line.product_id", "order_line.product_uom_qty")
+    @api.depends("order_line", "order_line.volume")
     def _compute_order_volume(self):
+
         for order in self:
             order_lines = order.order_line.filtered(
                 lambda ol: ol.state not in ["cancel"]
             )
 
-            order.volume = sum(_compute_volume(ol) for ol in order_lines)
+            order.volume = sum(ol.product_id.volume for ol in order_lines)
             order.pallet_count = _compute_pallet_count(
                 order.volume, float(self.get_default_pallet_volume())
             )
@@ -83,24 +58,21 @@ class SaleOrder(models.Model):
 
         order_lines = self.order_line.filtered(lambda ol: ol.state not in ["cancel"])
 
-        accumulator = defaultdict(list)
+        volume_per_category = defaultdict(float)
         for order_line in order_lines:
             category_id = order_line.product_id.categ_id.id
-            volume = _compute_volume(order_line)
-            accumulator[category_id].append(volume)
-
-        volume_per_category = [
-            (category_id, sum(volumes)) for category_id, volumes in accumulator.items()
-        ]
+            volume_per_category[category_id] += order_line.volume
 
         existing_categories = {
             vpc.category_id.id: vpc for vpc in self.volume_per_category
         }
 
-        for category_id, volume in volume_per_category:
+        for category_id, volume in volume_per_category.items():
             pallet_count = _compute_pallet_count(
                 volume, float(self.get_default_pallet_volume())
             )
+            # TODO: what if there is an existing category_id of which no
+            # products are in the order anymore?
             if category_id in existing_categories:
                 existing_categories[category_id].volume = volume
                 existing_categories[category_id].pallet_count = pallet_count
