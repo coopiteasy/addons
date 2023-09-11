@@ -22,6 +22,7 @@ Available addons
 addon | version | maintainers | summary
 --- | --- | --- | ---
 [account_customer_wallet](account_customer_wallet/) | 16.0.1.0.1 |  | Allow customers to pay using a wallet which is tracked by the company.
+[company_today](company_today/) | 16.0.1.0.0 |  | Store today's date on the company model.
 [partner_contact_type_default](partner_contact_type_default/) | 16.0.1.0.0 | [![carmenbianca](https://github.com/carmenbianca.png?size=30px)](https://github.com/carmenbianca) | Set 'contact' as default type when creating a partner as a contact of another partner.
 
 [//]: # (end addons)
