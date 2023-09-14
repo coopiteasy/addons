@@ -39,7 +39,7 @@ class SaleOrder(models.Model):
                 lambda ol: ol.state not in ["cancel"]
             )
 
-            order.volume = sum(ol.product_id.volume for ol in order_lines)
+            order.volume = sum(ol.volume for ol in order_lines)
             order.pallet_count = _compute_pallet_count(
                 order.volume, float(self.get_default_pallet_volume())
             )
