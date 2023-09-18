@@ -4,19 +4,19 @@
 odoo.define("pos_customer_wallet_partner_is_user.models", function (require) {
     "use strict";
 
-    var models = require("point_of_sale.models");
+    const {Order} = require("point_of_sale.models");
+    const Registries = require("point_of_sale.Registries");
 
-    models.load_fields("res.partner", ["is_customer_wallet_user"]);
+    const WalletOrder = (Order_) =>
+        class extends Order_ {
+            export_for_printing() {
+                var json = super.export_for_printing(...arguments);
+                json.is_customer_wallet_user = this.partner.is_customer_wallet_user
+                    ? this.partner
+                    : false;
+                return json;
+            }
+        };
 
-    var order_prototype = models.Order.prototype;
-    models.Order = models.Order.extend({
-        export_for_printing: function () {
-            var receipt = order_prototype.export_for_printing.apply(this);
-            var client = this.get("client");
-            receipt.is_customer_wallet_user = client
-                ? client.is_customer_wallet_user
-                : null;
-            return receipt;
-        },
-    });
+    Registries.Model.extend(Order, WalletOrder);
 });

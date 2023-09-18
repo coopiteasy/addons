@@ -8,6 +8,4 @@ from odoo import fields, models
 class Partner(models.Model):
     _inherit = "res.partner"
 
-    is_customer_wallet_user = fields.Boolean(
-        string="Is Customer Wallet User",
-    )
+    is_customer_wallet_user = fields.Boolean(default=False)
