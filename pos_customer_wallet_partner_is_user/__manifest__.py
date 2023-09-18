@@ -10,7 +10,7 @@
         to partners who haven't already used it.""",
     "version": "12.0.1.2.1",
     "category": "Point of Sale",
-    "website": "https://coopiteasy.be",
+    "website": "https://github.com/coopiteasy/addons",
     "author": "Coop IT Easy SC",
     "maintainers": ["carmenbianca"],
     "license": "AGPL-3",
