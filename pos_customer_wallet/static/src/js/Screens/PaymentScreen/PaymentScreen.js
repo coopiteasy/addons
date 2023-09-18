@@ -77,15 +77,13 @@ odoo.define("pos_customer_wallet.PaymentScreen", function (require) {
              * of the current customer, if defined.
              */
             async _finalizeValidation() {
-                var payment_wallet_amount =
-                    this.get_amount_debit_with_customer_wallet_journal()[0];
-                var product_wallet_amount =
-                    this.get_amount_credit_with_customer_wallet_product()[0];
-                var wallet_amount = payment_wallet_amount - product_wallet_amount;
-
                 var partner = this.currentOrder.get_partner();
-
                 if (partner) {
+                    var payment_wallet_amount =
+                        this.get_amount_debit_with_customer_wallet_journal()[0];
+                    var product_wallet_amount =
+                        this.get_amount_credit_with_customer_wallet_product()[0];
+                    var wallet_amount = payment_wallet_amount - product_wallet_amount;
                     partner.customer_wallet_balance -= wallet_amount;
                 }
 
