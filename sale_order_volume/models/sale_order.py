@@ -93,5 +93,9 @@ class SaleOrder(models.Model):
 
     def write(self, values):
         ret = super(SaleOrder, self).write(values)
+        # fixme : don't put this in write, because it does not update
+        # the volume by category directly when changing the SO lines.
+        # with Odoo 16 and the "invisible save" flow, it's disturbing.
+        # use a computed field instead.
         self.compute_product_category_volumes()
         return ret
