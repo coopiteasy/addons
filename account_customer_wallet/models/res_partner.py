@@ -82,17 +82,14 @@ class Partner(models.Model):
     @api.depends(lambda self: self._customer_wallet_balance_depends())
     @api.depends_context("company")
     def _compute_customer_wallet_balance(self):
-        if not self.ids:
-            return True
+        wallet_account_id = self.env.company.customer_wallet_account_id
+        if not wallet_account_id or not self.ids:
+            # Always assign a value in a compute method.
+            self.write({"customer_wallet_balance": 0.0})
+            return
 
         all_partner_families = {}
         all_partner_ids = set()
-        wallet_account_id = self.env.company.customer_wallet_account_id
-        if not wallet_account_id:
-            # No wallet account defined in the current context
-            for partner in self:
-                partner.customer_wallet_balance = 0.0
-            return
 
         # we split the calculation in two part to optimize it
         # because the call of get_all_partners_in_family take time
