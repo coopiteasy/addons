@@ -27,6 +27,8 @@ class AccountPayment(models.Model):
         for payment in wallet_payments:
             if (
                 payment.partner_id
+                # Inbound payments increase the balance; always allow this.
+                and payment.payment_type == "outbound"
                 and (payment.customer_wallet_balance - payment.amount)
                 < payment.journal_id.minimum_wallet_amount
             ):
