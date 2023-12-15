@@ -1,8 +1,8 @@
 # Do NOT update manually; changes here will be overwritten by Copier
-_commit: v2.1.5
+_commit: v2.2.1
 _src_path: https://github.com/coopiteasy/oca-addons-repo-template
 ci: GitHub
-dependency_installation_mode: PIP
+convert_readme_fragments_to_markdown: false
 generate_requirements_txt: true
 github_check_license: true
 github_ci_extra_env: {}
@@ -11,14 +11,15 @@ github_enable_makepot: true
 github_enable_stale_action: true
 github_enforce_dev_status_compatibility: true
 include_wkhtmltopdf: false
+odoo_test_flavor: OCB
 odoo_version: 16.0
 org_name: Coop IT Easy SC
 org_slug: coopiteasy
 rebel_module_groups: []
-repo_description: null
+repo_description: TODO
 repo_name: Coop IT Easy Addons
 repo_slug: addons
 repo_website: https://github.com/coopiteasy/addons
-travis_apt_packages: []
-travis_apt_sources: []
+use_pyproject_toml: false
+use_ruff: false
 
