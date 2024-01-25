@@ -11,18 +11,16 @@ class Document(models.Model):
     _order = "document_date desc, name"
     _inherit = "mail.thread"
 
-    name = fields.Char("Name", required=True)
-    description = fields.Text("Description")
-    document = fields.Binary("Document", attachment=True, required=True)
+    name = fields.Char(required=True)
+    description = fields.Text()
+    document = fields.Binary(attachment=True, required=True)
     filename = fields.Char("Document File Name")
     mimetype = fields.Char("Mime-Type", compute="_compute_mimetype")
-    file_size = fields.Integer("File Size", compute="_compute_file_size")
-    document_date = fields.Date("Document Date", default=fields.Date.today())
-    category = fields.Many2one("document_hosting.category", string="Category")
+    file_size = fields.Integer(compute="_compute_file_size")
+    document_date = fields.Date(default=fields.Date.today())
+    category = fields.Many2one("document_hosting.category")
     published = fields.Boolean("Published?")
-    publication_date = fields.Datetime(
-        "Publication Date", compute="_compute_publication_date", store=True
-    )
+    publication_date = fields.Datetime(compute="_compute_publication_date", store=True)
     public = fields.Boolean("Public?")
 
     @api.depends("document")
@@ -69,8 +67,8 @@ class Category(models.Model):
     _description = "Category"
     _order = "name"
 
-    name = fields.Char("Name", required=True)
-    description = fields.Text("Description")
+    name = fields.Char(required=True)
+    description = fields.Text()
     parent_id = fields.Many2one("document_hosting.category", string="Parent Category")
     child_ids = fields.One2many(
         "document_hosting.category", "parent_id", string="Child Categories"
