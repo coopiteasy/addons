@@ -10,7 +10,7 @@
     """,
     "author": "Coop IT Easy SC",
     "license": "AGPL-3",
-    "version": "14.0.1.0.0",
+    "version": "15.0.1.0.0",
     "website": "https://github.com/coopiteasy/addons",
     "category": "Document",
     "depends": ["base", "web", "website", "mail"],

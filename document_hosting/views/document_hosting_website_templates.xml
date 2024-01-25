@@ -26,10 +26,10 @@
                 <t t-if="group['date_begin'] == date">
                     <li class="active">
                         <a t-att-href="default_url" t-ignore="True">
-                            <t t-esc="group['name']" />
+                            <t t-out="group['name']" />
                             <span
                                 class="pull-right badge"
-                                t-esc="group['item_count']"
+                                t-out="group['item_count']"
                             />
                         </a>
                     </li>
@@ -40,10 +40,10 @@
                             t-ignore="True"
                             t-attf-href="#{default_url}?date_begin=#{group['date_begin']}&amp;date_end=#{group['date_end']}"
                         >
-                            <t t-esc="group['name']" />
+                            <t t-out="group['name']" />
                             <span
                                 class="pull-right badge"
-                                t-esc="group['item_count']"
+                                t-out="group['item_count']"
                             />
                         </a>
                     </li>
@@ -64,12 +64,12 @@
         <div class="list-group" t-foreach="documents" t-as="doc">
             <a t-attf-href="/documents/{{doc.id}}" class="list-group-item clearfix">
                 <span class="fa fa-file" />
-                <t t-esc="doc.name" />
+                <t t-out="doc.name" />
                 -
                 <small t-field="doc.document_date" />
                 <span class="pull-right">
                     <span class="fa fa-download" />
-                    <t t-esc="size_to_str(doc.file_size)" />
+                    <t t-out="size_to_str(doc.file_size)" />
                 </span>
                 <t t-if="doc.description">
                     <p t-field="doc.description" class="mb0 small" />
@@ -100,11 +100,11 @@
                     t-attf-aria-controls="collapse-{{ cat.id }}"
                 >
                     <h4 class="panel-title">
-                        <t t-esc="cat.name" />
+                        <t t-out="cat.name" />
                         <t t-if="cat.description">
                             <small>
                                 -
-                                <t t-esc="cat.description" />
+                                <t t-out="cat.description" />
                             </small>
                         </t>
                     </h4>
