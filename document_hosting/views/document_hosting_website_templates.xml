@@ -95,7 +95,7 @@
                     role="button"
                     class="h4"
                     t-attf-href="#collapse-{{ cat.id }}"
-                    data-toggle="collapse"
+                    data-bs-toggle="collapse"
                     aria-expanded="false"
                     t-attf-aria-controls="collapse-{{ cat.id }}"
                 >

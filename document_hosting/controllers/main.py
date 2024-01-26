@@ -29,7 +29,6 @@ class DocumentWebsite(http.Controller):
 
     @http.route("/documents", auth="public", website=True)
     def template_website_document(self, date_begin=None, date_end=None, **kw):
-        """"""
         if not request.website.display_document_page:
             return request.not_found()
         date_begin = Date.from_string(date_begin)
