@@ -4,11 +4,9 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 
-import base64
-
 from odoo import http
 from odoo.fields import Date
-from odoo.http import Response, request
+from odoo.http import request
 
 
 class DocumentWebsite(http.Controller):
@@ -21,25 +19,13 @@ class DocumentWebsite(http.Controller):
 
         document_mgr = request.env["document_hosting.document"]
         doc = document_mgr.sudo().browse(oid)
-        ir_http_mgr = request.env["ir.http"]
-        status, headers, content = ir_http_mgr.sudo().binary_content(
-            model=doc._name,
-            id=oid,
-            field="document",
-            filename_field="filename",
-            download=True,
+        return (
+            request.env["ir.binary"]
+            ._get_image_stream_from(
+                doc, field_name="document", filename_field="filename"
+            )
+            .get_response()
         )
-        if status == 304:
-            return Response(status=status, headers=headers)
-        elif status == 301:
-            # TODO: test this case not sure if this render the same
-            # return werkzeug.utils.redirect(content, code=301)
-            return request.redirect(content, code=301)
-        elif status != 200:
-            return request.not_found()
-        content_base64 = base64.b64decode(content)
-        headers.append(("Content-Length", len(content_base64)))
-        return request.make_response(content_base64, headers)
 
     @http.route("/documents", auth="public", website=True)
     def template_website_document(self, date_begin=None, date_end=None, **kw):
