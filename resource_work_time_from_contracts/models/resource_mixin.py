@@ -6,7 +6,7 @@ from collections import defaultdict
 
 from pytz import timezone, utc
 
-from odoo import fields, models
+from odoo import models
 from odoo.tools import float_utils
 
 from odoo.addons.resource.models.resource import ROUNDING_FACTOR
@@ -15,8 +15,6 @@ from odoo.addons.resource.models.resource import ROUNDING_FACTOR
 class ResourceMixin(models.AbstractModel):
 
     _inherit = "resource.mixin"
-
-    resource_calendar_id = fields.Many2one("resource.calendar")
 
     def list_work_time_per_day(
         self,

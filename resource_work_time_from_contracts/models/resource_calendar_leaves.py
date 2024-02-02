@@ -13,6 +13,9 @@ class ResourceCalendarLeaves(models.Model):
     # leaves for all resources are defined in the same resource calendar,
     # which is needed to compute working hours while taking leaves into
     # account.
+    # fixme A readonly related field without an inverse method should not have a
+    #      default value, as it does not make sense.
+    #      cf odoo/odoo/fields.py:626
     calendar_id = fields.Many2one(
         "resource.calendar",
         related="resource_id.calendar_id",
