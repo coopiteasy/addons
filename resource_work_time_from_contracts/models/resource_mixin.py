@@ -16,8 +16,7 @@ class ResourceMixin(models.AbstractModel):
 
     _inherit = "resource.mixin"
 
-    # make this field read-only.
-    resource_calendar_id = fields.Many2one("resource.calendar", readonly=True)
+    resource_calendar_id = fields.Many2one("resource.calendar")
 
     def list_work_time_per_day(
         self,
