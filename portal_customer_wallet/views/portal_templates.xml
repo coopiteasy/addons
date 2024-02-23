@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="portal_my_home" inherit_id="portal.portal_my_home">
+        <xpath expr="//div[hasclass('o_portal_my_home')]" position="inside">
+            <div class="oe_structure" id="customer_wallet_usage">
+                <br />
+                <h3>Customer Wallet</h3>
+                <p>Customer wallet balance: <t
+                        t-out="customer_wallet_balance"
+                        t-options='{"widget": "monetary", "display_currency": company_currency}'
+                    /></p>
+                <table name="customer_wallet_usage_table" class="table">
+                    <tr>
+                        <th id="th_month">
+                            Month
+                        </th>
+                        <th id="th_total">
+                            Total expenses
+                        </th>
+                    </tr>
+                    <t t-foreach="customer_wallet_payments_per_month" t-as="row">
+                        <t t-set="is_year" t-value="len(row['month']) == 4" />
+                        <tr
+                            t-attf-class="{{ 'wallet_row_year' if is_year else 'wallet_row_month' }}"
+                        >
+                            <td
+                                id="td_month"
+                                t-attf-style="{{ 'padding-left: 2rem' if not is_year else '' }}"
+                            >
+                                <t t-out="row['month']" />
+                            </td>
+                            <td id="td_amount">
+                                <t
+                                    t-out="row['amount']"
+                                    t-options='{"widget": "monetary", "display_currency": company_currency}'
+                                />
+                            </td>
+                        </tr>
+                    </t>
+                </table>
+            </div>
+        </xpath>
+    </template>
+</odoo>
