@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+SPDX-FileCopyrightText: 2022 Coop IT Easy SC
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<templates id="template" xml:space="preserve">
+
+    <t
+        t-name="OrderReceipt"
+        t-inherit="point_of_sale.OrderReceipt"
+        t-inherit-mode="extension"
+        owl="1"
+    >
+        <xpath expr="//div[hasclass('customer-wallet-balance')]" position="attributes">
+            <attribute name="t-if">receipt.is_customer_wallet_user</attribute>
+        </xpath>
+    </t>
+
+</templates>
