@@ -5,40 +5,24 @@
         inherit_id="sale.report_saleorder_document"
     >
         <div name="total" position="after">
-            <table class="table table-condensed" name="volume-per-category">
-                <thead>
-                    <tr>
-                        <th>Category</th>
-                        <th class="text-right">Volume (m³)</th>
-                        <th class="text-right"># Pallets</th>
-                    </tr>
-                </thead>
-                <tbody class="sale_tbody">
-                    <t t-foreach="doc.volume_per_category" t-as="line">
-                        <tr>
-                            <td>
-                                <span t-field="line.category_id" />
-                            </td>
-                            <td class="text-right">
-                                <span t-field="line.volume" />
-                            </td>
-                            <td class="text-right">
-                                <span t-field="line.pallet_count" />
-                            </td>
-                        </tr>
-                    </t>
-                    <tr class="border-black">
-                        <td>
-                            <strong>Total</strong>
-                        </td>
-                        <td class="text-right">
-                            <strong>
-                                <span t-field="doc.volume" />
-                            </strong>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <table name="volume" class="table table-condensed">
+
+            <tr id="order_total_volume">
+                <td><strong>Volume (m³)</strong></td>
+                <td>
+                    <span t-field="doc.volume" />
+                </td>
+            </tr>
+            <tr id="order_pallets">
+                <td><strong># Pallets (1 pallet = <t
+                                t-out="doc.get_default_pallet_volume()"
+                            /> m³)</strong></td>
+                    <td>
+                        <span t-field="doc.pallet_count" />
+                    </td>
+                </tr>
+
+                </table>
         </div>
     </template>
 </odoo>

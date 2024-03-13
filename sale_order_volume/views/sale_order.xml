@@ -15,14 +15,6 @@
                         <field name="volume" />
                         <field name="pallet_count" />
                     </group>
-                    <group>
-                        <field name="volume_per_category">
-                            <tree name="volume_per_category">
-                                <field name="category_id" />
-                                <field name="volume" />
-                            </tree>
-                        </field>
-                    </group>
                 </page>
             </xpath>
         </field>

@@ -34,7 +34,6 @@
         "views/shopping_cart.xml",
         "reports/report_saleorder.xml",
         "views/res_config_settings_views.xml",
-        "security/ir.model.access.csv",
     ],
     "demo": ["demo/demo.xml"],
     "installable": True,

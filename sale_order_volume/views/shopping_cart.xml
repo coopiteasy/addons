@@ -1,53 +1,44 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
-    <template id="volume_per_category">
+    <template id="cart_volume">
         <div
-            id="cart_volume_per_category"
+            id="cart_volume"
             t-att-class="extra_class or ''"
             t-if="website_sale_order and website_sale_order.website_order_line"
         >
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th class="col-md-2 col-3 noborder">Volume (m³)</th>
-                        <th class="col-md-2 col-3 noborder"># Pallets</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="text-xl-left noborder">
-                            <span
-                                t-field="website_sale_order.volume"
-                                style="white-space: nowrap;"
-                            />
-                        </td>
-
-                        <td class="text-xl-right noborder">
-                            <span
-                                t-field="website_sale_order.pallet_count"
-                                style="white-space: nowrap;"
-                            />
-                        </td>
-
-                    </tr>
-                </tbody>
-            </table>
-            <p id="pallet_footnote"><i>1 pallet = <t
+                <tr id="order_total_volume">
+                    <td class="text-end border-0">Volume (m³)</td>
+                    <td class="text-xl-end border-0">
+                        <span
+                        t-field="website_sale_order.volume"
+                        style="white-space: nowrap;"
+                    />
+                </td>
+                </tr>
+                <tr id="order_pallets">
+                    <td class="text-end border-0"># Pallets (1 pallet = <t
                         t-out="website_sale_order.get_default_pallet_volume()"
-                    /> m³</i></p>
+                    /> m³)</td>
+                    <td class="text-xl-end border-0">
+                        <span
+                        t-field="website_sale_order.pallet_count"
+                        style="white-space: nowrap;"
+                    />
+                    </td>
+                </tr>
+
         </div>
     </template>
 
-    <template id="short_cart_summary" inherit_id="website_sale.short_cart_summary">
-        <div class="card-body" position="after">
-            <div class="card-body">
-                <h4 class="d-none d-xl-block">Order Volume</h4>
-                <div>
-                    <t t-call="sale_order_volume.volume_per_category">
-                    </t>
-                </div>
-            </div>
-        </div>
+    <template id="volume_total" inherit_id="website_sale.total">
+        <xpath expr="//div[@id='cart_total']//table/tr[last()]" position="after">
+            <tr id="order_total_volume">
+                <td class="text-xl-end border-0">
+                     <t t-call="sale_order_volume.cart_volume">
+                     </t>
+                </td>
+            </tr>
+            </xpath>
     </template>
 </odoo>
