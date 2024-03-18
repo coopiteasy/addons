@@ -1,8 +1,13 @@
+# Copyright 2016 Tecnativa - Carlos Dauden
+# Copyright 2018 ACSONE SA/NV.
+# Copyright 2020 Tecnativa - Pedro M. Baeza
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+
 from odoo import fields, models
 
 
-class ContractLine(models.Model):
-    _inherit = "contract.line"
+class AccountMoveLine(models.Model):
+    _inherit = "account.move.line"
 
     time_spent = fields.Float(
         string="Time Spent this Period", compute="_compute_time_spent"
@@ -23,19 +28,19 @@ class ContractLine(models.Model):
                 # timesheets (hours or day)
                 lambda x: (x.encoding_uom_id == x.project_id.timesheet_encode_uom_id)
             )
-            time_spent_on_account = timesheets.filtered(
-                lambda x: (x.date >= start_date)
-            ).mapped("unit_amount")
-            total_time_spent_on_account = sum(time_spent_on_account)
-            total_time_spent += total_time_spent_on_account * percentage / 100
+            if timesheets:
+                time_spent_on_account = timesheets.filtered(
+                    lambda x: (x.date >= start_date)
+                ).mapped("unit_amount")
+                total_time_spent_on_account = sum(time_spent_on_account)
+                total_time_spent += total_time_spent_on_account * percentage / 100
         return total_time_spent
 
     def _compute_time_spent(self):
         for line in self:
-            if line.analytic_distribution:
-                period_start_date = line.last_date_invoiced or line.date_start
+            if line.analytic_distribution and line.start_date:
                 line.time_spent = line.get_time_spent(
-                    line.analytic_distribution, period_start_date
+                    line.analytic_distribution, line.start_date
                 )
             else:
                 line.time_spent = False
