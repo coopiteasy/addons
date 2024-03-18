@@ -5,7 +5,7 @@
 {
     "name": "Coop IT Easy Website Branding",
     "summary": "Replace default Odoo website branding by Coop IT Easy branding",
-    "version": "12.0.1.0.0",
+    "version": "14.0.1.0.0",
     "category": "Website",
     "website": "https://coopiteasy.be",
     "author": "Coop IT Easy SC",
