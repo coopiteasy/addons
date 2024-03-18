@@ -14,6 +14,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         website_odoo_debranding module is applied after this one (so that it
         can still remove the branding).
     -->
+    <!-- oca-hooks:disable=xml-dangerous-qweb-replace-low-priority -->
     <template
         id="brand_promotion"
         inherit_id="website.brand_promotion"
