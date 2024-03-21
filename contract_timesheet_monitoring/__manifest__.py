@@ -9,7 +9,6 @@
     "author": "Coop IT Easy SC, Odoo Community Association (OCA)",
     "website": "https://github.com/coopiteasy/addons",
     "depends": ["contract", "hr_timesheet", "contract_invoice_start_end_dates"],
-    "development_status": "Production/Stable",
     "data": [
         "views/contract.xml",
         "views/account_move.xml",
