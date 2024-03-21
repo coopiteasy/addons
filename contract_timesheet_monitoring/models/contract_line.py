@@ -8,26 +8,19 @@ class ContractLine(models.Model):
         string="Time Spent this Period", compute="_compute_time_spent"
     )
 
+    # this method is a duplicate from get_time_spent in account.move.line
+    # but this is due to the fact that contract line tend to mimic account move lines
+    # it make sense to keep these methods separated.
     def get_time_spent(self, analytic_distribution, start_date, end_date=None):
         total_time_spent = 0
         for analytic_account, percentage in analytic_distribution.items():
-            analytic_account_id = int(analytic_account)
-            analytic_account_lines = (
-                self.env["account.analytic.account"]
-                .browse(analytic_account_id)
-                .line_ids
+            analytic_account = self.env["account.analytic.account"].browse(
+                int(analytic_account)
             )
-            timesheets = analytic_account_lines.filtered(
-                # keep only timesheets
-                # ensure the uom is the same as the one configure for the project
-                # timesheets (hours or day)
-                lambda x: (x.encoding_uom_id == x.project_id.timesheet_encode_uom_id)
+            time_spent_on_account = analytic_account.get_time_spent_for_period(
+                start_date
             )
-            time_spent_on_account = timesheets.filtered(
-                lambda x: (x.date >= start_date)
-            ).mapped("unit_amount")
-            total_time_spent_on_account = sum(time_spent_on_account)
-            total_time_spent += total_time_spent_on_account * percentage / 100
+            total_time_spent += time_spent_on_account * percentage / 100
         return total_time_spent
 
     def _compute_time_spent(self):
