@@ -1,12 +1,12 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* website_rebrand_coopiteasy
+# 	* website_rebrand_coopiteasy
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0\n"
+"Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: <>\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -15,7 +15,8 @@ msgstr ""
 
 #. module: website_rebrand_coopiteasy
 #: model_terms:ir.ui.view,arch_db:website_rebrand_coopiteasy.brand_promotion
-msgid ",\n"
+msgid ""
+",\n"
 "                provided by"
 msgstr ""
 
@@ -33,4 +34,3 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:website_rebrand_coopiteasy.brand_promotion
 msgid "Odoo"
 msgstr ""
-
