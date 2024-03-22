@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+     Copyright 2020 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <record id="product.product_delivery_02" model="product.product">
+        <field name="volume">0.3</field>
+    </record>
+    <record id="product.consu_delivery_02" model="product.product">
+        <field name="volume">3</field>
+    </record>
+    <record id="product.product_delivery_01" model="product.product">
+        <field name="volume">1.2</field>
+    </record>
+</odoo>

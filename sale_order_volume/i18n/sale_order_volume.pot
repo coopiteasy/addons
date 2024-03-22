@@ -1,0 +1,156 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* sale_order_volume
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sale_order_volume
+#: model:ir.model.fields,field_description:sale_order_volume.field_product_category_volume__pallet_count
+#: model_terms:ir.ui.view,arch_db:sale_order_volume.report_saleorder_document
+#: model_terms:ir.ui.view,arch_db:sale_order_volume.volume_per_category
+msgid "# Pallets"
+msgstr ""
+
+#. module: sale_order_volume
+#: model_terms:ir.ui.view,arch_db:sale_order_volume.volume_per_category
+msgid "1 pallet ="
+msgstr ""
+
+#. module: sale_order_volume
+#: model_terms:ir.ui.view,arch_db:sale_order_volume.report_saleorder_document
+msgid "<strong>Total</strong>"
+msgstr ""
+
+#. module: sale_order_volume
+#: model_terms:ir.ui.view,arch_db:sale_order_volume.report_saleorder_document
+msgid "Category"
+msgstr ""
+
+#. module: sale_order_volume
+#: model:ir.model,name:sale_order_volume.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: sale_order_volume
+#: model:ir.model.fields,field_description:sale_order_volume.field_product_category_volume__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: sale_order_volume
+#: model:ir.model.fields,field_description:sale_order_volume.field_product_category_volume__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: sale_order_volume
+#: model:ir.model.fields,field_description:sale_order_volume.field_product_category_volume__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: sale_order_volume
+#: model:ir.model.fields,field_description:sale_order_volume.field_product_category_volume__id
+msgid "ID"
+msgstr ""
+
+#. module: sale_order_volume
+#: model:ir.model.fields,field_description:sale_order_volume.field_product_category_volume____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: sale_order_volume
+#: model:ir.model.fields,field_description:sale_order_volume.field_product_category_volume__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: sale_order_volume
+#: model:ir.model.fields,field_description:sale_order_volume.field_product_category_volume__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: sale_order_volume
+#: model:ir.model.fields,field_description:sale_order_volume.field_sale_order__pallet_count
+msgid "Order # Pallets"
+msgstr ""
+
+#. module: sale_order_volume
+#: model_terms:ir.ui.view,arch_db:sale_order_volume.short_cart_summary
+msgid "Order Volume"
+msgstr ""
+
+#. module: sale_order_volume
+#: model:ir.model.fields,field_description:sale_order_volume.field_sale_order__volume
+msgid "Order Volume (m³)"
+msgstr ""
+
+#. module: sale_order_volume
+#: model_terms:ir.ui.view,arch_db:sale_order_volume.res_config_settings_view_form
+msgid "Pallet Volume"
+msgstr ""
+
+#. module: sale_order_volume
+#: model:ir.model.fields,field_description:sale_order_volume.field_res_config_settings__pallet_volume
+msgid "Pallet Volume (m³)"
+msgstr ""
+
+#. module: sale_order_volume
+#: model:ir.model.fields,help:sale_order_volume.field_res_config_settings__pallet_volume
+msgid "Pallet Volume in cubic meter"
+msgstr ""
+
+#. module: sale_order_volume
+#: model:ir.model.fields,field_description:sale_order_volume.field_product_category_volume__category_id
+msgid "Product Category"
+msgstr ""
+
+#. module: sale_order_volume
+#: model:ir.model,name:sale_order_volume.model_product_category_volume
+msgid "Product Volume by Category"
+msgstr ""
+
+#. module: sale_order_volume
+#: model:ir.model,name:sale_order_volume.model_sale_order
+#: model:ir.model.fields,field_description:sale_order_volume.field_product_category_volume__sale_order_id
+msgid "Sale Order"
+msgstr ""
+
+#. module: sale_order_volume
+#: model_terms:ir.ui.view,arch_db:sale_order_volume.res_config_settings_view_form
+msgid "Set a default pallet volume (m³)"
+msgstr ""
+
+#. module: sale_order_volume
+#: model:ir.model.fields,field_description:sale_order_volume.field_product_category_volume__volume
+#: model_terms:ir.ui.view,arch_db:sale_order_volume.report_saleorder_document
+#: model_terms:ir.ui.view,arch_db:sale_order_volume.volume_per_category
+msgid "Volume (m³)"
+msgstr ""
+
+#. module: sale_order_volume
+#: model_terms:ir.ui.view,arch_db:sale_order_volume.view_sale_order_form_inherit
+msgid "Volume of Products"
+msgstr ""
+
+#. module: sale_order_volume
+#: model:ir.model.fields,field_description:sale_order_volume.field_sale_order__volume_per_category
+#: model_terms:ir.ui.view,arch_db:sale_order_volume.view_sale_order_form_inherit
+msgid "Volume per Product Category"
+msgstr ""
+
+#. module: sale_order_volume
+#: model_terms:ir.ui.view,arch_db:sale_order_volume.res_config_settings_view_form
+msgid "Volumes"
+msgstr ""
+
+#. module: sale_order_volume
+#: model_terms:ir.ui.view,arch_db:sale_order_volume.volume_per_category
+msgid "m³"
+msgstr ""
+
