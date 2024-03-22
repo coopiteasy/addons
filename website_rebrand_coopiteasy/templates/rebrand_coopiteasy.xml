@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+SPDX-FileCopyrightText: 2024 Coop IT Easy SC
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<odoo>
+
+    <!--
+        priority is higher than 16 to ensure that this is applied after all
+        standard odoo modules that customize the odoo branding (like
+        website_sale) and define no priority (and have the default value of
+        16) and lower than 20 to ensure that the template from the
+        website_odoo_debranding module is applied after this one (so that it
+        can still remove the branding).
+    -->
+    <template
+        id="brand_promotion"
+        inherit_id="website.brand_promotion"
+        name="Coop IT Easy Branding"
+        customize_show="True"
+        priority="18"
+    >
+        <xpath expr="//div[hasclass('o_brand_promotion')]" position="replace">
+            <div class="o_brand_promotion">
+                <a href="https://www.odoo.com/">Odoo</a>
+                + <a href="https://odoo-community.org/">OCA</a>,
+                provided by <a href="https://coopiteasy.be/">Coop IT Easy</a>
+            </div>
+        </xpath>
+    </template>
+
+</odoo>
