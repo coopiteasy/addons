@@ -5,10 +5,10 @@
 {
     "name": "Belgium - National Number",
     "summary": """
-        Belgian National Number""",
-    "version": "14.0.1.0.0",
+        Belgian National Numbe.""",
+    "version": "16.0.1.0.0",
     "category": "Contact",
-    "website": "https://github.com/OCA/l10n-belgium",
+    "website": "https://github.com/coopiteasy/addons",
     "author": "Coop IT Easy SC, Odoo Community Association (OCA)",
     "maintainers": ["victor-champonnois"],
     "license": "AGPL-3",
@@ -16,8 +16,8 @@
     "depends": [
         "partner_identification",
     ],
-    "excludes": [],
     "data": ["data/res_partner_id_category.xml"],
+    "excludes": [],
     "demo": [],
     "qweb": [],
 }
