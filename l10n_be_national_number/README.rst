@@ -22,17 +22,12 @@ Belgium - National Number
 
 |badge1| |badge2| |badge3|
 
-Belgian National Number
+Emptied/
 
 **Table of contents**
 
 .. contents::
    :local:
-
-Known issues / Roadmap
-======================
-
-Implement a validation method.
 
 Bug Tracker
 ===========
@@ -51,13 +46,6 @@ Authors
 ~~~~~~~
 
 * Coop IT Easy SC
-
-Contributors
-~~~~~~~~~~~~
-
-* `Coop IT Easy SC <https://coopiteasy.be>`_:
-
-  * Victor Champonnois
 
 Maintainers
 ~~~~~~~~~~~
