@@ -5,8 +5,8 @@
 {
     "name": "Belgium - National Number",
     "summary": """
-        Belgian National Numbe.""",
-    "version": "16.0.1.0.0",
+        Emptied.""",
+    "version": "16.0.2.0.0",
     "category": "Contact",
     "website": "https://github.com/coopiteasy/addons",
     "author": "Coop IT Easy SC, Odoo Community Association (OCA)",
