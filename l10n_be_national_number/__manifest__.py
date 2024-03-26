@@ -14,9 +14,8 @@
     "license": "AGPL-3",
     "application": False,
     "depends": [
-        "partner_identification",
+        "l10n_be_partner_identification",
     ],
-    "data": ["data/res_partner_id_category.xml"],
     "excludes": [],
     "demo": [],
     "qweb": [],
