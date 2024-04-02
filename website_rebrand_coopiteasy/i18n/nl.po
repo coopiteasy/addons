@@ -21,7 +21,7 @@ msgid ""
 "                provided by"
 msgstr ""
 ",\n"
-"                geleverd door"
+"                verzorgd door"
 
 #. module: website_rebrand_coopiteasy
 #: model_terms:ir.ui.view,arch_db:website_rebrand_coopiteasy.brand_promotion
