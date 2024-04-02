@@ -86,7 +86,7 @@ addon | version | maintainers | summary
 [web_m2x_options_no_partner](web_m2x_options_no_partner/) | 12.0.1.0.1 |  | Removes creation options from (some) partner dropdown menus.
 [web_m2x_options_no_product](web_m2x_options_no_product/) | 12.0.1.0.1 |  | Removes creation options from (some) product dropdown menus.
 [web_wide_smart_buttons](web_wide_smart_buttons/) | 12.0.1.0.0 | [![carmenbianca](https://github.com/carmenbianca.png?size=30px)](https://github.com/carmenbianca) | Make smart buttons wider to be able to read more of their contents.
-[website_rebrand_coopiteasy](website_rebrand_coopiteasy/) | 12.0.1.0.0 |  | Replace default Odoo website branding by Coop IT Easy branding
+[website_rebrand_coopiteasy](website_rebrand_coopiteasy/) | 12.0.1.0.1 |  | Replace default Odoo website branding by Coop IT Easy branding
 [website_sale_delivery_vat_label](website_sale_delivery_vat_label/) | 12.0.1.0.0 |  | Display the included/excluded VAT label on delivery method
 [website_sale_detailed_product_description](website_sale_detailed_product_description/) | 12.0.1.0.0 |  | Adds fields to Product Template and e-commerce's product list and page.
 [website_sale_product_display_unit](website_sale_product_display_unit/) | 12.0.1.0.3 |  | Display the price per unit on the e-commerce pages.
