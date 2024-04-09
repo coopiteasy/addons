@@ -22,7 +22,7 @@
         "templates/assets.xml",
     ],
     "demo": [
-        "demo/account_journal_demo.xml",
+        # "demo/account_journal_demo.xml",
         "demo/product_product_demo.xml",
     ],
     "qweb": [
