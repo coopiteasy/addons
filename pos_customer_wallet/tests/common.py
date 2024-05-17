@@ -16,13 +16,47 @@ class TestPosBalance(TestBalance):
         cls.customer_wallet_payment_method = cls.env.ref(
             "pos_customer_wallet.customer_wallet_payment_method"
         )
+        cls.cash_payment_method = cls.env["pos.payment.method"].search(
+            [("is_cash_count", "=", True)], limit=1
+        )
+        cls.pos_session = cls._create_session(cls)
+
+    def create_wallet_pos_payment(
+        self,
+        pos_session=None,
+        product=None,
+        payment_method=None,
+        amount=0,
+        partner=None,
+    ):
+        if pos_session is None:
+            pos_session = self.pos_session
+        if product is None:
+            product = self.env["product.product"].create(
+                {
+                    "name": "Foo Product",
+                    "available_in_pos": True,
+                    "list_price": amount,
+                    "taxes_id": False,
+                }
+            )
+        if payment_method is None:
+            payment_method = self.customer_wallet_payment_method
+        if partner is None:
+            partner = self.partner
+        self._create_pos_order(
+            pos_session,
+            product,
+            payment_method,
+            amount,
+            partner,
+        )
 
     def _create_random_uid(self):
         return "%05d-%03d-%04d" % (randint(1, 99999), randint(1, 999), randint(1, 9999))
 
-    # TODO: maybe also pass a pos_config or pos_session as parameter. not
-    # necessary yet
-    def _create_pos_order(self, product, payment_method, amount, partner):
+    # TODO: maybe pass a pos_config as parameter. not necessary yet
+    def _create_session(self):
         pricelist = self.env["product.pricelist"].create(
             {
                 "name": "Test pricelist",
@@ -40,8 +74,6 @@ class TestPosBalance(TestBalance):
                 ],
             }
         )
-        uid = self._create_random_uid()
-
         # Create a new pos config and open it
         pos_config = self.env.ref("point_of_sale.pos_config_main").copy(
             {
@@ -55,6 +87,10 @@ class TestPosBalance(TestBalance):
         pos_session.action_pos_session_open()
         # Bypass cash control
         pos_session.state = "opened"
+        return pos_session
+
+    def _create_pos_order(self, pos_session, product, payment_method, amount, partner):
+        uid = self._create_random_uid()
 
         order_data = {
             "data": {
@@ -95,7 +131,7 @@ class TestPosBalance(TestBalance):
                     ]
                 ],
                 "pos_session_id": pos_session.id,
-                "pricelist_id": pricelist.id,
+                "pricelist_id": pos_session.config_id.pricelist_id.id,
                 "partner_id": partner.id,
                 "user_id": self.env.user.id,
                 "uid": uid,
@@ -109,20 +145,3 @@ class TestPosBalance(TestBalance):
         }
 
         return self.env["pos.order"].create_from_ui([order_data])
-
-    def _create_wallet_pos_payment(self, amount=0, partner=None):
-        if partner is None:
-            partner = self.partner
-        self._create_pos_order(
-            self.env["product.product"].create(
-                {
-                    "name": "Foo Product",
-                    "available_in_pos": True,
-                    "list_price": amount,
-                    "taxes_id": False,
-                }
-            ),
-            self.customer_wallet_payment_method,
-            amount,
-            partner,
-        )
