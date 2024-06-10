@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+     Copyright 2018 - Today Coop IT Easy SC (<http://www.coopiteasy.be>)
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+
+    <!-- Action to open document list -->
+    <record id="action_document_hosting" model="ir.actions.act_window">
+        <field name="name">Document</field>
+        <field name="res_model">document_hosting.document</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Action to open category list -->
+    <record id="action_document_hosting_category" model="ir.actions.act_window">
+        <field name="name">Categories</field>
+        <field name="res_model">document_hosting.category</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Root menu for document -->
+    <menuitem id="menu_main_document_hosting" name="Documents" sequence="45" />
+
+    <!-- Menu item to open Document list -->
+    <menuitem
+        id="menu_document"
+        name="Documents"
+        parent="menu_main_document_hosting"
+        action="action_document_hosting"
+    />
+
+    <!-- Menu item to open Category list -->
+    <menuitem
+        id="menu_category"
+        name="Categories"
+        parent="menu_main_document_hosting"
+        action="action_document_hosting_category"
+    />
+
+</odoo>
