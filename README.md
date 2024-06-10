@@ -23,6 +23,7 @@ addon | version | maintainers | summary
 --- | --- | --- | ---
 [account_customer_wallet](account_customer_wallet/) | 16.0.1.0.1 |  | Allow customers to pay using a wallet which is tracked by the company.
 [company_today](company_today/) | 16.0.1.0.0 |  | Store today's date on the company model.
+[document_hosting](document_hosting/) | 16.0.1.0.0 |  | Manage documents that can be published on website with ??.
 [partner_contact_type_default](partner_contact_type_default/) | 16.0.1.0.0 | [![carmenbianca](https://github.com/carmenbianca.png?size=30px)](https://github.com/carmenbianca) | Set 'contact' as default type when creating a partner as a contact of another partner.
 [portal_customer_wallet](portal_customer_wallet/) | 16.0.1.0.0 | [![carmenbianca](https://github.com/carmenbianca.png?size=30px)](https://github.com/carmenbianca) | My Home displays expenditures using customer wallet
 [resource_work_time_from_contracts](resource_work_time_from_contracts/) | 16.0.1.0.0 |  | Take the contracts of an employee into account when computing work time per day
