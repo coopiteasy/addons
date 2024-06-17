@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field
+            name="name"
+        >res.config.settings.view.form.inherit.sale.order.volume</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="sale.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@data-key='sale_management']" position="inside">
+                <h2>Volumes</h2>
+                <div class="row mt16 o_settings_container" id="volume_settings">
+                    <div
+                        class="col-12 col-lg-6 o_setting_box"
+                        id="pallet_volume_settings"
+                    >
+                        <div class="o_setting_right_pane">
+                            <label string="Pallet Volume" for="pallet_volume" />
+                            <div class="text-muted">
+                                Set a default pallet volume (m³)
+                            </div>
+                            <div class="mt8">
+                                <field name="pallet_volume" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

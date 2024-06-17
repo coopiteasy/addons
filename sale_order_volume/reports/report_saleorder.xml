@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="report_saleorder_document"
+        inherit_id="sale.report_saleorder_document"
+    >
+        <div name="total" position="after">
+            <table name="volume" class="table table-condensed">
+
+            <tr id="order_total_volume">
+                <td><strong>Volume (m³)</strong></td>
+                <td>
+                    <span t-field="doc.volume" />
+                </td>
+            </tr>
+            <tr id="order_pallets">
+                <td><strong># Pallets (1 pallet = <t
+                                t-out="doc.get_default_pallet_volume()"
+                            /> m³)</strong></td>
+                    <td>
+                        <span t-field="doc.pallet_count" />
+                    </td>
+                </tr>
+
+                </table>
+        </div>
+    </template>
+</odoo>
