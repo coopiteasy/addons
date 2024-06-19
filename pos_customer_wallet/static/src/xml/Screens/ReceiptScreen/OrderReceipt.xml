@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+SPDX-FileCopyrightText: 2022 Coop IT Easy SC
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<templates id="template" xml:space="preserve">
+
+    <t
+        t-name="OrderReceipt"
+        t-inherit="point_of_sale.OrderReceipt"
+        t-inherit-mode="extension"
+        owl="1"
+    >
+        <xpath expr="//div[hasclass('before-footer')]" position="inside">
+            <div class="customer-wallet-balance">
+                Customer Wallet Balance
+                <span
+                    t-esc="env.pos.format_currency(receipt.customer_wallet_balance)"
+                    class="pos-receipt-right-align"
+                />
+            </div>
+        </xpath>
+    </t>
+
+</templates>

@@ -1,0 +1,98 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* pos_customer_wallet
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: pos_customer_wallet
+#. openerp-web
+#: code:addons/pos_customer_wallet/static/src/js/screens.js:65
+#, python-format
+msgid "' without selecting a customer. Please select a customer or remove the order line(s)."
+msgstr ""
+
+#. module: pos_customer_wallet
+#. openerp-web
+#: code:addons/pos_customer_wallet/static/src/js/screens.js:63
+#, python-format
+msgid "Cannot sell the product '"
+msgstr ""
+
+#. module: pos_customer_wallet
+#. openerp-web
+#: code:addons/pos_customer_wallet/static/src/js/screens.js:48
+#, python-format
+msgid "Cannot use customer wallet payment method without selecting a customer.\n"
+"\n"
+" Please select a customer or use a different payment method."
+msgstr ""
+
+#. module: pos_customer_wallet
+#: model:ir.model,name:pos_customer_wallet.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: pos_customer_wallet
+#. openerp-web
+#: code:addons/pos_customer_wallet/static/src/js/screens.js:135
+#: code:addons/pos_customer_wallet/static/src/xml/pos.xml:10
+#: code:addons/pos_customer_wallet/static/src/xml/pos.xml:71
+#: code:addons/pos_customer_wallet/static/src/xml/pos.xml:85
+#, python-format
+msgid "Customer Wallet Balance"
+msgstr ""
+
+#. module: pos_customer_wallet
+#. openerp-web
+#: code:addons/pos_customer_wallet/static/src/xml/pos.xml:43
+#: code:addons/pos_customer_wallet/static/src/xml/pos.xml:57
+#, python-format
+msgid "Customer Wallet Balance:"
+msgstr ""
+
+#. module: pos_customer_wallet
+#. openerp-web
+#: code:addons/pos_customer_wallet/static/src/js/screens.js:74
+#, python-format
+msgid "Customer wallet balance not sufficient"
+msgstr ""
+
+#. module: pos_customer_wallet
+#: model:ir.model.fields,field_description:pos_customer_wallet.field_pos_config__is_enabled_customer_wallet
+msgid "Is Customer Wallet Enabled"
+msgstr ""
+
+#. module: pos_customer_wallet
+#: model:ir.model.fields,field_description:pos_customer_wallet.field_pos_config__minimum_wallet_amount
+msgid "Minimum Wallet Amount"
+msgstr ""
+
+#. module: pos_customer_wallet
+#. openerp-web
+#: code:addons/pos_customer_wallet/static/src/js/screens.js:47
+#: code:addons/pos_customer_wallet/static/src/js/screens.js:61
+#, python-format
+msgid "No customer selected"
+msgstr ""
+
+#. module: pos_customer_wallet
+#: model:ir.model,name:pos_customer_wallet.model_pos_config
+msgid "Point of Sale Configuration"
+msgstr ""
+
+#. module: pos_customer_wallet
+#. openerp-web
+#: code:addons/pos_customer_wallet/static/src/js/screens.js:75
+#, python-format
+msgid "There is not enough balance in the customer's wallet to perform this order."
+msgstr ""
+
