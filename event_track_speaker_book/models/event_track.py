@@ -9,11 +9,12 @@ class EventTrack(models.Model):
     _inherit = "event.track"
 
     book_ids = fields.Many2many(
-        comodel_name="event.track", compute="_compute_books", string="Books"
+        comodel_name="event.track.speaker.book",
+        compute="_compute_books",
+        string="Books",
     )
 
     @api.depends("speaker_ids.book_ids")
     def _compute_books(self):
-        books = []
         for speaker in self.speaker_ids:
-            books += speaker.book_ids
+            self.book_ids += speaker.book_ids
