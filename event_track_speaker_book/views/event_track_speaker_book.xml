@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="view_event_track_speaker_book_form">
+        <field name="name">event.track.speaker.book.form</field>
+        <field name="model">event.track.speaker.book</field>
+        <field name="arch" type="xml">
+            <form string="Track Speaker Book">
+                <header>
+                    <field
+                        name="status"
+                        widget="statusbar"
+                        options="{'clickable': '1'}"
+                    />
+                </header>
+                <sheet string="Book">
+                    <group>
+                        <group>
+                            <field name="name" />
+                            <field name="author_id" widget="many2many_tags" />
+                            <field name="editor_id" />
+                            <field name="user_id" />
+                            <field name="speaker_ids" widget="many2many_tags" />
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" />
+                    <field name="activity_ids" />
+                    <field
+                        name="message_ids"
+                        options="{'post_refresh': 'recipients'}"
+                    />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_event_speaker_from_event">
+        <field name="res_model">event.track.speaker</field>
+        <field name="name">Event Speakers Books</field>
+        <field name="view_mode">tree,form,activity</field>
+    </record>
+</odoo>
