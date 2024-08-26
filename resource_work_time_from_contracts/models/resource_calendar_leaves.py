@@ -5,7 +5,6 @@ from odoo import fields, models
 
 
 class ResourceCalendarLeaves(models.Model):
-
     _inherit = "resource.calendar.leaves"
 
     # force this field to be equal to the resource_calendar_id of the resource
