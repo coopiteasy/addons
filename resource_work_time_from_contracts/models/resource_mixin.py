@@ -6,95 +6,15 @@ from collections import defaultdict
 
 from pytz import timezone, utc
 
-from odoo import fields, models
+from odoo import models
 from odoo.tools import float_utils
 
+from odoo.addons.resource.models.resource import Intervals
 from odoo.addons.resource.models.resource_mixin import ROUNDING_FACTOR
 
 
 class ResourceMixin(models.AbstractModel):
-
     _inherit = "resource.mixin"
-
-    # make this field read-only.
-    resource_calendar_id = fields.Many2one("resource.calendar", readonly=True)
-
-    def list_work_time_per_day(
-        self,
-        from_datetime,
-        to_datetime,
-        calendar=None,
-        domain=None,
-    ):
-        if calendar or not hasattr(self, "contract_ids"):
-            return super().list_work_time_per_day(
-                from_datetime, to_datetime, calendar, domain
-            )
-        work_time_from_contracts = self._get_work_time_from_contracts(
-            from_datetime, to_datetime, domain
-        )
-        # we need to take leaves into account. instead of going into the
-        # internals of leaves themselves which are quite complex (and mostly
-        # private to the resource module), we ask for the default work time
-        # with and without leaves, and compute the difference, that we
-        # subtract from the work time from the contracts.
-        #
-        # to get the default work time without leaves, we provide a domain
-        # that will yield no results. the domain argument is used to query
-        # leave intervals from resource.calendar.leaves (in
-        # resource.resource.ResourceCalendar._leave_intervals()). the default
-        # is [('time_type', '=', 'leave')]. to ensure that no leaves are
-        # found, we want to use a domain that will never return anything. we
-        # use [("calendar_id", "=", False)] because it will be added to
-        # another domain asking for a specific calendar_id, resulting in a
-        # query returning no results.
-        #
-        # for this, we query the calendar of the employee, which must be the
-        # same as the one of the company, and which must contain full-day
-        # hours for each day. this is the calendar to which leaves are linked,
-        # and is used by default by
-        # resource.resource_mixin.list_work_time_per_day() when calendar=None.
-        default_work_time = dict(
-            super().list_work_time_per_day(
-                from_datetime,
-                to_datetime,
-                self.resource_calendar_id,
-                domain=[("calendar_id", "=", False)],
-            )
-        )
-        default_work_time_with_leaves = super().list_work_time_per_day(
-            from_datetime, to_datetime, self.resource_calendar_id, domain
-        )
-        result = []
-        for day, hours in default_work_time_with_leaves:
-            total_hours = work_time_from_contracts[day] - (
-                default_work_time[day] - hours
-            )
-            if total_hours <= 0.0:
-                continue
-            result.append((day, total_hours))
-        return result
-
-    def list_normal_work_time_per_day(self, from_datetime, to_datetime, domain=None):
-        """
-        Same as list_work_time_per_day(), but ignoring leaves
-        """
-        work_time_from_contracts = self._get_work_time_from_contracts(
-            from_datetime, to_datetime, domain
-        )
-        from_datetime, to_datetime = self._localize_datetimes(
-            from_datetime, to_datetime
-        )
-        day = from_datetime.date()
-        to_day = to_datetime.date()
-        delta = datetime.timedelta(days=1)
-        result = []
-        while day <= to_day:
-            hours = work_time_from_contracts[day]
-            if hours != 0.0:
-                result.append((day, hours))
-            day += delta
-        return result
 
     def get_work_days_data(
         self,
@@ -104,32 +24,32 @@ class ResourceMixin(models.AbstractModel):
         calendar=None,
         domain=None,
     ):
-        if calendar or not hasattr(self, "contract_ids"):
+        # sudo() is needed for normal users that have no read access to
+        # contracts because hasattr() tries to access the field's value.
+        if calendar or not hasattr(self.sudo(), "contract_ids"):
             return super().get_work_days_data(
                 from_datetime, to_datetime, compute_leaves, calendar, domain
             )
         # we need the normal work time per day for each day to be able to
-        # compute the fraction of day that the number of hours represents.
-        # this is defined in the calendar of the employee, which must be the
-        # same as the one of the company, and which must contain full-day
-        # hours for each day.
+        # compute the fraction of day that the number of hours represents. we
+        # choose to use the resource.calendar.hours_per_day field for this. it
+        # is automatically computed, but can be edited. this way, it is
+        # possible to have irregular work schedules, for example where some
+        # days only have a half day, and taking a leave on these will be
+        # counted as a half day instead of as a full day.
         #
         # we need full days, so we replace the hours to start and stop at
         # midnight in the timezone of the resource.
-        #
-        # the provided domain is to exclude leaves from the computation, as
-        # explained in list_work_time_per_day().
         from_datetime, to_datetime = self._localize_datetimes(
             from_datetime, to_datetime
         )
+        normal_attendance_intervals = self._get_attendance_intervals(
+            from_datetime.replace(hour=0, minute=0, second=0, microsecond=0),
+            to_datetime.replace(hour=0, minute=0, second=0, microsecond=0)
+            + datetime.timedelta(days=1),
+        )
         normal_work_time_per_day = dict(
-            super().list_work_time_per_day(
-                from_datetime.replace(hour=0, minute=0, second=0, microsecond=0),
-                to_datetime.replace(hour=0, minute=0, second=0, microsecond=0)
-                + datetime.timedelta(days=1),
-                self.resource_calendar_id,
-                [("calendar_id", "=", False)],
-            )
+            self._hours_per_day_from_intervals(normal_attendance_intervals)
         )
         if compute_leaves:
             work_time_per_day = self.list_work_time_per_day(
@@ -137,7 +57,7 @@ class ResourceMixin(models.AbstractModel):
             )
         else:
             work_time_per_day = self.list_normal_work_time_per_day(
-                from_datetime, to_datetime, domain=domain
+                from_datetime, to_datetime
             )
         num_days = 0.0
         num_hours = 0.0
@@ -153,6 +73,106 @@ class ResourceMixin(models.AbstractModel):
             )
             num_hours += work_time
         return {"days": num_days, "hours": num_hours}
+
+    def list_work_time_per_day(
+        self,
+        from_datetime,
+        to_datetime,
+        calendar=None,
+        domain=None,
+    ):
+        # sudo() is needed for normal users that have no read access to
+        # contracts because hasattr() tries to access the field's value.
+        if calendar or not hasattr(self.sudo(), "contract_ids"):
+            return super().list_work_time_per_day(
+                from_datetime, to_datetime, calendar, domain
+            )
+        work_intervals = self._get_work_intervals(from_datetime, to_datetime, domain)
+        return self._sum_intervals(work_intervals)
+
+    def list_normal_work_time_per_day(self, from_datetime, to_datetime):
+        """
+        Same as list_work_time_per_day(), but ignoring leaves
+        """
+        return self._get_work_time_from_contracts(from_datetime, to_datetime)
+
+    def get_attendances_of_date_range(self, date_from, date_to):
+        """
+        Get the first and last resource.calendar.attendance corresponding to
+        the range defined by date_from and date_to.
+        """
+        contracts = self._get_active_contracts(date_from, date_to)
+        if not contracts:
+            (
+                first_attendance,
+                last_attendance,
+            ) = self.resource_calendar_id.get_first_last_attendance(date_from, date_to)
+            if first_attendance is None:
+                return (None, None)
+            return (first_attendance[1], last_attendance[1])
+        earliest_attendance = None
+        latest_attendance = None
+        for contract in contracts:
+            (
+                attendance_from,
+                attendance_to,
+            ) = contract.resource_calendar_id.get_first_last_attendance(
+                max(date_from, contract.date_start),
+                min(date_to, contract.date_end or date_to),
+            )
+            if attendance_from is not None and (
+                earliest_attendance is None
+                or attendance_from[0] < earliest_attendance[0]
+                or (
+                    attendance_from[0] == earliest_attendance[0]
+                    and attendance_from[1].hour_from < earliest_attendance[1].hour_from
+                )
+            ):
+                earliest_attendance = attendance_from
+            if attendance_to is not None and (
+                latest_attendance is None
+                or attendance_to[0] > latest_attendance[0]
+                or (
+                    attendance_to[0] == latest_attendance[0]
+                    and attendance_to[1].hour_to > latest_attendance[1].hour_to
+                )
+            ):
+                latest_attendance = attendance_to
+        if earliest_attendance is None:
+            return (None, None)
+        return (earliest_attendance[1], latest_attendance[1])
+
+    def _sum_intervals(self, intervals):
+        result = defaultdict(float)
+        for start, stop, meta in intervals:
+            result[start.date()] += (stop - start).total_seconds() / 3600
+        return sorted(result.items())
+
+    def _hours_per_day_from_intervals(self, intervals):
+        """
+        Get the number of normal attendance hours per day from a list of
+        intervals.
+        """
+        # instead of computing the real number of hours per day from the
+        # intervals, we take the value of hours_per_day from their calendar.
+        # this allows to configure the duration of a day for each calendar,
+        # which allows for half days to be computed as half days instead of
+        # full days.
+        #
+        # for each day, we compute the average of the hours_per_day
+        # of the calendar of all intervals of that day (independently of their
+        # length). if they come from the same calendar, it will result in the
+        # same value, but in case of overlapping calendars with different
+        # values, it will compute the average value.
+        hours_per_day = defaultdict(list)
+        for start, stop, attendances in intervals:
+            # matching intervals can have multiple attendances.
+            for attendance in attendances:
+                hours_per_day[start.date()].append(attendance.calendar_id.hours_per_day)
+        result = []
+        for date, hours in hours_per_day.items():
+            result.append((date, sum(hours) / len(hours)))
+        return sorted(result)
 
     def _get_active_contracts(self, date_start, date_end):
         """
@@ -172,13 +192,24 @@ class ResourceMixin(models.AbstractModel):
             )
         )
 
-    def _get_work_time_per_contract(
-        self, contracts, from_datetime, to_datetime, domain
+    def _get_attendance_intervals_of_calendar(
+        self, from_datetime, to_datetime, calendar
     ):
         """
-        Return the work time per day per contract.
+        Return the attendance intervals for the provided resource.calendar,
+        ignoring leaves.
         """
-        work_time_results = []
+        return calendar._attendance_intervals(
+            from_datetime, to_datetime, self.resource_id
+        )
+
+    def _get_attendance_intervals_from_contracts(
+        self, contracts, from_datetime, to_datetime
+    ):
+        """
+        Return the attendance intervals for all provided contracts.
+        """
+        intervals = Intervals([])
         for contract in contracts:
             from_dt = from_datetime
             to_dt = to_datetime
@@ -203,29 +234,49 @@ class ResourceMixin(models.AbstractModel):
                     )
                     + datetime.timedelta(days=1)
                 )
-            work_time_results.append(
-                super().list_work_time_per_day(
-                    from_dt,
-                    to_dt,
-                    contract.resource_calendar_id,
-                    domain,
-                )
+            intervals |= self._get_attendance_intervals_of_calendar(
+                from_dt,
+                to_dt,
+                contract.resource_calendar_id,
             )
-        return work_time_results
+        return intervals
 
-    def _get_work_time_from_contracts(self, from_datetime, to_datetime, domain=None):
+    def _get_attendance_intervals(self, from_datetime, to_datetime):
         from_datetime, to_datetime = self._localize_datetimes(
             from_datetime, to_datetime
         )
         contracts = self._get_active_contracts(from_datetime.date(), to_datetime.date())
-        work_time_results = self._get_work_time_per_contract(
-            contracts, from_datetime, to_datetime, domain
+        intervals = self._get_attendance_intervals_from_contracts(
+            contracts, from_datetime, to_datetime
         )
-        result = defaultdict(float)
-        for work_time in work_time_results:
-            for day, hours in work_time:
-                result[day] += hours
-        return result
+        return intervals
+
+    def _get_leave_intervals(self, from_datetime, to_datetime, domain):
+        from_datetime, to_datetime = self._localize_datetimes(
+            from_datetime, to_datetime
+        )
+        # leave intervals are stored in the calendar of the resource, which
+        # should be the same as the one of the company.
+        calendar = self.resource_calendar_id
+        intervals = calendar._leave_intervals(
+            from_datetime, to_datetime, self.resource_id, domain
+        )
+        return intervals
+
+    def _get_work_intervals(self, from_datetime, to_datetime, domain):
+        attendance_intervals = self._get_attendance_intervals(
+            from_datetime, to_datetime
+        )
+        leave_intervals = self._get_leave_intervals(from_datetime, to_datetime, domain)
+        return attendance_intervals - leave_intervals
+
+    def _get_work_time_from_contracts(self, from_datetime, to_datetime):
+        """
+        Return the work time per day according to all contracts of the
+        resource, ignoring leaves.
+        """
+        intervals = self._get_attendance_intervals(from_datetime, to_datetime)
+        return self._sum_intervals(intervals)
 
     def _localize_datetimes(self, from_datetime, to_datetime):
         # naive datetimes are considered utc

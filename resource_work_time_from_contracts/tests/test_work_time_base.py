@@ -15,8 +15,14 @@ class TestWorkTimeBase(TransactionCase):
         self.timezone = pytz.timezone(self.env.user.tz)
 
         # users
-        user1_dict = {"name": "User 1", "login": "user1", "password": "user1"}
-        self.user1 = self.env["res.users"].create(user1_dict)
+        self.user1 = self.env["res.users"].create(
+            {
+                "name": "User 1",
+                "login": "user1",
+                "password": "user1",
+                "groups_id": [(6, 0, self.env.ref("base.group_user").ids)],
+            }
+        )
 
         # employees
         employee1_dict = {
@@ -50,6 +56,8 @@ class TestWorkTimeBase(TransactionCase):
                     "calendar_id": self.full_time_calendar.id,
                 }
             )
+        # this is to compute the average number of hours per day.
+        self.full_time_calendar._onchange_hours_per_day()
 
         self.morning_calendar = self.env["resource.calendar"].create(
             {"name": "Morning", "attendance_ids": False}
@@ -64,6 +72,9 @@ class TestWorkTimeBase(TransactionCase):
                     "calendar_id": self.morning_calendar.id,
                 }
             )
+        # this must be forced because each attendance should be considered as
+        # a half day.
+        self.morning_calendar.hours_per_day = 7.6
 
         self.afternoon_calendar = self.env["resource.calendar"].create(
             {"name": "Afternoon", "attendance_ids": False}
@@ -78,6 +89,9 @@ class TestWorkTimeBase(TransactionCase):
                     "calendar_id": self.afternoon_calendar.id,
                 }
             )
+        # this must be forced because each attendance should be considered as
+        # a half day.
+        self.afternoon_calendar.hours_per_day = 7.6
 
         self.four_fifths_calendar = self.env["resource.calendar"].create(
             {"name": "Four fifth", "attendance_ids": False}
@@ -101,31 +115,14 @@ class TestWorkTimeBase(TransactionCase):
                     "calendar_id": self.four_fifths_calendar.id,
                 }
             )
+        self.four_fifths_calendar._onchange_hours_per_day()
 
         self.company_calendar = self.env["resource.calendar"].create(
             {"name": "Company", "attendance_ids": False}
         )
-        # the company calendar must contain full-time days
-        # we use a non-default calendar to ensure it works.
-        for day in range(7):
-            self.env["resource.calendar.attendance"].create(
-                {
-                    "name": "Attendance",
-                    "dayofweek": str(day),
-                    "hour_from": 8.7,
-                    "hour_to": 12.5,
-                    "calendar_id": self.company_calendar.id,
-                }
-            )
-            self.env["resource.calendar.attendance"].create(
-                {
-                    "name": "Attendance",
-                    "dayofweek": str(day),
-                    "hour_from": 13.5,
-                    "hour_to": 17.3,
-                    "calendar_id": self.company_calendar.id,
-                }
-            )
+        # the company calendar is where the leaves are stored. its attendances
+        # should not matter. we use an empty non-default calendar to ensure it
+        # works.
         self.employee1.company_id.resource_calendar_id = self.company_calendar
 
     def local_datetime(self, year, month, day, *args, **kwargs):
