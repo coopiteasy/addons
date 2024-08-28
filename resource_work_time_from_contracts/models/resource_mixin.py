@@ -142,6 +142,18 @@ class ResourceMixin(models.AbstractModel):
             return (None, None)
         return (earliest_attendance[1], latest_attendance[1])
 
+    def get_calendar_for_date(self, date):
+        """
+        Get the resource.calendar of the contract that applies to the provided
+        date.
+        """
+        # there can be multiple contracts active at the same time. only the
+        # first one found will be used.
+        current_contracts = self._get_active_contracts(date, date)
+        if not current_contracts:
+            return None
+        return current_contracts[0].resource_calendar_id.id
+
     def _sum_intervals(self, intervals):
         result = defaultdict(float)
         for start, stop, meta in intervals:
