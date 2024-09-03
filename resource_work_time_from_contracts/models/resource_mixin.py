@@ -150,7 +150,7 @@ class ResourceMixin(models.AbstractModel):
         current_contracts = self._get_active_contracts(date, date)
         if not current_contracts:
             return None
-        return current_contracts[0].resource_calendar_id.id
+        return current_contracts[0].resource_calendar_id
 
     def _sum_intervals(self, intervals):
         result = defaultdict(float)
