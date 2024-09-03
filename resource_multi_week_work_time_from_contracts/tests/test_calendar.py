@@ -31,3 +31,27 @@ class TestCalendar(TestCalendarCommon):
         # Last date/attendance is the Monday.
         self.assertEqual(result[1][0].date(), datetime.date.fromisoformat("2024-07-15"))
         self.assertEqual(result[1][1], self.child_2.attendance_ids[0])
+
+    def test_first_last_attendance_middle_to_before(self):
+        result = self.parent_calendar.get_first_last_attendance(
+            datetime.datetime.fromisoformat("2024-07-16T00:00:00+00:00"),
+            datetime.datetime.fromisoformat("2024-07-22T23:59:59+00:00"),
+        )
+        # First date/attendance is the Friday.
+        self.assertEqual(result[0][0].date(), datetime.date.fromisoformat("2024-07-19"))
+        self.assertEqual(result[0][1], self.child_2.attendance_ids[1])
+        # Last date/attendance is the Friday of the week preceding the target date.
+        self.assertEqual(result[1][0].date(), datetime.date.fromisoformat("2024-07-19"))
+        self.assertEqual(result[1][1], self.child_2.attendance_ids[1])
+
+    def test_first_last_attendance_after_to_middle(self):
+        result = self.parent_calendar.get_first_last_attendance(
+            datetime.datetime.fromisoformat("2024-07-12T00:00:00+00:00"),
+            datetime.datetime.fromisoformat("2024-07-17T23:59:59+00:00"),
+        )
+        # First date/attendance is the Monday of the week succeeding the target date.
+        self.assertEqual(result[0][0].date(), datetime.date.fromisoformat("2024-07-15"))
+        self.assertEqual(result[0][1], self.child_2.attendance_ids[0])
+        # Last date/attendance is the Monday.
+        self.assertEqual(result[1][0].date(), datetime.date.fromisoformat("2024-07-15"))
+        self.assertEqual(result[1][1], self.child_2.attendance_ids[0])
