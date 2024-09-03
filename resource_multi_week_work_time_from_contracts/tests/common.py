@@ -21,7 +21,7 @@ class TestCalendarCommon(SavepointCase):
             {
                 "name": "Child 1",
                 "parent_calendar_id": cls.parent_calendar.id,
-                "week_sequence": 1,
+                "week_sequence": 10,
                 "attendance_ids": [
                     (
                         0,
@@ -50,7 +50,7 @@ class TestCalendarCommon(SavepointCase):
             {
                 "name": "Child 2",
                 "parent_calendar_id": cls.parent_calendar.id,
-                "week_sequence": 2,
+                "week_sequence": 20,
                 "attendance_ids": [
                     (
                         0,

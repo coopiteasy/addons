@@ -44,6 +44,29 @@ class TestCalendar(TestCalendarCommon):
         self.assertEqual(result[1][0].date(), datetime.date.fromisoformat("2024-07-19"))
         self.assertEqual(result[1][1], self.child_2.attendance_ids[1])
 
+    def test_first_last_attendance_middle_to_before_skip_a_week(self):
+        self.Calendar.create(
+            {
+                "name": "Empty child 3",
+                "parent_calendar_id": self.parent_calendar.id,
+                "week_sequence": 30,  # After week 2.
+                "attendance_ids": [],
+            }
+        )
+        result = self.parent_calendar.get_first_last_attendance(
+            # Multi-week 2
+            datetime.datetime.fromisoformat("2024-07-16T00:00:00+00:00"),
+            # Multi-week 1
+            datetime.datetime.fromisoformat("2024-07-30T23:59:59+00:00"),
+        )
+        # First date/attendance is the Friday.
+        self.assertEqual(result[0][0].date(), datetime.date.fromisoformat("2024-07-19"))
+        self.assertEqual(result[0][1], self.child_2.attendance_ids[1])
+        # Last date/attendance is the Friday of the second week preceding the
+        # target date.
+        self.assertEqual(result[1][0].date(), datetime.date.fromisoformat("2024-07-19"))
+        self.assertEqual(result[1][1], self.child_2.attendance_ids[1])
+
     def test_first_last_attendance_after_to_middle(self):
         result = self.parent_calendar.get_first_last_attendance(
             datetime.datetime.fromisoformat("2024-07-12T00:00:00+00:00"),
@@ -54,4 +77,28 @@ class TestCalendar(TestCalendarCommon):
         self.assertEqual(result[0][1], self.child_2.attendance_ids[0])
         # Last date/attendance is the Monday.
         self.assertEqual(result[1][0].date(), datetime.date.fromisoformat("2024-07-15"))
+        self.assertEqual(result[1][1], self.child_2.attendance_ids[0])
+
+    def test_first_last_attendance_after_to_middle_skip_a_week(self):
+        self.Calendar.create(
+            {
+                "name": "Empty child 3",
+                "parent_calendar_id": self.parent_calendar.id,
+                # In between week 1 and 2, meaning child 2 is now week 3.
+                "week_sequence": 15,
+                "attendance_ids": [],
+            }
+        )
+        result = self.parent_calendar.get_first_last_attendance(
+            # Multi-week 1.
+            datetime.datetime.fromisoformat("2024-07-12T00:00:00+00:00"),
+            # Multi-week 3.
+            datetime.datetime.fromisoformat("2024-07-24T23:59:59+00:00"),
+        )
+        # First date/attendance is the Monday of the second week succeeding the
+        # target date.
+        self.assertEqual(result[0][0].date(), datetime.date.fromisoformat("2024-07-22"))
+        self.assertEqual(result[0][1], self.child_2.attendance_ids[0])
+        # Last date/attendance is the Monday.
+        self.assertEqual(result[1][0].date(), datetime.date.fromisoformat("2024-07-22"))
         self.assertEqual(result[1][1], self.child_2.attendance_ids[0])
