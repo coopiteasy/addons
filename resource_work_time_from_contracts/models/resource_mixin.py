@@ -275,6 +275,9 @@ class ResourceMixin(models.AbstractModel):
         """
         intervals = Intervals([])
         for contract in contracts:
+            if not contract.resource_calendar_id:
+                # this field is not mandatory, so it can be null.
+                continue
             from_dt = from_datetime
             to_dt = to_datetime
             date_start = contract.date_start
