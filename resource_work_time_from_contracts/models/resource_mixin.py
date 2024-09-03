@@ -2,6 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 import datetime
+import math
 from collections import defaultdict
 
 from pytz import timezone, utc
@@ -11,6 +12,16 @@ from odoo.tools import float_utils
 
 from odoo.addons.resource.models.resource import Intervals
 from odoo.addons.resource.models.resource_mixin import ROUNDING_FACTOR
+
+DAY_ROUNDING_MODE_PARAM = "resource_work_time_from_contracts.day_rounding_mode"
+DAY_ROUNDING_GRANULARITY_PARAM = (
+    "resource_work_time_from_contracts.day_rounding_granularity"
+)
+DAY_ROUNDING_MODE_NONE = "none"
+DAY_ROUNDING_MODE_ROUND = "round"
+DAY_ROUNDING_MODE_CEIL = "ceil"
+DAY_ROUNDING_CEIL_THRESHOLD = 0.01
+DEFAULT_DAY_ROUNDING_GRANULARITY = 1
 
 
 class ResourceMixin(models.AbstractModel):
@@ -59,20 +70,7 @@ class ResourceMixin(models.AbstractModel):
             work_time_per_day = self.list_normal_work_time_per_day(
                 from_datetime, to_datetime
             )
-        num_days = 0.0
-        num_hours = 0.0
-        for day, work_time in work_time_per_day:
-            if work_time == 0.0:
-                continue
-            normal_work_time = normal_work_time_per_day[day]
-            # we use the same rounding computation as in
-            # resource.resource_mixin.get_work_days_data().
-            num_days += (
-                float_utils.round(ROUNDING_FACTOR * work_time / normal_work_time)
-                / ROUNDING_FACTOR
-            )
-            num_hours += work_time
-        return {"days": num_days, "hours": num_hours}
+        return self._sum_work_days_data(work_time_per_day, normal_work_time_per_day)
 
     def list_work_time_per_day(
         self,
@@ -159,6 +157,60 @@ class ResourceMixin(models.AbstractModel):
         for start, stop, meta in intervals:
             result[start.date()] += (stop - start).total_seconds() / 3600
         return sorted(result.items())
+
+    def _get_round_day_round_func(self, rounding_mode, granularity):
+        def round_day_default(work_time, normal_work_time):
+            # this is the same rounding computation as in
+            # resource.resource_mixin.get_work_days_data().
+            return (
+                float_utils.round(ROUNDING_FACTOR * work_time / normal_work_time)
+                / ROUNDING_FACTOR
+            )
+
+        def round_day_round(work_time, normal_work_time):
+            return (
+                float_utils.round((work_time / normal_work_time) / granularity)
+                * granularity
+            )
+
+        def round_day_ceil(work_time, normal_work_time):
+            return (
+                math.ceil(
+                    (work_time / normal_work_time) / granularity
+                    - granularity * DAY_ROUNDING_CEIL_THRESHOLD
+                )
+                * granularity
+            )
+
+        if rounding_mode == DAY_ROUNDING_MODE_ROUND:
+            return round_day_round
+        if rounding_mode == DAY_ROUNDING_MODE_CEIL:
+            return round_day_ceil
+        return round_day_default
+
+    def _get_day_rounding_func(self):
+        ir_config_parameter_model = self.env["ir.config_parameter"].sudo()
+        rounding_mode = ir_config_parameter_model.get_param(DAY_ROUNDING_MODE_PARAM)
+        rounding_granularity = ir_config_parameter_model.get_param(
+            DAY_ROUNDING_GRANULARITY_PARAM
+        )
+        if rounding_granularity:
+            rounding_granularity = float(rounding_granularity)
+        else:
+            rounding_granularity = DEFAULT_DAY_ROUNDING_GRANULARITY
+        return self._get_round_day_round_func(rounding_mode, rounding_granularity)
+
+    def _sum_work_days_data(self, work_time_per_day, normal_work_time_per_day):
+        num_days = 0.0
+        num_hours = 0.0
+        round_day = self._get_day_rounding_func()
+        for day, work_time in work_time_per_day:
+            if work_time == 0.0:
+                continue
+            normal_work_time = normal_work_time_per_day[day]
+            num_days += round_day(work_time, normal_work_time)
+            num_hours += work_time
+        return {"days": num_days, "hours": num_hours}
 
     def _hours_per_day_from_intervals(self, intervals):
         """
