@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
+    <record id="view_event_track_speaker_book_tree" model="ir.ui.view">
+        <field name="name">event.track.speaker.book.tree</field>
+        <field name="model">event.track.speaker.book</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="status" />
+            </tree>
+        </field>
+    </record>
     <record model="ir.ui.view" id="view_event_track_speaker_book_form">
         <field name="name">event.track.speaker.book.form</field>
         <field name="model">event.track.speaker.book</field>

@@ -17,8 +17,10 @@ class EventTrackSpeakerBook(models.Model):
     speaker_ids = fields.Many2many("event.track.speaker", string="Speakers")
     status = fields.Selection(
         selection=[
-            ("draft", "Draft"),
-            ("in_progress", "In Progress"),
+            ("asked", "Asked"),
+            ("received", "Received"),
+            ("reading", "Reading"),
             ("done", "Done"),
-        ]
+        ],
+        default="asked",
     )
