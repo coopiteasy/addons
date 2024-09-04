@@ -10,4 +10,4 @@ class ResourceMixing(models.AbstractModel):
 
     def get_calendar_for_date(self, date):
         calendar = super().get_calendar_for_date(date)
-        return calendar._get_calendar(day=date)
+        return calendar._get_multi_week_calendar(day=date)
