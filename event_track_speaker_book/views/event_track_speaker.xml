@@ -11,7 +11,7 @@
             <xpath expr="//notebook" position="inside">
                 <page name="books" string="Books">
                     <field name="book_ids">
-                        <tree editable="bottom">
+                        <tree>
                             <field name="name" />
                             <field name="status" />
                         </tree>
