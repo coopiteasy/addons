@@ -12,9 +12,9 @@ class EventTrack(models.Model):
         comodel_name="event.track.speaker.book",
         compute="_compute_books",
         string="Books",
+        store=True,
     )
 
     @api.depends("speaker_ids.book_ids")
     def _compute_books(self):
-        for speaker in self.speaker_ids:
-            self.book_ids += speaker.book_ids
+        self.book_ids = self.speaker_ids.mapped("book_ids")
