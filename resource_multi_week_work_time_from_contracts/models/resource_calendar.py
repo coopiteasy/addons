@@ -26,9 +26,7 @@ class ResourceCalendar(models.Model):
             # many times as there are calendars.
             for _ in self.multi_week_calendar_ids:
                 days_to_monday = (7 - next_monday.weekday()) % 7 or 7
-                next_monday = (
-                    next_monday + datetime.timedelta(days=days_to_monday)
-                ).replace(hour=0, minute=0, second=0, microsecond=0)
+                next_monday = next_monday + datetime.timedelta(days=days_to_monday)
                 candidate = super(
                     ResourceCalendar, self._get_multi_week_calendar(next_monday)
                 )._get_first_attendance(next_monday)
@@ -52,9 +50,7 @@ class ResourceCalendar(models.Model):
             # many times as there are calendars.
             for _ in self.multi_week_calendar_ids:
                 days_since_sunday = last_sunday.weekday() + 1
-                last_sunday = (
-                    last_sunday - datetime.timedelta(days=days_since_sunday)
-                ).replace(hour=23, minute=59, second=59, microsecond=99999)
+                last_sunday = last_sunday - datetime.timedelta(days=days_since_sunday)
                 candidate = super(
                     ResourceCalendar, self._get_multi_week_calendar(last_sunday)
                 )._get_last_attendance(last_sunday)
