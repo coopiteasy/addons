@@ -20,7 +20,7 @@ class ResourceCalendar(models.Model):
         # in the target week. So get the first attendance of the succeeding
         # week.
         if candidate and candidate[0].isocalendar()[1] != date_from.isocalendar()[1]:
-            candidate = False
+            candidate = None
             days_to_monday = (7 - date_from.weekday()) % 7 or 7
             new_date_from = date_from
             # Keep searching the Mondays of succeeding weeks until a match is
@@ -45,7 +45,7 @@ class ResourceCalendar(models.Model):
         # attendances in the target week. So get the last attendance of the
         # preceding week.
         if candidate and candidate[0].isocalendar()[1] != date_to.isocalendar()[1]:
-            candidate = False
+            candidate = None
             days_since_sunday = date_to.weekday() + 1
             new_date_to = date_to
             # Keep searching the Sundays of preceding weeks until a match is
