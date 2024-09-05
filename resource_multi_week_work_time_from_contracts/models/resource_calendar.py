@@ -21,17 +21,18 @@ class ResourceCalendar(models.Model):
         # week.
         if candidate and candidate[0].isocalendar()[1] != date_from.isocalendar()[1]:
             candidate = False
-            next_monday = date_from
-            # Keep searching succeeding weeks until a match is found. Loop as
-            # many times as there are calendars.
+            days_to_monday = (7 - date_from.weekday()) % 7 or 7
+            new_date_from = date_from
+            # Keep searching the Mondays of succeeding weeks until a match is
+            # found. Loop as many times as there are calendars.
             for _ in self.multi_week_calendar_ids:
-                days_to_monday = (7 - next_monday.weekday()) % 7 or 7
-                next_monday = next_monday + datetime.timedelta(days=days_to_monday)
+                new_date_from = new_date_from + datetime.timedelta(days=days_to_monday)
                 candidate = super(
-                    ResourceCalendar, self._get_multi_week_calendar(next_monday)
-                )._get_first_attendance(next_monday)
+                    ResourceCalendar, self._get_multi_week_calendar(new_date_from)
+                )._get_first_attendance(new_date_from)
                 if candidate:
                     break
+                days_to_monday = 7
         return candidate
 
     def _get_last_attendance(self, date_to):
@@ -45,15 +46,16 @@ class ResourceCalendar(models.Model):
         # preceding week.
         if candidate and candidate[0].isocalendar()[1] != date_to.isocalendar()[1]:
             candidate = False
-            last_sunday = date_to
-            # Keep searching preceding weeks until a match is found. Loop as
-            # many times as there are calendars.
+            days_since_sunday = date_to.weekday() + 1
+            new_date_to = date_to
+            # Keep searching the Sundays of preceding weeks until a match is
+            # found. Loop as many times as there are calendars.
             for _ in self.multi_week_calendar_ids:
-                days_since_sunday = last_sunday.weekday() + 1
-                last_sunday = last_sunday - datetime.timedelta(days=days_since_sunday)
+                new_date_to = new_date_to - datetime.timedelta(days=days_since_sunday)
                 candidate = super(
-                    ResourceCalendar, self._get_multi_week_calendar(last_sunday)
-                )._get_last_attendance(last_sunday)
+                    ResourceCalendar, self._get_multi_week_calendar(new_date_to)
+                )._get_last_attendance(new_date_to)
                 if candidate:
                     break
+                days_since_sunday = 7
         return candidate
