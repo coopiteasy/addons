@@ -18,7 +18,4 @@
         "resource_work_time_from_contracts",
     ],
     "auto_install": True,
-    "data": [
-        "views/hr_contract_views.xml",
-    ],
 }
