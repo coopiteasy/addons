@@ -30,7 +30,7 @@ class ResourceCalendar(models.Model):
         return (first_attendance_date, first_attendance)
 
     def _get_last_attendance(self, date_to):
-        # do the same as _get_first_attendance, but in the other direction
+        # do the same as _get_first_attendance(), but in the other direction.
         all_attendances = self.attendance_ids
         if not all_attendances:
             return None

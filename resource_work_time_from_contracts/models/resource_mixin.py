@@ -3,6 +3,7 @@
 
 import datetime
 import math
+import warnings
 from collections import defaultdict
 
 from pytz import timezone, utc
@@ -41,10 +42,10 @@ class ResourceMixin(models.AbstractModel):
             return super().get_work_days_data(
                 from_datetime, to_datetime, compute_leaves, calendar, domain
             )
-        # we need the normal work time per day for each day to be able to
-        # compute the fraction of day that the number of hours represents. we
-        # choose to use the resource.calendar.hours_per_day field for this. it
-        # is automatically computed, but can be edited. this way, it is
+        # we need the expected attendance time per day for each day to be able
+        # to compute the fraction of day that the number of hours represents.
+        # we choose to use the resource.calendar.hours_per_day field for this.
+        # it is automatically computed, but can be edited. this way, it is
         # possible to have irregular work schedules, for example where some
         # days only have a half day, and taking a leave on these will be
         # counted as a half day instead of as a full day.
@@ -54,23 +55,23 @@ class ResourceMixin(models.AbstractModel):
         from_datetime, to_datetime = self._localize_datetimes(
             from_datetime, to_datetime
         )
-        normal_attendance_intervals = self._get_attendance_intervals(
+        attendance_intervals = self._get_attendance_intervals(
             from_datetime.replace(hour=0, minute=0, second=0, microsecond=0),
             to_datetime.replace(hour=0, minute=0, second=0, microsecond=0)
             + datetime.timedelta(days=1),
         )
-        normal_work_time_per_day = dict(
-            self._hours_per_day_from_intervals(normal_attendance_intervals)
+        attendance_time_per_day = dict(
+            self._expected_attendance_per_day_from_intervals(attendance_intervals)
         )
         if compute_leaves:
             work_time_per_day = self.list_work_time_per_day(
                 from_datetime, to_datetime, calendar=None, domain=domain
             )
         else:
-            work_time_per_day = self.list_normal_work_time_per_day(
+            work_time_per_day = self.list_attendance_time_per_day(
                 from_datetime, to_datetime
             )
-        return self._sum_work_days_data(work_time_per_day, normal_work_time_per_day)
+        return self._sum_work_days_data(work_time_per_day, attendance_time_per_day)
 
     def list_work_time_per_day(
         self,
@@ -86,13 +87,22 @@ class ResourceMixin(models.AbstractModel):
                 from_datetime, to_datetime, calendar, domain
             )
         work_intervals = self._get_work_intervals(from_datetime, to_datetime, domain)
-        return self._sum_intervals(work_intervals)
+        return self._sum_hours_per_date_from_intervals(work_intervals)
 
-    def list_normal_work_time_per_day(self, from_datetime, to_datetime):
+    def list_attendance_time_per_day(self, from_datetime, to_datetime):
         """
         Same as list_work_time_per_day(), but ignoring leaves
         """
-        return self._get_work_time_from_contracts(from_datetime, to_datetime)
+        intervals = self._get_attendance_intervals(from_datetime, to_datetime)
+        return self._sum_hours_per_date_from_intervals(intervals)
+
+    def list_normal_work_time_per_day(self, from_datetime, to_datetime):
+        warnings.warn(
+            "resource.mixin.list_normal_work_time_per_day() is deprecated. "
+            "please use .list_attendance_time_per_day() instead.",
+            DeprecationWarning,
+        )
+        return self.list_attendance_time_per_day(from_datetime, to_datetime)
 
     def get_attendances_of_date_range(self, date_from, date_to):
         """
@@ -152,69 +162,9 @@ class ResourceMixin(models.AbstractModel):
             return None
         return current_contracts[0].resource_calendar_id
 
-    def _sum_intervals(self, intervals):
-        result = defaultdict(float)
-        for start, stop, meta in intervals:
-            result[start.date()] += (stop - start).total_seconds() / 3600
-        return sorted(result.items())
-
-    def _get_round_day_round_func(self, rounding_mode, granularity):
-        def round_day_default(work_time, normal_work_time):
-            # this is the same rounding computation as in
-            # resource.resource_mixin.get_work_days_data().
-            return (
-                float_utils.round(ROUNDING_FACTOR * work_time / normal_work_time)
-                / ROUNDING_FACTOR
-            )
-
-        def round_day_round(work_time, normal_work_time):
-            return (
-                float_utils.round((work_time / normal_work_time) / granularity)
-                * granularity
-            )
-
-        def round_day_ceil(work_time, normal_work_time):
-            return (
-                math.ceil(
-                    (work_time / normal_work_time) / granularity
-                    - granularity * DAY_ROUNDING_CEIL_THRESHOLD
-                )
-                * granularity
-            )
-
-        if rounding_mode == DAY_ROUNDING_MODE_ROUND:
-            return round_day_round
-        if rounding_mode == DAY_ROUNDING_MODE_CEIL:
-            return round_day_ceil
-        return round_day_default
-
-    def _get_day_rounding_func(self):
-        ir_config_parameter_model = self.env["ir.config_parameter"].sudo()
-        rounding_mode = ir_config_parameter_model.get_param(DAY_ROUNDING_MODE_PARAM)
-        rounding_granularity = ir_config_parameter_model.get_param(
-            DAY_ROUNDING_GRANULARITY_PARAM
-        )
-        if rounding_granularity:
-            rounding_granularity = float(rounding_granularity)
-        else:
-            rounding_granularity = DEFAULT_DAY_ROUNDING_GRANULARITY
-        return self._get_round_day_round_func(rounding_mode, rounding_granularity)
-
-    def _sum_work_days_data(self, work_time_per_day, normal_work_time_per_day):
-        num_days = 0.0
-        num_hours = 0.0
-        round_day = self._get_day_rounding_func()
-        for day, work_time in work_time_per_day:
-            if work_time == 0.0:
-                continue
-            normal_work_time = normal_work_time_per_day[day]
-            num_days += round_day(work_time, normal_work_time)
-            num_hours += work_time
-        return {"days": num_days, "hours": num_hours}
-
-    def _hours_per_day_from_intervals(self, intervals):
+    def _expected_attendance_per_day_from_intervals(self, intervals):
         """
-        Get the number of normal attendance hours per day from a list of
+        Get the number of expected attendance hours per day from a list of
         intervals.
         """
         # instead of computing the real number of hours per day from the
@@ -238,6 +188,79 @@ class ResourceMixin(models.AbstractModel):
             result.append((date, sum(hours) / len(hours)))
         return sorted(result)
 
+    def _get_round_day_func(self, rounding_mode, granularity):
+        """
+        Get the day rounding function according to the provided rounding_mode
+        and granularity.
+        """
+
+        def round_day_default(work_time, attendance_time):
+            # this is the same rounding computation as in
+            # resource.resource_mixin.get_work_days_data().
+            return (
+                float_utils.round(ROUNDING_FACTOR * work_time / attendance_time)
+                / ROUNDING_FACTOR
+            )
+
+        def round_day_round(work_time, attendance_time):
+            return (
+                float_utils.round((work_time / attendance_time) / granularity)
+                * granularity
+            )
+
+        def round_day_ceil(work_time, attendance_time):
+            return (
+                math.ceil(
+                    (work_time / attendance_time) / granularity
+                    - granularity * DAY_ROUNDING_CEIL_THRESHOLD
+                )
+                * granularity
+            )
+
+        if rounding_mode == DAY_ROUNDING_MODE_ROUND:
+            return round_day_round
+        if rounding_mode == DAY_ROUNDING_MODE_CEIL:
+            return round_day_ceil
+        return round_day_default
+
+    def _get_day_rounding_func(self):
+        """
+        Get the day rounding function from the system parameters.
+        """
+        ir_config_parameter_model = self.env["ir.config_parameter"].sudo()
+        rounding_mode = ir_config_parameter_model.get_param(DAY_ROUNDING_MODE_PARAM)
+        rounding_granularity = ir_config_parameter_model.get_param(
+            DAY_ROUNDING_GRANULARITY_PARAM
+        )
+        if rounding_granularity:
+            rounding_granularity = float(rounding_granularity)
+        else:
+            rounding_granularity = DEFAULT_DAY_ROUNDING_GRANULARITY
+        return self._get_round_day_func(rounding_mode, rounding_granularity)
+
+    def _sum_work_days_data(self, work_time_per_day, attendance_time_per_day):
+        num_days = 0.0
+        num_hours = 0.0
+        round_day = self._get_day_rounding_func()
+        for day, work_time in work_time_per_day:
+            if work_time == 0.0:
+                continue
+            attendance_time = attendance_time_per_day[day]
+            num_days += round_day(work_time, attendance_time)
+            num_hours += work_time
+        return {"days": num_days, "hours": num_hours}
+
+    def _sum_hours_per_date_from_intervals(self, intervals):
+        """
+        Sum the provided intervals as number of hours per date.
+
+        Return a list of tuples of the form (date, hours).
+        """
+        result = defaultdict(float)
+        for start, stop, meta in intervals:
+            result[start.date()] += (stop - start).total_seconds() / 3600
+        return sorted(result.items())
+
     def _get_active_contracts(self, date_start, date_end):
         """
         Get active contracts for the provided date range.
@@ -257,7 +280,7 @@ class ResourceMixin(models.AbstractModel):
         )
 
     def _get_attendance_intervals_of_calendar(
-        self, from_datetime, to_datetime, calendar
+        self, calendar, from_datetime, to_datetime
     ):
         """
         Return the attendance intervals for the provided resource.calendar,
@@ -267,11 +290,12 @@ class ResourceMixin(models.AbstractModel):
             from_datetime, to_datetime, self.resource_id
         )
 
-    def _get_attendance_intervals_from_contracts(
+    def _get_attendance_intervals_of_contracts(
         self, contracts, from_datetime, to_datetime
     ):
         """
-        Return the attendance intervals for all provided contracts.
+        Return the attendance intervals for from_datetime to to_datetime
+        according to the provided contracts.
         """
         intervals = Intervals([])
         for contract in contracts:
@@ -302,9 +326,9 @@ class ResourceMixin(models.AbstractModel):
                     + datetime.timedelta(days=1)
                 )
             intervals |= self._get_attendance_intervals_of_calendar(
+                contract.resource_calendar_id,
                 from_dt,
                 to_dt,
-                contract.resource_calendar_id,
             )
         return intervals
 
@@ -313,7 +337,7 @@ class ResourceMixin(models.AbstractModel):
             from_datetime, to_datetime
         )
         contracts = self._get_active_contracts(from_datetime.date(), to_datetime.date())
-        intervals = self._get_attendance_intervals_from_contracts(
+        intervals = self._get_attendance_intervals_of_contracts(
             contracts, from_datetime, to_datetime
         )
         return intervals
@@ -337,13 +361,13 @@ class ResourceMixin(models.AbstractModel):
         leave_intervals = self._get_leave_intervals(from_datetime, to_datetime, domain)
         return attendance_intervals - leave_intervals
 
-    def _get_work_time_from_contracts(self, from_datetime, to_datetime):
+    def _get_attendance_time_per_day(self, from_datetime, to_datetime):
         """
-        Return the work time per day according to all contracts of the
+        Return the attendance time per day according to all contracts of the
         resource, ignoring leaves.
         """
         intervals = self._get_attendance_intervals(from_datetime, to_datetime)
-        return self._sum_intervals(intervals)
+        return self._sum_hours_per_date_from_intervals(intervals)
 
     def _localize_datetimes(self, from_datetime, to_datetime):
         # naive datetimes are considered utc
