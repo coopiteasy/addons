@@ -10,11 +10,11 @@ class EventTrack(models.Model):
 
     book_ids = fields.Many2many(
         comodel_name="event.track.speaker.book",
-        compute="_compute_books",
         string="Books",
-        store=True,
     )
 
-    @api.depends("speaker_ids.book_ids")
-    def _compute_books(self):
-        self.book_ids = self.speaker_ids.mapped("book_ids")
+    @api.onchange("speaker_ids")
+    def get_book_domain(self):
+        for rec in self:
+            speakers_book_ids = rec.speaker_ids._origin.mapped("book_ids").mapped("id")
+            return {"domain": {"book_ids": [("id", "in", speakers_book_ids)]}}
