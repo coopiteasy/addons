@@ -11,3 +11,8 @@ class EventTrackSpeaker(models.Model):
     meal_date_ids = fields.One2many(
         "event.track.speaker.meal.date", "speaker_id", string="Meal Date"
     )
+
+    # @api.onchange("event_id")
+    # def get_date_domain(self):
+    #     for rec in self:
+    #         event_dates = []

@@ -2,10 +2,10 @@
 # Copyright 2017 Tecnativa - Pedro M. Baeza
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import fields, models
+from odoo import api, fields, models
 
 
-class EventTrackSpeakerBook(models.Model):
+class EventTrackSpeakerMealDate(models.Model):
     _name = "event.track.speaker.meal.date"
     _description = "Track Speaker Meal Date"
 
@@ -13,4 +13,9 @@ class EventTrackSpeakerBook(models.Model):
     event_id = fields.Many2one(
         "event.event", related="speaker_id.event_id", string="Event", store="True"
     )
-    date = fields.Date()
+
+    @api.depends("event_id.date_begin")
+    def get_event_begin_date(self):
+        return self.event_id.date_begin
+
+    date = fields.Date(default=get_event_begin_date)
