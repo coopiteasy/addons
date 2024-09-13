@@ -2,6 +2,8 @@
 # Copyright 2017 Tecnativa - Pedro M. Baeza
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
+from datetime import datetime
+
 from odoo import api, fields, models
 
 
@@ -18,4 +20,4 @@ class EventTrackSpeakerMealDate(models.Model):
     def get_event_begin_date(self):
         return self.event_id.date_begin
 
-    date = fields.Date(default=get_event_begin_date)
+    date = fields.Date(default=datetime.strftime("2020-01-01"))

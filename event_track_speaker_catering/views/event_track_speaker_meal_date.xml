@@ -36,32 +36,4 @@
             </search>
         </field>
     </record>
-    <!-- <record model="ir.ui.view" id="view_event_track_speaker_book_form">
-        <field name="name">event.track.speaker.meal.date.form</field>
-        <field name="model">event.track.speaker.meal.date</field>
-        <field name="arch" type="xml">
-            <form string="Track Speaker Book">
-                <sheet string="Meal Date">
-                    <group>
-                        <group>
-                            <field name="name" />
-                            <field name="author_id" widget="many2many_tags" />
-                            <field name="editor_id" />
-                            <field name="user_id" />
-                            <field name="speaker_ids" widget="many2many_tags" />
-                        </group>
-                    </group>
-                </sheet>
-                <div class="oe_chatter">
-                    <field name="message_follower_ids" />
-                    <field name="activity_ids" />
-                    <field
-                        name="message_ids"
-                        options="{'post_refresh': 'recipients'}"
-                    />
-                </div>
-            </form>
-        </field>
-    </record> -->
-
 </odoo>
