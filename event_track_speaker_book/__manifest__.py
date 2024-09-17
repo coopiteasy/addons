@@ -6,7 +6,7 @@
     "name": "Event Track Speaker Book",
     "summary": """Manage Books Presented by Speakers""",
     "version": "16.0.1.0.0",
-    "category": "Uncategorized",
+    "category": "Event",
     "website": "https://github.com/coopiteasy/addons",
     "author": "Coop IT Easy SC",
     "maintainers": ["victor-champonnois"],
