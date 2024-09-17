@@ -11,7 +11,7 @@ class EventTrackSpeakerBook(models.Model):
     _inherit = ["mail.thread", "mail.activity.mixin"]
 
     name = fields.Char(string="Title")
-    author_id = fields.Many2many(comodel_name="res.partner", string="Authors")
+    author_ids = fields.Many2many(comodel_name="res.partner", string="Authors")
     editor_id = fields.Many2one(comodel_name="res.partner", string="Editor")
     user_id = fields.Many2one("res.users", string="Referent")
     speaker_ids = fields.Many2many("event.track.speaker", string="Speakers")

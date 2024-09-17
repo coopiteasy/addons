@@ -7,8 +7,12 @@
             <xpath expr="//notebook" position="inside">
                 <page name="books" string="Books">
                     <field name="book_ids">
-                        <tree editable="bottom">
+                        <tree>
                             <field name="name" />
+                            <field name="author_ids" widget="many2many_tags" />
+                            <field name="editor_id" />
+                            <field name="speaker_ids" widget="many2many_tags" />
+                            <field name="user_id" />
                             <field name="status" />
                         </tree>
                     </field>
