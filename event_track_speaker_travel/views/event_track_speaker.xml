@@ -28,6 +28,7 @@
                     <h2>Expenses</h2>
                     <field name="travel_expense_ids">
                         <tree>
+                            <field name="name" />
                             <field name="expense_type_id" />
                             <field name="quantity" />
                             <field name="cost" />

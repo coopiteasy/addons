@@ -9,8 +9,8 @@
                 <field name="name" />
                 <field name="cost" />
                 <field name="speaker_id" />
-                <field name="status" />
                 <field name="event_id" />
+                <field name="status" />
             </tree>
         </field>
     </record>
@@ -20,12 +20,13 @@
         <field name="model">event.track.speaker.travel.expense</field>
         <field name="arch" type="xml">
             <tree>
+                <field name="name" />
                 <field name="expense_type_id" />
                 <field name="quantity" />
                 <field name="cost" />
                 <field name="speaker_id" />
-                <field name="status" />
                 <field name="event_id" />
+                <field name="status" />
             </tree>
         </field>
     </record>
@@ -115,10 +116,10 @@
                 <sheet>
                     <group>
                             <field name="name" />
-                            <field name="cost" />
-                            <field name="quantity" />
-                            <field name="speaker_id" />
                             <field name="expense_type_id" />
+                            <field name="quantity" />
+                            <field name="cost" />
+                            <field name="speaker_id" />
                             <field name="event_id" />
                     </group>
                 </sheet>
