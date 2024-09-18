@@ -1,7 +1,7 @@
 # Copyright 2024 Coop IT Easy <https://coopiteasy.be>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
 
@@ -14,6 +14,7 @@ class EventTrackSpeakerMealDate(models.Model):
         "event.event", related="speaker_id.event_id", string="Event", store="True"
     )
     date = fields.Date()
+    quantity = fields.Integer(default=1)
 
     @api.constrains("date")
     def _constrain_date_valid(self):
@@ -23,5 +24,5 @@ class EventTrackSpeakerMealDate(models.Model):
                 or meal_date.date > meal_date.event_id.date_end.date()
             ):
                 raise ValidationError(
-                    "Meal date must match the event dates of the speaker."
+                    _("Meal date must match the event dates of the speaker.")
                 )

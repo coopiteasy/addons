@@ -6,6 +6,7 @@
         <field name="arch" type="xml">
             <tree editable="bottom">
                 <field name="date" />
+                <field name="quantity" />
                 <field name="speaker_id" />
                 <field name="event_id" />
             </tree>
@@ -19,6 +20,13 @@
                 <field name="speaker_id" />
                 <field name="event_id" />
                 <field name="date" />
+                <field name="quantity" />
+                <filter
+                    string="My Speakers"
+                    name="my_speakers"
+                    domain="[('speaker_id.track_ids.user_id', '=', uid)]"
+                />
+                <separator />
                 <separator />
                 <group expand="0" name="group_by" string="Group By">
                     <filter
