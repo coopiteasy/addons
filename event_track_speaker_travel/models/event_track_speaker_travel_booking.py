@@ -23,6 +23,8 @@ class EventTrackSpeakerTravelBooking(models.Model):
         default="draft",
     )
 
+    ticket_ids = fields.Many2many("ir.attachment", string="Tickets")
+
     speaker_id = fields.Many2one("event.track.speaker", string="Speaker")
 
     event_id = fields.Many2one(
