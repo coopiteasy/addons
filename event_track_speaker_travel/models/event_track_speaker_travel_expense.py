@@ -30,6 +30,7 @@ class EventTrackSpeakerTravelExpense(models.Model):
         "event.event", related="speaker_id.event_id", string="Event", store="True"
     )
 
-    @api.depends("expense_type_id.price")
+    @api.depends("quantity", "expense_type_id.price")
     def _compute_cost(self):
-        self.cost = self.expense_type_id.price * self.quantity
+        for expense in self:
+            expense.cost = expense.expense_type_id.price * expense.quantity
