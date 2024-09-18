@@ -14,6 +14,10 @@ class EventTrackSpeakerBook(models.Model):
     editor_id = fields.Many2one(comodel_name="res.partner", string="Editor")
     user_id = fields.Many2one("res.users", string="Referent")
     speaker_ids = fields.Many2many("event.track.speaker", string="Speakers")
+    provider_id = fields.Many2one(
+        "event.track.speaker.book.provider",
+        string="Provider",
+    )
     status = fields.Selection(
         selection=[
             ("asked", "Asked"),

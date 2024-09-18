@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
+
     <record id="view_event_track_speaker_book_tree" model="ir.ui.view">
         <field name="name">event.track.speaker.book.tree</field>
         <field name="model">event.track.speaker.book</field>
         <field name="arch" type="xml">
             <tree>
                 <field name="name" />
+                <field name="author_ids" widget="many2many_tags" />
+                <field name="editor_id" />
+                <field name="user_id" />
+                <field name="speaker_ids" widget="many2many_tags" />
+                <field name="provider_id" />
                 <field name="status" />
             </tree>
         </field>
     </record>
+
     <record model="ir.ui.view" id="view_event_track_speaker_book_form">
         <field name="name">event.track.speaker.book.form</field>
         <field name="model">event.track.speaker.book</field>
@@ -30,6 +37,7 @@
                             <field name="editor_id" />
                             <field name="user_id" />
                             <field name="speaker_ids" widget="many2many_tags" />
+                            <field name="provider_id" />
                         </group>
                     </group>
                 </sheet>
@@ -45,9 +53,33 @@
         </field>
     </record>
 
+    <record id="view_event_track_speaker_book_search" model="ir.ui.view">
+        <field name="name">event.track.speaker.book.search</field>
+        <field name="model">event.track.speaker.book</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+                <field name="author_ids" />
+                <field name="editor_id" />
+                <field name="user_id" />
+                <field name="speaker_ids" />
+                <field name="provider_id" />
+                <separator />
+                <group expand="0" name="group_by" string="Group By">
+                    <filter
+                        name="provider_id"
+                        string="Provider"
+                        context="{'group_by' : 'provider_id'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+
     <record model="ir.actions.act_window" id="action_event_speaker_from_event">
         <field name="res_model">event.track.speaker</field>
         <field name="name">Event Speakers Books</field>
         <field name="view_mode">tree,form,activity</field>
     </record>
+
 </odoo>
