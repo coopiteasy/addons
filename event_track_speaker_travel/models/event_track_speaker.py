@@ -1,6 +1,6 @@
-# Copyright 2017 David Vidal<david.vidal@tecnativa.com>
-# Copyright 2017 Tecnativa - Pedro M. Baeza
-# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+# SPDX-FileCopyrightText: 2024 Coop IT Easy SC
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
 
 from odoo import api, fields, models
 
@@ -9,10 +9,10 @@ class EventTrackSpeaker(models.Model):
     _inherit = "event.track.speaker"
 
     travel_booking_ids = fields.One2many(
-        comodel_name="event.speaker.travel.booking", inverse_name="speaker_id"
+        comodel_name="event.track.speaker.travel.booking", inverse_name="speaker_id"
     )
     travel_expense_ids = fields.One2many(
-        comodel_name="event.speaker.travel.expense", inverse_name="speaker_id"
+        comodel_name="event.track.speaker.travel.expense", inverse_name="speaker_id"
     )
     need_travel = fields.Boolean()
     has_travel = fields.Boolean(compute="_compute_has_travel")

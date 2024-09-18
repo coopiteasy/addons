@@ -2,8 +2,8 @@
 <odoo>
 
     <record id="view_event_track_speaker_booking_tree" model="ir.ui.view">
-        <field name="name">event.speaker.travel.booking.tree</field>
-        <field name="model">event.speaker.travel.booking</field>
+        <field name="name">event.track.speaker.travel.booking.tree</field>
+        <field name="model">event.track.speaker.travel.booking</field>
         <field name="arch" type="xml">
             <tree>
                 <field name="name" />
@@ -14,9 +14,10 @@
             </tree>
         </field>
     </record>
+
     <record id="view_event_track_speaker_expense_tree" model="ir.ui.view">
-        <field name="name">event.speaker.travel.expense.tree</field>
-        <field name="model">event.speaker.travel.expense</field>
+        <field name="name">event.track.speaker.travel.expense.tree</field>
+        <field name="model">event.track.speaker.travel.expense</field>
         <field name="arch" type="xml">
             <tree>
                 <field name="expense_type_id" />
@@ -28,9 +29,10 @@
             </tree>
         </field>
     </record>
+
     <record id="view_event_track_speaker_expense_search" model="ir.ui.view">
-        <field name="name">event.speaker.travel.expense.search</field>
-        <field name="model">event.speaker.travel.expense</field>
+        <field name="name">event.track.speaker.travel.expense.search</field>
+        <field name="model">event.track.speaker.travel.expense</field>
         <field name="arch" type="xml">
             <search>
                 <field name="name" />
@@ -46,9 +48,10 @@
             </search>
         </field>
     </record>
+
     <record id="view_event_track_speaker_booking_search" model="ir.ui.view">
-        <field name="name">event.speaker.travel.booking.search</field>
-        <field name="model">event.speaker.travel.booking</field>
+        <field name="name">event.track.speaker.travel.booking.search</field>
+        <field name="model">event.track.speaker.travel.booking</field>
         <field name="arch" type="xml">
             <search>
                 <field name="name" />
@@ -64,9 +67,10 @@
             </search>
         </field>
     </record>
-        <record model="ir.ui.view" id="view_event_track_speaker_booking_form">
-        <field name="name">event.speaker.travel.booking.form</field>
-        <field name="model">event.speaker.travel.booking</field>
+
+    <record model="ir.ui.view" id="view_event_track_speaker_booking_form">
+        <field name="name">event.track.speaker.travel.booking.form</field>
+        <field name="model">event.track.speaker.travel.booking</field>
         <field name="arch" type="xml">
             <form string="Travel Booking">
                 <header>
@@ -95,9 +99,10 @@
             </form>
         </field>
     </record>
+
     <record model="ir.ui.view" id="view_event_track_speaker_expense_form">
-        <field name="name">event.speaker.travel.expense.form</field>
-        <field name="model">event.speaker.travel.expense</field>
+        <field name="name">event.track.speaker.travel.expense.form</field>
+        <field name="model">event.track.speaker.travel.expense</field>
         <field name="arch" type="xml">
             <form string="Travel Expense">
                 <header>
@@ -128,9 +133,10 @@
             </form>
         </field>
     </record>
+
     <record model="ir.ui.view" id="view_event_track_speaker_expense_type_form">
-        <field name="name">event.speaker.travel.expense.type.form</field>
-        <field name="model">event.speaker.travel.expense.type</field>
+        <field name="name">event.track.speaker.travel.expense.type.form</field>
+        <field name="model">event.track.speaker.travel.expense.type</field>
         <field name="arch" type="xml">
             <form string="Travel Expense Type">
 

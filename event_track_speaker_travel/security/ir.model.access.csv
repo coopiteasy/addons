@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_event_track_speaker_travel_booking,event.track.speaker.travel.booking,event_track_speaker_travel.model_event_track_speaker_travel_booking,event.group_event_user,1,1,1,1
+access_event_track_speaker_travel_expense,event.track.speaker.travel.expense,event_track_speaker_travel.model_event_track_speaker_travel_expense,event.group_event_user,1,1,1,1
+access_event_track_speaker_travel_expense_type,event.track.speaker.travel.expense_type,event_track_speaker_travel.model_event_track_speaker_travel_expense_type,event.group_event_user,1,1,1,1

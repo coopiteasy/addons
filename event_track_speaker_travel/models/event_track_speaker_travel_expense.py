@@ -1,12 +1,12 @@
-# Copyright 2017 David Vidal<david.vidal@tecnativa.com>
-# Copyright 2017 Tecnativa - Pedro M. Baeza
-# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+# SPDX-FileCopyrightText: 2024 Coop IT Easy SC
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
 
 from odoo import api, fields, models
 
 
-class EventSpeakerTravelExpense(models.Model):
-    _name = "event.speaker.travel.expense"
+class EventTrackSpeakerTravelExpense(models.Model):
+    _name = "event.track.speaker.travel.expense"
     _description = "Speaker Travel Expense"
     _inherit = ["mail.thread", "mail.activity.mixin"]
 
@@ -23,7 +23,7 @@ class EventSpeakerTravelExpense(models.Model):
     )
     speaker_id = fields.Many2one("event.track.speaker", string="Speaker")
     expense_type_id = fields.Many2one(
-        "event.speaker.travel.expense.type", string="Type"
+        "event.track.speaker.travel.expense.type", string="Type"
     )
 
     event_id = fields.Many2one(
