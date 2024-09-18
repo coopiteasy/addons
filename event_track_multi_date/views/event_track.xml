@@ -10,7 +10,9 @@
             <field name="date" position="after">
                 <field name="dates">
                     <tree editable="bottom">
+                        <field name="datetime" />
                         <field name="date" />
+                        <field name="hour" widget="float_time" />
                     </tree>
                 </field>
             </field>
