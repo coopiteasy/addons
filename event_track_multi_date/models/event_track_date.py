@@ -12,12 +12,20 @@ class EventTrackDate(models.Model):
     _name = "event.track.date"
     _description = "Track dates"
 
+    def _default_datetime(self):
+        event_id = self.env.context.get("event_id")
+        if event_id:
+            event = self.env["event.event"].browse(event_id)
+            return event.date_begin
+        return None
+
     track_id = fields.Many2one("event.track")
-    datetime = fields.Datetime(string="Date and time")
+    event_id = fields.Many2one(related="track_id.event_id")
+    datetime = fields.Datetime(string="Date and time", default=_default_datetime)
     date = fields.Date(compute="_compute_date_and_time")
     hour = fields.Float(string="Hours", compute="_compute_date_and_time")
 
-    @api.depends("date")
+    @api.depends("datetime")
     def _compute_date_and_time(self):
         for track_date in self:
             if track_date.datetime:
