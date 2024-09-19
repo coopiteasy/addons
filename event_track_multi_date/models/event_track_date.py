@@ -5,7 +5,8 @@
 
 from datetime import datetime
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
 
 
 class EventTrackDate(models.Model):
@@ -42,3 +43,14 @@ class EventTrackDate(models.Model):
             else:
                 track_date.date = False
                 track_date.hour = False
+
+    @api.constrains("datetime")
+    def _constrain_datetime_valid(self):
+        for track in self:
+            if (
+                track.datetime < track.event_id.date_begin
+                or track.datetime > track.event_id.date_end
+            ):
+                raise ValidationError(
+                    _("Date must match the event dates of the track.")
+                )
