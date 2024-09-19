@@ -10,9 +10,11 @@
         <field name="arch" type="xml">
             <xpath expr="//notebook" position="inside">
                 <page name="meals" string="Meals">
-                    <field name="meal_date_ids">
+                    <field name="event_id" invisible="1" />
+                    <field name="meal_date_ids" context="{'event_id': event_id}">
                         <tree editable="bottom">
                             <field name="date" />
+                            <field name="quantity" />
                         </tree>
                     </field>
                 </page>
