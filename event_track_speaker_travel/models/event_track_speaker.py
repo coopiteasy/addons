@@ -20,12 +20,24 @@ class EventTrackSpeaker(models.Model):
 
     @api.depends("travel_booking_ids.cost", "travel_expense_ids.cost")
     def _compute_travel_cost(self):
-        self.travel_cost = 0
-        for booking in self.travel_booking_ids:
-            self.travel_cost += booking.cost
-        for expense in self.travel_expense_ids:
-            self.travel_cost += expense.cost
+        for speaker in self:
+            speaker.travel_cost = 0
+            for booking in speaker.travel_booking_ids:
+                if booking.status != "draft":
+                    speaker.travel_cost += booking.cost
+            for expense in speaker.travel_expense_ids:
+                if expense.status != "draft":
+                    speaker.travel_cost += expense.cost
 
     @api.depends("travel_booking_ids", "travel_expense_ids")
     def _compute_has_travel(self):
-        self.has_travel = self.travel_booking_ids or self.travel_expense_ids
+        for speaker in self:
+            booking_ok = not speaker.travel_booking_ids
+            for booking in speaker.travel_booking_ids:
+                booking_ok = booking.status == "payed"
+
+            expense_ok = not speaker.travel_expense_ids
+            for expense in speaker.travel_expense_ids:
+                expense_ok = expense.status != "draft"
+
+            speaker.has_travel = booking_ok and expense_ok

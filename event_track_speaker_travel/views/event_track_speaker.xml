@@ -40,4 +40,20 @@
         </field>
     </record>
 
+    <record model="ir.ui.view" id="view_event_track_speaker_tree">
+        <field name="name">event.track.speaker.tree</field>
+        <field name="model">event.track.speaker</field>
+        <field
+            name="inherit_id"
+            ref="event_track_multi_speaker.view_event_track_speaker_tree"
+        />
+        <field name="arch" type="xml">
+            <field name="event_id" position="after">
+                <field name="need_travel" />
+                <field name="has_travel" />
+                <field name="travel_cost" />
+            </field>
+        </field>
+    </record>
+
 </odoo>
