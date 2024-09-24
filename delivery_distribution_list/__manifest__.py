@@ -5,7 +5,7 @@
     """,
     "author": "Coop IT Easy SC",
     "license": "AGPL-3",
-    "version": "14.0.1.0.0",
+    "version": "15.0.1.0.0",
     "website": "https://github.com/coopiteasy/addons",
     "category": "Sales",
     "depends": [
@@ -20,6 +20,10 @@
         "views/partner_view.xml",
         "views/sale_view.xml",
         "views/product_view.xml",
-        "report/sale_order_report_template.xml",
     ],
+    "assets": {
+        "web.assets_qweb": [
+            "report/sale_order_report_template.xml",
+        ],
+    },
 }

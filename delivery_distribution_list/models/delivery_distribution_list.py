@@ -263,14 +263,8 @@ class DeliveryDistributionLine(models.Model):
             line.state = "sale"
 
     def send_sale_order(self):
-        ir_model_data = self.env["ir.model.data"]
-        mail_template_obj = self.env["mail.template"]
-        mail_template_id = ir_model_data.get_object_reference(
-            "sale", "email_template_edi_sale"
-        )[1]
-        mail_template = mail_template_obj.browse(mail_template_id)
         for line in self:
-            mail_template.send_mail(line.sale_order.id, False)
+            line.sale_order._send_order_confirmation_mail()
             line.state = "sale_sent"
 
     def invoice_sale_order(self):
