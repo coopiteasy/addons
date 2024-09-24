@@ -71,6 +71,7 @@ addon | version | maintainers | summary
 [purchase_invoice_status](purchase_invoice_status/) | 12.0.1.0.0 |  | Add invoice status on purchase orders
 [purchase_order_line_auto_import](purchase_order_line_auto_import/) | 12.0.1.0.0 |  | This module allows to create automatically line with the product and minimal quantities when selecting the partner.
 [purchase_order_weight](purchase_order_weight/) | 12.0.1.0.0 |  | Adds weight and weight unit to Purchase Order
+[purchase_supplier_free_shipping_threshold](purchase_supplier_free_shipping_threshold/) | 12.0.1.0.0 | [![victor-champonnois](https://github.com/victor-champonnois.png?size=30px)](https://github.com/victor-champonnois) | Free Shipping Threshold On Suppliers
 [report_certisys_label](report_certisys_label/) | 12.0.1.0.0 |  | Add Certisys Label on account, stock and sale reports
 [resource_work_time_from_contracts](resource_work_time_from_contracts/) | 12.0.1.0.0 |  | Take the contracts of an employee into account when computing work time per day
 [sale_order_for_approval](sale_order_for_approval/) | 12.0.1.0.0 |  | Display "For Approval" mention on Sale Orders
