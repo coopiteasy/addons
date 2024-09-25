@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+SPDX-FileCopyrightText: 2024 Coop IT Easy SC
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<odoo>
+
+    <record id="project_task_view_jsgantt" model="ir.ui.view">
+        <field name="name">project.task.jsgantt</field>
+        <field name="model">project.task</field>
+        <field eval="1" name="priority" />
+        <field name="arch" type="xml">
+            <jsgantt time_format="day" show_duration="true" caption_type="caption">
+                <field name="name" mapping="name" />
+                <field name="date_start" mapping="start_date" />
+                <field name="date_end" mapping="end_date" />
+                <field name="plan_date_start" mapping="plan_start_date" />
+                <field name="date_deadline" mapping="plan_end_date" />
+                <field name="is_milestone" mapping="is_milestone" />
+                <field name="resource_id" mapping="resource_id" />
+                <field name="completion" mapping="completion" />
+                <field name="is_parent" mapping="is_parent" />
+                <field name="parent_id" mapping="parent_id" />
+                <field name="is_expanded" mapping="is_expanded" />
+                <field name="depend_on_ids" mapping="dependency_ids" />
+                <field name="caption" mapping="caption" />
+                <field name="notes" mapping="notes" />
+                <field name="cost" mapping="cost" />
+                <field name="bar_text" mapping="bar_text" />
+            </jsgantt>
+        </field>
+    </record>
+
+    <record
+        id="project.act_project_project_2_project_task_all"
+        model="ir.actions.act_window"
+    >
+        <field
+            name="view_mode"
+        >jsgantt,kanban,tree,form,calendar,pivot,graph,activity</field>
+    </record>
+
+    <record id="project.action_view_all_task" model="ir.actions.act_window">
+        <field
+            name="view_mode"
+        >jsgantt,kanban,tree,form,calendar,pivot,graph,activity</field>
+    </record>
+
+    <record
+        id="project_task_rtree_action_view_project"
+        model="ir.actions.act_window.view"
+    >
+        <field name="sequence" eval="5" />
+        <field name="view_mode">jsgantt</field>
+        <field
+            name="act_window_id"
+            ref="project.act_project_project_2_project_task_all"
+        />
+    </record>
+
+    <record id="project_task_rtree_action_view_all" model="ir.actions.act_window.view">
+        <field name="sequence" eval="5" />
+        <field name="view_mode">jsgantt</field>
+        <field name="act_window_id" ref="project.action_view_all_task" />
+    </record>
+
+    <record id="view_task_tree2" model="ir.ui.view">
+        <field name="name">project.task.tree (project_task_jsgantt_view)</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_tree2" />
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute name="editable">bottom</attribute>
+            </xpath>
+
+            <field name="milestone_id" position="before">
+                <field name="is_milestone" />
+            </field>
+            <field name="date_deadline" position="before">
+                <field name="date_start" />
+                <field name="date_end" />
+                <field name="plan_date_start" />
+            </field>
+            <field name="date_deadline" position="after">
+                <field name="completion" widget="percentage" />
+                <field name="is_parent" />
+                <field name="is_expanded" />
+                <field name="depend_on_ids" />
+                <field name="caption" />
+                <field name="notes" />
+                <field name="cost" />
+                <field name="bar_text" />
+            </field>
+        </field>
+    </record>
+
+</odoo>
