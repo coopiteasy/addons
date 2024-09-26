@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!--
+     Copyright 2018 - Today Coop IT Easy SCRLfs (<http://www.coopiteasy.be>)
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <record id ="cie_infra_server_view" model="ir.ui.view">
+        <field name="name">CoopIteasy Infrastructure</field>
+        <field name="model">infra.server</field>
+        <field name="arch" type="xml">
+            <form string="server">
+                <header>
+                    <button name="button_check_ipv" type="object" string="Check ipv"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="ipv6"/>
+                        <field name="ipv4"/>
+                        <field name="datacenter_id"/>
+                        <field name="ovh_address"/>
+                        <field name="cie_address"/>
+                        <field name="instance_ids" widget="many2many" domain="[('server_id','=', False )]"/>
+                        <field name="shortname_ids" widget="many2many"/>
+                        <field name="note"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="view_search_server" model="ir.ui.view">
+        <field name="name">Server filter</field>
+        <field name="model">infra.server</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="instance_ids"/>
+                <field name="ipv4"/>
+                <field name="ipv6" />
+                <field name="datacenter_id"/>
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
+</odoo>

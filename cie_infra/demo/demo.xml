@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<odoo noupdate="1">
+    <data>
+
+        <record id="server_localhost:0101" model="cie_infra.server">
+            <field name="name">localhost:0101</field>
+            <field name="ipv4">192.168.1.1</field>
+            <field name="datacenter_info">OVH plus grand base de serveur d'EUROPE</field>
+            <field name="ovh_address"> ovh.servercenter@ovh.be</field>
+            <field name="cie_address">coopit.easy@cip.be</field>
+            <field name="note">pas de pb depuis 6mois</field>
+        </record>
+
+        <record id="location_france" model="infra.location">
+            <field name="name">France</field>
+            <field name="country_id">208</field>
+        </record>
+
+        <record id="datacenter_OVH1" model="cie_infra.datacenter">
+            <field name="name">OVH Compiegne</field>
+            <field name="location_id"
+                   eval="[(4, ref('location_france'))]"/>
+        </record>
+        <record id="instance1" model="cie_infra.instance">
+            <field name="name">OdooV1</field>
+            <field name="URL">CoopItEasy/odooV1</field>
+            <field name="note">Instance utilisé par coopvelib et coopvrap</field>
+            <field name="server_id"
+                    eval="[(4,ref('server_localhost:0101')]"/>
+        </record>
+        <!--   <record id="object4" model="cie_infra.cie_infra"> -->
+        <!--     <field name="name">Object 4</field> -->
+        <!--     <field name="value">40</field> -->
+        <!--    </record> -->
+               <!--  -->
+    </data>
+</odoo>
