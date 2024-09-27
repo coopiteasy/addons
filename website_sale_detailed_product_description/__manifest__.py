@@ -9,6 +9,6 @@
     "category": "Website",
     "version": "12.0.1.0.0",
     "license": "AGPL-3",
-    "depends": ["beesdoo_product", "website_sale"],
+    "depends": ["website_sale"],
     "data": ["views/product_views.xml", "views/website_sale_template.xml"],
 }
