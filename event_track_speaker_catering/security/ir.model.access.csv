@@ -1,2 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_event_track_speaker_meal_date,event.track.speaker.meal.date.user,event_track_speaker_catering.model_event_track_speaker_meal_date,event.group_event_user,1,1,1,1
+access_event_track_speaker_meal_date_registration,event.track.speaker.meal.date.registration,event_track_speaker_catering.model_event_track_speaker_meal_date,event.group_event_user,1,0,0,0
+access_event_track_speaker_meal_date_user,event.track.speaker.meal.date.user,event_track_speaker_catering.model_event_track_speaker_meal_date,event.group_event_user,1,1,1,1
