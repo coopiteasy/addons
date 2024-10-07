@@ -18,30 +18,29 @@
     <menuitem
         id="menu_event_travel"
         name="Travel"
-        sequence="40"
         parent="event.event_main_menu"
-        groups="base.group_no_one"
+        groups="event.group_event_registration_desk"
     />
     <menuitem
         id="menu_event_travel_expense"
         name="Travel Expenses"
         action="action_travel_expense"
         parent="event_track_speaker_travel.menu_event_travel"
-        groups="base.group_no_one"
+        groups="event.group_event_registration_desk"
     />
     <menuitem
         id="menu_event_travel_booking"
         name="Travel Bookings"
         action="action_travel_booking"
         parent="event_track_speaker_travel.menu_event_travel"
-        groups="base.group_no_one"
+        groups="event.group_event_registration_desk"
     />
     <menuitem
         id="menu_event_travel_expense_type"
         name="Travel Expense Types"
         action="action_travel_expense_type"
         parent="event.menu_event_configuration"
-        groups="base.group_no_one"
+        groups="event.group_event_registration_desk"
     />
 
 </odoo>
