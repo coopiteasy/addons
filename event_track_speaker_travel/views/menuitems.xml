@@ -1,0 +1,46 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record model="ir.actions.act_window" id="action_travel_expense">
+        <field name="name">Travel Expenses</field>
+        <field name="res_model">event.track.speaker.travel.expense</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record model="ir.actions.act_window" id="action_travel_booking">
+        <field name="name">Travel Bookings</field>
+        <field name="res_model">event.track.speaker.travel.booking</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record model="ir.actions.act_window" id="action_travel_expense_type">
+        <field name="name">Travel Expense Types</field>
+        <field name="res_model">event.track.speaker.travel.expense.type</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem
+        id="menu_event_travel"
+        name="Travel"
+        parent="event.event_main_menu"
+        groups="event.group_event_registration_desk"
+    />
+    <menuitem
+        id="menu_event_travel_expense"
+        name="Travel Expenses"
+        action="action_travel_expense"
+        parent="event_track_speaker_travel.menu_event_travel"
+        groups="event.group_event_registration_desk"
+    />
+    <menuitem
+        id="menu_event_travel_booking"
+        name="Travel Bookings"
+        action="action_travel_booking"
+        parent="event_track_speaker_travel.menu_event_travel"
+        groups="event.group_event_registration_desk"
+    />
+    <menuitem
+        id="menu_event_travel_expense_type"
+        name="Travel Expense Types"
+        action="action_travel_expense_type"
+        parent="event.menu_event_configuration"
+        groups="event.group_event_registration_desk"
+    />
+
+</odoo>

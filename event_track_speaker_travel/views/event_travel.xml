@@ -1,0 +1,156 @@
+<?xml version="1.0" ?>
+<odoo>
+
+    <record id="view_event_track_speaker_booking_tree" model="ir.ui.view">
+        <field name="name">event.track.speaker.travel.booking.tree</field>
+        <field name="model">event.track.speaker.travel.booking</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="cost" />
+                <field name="speaker_id" />
+                <field name="event_id" />
+                <field name="status" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_event_track_speaker_expense_tree" model="ir.ui.view">
+        <field name="name">event.track.speaker.travel.expense.tree</field>
+        <field name="model">event.track.speaker.travel.expense</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="expense_type_id" />
+                <field name="quantity" />
+                <field name="cost" />
+                <field name="speaker_id" />
+                <field name="event_id" />
+                <field name="status" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_event_track_speaker_expense_search" model="ir.ui.view">
+        <field name="name">event.track.speaker.travel.expense.search</field>
+        <field name="model">event.track.speaker.travel.expense</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+                <field name="event_id" />
+                <separator />
+                <group expand="0" name="group_by" string="Group By">
+                    <filter
+                        name="event_id"
+                        string="Event"
+                        context="{'group_by' : 'event_id'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_event_track_speaker_booking_search" model="ir.ui.view">
+        <field name="name">event.track.speaker.travel.booking.search</field>
+        <field name="model">event.track.speaker.travel.booking</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+                <field name="event_id" />
+                <separator />
+                <group expand="0" name="group_by" string="Group By">
+                    <filter
+                        name="event_id"
+                        string="Event"
+                        context="{'group_by' : 'event_id'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_event_track_speaker_booking_form">
+        <field name="name">event.track.speaker.travel.booking.form</field>
+        <field name="model">event.track.speaker.travel.booking</field>
+        <field name="arch" type="xml">
+            <form string="Travel Booking">
+                <header>
+                    <field
+                        name="status"
+                        widget="statusbar"
+                        options="{'clickable': '1'}"
+                    />
+                </header>
+                <sheet>
+                    <group>
+                            <field name="name" />
+                            <field name="cost" />
+                            <field name="ticket_ids" widget="many2many_binary" />
+                            <field name="speaker_id" />
+                            <field name="event_id" />
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" />
+                    <field name="activity_ids" />
+                    <field
+                        name="message_ids"
+                        options="{'post_refresh': 'recipients'}"
+                    />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_event_track_speaker_expense_form">
+        <field name="name">event.track.speaker.travel.expense.form</field>
+        <field name="model">event.track.speaker.travel.expense</field>
+        <field name="arch" type="xml">
+            <form string="Travel Expense">
+                <header>
+                    <field
+                        name="status"
+                        widget="statusbar"
+                        options="{'clickable': '1'}"
+                    />
+                </header>
+                <sheet>
+                    <group>
+                            <field name="name" />
+                            <field name="expense_type_id" />
+                            <field name="quantity" />
+                            <field name="cost" />
+                            <field name="speaker_id" />
+                            <field name="event_id" />
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" />
+                    <field name="activity_ids" />
+                    <field
+                        name="message_ids"
+                        options="{'post_refresh': 'recipients'}"
+                    />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_event_track_speaker_expense_type_form">
+        <field name="name">event.track.speaker.travel.expense.type.form</field>
+        <field name="model">event.track.speaker.travel.expense.type</field>
+        <field name="arch" type="xml">
+            <form string="Travel Expense Type">
+
+                <sheet string="Speaker">
+                    <group>
+                            <field name="name" />
+                            <field name="price" />
+                            <field name="description" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>
