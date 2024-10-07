@@ -18,7 +18,7 @@
         name="Track Speakers Books"
         action="action_event_track_speaker_book"
         parent="event.menu_event_configuration"
-        groups="base.group_no_one"
+        groups="event.group_event_registration_desk"
     />
 
     <menuitem
@@ -26,7 +26,7 @@
         name="Track Speakers Book Providers"
         action="action_event_track_speaker_book_provider"
         parent="event.menu_event_configuration"
-        groups="base.group_no_one"
+        groups="event.group_event_registration_desk"
     />
 
 </odoo>
