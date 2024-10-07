@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<odoo>
+
+    <record model="ir.actions.act_window" id="action_event_track_speaker_book">
+        <field name="name">Books</field>
+        <field name="res_model">event.track.speaker.book</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_event_track_speaker_book_provider">
+        <field name="name">Book Providers</field>
+        <field name="res_model">event.track.speaker.book.provider</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="menu_event_track_speaker_book"
+        name="Track Speakers Books"
+        action="action_event_track_speaker_book"
+        parent="event.menu_event_configuration"
+        groups="event.group_event_registration_desk"
+    />
+
+    <menuitem
+        id="menu_event_track_speaker_book_provider"
+        name="Track Speakers Book Providers"
+        action="action_event_track_speaker_book_provider"
+        parent="event.menu_event_configuration"
+        groups="event.group_event_registration_desk"
+    />
+
+</odoo>
