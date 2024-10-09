@@ -14,13 +14,14 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: resource_work_time_from_contracts
-#: model:ir.model.fields,help:resource_work_time_from_contracts.field_hr_employee__resource_calendar_id
-#: model:ir.model.fields,help:resource_work_time_from_contracts.field_mrp_workcenter__resource_calendar_id
 #: model:ir.model.fields,help:resource_work_time_from_contracts.field_resource_calendar_leaves__calendar_id
-#: model:ir.model.fields,help:resource_work_time_from_contracts.field_resource_mixin__resource_calendar_id
 #: model:ir.model.fields,help:resource_work_time_from_contracts.field_resource_resource__calendar_id
-#: model:ir.model.fields,help:resource_work_time_from_contracts.field_resource_test__resource_calendar_id
 msgid "Define the schedule of resource"
+msgstr ""
+
+#. module: resource_work_time_from_contracts
+#: model:ir.model,name:resource_work_time_from_contracts.model_hr_leave
+msgid "Leave"
 msgstr ""
 
 #. module: resource_work_time_from_contracts
@@ -34,16 +35,17 @@ msgid "Resource Mixin"
 msgstr ""
 
 #. module: resource_work_time_from_contracts
+#: model:ir.model,name:resource_work_time_from_contracts.model_resource_calendar
+msgid "Resource Working Time"
+msgstr ""
+
+#. module: resource_work_time_from_contracts
 #: model:ir.model,name:resource_work_time_from_contracts.model_resource_resource
 msgid "Resources"
 msgstr ""
 
 #. module: resource_work_time_from_contracts
-#: model:ir.model.fields,field_description:resource_work_time_from_contracts.field_hr_employee__resource_calendar_id
-#: model:ir.model.fields,field_description:resource_work_time_from_contracts.field_mrp_workcenter__resource_calendar_id
 #: model:ir.model.fields,field_description:resource_work_time_from_contracts.field_resource_calendar_leaves__calendar_id
-#: model:ir.model.fields,field_description:resource_work_time_from_contracts.field_resource_mixin__resource_calendar_id
-#: model:ir.model.fields,field_description:resource_work_time_from_contracts.field_resource_test__resource_calendar_id
 msgid "Working Hours"
 msgstr ""
 
