@@ -1,3 +1,4 @@
+git+https://github.com/coopiteasy/hr@12.0-mig-resource_multi_week_calendar#subdirectory=setup/resource_multi_week_calendar
 git+https://github.com/beescoop/obeesdoo@12.0#subdirectory=setup/beesdoo_base
 git+https://github.com/beescoop/obeesdoo@12.0#subdirectory=setup/beesdoo_product
 git+https://github.com/beescoop/obeesdoo@12.0#subdirectory=setup/beesdoo_product_label
@@ -16,3 +17,4 @@ git+https://github.com/beescoop/obeesdoo@12.0#subdirectory=setup/product_main_su
 git+https://github.com/beescoop/obeesdoo@12.0#subdirectory=setup/sale_adapt_price_wizard
 git+https://github.com/beescoop/obeesdoo@12.0#subdirectory=setup/sale_suggested_price
 git+https://github.com/beescoop/obeesdoo@12.0#subdirectory=setup/purchase_order_responsible
+freezegun

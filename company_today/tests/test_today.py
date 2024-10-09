@@ -12,7 +12,7 @@ class TestToday(SavepointCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.company = cls.ref("base.main_company")
+        cls.company = cls.env.ref("base.main_company")
 
     def test_today(self):
         self.company.cron_update_today()
