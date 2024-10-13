@@ -6,7 +6,7 @@
     "name": "Multi-week calendars with work time from contracts",
     "summary": """
         A compatibility module.""",
-    "version": "12.0.1.0.0",
+    "version": "12.0.1.0.1",
     "category": "Hidden",
     "website": "https://coopiteasy.be",
     "author": "Coop IT Easy SC",
