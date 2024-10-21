@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="view_event_track_form" model="ir.ui.view">
+        <field name="model">event.track</field>
+        <field name="inherit_id" ref="website_event_track.view_event_track_form" />
+        <field name="arch" type="xml">
+            <field name="date" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </field>
+            <field name="date" position="after">
+                <field name="dates" context="{'event_id': event_id}">
+                    <tree editable="bottom">
+                        <field name="datetime" />
+                    </tree>
+                </field>
+            </field>
+        </field>
+    </record>
+</odoo>
