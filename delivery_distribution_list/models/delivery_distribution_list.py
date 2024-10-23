@@ -5,10 +5,8 @@ from odoo.exceptions import UserError
 class DeliveryDistributionList(models.Model):
     _name = "delivery.distribution.list"
 
-    name = fields.Char(string="Name", copy=False)
+    name = fields.Char(copy=False)
     distribution_date = fields.Date(
-        string="Distribution Date",
-        readonly=True,
         required=True,
         index=True,
         states={"draft": [("readonly", False)]},
@@ -29,7 +27,7 @@ class DeliveryDistributionList(models.Model):
         default=lambda self: self.env.user,
     )
     product_id = fields.Many2one(
-        "product.template",
+        "product.product",
         string="Product",
         domain=[("sale_ok", "=", True)],
         required=True,
@@ -39,8 +37,6 @@ class DeliveryDistributionList(models.Model):
     distribution_lines = fields.One2many(
         "delivery.distribution.line",
         "distribution_list_id",
-        string="Distribution lines",
-        copy=False,
     )
     journal_id = fields.Many2one(
         "account.journal",
@@ -61,7 +57,6 @@ class DeliveryDistributionList(models.Model):
             ("done", "Done"),
             ("cancelled", "Cancelled"),
         ],
-        string="State",
         readonly=True,
         copy=False,
         default="draft",
@@ -119,7 +114,9 @@ class DeliveryDistributionList(models.Model):
             if not self.name:
                 ddl_seq = self.env.ref("delivery_distribution_list.sequence_ddl", False)
                 self.name = ddl_seq.next_by_id()
-            self.distribution_lines.unlink()
+            if self.distribution_lines:
+                for line in self.distribution_lines:
+                    line.unlink()
             vals = {"distribution_list_id": self.id, "product_id": self.product_id.id}
 
             for deposit_point in deposit_points:
@@ -139,7 +136,7 @@ class DeliveryDistributionList(models.Model):
                         "is not in draft status"
                     )
                 )
-            super(DeliveryDistributionList, self).unlink()
+            return super(DeliveryDistributionList, self).unlink()
 
 
 class DeliveryDistributionLine(models.Model):
@@ -160,9 +157,8 @@ class DeliveryDistributionLine(models.Model):
         domain=[("deposit_point", "=", True)],
         required=True,
     )
-    product_id = fields.Many2one("product.template", string="Product", required=True)
+    product_id = fields.Many2one("product.product", string="Product", required=True)
     date = fields.Date(
-        string="Creation Date",
         readonly=True,
         help="Date on which distribution line is created.",
         default=fields.Datetime.now,
@@ -171,30 +167,30 @@ class DeliveryDistributionLine(models.Model):
         related="product_id.uom_id", string="Unit of Measure", readonly=True
     )
     ordered_qty = fields.Float(
-        string="Quantity Ordered",
+        string="Ordered",
         digits="Product Unit of Measure",
         required=True,
     )
     delivered_qty = fields.Float(
-        string="Quantity Delivered",
+        string="Delivered",
         digits="Product Unit of Measure",
         default=0.0,
         required=True,
     )
     returned_qty = fields.Float(
-        string="Quantity Returned",
+        string="Returned",
         digits="Product Unit of Measure",
         default=0.0,
         required=True,
     )
     sold_qty = fields.Float(
-        string="Quantity Sold",
+        string="Sold",
         digits="Product Unit of Measure",
         compute="_compute_sold_qty",
     )
     carrier_id = fields.Many2one(
         "res.partner",
-        string="Assigned carrier",
+        string="Carrier",
         domain=[("carrier_delivery", "=", True)],
         readonly=True,
         required=True,
@@ -211,14 +207,13 @@ class DeliveryDistributionLine(models.Model):
             ("invoice_sent", "Invoice sent"),
             ("cancelled", "Cancelled"),
         ],
-        string="State",
         readonly=True,
         copy=False,
         index=True,
         default="draft",
     )
 
-    sale_order = fields.Many2one("sale.order", string="Sale Order", readonly=True)
+    sale_order = fields.Many2one("sale.order", readonly=True)
 
     def unlink(self):
         self.ensure_one()
@@ -228,7 +223,7 @@ class DeliveryDistributionLine(models.Model):
                     "It is forbidden to modify a distribution list which is not in draft status"
                 )
             )
-        super(DeliveryDistributionLine, self).unlink()
+        return super(DeliveryDistributionLine, self).unlink()
 
     def action_validate(self):
         for line in self:
@@ -248,7 +243,6 @@ class DeliveryDistributionLine(models.Model):
                 "partner_id": line.partner_id.id,
                 "distribution_list_id": line.distribution_list_id.id,
                 "distribution_carrier_id": line.carrier_id.id,
-                "project_id": line.product_id.analytic_account_id.id,
             }
             order_id = sale_order_obj.create(vals)
             vals_line = {
@@ -270,8 +264,14 @@ class DeliveryDistributionLine(models.Model):
     def invoice_sale_order(self):
         for line in self:
             if line.state in ["sale", "sale_sent"]:
+                # crude assumption that there is only one picking
+                # should we raise a warning if more than one ?
+                line.sale_order.picking_ids[0].move_ids[0].quantity_done = line.sold_qty
+                line.sale_order.picking_ids[0].with_context(
+                    cancel_backorder=True
+                )._action_done()
                 if line.sale_order.invoice_status == "to invoice":
-                    line.sale_order.action_invoice_create()
+                    line.sale_order._create_invoices()
                     line.sale_order.invoice_ids.journal_id = (
                         line.distribution_list_id.journal_id
                     )
@@ -280,7 +280,7 @@ class DeliveryDistributionLine(models.Model):
     def validate_invoice(self):
         for line in self:
             if line.state == "invoiced":
-                line.sale_order.invoice_ids.signal_workflow("invoice_open")
+                line.sale_order.invoice_ids.action_post()
                 line.state = "invoice_validated"
 
     def send_invoice(self):

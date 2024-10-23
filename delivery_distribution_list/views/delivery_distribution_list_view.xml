@@ -117,6 +117,7 @@
                                     <field
                                         name="product_id"
                                         attrs="{'readonly': [('state', '!=', 'draft')]}"
+                                        optional="hide"
                                     />
                                     <field
                                         name="ordered_qty"
@@ -126,6 +127,7 @@
                                     <field
                                         name="delivered_qty"
                                         attrs="{'readonly': [('state', 'not in', ['draft','validated'])]}"
+                                        optional="hide"
                                     />
                                     <field
                                         name="returned_qty"
@@ -135,6 +137,7 @@
                                     <field
                                         name="carrier_id"
                                         attrs="{'readonly': [('state', '!=', 'draft')]}"
+                                        optional="hide"
                                     />
                                     <field name="state" />
                                     <button
@@ -142,56 +145,49 @@
                                         name="action_validate"
                                         states="draft"
                                         groups="delivery_distribution_list.group_distribution_user"
-                                        help="Validate"
-                                        icon="STOCK_MEDIA_PLAY"
+                                        string="Validate"
                                     />
                                     <button
                                         type="object"
                                         name="action_draft"
                                         states="validated"
                                         groups="delivery_distribution_list.group_distribution_user"
-                                        help="Draft"
-                                        icon="gtk-cancel"
+                                        string="Draft"
                                     />
                                     <button
                                         type="object"
                                         name="generate_sale_order"
                                         states="validated"
                                         groups="delivery_distribution_list.group_distribution_user"
-                                        help="Generate sale order"
-                                        icon="gtk-apply"
+                                        string="Generate sale order"
                                     />
                                     <button
                                         type="object"
                                         name="send_sale_order"
                                         states="sale"
                                         groups="delivery_distribution_list.group_distribution_user"
-                                        help="Send sale order"
-                                        icon="terp-mail-message-new"
+                                        string="Send Order"
                                     />
                                     <button
                                         type="object"
                                         name="invoice_sale_order"
                                         states="sale,sale_sent"
                                         groups="delivery_distribution_list.group_distribution_user"
-                                        help="Invoice"
-                                        icon="STOCK_MEDIA_PLAY"
+                                        string="Invoice"
                                     />
                                     <button
                                         type="object"
                                         name="validate_invoice"
                                         states="invoiced"
                                         groups="delivery_distribution_list.group_distribution_user"
-                                        help="Validate Invoice"
-                                        icon="gtk-apply"
+                                        string="Validate Invoice"
                                     />
                                     <button
                                         type="object"
                                         name="send_invoice"
                                         states="invoice_validated"
                                         groups="delivery_distribution_list.group_distribution_user"
-                                        help="Send Invoice"
-                                        icon="terp-mail-message-new"
+                                        string="Send Invoice"
                                     />
                                 </tree>
                             </field>
