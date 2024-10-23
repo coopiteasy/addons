@@ -264,12 +264,7 @@ class DeliveryDistributionLine(models.Model):
     def invoice_sale_order(self):
         for line in self:
             if line.state in ["sale", "sale_sent"]:
-                # crude assumption that there is only one picking
-                # should we raise a warning if more than one ?
-                line.sale_order.picking_ids[0].move_ids[0].quantity_done = line.sold_qty
-                line.sale_order.picking_ids[0].with_context(
-                    cancel_backorder=True
-                )._action_done()
+                line.sale_order.order_line[0].qty_delivered = line.sold_qty
                 if line.sale_order.invoice_status == "to invoice":
                     line.sale_order._create_invoices()
                     line.sale_order.invoice_ids.journal_id = (
