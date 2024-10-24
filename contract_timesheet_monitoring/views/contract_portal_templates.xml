@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2020 Tecnativa - Víctor Martínez
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <template id="portal_contract_page" inherit_id="contract.portal_contract_page">
+        <xpath expr="//th[@name='th_quantity']" position="after">
+            <th name="th_time_available" class="text-right">Time Available</th>
+            <th name="th_time_spent" class="text-right">Time Spent</th>
+            <th name="th_time_remaining" class="text-right">Time Remaining</th>
+        </xpath>
+        <xpath expr="//td[@name='td_quantity']" position="after">
+            <th
+                name="td_time_available"
+                class="text-right"
+            >
+                <span
+                    t-field="line.time_available"
+                    t-options='{"widget": "float_time"}'
+                />
+            </th>
+            <th
+                name="td_time_spent"
+                class="text-right"
+                decoration-danger="line.time_spent &gt; line.quantity"
+            >
+                <span
+                    t-field="line.time_spent"
+                    t-options='{"widget": "float_time"}'
+                    t-attf-class="#{'text-danger' if line.time_spent &gt; line.time_available else 'text-success'}"
+                />
+            </th>
+            <th
+                name="td_time_remaining"
+                class="text-right"
+                decoration-danger="line.time_remaining &gt; line.quantity"
+            >
+                <span
+                    t-field="line.time_remaining"
+                    t-options='{"widget": "float_time"}'
+                    t-attf-class="#{'text-danger' if line.time_remaining &lt; 0 else 'text-success'}"
+                />
+            </th>
+        </xpath>
+
+
+    </template>
+</odoo>
