@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+<record id="contract_contract_form_view" model="ir.ui.view">
+    <field name="name">contract.contract.form.view</field>
+    <field name="model">contract.contract</field>
+    <field name="inherit_id" ref="contract.contract_contract_form_view" />
+    <field name="arch" type="xml">
+            <field name="analytic_account_id" position="after">
+                <field name="time_available" widget="float_time" />
+                <field name="time_spent" widget="float_time" decoration-danger="time_spent &gt; time_available" />
+                <field name="time_remaining" widget="float_time" decoration-danger="time_remaining &lt; 0" />
+            </field>
+    </field>
+</record>
+</odoo>

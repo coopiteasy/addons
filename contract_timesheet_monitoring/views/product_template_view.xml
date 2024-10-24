@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+     <record model="ir.ui.view" id="product_template_form_view">
+            <field name="name">product.template.form.view</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='email_template_and_project']" position="before">
+                    <group string="Subscription" name="subscription" attrs="{'invisible': [('type', '!=', 'service')]}">
+                        <field name="is_support_product" />
+                        <field name="hours_available" attrs="{'invisible': [('is_support_product', '=', False)]}"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>
