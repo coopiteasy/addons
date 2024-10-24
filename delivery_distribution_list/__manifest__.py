@@ -19,7 +19,6 @@
         "views/delivery_distribution_list_view.xml",
         "views/partner_view.xml",
         "views/sale_view.xml",
-        "views/product_view.xml",
     ],
     "assets": {
         "web.assets_qweb": [
