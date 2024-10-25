@@ -6,17 +6,18 @@ from odoo.tests import common
 
 
 class TestDeliveryCombinePriceRule(common.TransactionCase):
-    def setUp(self):
-        super().setUp()
-        self.SaleOrder = self.env["sale.order"]
-        self.SaleOrderLine = self.env["sale.order.line"]
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.SaleOrder = cls.env["sale.order"]
+        cls.SaleOrderLine = cls.env["sale.order.line"]
 
-        self.partner_18 = self.env.ref("base.res_partner_18")
-        self.pricelist = self.env.ref("product.list0")
-        self.product_6 = self.env.ref("product.product_product_6")
-        self.product_8 = self.env.ref("product.product_product_8")
-        self.product_uom_unit = self.env.ref("uom.product_uom_unit")
-        self.delivery_carrier = self.env.ref(
+        cls.partner_18 = cls.env.ref("base.res_partner_18")
+        cls.pricelist = cls.env.ref("product.list0")
+        cls.product_6 = cls.env.ref("product.product_product_6")
+        cls.product_8 = cls.env.ref("product.product_product_8")
+        cls.product_uom_unit = cls.env.ref("uom.product_uom_unit")
+        cls.delivery_carrier = cls.env.ref(
             "delivery_carrier_combine_price_rule.delivery_carrier"
         )
 

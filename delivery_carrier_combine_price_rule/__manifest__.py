@@ -5,7 +5,7 @@
     "name": "Delivery Carrier Combine Price Rule",
     "summary": """
         Chose how to combine price rule on a delivery carrier.""",
-    "version": "14.0.1.0.0",
+    "version": "15.0.1.0.0",
     "category": "Stock",
     "website": "https://coopiteasy.be",
     "author": "Coop IT Easy SC",
