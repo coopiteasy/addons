@@ -11,8 +11,6 @@
     "depends": ["contract", "hr_timesheet", "contract_invoice_start_end_dates"],
     "data": [
         "views/contract.xml",
-        "views/account_invoice.xml",
-        "views/account_invoice_report.xml",
         "views/product_template_view.xml",
         "views/contract_portal_templates.xml",
     ],
