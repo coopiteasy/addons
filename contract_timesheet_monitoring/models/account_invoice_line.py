@@ -18,7 +18,7 @@ class AccountInvoiceLine(models.Model):
 
     def _compute_time_spent(self):
         for line in self:
-            if line.analytic_account and line.start_date:
+            if line.analytic_account_id and line.start_date:
                  line.time_spent = line.analytic_account_id.get_time_spent_for_period(
                     line.start_date, line.end_date
                 )
