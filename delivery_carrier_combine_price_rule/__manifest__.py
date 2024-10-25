@@ -7,7 +7,7 @@
         Chose how to combine price rule on a delivery carrier.""",
     "version": "16.0.1.0.0",
     "category": "Stock",
-    "website": "https://coopiteasy.be",
+    "website": "https://github.com/coopiteasy/addons",
     "author": "Coop IT Easy SC",
     "license": "AGPL-3",
     "application": False,
