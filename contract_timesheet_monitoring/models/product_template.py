@@ -8,7 +8,7 @@ class ProductTemplate(models.Model):
     _inherit = "product.template"
 
     is_support_product = fields.Boolean()
-    hours_available = fields.Integer(
-        string="Hours available",
+    time_available = fields.Integer(
+        string="Time available",
         default=0,
     )

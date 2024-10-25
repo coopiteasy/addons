@@ -10,7 +10,7 @@
                 <xpath expr="//group[@name='email_template_and_project']" position="before">
                     <group string="Subscription" name="subscription" attrs="{'invisible': [('type', '!=', 'service')]}">
                         <field name="is_support_product" />
-                        <field name="hours_available" attrs="{'invisible': [('is_support_product', '=', False)]}"/>
+                        <field name="time_available" attrs="{'invisible': [('is_support_product', '=', False)]}"/>
                     </group>
                 </xpath>
             </field>

@@ -12,7 +12,7 @@ class AccountInvoiceLine(models.Model):
     time_spent = fields.Float(
         string="Time Spent", compute="_compute_time_spent"
     )
-    time_available = fields.Integer(related="product_id.hours_available")
+    time_available = fields.Integer(related="product_id.time_available")
     
     time_remaining = fields.Float(
         string="Time Remaining", compute="_compute_time_remaining"

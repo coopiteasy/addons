@@ -6,9 +6,9 @@
     <field name="inherit_id" ref="contract.contract_contract_form_view" />
     <field name="arch" type="xml">
             <field name="analytic_account_id" position="after">
-                <field name="time_available" widget="float_time" />
-                <field name="time_spent" widget="float_time" decoration-danger="time_spent &gt; time_available" />
-                <field name="time_remaining" widget="float_time" decoration-danger="time_remaining &lt; 0" />
+                <field name="time_available" attrs="{'invisible': [('time_available', '==', 0)]}" widget="float_time" />
+                <field name="time_spent" attrs="{'invisible': [('time_available', '==', 0)]}" widget="float_time" decoration-danger="time_spent &gt; time_available" />
+                <field name="time_remaining" attrs="{'invisible': [('time_available', '==', 0)]}" widget="float_time" decoration-danger="time_remaining &lt; 0" />
             </field>
     </field>
 </record>
