@@ -13,7 +13,8 @@ class AccountAnalyticAccount(models.Model):
             lambda x: (x.product_uom_id.measure_type == "time")
         )
         if timesheets:
-            time_spent_on_account = timesheets.filtered(
-                lambda x: (x.date >= start_date)
-            ).mapped("unit_amount")
-            return sum(time_spent_on_account)
+            if start_date:
+                timesheets = timesheets.filtered(
+                    lambda x: (x.date >= start_date)
+                )
+            return sum(timesheets.mapped("unit_amount"))

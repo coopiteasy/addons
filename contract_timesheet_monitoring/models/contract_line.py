@@ -12,12 +12,20 @@ class ContractLine(models.Model):
     time_remaining = fields.Float(
         string="Time Remaining", compute="_compute_time_remaining"
     )
+    date_of_last_invoice = fields.Date(compute="_get_date_of_last_invoice")
+
+    def _get_date_of_last_invoice(self):
+        invoices = self.contract_id._get_related_invoices().filtered(lambda x: (x.state != "draft"))
+        if any(invoices.mapped("date_invoice")):
+            return max(invoices.mapped("date_invoice"))
+        else: 
+            return False
 
     @api.depends("analytic_account_id.line_ids")
     def _compute_time_spent(self):
         for line in self:
             if line.analytic_account_id:
-                period_start_date = line.last_date_invoiced or line.date_start
+                period_start_date = line._get_date_of_last_invoice()
                 line.time_spent = line.analytic_account_id.get_time_spent_for_period(
                     period_start_date
                 )

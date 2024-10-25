@@ -6,7 +6,9 @@
     <field name="inherit_id" ref="account.invoice_form" />
     <field name="arch" type="xml">
             <field name="quantity" position="after">
-                <field name="time_spent" decoration-danger="time_spent &gt; quantity" />
+                <field name="time_available" />
+                <field name="time_spent" decoration-danger="time_spent &gt; time_available" />
+                <field name="time_remaining" decoration-danger="time_spent &lt; 0" />
             </field>
     </field>
 </record>
