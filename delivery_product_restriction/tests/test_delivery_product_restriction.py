@@ -17,7 +17,7 @@ class TestDeliveryProductRestriction(common.TransactionCase):
         cls.product_6 = cls.env.ref("product.product_product_6")
         cls.product_8 = cls.env.ref("product.product_product_8")
         cls.product_uom_unit = cls.env.ref("uom.product_uom_unit")
-        cls.product_delivery = cls.env.ref("delivery.product_product_delivery_normal")
+        cls.product_delivery = cls.env.ref("delivery.product_product_local_delivery")
         # Create delivery carrier
         cls.free_delivery = cls.DeliveryCarrier.create(
             {
