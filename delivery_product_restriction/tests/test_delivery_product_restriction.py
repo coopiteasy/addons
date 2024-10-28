@@ -1,7 +1,7 @@
 # Copyright 2022 Coop IT Easy SC
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo.tests import common
+from odoo.tests import Form, common
 
 
 class TestDeliveryProductRestriction(common.TransactionCase):
@@ -48,7 +48,7 @@ class TestDeliveryProductRestriction(common.TransactionCase):
 
     def test_no_restriction(self):
         # Create order that don't match the delivery rules
-        self.sale_1 = self.SaleOrder.create(
+        sale_order = self.SaleOrder.create(
             {
                 "partner_id": self.partner_18.id,
                 "partner_invoice_id": self.partner_18.id,
@@ -70,15 +70,21 @@ class TestDeliveryProductRestriction(common.TransactionCase):
             }
         )
 
-        self.assertTrue(self.free_delivery in self.sale_1.available_carrier_ids)
-        self.assertTrue(self.pick_delivery in self.sale_1.available_carrier_ids)
-        self.assertTrue(self.fixed_delivery in self.sale_1.available_carrier_ids)
+        delivery_wizard = Form(
+            self.env["choose.delivery.carrier"].with_context(
+                default_order_id=sale_order.id
+            )
+        )
+
+        self.assertTrue(self.free_delivery in delivery_wizard.available_carrier_ids)
+        self.assertTrue(self.pick_delivery in delivery_wizard.available_carrier_ids)
+        self.assertTrue(self.fixed_delivery in delivery_wizard.available_carrier_ids)
 
     def test_restricted(self):
         # Create restriction on delivery carrier for product_8
         self.product_8.restrict_delivery_carrier_to = self.pick_delivery
         # Create order that matches the delivery rules
-        self.sale_2 = self.SaleOrder.create(
+        sale_order = self.SaleOrder.create(
             {
                 "partner_id": self.partner_18.id,
                 "partner_invoice_id": self.partner_18.id,
@@ -111,6 +117,14 @@ class TestDeliveryProductRestriction(common.TransactionCase):
             }
         )
 
-        self.assertTrue(self.free_delivery not in self.sale_2.available_carrier_ids)
-        self.assertTrue(self.pick_delivery in self.sale_2.available_carrier_ids)
-        self.assertTrue(self.fixed_delivery not in self.sale_2.available_carrier_ids)
+        delivery_wizard = Form(
+            self.env["choose.delivery.carrier"].with_context(
+                default_order_id=sale_order.id
+            )
+        )
+
+        self.assertTrue(self.free_delivery not in delivery_wizard.available_carrier_ids)
+        self.assertTrue(self.pick_delivery in delivery_wizard.available_carrier_ids)
+        self.assertTrue(
+            self.fixed_delivery not in delivery_wizard.available_carrier_ids
+        )

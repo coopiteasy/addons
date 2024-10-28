@@ -10,7 +10,6 @@ class ProductTemplate(models.Model):
 
     restrict_delivery_carrier_to = fields.Many2many(
         comodel_name="delivery.carrier",
-        string="Restrict Delivery Carrier To",
         help="This product can only be shipped with the following "
         "delivery carrier. Left empty to allow all delivery carrier to "
         "be used.",
