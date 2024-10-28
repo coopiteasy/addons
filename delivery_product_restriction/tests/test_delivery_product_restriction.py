@@ -5,44 +5,45 @@ from odoo.tests import Form, common
 
 
 class TestDeliveryProductRestriction(common.TransactionCase):
-    def setUp(self):
-        super().setUp()
-        self.SaleOrder = self.env["sale.order"]
-        self.SaleOrderLine = self.env["sale.order.line"]
-        self.DeliveryCarrier = self.env["delivery.carrier"]
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.SaleOrder = cls.env["sale.order"]
+        cls.SaleOrderLine = cls.env["sale.order.line"]
+        cls.DeliveryCarrier = cls.env["delivery.carrier"]
 
-        self.partner_18 = self.env.ref("base.res_partner_18")
-        self.pricelist = self.env.ref("product.list0")
-        self.product_6 = self.env.ref("product.product_product_6")
-        self.product_8 = self.env.ref("product.product_product_8")
-        self.product_uom_unit = self.env.ref("uom.product_uom_unit")
-        self.product_delivery = self.env.ref("delivery.product_product_delivery_normal")
+        cls.partner_18 = cls.env.ref("base.res_partner_18")
+        cls.pricelist = cls.env.ref("product.list0")
+        cls.product_6 = cls.env.ref("product.product_product_6")
+        cls.product_8 = cls.env.ref("product.product_product_8")
+        cls.product_uom_unit = cls.env.ref("uom.product_uom_unit")
+        cls.product_delivery = cls.env.ref("delivery.product_product_delivery_normal")
         # Create delivery carrier
-        self.free_delivery = self.DeliveryCarrier.create(
+        cls.free_delivery = cls.DeliveryCarrier.create(
             {
                 "name": "Free Delivery",
                 "fixed_price": 0.0,
                 "sequence": 1,
                 "delivery_type": "fixed",
-                "product_id": self.product_delivery.id,
+                "product_id": cls.product_delivery.id,
             }
         )
-        self.pick_delivery = self.DeliveryCarrier.create(
+        cls.pick_delivery = cls.DeliveryCarrier.create(
             {
                 "name": "Pick Delivery",
                 "fixed_price": 0.0,
                 "sequence": 1,
                 "delivery_type": "fixed",
-                "product_id": self.product_delivery.id,
+                "product_id": cls.product_delivery.id,
             }
         )
-        self.fixed_delivery = self.DeliveryCarrier.create(
+        cls.fixed_delivery = cls.DeliveryCarrier.create(
             {
                 "name": "Fixed Price Delivery",
                 "fixed_price": 10.0,
                 "sequence": 1,
                 "delivery_type": "fixed",
-                "product_id": self.product_delivery.id,
+                "product_id": cls.product_delivery.id,
             }
         )
 

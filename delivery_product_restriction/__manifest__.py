@@ -4,7 +4,7 @@
 {
     "name": "Delivery Product Restriction",
     "summary": "Allow some product to be shipped only by some delivery carrier",
-    "version": "14.0.1.0.0",
+    "version": "15.0.1.0.0",
     "category": "Inventory/Delivery",
     "website": "https://coopiteasy.be",
     "author": "Coop IT Easy SC",
