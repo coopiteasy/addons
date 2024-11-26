@@ -23,6 +23,7 @@ class WebsiteSaleSEPADirectDebit(WebsiteSale):
         if request.httprequest.method == "POST":
             order = request.website.sale_get_order()
             order.sepa_dd_iban = request.params.get("sepa-dd-iban", "")
+            order.payment_mode_id = order.get_sepa_dd_payment_mode()
             try:
                 order.with_context(send_email=True).action_confirm()
             except ValidationError as err:

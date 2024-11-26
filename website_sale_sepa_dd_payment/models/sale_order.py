@@ -19,23 +19,23 @@ class SaleOrder(models.Model):
 
     @api.depends("order_line", "payment_mode_id")
     def _compute_allow_sepa_dd_payment(self):
-        """Allow sepa direct debit payment if payment is already set or
-        if products accept this type of payment.
-        """
-        payment_mode = self.env["account.payment.mode"].search(
+        for order in self:
+            only_allowed = all(
+                order.order_line.mapped("product_id").mapped("allow_sepa_dd_payment")
+            )
+            order.allow_sepa_dd_payment = only_allowed
+
+    def get_sepa_dd_payment_mode(self):
+        return self.env["account.payment.mode"].search(
             [("payment_method_id.code", "=", "sepa_direct_debit")],
             limit=1,
         )
-        for order in self:
-            only_contracts = all(
-                order.order_line.mapped("product_id").mapped("allow_sepa_dd_payment")
-            )
-            order.allow_sepa_dd_payment = (
-                payment_mode == order.payment_mode_id or only_contracts
-            )
 
     def action_confirm(self):
-        self.create_sepa_dd_mandate()
+        sepa_dd_payment_mode = self.get_sepa_dd_payment_mode()
+        for order in self:
+            if order.payment_mode_id == sepa_dd_payment_mode:
+                order.create_sepa_dd_mandate()
         return super().action_confirm()
 
     def validate_sepa_dd_iban(self):
