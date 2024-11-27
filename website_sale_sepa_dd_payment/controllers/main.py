@@ -18,7 +18,7 @@ class WebsiteSaleSEPADirectDebit(WebsiteSale):
         sepa_dd_iban = ""
         # Set default values
         if request.env.user.partner_id.bank_ids:
-            sepa_dd_iban = request.env.user.partner_id.bank_ids[0].acc_numbre
+            sepa_dd_iban = request.env.user.partner_id.bank_ids[0].acc_number
         # Process form
         if request.httprequest.method == "POST":
             order = request.website.sale_get_order()

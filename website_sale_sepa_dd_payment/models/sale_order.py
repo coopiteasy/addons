@@ -41,8 +41,8 @@ class SaleOrder(models.Model):
     def validate_sepa_dd_iban(self):
         """Raise ValidationError if sepa_dd_iban is not correct"""
         self.ensure_one()
-        validated_iban = validate_iban(self.sepa_dd_iban)
-        sanitized_sepa_dd_iban = sanitize_account_number(validated_iban)
+        validate_iban(self.sepa_dd_iban)
+        sanitized_sepa_dd_iban = sanitize_account_number(self.sepa_dd_iban)
         res_partner_bank = self.env["res.partner.bank"].search(
             [("sanitized_acc_number", "=", sanitized_sepa_dd_iban)],
             limit=1,
