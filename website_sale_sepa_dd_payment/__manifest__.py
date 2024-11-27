@@ -15,12 +15,19 @@
     "application": False,
     "depends": [
         "website_sale",
+        "payment_custom",
     ],
     "excludes": [],
     "data": [
         "views/product_views.xml",
         "views/templates.xml",
+        "data/payment_provider_data.xml",
     ],
+    "assets": {
+        "web.assets_frontend": [
+            "website_sale_sepa_dd_payment/static/src/js/payment_form.js",
+        ],
+    },
     "demo": [],
     "qweb": [],
 }
