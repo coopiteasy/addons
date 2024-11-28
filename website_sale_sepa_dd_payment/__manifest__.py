@@ -19,7 +19,6 @@
     ],
     "excludes": [],
     "data": [
-        "views/product_views.xml",
         "views/templates.xml",
         "data/payment_provider_data.xml",
     ],
