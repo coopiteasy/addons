@@ -1,20 +1,14 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
-    <template id="product" inherit_id="website_sale.product">
-        <xpath expr="//div[@id='o_wsale_cta_wrapper']" position="attributes">
-            <attribute name="t-if">not product.only_sepa_dd_payment</attribute>
-        </xpath>
-        <xpath expr="//div[@id='o_wsale_cta_wrapper']" position="after">
+    <template id="cart_restrict_sepa_dd" inherit_id="website_sale.cart">
+        <xpath expr="//t[@t-call='website_sale.cart_lines']" position="before">
             <div
-                t-else=""
-                id="o_subscription_wrapper"
-                class="d-flex flex-wrap align-items-center"
+                t-if="website_sale_cart_warning"
+                class="mt8 mb8 alert alert-danger"
+                role="alert"
             >
-                <a class="btn btn-lg btn-primary" href="/subscription/process">
-                    <i class="fa fa-shopping-cart me-2" />
-                    <span style="font-weight: bold">SUBSCRIBE</span>
-                </a>
+                <t t-out="website_sale_cart_warning" />
             </div>
         </xpath>
     </template>
