@@ -264,7 +264,42 @@ class DeliveryDistributionLine(models.Model):
     def invoice_sale_order(self):
         for line in self:
             if line.state in ["sale", "sale_sent"]:
-                line.sale_order.order_line[0].qty_delivered = line.sold_qty
+                picking_ids = line.sale_order.picking_ids.ids
+                pickings = self.env["stock.picking"].search(
+                    [("id", "in", picking_ids), ("origin", "=", line.sale_order.name)]
+                )
+                for picking in pickings:
+                    if picking.state not in ["cancel", "done"]:
+                        if picking.state != "assigned":
+                            picking.action_set_quantities_to_reservation()
+                            if picking.state != "assigned":
+                                raise UserError(
+                                    _(
+                                        "Not enough stock to deliver! Please "
+                                        "check that there is sufficient "
+                                        "product available"
+                                    )
+                                )
+                        for move in picking.move_ids:
+                            if (
+                                move.product_id.id
+                                == line.product_id.product_variant_ids.id
+                            ):
+                                move.quantity_done = line.sold_qty
+                                if line.sold_qty < line.delivered_qty:
+                                    move.product_uom_qty = line.sold_qty
+                        picking.button_validate()
+                        if line.sold_qty < line.delivered_qty:
+                            backorder_pick = self.env["stock.picking"].search(
+                                [("backorder_id", "=", picking.id)]
+                            )
+                            backorder_pick.action_cancel()
+                            picking.message_post(
+                                body=_("Back order <em>%s</em> <b>cancelled</b>.")
+                                % (backorder_pick.name)
+                            )
+
+                # line.sale_order.order_line[0].qty_delivered = line.sold_qty
                 if line.sale_order.invoice_status == "to invoice":
                     line.sale_order._create_invoices()
                     line.sale_order.invoice_ids.journal_id = (
