@@ -11,6 +11,7 @@
     "depends": [
         "sale_management",
         "account",
+        "sale_stock",
     ],
     "data": [
         "security/delivery_distribution_list_security.xml",
@@ -19,6 +20,7 @@
         "views/delivery_distribution_list_view.xml",
         "views/partner_view.xml",
         "views/sale_view.xml",
+        "views/stock_view.xml",
     ],
     "assets": {
         "web.assets_qweb": [
