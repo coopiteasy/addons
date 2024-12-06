@@ -7,7 +7,7 @@
     "summary": "Replace default Odoo website branding by Coop IT Easy branding",
     "version": "16.0.1.0.0",
     "category": "Website",
-    "website": "https://github.com/coopiteasy/addons",
+    "website": "https://coopiteasy.be",
     "author": "Coop IT Easy SC",
     "license": "AGPL-3",
     "depends": [

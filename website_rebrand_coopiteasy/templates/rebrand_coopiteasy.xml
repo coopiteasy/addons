@@ -5,7 +5,6 @@ SPDX-FileCopyrightText: 2024 Coop IT Easy SC
 SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 <odoo>
-
     <!--
         priority is higher than 16 to ensure that this is applied after all
         standard odoo modules that customize the odoo branding (like
@@ -30,5 +29,4 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             </div>
         </xpath>
     </template>
-
 </odoo>
