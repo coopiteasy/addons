@@ -17,7 +17,11 @@ Miscellaneous Odoo addons by Coop IT Easy
 
 [//]: # (addons)
 
-This part will be replaced when running the oca-gen-addons-table script from OCA/maintainer-tools.
+Available addons
+----------------
+addon | version | maintainers | summary
+--- | --- | --- | ---
+[website_rebrand_coopiteasy](website_rebrand_coopiteasy/) | 18.0.1.0.0 |  | Replace default Odoo website branding by Coop IT Easy branding
 
 [//]: # (end addons)
 
