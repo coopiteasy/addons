@@ -8,3 +8,7 @@ delivery carrier. Then:
 Now, when you create an order with this product, the available delivery
 carrier will be restricted to the one that you specified if other
 condition of the specified delivery are ok.
+
+This filtering of delivery carriers only happens in the shipping method wizard
+that appears when clicking the "Add shipping" button in the bottom right of
+the sale order form, just above the total price.
