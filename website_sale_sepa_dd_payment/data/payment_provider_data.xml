@@ -14,6 +14,9 @@
                 Your payment by SEPA Dierct Debit will be processed soon.
             </p>
         </field>
+        <field name="sepa_dd_terms" type="html">
+            <span>SEPA Direct Debit terms and conditions.</span>
+        </field>
     </record>
 
 </odoo>

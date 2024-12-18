@@ -23,7 +23,7 @@
                 required="required"
             />
       <label class="form-check-label" t-attf-for="o_sepa_dd_accept_{{provider.id}}">
-        SEPA Direct Debit Conditions
+        <t t-out="provider.sepa_dd_terms" />
       </label>
     </div>
 

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="payment_provider_form" model="ir.ui.view">
+        <field name="name">payment.provider.form</field>
+        <field name="model">payment.provider</field>
+        <field name="inherit_id" ref="payment.payment_provider_form" />
+        <field name="arch" type="xml">
+            <field name="code" position="after">
+                <field name="custom_mode" invisible="1" />
+            </field>
+            <field name="so_reference_type" position="after">
+                <field
+                    name="sepa_dd_terms"
+                    attrs="{'invisible': [('code', '!=', 'custom'), ('custom_mode', '!=', 'sepa_dd')]}"
+                />
+            </field>
+        </field>
+    </record>
+
+</odoo>

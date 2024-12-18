@@ -9,3 +9,4 @@ class PaymentProvider(models.Model):
     _inherit = "payment.provider"
 
     custom_mode = fields.Selection(selection_add=[("sepa_dd", "SEPA Direct Debit")])
+    sepa_dd_terms = fields.Html(string="SEPA Direct Debit Terms", translate=True)
