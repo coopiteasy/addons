@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+SPDX-FileCopyrightText: 2024 Coop IT Easy SC
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<odoo>
+
+  <template id="inline_form">
+
+    <div class="mb-3">
+      <label t-attf-for="o_sepa_dd_iban_{{provider.id}}" class="form-label">IBAN</label>
+      <input
+                type="text"
+                class="form-control"
+                t-attf-id="o_sepa_dd_iban_{{provider.id}}"
+                required="required"
+                t-att-value="sepa_dd_iban"
+            />
+    </div>
+
+    <div class="form-check mb-3">
+      <input
+                class="form-check-input"
+                type="checkbox"
+                value="sign_sepa_dd"
+                t-attf-id="o_sepa_dd_accept_{{provider.id}}"
+                required="required"
+            />
+      <label class="form-check-label" t-attf-for="o_sepa_dd_accept_{{provider.id}}">
+        <t t-out="provider.sepa_dd_terms" />
+      </label>
+    </div>
+
+  </template>
+
+</odoo>
