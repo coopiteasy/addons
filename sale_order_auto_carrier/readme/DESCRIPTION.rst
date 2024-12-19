@@ -1,0 +1,3 @@
+This modules computes delivery cost on sale order confirmation. Unlike sale_order_carrier_auto_assign, it is not only based on the carrier defined on the partner. Instead it runs the automated carrier assignment defined in website_sale_delivery. This allows to add carrier based on carrier's configuration. In case several delivery methods fit the sale order, the first one in sequence order is used.
+
+This module is useful to add delivery costs on sale order that are automatically created by contracts. In order for this to work with contract-generated sale orders, contract should be configured as "Sale Autoconfirm".
