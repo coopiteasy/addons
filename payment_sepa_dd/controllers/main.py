@@ -14,8 +14,10 @@ from odoo.addons.payment import utils as payment_utils
 _logger = logging.getLogger(__name__)
 
 
-class PaymentSEPADD(Controller):
-    @route("/payment/sepa_dd/process", type="json", auth="public")
+class PaymentSepaDDController(Controller):
+    _process_url = "/payment/sepa_dd/process"
+
+    @route(_process_url, type="json", auth="public")
     def sepa_dd_process_transaction(self, **data):
         """Process sepa_dd payment.
         Throws ValidationError if something fails.
@@ -39,22 +41,5 @@ class PaymentSEPADD(Controller):
             .sudo()
             .search([("reference", "=", reference)])
         )
-
-        sepa_dd_accept = data.get("sepa_dd_accept")
-        if not sepa_dd_accept:
-            raise ValidationError(
-                _("You must accept terms to give a SEPA Direct Debit Mandate.")
-            )
-        sepa_dd_iban = data.get("sepa_dd_iban", "")
-        if not sepa_dd_iban:
-            raise ValidationError(
-                _("IBAN must be provided for SEPA Direct Debit payment")
-            )
-        tx_sudo.sepa_dd_iban = sepa_dd_iban
-
-        # FIXME: is order accessible here? Should it be change elsewhere ?
-        # Set SEPA Direct Debit payment_mode_id
-        # order = request.env["sale.order"].sudo().browse(sale_order_id).exists()
-        # order.payment_mode_id = order.get_sepa_dd_payment_mode()
 
         tx_sudo._handle_notification_data("sepa_dd", data)

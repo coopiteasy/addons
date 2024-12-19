@@ -53,7 +53,7 @@ class PaymentTransaction(models.Model):
 
         reference = notification_data.get("reference")
         tx = self.search(
-            [("reference", "=", reference), ("provider_code", "=", "custom")]
+            [("reference", "=", reference), ("provider_code", "=", "sepa_dd")]
         )
         if not tx:
             raise ValidationError(
@@ -76,11 +76,20 @@ class PaymentTransaction(models.Model):
         if self.provider_code != "sepa_dd":
             return
 
+        if not notification_data.get("sepa_dd_accept"):
+            raise ValidationError(
+                _("You must accept terms to give a SEPA Direct Debit Mandate.")
+            )
+        if not notification_data.get("sepa_dd_iban"):
+            raise ValidationError(
+                _("IBAN must be provided for SEPA Direct Debit payment")
+            )
+        self.sepa_dd_iban = notification_data.get("sepa_dd_iban", "")
+        self._set_pending()
         _logger.info(
             "validated sepa_dd payment for transaction with reference %s: set as pending",
             self.reference,
         )
-        self._set_pending()
 
     def _log_received_message(self):
         """Override of `payment` to remove custom providers from the recordset.
