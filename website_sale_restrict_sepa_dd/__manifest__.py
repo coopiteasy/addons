@@ -14,7 +14,8 @@
     "license": "AGPL-3",
     "application": False,
     "depends": [
-        "website_sale_sepa_dd_payment",
+        "payment_sepa_dd",
+        "website_sale",
     ],
     "excludes": [],
     "data": [

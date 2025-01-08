@@ -37,12 +37,12 @@ class PaymentProvider(models.Model):
         if not allow_sepa_dd_payment and not only_sepa_dd_payment:
             # Exclude sepa_dd
             compatible_providers = compatible_providers.filtered(
-                lambda p: p.code != "custom" or p.custom_mode != "sepa_dd"
+                lambda p: p.code != "sepa_dd"
             )
         elif allow_sepa_dd_payment and only_sepa_dd_payment:
             # Get only sepa_dd
             compatible_providers = compatible_providers.filtered(
-                lambda p: p.code == "custom" and p.custom_mode == "sepa_dd"
+                lambda p: p.code == "sepa_dd"
             )
         elif not allow_sepa_dd_payment and only_sepa_dd_payment:
             # Product are not compatible between each other. No payement
