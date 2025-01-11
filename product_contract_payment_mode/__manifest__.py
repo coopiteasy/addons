@@ -15,7 +15,7 @@
     "application": False,
     "depends": [
         "product_contract",
-        "product_payment_mode",
+        "contract_payment_mode",
     ],
     "excludes": [],
     "data": [],
