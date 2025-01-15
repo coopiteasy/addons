@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+SPDX-FileCopyrightText: 2024 Coop IT Easy SC
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<odoo noupdate="1">
+
+    <record id="payment_provider_sepa_dd" model="payment.provider">
+        <field name="name">SEPA Direct Debit Payment</field>
+        <field name="module_id" ref="base.module_payment_sepa_dd" />
+        <field name="code">sepa_dd</field>
+        <field name="inline_form_view_id" ref="inline_form" />
+        <field name="pending_msg" type="html">
+            <p>
+                <i>Your order has been saved.</i>
+                Your payment by SEPA Dierct Debit will be processed soon.
+            </p>
+        </field>
+        <field name="sepa_dd_terms" type="html">
+            <span>SEPA Direct Debit terms and conditions.</span>
+        </field>
+    </record>
+
+</odoo>
