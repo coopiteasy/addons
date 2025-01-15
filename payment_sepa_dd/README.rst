@@ -29,6 +29,11 @@ Form to order subscription product
 .. contents::
    :local:
 
+Known issues / Roadmap
+======================
+
+* Add tests that check mandate creation
+
 Bug Tracker
 ===========
 
