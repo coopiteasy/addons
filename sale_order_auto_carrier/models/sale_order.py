@@ -8,6 +8,7 @@ class SalePartner(models.Model):
     _inherit = "sale.order"
 
     def action_confirm(self):
-        if self:
-            self._check_carrier_quotation()
+        for order in self:
+            if order:
+                order._check_carrier_quotation()
         return super().action_confirm()
