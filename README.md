@@ -26,6 +26,7 @@ addon | version | maintainers | summary
 [document_hosting](document_hosting/) | 16.0.1.0.0 |  | Manage documents that can be published on website with ??.
 [partner_contact_type_default](partner_contact_type_default/) | 16.0.1.0.0 | [![carmenbianca](https://github.com/carmenbianca.png?size=30px)](https://github.com/carmenbianca) | Set 'contact' as default type when creating a partner as a contact of another partner.
 [payment_sepa_dd](payment_sepa_dd/) | 16.0.0.1.0 | [![remytms](https://github.com/remytms.png?size=30px)](https://github.com/remytms) | Pay via SEPA Direct Debit.
+[payment_sepa_dd_payment_mode](payment_sepa_dd_payment_mode/) | 16.0.0.1.0 | [![remytms](https://github.com/remytms.png?size=30px)](https://github.com/remytms) | Manage payment_mode with payment_sepa_dd Glue module between payment_sepa_dd and account_payment_sale.
 [portal_customer_wallet](portal_customer_wallet/) | 16.0.1.0.0 | [![carmenbianca](https://github.com/carmenbianca.png?size=30px)](https://github.com/carmenbianca) | My Home displays expenditures using customer wallet
 [product_contract_payment_mode](product_contract_payment_mode/) | 16.0.0.1.0 | [![remytms](https://github.com/remytms.png?size=30px)](https://github.com/remytms) | Create contract with right payment mode.
 [resource_work_time_from_contracts](resource_work_time_from_contracts/) | 16.0.1.0.0 |  | Take the contracts of an employee into account when computing work time per day
