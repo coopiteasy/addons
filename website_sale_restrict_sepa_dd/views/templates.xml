@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <template id="cart_restrict_sepa_dd" inherit_id="website_sale.cart">
+        <xpath expr="//t[@t-call='website_sale.cart_lines']" position="before">
+            <div
+                t-if="website_sale_cart_warning"
+                class="mt8 mb8 alert alert-danger"
+                role="alert"
+            >
+                <t t-out="website_sale_cart_warning" />
+            </div>
+        </xpath>
+    </template>
+
+</odoo>
