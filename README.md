@@ -27,6 +27,7 @@ addon | version | maintainers | summary
 [partner_contact_type_default](partner_contact_type_default/) | 16.0.1.0.0 | [![carmenbianca](https://github.com/carmenbianca.png?size=30px)](https://github.com/carmenbianca) | Set 'contact' as default type when creating a partner as a contact of another partner.
 [payment_sepa_dd](payment_sepa_dd/) | 16.0.0.1.0 | [![remytms](https://github.com/remytms.png?size=30px)](https://github.com/remytms) | Pay via SEPA Direct Debit.
 [portal_customer_wallet](portal_customer_wallet/) | 16.0.1.0.0 | [![carmenbianca](https://github.com/carmenbianca.png?size=30px)](https://github.com/carmenbianca) | My Home displays expenditures using customer wallet
+[product_contract_payment_mode](product_contract_payment_mode/) | 16.0.0.1.0 | [![remytms](https://github.com/remytms.png?size=30px)](https://github.com/remytms) | Create contract with right payment mode.
 [resource_work_time_from_contracts](resource_work_time_from_contracts/) | 16.0.1.0.0 |  | Take the contracts of an employee into account when computing work time per day
 [sale_order_volume](sale_order_volume/) | 16.0.1.0.0 |  | Computes the volume of products per category ordered and display it on
 [website_rebrand_coopiteasy](website_rebrand_coopiteasy/) | 16.0.1.0.0 |  | Replace default Odoo website branding by Coop IT Easy branding
