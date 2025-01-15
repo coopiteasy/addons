@@ -31,6 +31,7 @@ addon | version | maintainers | summary
 [resource_work_time_from_contracts](resource_work_time_from_contracts/) | 16.0.1.0.0 |  | Take the contracts of an employee into account when computing work time per day
 [sale_order_volume](sale_order_volume/) | 16.0.1.0.0 |  | Computes the volume of products per category ordered and display it on
 [website_rebrand_coopiteasy](website_rebrand_coopiteasy/) | 16.0.1.0.0 |  | Replace default Odoo website branding by Coop IT Easy branding
+[website_sale_restrict_sepa_dd](website_sale_restrict_sepa_dd/) | 16.0.1.0.0 | [![remytms](https://github.com/remytms.png?size=30px)](https://github.com/remytms) | Restrict payment by SEPA Direct Debit for some products.
 
 [//]: # (end addons)
 
