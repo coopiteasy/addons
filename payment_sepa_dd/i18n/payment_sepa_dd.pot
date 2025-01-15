@@ -1,0 +1,121 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* payment_sepa_dd
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: payment_sepa_dd
+#: model_terms:payment.provider,pending_msg:payment_sepa_dd.payment_provider_sepa_dd
+msgid ""
+"<i>Your order has been saved.</i>\n"
+"                Your payment by SEPA Dierct Debit will be processed soon."
+msgstr ""
+
+#. module: payment_sepa_dd
+#: model_terms:payment.provider,sepa_dd_terms:payment_sepa_dd.payment_provider_sepa_dd
+msgid "<span>SEPA Direct Debit terms and conditions.</span>"
+msgstr ""
+
+#. module: payment_sepa_dd
+#: model:ir.model.fields,field_description:payment_sepa_dd.field_payment_provider__code
+msgid "Code"
+msgstr ""
+
+#. module: payment_sepa_dd
+#: model_terms:ir.ui.view,arch_db:payment_sepa_dd.inline_form
+msgid "IBAN"
+msgstr ""
+
+#. module: payment_sepa_dd
+#: model:ir.model.fields,field_description:payment_sepa_dd.field_payment_transaction__sepa_dd_iban
+msgid "IBAN (for SEPA Direct Debit)"
+msgstr ""
+
+#. module: payment_sepa_dd
+#. odoo-python
+#: code:addons/payment_sepa_dd/models/payment_transaction.py:0
+#, python-format
+msgid "IBAN must be provided for SEPA Direct Debit payment"
+msgstr ""
+
+#. module: payment_sepa_dd
+#: model:ir.model,name:payment_sepa_dd.model_payment_provider
+msgid "Payment Provider"
+msgstr ""
+
+#. module: payment_sepa_dd
+#: model:ir.model,name:payment_sepa_dd.model_payment_transaction
+msgid "Payment Transaction"
+msgstr ""
+
+#. module: payment_sepa_dd
+#: model:ir.model.fields.selection,name:payment_sepa_dd.selection__payment_provider__code__sepa_dd
+msgid "SEPA Direct Debit"
+msgstr ""
+
+#. module: payment_sepa_dd
+#: model:payment.provider,name:payment_sepa_dd.payment_provider_sepa_dd
+msgid "SEPA Direct Debit Payment"
+msgstr ""
+
+#. module: payment_sepa_dd
+#: model:ir.model.fields,field_description:payment_sepa_dd.field_payment_provider__sepa_dd_terms
+msgid "SEPA Direct Debit Terms"
+msgstr ""
+
+#. module: payment_sepa_dd
+#. odoo-python
+#: code:addons/payment_sepa_dd/models/payment_transaction.py:0
+#, python-format
+msgid "SEPA Direct Debit: No transaction found matching reference %s."
+msgstr ""
+
+#. module: payment_sepa_dd
+#. odoo-python
+#: code:addons/payment_sepa_dd/models/payment_transaction.py:0
+#, python-format
+msgid "The customer has selected %(provider_name)s to make the payment."
+msgstr ""
+
+#. module: payment_sepa_dd
+#: model:ir.model.fields,help:payment_sepa_dd.field_payment_provider__code
+msgid "The technical code of this payment provider."
+msgstr ""
+
+#. module: payment_sepa_dd
+#. odoo-python
+#: code:addons/payment_sepa_dd/models/payment_transaction.py:0
+#, python-format
+msgid "You must accept terms to give a SEPA Direct Debit Mandate."
+msgstr ""
+
+#. module: payment_sepa_dd
+#: model_terms:payment.provider,auth_msg:payment_sepa_dd.payment_provider_sepa_dd
+msgid "Your payment has been authorized."
+msgstr ""
+
+#. module: payment_sepa_dd
+#: model_terms:payment.provider,cancel_msg:payment_sepa_dd.payment_provider_sepa_dd
+msgid "Your payment has been cancelled."
+msgstr ""
+
+#. module: payment_sepa_dd
+#: model_terms:payment.provider,done_msg:payment_sepa_dd.payment_provider_sepa_dd
+msgid "Your payment has been successfully processed. Thank you!"
+msgstr ""
+
+#. module: payment_sepa_dd
+#. odoo-python
+#: code:addons/payment_sepa_dd/controllers/main.py:0
+#, python-format
+msgid "sepa_dd payment: Received tampered payment request data."
+msgstr ""
