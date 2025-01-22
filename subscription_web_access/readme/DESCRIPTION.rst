@@ -1,0 +1,2 @@
+- Adds a computed field "is_web_subscribed" and "subscriber" on partner.
+- Add a method on the user returning a json with subscription details. This is used by the external website on which the user is logged in, so that this website can check the subscription status and display the content. 
