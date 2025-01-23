@@ -91,13 +91,23 @@ class TestPosBalance(TestBalance):
 
     def _create_pos_order(self, pos_session, product, payment_method, amount, partner):
         uid = self._create_random_uid()
+        taxes = product.taxes_id
+        if taxes:
+            taxes_result = taxes.compute_all(
+                amount, currency=None, quantity=1, product=product, partner=partner
+            )
+            with_taxes = taxes_result["total_included"]
+            taxes_paid = sum(t["amount"] for t in taxes_result["taxes"])
+        else:
+            with_taxes = amount
+            taxes_paid = 0
 
         order_data = {
             "data": {
                 "name": "Order %s" % uid,
-                "amount_paid": amount,
-                "amount_total": amount,
-                "amount_tax": 0,
+                "amount_paid": with_taxes,
+                "amount_total": with_taxes,
+                "amount_tax": taxes_paid,
                 "amount_return": 0,
                 "lines": [
                     [
@@ -107,10 +117,10 @@ class TestPosBalance(TestBalance):
                             "qty": 1,
                             "price_unit": amount,
                             "price_subtotal": amount,
-                            "price_subtotal_incl": amount,
+                            "price_subtotal_incl": with_taxes,
                             "discount": 0,
                             "product_id": product.id,
-                            "tax_ids": [[6, 0, []]],
+                            "tax_ids": [[6, 0, taxes.mapped("id") if taxes else []]],
                             # The randint seems rather strange to me, but I
                             # nicked this idea from tests/common.py in the pos
                             # module.
@@ -126,7 +136,7 @@ class TestPosBalance(TestBalance):
                         {
                             "name": fields.Datetime.to_string(fields.Datetime.now()),
                             "payment_method_id": payment_method.id,
-                            "amount": amount,
+                            "amount": with_taxes,
                         },
                     ]
                 ],
