@@ -26,6 +26,13 @@ class EventTrackDate(models.Model):
     date = fields.Date(compute="_compute_date_and_time")
     hour = fields.Float(string="Hours", compute="_compute_date_and_time")
 
+    @api.depends("datetime", "date", "hour")
+    def _compute_display_name(self):
+        for rec in self:
+            hour, minute = divmod(rec.hour, 1)
+            minute *= 60
+            rec.display_name = f"{rec.date} {int(hour):02.0f}:{int(minute):02.0f}"
+
     @api.depends("datetime")
     def _compute_date_and_time(self):
         for track_date in self:
