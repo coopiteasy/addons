@@ -13,7 +13,8 @@ class SaleOrder(models.Model):
         # sale order.
         action = super().action_open_delivery_wizard()
         carrier_id = action["context"]["default_carrier_id"]
-        carrier = self.env["delivery.carrier"].browse(carrier_id)
-        if not carrier._can_be_used_to_deliver_order_products(self):
-            del action["context"]["default_carrier_id"]
+        if carrier_id:
+            carrier = self.env["delivery.carrier"].browse(carrier_id)
+            if not carrier._can_be_used_to_deliver_order_products(self):
+                action["context"]["default_carrier_id"] = False
         return action
