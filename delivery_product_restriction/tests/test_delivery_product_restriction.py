@@ -129,3 +129,12 @@ class TestDeliveryProductRestriction(common.TransactionCase):
         self.assertTrue(
             self.fixed_delivery not in delivery_wizard.available_carrier_ids
         )
+        delivery_wizard.carrier_id = self.pick_delivery
+        # this is needed to handle both cases in
+        # choose.delivery.carrier._compute_available_carrier().
+        delivery_wizard.save()
+        self.assertTrue(self.free_delivery not in delivery_wizard.available_carrier_ids)
+        self.assertTrue(self.pick_delivery in delivery_wizard.available_carrier_ids)
+        self.assertTrue(
+            self.fixed_delivery not in delivery_wizard.available_carrier_ids
+        )
