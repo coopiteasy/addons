@@ -3,12 +3,20 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 
-from odoo import _, api, models
+from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
 
 class SaleOrder(models.Model):
     _inherit = "sale.order"
+
+    is_gift = fields.Boolean(compute="_compute_is_gift")
+
+    @api.depends("order_line")
+    def _compute_is_gift(self):
+        """Tell if an order is a gift or not"""
+        for order in self:
+            order.is_gift = any(order.order_line.mapped("product_id").mapped("is_gift"))
 
     @api.constrains("order_line")
     def _check_gift_alone(self):

@@ -20,7 +20,13 @@
     "excludes": [],
     "data": [
         "views/product_views.xml",
+        "views/templates.xml",
     ],
+    "assets": {
+        "web.assets_frontend": [
+            "website_sale_product_contract_gift/static/src/js/website_sale.js",
+        ],
+    },
     "demo": [],
     "qweb": [],
 }
