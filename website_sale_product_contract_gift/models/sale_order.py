@@ -54,3 +54,32 @@ class SaleOrder(models.Model):
                         "it is not a gift and other product are gifts."
                     )
         return warning
+
+    def action_confirm(self):
+        """Create contract for gift product"""
+        contract_model = self.env["contract.contract"]
+        for order in self.filtered("is_gift"):
+            line_to_create_contract = order.order_line.filtered(
+                lambda r: not r.contract_id and r.product_id.is_gift
+            )
+            line_to_update_contract = order.order_line.filtered(
+                lambda r: (
+                    r.contract_id
+                    and r.product_id.is_gift
+                    and r
+                    not in r.contract_id.contract_line_ids.mapped("sale_order_line_id")
+                )
+            )
+            for line in line_to_create_contract:
+                contract = contract_model.create(
+                    {
+                        "partner_id": order.partner_shipping_id,
+                        "contract_type": "sale",
+                    }
+                )
+                contract._onchange_contract_type()
+                line.create_contract_line(contract)
+                line.write({"contract_id": contract.id})
+            for line in line_to_update_contract:
+                line.create_contract_line(line.contract_id)
+        return super().action_confirm()
