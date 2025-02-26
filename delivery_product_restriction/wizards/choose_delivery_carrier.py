@@ -8,12 +8,12 @@ class ChooseDeliveryCarrier(models.TransientModel):
 
     _inherit = "choose.delivery.carrier"
 
-    @api.depends("partner_id", "order_id.order_line")
+    @api.depends("partner_id", "order_id.order_line.product_id")
     def _compute_available_carrier(self):
         result = super()._compute_available_carrier()
         delivery_carrier_model = self.env["delivery.carrier"]
         for rec in self:
-            products = list(rec.order_id.order_line.mapped("product_id"))
+            products = rec.order_id.order_line.product_id
             # this method is called at 2 different times:
             # 1. when opening the wizard.
             # 2. when confirming the wizard.

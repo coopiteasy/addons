@@ -17,5 +17,5 @@ class DeliveryCarrier(models.Model):
         )
 
     def _can_be_used_to_deliver_order_products(self, order):
-        products = list(order.order_line.mapped("product_id"))
+        products = order.order_line.product_id
         return self._can_be_used_to_deliver_products(products)
