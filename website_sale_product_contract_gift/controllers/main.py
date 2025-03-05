@@ -12,6 +12,21 @@ from odoo.addons.website_sale.controllers.main import WebsiteSale
 
 class WebsiteSaleIsGift(WebsiteSale):
     @http.route(
+        ["/shop/address"],
+        type="http",
+        methods=["GET", "POST"],
+        auth="public",
+        website=True,
+        sitemap=False,
+    )
+    def address(self, **kw):
+        order = request.website.sale_get_order()
+        # Ensure user go back to checkout after editing an address
+        if order.is_gift:
+            kw["callback"] = "/shop/checkout"
+        return super().address(**kw)
+
+    @http.route(
         ["/shop/checkout"], type="http", auth="public", website=True, sitemap=False
     )
     def checkout(self, **post):
