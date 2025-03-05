@@ -41,7 +41,13 @@ class WebsiteSaleIsGift(WebsiteSale):
 
             # if formular is sent
             if request.httprequest.method == "POST":
+                # Check form
                 vals, errors = self.validate_gift_form_order_line(post)
+                # Check that shipping address has an email
+                if not order.partner_shipping_id.email:
+                    errors["email"] = _(
+                        "There is no e-mail address for person that receive the gift."
+                    )
                 if not errors:
                     order.order_line.filtered(lambda r: r.product_id.is_gift).write(
                         vals
