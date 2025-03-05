@@ -96,4 +96,18 @@
         </xpath>
     </template>
 
+    <template id="address_kanban" inherit_id="website_sale.address_kanban">
+        <!-- show email address on address kanban card -->
+        <xpath expr="//t[@t-esc='contact']" position="attributes">
+            <attribute name="t-if">not website_sale_order.is_gift</attribute>
+        </xpath>
+        <xpath expr="//t[@t-esc='contact']" position="after">
+            <t
+                t-esc="contact"
+                t-if="website_sale_order.is_gift"
+                t-options="dict(widget='contact', fields=['name', 'email', 'address'], no_marker=True)"
+            />
+        </xpath>
+    </template>
+
 </odoo>
