@@ -115,8 +115,10 @@ class SaleOrder(models.Model):
                         "contract_type": "sale",
                         "is_gift": True,
                         "date_start": order.gift_date,
-                        "line_recurrence": True,
                         "payment_mode_id": order.payment_mode_id.id,
+                        "line_recurrence": True,
+                        "recurring_rule_type": "yearly",
+                        "recurring_interval": 1,
                         "contract_line_ids": [
                             fields.Command.create(
                                 {
@@ -128,6 +130,10 @@ class SaleOrder(models.Model):
                                     "price_unit": 0,
                                     "date_start": date_start,
                                     "date_end": date_end,
+                                    "recurring_rule_type": "yearly",
+                                    "recurring_interval": 1,
+                                    "auto_renew_rule_type": "yearly",
+                                    "auto_renew_interval": "1",
                                     "recurring_next_date": line.date_start,
                                 }
                             ),

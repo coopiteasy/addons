@@ -49,18 +49,23 @@ class TestGiftContract(TestGiftContractBase):
         )
         return order
 
-    def _get_contract_from_order(self):
+    def _generate_contract_from_order(self):
         order = self._get_gift_sale_order()
         order.action_confirm()
         contract = order.order_line.mapped("gift_contract_id")[0]
         return contract
 
     def test_check_gift_contract_date(self):
-        contract = self._get_contract_from_order()
-        assert contract.date_start == self.today
+        contract = self._generate_contract_from_order()
+        self.assertEqual(contract.date_start, self.today)
+        self.assertEqual(contract.recurring_rule_type, "yearly")
+        self.assertEqual(contract.recurring_interval, 1)
+        for line in contract.contract_line_ids:
+            self.assertEqual(line.recurring_rule_type, "yearly")
+            self.assertEqual(line.recurring_interval, 1)
 
     def test_gift_contract_partner(self):
-        contract = self._get_contract_from_order()
+        contract = self._generate_contract_from_order()
         assert contract.partner_id.id != self.partner_gift_to.id
         assert contract.partner_id.name == self.partner_gift_to.name
         assert contract.partner_id.email == self.partner_gift_to.email
@@ -68,11 +73,11 @@ class TestGiftContract(TestGiftContractBase):
         assert contract.partner_id.type == "contact"
 
     def test_gift_contract_is_gift(self):
-        contract = self._get_contract_from_order()
+        contract = self._generate_contract_from_order()
         self.assertTrue(contract.is_gift)
 
     def test_gift_contract_invoice_generation(self):
-        contract = self._get_contract_from_order()
+        contract = self._generate_contract_from_order()
         contract.cron_recurring_create_invoice(date_ref=self.today)
         invoices = self.env["account.move"].search(
             [
@@ -91,7 +96,7 @@ class TestGiftContract(TestGiftContractBase):
         )
 
     def test_gift_contract_user_creation(self):
-        contract = self._get_contract_from_order()
+        contract = self._generate_contract_from_order()
         self.assertFalse(contract.partner_id.user_id)
         contract.cron_recurring_create_invoice(date_ref=self.today)
         self.assertTrue(contract.partner_id.user_ids)
