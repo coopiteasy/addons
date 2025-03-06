@@ -33,21 +33,24 @@ class SaleOrder(models.Model):
     def _check_gift_alone(self):
         """Ensure gift are not mixed in a sale order."""
         for order in self:
-            at_least_one_gift = any(
-                order.order_line.mapped("product_id").mapped("is_gift")
-            )
-            is_all_gift = all(order.order_line.mapped("product_id").mapped("is_gift"))
-            if at_least_one_gift and not is_all_gift:
-                raise ValidationError(
-                    _(
-                        "Cannot add product gift in an order that "
-                        "contains other product that are not gifts."
-                    )
+            if self.order_line:
+                at_least_one_gift = any(
+                    order.order_line.mapped("product_id").mapped("is_gift")
                 )
+                is_all_gift = all(
+                    order.order_line.mapped("product_id").mapped("is_gift")
+                )
+                if at_least_one_gift and not is_all_gift:
+                    raise ValidationError(
+                        _(
+                            "Cannot add product gift in an order that "
+                            "contains other product that are not gifts."
+                        )
+                    )
 
     def check_product_compatibility(self, product_id):
         warning = super().check_product_compatibility(product_id)
-        if not warning:
+        if not warning and self.order_line:
             product = self.env["product.product"].browse(product_id).exists()
             non_gifts = self.order_line.mapped("product_id").filtered(
                 lambda p: not p.is_gift
