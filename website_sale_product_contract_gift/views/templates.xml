@@ -85,6 +85,11 @@
                 class="o_page_header mt16 mb4"
                 t-if="website_sale_order.is_gift"
             >Gift for</h3>
+            <div
+                t-if="errors.get('email')"
+                t-out="errors.get('email')"
+                class="alert alert-danger mt16"
+            />
         </xpath>
 
         <xpath
