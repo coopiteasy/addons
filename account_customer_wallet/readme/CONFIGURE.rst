@@ -10,4 +10,5 @@ Setting this up requires a few careful steps:
 - In the Invoicing settings, set the Customer Wallet Account to the previously
   created account.
 - (Optional) Create a product (Wallet Product), and enable the Wallet Product
-  toggle. Set the income and expense account to the previously created account.
+  toggle. Set the income and expense account will be automatically the Customer
+  wallet account previously created.
