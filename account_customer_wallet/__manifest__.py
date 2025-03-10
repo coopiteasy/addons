@@ -21,6 +21,7 @@
         "views/product_template_views.xml",
         "views/res_config_settings_views.xml",
         "views/res_partner_views.xml",
+        "wizards/account_payment_register_views.xml",
     ],
     "demo": [
         "demo/account_account_demo.xml",
