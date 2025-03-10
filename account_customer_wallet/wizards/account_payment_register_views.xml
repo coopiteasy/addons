@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Copyright (C) 2022 - Today: GRAP (http://www.grap.coop)
+<!-- Copyright (C) 2025 - Today: GRAP (http://www.grap.coop)
      @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).-->
 <odoo>
-    <record id="view_account_payment_form" model="ir.ui.view">
-        <field name="model">account.payment</field>
-        <field name="inherit_id" ref="account.view_account_payment_form" />
+    <record id="view_account_payment_register_form" model="ir.ui.view">
+        <field name="model">account.payment.register</field>
+        <field name="inherit_id" ref="account.view_account_payment_register_form" />
         <field name="arch" type="xml">
-            <xpath expr="//header" position="after">
+            <xpath expr="//div[@role='alert']" position="after">
                 <div
                     class="alert alert-warning text-center"
                     attrs="{'invisible': ['|', ('is_customer_wallet_journal', '=', True), ('customer_wallet_balance', '&lt;=', '0')]}"
