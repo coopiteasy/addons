@@ -2,9 +2,12 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
+from datetime import datetime, timedelta
 
 from odoo import _, api, models
 from odoo.exceptions import ValidationError
+
+TRIAL_DURATION_DAYS = 14
 
 
 class SaleOrder(models.Model):
@@ -46,3 +49,25 @@ class SaleOrder(models.Model):
                         "trials must be ordered separately."
                     )
         return warning
+
+    def _prepare_order_line_values(
+        self,
+        product_id,
+        quantity,
+        linked_line_id=False,
+        no_variant_attribute_values=None,
+        product_custom_attribute_values=None,
+        **kwargs,
+    ):
+        values = super()._prepare_order_line_values(
+            product_id=product_id,
+            quantity=quantity,
+            linked_line_id=linked_line_id,
+            no_variant_attirbute_values=no_variant_attribute_values,
+        )
+        # Hard coded 15 days for trial duration
+        product = self.env["product.product"].browse(product_id)
+        if product.is_trial:
+            values["date_start"] = datetime.today()
+            values["date_end"] = datetime.today() + timedelta(days=TRIAL_DURATION_DAYS)
+        return values
