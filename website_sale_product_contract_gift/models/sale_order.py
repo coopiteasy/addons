@@ -19,9 +19,10 @@ class SaleOrder(models.Model):
     def _compute_gift_date(self):
         """Get gift_date from date_start on order_line"""
         for order in self:
-            order.gift_date = order.order_line.filtered(
-                lambda r: r.product_id.is_gift
-            ).mapped("date_start")[0]
+            dates = order.order_line.filtered(lambda r: r.product_id.is_gift).mapped(
+                "date_start"
+            )
+            order.gift_date = dates[0] if dates else False
 
     @api.depends("order_line")
     def _compute_is_gift(self):
