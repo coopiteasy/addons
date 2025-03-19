@@ -95,3 +95,53 @@ class TestGiftContract(TestGiftContractBase):
         self.assertFalse(contract.partner_id.user_id)
         contract.cron_recurring_create_invoice(date_ref=self.today)
         self.assertTrue(contract.partner_id.user_ids)
+
+    def test_find_contact_partners(self):
+        """Test method `find_contact_partners()`."""
+        # existing partners
+        partner1 = self.env["res.partner"].create(
+            {
+                "name": "Test1 Test",
+                "email": "test@test.tld",
+                "type": "contact",
+                "country_id": 1,
+                "zip": 1000,
+            }
+        )
+        partner2 = self.env["res.partner"].create(
+            {
+                "name": "Test2 Test",
+                "email": "test@test.tld",
+                "type": "contact",
+                "country_id": 1,
+                "zip": 1000,
+            }
+        )
+        # new partner with a match
+        partner_new = self.env["res.partner"].new(
+            {
+                "name": "Test2 Test",
+                "email": "test@test.tld",
+                "type": "contact",
+                "country_id": 1,
+                "zip": 1000,
+            }
+        )
+        self.assertEqual(
+            self.env["sale.order"].find_contact_partners(partner_new),
+            partner2,
+        )
+        # new partner without a match
+        partner_new = self.env["res.partner"].new(
+            {
+                "name": "Test Test",
+                "email": "test@test.tld",
+                "type": "contact",
+                "country_id": 1,
+                "zip": 2000,
+            }
+        )
+        self.assertEqual(
+            self.env["sale.order"].find_contact_partners(partner_new),
+            partner1 | partner2,
+        )

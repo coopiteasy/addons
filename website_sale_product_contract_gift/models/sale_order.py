@@ -165,9 +165,22 @@ class SaleOrder(models.Model):
             "user_id",
         ]
 
+        # If there is several results we try to eliminate some results.
+        # We look for result with the same country_id.
+        # If there is no match with contry_id, then we try to filter for
+        # another field.
+        # If there is several matches with country_id, the we try to
+        # filter with another field.
+        # If there is only one match with contry_id, then we return this
+        # result.
+        #
+        # At the end, if there is several result that we cannot filter
+        # more than we return all theses results
         if result:
             for field in fields_to_compare:
-                filtered_partners = result.filtered(lambda r: r.mapped(field))
+                filtered_partners = result.filtered(
+                    lambda r: r[field] == partner[field]
+                )
                 nb_filtered_partners = len(filtered_partners)
                 if nb_filtered_partners > 0:
                     result = filtered_partners
