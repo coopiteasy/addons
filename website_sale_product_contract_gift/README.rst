@@ -22,7 +22,7 @@ Website Sale Product Contract Gift
 
 |badge1| |badge2| |badge3|
 
-Form to order subscription product
+Configure product contract to be a gift to someone else.
 
 **Table of contents**
 

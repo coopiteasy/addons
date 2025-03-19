@@ -18,7 +18,7 @@ odoo.define("website_sale_product_contract_gift.website_sale", function (require
          * @param {Event} ev
          */
         _onClickConfirm: function () {
-            var $form = $("form[name='date_for_gift']");
+            var $form = $("form[name='gift_date']");
             $form.submit();
         },
     });

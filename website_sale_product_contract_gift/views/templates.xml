@@ -15,22 +15,22 @@
     </template>
 
     <template id="checkout" inherit_id="website_sale.checkout">
-        <!-- Add date for gift formular -->
+        <!-- Add date for gift form -->
         <xpath
             expr="//div[hasclass('oe_cart')]//div[hasclass('row')]"
             position="before"
         >
-            <div class="row" id="date_for_gift" t-if="website_sale_order.is_gift">
+            <div class="row" id="gift_date" t-if="website_sale_order.is_gift">
                 <div class="col-lg-12">
                     <h3
                         class="o_page_header mt8"
-                    >When should the gift be delivered ?</h3>
+                    >When should the gift be delivered?</h3>
                 </div>
                 <div class="col-lg-12">
                     <form
                         action="/shop/checkout"
                         method="post"
-                        name="date_for_gift"
+                        name="gift_date"
                         t-att-class="'was-validated' if errors else None"
                     >
                         <input
@@ -40,7 +40,7 @@
                             t-nocache="The csrf token must always be up to date."
                         />
                         <div class="form-group">
-                            <label class="form-label" for="date_for_gift">
+                            <label class="form-label" for="gift_date">
                                 Date for the gift
                             </label>
                             <input
@@ -48,13 +48,13 @@
                                 t-att-min="datetime.date.today()"
                                 required="required"
                                 class="form-control"
-                                id="date_for_gift"
-                                name="date_for_gift"
-                                t-att-value="date_for_gift"
+                                id="gift_date"
+                                name="gift_date"
+                                t-att-value="gift_date"
                             />
                             <div
-                                t-if="errors.get('date_for_gift')"
-                                t-out="errors.get('date_for_gift')"
+                                t-if="errors.get('gift_date')"
+                                t-out="errors.get('gift_date')"
                                 class="invalid-feedback"
                             />
                         </div>

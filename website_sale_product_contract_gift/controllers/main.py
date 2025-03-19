@@ -31,7 +31,7 @@ class WebsiteSaleIsGift(WebsiteSale):
     )
     def checkout(self, **post):
         """Prevent express checkout if order is a gift and process
-        formular"""
+        form"""
         order = request.website.sale_get_order()
         errors = {}
         if order.is_gift:
@@ -39,14 +39,14 @@ class WebsiteSaleIsGift(WebsiteSale):
             if "express" in post:
                 del post["express"]
 
-            # if formular is sent
+            # if form is sent
             if request.httprequest.method == "POST":
                 # Check form
                 vals, errors = self.validate_gift_form_order_line(post)
                 # Check that shipping address has an email
                 if not order.partner_shipping_id.email:
                     errors["email"] = _(
-                        "There is no e-mail address for person that receive the gift."
+                        "The receiver of the gift must have an email address defined."
                     )
                 if not errors:
                     order.order_line.filtered(lambda r: r.product_id.is_gift).write(
@@ -55,20 +55,20 @@ class WebsiteSaleIsGift(WebsiteSale):
                     return request.redirect("/shop/confirm_order")
         result = super().checkout(**post)
         result.qcontext["errors"] = errors
-        result.qcontext["date_for_gift"] = post.get("date_for_gift", order.gift_date)
+        result.qcontext["gift_date"] = post.get("gift_date", order.gift_date)
         return result
 
     def validate_gift_form_order_line(self, data):
-        """Validate the gift formular, and return vals for order line"""
+        """Validate the gift form, and return vals for order line"""
         errors = {}
         vals = {}
-        date_for_gift = data.get("date_for_gift")
-        if date_for_gift:
+        gift_date = data.get("gift_date")
+        if gift_date:
             try:
-                date_for_gift = date.fromisoformat(data.get("date_for_gift", ""))
+                gift_date = date.fromisoformat(data.get("gift_date", ""))
             except ValueError:
-                errors["date_for_gift"] = _("Date is not valid.")
-            vals["date_start"] = date_for_gift
+                errors["gift_date"] = _("Date is not valid.")
+            vals["date_start"] = gift_date
         else:
-            errors["date_for_gift"] = _("Date is required.")
+            errors["gift_date"] = _("Date is required.")
         return vals, errors

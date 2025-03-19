@@ -87,12 +87,7 @@ class TestGiftContract(TestGiftContractBase):
         )
         self.assertEqual(len(invoices), 1)
         self.assertTrue(
-            any(
-                invoices.mapped("line_ids")
-                .mapped("contract_line_id")
-                .mapped("contract_id")
-                .mapped("is_gift")
-            )
+            any(invoices.line_ids.contract_line_id.contract_id.mapped("is_gift"))
         )
 
     def test_gift_contract_user_creation(self):

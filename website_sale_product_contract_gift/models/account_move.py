@@ -14,9 +14,7 @@ class AccountMove(models.Model):
         for invoice in self:
             partner_id = invoice.partner_id
             is_gift = any(
-                invoice.line_ids.mapped("contract_line_id")
-                .mapped("contract_id")
-                .mapped("is_gift")
+                invoice.line_ids.contract_line_id.contract_id.mapped("is_gift")
             )
             if not partner_id.user_id and is_gift:
                 # TODO: send email to the reciever of the gift
