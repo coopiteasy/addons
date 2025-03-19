@@ -65,11 +65,15 @@
 
         <!-- Replace confirm button -->
         <xpath expr="//a[@href='/shop/confirm_order']" position="attributes">
-            <attribute name="style">display: none;</attribute>
+            <attribute name="t-if">not website_sale_order.is_gift</attribute>
         </xpath>
 
         <xpath expr="//a[@href='/shop/confirm_order']" position="after">
-            <button id="gift_form_confirm_button" class="btn btn-primary mb32">
+            <button
+                id="gift_form_confirm_button"
+                t-if="website_sale_order.is_gift"
+                class="btn btn-primary mb32"
+            >
                 Confirm
                 <i class="fa fa-chevron-right" />
             </button>
