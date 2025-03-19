@@ -16,10 +16,7 @@
     "depends": [
         "website_sale",
     ],
-    "excludes": [],
     "data": [
         "views/templates.xml",
     ],
-    "demo": [],
-    "qweb": [],
 }

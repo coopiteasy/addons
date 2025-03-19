@@ -24,7 +24,7 @@ class SaleOrder(models.Model):
 
         :product_id: The id of the product to check compatibility.
         :rtype: str
-        :retrun: warning message to be shown on the web interface.
+        :return: warning message to be shown on the web interface.
         """
         self.ensure_one()
         return ""
