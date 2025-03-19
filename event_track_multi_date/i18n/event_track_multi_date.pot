@@ -1,0 +1,96 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* event_track_multi_date
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: event_track_multi_date
+#: model:ir.model.fields,field_description:event_track_multi_date.field_event_track_date__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: event_track_multi_date
+#: model:ir.model.fields,field_description:event_track_multi_date.field_event_track_date__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: event_track_multi_date
+#: model:ir.model.fields,field_description:event_track_multi_date.field_event_track_date__date
+msgid "Date"
+msgstr ""
+
+#. module: event_track_multi_date
+#: model:ir.model.fields,field_description:event_track_multi_date.field_event_track_date__datetime
+msgid "Date and time"
+msgstr ""
+
+#. module: event_track_multi_date
+#. odoo-python
+#: code:addons/event_track_multi_date/models/event_track_date.py:0
+#, python-format
+msgid "Date must match the event dates of the track."
+msgstr ""
+
+#. module: event_track_multi_date
+#: model:ir.model.fields,field_description:event_track_multi_date.field_event_track__dates
+msgid "Dates"
+msgstr ""
+
+#. module: event_track_multi_date
+#: model:ir.model.fields,field_description:event_track_multi_date.field_event_track_date__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: event_track_multi_date
+#: model:ir.model.fields,field_description:event_track_multi_date.field_event_track_date__event_id
+msgid "Event"
+msgstr ""
+
+#. module: event_track_multi_date
+#: model:ir.model,name:event_track_multi_date.model_event_track
+msgid "Event Track"
+msgstr ""
+
+#. module: event_track_multi_date
+#: model:ir.model.fields,field_description:event_track_multi_date.field_event_track_date__hour
+msgid "Hours"
+msgstr ""
+
+#. module: event_track_multi_date
+#: model:ir.model.fields,field_description:event_track_multi_date.field_event_track_date__id
+msgid "ID"
+msgstr ""
+
+#. module: event_track_multi_date
+#: model:ir.model.fields,field_description:event_track_multi_date.field_event_track_date____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: event_track_multi_date
+#: model:ir.model.fields,field_description:event_track_multi_date.field_event_track_date__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: event_track_multi_date
+#: model:ir.model.fields,field_description:event_track_multi_date.field_event_track_date__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: event_track_multi_date
+#: model:ir.model.fields,field_description:event_track_multi_date.field_event_track_date__track_id
+msgid "Track"
+msgstr ""
+
+#. module: event_track_multi_date
+#: model:ir.model,name:event_track_multi_date.model_event_track_date
+msgid "Track dates"
+msgstr ""
