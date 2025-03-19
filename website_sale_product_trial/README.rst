@@ -22,7 +22,7 @@ Website Sale Product Trial
 
 |badge1| |badge2| |badge3|
 
-Form to order subscription product
+Configure product to be a trial subscription.
 
 **Table of contents**
 

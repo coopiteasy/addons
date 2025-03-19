@@ -1,1 +1,1 @@
-Form to order subscription product
+Configure product to be a trial subscription.
