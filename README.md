@@ -25,6 +25,7 @@ addon | version | maintainers | summary
 [account_move_payment_mode_sepa](account_move_payment_mode_sepa/) | 16.0.0.1.0 | [![victor-champonnois](https://github.com/victor-champonnois.png?size=30px)](https://github.com/victor-champonnois) | Account Move Payment Mode SEPA
 [company_today](company_today/) | 16.0.1.0.0 |  | Store today's date on the company model.
 [document_hosting](document_hosting/) | 16.0.1.0.0 |  | Manage documents that can be published on website with ??.
+[event_track_multi_date](event_track_multi_date/) | 16.0.1.0.0 |  | Multiple Dates per Track
 [partner_contact_type_default](partner_contact_type_default/) | 16.0.1.0.0 | [![carmenbianca](https://github.com/carmenbianca.png?size=30px)](https://github.com/carmenbianca) | Set 'contact' as default type when creating a partner as a contact of another partner.
 [payment_sepa_dd](payment_sepa_dd/) | 16.0.0.1.0 | [![remytms](https://github.com/remytms.png?size=30px)](https://github.com/remytms) | Pay via SEPA Direct Debit.
 [payment_sepa_dd_payment_mode](payment_sepa_dd_payment_mode/) | 16.0.0.1.0 | [![remytms](https://github.com/remytms.png?size=30px)](https://github.com/remytms) | Manage payment_mode with payment_sepa_dd Glue module between payment_sepa_dd and account_payment_sale.
