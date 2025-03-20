@@ -145,3 +145,23 @@ class TestGiftContract(TestGiftContractBase):
             self.env["sale.order"].find_contact_partners(partner_new),
             partner1 | partner2,
         )
+
+    def test_is_product_compatible_empty(self):
+        self.assertTrue(
+            self.env["sale.order"]._is_product_compatible(
+                self.env["product.product"],
+            )
+        )
+
+    def test_is_product_compatible_mixed(self):
+        self.assertFalse(
+            self.env["sale.order"]._is_product_compatible(
+                self.product_1 | self.product_2
+            )
+        )
+
+    def test_is_product_compatible_only_gift(self):
+        self.assertTrue(self.env["sale.order"]._is_product_compatible(self.product_1))
+
+    def test_is_product_compatible_only_non_gift(self):
+        self.assertTrue(self.env["sale.order"]._is_product_compatible(self.product_2))

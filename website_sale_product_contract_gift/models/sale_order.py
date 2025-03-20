@@ -34,10 +34,9 @@ class SaleOrder(models.Model):
     def _check_gift_alone(self):
         """Ensure gift are not mixed in a sale order."""
         for order in self:
-            if self.order_line:
-                at_least_one_gift = any(order.order_line.product_id.mapped("is_gift"))
-                is_all_gift = all(order.order_line.product_id.mapped("is_gift"))
-                if at_least_one_gift and not is_all_gift:
+            lines_to_check = order._exclude_delivery_order_line()
+            if lines_to_check:
+                if not self._is_product_compatible(lines_to_check.product_id):
                     raise ValidationError(
                         _(
                             "Cannot add product gift in an order that "
@@ -45,19 +44,32 @@ class SaleOrder(models.Model):
                         )
                     )
 
+    @api.model
+    def _is_product_compatible(self, product_ids):
+        at_least_one_gift = any(product_ids.mapped("is_gift"))
+        is_all_gift = all(product_ids.mapped("is_gift"))
+        return is_all_gift or not at_least_one_gift
+
+    def _exclude_delivery_order_line(self):
+        """Return the order_lines that are not delivery"""
+        self.ensure_one()
+        return self.order_line.filtered(lambda r: not r.is_delivery)
+
     def check_product_compatibility(self, product_id):
         warning = super().check_product_compatibility(product_id)
-        if not warning and self.order_line:
-            product = self.env["product.product"].browse(product_id).exists()
-            non_gifts = self.order_line.product_id.filtered(lambda p: not p.is_gift)
-            is_all_gift = all(self.order_line.product_id.mapped("is_gift"))
-            if product:
-                if product.is_gift and non_gifts:
+        lines_to_check = self._exclude_delivery_order_line()
+        product = self.env["product.product"].browse(product_id).exists()
+        if not warning and lines_to_check and product:
+            is_product_compatible = self._is_product_compatible(
+                lines_to_check.product_id | product
+            )
+            if not is_product_compatible:
+                if product.is_gift:
                     warning = _(
                         f"Product {product.name} cannot be added because "
                         "it's a gift and gift must be purchase seperatly."
                     )
-                elif not product.is_gift and is_all_gift:
+                else:
                     warning = _(
                         f"Product {product.name} cannot be added because "
                         "it is not a gift and other product are gifts."

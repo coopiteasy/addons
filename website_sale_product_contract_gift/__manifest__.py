@@ -16,8 +16,8 @@
     "depends": [
         "website_sale_product_compatibility",
         "product_contract",
+        "delivery",
     ],
-    "excludes": [],
     "data": [
         "views/product_views.xml",
         "views/templates.xml",
@@ -27,6 +27,4 @@
             "website_sale_product_contract_gift/static/src/js/website_sale.esm.js",
         ],
     },
-    "demo": [],
-    "qweb": [],
 }
