@@ -200,3 +200,11 @@ class SaleOrder(models.Model):
                     break
 
         return result
+
+    @api.model
+    def cron_autoconfirm_gift_order(self):
+        """Auto confirm gift order"""
+        orders = self.env["sale.order"].search(
+            [("state", "=", "sent"), ("is_gift", "=", True)]
+        )
+        orders.action_confirm()
