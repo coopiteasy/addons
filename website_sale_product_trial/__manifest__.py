@@ -16,6 +16,7 @@
     "depends": [
         "website_sale_product_compatibility",
         "product",
+        "delivery",
     ],
     "excludes": [],
     "data": [

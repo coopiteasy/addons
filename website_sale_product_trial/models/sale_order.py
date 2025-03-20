@@ -17,10 +17,8 @@ class SaleOrder(models.Model):
     def _check_trial_alone(self):
         """Ensure trial are not mixed in a sale order."""
         for order in self:
-            at_least_one_trial = any(
-                order.order_line.mapped("product_id").mapped("is_trial")
-            )
-            if at_least_one_trial and order.order_line > 1:
+            lines_to_check = order._exclude_delivery_order_line()
+            if not self._is_product_compatible(lines_to_check.product_id):
                 raise ValidationError(
                     _(
                         "Cannot add product trial in an order that "
@@ -28,21 +26,31 @@ class SaleOrder(models.Model):
                     )
                 )
 
+    @api.model
+    def _is_product_compatible(self, product_ids):
+        at_least_one_trial = any(product_ids.mapped("is_trial"))
+        return not at_least_one_trial or len(product_ids) <= 1
+
+    def _exclude_delivery_order_line(self):
+        """Return the order_lines that are not delivery"""
+        self.ensure_one()
+        return self.order_line.filtered(lambda r: not r.is_delivery)
+
     def check_product_compatibility(self, product_id):
         warning = super().check_product_compatibility(product_id)
-        if not warning:
-            product = self.env["product.product"].browse(product_id).exists()
-            non_trials = self.order_line.mapped("product_id").filtered(
-                lambda p: not p.is_trial
+        lines_to_check = self._exclude_delivery_order_line()
+        product = self.env["product.product"].browse(product_id).exists()
+        if not warning and lines_to_check and product:
+            is_product_compatible = self._is_product_compatible(
+                lines_to_check.product_id | product
             )
-            any_trial = any(self.order_line.mapped("product_id").mapped("is_trial"))
-            if product:
-                if product.is_trial and non_trials:
+            if not is_product_compatible:
+                if product.is_trial:
                     warning = _(
                         f"Product {product.name} cannot be added because "
                         "it's a trial and trial must be ordered seperately."
                     )
-                elif not product.is_trial and any_trial:
+                else:
                     warning = _(
                         f"Product {product.name} cannot be added because "
                         "order contains products that are trials and "
