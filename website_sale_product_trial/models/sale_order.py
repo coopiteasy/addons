@@ -48,7 +48,7 @@ class SaleOrder(models.Model):
                 if product.is_trial:
                     warning = _(
                         f"Product {product.name} cannot be added because "
-                        "it's a trial and trial must be ordered seperately."
+                        "it's a trial and trials must be ordered separately."
                     )
                 else:
                     warning = _(
