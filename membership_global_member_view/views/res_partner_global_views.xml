@@ -1,0 +1,77 @@
+<?xml version="1.0" ?>
+<odoo>
+
+    <record model="ir.ui.view" id="view_global_member_tree">
+        <field name="name">res.partner.global.tree</field>
+        <field name="model">res.partner.global</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="company_id" />
+                <field
+                    name="membership_category_ids"
+                    widget="many2many_tags"
+                    optional="show"
+                />
+                <field
+                    name="membership_state"
+                    optional="show"
+                    decoration-info="membership_state =='waiting'"
+                    decoration-success="membership_state in ['invoiced', 'free', 'paid']"
+                    widget="badge"
+                />
+                <field name="membership_start" />
+                <field name="membership_stop" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_global_mebmer_search" model="ir.ui.view">
+        <field name="name">res.partner.global.search</field>
+        <field name="model">res.partner.global</field>
+        <field name="arch" type="xml">
+            <search>
+                <field
+                    name="name"
+                    string="Name"
+                    filter_domain="['|', ('name', 'ilike', self), ('display_name', 'ilike', self)]"
+                />
+                <field
+                    name="membership_state"
+                    string="Membership State"
+                    filter_domain="[('membership_state', 'ilike', self)]"
+                />
+                <separator />
+                <filter
+                    name="all_members"
+                    string="Members"
+                    domain="[('membership_state', 'in', ['invoiced', 'paid', 'free'])]"
+                    help="Invoiced/Paid/Free"
+                />
+                <separator />
+                <filter string="Start Date" name="start_date" date="membership_start" />
+                <filter string="End Date" name="end_date" date="membership_stop" />
+                <separator />
+                <filter
+                    string="Archived"
+                    name="inactive"
+                    domain="[('active', '=', False)]"
+                />
+                <separator />
+                <group expand="0" name="group_by" string="Group By">
+                    <filter
+                        name="group_membership_state"
+                        string="Membership State"
+                        context="{'group_by': 'membership_state'}"
+                    />
+                    <filter
+                        name="group_company"
+                        string="Company"
+                        context="{'group_by': 'company_id'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+
+</odoo>

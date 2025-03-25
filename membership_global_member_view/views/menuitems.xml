@@ -12,13 +12,8 @@
         id="menu_global_member"
         name="Global Member"
         parent="membership.menu_association"
-        groups="global_member_view"
         action="action_global_member"
     />
 
-    <menuitem
-        name="Members"
-        id="membership.menu_association"
-        groups="global_member_view"
-    />
+    <menuitem name="Members" id="membership.menu_association" />
 </odoo>

@@ -14,10 +14,8 @@
     "license": "AGPL-3",
     "depends": ["membership", "membership_extension"],
     "data": [
-        "security/groups.xml",
-        "security/security.xml",
         "security/ir.model.access.csv",
-        "views/res_partner_views.xml",
+        "views/res_partner_global_views.xml",
         "views/menuitems.xml",
     ],
     "demo": [],

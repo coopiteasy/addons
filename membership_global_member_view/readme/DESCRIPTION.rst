@@ -1,1 +1,1 @@
-Global view of the members, for all companies and without seeing personnal data..
+Global view of the members, for all companies and without seeing personnal data.
