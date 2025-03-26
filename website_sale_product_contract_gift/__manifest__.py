@@ -17,6 +17,7 @@
         "website_sale_product_compatibility",
         "product_contract",
         "delivery",
+        "account_payment_sale",
     ],
     "data": [
         "views/product_views.xml",
