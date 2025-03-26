@@ -15,13 +15,13 @@ class TestGiftContractBase(common.TransactionCase):
         cls.partner = cls.env["res.partner"].create(
             {
                 "name": "partner test contract",
-                "email": "demo@demo.com",
+                "email": "demo@test.com",
             }
         )
         cls.partner_gift_to = cls.env["res.partner"].create(
             {
                 "name": "partner gift to",
-                "email": "partner_gift_to@demo.com",
+                "email": "partner_gift_to@test.com",
                 "type": "delivery",
             }
         )
