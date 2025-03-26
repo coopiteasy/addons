@@ -52,7 +52,7 @@ class TestGiftContract(TestGiftContractBase):
     def _generate_contract_from_order(self):
         order = self._get_gift_sale_order()
         order.action_confirm()
-        contract = order.order_line.mapped("gift_contract_id")[0]
+        contract = order.order_line.gift_contract_id[0]
         return contract
 
     def test_check_gift_contract_date(self):
