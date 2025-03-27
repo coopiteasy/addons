@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+SPDX-FileCopyrightText: 2025 Coop IT Easy SC
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<odoo>
+    <record id="view_order_form" model="ir.ui.view">
+        <field name="name">sale.order.form (in product_contract_sale_generation)</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="product_contract.view_order_form" />
+        <field name="arch" type="xml">
+            <field name="payment_term_id" position="after">
+                <field name="created_from_contract" />
+            </field>
+            <xpath
+                expr="//button[@name='action_create_contract']"
+                position="attributes"
+            >
+                <attribute
+                    name="attrs"
+                >{"invisible": ["|", ("created_from_contract", "=", True), ("need_contract_creation", "=", False)]}</attribute>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>
