@@ -1,0 +1,119 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* website_sale_product_contract_gift
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_sale_product_contract_gift
+#: model_terms:ir.ui.view,arch_db:website_sale_product_contract_gift.payment
+msgid "<b>Date of the gift:</b>"
+msgstr ""
+
+#. module: website_sale_product_contract_gift
+#. odoo-python
+#: code:addons/website_sale_product_contract_gift/models/sale_order.py:0
+#, python-format
+msgid ""
+"Cannot add product gift in an order that contains other product that are not"
+" gifts."
+msgstr ""
+
+#. module: website_sale_product_contract_gift
+#: model_terms:ir.ui.view,arch_db:website_sale_product_contract_gift.checkout
+msgid ""
+"Confirm\n"
+"                <i class=\"fa fa-chevron-right\"/>"
+msgstr ""
+
+#. module: website_sale_product_contract_gift
+#: model:ir.model,name:website_sale_product_contract_gift.model_contract_contract
+msgid "Contract"
+msgstr ""
+
+#. module: website_sale_product_contract_gift
+#: model_terms:ir.ui.view,arch_db:website_sale_product_contract_gift.checkout
+msgid "Date for the gift"
+msgstr ""
+
+#. module: website_sale_product_contract_gift
+#. odoo-python
+#: code:addons/website_sale_product_contract_gift/controllers/main.py:0
+#, python-format
+msgid "Date is not valid."
+msgstr ""
+
+#. module: website_sale_product_contract_gift
+#. odoo-python
+#: code:addons/website_sale_product_contract_gift/controllers/main.py:0
+#, python-format
+msgid "Date is required."
+msgstr ""
+
+#. module: website_sale_product_contract_gift
+#: model:ir.model.fields,field_description:website_sale_product_contract_gift.field_sale_order_line__gift_contract_id
+msgid "Gift Contract"
+msgstr ""
+
+#. module: website_sale_product_contract_gift
+#: model:ir.model.fields,field_description:website_sale_product_contract_gift.field_sale_order__gift_date
+msgid "Gift Date"
+msgstr ""
+
+#. module: website_sale_product_contract_gift
+#: model_terms:ir.ui.view,arch_db:website_sale_product_contract_gift.checkout
+msgid "Gift for"
+msgstr ""
+
+#. module: website_sale_product_contract_gift
+#: model:ir.model.fields,field_description:website_sale_product_contract_gift.field_contract_contract__is_gift
+#: model:ir.model.fields,field_description:website_sale_product_contract_gift.field_product_product__is_gift
+#: model:ir.model.fields,field_description:website_sale_product_contract_gift.field_product_template__is_gift
+#: model:ir.model.fields,field_description:website_sale_product_contract_gift.field_sale_order__is_gift
+msgid "Is Gift"
+msgstr ""
+
+#. module: website_sale_product_contract_gift
+#: model:ir.model,name:website_sale_product_contract_gift.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: website_sale_product_contract_gift
+#: model:ir.model,name:website_sale_product_contract_gift.model_product_template
+msgid "Product"
+msgstr ""
+
+#. module: website_sale_product_contract_gift
+#: model:ir.model,name:website_sale_product_contract_gift.model_sale_order
+msgid "Sales Order"
+msgstr ""
+
+#. module: website_sale_product_contract_gift
+#: model:ir.model,name:website_sale_product_contract_gift.model_sale_order_line
+msgid "Sales Order Line"
+msgstr ""
+
+#. module: website_sale_product_contract_gift
+#. odoo-python
+#: code:addons/website_sale_product_contract_gift/controllers/main.py:0
+#, python-format
+msgid "The receiver of the gift must have an email address defined."
+msgstr ""
+
+#. module: website_sale_product_contract_gift
+#: model_terms:ir.ui.view,arch_db:website_sale_product_contract_gift.payment
+msgid "This order is a gift"
+msgstr ""
+
+#. module: website_sale_product_contract_gift
+#: model_terms:ir.ui.view,arch_db:website_sale_product_contract_gift.checkout
+msgid "When should the gift be delivered?"
+msgstr ""
