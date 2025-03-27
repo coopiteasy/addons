@@ -1,1 +1,1 @@
-Form to order subscription product
+Restrict payment by SEPA Direct Debit for some products.

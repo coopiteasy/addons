@@ -22,7 +22,7 @@ Restrict SEPA Direct Debit Payment
 
 |badge1| |badge2| |badge3|
 
-Form to order subscription product
+Restrict payment by SEPA Direct Debit for some products.
 
 **Table of contents**
 
