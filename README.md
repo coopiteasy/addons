@@ -32,6 +32,7 @@ addon | version | maintainers | summary
 [payment_sepa_dd_payment_mode](payment_sepa_dd_payment_mode/) | 16.0.1.0.0 | [![remytms](https://github.com/remytms.png?size=30px)](https://github.com/remytms) | Manage payment mode with payment_sepa_dd
 [portal_customer_wallet](portal_customer_wallet/) | 16.0.1.0.0 | [![carmenbianca](https://github.com/carmenbianca.png?size=30px)](https://github.com/carmenbianca) | My Home displays expenditures using customer wallet
 [product_contract_payment_mode](product_contract_payment_mode/) | 16.0.1.0.0 | [![remytms](https://github.com/remytms.png?size=30px)](https://github.com/remytms) | Create contract with right payment mode
+[product_contract_storable](product_contract_storable/) | 16.0.1.0.0 |  | Allow product contract to be of type other than services
 [resource_work_time_from_contracts](resource_work_time_from_contracts/) | 16.0.1.0.0 |  | Take the contracts of an employee into account when computing work time per day
 [sale_order_volume](sale_order_volume/) | 16.0.1.0.0 |  | Computes the volume of products per category ordered and display it on
 [website_rebrand_coopiteasy](website_rebrand_coopiteasy/) | 16.0.1.0.0 |  | Replace default Odoo website branding by Coop IT Easy branding
