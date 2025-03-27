@@ -9,7 +9,9 @@ from odoo.addons.website_sale.controllers.main import PaymentPortal
 
 class PaymentPortalSEPADD(PaymentPortal):
     def _validate_transaction_for_order(self, transaction, sale_order_id):
-        """Throws a ValidationError if IBAN is not correct"""
+        """
+        Set the corresponding payment mode for the order if using SEPA DD.
+        """
         if transaction.provider_id.code == "sepa_dd":
             # Set SEPA Direct Debit payment_mode_id
             order = request.env["sale.order"].sudo().browse(sale_order_id).exists()

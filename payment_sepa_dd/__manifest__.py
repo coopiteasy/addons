@@ -4,9 +4,8 @@
 
 {
     "name": "SEPA Direct Debit Payment",
-    "summary": """
-        Pay via SEPA Direct Debit.""",
-    "version": "16.0.0.1.0",
+    "summary": "Pay via SEPA Direct Debit",
+    "version": "16.0.1.0.0",
     "category": "Accounting/Payment Providers",
     "website": "https://github.com/coopiteasy/addons",
     "author": "Coop IT Easy SC",
@@ -18,7 +17,6 @@
         "account_payment",
         "account_banking_sepa_direct_debit",
     ],
-    "excludes": [],
     "data": [
         "views/payment_provider_views.xml",
         "views/templates.xml",
@@ -30,6 +28,4 @@
             "payment_sepa_dd/static/src/js/post_processing.js",
         ],
     },
-    "demo": [],
-    "qweb": [],
 }

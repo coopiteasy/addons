@@ -14,7 +14,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <field name="pending_msg" type="html">
             <p>
                 <i>Your order has been saved.</i>
-                Your payment by SEPA Dierct Debit will be processed soon.
+                Your payment by SEPA Direct Debit will be processed soon.
             </p>
         </field>
         <field name="sepa_dd_terms" type="html">

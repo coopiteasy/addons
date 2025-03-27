@@ -17,7 +17,7 @@ msgstr ""
 #: model_terms:payment.provider,pending_msg:payment_sepa_dd.payment_provider_sepa_dd
 msgid ""
 "<i>Your order has been saved.</i>\n"
-"                Your payment by SEPA Dierct Debit will be processed soon."
+"                Your payment by SEPA Direct Debit will be processed soon."
 msgstr ""
 
 #. module: payment_sepa_dd

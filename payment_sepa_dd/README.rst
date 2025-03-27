@@ -22,7 +22,7 @@ SEPA Direct Debit Payment
 
 |badge1| |badge2| |badge3|
 
-Form to order subscription product
+Pay via SEPA Direct Debit.
 
 **Table of contents**
 

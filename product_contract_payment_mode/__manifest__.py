@@ -4,22 +4,16 @@
 
 {
     "name": "Product Contract Payment Mode",
-    "summary": """
-        Create contract with right payment mode.""",
-    "version": "16.0.0.1.0",
+    "summary": "Create contract with right payment mode",
+    "version": "16.0.1.0.0",
     "category": "Contract Management",
     "website": "https://github.com/coopiteasy/addons",
     "author": "Coop IT Easy SC",
     "maintainers": ["remytms"],
     "license": "AGPL-3",
-    "application": False,
     "depends": [
         "product_contract",
         "contract_payment_mode",
     ],
-    "excludes": [],
-    "data": [],
-    "assets": {},
-    "demo": [],
-    "qweb": [],
+    "auto_install": True,
 }
