@@ -116,7 +116,8 @@ class PaymentTransaction(models.Model):
     def _set_pending(self, state_message=None):
         """Create mandate when transaction is set as pending"""
         txs_to_process = super()._set_pending(state_message=state_message)
-        txs_to_process.create_sepa_dd_mandate()
+        if self.provider_code == "sepa_dd":
+            txs_to_process.create_sepa_dd_mandate()
         return txs_to_process
 
     # Constrains
