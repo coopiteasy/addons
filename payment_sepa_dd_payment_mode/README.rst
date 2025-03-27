@@ -22,7 +22,9 @@ Payment SEPA Direct Debit Payment Mode
 
 |badge1| |badge2| |badge3|
 
-Form to order subscription product
+Manage payment mode with ``payment_sepa_dd``.
+
+This is a glue module between ``payment_sepa_dd`` and ``account_payment_sale``.
 
 **Table of contents**
 
