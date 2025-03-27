@@ -108,25 +108,27 @@ class DeliveryDistributionList(models.Model):
 
     def generate_distribution_list(self):
         self.ensure_one()
-        deposit_points = self.env["res.partner"].search([("deposit_point", "=", True)])
-
-        # delete existing lines if any
-        if self.state == "draft":
-            if not self.name:
-                ddl_seq = self.env.ref("delivery_distribution_list.sequence_ddl", False)
-                self.name = ddl_seq.next_by_id()
-            if self.distribution_lines:
-                for line in self.distribution_lines:
-                    line.unlink()
-            vals = {"distribution_list_id": self.id, "product_id": self.product_id.id}
-
-            for deposit_point in deposit_points:
-                if deposit_point.quantity_to_deliver > 0.0:
-                    vals["partner_id"] = deposit_point.id
-                    vals["carrier_id"] = deposit_point.carrier_id.id
-                    vals["ordered_qty"] = deposit_point.quantity_to_deliver
-                    vals["delivered_qty"] = deposit_point.quantity_to_deliver
-                    self.env["delivery.distribution.line"].create(vals)
+        if self.state != "draft":
+            return
+        deposit_points = self.env["res.partner"].search(
+            [("deposit_point", "=", True), ("quantity_to_deliver", ">", 0)]
+        )
+        if not self.name:
+            ddl_seq = self.env.ref("delivery_distribution_list.sequence_ddl", False)
+            self.name = ddl_seq.next_by_id()
+        vals_list = [
+            {
+                "product_id": self.product_id.id,
+                "partner_id": deposit_point.id,
+                "carrier_id": deposit_point.carrier_id.id,
+                "ordered_qty": deposit_point.quantity_to_deliver,
+                "delivered_qty": deposit_point.quantity_to_deliver,
+            }
+            for deposit_point in deposit_points
+        ]
+        self.distribution_lines = [fields.Command.clear()] + [
+            fields.Command.create(vals) for vals in vals_list
+        ]
 
     def unlink(self):
         for distri_list in self:
@@ -137,4 +139,4 @@ class DeliveryDistributionList(models.Model):
                         "is not in draft status"
                     )
                 )
-            return super().unlink()
+        return super().unlink()

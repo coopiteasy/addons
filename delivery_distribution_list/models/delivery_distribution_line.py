@@ -8,12 +8,16 @@ class DeliveryDistributionLine(models.Model):
 
     _order = "distribution_list_id desc, partner_id, date"
 
+    @api.depends("delivered_qty", "returned_qty")
     def _compute_sold_qty(self):
         for line in self:
             line.sold_qty = line.delivered_qty - line.returned_qty
 
     distribution_list_id = fields.Many2one(
-        "delivery.distribution.list", string="Distribution list", required=True
+        "delivery.distribution.list",
+        string="Distribution List",
+        required=True,
+        ondelete="cascade",
     )
     partner_id = fields.Many2one(
         "res.partner",
@@ -24,7 +28,7 @@ class DeliveryDistributionLine(models.Model):
     product_id = fields.Many2one("product.product", string="Product", required=True)
     date = fields.Date(
         readonly=True,
-        help="Date on which distribution line is created.",
+        help="Date on which the distribution line is created",
         default=fields.Datetime.now,
     )
     product_uom = fields.Many2one(
@@ -80,13 +84,14 @@ class DeliveryDistributionLine(models.Model):
     sale_order = fields.Many2one("sale.order", readonly=True)
 
     def unlink(self):
-        self.ensure_one()
-        if self.state != "draft":
-            raise UserError(
-                _(
-                    "It is forbidden to modify a distribution list which is not in draft status"
+        for rec in self:
+            if rec.state != "draft":
+                raise UserError(
+                    _(
+                        "It is forbidden to modify a distribution line which "
+                        "is not in draft status"
+                    )
                 )
-            )
         return super().unlink()
 
     def action_validate(self):
@@ -101,21 +106,22 @@ class DeliveryDistributionLine(models.Model):
 
     def generate_sale_order(self):
         sale_order_obj = self.env["sale.order"]
-        order_line_obj = self.env["sale.order.line"]
         for line in self:
             vals = {
                 "partner_id": line.partner_id.id,
                 "distribution_list_id": line.distribution_list_id.id,
                 "distribution_carrier_id": line.carrier_id.id,
+                "order_line": [
+                    fields.Command.create(
+                        {
+                            "product_id": line.product_id.id,
+                            "product_uom_qty": line.delivered_qty,
+                            "product_uom": line.product_uom.id,
+                        }
+                    )
+                ],
             }
             order_id = sale_order_obj.create(vals)
-            vals_line = {
-                "product_id": line.product_id.id,
-                "product_uom_qty": line.delivered_qty,
-                "product_uom": line.product_uom.id,
-                "order_id": order_id.id,
-            }
-            order_line_obj.create(vals_line)
             line.sale_order = order_id
             order_id.action_confirm()
             line.state = "sale"
@@ -125,51 +131,42 @@ class DeliveryDistributionLine(models.Model):
             line.sale_order._send_order_confirmation_mail()
             line.state = "sale_sent"
 
+    def _validate_pickings(self):
+        self.ensure_one()
+        for picking in self.sale_order.picking_ids:
+            if picking.origin != self.sale_order.name or picking.state in [
+                "cancel",
+                "done",
+            ]:
+                continue
+            if picking.state != "assigned":
+                picking.action_assign()
+                if picking.state != "assigned":
+                    raise UserError(
+                        _(
+                            "Not enough stock to deliver! Please check that "
+                            "there are enough products available."
+                        )
+                    )
+            for move in picking.move_ids:
+                if move.product_id != self.product_id:
+                    continue
+                move.quantity_done = self.sold_qty
+                if self.sold_qty < self.delivered_qty:
+                    move.product_uom_qty = self.sold_qty
+            picking.button_validate()
+
     def invoice_sale_order(self):
         for line in self:
-            if line.state in ["sale", "sale_sent"]:
-                picking_ids = line.sale_order.picking_ids.ids
-                pickings = self.env["stock.picking"].search(
-                    [("id", "in", picking_ids), ("origin", "=", line.sale_order.name)]
+            if line.state not in ["sale", "sale_sent"]:
+                continue
+            line._validate_pickings()
+            if line.sale_order.invoice_status == "to invoice":
+                line.sale_order._create_invoices()
+                line.sale_order.invoice_ids.journal_id = (
+                    line.distribution_list_id.journal_id
                 )
-                for picking in pickings:
-                    if picking.state not in ["cancel", "done"]:
-                        if picking.state != "assigned":
-                            picking.action_set_quantities_to_reservation()
-                            if picking.state != "assigned":
-                                raise UserError(
-                                    _(
-                                        "Not enough stock to deliver! Please "
-                                        "check that there is sufficient "
-                                        "product available"
-                                    )
-                                )
-                        for move in picking.move_ids:
-                            if (
-                                move.product_id.id
-                                == line.product_id.product_variant_ids.id
-                            ):
-                                move.quantity_done = line.sold_qty
-                                if line.sold_qty < line.delivered_qty:
-                                    move.product_uom_qty = line.sold_qty
-                        picking.button_validate()
-                        if line.sold_qty < line.delivered_qty:
-                            backorder_pick = self.env["stock.picking"].search(
-                                [("backorder_id", "=", picking.id)]
-                            )
-                            backorder_pick.action_cancel()
-                            picking.message_post(
-                                body=_("Back order <em>%s</em> <b>cancelled</b>.")
-                                % (backorder_pick.name)
-                            )
-
-                # line.sale_order.order_line[0].qty_delivered = line.sold_qty
-                if line.sale_order.invoice_status == "to invoice":
-                    line.sale_order._create_invoices()
-                    line.sale_order.invoice_ids.journal_id = (
-                        line.distribution_list_id.journal_id
-                    )
-                    line.state = "invoiced"
+                line.state = "invoiced"
 
     def validate_invoice(self):
         for line in self:
@@ -185,11 +182,11 @@ class DeliveryDistributionLine(models.Model):
                 line.state = "invoice_sent"
 
     @api.onchange("partner_id")
-    def onchage_partner_id(self):
+    def _onchange_partner_id(self):
         self.delivered_qty = self.partner_id.quantity_to_deliver
         self.ordered_qty = self.partner_id.quantity_to_deliver
         self.carrier_id = self.partner_id.carrier_id.id
 
     @api.onchange("ordered_qty")
-    def onchage_orderer_qty(self):
+    def _onchange_orderer_qty(self):
         self.delivered_qty = self.ordered_qty

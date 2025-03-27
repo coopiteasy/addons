@@ -17,12 +17,14 @@ class StockPicking(models.Model):
         store=True,
     )
 
-    @api.depends("move_ids")
+    @api.depends("sale_id.distribution_carrier_id", "sale_id.distribution_list_id")
     def _compute_distribution_fields(self):
-        self.distribution_list_id = False
         for picking in self:
             if picking.sale_id:
                 picking.distribution_carrier_id = (
                     picking.sale_id.distribution_carrier_id
                 )
                 picking.distribution_list_id = picking.sale_id.distribution_list_id
+            else:
+                picking.distribution_carrier_id = False
+                picking.distribution_list_id = False
