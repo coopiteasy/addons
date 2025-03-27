@@ -1,0 +1,29 @@
+{
+    "name": "Delivery distribution Management",
+    "summary": "Manage the distribution of a product through all the deposit points",
+    "author": "Coop IT Easy SC",
+    "license": "AGPL-3",
+    "version": "16.0.1.0.0",
+    "website": "https://github.com/coopiteasy/addons",
+    "category": "Sales",
+    "depends": [
+        "sale_management",
+        "account",
+        "sale_stock",
+    ],
+    "data": [
+        "security/delivery_distribution_list_security.xml",
+        "security/ir.model.access.csv",
+        "data/ddl_data.xml",
+        "views/delivery_distribution_list_view.xml",
+        "views/delivery_distribution_line_view.xml",
+        "views/res_partner_view.xml",
+        "views/sale_order_view.xml",
+        "views/stock_picking_view.xml",
+    ],
+    "assets": {
+        "web.assets_qweb": [
+            "report/sale_order_report_template.xml",
+        ],
+    },
+}

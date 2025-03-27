@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="report_saleorder_ddl" inherit_id="sale.report_saleorder_document">
+        <!-- xpath version
+        <xpath expr="//div[@name='expiration_date']" position="before">
+        -->
+        <div name="expiration_date" position="before">
+            <div t-if="doc.carrier_id" class="col-auto col-3 mw-100 mb-2">
+                <strong>Carrier:</strong>
+                <p class="m-0" t-field="doc.carrier_id.name" />
+            </div>
+        </div>
+    </template>
+</odoo>
