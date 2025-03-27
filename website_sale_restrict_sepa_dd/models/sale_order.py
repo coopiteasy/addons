@@ -48,50 +48,33 @@ class SaleOrder(models.Model):
             )
 
     def check_product_compatibility(self, product_id):
-        self.ensure_one()
-        product = self.env["product.product"].browse(product_id).exists()
-        warning = ""
-        only_sepa_dd_product = self.order_line.mapped("product_id").filtered(
-            lambda p: p.only_sepa_dd_payment
-        )
-        allow_sepa_dd_payment = all(
-            self.order_line.mapped("product_id").mapped("allow_sepa_dd_payment")
-        )
-        if product:
-            if only_sepa_dd_product and not product.allow_sepa_dd_payment:
-                # This product cannot be added
-                warning = _(
-                    f"Product {product.name} cannot be added to cart "
-                    "because product(s) : "
-                    f"{', '.join(p.name for p in only_sepa_dd_product)} "
-                    "must be payed by SEPA Direct Debit and product "
-                    f"{product.name} cannot be payed by such method."
-                    "Please process this order first, or clear "
-                    f"the order."
-                )
-            elif not allow_sepa_dd_payment and product.only_sepa_dd_payment:
-                warning = _(
-                    f"Product {product.name} cannot be added to cart "
-                    "because other products in the cart does not allow "
-                    "SEPA Direct Debit as payment method and "
-                    f"{product.name} must be payed with such a method."
-                    "Please process this order first, or clear it."
-                )
+        warning = super().check_product_compatibility(product_id)
+        if not warning:
+            product = self.env["product.product"].browse(product_id).exists()
+            only_sepa_dd_product = self.order_line.mapped("product_id").filtered(
+                lambda p: p.only_sepa_dd_payment
+            )
+            allow_sepa_dd_payment = all(
+                self.order_line.mapped("product_id").mapped("allow_sepa_dd_payment")
+            )
+            if product:
+                if only_sepa_dd_product and not product.allow_sepa_dd_payment:
+                    # This product cannot be added
+                    warning = _(
+                        f"Product {product.name} cannot be added to cart "
+                        "because product(s) : "
+                        f"{', '.join(p.name for p in only_sepa_dd_product)} "
+                        "must be payed by SEPA Direct Debit and product "
+                        f"{product.name} cannot be payed by such method."
+                        "Please process this order first, or clear "
+                        f"the order."
+                    )
+                elif not allow_sepa_dd_payment and product.only_sepa_dd_payment:
+                    warning = _(
+                        f"Product {product.name} cannot be added to cart "
+                        "because other products in the cart does not allow "
+                        "SEPA Direct Debit as payment method and "
+                        f"{product.name} must be payed with such a method."
+                        "Please process this order first, or clear it."
+                    )
         return warning
-
-    def _cart_update(self, product_id, line_id=None, add_qty=0, set_qty=0, **kwargs):
-        """Prevent incompatible product to be added to the cart."""
-        self.ensure_one()
-        warning = self.check_product_compatibility(product_id)
-        if warning:
-            add_qty = None
-            set_qty = 0
-        values = super()._cart_update(
-            product_id=product_id,
-            line_id=line_id,
-            add_qty=add_qty,
-            set_qty=set_qty,
-            **kwargs,
-        )
-        values["warning"] = warning
-        return values

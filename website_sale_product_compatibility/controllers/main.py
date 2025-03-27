@@ -8,7 +8,7 @@ from odoo.http import request
 from odoo.addons.website_sale.controllers.main import WebsiteSale
 
 
-class WebsiteSaleRestrictSEPADD(WebsiteSale):
+class WebsiteSaleProductCompatibility(WebsiteSale):
     @http.route(
         ["/shop/cart/update"],
         type="http",

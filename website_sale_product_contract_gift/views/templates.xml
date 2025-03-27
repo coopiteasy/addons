@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <template id="payment" inherit_id="website_sale.payment">
+        <xpath expr="//div[@id='payment_method']" position="before">
+            <div t-if="website_sale_order.is_gift" id="order_is_gift" class="mt-3">
+                <h3>This order is a gift</h3>
+                <p>
+                    <b>Date of the gift:</b> <span
+                        t-field="website_sale_order.gift_date"
+                    />
+                </p>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="checkout" inherit_id="website_sale.checkout">
+        <!-- Add date for gift form -->
+        <xpath
+            expr="//div[hasclass('oe_cart')]//div[hasclass('row')]"
+            position="before"
+        >
+            <div class="row" id="gift_date" t-if="website_sale_order.is_gift">
+                <div class="col-lg-12">
+                    <h3
+                        class="o_page_header mt8"
+                    >When should the gift be delivered?</h3>
+                </div>
+                <div class="col-lg-12">
+                    <form
+                        action="/shop/checkout"
+                        method="post"
+                        name="gift_date"
+                        t-att-class="'was-validated' if errors else None"
+                    >
+                        <input
+                            type="hidden"
+                            name="csrf_token"
+                            t-att-value="request.csrf_token()"
+                            t-nocache="The csrf token must always be up to date."
+                        />
+                        <div class="form-group">
+                            <label class="form-label" for="gift_date">
+                                Date for the gift
+                            </label>
+                            <input
+                                type="date"
+                                t-att-min="datetime.date.today()"
+                                required="required"
+                                class="form-control"
+                                id="gift_date"
+                                name="gift_date"
+                                t-att-value="gift_date"
+                            />
+                            <div
+                                t-if="errors.get('gift_date')"
+                                t-out="errors.get('gift_date')"
+                                class="invalid-feedback"
+                            />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </xpath>
+
+        <!-- Replace confirm button -->
+        <xpath expr="//a[@href='/shop/confirm_order']" position="attributes">
+            <attribute name="t-if">not website_sale_order.is_gift</attribute>
+        </xpath>
+
+        <xpath expr="//a[@href='/shop/confirm_order']" position="after">
+            <button
+                id="gift_form_confirm_button"
+                t-if="website_sale_order.is_gift"
+                class="btn btn-primary mb32"
+            >
+                Confirm
+                <i class="fa fa-chevron-right" />
+            </button>
+        </xpath>
+
+        <!-- Change section title accordingly -->
+        <xpath
+            expr="//div[hasclass('oe_cart')]//h3[@class='o_page_header mt16 mb4']"
+            position="after"
+        >
+            <h3
+                id="title_gift_for"
+                class="o_page_header mt16 mb4"
+                t-if="website_sale_order.is_gift"
+            >Gift for</h3>
+            <div
+                t-if="errors.get('email')"
+                t-out="errors.get('email')"
+                class="alert alert-danger mt16"
+            />
+        </xpath>
+
+        <xpath
+            expr="//div[hasclass('oe_cart')]//h3[@class='o_page_header mt16 mb4']"
+            position="attributes"
+        >
+            <attribute name="id">title_shipping_address</attribute>
+            <attribute name="t-if">not website_sale_order.is_gift</attribute>
+        </xpath>
+    </template>
+
+    <template id="address_kanban" inherit_id="website_sale.address_kanban">
+        <!-- show email address on address kanban card -->
+        <xpath expr="//t[@t-esc='contact']" position="attributes">
+            <attribute name="t-if">not website_sale_order.is_gift</attribute>
+        </xpath>
+        <xpath expr="//t[@t-esc='contact']" position="after">
+            <t
+                t-esc="contact"
+                t-if="website_sale_order.is_gift"
+                t-options="dict(widget='contact', fields=['name', 'email', 'address'], no_marker=True)"
+            />
+        </xpath>
+    </template>
+
+</odoo>
