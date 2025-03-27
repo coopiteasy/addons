@@ -1,0 +1,452 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* delivery_distribution_list
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: delivery_distribution_list
+#: model:ir.model.fields,field_description:delivery_distribution_list.field_res_partner__carrier_id
+#: model:ir.model.fields,field_description:delivery_distribution_list.field_res_users__carrier_id
+#: model:ir.model.fields,field_description:delivery_distribution_list.field_sale_order__distribution_carrier_id
+#: model:ir.model.fields,field_description:delivery_distribution_list.field_stock_picking__distribution_carrier_id
+msgid "Assigned carrier"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model_terms:ir.ui.view,arch_db:delivery_distribution_list.view_ddl_form
+msgid "Back to Draft"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model:ir.model.fields.selection,name:delivery_distribution_list.selection__delivery_distribution_line__state__cancelled
+#: model:ir.model.fields.selection,name:delivery_distribution_list.selection__delivery_distribution_list__state__cancelled
+msgid "Cancelled"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model:ir.model.fields,field_description:delivery_distribution_list.field_delivery_distribution_line__carrier_id
+#: model_terms:ir.ui.view,arch_db:delivery_distribution_list.view_distribution_line_filter
+#: model_terms:ir.ui.view,arch_db:delivery_distribution_list.view_sales_order_filter
+msgid "Carrier"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model:ir.model.fields,field_description:delivery_distribution_list.field_res_partner__carrier_delivery
+#: model:ir.model.fields,field_description:delivery_distribution_list.field_res_users__carrier_delivery
+msgid "Carrier delivery"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model:ir.actions.act_window,name:delivery_distribution_list.carries_view_action
+#: model:ir.ui.menu,name:delivery_distribution_list.menu_ddl_carriers
+msgid "Carriers"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model:ir.model,name:delivery_distribution_list.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model_terms:ir.ui.view,arch_db:delivery_distribution_list.view_ddl_filter
+#: model_terms:ir.ui.view,arch_db:delivery_distribution_list.view_distribution_line_filter
+msgid "Created Month"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model:ir.model.fields,field_description:delivery_distribution_list.field_delivery_distribution_line__create_uid
+#: model:ir.model.fields,field_description:delivery_distribution_list.field_delivery_distribution_list__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model:ir.model.fields,field_description:delivery_distribution_list.field_delivery_distribution_line__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model:ir.model.fields,field_description:delivery_distribution_list.field_delivery_distribution_list__create_date
+msgid "Creation Date"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model:ir.model.fields,field_description:delivery_distribution_list.field_delivery_distribution_line__partner_id
+msgid "Customer"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model:ir.model.fields,field_description:delivery_distribution_list.field_delivery_distribution_line__date
+msgid "Date"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model:ir.model.fields,help:delivery_distribution_list.field_delivery_distribution_list__create_date
+msgid "Date on which distribution list is created."
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model:ir.model.fields,help:delivery_distribution_list.field_delivery_distribution_line__date
+msgid "Date on which the distribution line is created"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model:ir.model.fields,field_description:delivery_distribution_list.field_res_partner__quantity_to_deliver
+#: model:ir.model.fields,field_description:delivery_distribution_list.field_res_users__quantity_to_deliver
+msgid "Default quantity to deliver"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model:ir.model.fields,help:delivery_distribution_list.field_delivery_distribution_line__product_uom
+msgid "Default unit of measure used for all stock operations."
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model:ir.model.fields,field_description:delivery_distribution_list.field_delivery_distribution_line__delivered_qty
+msgid "Delivered"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model:ir.ui.menu,name:delivery_distribution_list.menu_delivery_distribution
+msgid "Delivery Distribution"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model:ir.actions.act_window,name:delivery_distribution_list.action_distribution_line
+#: model:ir.model,name:delivery_distribution_list.model_delivery_distribution_line
+#: model:ir.ui.menu,name:delivery_distribution_list.menu_distribution_line
+msgid "Delivery Distribution Line"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model:ir.actions.act_window,name:delivery_distribution_list.action_ddl
+#: model:ir.model,name:delivery_distribution_list.model_delivery_distribution_list
+#: model:ir.ui.menu,name:delivery_distribution_list.menu_ddl
+msgid "Delivery Distribution List"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model:ir.model.fields,field_description:delivery_distribution_list.field_res_partner__deposit_point
+#: model:ir.model.fields,field_description:delivery_distribution_list.field_res_users__deposit_point
+msgid "Deposit/Sale"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model:ir.model.fields,field_description:delivery_distribution_list.field_delivery_distribution_line__display_name
+#: model:ir.model.fields,field_description:delivery_distribution_list.field_delivery_distribution_list__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model:ir.model.fields,field_description:delivery_distribution_list.field_delivery_distribution_list__distribution_date
+msgid "Distribution Date"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model:ir.model.fields,field_description:delivery_distribution_list.field_delivery_distribution_list__distribution_lines
+#: model_terms:ir.ui.view,arch_db:delivery_distribution_list.view_ddl_form
+msgid "Distribution Lines"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model:ir.model.fields,field_description:delivery_distribution_list.field_delivery_distribution_line__distribution_list_id
+#: model:ir.module.category,name:delivery_distribution_list.module_category_distribution_list
+#: model_terms:ir.ui.view,arch_db:delivery_distribution_list.view_sales_order_filter
+msgid "Distribution List"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model:res.groups,name:delivery_distribution_list.group_distribution_manager
+msgid "Distribution Manager"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model:res.groups,name:delivery_distribution_list.group_distribution_user
+msgid "Distribution User"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model_terms:ir.ui.view,arch_db:delivery_distribution_list.view_ddline_form
+msgid "Distribution line"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model:ir.model.fields,field_description:delivery_distribution_list.field_sale_order__distribution_list_id
+#: model:ir.model.fields,field_description:delivery_distribution_list.field_stock_picking__distribution_list_id
+#: model_terms:ir.ui.view,arch_db:delivery_distribution_list.view_ddl_form
+msgid "Distribution list"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model_terms:ir.ui.view,arch_db:delivery_distribution_list.view_ddl_filter
+#: model_terms:ir.ui.view,arch_db:delivery_distribution_list.view_distribution_line_filter
+msgid "Distribution list that haven't yet been confirmed"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model:ir.model.fields,field_description:delivery_distribution_list.field_delivery_distribution_list__user_id
+msgid "Distribution responsible"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model:ir.model.fields.selection,name:delivery_distribution_list.selection__delivery_distribution_list__state__done
+#: model_terms:ir.ui.view,arch_db:delivery_distribution_list.view_ddl_form
+msgid "Done"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model:ir.model.fields.selection,name:delivery_distribution_list.selection__delivery_distribution_line__state__draft
+#: model:ir.model.fields.selection,name:delivery_distribution_list.selection__delivery_distribution_list__state__draft
+#: model_terms:ir.ui.view,arch_db:delivery_distribution_list.view_ddl_filter
+#: model_terms:ir.ui.view,arch_db:delivery_distribution_list.view_ddl_form
+#: model_terms:ir.ui.view,arch_db:delivery_distribution_list.view_distribution_line_filter
+msgid "Draft"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model_terms:ir.ui.view,arch_db:delivery_distribution_list.view_ddl_form
+msgid "Generate Invoice"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model_terms:ir.ui.view,arch_db:delivery_distribution_list.view_ddl_form
+msgid "Generate List"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model_terms:ir.ui.view,arch_db:delivery_distribution_list.view_ddl_form
+msgid "Generate Sale Order"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model_terms:ir.ui.view,arch_db:delivery_distribution_list.view_ddl_form
+msgid "Generate sale order"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model_terms:ir.ui.view,arch_db:delivery_distribution_list.view_ddl_filter
+#: model_terms:ir.ui.view,arch_db:delivery_distribution_list.view_distribution_line_filter
+msgid "Group By"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model:ir.model.fields,field_description:delivery_distribution_list.field_delivery_distribution_line__id
+#: model:ir.model.fields,field_description:delivery_distribution_list.field_delivery_distribution_list__id
+msgid "ID"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model_terms:ir.ui.view,arch_db:delivery_distribution_list.view_ddl_form
+msgid "Invoice"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model:ir.model.fields.selection,name:delivery_distribution_list.selection__delivery_distribution_line__state__invoice_sent
+#: model:ir.model.fields.selection,name:delivery_distribution_list.selection__delivery_distribution_list__state__invoice_sent
+msgid "Invoice sent"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model:ir.model.fields.selection,name:delivery_distribution_list.selection__delivery_distribution_line__state__invoice_validated
+#: model:ir.model.fields.selection,name:delivery_distribution_list.selection__delivery_distribution_list__state__invoice_validated
+msgid "Invoice validated"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model:ir.model.fields.selection,name:delivery_distribution_list.selection__delivery_distribution_line__state__invoiced
+#: model:ir.model.fields.selection,name:delivery_distribution_list.selection__delivery_distribution_list__state__invoiced
+#: model_terms:ir.ui.view,arch_db:delivery_distribution_list.view_ddl_filter
+#: model_terms:ir.ui.view,arch_db:delivery_distribution_list.view_distribution_line_filter
+msgid "Invoiced"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model_terms:ir.ui.view,arch_db:delivery_distribution_list.view_ddl_filter
+#: model_terms:ir.ui.view,arch_db:delivery_distribution_list.view_distribution_line_filter
+msgid "Invoices validated"
+msgstr ""
+
+#. module: delivery_distribution_list
+#. odoo-python
+#: code:addons/delivery_distribution_list/models/delivery_distribution_line.py:0
+#, python-format
+msgid ""
+"It is forbidden to modify a distribution line which is not in draft status"
+msgstr ""
+
+#. module: delivery_distribution_list
+#. odoo-python
+#: code:addons/delivery_distribution_list/models/delivery_distribution_list.py:0
+#, python-format
+msgid ""
+"It is forbidden to modify a distribution list which is not in draft status"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model:ir.model.fields,field_description:delivery_distribution_list.field_delivery_distribution_list__journal_id
+msgid "Journal"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model:ir.model.fields,field_description:delivery_distribution_list.field_delivery_distribution_line____last_update
+#: model:ir.model.fields,field_description:delivery_distribution_list.field_delivery_distribution_list____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model:ir.model.fields,field_description:delivery_distribution_list.field_delivery_distribution_line__write_uid
+#: model:ir.model.fields,field_description:delivery_distribution_list.field_delivery_distribution_list__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model:ir.model.fields,field_description:delivery_distribution_list.field_delivery_distribution_line__write_date
+#: model:ir.model.fields,field_description:delivery_distribution_list.field_delivery_distribution_list__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model_terms:ir.ui.view,arch_db:delivery_distribution_list.view_ddl_filter
+msgid "My Distribution list"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model:ir.model.fields,field_description:delivery_distribution_list.field_delivery_distribution_list__name
+msgid "Name"
+msgstr ""
+
+#. module: delivery_distribution_list
+#. odoo-python
+#: code:addons/delivery_distribution_list/models/delivery_distribution_line.py:0
+#, python-format
+msgid ""
+"Not enough stock to deliver! Please check that there are enough products "
+"available."
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model:ir.model.fields,field_description:delivery_distribution_list.field_delivery_distribution_line__ordered_qty
+msgid "Ordered"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model:ir.model.fields,field_description:delivery_distribution_list.field_delivery_distribution_line__product_id
+#: model:ir.model.fields,field_description:delivery_distribution_list.field_delivery_distribution_list__product_id
+#: model_terms:ir.ui.view,arch_db:delivery_distribution_list.view_distribution_line_filter
+msgid "Product"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model_terms:ir.ui.view,arch_db:delivery_distribution_list.view_ddl_filter
+msgid "Responsible"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model:ir.model.fields,field_description:delivery_distribution_list.field_delivery_distribution_line__returned_qty
+msgid "Returned"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model:ir.model.fields,field_description:delivery_distribution_list.field_delivery_distribution_line__sale_order
+#: model:ir.model.fields.selection,name:delivery_distribution_list.selection__delivery_distribution_line__state__sale
+#: model:ir.model.fields.selection,name:delivery_distribution_list.selection__delivery_distribution_list__state__sale
+msgid "Sale Order"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model_terms:ir.ui.view,arch_db:delivery_distribution_list.view_ddl_filter
+#: model_terms:ir.ui.view,arch_db:delivery_distribution_list.view_distribution_line_filter
+msgid "Sale Order Genereated"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model:ir.model.fields.selection,name:delivery_distribution_list.selection__delivery_distribution_line__state__sale_sent
+#: model:ir.model.fields.selection,name:delivery_distribution_list.selection__delivery_distribution_list__state__sale_sent
+msgid "Sale order sent"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model:ir.model,name:delivery_distribution_list.model_sale_order
+msgid "Sales Order"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model_terms:ir.ui.view,arch_db:delivery_distribution_list.view_distribution_line_filter
+msgid "Search Distribution Lines"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model_terms:ir.ui.view,arch_db:delivery_distribution_list.view_ddl_filter
+msgid "Search Distribution List"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model_terms:ir.ui.view,arch_db:delivery_distribution_list.view_ddl_form
+msgid "Send Invoice"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model_terms:ir.ui.view,arch_db:delivery_distribution_list.view_ddl_form
+msgid "Send Invoice by Email"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model_terms:ir.ui.view,arch_db:delivery_distribution_list.view_ddl_form
+msgid "Send Order"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model_terms:ir.ui.view,arch_db:delivery_distribution_list.view_ddl_form
+msgid "Send SO by Email"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model:ir.model.fields,field_description:delivery_distribution_list.field_delivery_distribution_line__sold_qty
+msgid "Sold"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model:ir.model.fields,field_description:delivery_distribution_list.field_delivery_distribution_line__state
+#: model:ir.model.fields,field_description:delivery_distribution_list.field_delivery_distribution_list__state
+#: model_terms:ir.ui.view,arch_db:delivery_distribution_list.view_distribution_line_filter
+msgid "State"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model:ir.model,name:delivery_distribution_list.model_stock_picking
+msgid "Transfer"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model:ir.model.fields,field_description:delivery_distribution_list.field_delivery_distribution_line__product_uom
+msgid "Unit of Measure"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model_terms:ir.ui.view,arch_db:delivery_distribution_list.view_ddl_form
+msgid "Validate"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model_terms:ir.ui.view,arch_db:delivery_distribution_list.view_ddl_form
+msgid "Validate Invoice"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model_terms:ir.ui.view,arch_db:delivery_distribution_list.view_ddl_form
+msgid "Validate List"
+msgstr ""
+
+#. module: delivery_distribution_list
+#: model:ir.model.fields.selection,name:delivery_distribution_list.selection__delivery_distribution_line__state__validated
+#: model:ir.model.fields.selection,name:delivery_distribution_list.selection__delivery_distribution_list__state__validated
+msgid "Validated"
+msgstr ""
