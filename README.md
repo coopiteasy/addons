@@ -28,7 +28,7 @@ addon | version | maintainers | summary
 [document_hosting](document_hosting/) | 16.0.1.0.0 |  | Manage documents that can be published on website with ??.
 [event_track_multi_date](event_track_multi_date/) | 16.0.1.0.0 |  | Multiple Dates per Track
 [partner_contact_type_default](partner_contact_type_default/) | 16.0.1.0.0 | [![carmenbianca](https://github.com/carmenbianca.png?size=30px)](https://github.com/carmenbianca) | Set 'contact' as default type when creating a partner as a contact of another partner.
-[payment_sepa_dd](payment_sepa_dd/) | 16.0.1.0.0 | [![remytms](https://github.com/remytms.png?size=30px)](https://github.com/remytms) | Pay via SEPA Direct Debit
+[payment_sepa_dd](payment_sepa_dd/) | 16.0.1.0.1 | [![remytms](https://github.com/remytms.png?size=30px)](https://github.com/remytms) | Pay via SEPA Direct Debit
 [payment_sepa_dd_payment_mode](payment_sepa_dd_payment_mode/) | 16.0.1.0.0 | [![remytms](https://github.com/remytms.png?size=30px)](https://github.com/remytms) | Manage payment mode with payment_sepa_dd
 [portal_customer_wallet](portal_customer_wallet/) | 16.0.1.0.0 | [![carmenbianca](https://github.com/carmenbianca.png?size=30px)](https://github.com/carmenbianca) | My Home displays expenditures using customer wallet
 [product_contract_payment_mode](product_contract_payment_mode/) | 16.0.1.0.0 | [![remytms](https://github.com/remytms.png?size=30px)](https://github.com/remytms) | Create contract with right payment mode
