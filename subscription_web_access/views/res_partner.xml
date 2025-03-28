@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="model">res.partner</field>
+        <field type="xml" name="arch">
+            <field name="category_id" position="after">
+                <field name="subscriber" />
+                <field name="is_web_subscribed" />
+            </field>
+        </field>
+    </record>
+      <record id="view_res_partner_filter" model="ir.ui.view">
+        <field name="inherit_id" ref="base.view_res_partner_filter" />
+        <field name="model">res.partner</field>
+        <field type="xml" name="arch">
+            <filter name="inactive" position="after">
+                <separator />
+                <filter
+                    name="filter_subscriber"
+                    string="Subscribed"
+                    domain="[('subscriber', '=', True)]"
+                />
+                <filter
+                    name="filter_web_access"
+                    string="With web access"
+                    domain="[('is_web_subscribed', '=', True)]"
+                />
+            </filter>
+        </field>
+    </record>
+</odoo>
