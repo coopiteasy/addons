@@ -24,6 +24,7 @@ addon | version | maintainers | summary
 [account_customer_wallet](account_customer_wallet/) | 16.0.1.0.1 |  | Allow customers to pay using a wallet which is tracked by the company.
 [account_move_payment_mode_sepa](account_move_payment_mode_sepa/) | 16.0.1.0.0 | [![victor-champonnois](https://github.com/victor-champonnois.png?size=30px)](https://github.com/victor-champonnois) | Account Move Payment Mode SEPA
 [company_today](company_today/) | 16.0.1.0.0 |  | Store today's date on the company model.
+[contract_delivery_address](contract_delivery_address/) | 16.0.1.0.0 |  | Add contact's default delivery address to contract
 [delivery_distribution_list](delivery_distribution_list/) | 16.0.1.0.0 |  | Manage the distribution of a product through all the deposit points
 [document_hosting](document_hosting/) | 16.0.1.0.0 |  | Manage documents that can be published on website with ??.
 [event_track_multi_date](event_track_multi_date/) | 16.0.1.0.0 |  | Multiple Dates per Track
