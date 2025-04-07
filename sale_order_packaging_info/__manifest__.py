@@ -4,16 +4,14 @@
 
 {
     "name": "Sale Order Packaging Information",
-    "summary": """
-        Creates a table of packaging products on sales orders.""",
-    "version": "12.0.1.0.0",
+    "summary": "Create a table of packaging products on sales orders",
+    "version": "16.0.1.0.0",
     "category": "Sales",
-    "website": "https://coopiteasy.be",
+    "website": "https://github.com/coopiteasy/addons",
     "author": "Coop IT Easy SC",
     "maintainers": ["carmenbianca"],
     "license": "AGPL-3",
     "depends": [
-        "decimal_precision",
         "sale",
     ],
     "data": [

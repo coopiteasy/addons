@@ -16,6 +16,9 @@ class SaleOrder(models.Model):
     packaging_amount_total = fields.Monetary(
         string="Packaging Total", compute="_compute_packaging_amount"
     )
+    packaging_tax_totals = fields.Binary(
+        compute="_compute_packaging_tax_totals", exportable=False
+    )
     packaging_notes = fields.Text(string="Notes (Packaging)")
 
     @api.model
@@ -26,7 +29,9 @@ class SaleOrder(models.Model):
             # price_unit is specified here because it will show as empty if I
             # don't. I don't know why, but it's no problem.
             result["sale_order_packaging_line_ids"] = [
-                (0, False, {"product_id": product.id, "price_unit": product.lst_price})
+                fields.Command.create(
+                    {"product_id": product.id, "price_unit": product.lst_price}
+                )
                 for product in self.env["res.company"]
                 .browse(company_id)
                 .packaging_product_ids
@@ -34,11 +39,25 @@ class SaleOrder(models.Model):
         return result
 
     @api.depends(
-        "sale_order_packaging_line_ids",
         "sale_order_packaging_line_ids.price_subtotal",
     )
     def _compute_packaging_amount(self):
         for order in self:
             order.packaging_amount_total = sum(
                 order.sale_order_packaging_line_ids.mapped("price_subtotal")
+            )
+
+    # this is a copy of sale.order._compute_tax_totals().
+    @api.depends_context("lang")
+    @api.depends(
+        "sale_order_packaging_line_ids.price_unit",
+        "sale_order_packaging_line_ids.product_uom_qty",
+        "currency_id",
+    )
+    def _compute_packaging_tax_totals(self):
+        for order in self:
+            order_lines = order.sale_order_packaging_line_ids
+            order.packaging_tax_totals = self.env["account.tax"]._prepare_tax_totals(
+                [x._convert_to_tax_base_line_dict() for x in order_lines],
+                order.currency_id or order.company_id.currency_id,
             )
