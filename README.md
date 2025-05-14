@@ -36,6 +36,7 @@ addon | version | maintainers | summary
 [product_contract_sale_generation](product_contract_sale_generation/) | 16.0.1.0.0 |  | Prevent loop between product_contract and contract_sale_generation
 [product_contract_storable](product_contract_storable/) | 16.0.1.0.0 |  | Allow product contract to be of type other than services
 [resource_work_time_from_contracts](resource_work_time_from_contracts/) | 16.0.1.0.0 |  | Take the contracts of an employee into account when computing work time per day
+[sale_order_auto_carrier](sale_order_auto_carrier/) | 16.0.1.0.0 |  | Compute automatically the carrier on a sale order
 [sale_order_volume](sale_order_volume/) | 16.0.1.0.0 |  | Computes the volume of products per category ordered and display it on
 [subscription_web_access](subscription_web_access/) | 16.0.1.0.0 |  | Compute whether a partner has ongoing contracts
 [website_rebrand_coopiteasy](website_rebrand_coopiteasy/) | 16.0.1.0.0 |  | Replace default Odoo website branding by Coop IT Easy branding
