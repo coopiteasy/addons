@@ -6,7 +6,7 @@
     "name": "Board signature",
     "summary": "Adds board representative's name, function and signature to companies",
     "version": "16.0.1.0.0",
-    "category": "Cooperative management",
+    "category": "Reporting",
     "website": "https://github.com/coopiteasy/addons",
     "author": "Coop IT Easy SC",
     "maintainers": ["mihien"],
