@@ -64,6 +64,28 @@ msgid "Product"
 msgstr ""
 
 #. module: website_sale_restrict_sepa_dd
+#. odoo-python
+#: code:addons/website_sale_restrict_sepa_dd/models/sale_order.py:0
+#, python-format
+msgid ""
+"Product {product_name} cannot be added to the cart because other products in"
+" the cart do not allow SEPA Direct Debit as payment method and "
+"{product_name} must be paid for by such method. Please process this order "
+"first, or clear it."
+msgstr ""
+
+#. module: website_sale_restrict_sepa_dd
+#. odoo-python
+#: code:addons/website_sale_restrict_sepa_dd/models/sale_order.py:0
+#, python-format
+msgid ""
+"Product {product_name} cannot be added to the cart because product(s): "
+"{products} must be paid for by SEPA Direct Debit and product {product_name} "
+"cannot be paid for by such method. Please process this order first, or clear"
+" it."
+msgstr ""
+
+#. module: website_sale_restrict_sepa_dd
 #: model:ir.model,name:website_sale_restrict_sepa_dd.model_sale_order
 msgid "Sales Order"
 msgstr ""
