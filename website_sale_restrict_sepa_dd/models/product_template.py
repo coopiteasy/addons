@@ -21,8 +21,8 @@ class SaleOrder(models.Model):
             if product.only_sepa_dd_payment and not product.allow_sepa_dd_payment:
                 raise ValidationError(
                     _(
-                        "Allow SEPA Direct Debit payment for the product "
-                        "in ordre to set Only SEPA Direct Debit payment."
+                        "Allow SEPA Direct Debit Payment must be enabled to "
+                        "enable Only SEPA Direct Debit Payment."
                     )
                 )
 
