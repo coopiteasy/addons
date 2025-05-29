@@ -94,13 +94,20 @@ class SaleOrder(models.Model):
             if existing_partners:
                 contract_partner = existing_partners[0]
             else:
-                contract_partner = order.partner_shipping_id.copy(
+                contract_partner = order.partner_shipping_id.create(
                     {
-                        # copy name to prevent odoo adding '(copy)'
-                        # after the name.
                         "name": order.partner_shipping_id.name,
                         "type": "contact",
                         "parent_id": False,
+                        "email": order.partner_shipping_id.email,
+                        "phone": order.partner_shipping_id.phone,
+                        "mobile": order.partner_shipping_id.mobile,
+                        "street": order.partner_shipping_id.street,
+                        "street2": order.partner_shipping_id.street2,
+                        "zip": order.partner_shipping_id.zip,
+                        "city": order.partner_shipping_id.city,
+                        "state_id": order.partner_shipping_id.state_id.id,
+                        "country_id": order.partner_shipping_id.country_id.id,
                     }
                 )
             for line in line_to_create_contract:
