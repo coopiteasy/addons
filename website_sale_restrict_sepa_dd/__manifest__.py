@@ -5,7 +5,7 @@
 {
     "name": "Restrict SEPA Direct Debit Payment",
     "summary": "Restrict payment by SEPA Direct Debit for some products",
-    "version": "16.0.1.0.0",
+    "version": "16.0.1.0.1",
     "category": "Website",
     "website": "https://github.com/coopiteasy/addons",
     "author": "Coop IT Easy SC",

@@ -45,7 +45,7 @@ addon | version | maintainers | summary
 [website_sale_product_compatibility](website_sale_product_compatibility/) | 16.0.1.0.0 | [![remytms](https://github.com/remytms.png?size=30px)](https://github.com/remytms) | Generic module to add compatibility check between products.
 [website_sale_product_contract_gift](website_sale_product_contract_gift/) | 16.0.1.0.0 | [![remytms](https://github.com/remytms.png?size=30px)](https://github.com/remytms) | Configure product contract to be a gift to someone else.
 [website_sale_product_trial](website_sale_product_trial/) | 16.0.1.0.0 | [![remytms](https://github.com/remytms.png?size=30px)](https://github.com/remytms) | Configure product contract to be a trial subscription.
-[website_sale_restrict_sepa_dd](website_sale_restrict_sepa_dd/) | 16.0.1.0.0 | [![remytms](https://github.com/remytms.png?size=30px)](https://github.com/remytms) | Restrict payment by SEPA Direct Debit for some products
+[website_sale_restrict_sepa_dd](website_sale_restrict_sepa_dd/) | 16.0.1.0.1 | [![remytms](https://github.com/remytms.png?size=30px)](https://github.com/remytms) | Restrict payment by SEPA Direct Debit for some products
 
 [//]: # (end addons)
 
