@@ -26,9 +26,9 @@ class SaleOrder(models.Model):
             if only_sepa_dd_payment and not allow_sepa_dd_payment:
                 raise ValidationError(
                     _(
-                        "Cannot add product that does not allow SEPA "
-                        "Direct Debit with products that allow only SEPA "
-                        "Direct Debit payment."
+                        "Cannot add a product that does not allow SEPA "
+                        "Direct Debit payments to a sales order containing "
+                        "products that allow only SEPA Direct Debit payments."
                     )
                 )
 
@@ -61,20 +61,21 @@ class SaleOrder(models.Model):
                 if only_sepa_dd_product and not product.allow_sepa_dd_payment:
                     # This product cannot be added
                     warning = _(
-                        f"Product {product.name} cannot be added to cart "
-                        "because product(s) : "
-                        f"{', '.join(p.name for p in only_sepa_dd_product)} "
-                        "must be payed by SEPA Direct Debit and product "
-                        f"{product.name} cannot be payed by such method."
-                        "Please process this order first, or clear "
-                        f"the order."
+                        "Product {product_name} cannot be added to the cart "
+                        "because product(s): {products} must be paid for by "
+                        "SEPA Direct Debit and product {product_name} cannot "
+                        "be paid for by such method. Please process this "
+                        "order first, or clear it."
+                    ).format(
+                        product_name=product.name,
+                        products=", ".join(p.name for p in only_sepa_dd_product),
                     )
                 elif not allow_sepa_dd_payment and product.only_sepa_dd_payment:
                     warning = _(
-                        f"Product {product.name} cannot be added to cart "
-                        "because other products in the cart does not allow "
+                        "Product {product_name} cannot be added to the cart "
+                        "because other products in the cart do not allow "
                         "SEPA Direct Debit as payment method and "
-                        f"{product.name} must be payed with such a method."
+                        "{product_name} must be paid for by such method. "
                         "Please process this order first, or clear it."
-                    )
+                    ).format(product_name=product.name)
         return warning
