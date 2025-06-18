@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <template id="captcha_template" name="captcha_template">
+        <div
+            class="g-recaptcha"
+            t-att-data-sitekey="request.env['ir.config_parameter'].sudo().get_param('portal_recaptcha.recaptcha_key_site')"
+            name="recaptcha_key_site"
+        />
+        <script src="https://www.recaptcha.net/recaptcha/api.js" async="true" />
+    </template>
+
+    <template
+        id="signup_recaptcha_v2"
+        inherit_id="auth_signup.signup"
+        name="Sign up login recaptcha v2"
+    >
+        <xpath expr="//div[hasclass('oe_login_buttons')]" position="before">
+            <t t-call="auth_signup_recaptcha_v2.captcha_template" />
+        </xpath>
+    </template>
+
+</odoo>
