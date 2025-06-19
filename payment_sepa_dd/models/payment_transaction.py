@@ -170,7 +170,7 @@ class PaymentTransaction(models.Model):
             if not res_partner_bank:
                 res_partner_bank = self.env["res.partner.bank"].create(
                     {
-                        "partner_id": tx.partner_id.id,
+                        "partner_id": tx.partner_id.commercial_partner_id.id,
                         "acc_number": tx.sepa_dd_iban,
                     }
                 )
