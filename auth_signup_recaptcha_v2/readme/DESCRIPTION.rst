@@ -1,1 +1,1 @@
-Add recaptcha validation on signup form..
+Add reCAPTCHA v2 to sign-up form.

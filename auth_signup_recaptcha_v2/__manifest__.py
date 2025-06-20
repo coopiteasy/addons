@@ -3,10 +3,10 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 {
-    "name": "Auth Sign Up Recaptcha v2",
-    "summary": "Add recaptcha validation on signup form.",
+    "name": "Signup reCAPTCHA v2",
+    "summary": "Add reCAPTCHA v2 to sign-up form",
     "version": "12.0.1.0.0",
-    "category": "Authentication",
+    "category": "Tools",
     "website": "https://coopiteasy.be",
     "author": "Coop IT Easy SC",
     "maintainers": ["remytms"],
