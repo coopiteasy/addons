@@ -40,6 +40,7 @@ addon | version | maintainers | summary
 [account_invoice_ubl_mass_download](account_invoice_ubl_mass_download/) | 12.0.1.0.0 |  | Account Invoice UBL Mass Download
 [account_missing_tax](account_missing_tax/) | 12.0.1.0.1 |  | Define an account for when the tax is unassigned, for each company.
 [auth_company_signup](auth_company_signup/) | 12.0.1.0.0 |  | This module allows a user to sign up as a company.
+[auth_signup_recaptcha_v2](auth_signup_recaptcha_v2/) | 12.0.1.0.0 | [![remytms](https://github.com/remytms.png?size=30px)](https://github.com/remytms) | Add reCAPTCHA v2 to sign-up form
 [belgian_bank_data](belgian_bank_data/) | 12.0.1.0.0 |  | This module imports Belgian banks with their name and BIC code.
 [company_supplier_context](company_supplier_context/) | 12.0.1.0.0 |  | When creating a new supplier, make it a company partner type by default.
 [company_today](company_today/) | 12.0.1.1.0 |  | Store today's date on the company model.
