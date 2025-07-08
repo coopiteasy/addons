@@ -11,23 +11,32 @@ class ResPartner(models.Model):
         compute="_compute_subscription_status",
         store=True,
     )
-
     subscriber = fields.Boolean(
         compute="_compute_subscription_status",
         store=True,
     )
 
+    # this compute method is not enough to keep the field up-to-date because
+    # it depends on contract_ids.contract_line_ids.state, which is a
+    # non-stored computed field that depends on the current date. this is why
+    # it is also called everyday from a cron job.
     @api.depends(
         "contract_ids.contract_line_ids.state",
         "contract_ids.contract_line_ids.product_id.is_trial",
     )
     def _compute_subscription_status(self):
         for rec in self:
-            rec.is_web_subscribed = False
-            rec.subscriber = False
+            is_web_subscribed = False
+            subscriber = False
             for contract in rec.contract_ids:
                 for line in contract.contract_line_ids:
                     if line.state == "in-progress" or line.state == "upcoming-close":
-                        rec.is_web_subscribed = True
+                        is_web_subscribed = True
                         if not line.product_id.is_trial:
-                            rec.subscriber = True
+                            subscriber = True
+            rec.is_web_subscribed = is_web_subscribed
+            rec.subscriber = subscriber
+
+    @api.model
+    def cron_update_subscription_status(self):
+        self.search([])._compute_subscription_status()
