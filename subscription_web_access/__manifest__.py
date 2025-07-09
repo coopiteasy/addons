@@ -13,6 +13,7 @@
         "website_sale_product_trial",
     ],
     "data": [
+        "data/subscription_status_cron.xml",
         "views/res_partner.xml",
     ],
 }

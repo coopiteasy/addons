@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+SPDX-FileCopyrightText: 2025 Coop IT Easy SC
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<odoo noupdate="1">
+    <record model="ir.cron" id="res_partner_subscription_status">
+        <field name="name">Update subscription status</field>
+        <field name="model_id" ref="model_res_partner" />
+        <field name="state">code</field>
+        <field name="code">model.cron_update_subscription_status()</field>
+        <field name="user_id" ref="base.user_root" />
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False" />
+    </record>
+</odoo>
