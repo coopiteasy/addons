@@ -36,6 +36,12 @@ msgid "Subscriber"
 msgstr ""
 
 #. module: subscription_web_access
+#: model:ir.actions.server,name:subscription_web_access.res_partner_subscription_status_ir_actions_server
+#: model:ir.cron,cron_name:subscription_web_access.res_partner_subscription_status
+msgid "Update subscription status"
+msgstr ""
+
+#. module: subscription_web_access
 #: model:ir.model,name:subscription_web_access.model_res_users
 msgid "User"
 msgstr ""
