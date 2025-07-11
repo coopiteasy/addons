@@ -1,6 +1,6 @@
-=============================
-Membership Global Member View
-=============================
+==============================
+Membership Global Members View
+==============================
 
 .. 
    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -22,7 +22,7 @@ Membership Global Member View
 
 |badge1| |badge2| |badge3|
 
-Global view of the members, for all companies and without seeing personnal data.
+Global view of the members, for all companies and without seeing personal data.
 
 **Table of contents**
 

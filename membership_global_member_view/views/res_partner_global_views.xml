@@ -1,4 +1,9 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+SPDX-FileCopyrightText: 2025 Coop IT Easy SC
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
 <odoo>
 
     <record model="ir.ui.view" id="view_global_member_tree">
@@ -26,7 +31,7 @@
         </field>
     </record>
 
-    <record id="view_global_mebmer_search" model="ir.ui.view">
+    <record id="view_global_member_search" model="ir.ui.view">
         <field name="name">res.partner.global.search</field>
         <field name="model">res.partner.global</field>
         <field name="arch" type="xml">
