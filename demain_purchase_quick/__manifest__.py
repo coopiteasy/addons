@@ -6,7 +6,7 @@
     "name": "Demain Purchase Quick",
     "summary": "Add minimum quantity and purchase UoM fields to purchase "
     "order products quick add view",
-    "version": "12.0.1.0.0",
+    "version": "16.0.1.0.0",
     "category": "Purchase",
     "website": "https://coopiteasy.be",
     "author": "Coop IT Easy SC",
