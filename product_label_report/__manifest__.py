@@ -7,7 +7,7 @@
     """,
     "author": "Coop IT Easy SC",
     "category": "Product",
-    "version": "12.0.1.0.0",
+    "version": "16.0.1.0.0",
     "website": "https://github.com/coopiteasy/addons",
     "license": "AGPL-3",
     "depends": ["base", "product", "web"],
