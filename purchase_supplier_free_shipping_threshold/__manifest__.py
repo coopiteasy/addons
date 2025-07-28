@@ -8,7 +8,7 @@
         Free Shipping Threshold On Suppliers""",
     "version": "12.0.1.0.0",
     "category": "Uncategorized",
-    "website": "https://coopiteasy.be",
+    "website": "https://github.com/coopiteasy/addons",
     "author": "Coop IT Easy SC",
     "maintainers": ["victor-champonnois"],
     "license": "AGPL-3",
