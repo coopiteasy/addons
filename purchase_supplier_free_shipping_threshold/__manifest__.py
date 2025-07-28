@@ -6,7 +6,7 @@
     "name": "Supplier Free Shipping Threshold",
     "summary": """
         Free Shipping Threshold On Suppliers""",
-    "version": "12.0.1.0.0",
+    "version": "16.0.1.0.0",
     "category": "Uncategorized",
     "website": "https://github.com/coopiteasy/addons",
     "author": "Coop IT Easy SC",
@@ -14,11 +14,8 @@
     "license": "AGPL-3",
     "application": False,
     "depends": ["purchase"],
-    "excludes": [],
     "data": [
         "views/purchase_order.xml",
         "views/res_partner.xml",
     ],
-    "demo": [],
-    "qweb": [],
 }
