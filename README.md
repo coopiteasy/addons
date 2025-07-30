@@ -38,6 +38,7 @@ addon | version | maintainers | summary
 [product_contract_sale_generation](product_contract_sale_generation/) | 16.0.1.0.0 |  | Prevent loop between product_contract and contract_sale_generation
 [product_contract_storable](product_contract_storable/) | 16.0.1.0.0 |  | Allow product contract to be of type other than services
 [product_label_report](product_label_report/) | 16.0.1.0.0 |  | This module allows to show the print barcode and name of the product.
+[purchase_supplier_free_shipping_threshold](purchase_supplier_free_shipping_threshold/) | 16.0.1.0.0 | [![victor-champonnois](https://github.com/victor-champonnois.png?size=30px)](https://github.com/victor-champonnois) | Free Shipping Threshold On Suppliers
 [resource_work_time_from_contracts](resource_work_time_from_contracts/) | 16.0.1.0.0 |  | Take the contracts of an employee into account when computing work time per day
 [sale_order_auto_carrier](sale_order_auto_carrier/) | 16.0.1.0.0 |  | Compute automatically the carrier on a sale order
 [sale_order_volume](sale_order_volume/) | 16.0.1.0.0 |  | Computes the volume of products per category ordered and display it on
