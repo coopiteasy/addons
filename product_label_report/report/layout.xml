@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="product_label_content_barcode_and_name">
+        <t t-if="product.barcode">
+            <div class="barcode">
+                <t
+                    t-out="product.barcode"
+                    t-options="{
+                    'widget': 'barcode',
+                    'symbology': 'Code128',
+                    'width': 600,
+                    'height': 150,
+                    'img_style': 'max-height:100%;max-width:100%;'
+                    }"
+                />
+            </div>
+            <span t-field="product.barcode" class="barcode" />
+        </t>
+        <div class="product-name" t-out="product.name" />
+    </template>
+
+    <template id="report_style_8x3">
+        <style type="text/css">
+.height-8 {
+    height: 175px;
+    min-height: 175px;
+    max-height: 175px;
+    margin: 0;
+}
+
+.label {
+    padding: 20px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.barcode {
+    font-size: 20px;
+}
+
+.product-name {
+    font-weight: bold;
+    overflow: hidden;
+    line-height: 1.4em;
+    max-height: 2.8em;
+}
+
+.barcode-img {
+    width: 100%;
+    height: 70px;
+}
+
+.barcode {
+    font-size: 20px;
+}
+        </style>
+        <t t-out="0" />
+    </template>
+
+    <template id="report_style_10x4">
+    <style type="text/css">
+.height-10 {
+    height: 140px;
+    min-height: 140px;
+    max-height: 140px;
+    margin: 0;
+}
+
+.label {
+    text-align: center;
+    font-size: 14px;
+    color: black;
+    padding: 20px;
+    border: none;
+    white-space: normal;
+}
+
+.barcode-img {
+    width: 100%;
+    height: 30px;
+}
+
+.barcode {
+    font-size: 20px;
+    font-weight: normal;
+}
+
+.product-name {
+    font-weight: bold;
+    overflow: hidden;
+    line-height: 1.4em;
+    max-height: 2.8em;
+}
+        </style>
+        <t t-out="0" />
+    </template>
+
+    <template id="report_style_13x5">
+        <style type="text/css">
+.width-5 {
+    width: 20%;
+    width-min: 20%;
+    width-max: 20%;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.height-13 {
+    height: 107px;
+    min-height: 107px;
+    max-height: 107px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.label {
+    text-align: center;
+    font-size: 10px;
+    color: black;
+    padding: 20px;
+    border: none;
+    white-space: normal;
+}
+
+.barcode-img {
+    width: 100%;
+    height: 30px;
+}
+
+.barcode {
+    font-size: 10px;
+    font-weight: normal;
+}
+
+.product-name {
+    font-weight: bold;
+    overflow: hidden;
+    line-height: 1.4em;
+    max-height: 2.8em;
+}
+        </style>
+        <t t-out="0" />
+    </template>
+</odoo>
