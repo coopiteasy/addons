@@ -8,7 +8,7 @@
         Round POS payments up for willing customers as a gesture of solidarity.""",
     "version": "12.0.1.0.0",
     "category": "Point of Sale",
-    "website": "https://coopiteasy.be",
+    "website": "https://github.com/coopiteasy/addons",
     "author": "Coop IT Easy SC",
     "maintainers": ["carmenbianca"],
     "license": "AGPL-3",
