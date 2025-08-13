@@ -7,21 +7,17 @@
     "summary": """
         Allow registered users to change their solidarity rounding configuration in the
         account settings.""",
-    "version": "12.0.1.0.0",
+    "version": "16.0.1.0.0",
     "category": "Portal",
     "website": "https://github.com/coopiteasy/addons",
     "author": "Coop IT Easy SC",
     "maintainers": ["carmenbianca"],
     "license": "AGPL-3",
-    "application": False,
     "depends": [
         "pos_solidarity_rounding",
         "portal",
     ],
-    "excludes": [],
     "data": [
         "views/portal_templates.xml",
     ],
-    "demo": [],
-    "qweb": [],
 }
