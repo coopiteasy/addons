@@ -32,7 +32,7 @@ addon | version | maintainers | summary
 [l10n_be_national_number](l10n_be_national_number/) | 16.0.2.0.0 | [![victor-champonnois](https://github.com/victor-champonnois.png?size=30px)](https://github.com/victor-champonnois) | Emptied.
 [membership_global_member_view](membership_global_member_view/) | 16.0.1.0.0 | [![remytms](https://github.com/remytms.png?size=30px)](https://github.com/remytms) | Global view of the members, for all companies and without seeing personal data
 [partner_contact_type_default](partner_contact_type_default/) | 16.0.1.0.0 | [![carmenbianca](https://github.com/carmenbianca.png?size=30px)](https://github.com/carmenbianca) | Set 'contact' as default type when creating a partner as a contact of another partner.
-[payment_sepa_dd](payment_sepa_dd/) | 16.0.1.0.1 | [![remytms](https://github.com/remytms.png?size=30px)](https://github.com/remytms) | Pay via SEPA Direct Debit
+[payment_sepa_dd](payment_sepa_dd/) | 16.0.1.0.2 | [![remytms](https://github.com/remytms.png?size=30px)](https://github.com/remytms) | Pay via SEPA Direct Debit
 [payment_sepa_dd_payment_mode](payment_sepa_dd_payment_mode/) | 16.0.1.0.0 | [![remytms](https://github.com/remytms.png?size=30px)](https://github.com/remytms) | Manage payment mode with payment_sepa_dd
 [portal_customer_wallet](portal_customer_wallet/) | 16.0.1.0.0 | [![carmenbianca](https://github.com/carmenbianca.png?size=30px)](https://github.com/carmenbianca) | My Home displays expenditures using customer wallet
 [product_contract_payment_mode](product_contract_payment_mode/) | 16.0.1.0.0 | [![remytms](https://github.com/remytms.png?size=30px)](https://github.com/remytms) | Create contract with right payment mode
