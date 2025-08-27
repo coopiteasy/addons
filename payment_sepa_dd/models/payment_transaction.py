@@ -168,9 +168,17 @@ class PaymentTransaction(models.Model):
         for tx in self:
             res_partner_bank = tx.get_res_partner_bank()
             if not res_partner_bank:
+                # force parent company creation to attach the bank account to it
+                partner = tx.partner_id
+                if (
+                    not partner.parent_id
+                    and not partner.is_company
+                    and partner.company_name
+                ):
+                    partner.create_company()
                 res_partner_bank = self.env["res.partner.bank"].create(
                     {
-                        "partner_id": tx.partner_id.id,
+                        "partner_id": partner.commercial_partner_id.id,
                         "acc_number": tx.sepa_dd_iban,
                     }
                 )
