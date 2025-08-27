@@ -127,14 +127,14 @@ class PaymentTransaction(models.Model):
         """Raise ValidationError if sepa_dd_iban is not correct"""
         if self.sepa_dd_iban:
             validate_iban(self.sepa_dd_iban)
-            sanitized_sepa_dd_iban = sanitize_account_number(self.sepa_dd_iban)
-            res_partner_bank = self.env["res.partner.bank"].search(
-                [("sanitized_acc_number", "=", sanitized_sepa_dd_iban)],
-                limit=1,
-            )
-            if res_partner_bank and res_partner_bank.partner_id != self.partner_id:
+            res_partner_bank = self.get_res_partner_bank()
+            if (
+                res_partner_bank
+                and res_partner_bank.partner_id.commercial_partner_id
+                != self.partner_id.commercial_partner_id
+            ):
                 raise ValidationError(
-                    f"The account number {sanitized_sepa_dd_iban} does not belongs "
+                    f"The account number {res_partner_bank.acc_number} does not belongs "
                     f"to {self.partner_id.name}."
                 )
             return res_partner_bank
