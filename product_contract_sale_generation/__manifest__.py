@@ -5,7 +5,7 @@
 {
     "name": "Product Contract Sale Generation",
     "summary": "Prevent loop between product_contract and contract_sale_generation",
-    "version": "16.0.1.0.0",
+    "version": "16.0.1.0.1",
     "category": "Contract Management",
     "website": "https://github.com/coopiteasy/addons",
     "author": "Coop IT Easy SC",
