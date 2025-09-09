@@ -3,4 +3,5 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 from . import pos_config
+from . import pos_session
 from . import res_partner

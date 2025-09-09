@@ -6,7 +6,7 @@
     "name": "Point of Sale Solidarity Rounding",
     "summary": """
         Round POS payments up for willing customers as a gesture of solidarity.""",
-    "version": "12.0.1.0.0",
+    "version": "16.0.1.0.0",
     "category": "Point of Sale",
     "website": "https://github.com/coopiteasy/addons",
     "author": "Coop IT Easy SC",
@@ -16,12 +16,13 @@
     "depends": [
         "point_of_sale",
     ],
-    "excludes": [],
     "data": [
         "views/pos_config_views.xml",
         "views/res_partner_views.xml",
-        "views/templates.xml",
     ],
-    "demo": [],
-    "qweb": [],
+    "assets": {
+        "point_of_sale.assets": [
+            "pos_solidarity_rounding/static/src/js/**/*.js",
+        ],
+    },
 }
