@@ -6,7 +6,7 @@
 import datetime
 
 from odoo import _, api, fields, models
-from odoo.exceptions import ValidationError
+from odoo.exceptions import UserError, ValidationError
 
 
 class SaleOrder(models.Model):
@@ -116,6 +116,12 @@ class SaleOrder(models.Model):
                 )
             for line in line_to_create_contract:
                 date_start = line.date_start
+                if not date_start:
+                    raise UserError(
+                        _(
+                            "Sales orders lines with a gift product must have a gift date."
+                        )
+                    )
                 try:
                     date_end = datetime.date(
                         year=date_start.year + 1,
