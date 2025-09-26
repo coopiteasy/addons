@@ -64,12 +64,24 @@ class TestGiftContract(TestGiftContractBase):
             self.assertEqual(line.recurring_rule_type, "yearly")
             self.assertEqual(line.recurring_interval, 1)
 
-    def test_gift_contract_partner(self):
+    def test_gift_contract_partner_with_existing_partner(self):
+        existing_partner = self.env["res.partner"].create(
+            {
+                "name": "partner gift to existing partner",
+                "email": "partner_gift_to@test.com",
+                "type": "contact",
+            }
+        )
         contract = self._generate_contract_from_order()
         assert contract.partner_id.id != self.partner_gift_to.id
-        assert contract.partner_id.name == self.partner_gift_to.name
-        assert contract.partner_id.email == self.partner_gift_to.email
-        assert contract.partner_id.street == self.partner_gift_to.street
+        assert contract.partner_id.id == existing_partner.id
+        assert self.partner_gift_to.parent_id == existing_partner
+        assert contract.partner_id.type == "contact"
+
+    def test_gift_contract_partner_without_existing_partner(self):
+        contract = self._generate_contract_from_order()
+        assert contract.partner_id.id == self.partner_gift_to.id
+        self.assertFalse(self.partner_gift_to.parent_id.id)
         assert contract.partner_id.type == "contact"
 
     def test_gift_contract_is_gift(self):

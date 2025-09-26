@@ -91,29 +91,29 @@ class SaleOrder(models.Model):
                 )
             )
             existing_partners = self.find_contact_partners(order.partner_shipping_id)
-            if existing_partners:
+            if existing_partners and order.partner_shipping_id != existing_partners:
+                # We move the shipping address provided by the donor
+                # to the receiver. The address on the receiver and the
+                # one given by the donor can differ. In such case, and
+                # when the receiver has an ongoing subscription, the
+                # address of the receiver for all its contract will
+                # change to the address given by the donor. This can
+                # be wrong. But offering a subscription to someone
+                # already subscribed AND filling the wrong address is
+                # quite rare. Besides, the old address is kept on the
+                # receiver. So the error is easy to fix.
                 contract_partner = existing_partners[0]
+                order.partner_shipping_id.parent_id = contract_partner
+
             else:
                 # We prefer that the contract owner be a 'contact'
                 # partner rather than a 'delivery' partner. Granting
                 # the delivery partner access to e-commerce can cause
                 # issues in terms of invoicing.
-                contract_partner = self.env["res.partner"].create(
-                    {
-                        "name": order.partner_shipping_id.name,
-                        "type": "contact",
-                        "parent_id": False,
-                        "email": order.partner_shipping_id.email,
-                        "phone": order.partner_shipping_id.phone,
-                        "mobile": order.partner_shipping_id.mobile,
-                        "street": order.partner_shipping_id.street,
-                        "street2": order.partner_shipping_id.street2,
-                        "zip": order.partner_shipping_id.zip,
-                        "city": order.partner_shipping_id.city,
-                        "state_id": order.partner_shipping_id.state_id.id,
-                        "country_id": order.partner_shipping_id.country_id.id,
-                    }
-                )
+                order.partner_shipping_id.parent_id = False
+                order.partner_shipping_id.type = "contact"
+                contract_partner = order.partner_shipping_id
+
             for line in line_to_create_contract:
                 date_start = line.date_start
                 try:
