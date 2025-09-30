@@ -47,7 +47,7 @@ addon | version | maintainers | summary
 [website_rebrand_coopiteasy](website_rebrand_coopiteasy/) | 16.0.1.0.0 |  | Replace default Odoo website branding by Coop IT Easy branding
 [website_sale_order_autoconfirm](website_sale_order_autoconfirm/) | 16.0.1.0.0 |  | Autoconfirm Sale orders created via ecommerce with SEPA products
 [website_sale_product_compatibility](website_sale_product_compatibility/) | 16.0.1.0.0 | [![remytms](https://github.com/remytms.png?size=30px)](https://github.com/remytms) | Generic module to add compatibility check between products.
-[website_sale_product_contract_gift](website_sale_product_contract_gift/) | 16.0.1.0.2 | [![remytms](https://github.com/remytms.png?size=30px)](https://github.com/remytms) | Configure product contract to be a gift to someone else.
+[website_sale_product_contract_gift](website_sale_product_contract_gift/) | 16.0.1.0.3 | [![remytms](https://github.com/remytms.png?size=30px)](https://github.com/remytms) | Configure product contract to be a gift to someone else.
 [website_sale_product_trial](website_sale_product_trial/) | 16.0.1.0.0 | [![remytms](https://github.com/remytms.png?size=30px)](https://github.com/remytms) | Configure product contract to be a trial subscription.
 [website_sale_restrict_sepa_dd](website_sale_restrict_sepa_dd/) | 16.0.1.0.1 | [![remytms](https://github.com/remytms.png?size=30px)](https://github.com/remytms) | Restrict payment by SEPA Direct Debit for some products
 

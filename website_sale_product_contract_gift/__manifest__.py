@@ -6,7 +6,7 @@
     "name": "Website Sale Product Contract Gift",
     "summary": """
         Configure product contract to be a gift to someone else.""",
-    "version": "16.0.1.0.2",
+    "version": "16.0.1.0.3",
     "category": "Website",
     "website": "https://github.com/coopiteasy/addons",
     "author": "Coop IT Easy SC",
