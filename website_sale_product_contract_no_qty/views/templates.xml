@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="product_quantity" inherit_id="website_sale.product_quantity">
+        <xpath expr="//i[hasclass('fa-minus')]/.." position="attributes">
+            <attribute name="t-if">not product.is_contract</attribute>
+        </xpath>
+        <xpath expr="//input[@name='add_qty']" position="attributes">
+            <attribute name="t-att-disabled">product.is_contract</attribute>
+        </xpath>
+        <xpath expr="//i[hasclass('fa-plus')]/.." position="attributes">
+            <attribute name="t-if">not product.is_contract</attribute>
+        </xpath>
+    </template>
+
+    <template id="cart_lines" inherit_id="website_sale.cart_lines">
+        <xpath expr="//i[hasclass('fa-minus')]/.." position="attributes">
+            <attribute name="t-if">not line.product_id.is_contract</attribute>
+        </xpath>
+        <xpath
+            expr="//input[@type='text' and @t-att-data-line-id='line.id']"
+            position="attributes"
+        >
+            <attribute name="t-att-disabled">line.product_id.is_contract</attribute>
+        </xpath>
+        <xpath expr="//i[hasclass('fa-plus')]/.." position="attributes">
+            <attribute name="t-if">not line.product_id.is_contract</attribute>
+        </xpath>
+    </template>
+</odoo>
