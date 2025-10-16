@@ -16,10 +16,7 @@
 
     <template id="checkout" inherit_id="website_sale.checkout">
         <!-- Add date for gift form -->
-        <xpath
-            expr="//div[hasclass('oe_cart')]//div[hasclass('row')]"
-            position="before"
-        >
+        <xpath expr="//a[@href='/shop/cart']/.." position="before">
             <div class="row" id="gift_date" t-if="website_sale_order.is_gift">
                 <div class="col-lg-12">
                     <h3
