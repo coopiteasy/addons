@@ -18,6 +18,7 @@
         "product_contract",
         "delivery",
         "account_payment_sale",
+        "contract_sale_no_generation",
     ],
     "data": [
         "views/product_views.xml",

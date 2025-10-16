@@ -136,6 +136,7 @@ class SaleOrder(models.Model):
                         "partner_id": contract_partner.id,
                         "contract_type": "sale",
                         "is_gift": True,
+                        "generation_type": "none",
                         "date_start": order.gift_date,
                         "payment_mode_id": order.payment_mode_id.id,
                         "line_recurrence": True,

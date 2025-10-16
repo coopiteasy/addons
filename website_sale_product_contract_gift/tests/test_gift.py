@@ -88,7 +88,7 @@ class TestGiftContract(TestGiftContractBase):
         contract = self._generate_contract_from_order()
         self.assertTrue(contract.is_gift)
 
-    def test_gift_contract_invoice_generation(self):
+    def test_gift_contract_no_invoice_generation(self):
         contract = self._generate_contract_from_order()
         contract.cron_recurring_create_invoice(date_ref=self.today)
         invoices = self.env["account.move"].search(
@@ -97,16 +97,16 @@ class TestGiftContract(TestGiftContractBase):
                 ("partner_id", "=", contract.partner_id.id),
             ]
         )
-        self.assertEqual(len(invoices), 1)
-        self.assertTrue(
+        self.assertEqual(len(invoices), 0)
+        self.assertFalse(
             any(invoices.line_ids.contract_line_id.contract_id.mapped("is_gift"))
         )
 
-    def test_gift_contract_user_creation(self):
+    def test_gift_no_contract_user_creation(self):
         contract = self._generate_contract_from_order()
         self.assertFalse(contract.partner_id.user_id)
         contract.cron_recurring_create_invoice(date_ref=self.today)
-        self.assertTrue(contract.partner_id.user_ids)
+        self.assertFalse(contract.partner_id.user_ids)
 
     def test_find_contact_partners(self):
         """Test method `find_contact_partners()`."""
