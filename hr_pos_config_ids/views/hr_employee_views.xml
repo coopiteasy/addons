@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Copyright 2023 Akretion (http://www.akretion.com).
+@author Olivier Nibart <olivier.nibart@akretion.com>
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <record id="view_employee_form" model="ir.ui.view">
+        <field name="name">hr.employee.form</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='o_work_employee_main']" position="inside">
+                <group string="Point of Sale">
+                    <field name="pos_config_ids" widget="many2many_tags" />
+                </group>
+            </xpath>
+        </field>
+    </record>
+    <record id="hr_employee_public_view_form" model="ir.ui.view">
+        <field name="name">hr.employee.public.form</field>
+        <field name="model">hr.employee.public</field>
+        <field name="inherit_id" ref="hr.hr_employee_public_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='o_work_employee_main']" position="inside">
+                <group string="Point of Sale" groups="base.group_no_one">
+                    <field name="pos_config_ids" widget="many2many_tags" />
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>
