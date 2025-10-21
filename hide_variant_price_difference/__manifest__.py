@@ -8,7 +8,7 @@
         the price difference compared to the current price.""",
     "version": "14.0.1.0.1",
     "category": "Website",
-    "website": "https://coopiteasy.be",
+    "website": "https://github.com/coopiteasy/addons",
     "author": "Coop IT Easy SC",
     "license": "AGPL-3",
     "application": False,
