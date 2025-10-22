@@ -29,6 +29,7 @@ addon | version | maintainers | summary
 [delivery_distribution_list](delivery_distribution_list/) | 16.0.1.0.0 |  | Manage the distribution of a product through all the deposit points
 [document_hosting](document_hosting/) | 16.0.1.0.0 |  | Manage documents that can be published on website with ??.
 [event_track_multi_date](event_track_multi_date/) | 16.0.1.0.0 |  | Multiple Dates per Track
+[hr_pos_config_ids](hr_pos_config_ids/) | 16.0.0.0.1 |  | Add an pos_config_ids to the Employee model to allow a PoS user that have sufficient rights on the Employees to give them access to one or more PoS.
 [l10n_be_national_number](l10n_be_national_number/) | 16.0.2.0.0 | [![victor-champonnois](https://github.com/victor-champonnois.png?size=30px)](https://github.com/victor-champonnois) | Emptied.
 [membership_global_member_view](membership_global_member_view/) | 16.0.1.0.0 | [![remytms](https://github.com/remytms.png?size=30px)](https://github.com/remytms) | Global view of the members, for all companies and without seeing personal data
 [partner_contact_type_default](partner_contact_type_default/) | 16.0.1.0.0 | [![carmenbianca](https://github.com/carmenbianca.png?size=30px)](https://github.com/carmenbianca) | Set 'contact' as default type when creating a partner as a contact of another partner.
@@ -43,6 +44,7 @@ addon | version | maintainers | summary
 [resource_work_time_from_contracts](resource_work_time_from_contracts/) | 16.0.1.0.0 |  | Take the contracts of an employee into account when computing work time per day
 [sale_order_auto_carrier](sale_order_auto_carrier/) | 16.0.1.0.0 |  | Compute automatically the carrier on a sale order
 [sale_order_volume](sale_order_volume/) | 16.0.1.0.0 |  | Computes the volume of products per category ordered and display it on
+[stock_settings_manager](stock_settings_manager/) | 16.0.1.0.0 |  | Add an Inventory/Settings Manager Group that is allowed to actually set the parameters of the inventory, including barcodes settings, and downgrade the Inventory/Administrator Group to allow it to only manage products and do inventory adjustements.
 [subscription_web_access](subscription_web_access/) | 16.0.1.0.1 |  | Compute whether a partner has ongoing contracts
 [website_rebrand_coopiteasy](website_rebrand_coopiteasy/) | 16.0.1.0.0 |  | Replace default Odoo website branding by Coop IT Easy branding
 [website_sale_order_autoconfirm](website_sale_order_autoconfirm/) | 16.0.1.0.0 |  | Autoconfirm Sale orders created via ecommerce with SEPA products
