@@ -1,0 +1,39 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* hr_pos_config_ids
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-03 08:08+0000\n"
+"PO-Revision-Date: 2024-01-03 08:08+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: hr_pos_config_ids
+#: model:ir.model,name:hr_pos_config_ids.model_hr_employee_base
+msgid "Basic Employee"
+msgstr ""
+
+#. module: hr_pos_config_ids
+#: model:ir.model.fields,field_description:hr_pos_config_ids.field_hr_employee__pos_config_ids
+#: model:ir.model.fields,field_description:hr_pos_config_ids.field_hr_employee_base__pos_config_ids
+#: model:ir.model.fields,field_description:hr_pos_config_ids.field_hr_employee_public__pos_config_ids
+msgid "PoS that this employee has access to"
+msgstr ""
+
+#. module: hr_pos_config_ids
+#: model_terms:ir.ui.view,arch_db:hr_pos_config_ids.hr_employee_public_view_form
+#: model_terms:ir.ui.view,arch_db:hr_pos_config_ids.view_employee_form
+msgid "Point of Sale"
+msgstr ""
+
+#. module: hr_pos_config_ids
+#: model:ir.model,name:hr_pos_config_ids.model_hr_employee_public
+msgid "Public Employee"
+msgstr ""

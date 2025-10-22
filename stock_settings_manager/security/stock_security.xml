@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Copyright 2023 Akretion (http://www.akretion.com).
+@author Olivier Nibart <olivier.nibart@akretion.com>
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <record model="res.groups" id="group_stock_settings_manager">
+        <field name="name">Settings Administrator</field>
+        <field name="category_id" ref="base.module_category_inventory_inventory" />
+        <field
+            name="implied_ids"
+            eval="[Command.link(ref('stock.group_stock_manager')),]"
+        />
+        <field
+            name="users"
+            eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
+        />
+    </record>
+</odoo>

@@ -1,0 +1,27 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_stock_warehouse_super_manager,stock.warehouse.super.manager,stock.model_stock_warehouse,group_stock_settings_manager,1,1,1,1
+stock.access_stock_warehouse_manager,stock.warehouse.user,stock.model_stock_warehouse,stock.group_stock_manager,1,0,0,0
+access_stock_location_super_manager,stock.location.super.manager,stock.model_stock_location,group_stock_settings_manager,1,1,1,1
+stock.access_stock_location_manager,stock.location.manager,stock.model_stock_location,stock.group_stock_manager,1,0,0,0
+access_stock_picking_type_super_manager,stock.picking.type super manager,stock.model_stock_picking_type,group_stock_settings_manager,1,1,1,1
+stock.access_stock_picking_type_manager,stock.picking.type manager,stock.model_stock_picking_type,stock.group_stock_manager,1,0,0,0
+access_uom_category_stock_super_manager,uom.category stock_super_manager,uom.model_uom_category,group_stock_settings_manager,1,1,1,1
+stock.access_uom_category_stock_manager,uom.category stock_manager,uom.model_uom_category,stock.group_stock_manager,1,0,0,0
+access_uom_uom_stock_super_manager,uom.uom stock_super_manager,uom.model_uom_uom,group_stock_settings_manager,1,1,1,1
+stock.access_uom_uom_stock_manager,uom.uom stock_manager,uom.model_uom_uom,stock.group_stock_manager,1,0,0,0
+access_stock_rule_stock_super_manager,stock_rule stock super manager,stock.model_stock_rule,group_stock_settings_manager,1,1,1,1
+stock.access_stock_rule_stock_manager,stock_rule stock manager,stock.model_stock_rule,stock.group_stock_manager,1,0,0,0
+access_stock_location_route_stock_super_manager,stock.route super manager,stock.model_stock_route,group_stock_settings_manager,1,1,1,1
+stock.access_stock_location_route_stock_manager,stock.route,stock.model_stock_route,stock.group_stock_manager,1,0,0,0
+access_stock_putaway_super_manager,stock.putaway.rule super managers,stock.model_stock_putaway_rule,group_stock_settings_manager,1,1,1,1
+stock.access_stock_putaway_manager,stock.putaway.rule all managers,stock.model_stock_putaway_rule,stock.group_stock_manager,1,0,0,0
+access_barcode_nomenclature_stock_super_manager,barcode.nomenclature.stock.super.manager,barcodes.model_barcode_nomenclature,group_stock_settings_manager,1,1,1,1
+stock.access_barcode_nomenclature_stock_manager,barcode.nomenclature.stock.manager,barcodes.model_barcode_nomenclature,stock.group_stock_manager,1,0,0,0
+access_barcode_rule_stock_super_manager,barcode.rule.stock.super.manager,barcodes.model_barcode_rule,group_stock_settings_manager,1,1,1,1
+stock.access_barcode_rule_stock_manager,barcode.rule.stock.manager,barcodes.model_barcode_rule,stock.group_stock_manager,1,0,0,0
+access_stock_package_type_super_manager,access_stock_package_type_super_manager,stock.model_stock_package_type,group_stock_settings_manager,1,1,1,1
+stock.access_stock_package_type_manager,access_stock_package_type_manager,stock.model_stock_package_type,stock.group_stock_manager,1,0,0,0
+access_stock_storage_category_super_manager,stock.storage.category.super.manager,stock.model_stock_storage_category,group_stock_settings_manager,1,1,1,1
+stock.access_stock_storage_category_manager,stock.storage.category.manager,stock.model_stock_storage_category,stock.group_stock_manager,1,0,0,0
+access_stock_storage_category_capacity_super_manager,stock.storage.category.capacity.super.manager,stock.model_stock_storage_category_capacity,group_stock_settings_manager,1,1,1,1
+stock.access_stock_storage_category_capacity_manager,stock.storage.category.capacity.manager,stock.model_stock_storage_category_capacity,stock.group_stock_manager,1,0,0,0
