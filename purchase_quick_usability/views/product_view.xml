@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!-- Inherit to customize according to your own needs -->
+    <record id="product_tree_view4purchase" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="purchase_quick.product_tree_view4purchase" />
+        <field name="arch" type="xml">
+            <field name="incoming_qty" position="after">
+                <field name="main_seller_id_minimum_qty" />
+                <field name="uom_po_id" />
+            </field>
+        </field>
+    </record>
+
+</odoo>
