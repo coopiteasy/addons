@@ -4,7 +4,7 @@
 {
     "name": "Subscription Web Access",
     "summary": "Compute whether a partner has ongoing contracts",
-    "version": "16.0.1.0.1",
+    "version": "16.0.1.0.2",
     "license": "AGPL-3",
     "author": "Coop IT Easy SC",
     "website": "https://github.com/coopiteasy/addons",

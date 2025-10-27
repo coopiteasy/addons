@@ -47,7 +47,7 @@ addon | version | maintainers | summary
 [sale_order_auto_carrier](sale_order_auto_carrier/) | 16.0.1.0.0 |  | Compute automatically the carrier on a sale order
 [sale_order_volume](sale_order_volume/) | 16.0.1.0.0 |  | Computes the volume of products per category ordered and display it on
 [stock_settings_manager](stock_settings_manager/) | 16.0.1.0.0 |  | Add an Inventory/Settings Manager Group that is allowed to actually set the parameters of the inventory, including barcodes settings, and downgrade the Inventory/Administrator Group to allow it to only manage products and do inventory adjustements.
-[subscription_web_access](subscription_web_access/) | 16.0.1.0.1 |  | Compute whether a partner has ongoing contracts
+[subscription_web_access](subscription_web_access/) | 16.0.1.0.2 |  | Compute whether a partner has ongoing contracts
 [website_rebrand_coopiteasy](website_rebrand_coopiteasy/) | 16.0.1.0.0 |  | Replace default Odoo website branding by Coop IT Easy branding
 [website_sale_order_autoconfirm](website_sale_order_autoconfirm/) | 16.0.1.0.0 |  | Autoconfirm Sale orders created via ecommerce with SEPA products
 [website_sale_product_compatibility](website_sale_product_compatibility/) | 16.0.1.0.0 | [![remytms](https://github.com/remytms.png?size=30px)](https://github.com/remytms) | Generic module to add compatibility check between products.
