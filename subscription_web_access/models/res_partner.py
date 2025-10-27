@@ -21,6 +21,7 @@ class ResPartner(models.Model):
     # non-stored computed field that depends on the current date. this is why
     # it is also called everyday from a cron job.
     @api.depends(
+        "contract_ids.active",
         "contract_ids.contract_line_ids.state",
         "contract_ids.contract_line_ids.product_id.is_trial",
     )
