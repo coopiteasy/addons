@@ -20,15 +20,17 @@ class ContractContract(models.Model):
             .search([])
             .filtered(lambda c: c.is_gift and (c.date_start == Date.today()))
         ):
-            if not contract.partner_id.user_id:
-                self.env["res.users"].with_context(
-                    no_reset_password=True
-                )._create_user_from_template(
-                    {
-                        "email": email_normalize(contract.partner_id.email),
-                        "login": email_normalize(contract.partner_id.email),
-                        "partner_id": contract.partner_id.id,
-                    }
+            if not contract.partner_id.user_ids:
+                user = (
+                    self.env["res.users"]
+                    .with_context(no_reset_password=True)
+                    ._create_user_from_template(
+                        {
+                            "email": email_normalize(contract.partner_id.email),
+                            "login": email_normalize(contract.partner_id.email),
+                            "partner_id": contract.partner_id.id,
+                        }
+                    )
                 )
-                # TODO: send email to the receiver of the gift
+                user.with_context(create_user=True).action_reset_password()
         return res

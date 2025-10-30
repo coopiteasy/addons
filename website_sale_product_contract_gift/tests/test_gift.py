@@ -102,11 +102,11 @@ class TestGiftContract(TestGiftContractBase):
             any(invoices.line_ids.contract_line_id.contract_id.mapped("is_gift"))
         )
 
-    def test_gift_no_contract_user_creation(self):
+    def test_gift_contract_user_creation(self):
         contract = self._generate_contract_from_order()
         self.assertFalse(contract.partner_id.user_id)
         contract.cron_recurring_create_invoice(date_ref=self.today)
-        self.assertFalse(contract.partner_id.user_ids)
+        self.assertTrue(contract.partner_id.user_ids)
 
     def test_find_contact_partners(self):
         """Test method `find_contact_partners()`."""
