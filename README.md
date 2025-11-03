@@ -27,6 +27,7 @@ addon | version | maintainers | summary
 [company_today](company_today/) | 16.0.1.0.0 |  | Store today's date on the company model.
 [contract_delivery_address](contract_delivery_address/) | 16.0.1.0.0 |  | Add contact's default delivery address to contract
 [delivery_distribution_list](delivery_distribution_list/) | 16.0.1.0.0 |  | Manage the distribution of a product through all the deposit points
+[delivery_product_restriction](delivery_product_restriction/) | 16.0.1.0.0 |  | Allow some product to be shipped only by some delivery carrier
 [document_hosting](document_hosting/) | 16.0.1.0.0 |  | Manage documents that can be published on website with ??.
 [event_track_multi_date](event_track_multi_date/) | 16.0.1.0.0 |  | Multiple Dates per Track
 [hr_pos_config_ids](hr_pos_config_ids/) | 16.0.0.0.1 |  | Add an pos_config_ids to the Employee model to allow a PoS user that have sufficient rights on the Employees to give them access to one or more PoS.
