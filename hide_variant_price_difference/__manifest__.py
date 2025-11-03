@@ -6,7 +6,7 @@
     "summary": """
         On website sale views, hide the tags next to product variants that show
         the price difference compared to the current price.""",
-    "version": "14.0.1.0.1",
+    "version": "16.0.1.0.1",
     "category": "Website",
     "website": "https://github.com/coopiteasy/addons",
     "author": "Coop IT Easy SC",
@@ -16,8 +16,5 @@
         "sale",
         "website_sale",
     ],
-    "excludes": [],
     "data": ["views/templates.xml"],
-    "demo": [],
-    "qweb": [],
 }
