@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="product_variants" inherit_id="website_sale.product_variants">
+        <xpath expr="//span[@t-if='diff_price != 0']" position="attributes">
+            <attribute name="hidden">hidden</attribute>
+        </xpath>
+    </template>
+
+    <template id="badge_extra_price" inherit_id="sale.badge_extra_price">
+        <xpath expr="//span[hasclass('badge')]" position="attributes">
+            <attribute name="hidden">hidden</attribute>
+        </xpath>
+    </template>
+</odoo>
