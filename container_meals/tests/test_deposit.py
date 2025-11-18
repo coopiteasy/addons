@@ -128,7 +128,9 @@ class TestDeposit(common.TestCommonDeposit):
         """If the customer has no deposit yet, don't add a deposit line to the
         sale order.
         """
-        self.previous_sale_order.action_cancel()
+        self.previous_sale_order.with_context(
+            disable_cancel_warning=True
+        ).action_cancel()
         self.sale_order._cart_update(
             product_id=self.salad_product_adult.id, line_id=None, add_qty=1, set_qty=0
         )

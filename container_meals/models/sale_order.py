@@ -5,8 +5,6 @@ import logging
 from collections import namedtuple
 
 from odoo import api, fields, models
-from odoo.exceptions import ValidationError
-from odoo.tools.translate import _
 
 ContainerVolumes = namedtuple(
     "ContainerVolumes", ["container_1_volume", "container_2_volume"]
@@ -21,9 +19,18 @@ class SaleOrder(models.Model):
 
     # Used for views.
     contains_containers = fields.Boolean(
-        string="Contains Containers",
         compute="_compute_contains_containers",
     )
+
+    def _recompute_prices(self):
+        # Apply product prices from pricelists and discounts
+        result = super()._recompute_prices()
+        # Containers should be added afterward because:
+        # 1) Otherwise the deposit product price will be reset to his price_unit
+        # 2) The discounts on the order (if any) will be applied on the
+        #    containers and deposit
+        self.add_containers()
+        return result
 
     @api.depends("order_line", "order_line.product_id")
     def _compute_contains_containers(self):
@@ -164,22 +171,3 @@ class SaleOrder(models.Model):
             or line.product_id == deposit_product
         )
         lines_to_remove.unlink()
-
-
-class SaleOrderLine(models.Model):
-    _inherit = "sale.order.line"
-
-    not_returned = fields.Integer(string="Not Returned", default=0)
-    is_container = fields.Boolean(related="product_id.is_container")
-
-    @api.constrains("not_returned", "product_uom_qty")
-    def _check_not_returned(self):
-        for line in self:
-            if line.not_returned != 0 and not line.product_id.is_container:
-                raise ValidationError(_("'Not Returned' is only for containers."))
-            elif line.not_returned < 0:
-                raise ValidationError(_("'Not Returned' must be zero or higher."))
-            elif line.not_returned > line.product_uom_qty:
-                raise ValidationError(
-                    _("'Not Returned' may not be higher than Quantity.")
-                )

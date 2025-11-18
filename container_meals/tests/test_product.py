@@ -1,7 +1,7 @@
 # Copyright 2022 Coop IT Easy SC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from ..models.product import CHILD_PORTION_RATIO
+from ..models.product_product import CHILD_PORTION_RATIO
 from . import common
 
 

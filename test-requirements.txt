@@ -1,4 +1,6 @@
 git+https://github.com/coopiteasy/odoo-peppol-backport@16.0#subdirectory=setup/account_edi_proxy_client_peppol
 git+https://github.com/coopiteasy/odoo-peppol-backport@16.0-imp-backport_18_registration#subdirectory=setup/account_peppol_backport
 git+https://github.com/coopiteasy/odoo-peppol-backport@16.0#subdirectory=setup/account_peppol_partner
+# needed for container_meals, to remove when https://github.com/OCA/product-attribute/pull/2110 is merged
+git+https://github.com/coopiteasy/product-attribute.git@16.0-mig-uom_extra_data#subdirectory=setup/uom_extra_data
 git+https://github.com/beescoop/obeesdoo@16.0#subdirectory=setup/product_main_supplier

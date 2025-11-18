@@ -1,14 +1,14 @@
 # Copyright 2022 Coop IT Easy SC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from odoo.tests.common import SavepointCase
+from odoo.tests.common import TransactionCase
 
 # TODO: Deep-inheriting TestCommon is probably an anti-pattern. Instead consider
 # defining several setup methods in the base class, and in the setup of child
 # classes, call only the ones that are really needed (composition).
 
 
-class TestCommon(SavepointCase):
+class TestCommon(TransactionCase):
     @classmethod
     def setUpClass(cls, *args, **kwargs):
         super().setUpClass(*args, **kwargs)
