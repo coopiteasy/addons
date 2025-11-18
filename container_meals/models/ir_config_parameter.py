@@ -4,7 +4,7 @@
 from odoo import api, models
 
 
-class ConfigParameter(models.Model):
+class IrConfigParameter(models.Model):
     _inherit = "ir.config_parameter"
 
     @api.model

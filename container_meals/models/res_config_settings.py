@@ -9,7 +9,7 @@ class ResConfigSettings(models.TransientModel):
 
     container_deposit_product_id = fields.Many2one(
         "product.product",
-        "Container Deposit Product",
+        string="Container Deposit Product",
         domain="[('type', '=', 'service')]",
         config_parameter="container_meals.container_deposit_product_id",
         help="Product used as deposit for containers",

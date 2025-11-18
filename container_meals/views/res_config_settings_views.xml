@@ -21,7 +21,7 @@
                                 Product used as deposit for containers
                             </div>
                             <div class="content-group">
-                                <div class="mt8">
+                                <div class="mt16">
                                     <field
                                         name="container_deposit_product_id"
                                         context="{'default_type': 'service'}"
