@@ -5,7 +5,7 @@
 import datetime
 import logging
 
-from odoo import _, api, fields, models
+from odoo import SUPERUSER_ID, _, api, fields, models
 from odoo.exceptions import ValidationError
 
 from odoo.addons.base.models.res_bank import sanitize_account_number
@@ -117,7 +117,7 @@ class PaymentTransaction(models.Model):
         """Create mandate when transaction is set as pending"""
         txs_to_process = super()._set_pending(state_message=state_message)
         if self.provider_code == "sepa_dd":
-            txs_to_process.create_sepa_dd_mandate()
+            txs_to_process._create_sepa_dd_mandate()
         return txs_to_process
 
     # Constrains
@@ -164,7 +164,7 @@ class PaymentTransaction(models.Model):
             "state": "valid",
         }
 
-    def create_sepa_dd_mandate(self):
+    def _create_sepa_dd_mandate(self):
         for tx in self:
             res_partner_bank = tx.get_res_partner_bank()
             if not res_partner_bank:
@@ -175,7 +175,13 @@ class PaymentTransaction(models.Model):
                     and not partner.is_company
                     and partner.company_name
                 ):
-                    partner.create_company()
+                    # the following statement cannot be performed by
+                    # sudo(), because res.partner has a flag
+                    # _allow_sudo_commands = False
+                    # We trick the environment to perform this action
+                    new_env = partner.env(user=SUPERUSER_ID)
+                    new_env.uid_origin = SUPERUSER_ID
+                    partner.with_env(new_env).create_company()
                 res_partner_bank = self.env["res.partner.bank"].create(
                     {
                         "partner_id": partner.commercial_partner_id.id,
