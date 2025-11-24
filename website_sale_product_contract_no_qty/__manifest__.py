@@ -7,7 +7,7 @@
     "summary": "Remove the possibility to increment or decrement the number of "
     "subscriptions being bought in th e-commerce",
     "version": "16.0.1.0.0",
-    "category": "Uncategorized",
+    "category": "Website",
     "website": "https://github.com/coopiteasy/addons",
     "author": "Coop IT Easy SC",
     "maintainers": ["mihien"],
