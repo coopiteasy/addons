@@ -4,6 +4,8 @@
 
 
 from odoo import fields, models
+from odoo.fields import Date
+from odoo.tools import email_normalize
 
 
 class ContractContract(models.Model):
@@ -11,7 +13,24 @@ class ContractContract(models.Model):
 
     is_gift = fields.Boolean()
 
-    def _recurring_create_invoice(self, date_ref=False):
-        invoices = super()._recurring_create_invoice(date_ref=date_ref)
-        invoices.create_user_for_gift()
-        return invoices
+    def _cron_recurring_create(self, date_ref=False, create_type="invoice"):
+        res = super()._cron_recurring_create(date_ref=False, create_type="invoice")
+        for contract in (
+            self.env["contract.contract"]
+            .search([])
+            .filtered(lambda c: c.is_gift and (c.date_start == Date.today()))
+        ):
+            if not contract.partner_id.user_ids:
+                user = (
+                    self.env["res.users"]
+                    .with_context(no_reset_password=True)
+                    ._create_user_from_template(
+                        {
+                            "email": email_normalize(contract.partner_id.email),
+                            "login": email_normalize(contract.partner_id.email),
+                            "partner_id": contract.partner_id.id,
+                        }
+                    )
+                )
+                user.with_context(create_user=True).action_reset_password()
+        return res
