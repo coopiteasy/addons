@@ -82,11 +82,6 @@ msgid "Is Gift"
 msgstr ""
 
 #. module: website_sale_product_contract_gift
-#: model:ir.model,name:website_sale_product_contract_gift.model_account_move
-msgid "Journal Entry"
-msgstr ""
-
-#. module: website_sale_product_contract_gift
 #: model:ir.model,name:website_sale_product_contract_gift.model_product_template
 msgid "Product"
 msgstr ""
