@@ -49,6 +49,7 @@ addon | version | maintainers | summary
 [purchase_supplier_free_shipping_threshold](purchase_supplier_free_shipping_threshold/) | 16.0.1.0.0 | <a href='https://github.com/victor-champonnois'><img src='https://github.com/victor-champonnois.png' width='32' height='32' style='border-radius:50%;' alt='victor-champonnois'/></a> | Free Shipping Threshold On Suppliers
 [resource_work_time_from_contracts](resource_work_time_from_contracts/) | 16.0.1.0.0 |  | Take the contracts of an employee into account when computing work time per day
 [sale_order_auto_carrier](sale_order_auto_carrier/) | 16.0.1.0.0 |  | Compute automatically the carrier on a sale order
+[sale_order_packaging_info](sale_order_packaging_info/) | 16.0.1.0.0 | <a href='https://github.com/carmenbianca'><img src='https://github.com/carmenbianca.png' width='32' height='32' style='border-radius:50%;' alt='carmenbianca'/></a> | Create a table of packaging products on sales orders
 [sale_order_volume](sale_order_volume/) | 16.0.1.0.0 |  | Computes the volume of products per category ordered and display it on
 [stock_settings_manager](stock_settings_manager/) | 16.0.1.0.0 |  | Add an Inventory/Settings Manager Group that is allowed to actually set the parameters of the inventory, including barcodes settings, and downgrade the Inventory/Administrator Group to allow it to only manage products and do inventory adjustements.
 [subscription_web_access](subscription_web_access/) | 16.0.1.0.2 |  | Compute whether a partner has ongoing contracts
