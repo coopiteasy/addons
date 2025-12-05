@@ -27,6 +27,7 @@ addon | version | maintainers | summary
 [company_today](company_today/) | 16.0.1.0.0 |  | Store today's date on the company model.
 [contract_delivery_address](contract_delivery_address/) | 16.0.1.0.0 |  | Add contact's default delivery address to contract
 [contract_sale_no_generation](contract_sale_no_generation/) | 16.0.1.0.0 | <a href='https://github.com/mihien'><img src='https://github.com/mihien.png' width='32' height='32' style='border-radius:50%;' alt='mihien'/></a> | Add a type of contract that will not generate invoices
+[delivery_carrier_combine_price_rule](delivery_carrier_combine_price_rule/) | 16.0.1.0.0 |  | Chose how to combine price rule on a delivery carrier.
 [delivery_distribution_list](delivery_distribution_list/) | 16.0.1.0.0 |  | Manage the distribution of a product through all the deposit points
 [delivery_product_restriction](delivery_product_restriction/) | 16.0.1.0.0 |  | Allow some product to be shipped only by some delivery carrier
 [document_hosting](document_hosting/) | 16.0.1.0.0 |  | Manage documents that can be published on website with ??.
