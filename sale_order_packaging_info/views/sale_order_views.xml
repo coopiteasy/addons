@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="sale_order_view_form" model="ir.ui.view">
+        <field name="name">sale_order_packaging_info.sale_order_view_form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <page name="order_lines" position="after">
+                <page string="Packaging Lines">
+                    <field
+                        name="sale_order_packaging_line_ids"
+                        widget="section_and_note_one2many"
+                        mode="tree,kanban"
+                    >
+                        <tree editable="bottom">
+                            <control>
+                                <create string="Add a product" />
+                            </control>
+                            <field name="sequence" widget="handle" />
+                            <field name="product_id" />
+                            <field name="product_uom_qty" />
+                            <!--
+                                there must be at least one field with the
+                                optional attribute, otherwise the icon at the
+                                right side of the header bar is not displayed
+                                and a horizontal scrollbar appears at the
+                                bottom of the list.
+                            -->
+                            <field name="price_unit" optional="show" />
+                            <field name="price_subtotal" widget="monetary" />
+                            <field name="currency_id" invisible="1" />
+                        </tree>
+                    </field>
+                    <!--
+                        this is a copy of the "note_group" group from
+                        sale.view_order_form, with some tweaks.
+                    -->
+                    <group name="packaging_note_group" col="6" class="mt-2 mt-md-0">
+                        <group colspan="4">
+                            <!-- add a label above the field -->
+                            <label for="packaging_notes" />
+                            <field colspan="2" name="packaging_notes" nolabel="1" />
+                        </group>
+                        <group
+                            class="oe_subtotal_footer oe_right"
+                            colspan="2"
+                            name="packaging_total"
+                        >
+                            <field
+                                name="packaging_tax_totals"
+                                widget="account-tax-totals-field"
+                                nolabel="1"
+                                colspan="2"
+                                readonly="1"
+                            />
+                        </group>
+                        <div class="clearfix" />
+                    </group>
+                </page>
+            </page>
+        </field>
+    </record>
+
+</odoo>
