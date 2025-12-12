@@ -40,7 +40,7 @@ addon | version | maintainers | summary
 [account_invoice_ubl_mass_download](account_invoice_ubl_mass_download/) | 12.0.1.0.0 |  | Account Invoice UBL Mass Download
 [account_missing_tax](account_missing_tax/) | 12.0.1.0.1 |  | Define an account for when the tax is unassigned, for each company.
 [auth_company_signup](auth_company_signup/) | 12.0.1.0.0 |  | This module allows a user to sign up as a company.
-[auth_signup_recaptcha_v2](auth_signup_recaptcha_v2/) | 12.0.1.0.0 | [![remytms](https://github.com/remytms.png?size=30px)](https://github.com/remytms) | Add reCAPTCHA v2 to sign-up form
+[auth_signup_recaptcha_v2](auth_signup_recaptcha_v2/) | 12.0.1.0.0 | <a href='https://github.com/remytms'><img src='https://github.com/remytms.png' width='32' height='32' style='border-radius:50%;' alt='remytms'/></a> | Add reCAPTCHA v2 to sign-up form
 [belgian_bank_data](belgian_bank_data/) | 12.0.1.0.0 |  | This module imports Belgian banks with their name and BIC code.
 [company_supplier_context](company_supplier_context/) | 12.0.1.0.0 |  | When creating a new supplier, make it a company partner type by default.
 [company_today](company_today/) | 12.0.1.1.0 |  | Store today's date on the company model.
@@ -50,35 +50,36 @@ addon | version | maintainers | summary
 [email_template_config](email_template_config/) | 12.0.1.0.0 |  | This module extends the email in order to force some behaviours configured in the mail template(e.g. force send mail or not).
 [hr_holidays_custom_duration](hr_holidays_custom_duration/) | 12.0.1.0.1 |  | Allow to override the duration of a leave.
 [invoice_global_discount](invoice_global_discount/) | 12.0.1.1.0 |  | This module give global discount on invoice. It allows to set the same discount on all the invoice lines without been forced to go manually through them.
+[l10n_be_coc_from_vat](l10n_be_coc_from_vat/) | 12.0.1.0.0 |  | Compute CoC Registration Number from VAT for Belgian partners
 [mail_activity_filter_internal_user](mail_activity_filter_internal_user/) | 12.0.1.0.1 |  | Filter on internal user by default when assigning someone to an activity.
-[mail_activity_summary_model](mail_activity_summary_model/) | 12.0.1.0.0 | [![carmenbianca](https://github.com/carmenbianca.png?size=30px)](https://github.com/carmenbianca) | Instead of using a simple text field for the summary, use a model.
+[mail_activity_summary_model](mail_activity_summary_model/) | 12.0.1.0.0 | <a href='https://github.com/carmenbianca'><img src='https://github.com/carmenbianca.png' width='32' height='32' style='border-radius:50%;' alt='carmenbianca'/></a> | Instead of using a simple text field for the summary, use a model.
 [mail_auto_resend](mail_auto_resend/) | 12.0.1.0.0 |  | Automatically resend failed emails
 [mrp_unbuild_product_mo_filter](mrp_unbuild_product_mo_filter/) | 12.0.1.0.1 |  | Filter unbuild manufacturing orders by selected product
 [partner_no_unique_bank](partner_no_unique_bank/) | 12.0.1.0.0 |  | Do not mandate that bank account numbers be unique between partners.
 [partner_socialmedia](partner_socialmedia/) | 12.0.1.0.0 |  | Add social media fields to contacts
 [partner_warehouse](partner_warehouse/) | 12.0.1.0.0 |  | Let the warehouse of the sale order be set accordingly to a default warehouse set on the partner.
-[portal_customer_wallet](portal_customer_wallet/) | 12.0.1.0.0 | [![carmenbianca](https://github.com/carmenbianca.png?size=30px)](https://github.com/carmenbianca) | My Home displays expenditures using customer wallet
+[portal_customer_wallet](portal_customer_wallet/) | 12.0.1.0.0 | <a href='https://github.com/carmenbianca'><img src='https://github.com/carmenbianca.png' width='32' height='32' style='border-radius:50%;' alt='carmenbianca'/></a> | My Home displays expenditures using customer wallet
 [pos_auto_invoice](pos_auto_invoice/) | 12.0.1.0.0 |  | In the POS, set orders as to-invoice by default.
 [pos_auto_invoice_default_partner](pos_auto_invoice_default_partner/) | 12.0.1.0.0 |  | Compatibility layer between pos_auto_invoice and pos_default_partner.
 [pos_custom_receipt](pos_custom_receipt/) | 12.0.1.0.0 |  | Hide company's email and add customer's name to POS receipt
-[pos_customer_wallet](pos_customer_wallet/) | 12.0.2.1.1 | [![carmenbianca](https://github.com/carmenbianca.png?size=30px)](https://github.com/carmenbianca) | Enable usage of the Customer Wallet in the Point of Sale.
-[pos_customer_wallet_partner_is_user](pos_customer_wallet_partner_is_user/) | 12.0.1.2.1 | [![carmenbianca](https://github.com/carmenbianca.png?size=30px)](https://github.com/carmenbianca) | Add a field on partners that shows whether they have used customer wallet functionality, and don't show some parts of customer wallet functionality to partners who haven't already used it.
+[pos_customer_wallet](pos_customer_wallet/) | 12.0.2.1.1 | <a href='https://github.com/carmenbianca'><img src='https://github.com/carmenbianca.png' width='32' height='32' style='border-radius:50%;' alt='carmenbianca'/></a> | Enable usage of the Customer Wallet in the Point of Sale.
+[pos_customer_wallet_partner_is_user](pos_customer_wallet_partner_is_user/) | 12.0.1.2.1 | <a href='https://github.com/carmenbianca'><img src='https://github.com/carmenbianca.png' width='32' height='32' style='border-radius:50%;' alt='carmenbianca'/></a> | Add a field on partners that shows whether they have used customer wallet functionality, and don't show some parts of customer wallet functionality to partners who haven't already used it.
 [pos_self_service_base](pos_self_service_base/) | 12.0.1.0.0 |  | POS Self-Service Base Module
 [pos_self_service_print_zpl](pos_self_service_print_zpl/) | 12.0.1.0.0 |  | POS Self-Service Print ZPL from browser
-[pos_solidarity_rounding](pos_solidarity_rounding/) | 12.0.1.0.0 | [![carmenbianca](https://github.com/carmenbianca.png?size=30px)](https://github.com/carmenbianca) | Round POS payments up for willing customers as a gesture of solidarity.
-[pos_solidarity_rounding_portal](pos_solidarity_rounding_portal/) | 12.0.1.0.0 | [![carmenbianca](https://github.com/carmenbianca.png?size=30px)](https://github.com/carmenbianca) | Allow registered users to change their solidarity rounding configuration in the account settings.
+[pos_solidarity_rounding](pos_solidarity_rounding/) | 12.0.1.0.0 | <a href='https://github.com/carmenbianca'><img src='https://github.com/carmenbianca.png' width='32' height='32' style='border-radius:50%;' alt='carmenbianca'/></a> | Round POS payments up for willing customers as a gesture of solidarity.
+[pos_solidarity_rounding_portal](pos_solidarity_rounding_portal/) | 12.0.1.0.0 | <a href='https://github.com/carmenbianca'><img src='https://github.com/carmenbianca.png' width='32' height='32' style='border-radius:50%;' alt='carmenbianca'/></a> | Allow registered users to change their solidarity rounding configuration in the account settings.
 [product_label_report](product_label_report/) | 12.0.1.0.0 |  | This module allows to show the print barcode and name of the product.
 [product_to_bizerba_scale](product_to_bizerba_scale/) | 12.0.1.0.0 |  | This module merges product_to_scale_bizerba and product_to_scale_bizerba_extended into one.
 [purchase_invoice_status](purchase_invoice_status/) | 12.0.1.0.0 |  | Add invoice status on purchase orders
 [purchase_order_line_auto_import](purchase_order_line_auto_import/) | 12.0.1.0.0 |  | This module allows to create automatically line with the product and minimal quantities when selecting the partner.
 [purchase_order_weight](purchase_order_weight/) | 12.0.1.0.0 |  | Adds weight and weight unit to Purchase Order
-[purchase_supplier_free_shipping_threshold](purchase_supplier_free_shipping_threshold/) | 12.0.1.0.0 | [![victor-champonnois](https://github.com/victor-champonnois.png?size=30px)](https://github.com/victor-champonnois) | Free Shipping Threshold On Suppliers
+[purchase_supplier_free_shipping_threshold](purchase_supplier_free_shipping_threshold/) | 12.0.1.0.0 | <a href='https://github.com/victor-champonnois'><img src='https://github.com/victor-champonnois.png' width='32' height='32' style='border-radius:50%;' alt='victor-champonnois'/></a> | Free Shipping Threshold On Suppliers
 [report_certisys_label](report_certisys_label/) | 12.0.1.0.0 |  | Add Certisys Label on account, stock and sale reports
-[resource_multi_week_work_time_from_contracts](resource_multi_week_work_time_from_contracts/) | 12.0.1.0.1 | [![carmenbianca](https://github.com/carmenbianca.png?size=30px)](https://github.com/carmenbianca) | A compatibility module.
+[resource_multi_week_work_time_from_contracts](resource_multi_week_work_time_from_contracts/) | 12.0.1.0.1 | <a href='https://github.com/carmenbianca'><img src='https://github.com/carmenbianca.png' width='32' height='32' style='border-radius:50%;' alt='carmenbianca'/></a> | A compatibility module.
 [resource_work_time_from_contracts](resource_work_time_from_contracts/) | 12.0.2.0.0 |  | Take the contracts of an employee into account when computing work time per day
 [sale_order_for_approval](sale_order_for_approval/) | 12.0.1.0.0 |  | Display "For Approval" mention on Sale Orders
 [sale_order_mass_confirmation](sale_order_mass_confirmation/) | 12.0.1.0.0 |  | Confirm multiple sale orders (quotations) with one action
-[sale_order_packaging_info](sale_order_packaging_info/) | 12.0.1.0.0 | [![carmenbianca](https://github.com/carmenbianca.png?size=30px)](https://github.com/carmenbianca) | Creates a table of packaging products on sales orders.
+[sale_order_packaging_info](sale_order_packaging_info/) | 12.0.1.0.0 | <a href='https://github.com/carmenbianca'><img src='https://github.com/carmenbianca.png' width='32' height='32' style='border-radius:50%;' alt='carmenbianca'/></a> | Creates a table of packaging products on sales orders.
 [sale_order_volume](sale_order_volume/) | 12.0.1.1.1 |  | Computes the volume of products per category ordered and display it on
 [sale_report_partner_category](sale_report_partner_category/) | 12.0.1.0.1 |  | Add a category field to sale reports
 [stock_inventory_confirm_reset_qty](stock_inventory_confirm_reset_qty/) | 12.0.1.0.0 |  | Show a confirmation dialog box when clicking on 'Set quantities to 0' in a stock.inventory
@@ -88,7 +89,7 @@ addon | version | maintainers | summary
 [stock_provider_ref_on_receipt](stock_provider_ref_on_receipt/) | 12.0.1.0.0 |  | Show provider reference on each line of a receipt
 [web_m2x_options_no_partner](web_m2x_options_no_partner/) | 12.0.1.0.1 |  | Removes creation options from (some) partner dropdown menus.
 [web_m2x_options_no_product](web_m2x_options_no_product/) | 12.0.1.0.1 |  | Removes creation options from (some) product dropdown menus.
-[web_wide_smart_buttons](web_wide_smart_buttons/) | 12.0.1.0.0 | [![carmenbianca](https://github.com/carmenbianca.png?size=30px)](https://github.com/carmenbianca) | Make smart buttons wider to be able to read more of their contents.
+[web_wide_smart_buttons](web_wide_smart_buttons/) | 12.0.1.0.0 | <a href='https://github.com/carmenbianca'><img src='https://github.com/carmenbianca.png' width='32' height='32' style='border-radius:50%;' alt='carmenbianca'/></a> | Make smart buttons wider to be able to read more of their contents.
 [website_rebrand_coopiteasy](website_rebrand_coopiteasy/) | 12.0.1.0.1 |  | Replace default Odoo website branding by Coop IT Easy branding
 [website_sale_delivery_vat_label](website_sale_delivery_vat_label/) | 12.0.1.0.0 |  | Display the included/excluded VAT label on delivery method
 [website_sale_detailed_product_description](website_sale_detailed_product_description/) | 12.0.1.0.0 |  | Adds fields to Product Template and e-commerce's product list and page.
