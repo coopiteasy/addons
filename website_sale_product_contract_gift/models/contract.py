@@ -14,7 +14,7 @@ class ContractContract(models.Model):
     is_gift = fields.Boolean()
 
     def _cron_recurring_create(self, date_ref=False, create_type="invoice"):
-        res = super()._cron_recurring_create(date_ref=False, create_type="invoice")
+        res = super()._cron_recurring_create(date_ref=False, create_type=create_type)
         for contract in (
             self.env["contract.contract"]
             .search([])
