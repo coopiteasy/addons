@@ -8,7 +8,7 @@
     "author": "Coop IT Easy SC",
     "category": "Accounting",
     "license": "AGPL-3",
-    "website": "https://coopiteasy.be",
+    "website": "https://github.com/coopiteasy/addons",
     "depends": ["account"],
     "data": ["views/account_invoice_view.xml"],
     "installable": True,
