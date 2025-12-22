@@ -15,7 +15,7 @@
             >
                 <attribute
                     name="domain"
-                >[('seller_ids.name.id', '=', parent.partner_id)]</attribute>
+                >[('seller_ids.partner_id', '=', parent.partner_id)]</attribute>
             </xpath>
         </field>
     </record>
