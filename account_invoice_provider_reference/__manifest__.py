@@ -4,12 +4,11 @@
 
 {
     "name": "Invoice Provider Reference",
-    "version": "12.0.1.0.0",
+    "version": "16.0.1.0.0",
     "author": "Coop IT Easy SC",
     "category": "Accounting",
     "license": "AGPL-3",
     "website": "https://github.com/coopiteasy/addons",
     "depends": ["account"],
-    "data": ["views/account_invoice_view.xml"],
-    "installable": True,
+    "data": ["views/account_move_views.xml"],
 }
