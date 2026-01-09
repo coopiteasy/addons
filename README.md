@@ -22,6 +22,7 @@ Available addons
 addon | version | maintainers | summary
 --- | --- | --- | ---
 [account_customer_wallet](account_customer_wallet/) | 16.0.1.0.1 |  | Allow customers to pay using a wallet which is tracked by the company.
+[account_invoice_provider_reference](account_invoice_provider_reference/) | 16.0.1.0.0 |  | Invoice Provider Reference
 [account_move_payment_mode_sepa](account_move_payment_mode_sepa/) | 16.0.1.0.0 | <a href='https://github.com/victor-champonnois'><img src='https://github.com/victor-champonnois.png' width='32' height='32' style='border-radius:50%;' alt='victor-champonnois'/></a> | Account Move Payment Mode SEPA
 [board_signature](board_signature/) | 16.0.1.0.0 | <a href='https://github.com/mihien'><img src='https://github.com/mihien.png' width='32' height='32' style='border-radius:50%;' alt='mihien'/></a> | Adds board representative's name, function and signature to companies
 [company_today](company_today/) | 16.0.1.0.0 |  | Store today's date on the company model.
