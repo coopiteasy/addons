@@ -1,5 +1,5 @@
 # Do NOT update manually; changes here will be overwritten by Copier
-_commit: v2.3.0
+_commit: v2.3.2
 _src_path: https://github.com/coopiteasy/oca-addons-repo-template.git
 additional_ruff_rules: []
 ci: GitHub
