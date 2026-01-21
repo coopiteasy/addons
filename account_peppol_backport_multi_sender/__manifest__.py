@@ -8,7 +8,7 @@
         "Allow multiple companies with the same Peppol address to send "
         "Peppol documents"
     ),
-    "version": "16.0.1.0.0",
+    "version": "16.0.1.0.1",
     "category": "Accounting/Accounting",
     "website": "https://github.com/coopiteasy/addons",
     "author": "Coop IT Easy SC",
