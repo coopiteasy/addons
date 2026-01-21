@@ -22,7 +22,7 @@ class ReportRawMaterials(models.AbstractModel):
         docargs = {
             "doc_ids": self.ids,
             "doc_model": "stock.move",
-            "data": data["form"],
+            "data": data.get("form", False),
             "docs": docs,
             "time": time,
             "get_stock_moves": report_lines,

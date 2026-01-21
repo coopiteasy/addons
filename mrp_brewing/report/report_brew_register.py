@@ -19,7 +19,7 @@ class ReportBrewRegister(models.AbstractModel):
         docargs = {
             "doc_ids": self.ids,
             "doc_model": "brew.order",
-            "data": data["form"],
+            "data": data.get("form", False),
             "docs": docs,
             "time": time,
             "get_brew_orders": report_lines,
