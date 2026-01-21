@@ -10,12 +10,12 @@ from odoo import models
 class AccountEdiProxyClientPeppolUser(models.Model):
     _inherit = "account_edi_proxy_client_peppol.user"
 
-    def init(self):
+    def _auto_init(self):
         # this method is called after _auto_init() from the
-        # account_peppol_backport module. there seems to be no clean way to
-        # call code before that method. instead, we check that the index has
-        # the correct definition, and if not, we modify it.
-        result = super().init()
+        # account_peppol_backport module if that module is updated first.
+        # there seems to be no clean way to call code before that method.
+        # instead, we check that the index has the correct definition, and if
+        # not, we modify it.
         index_name = (
             "account_edi_proxy_client_peppol_user_unique_active_edi_identification"
         )
@@ -45,4 +45,4 @@ class AccountEdiProxyClientPeppolUser(models.Model):
                     """
                 ).format(index_name=sql.Identifier(index_name))
             )
-        return result
+        return super()._auto_init()
