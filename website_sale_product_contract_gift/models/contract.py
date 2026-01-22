@@ -16,9 +16,15 @@ class ContractContract(models.Model):
     def _cron_recurring_create(self, date_ref=False, create_type="invoice"):
         res = super()._cron_recurring_create(date_ref=False, create_type=create_type)
         for contract in (
-            self.env["contract.contract"]
+            self.env["contract.line"]
             .search([])
-            .filtered(lambda c: c.is_gift and (c.date_start == Date.today()))
+            # we look at the line date rather than the contract in case
+            # line_recurrence is true. In this case, contract date would not
+            # equal line date.
+            .filtered(
+                lambda l: l.contract_id.is_gift and (l.date_start == Date.today())
+            )
+            .mapped("contract_id")
         ):
             if not contract.partner_id.user_ids:
                 user = (
