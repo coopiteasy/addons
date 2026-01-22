@@ -27,16 +27,20 @@ class ContractContract(models.Model):
             .mapped("contract_id")
         ):
             if not contract.partner_id.user_ids:
-                user = (
-                    self.env["res.users"]
-                    .with_context(no_reset_password=True)
-                    ._create_user_from_template(
-                        {
-                            "email": email_normalize(contract.partner_id.email),
-                            "login": email_normalize(contract.partner_id.email),
-                            "partner_id": contract.partner_id.id,
-                        }
-                    )
+                user_with_same_login = self.env["res.users"].search(
+                    [("login", "=", email_normalize(contract.partner_id.email))]
                 )
-                user.with_context(create_user=True).action_reset_password()
+                if not user_with_same_login:
+                    user = (
+                        self.env["res.users"]
+                        .with_context(no_reset_password=True)
+                        ._create_user_from_template(
+                            {
+                                "email": email_normalize(contract.partner_id.email),
+                                "login": email_normalize(contract.partner_id.email),
+                                "partner_id": contract.partner_id.id,
+                            }
+                        )
+                    )
+                    user.with_context(create_user=True).action_reset_password()
         return res
