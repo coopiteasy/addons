@@ -375,15 +375,16 @@ ul.auto-toc {
 <div class="contents local topic" id="contents">
 <ul class="simple">
 <li><a class="reference internal" href="#configuration" id="toc-entry-1">Configuration</a></li>
-<li><a class="reference internal" href="#changelog" id="toc-entry-2">Changelog</a><ul>
-<li><a class="reference internal" href="#section-1" id="toc-entry-3">12.0.1.2.0 (2022-07-08)</a></li>
+<li><a class="reference internal" href="#usage" id="toc-entry-2">Usage</a></li>
+<li><a class="reference internal" href="#changelog" id="toc-entry-3">Changelog</a><ul>
+<li><a class="reference internal" href="#section-1" id="toc-entry-4">12.0.1.2.0 (2022-07-08)</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#bug-tracker" id="toc-entry-4">Bug Tracker</a></li>
-<li><a class="reference internal" href="#credits" id="toc-entry-5">Credits</a><ul>
-<li><a class="reference internal" href="#authors" id="toc-entry-6">Authors</a></li>
-<li><a class="reference internal" href="#contributors" id="toc-entry-7">Contributors</a></li>
-<li><a class="reference internal" href="#maintainers" id="toc-entry-8">Maintainers</a></li>
+<li><a class="reference internal" href="#bug-tracker" id="toc-entry-5">Bug Tracker</a></li>
+<li><a class="reference internal" href="#credits" id="toc-entry-6">Credits</a><ul>
+<li><a class="reference internal" href="#authors" id="toc-entry-7">Authors</a></li>
+<li><a class="reference internal" href="#contributors" id="toc-entry-8">Contributors</a></li>
+<li><a class="reference internal" href="#maintainers" id="toc-entry-9">Maintainers</a></li>
 </ul>
 </li>
 </ul>
@@ -391,25 +392,81 @@ ul.auto-toc {
 <div class="section" id="configuration">
 <h1><a class="toc-backref" href="#toc-entry-1">Configuration</a></h1>
 <p>Setting this up requires a few careful steps:</p>
-<ul class="simple">
-<li>Make sure your user has access to all accounting features.</li>
-<li>Create an account (Customer Wallet) that is a liability.</li>
-<li>Create a journal (Customer Wallet). Enable the ‘Customer Wallet Journal’
+<ul>
+<li><p class="first">Make sure your user has access to all accounting features.</p>
+</li>
+<li><p class="first">Create an account (Customer Wallet) that is a liability.</p>
+<div class="figure">
+<img alt="https://raw.githubusercontent.com/coopiteasy/addons/16.0/account_customer_wallet/static/description/configure_account_account.png" src="https://raw.githubusercontent.com/coopiteasy/addons/16.0/account_customer_wallet/static/description/configure_account_account.png" />
+</div>
+</li>
+<li><p class="first">Create a journal (Customer Wallet). Enable the ‘Customer Wallet Journal’
 toggle, set the Bank Account to the previously created account, and in the
 payment methods (both incoming and outgoing), set the Outstanding Receipts and
 Outstanding Payments accounts to the previously created account. You may need
-to toggle the visibility of these fields in the tables.</li>
-<li>In the Invoicing settings, set the Customer Wallet Account to the previously
-created account.</li>
-<li>(Optional) Create a product (Wallet Product), and enable the Wallet Product
+to toggle the visibility of these fields in the tables.</p>
+<div class="figure">
+<img alt="https://raw.githubusercontent.com/coopiteasy/addons/16.0/account_customer_wallet/static/description/configure_account_journal.png" src="https://raw.githubusercontent.com/coopiteasy/addons/16.0/account_customer_wallet/static/description/configure_account_journal.png" />
+</div>
+</li>
+<li><p class="first">In the Invoicing settings, set the Customer Wallet Account to the previously
+created account.</p>
+<div class="figure">
+<img alt="https://raw.githubusercontent.com/coopiteasy/addons/16.0/account_customer_wallet/static/description/configure_res_config_settings.png" src="https://raw.githubusercontent.com/coopiteasy/addons/16.0/account_customer_wallet/static/description/configure_res_config_settings.png" />
+</div>
+</li>
+<li><p class="first">(Optional) Create a product (Wallet Product), and enable the Wallet Product
 toggle. Set the income and expense account will be automatically the Customer
-wallet account previously created.</li>
+wallet account previously created.</p>
+</li>
 </ul>
 </div>
+<div class="section" id="usage">
+<h1><a class="toc-backref" href="#toc-entry-2">Usage</a></h1>
+<p><strong>Credit Customer Wallet</strong></p>
+<ul>
+<li><p class="first">Create a new customer invoice</p>
+</li>
+<li><p class="first">Select the Customer Wallet Product and put an amount</p>
+</li>
+<li><p class="first">confirm the invoice</p>
+<div class="figure">
+<img alt="https://raw.githubusercontent.com/coopiteasy/addons/16.0/account_customer_wallet/static/description/invoice_form_wallet_sale.png" src="https://raw.githubusercontent.com/coopiteasy/addons/16.0/account_customer_wallet/static/description/invoice_form_wallet_sale.png" />
+</div>
+</li>
+</ul>
+<p>As a result, the customer has now a credit amount in his customer wallet.</p>
+<p>You can then check Customer Wallet amount on the partner form.</p>
+<ul>
+<li><p class="first">Select your customer</p>
+</li>
+<li><p class="first">Open the ‘Sale &amp; Purchase’ Tab</p>
+<div class="figure">
+<img alt="https://raw.githubusercontent.com/coopiteasy/addons/16.0/account_customer_wallet/static/description/partner_form_wallet_amount.png" src="https://raw.githubusercontent.com/coopiteasy/addons/16.0/account_customer_wallet/static/description/partner_form_wallet_amount.png" />
+</div>
+</li>
+</ul>
+<p>You can also see all the Customer Wallets:</p>
+<ul>
+<li><p class="first">Click on ‘Accounting &gt; Customers &gt; Customer Wallets’</p>
+<div class="figure">
+<img alt="https://raw.githubusercontent.com/coopiteasy/addons/16.0/account_customer_wallet/static/description/partner_tree_wallet_amount.png" src="https://raw.githubusercontent.com/coopiteasy/addons/16.0/account_customer_wallet/static/description/partner_tree_wallet_amount.png" />
+</div>
+</li>
+</ul>
+<p><strong>Debit Customer Wallet</strong></p>
+<p>You can then mark a customer invoice as paid, using the the account journal ‘Customer Wallet’.</p>
+<p>A message is present in the payment wizard.</p>
+<blockquote>
+<div class="figure">
+<img alt="https://raw.githubusercontent.com/coopiteasy/addons/16.0/account_customer_wallet/static/description/payment_form.png" src="https://raw.githubusercontent.com/coopiteasy/addons/16.0/account_customer_wallet/static/description/payment_form.png" />
+</div>
+</blockquote>
+</div>
 <div class="section" id="changelog">
-<h1><a class="toc-backref" href="#toc-entry-2">Changelog</a></h1>
+<h1><a class="toc-backref" href="#toc-entry-3">Changelog</a></h1>
 <div class="section" id="section-1">
-<h2><a class="toc-backref" href="#toc-entry-3">12.0.1.2.0 (2022-07-08)</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-4">12.0.1.2.0 (2022-07-08)</a></h2>
 <p><strong>Misc</strong></p>
 <ul class="simple">
 <li><a class="reference external" href="https://github.com/coopiteasy/addons/issues/237">#237</a></li>
@@ -423,7 +480,7 @@ balances. (<a class="reference external" href="https://github.com/coopiteasy/add
 </div>
 </div>
 <div class="section" id="bug-tracker">
-<h1><a class="toc-backref" href="#toc-entry-4">Bug Tracker</a></h1>
+<h1><a class="toc-backref" href="#toc-entry-5">Bug Tracker</a></h1>
 <p>Bugs are tracked on <a class="reference external" href="https://github.com/coopiteasy/addons/issues">GitHub Issues</a>.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
@@ -431,16 +488,16 @@ If you spotted it first, help us to smash it by providing a detailed and welcome
 <p>Do not contact contributors directly about support or help with technical issues.</p>
 </div>
 <div class="section" id="credits">
-<h1><a class="toc-backref" href="#toc-entry-5">Credits</a></h1>
+<h1><a class="toc-backref" href="#toc-entry-6">Credits</a></h1>
 <div class="section" id="authors">
-<h2><a class="toc-backref" href="#toc-entry-6">Authors</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-7">Authors</a></h2>
 <ul class="simple">
 <li>Coop IT Easy SC</li>
 <li>GRAP</li>
 </ul>
 </div>
 <div class="section" id="contributors">
-<h2><a class="toc-backref" href="#toc-entry-7">Contributors</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-8">Contributors</a></h2>
 <ul class="simple">
 <li><a class="reference external" href="https://coopiteasy.be">Coop IT Easy SC</a>:<ul>
 <li>Carmen Bianca Bakker</li>
@@ -449,7 +506,7 @@ If you spotted it first, help us to smash it by providing a detailed and welcome
 </ul>
 </div>
 <div class="section" id="maintainers">
-<h2><a class="toc-backref" href="#toc-entry-8">Maintainers</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-9">Maintainers</a></h2>
 <p>This module is part of the <a class="reference external" href="https://github.com/coopiteasy/addons/tree/16.0/account_customer_wallet">coopiteasy/addons</a> project on GitHub.</p>
 <p>You are welcome to contribute.</p>
 </div>

@@ -35,17 +35,62 @@ Configuration
 Setting this up requires a few careful steps:
 
 - Make sure your user has access to all accounting features.
+
 - Create an account (Customer Wallet) that is a liability.
+
+  .. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/account_customer_wallet/static/description/configure_account_account.png
+
 - Create a journal (Customer Wallet). Enable the 'Customer Wallet Journal'
   toggle, set the Bank Account to the previously created account, and in the
   payment methods (both incoming and outgoing), set the Outstanding Receipts and
   Outstanding Payments accounts to the previously created account. You may need
   to toggle the visibility of these fields in the tables.
+
+  .. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/account_customer_wallet/static/description/configure_account_journal.png
+
 - In the Invoicing settings, set the Customer Wallet Account to the previously
   created account.
+
+  .. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/account_customer_wallet/static/description/configure_res_config_settings.png
+
 - (Optional) Create a product (Wallet Product), and enable the Wallet Product
   toggle. Set the income and expense account will be automatically the Customer
   wallet account previously created.
+
+Usage
+=====
+
+**Credit Customer Wallet**
+
+- Create a new customer invoice
+- Select the Customer Wallet Product and put an amount
+- confirm the invoice
+
+  .. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/account_customer_wallet/static/description/invoice_form_wallet_sale.png
+
+As a result, the customer has now a credit amount in his customer wallet.
+
+You can then check Customer Wallet amount on the partner form.
+
+- Select your customer
+
+- Open the 'Sale & Purchase' Tab
+
+  .. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/account_customer_wallet/static/description/partner_form_wallet_amount.png
+
+You can also see all the Customer Wallets:
+
+- Click on 'Accounting > Customers > Customer Wallets'
+
+  .. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/account_customer_wallet/static/description/partner_tree_wallet_amount.png
+
+**Debit Customer Wallet**
+
+You can then mark a customer invoice as paid, using the the account journal 'Customer Wallet'.
+
+A message is present in the payment wizard.
+
+  .. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/account_customer_wallet/static/description/payment_form.png
 
 Changelog
 =========
