@@ -15,7 +15,6 @@
     "application": False,
     "depends": [
         "portal",
-        "website",
         "account_customer_wallet",
     ],
     "excludes": [],
