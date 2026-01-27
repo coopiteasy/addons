@@ -22,12 +22,29 @@ Portal Customer Wallet
 
 |badge1| |badge2| |badge3|
 
-My Home displays expenditures using customer wallet
+My Home displays expenditures using customer wallet.
 
 **Table of contents**
 
 .. contents::
    :local:
+
+Usage
+=====
+
+* Go your portal home page.
+
+A new section is available that shows the details of the expenses done with the journal wallet.
+
+  .. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/portal_customer_wallet/static/description/portal_home.png
+
+Known issues / Roadmap
+======================
+
+* adapt the portal to the Odoo convention: Add dedicated menu entry for customer wallet.
+
+* Display all moves that generates the wallet amount. For the time being, the list is
+  wrong if point_of_sale is installed, and incomplete in all case, as there is no credit moves.
 
 Bug Tracker
 ===========
