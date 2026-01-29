@@ -24,7 +24,7 @@
     "demo": [],
     "assets": {
         "web.assets_frontend": [
-            "portal_customer_wallet/static/src/css/portal_customer_wallet.css"
+            "customer_wallet_portal/static/src/css/customer_wallet_portal.css"
         ],
     },
 }
