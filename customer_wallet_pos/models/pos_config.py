@@ -14,6 +14,7 @@ class PosConfig(models.Model):
 
     minimum_wallet_amount = fields.Monetary(
         compute="_compute_minimum_wallet_amount",
+        store=True,
     )
 
     @api.depends(
