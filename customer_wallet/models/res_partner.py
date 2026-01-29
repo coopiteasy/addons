@@ -61,7 +61,7 @@ class Partner(models.Model):
         ]
 
     def get_wallet_balance_all(self, all_partner_ids, wallet_account_id):
-        # Overload in other modules (like pos_customer_wallet)
+        # Overload in other modules (like customer_wallet_pos)
         return [
             self.get_wallet_balance_account_move_line(
                 all_partner_ids, wallet_account_id

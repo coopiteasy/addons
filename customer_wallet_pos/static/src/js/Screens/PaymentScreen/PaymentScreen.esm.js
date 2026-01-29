@@ -1,4 +1,4 @@
-/** @odoo-module alias=pos_customer_wallet.PaymentScreen **/
+/** @odoo-module alias=customer_wallet_pos.PaymentScreen **/
 // SPDX-FileCopyrightText: 2022 Coop IT Easy SC
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
