@@ -22,10 +22,7 @@ msgstr ""
 #. module: account_customer_wallet
 #: model:ir.model.fields,help:account_customer_wallet.field_product_product__is_customer_wallet_product
 #: model:ir.model.fields,help:account_customer_wallet.field_product_template__is_customer_wallet_product
-msgid ""
-"Check this box if this product is used to credit customer wallets. Important"
-" note : you should set the the same income and expense account as the "
-"journal wallet."
+msgid "Check this box if this product is used to credit customer wallets."
 msgstr ""
 
 #. module: account_customer_wallet
@@ -44,6 +41,8 @@ msgid "Contact"
 msgstr ""
 
 #. module: account_customer_wallet
+#: model:account.account,name:account_customer_wallet.account_account_customer_wallet_demo
+#: model:account.journal,name:account_customer_wallet.account_journal_customer_wallet_demo
 #: model_terms:ir.ui.view,arch_db:account_customer_wallet.view_partner_form
 msgid "Customer Wallet"
 msgstr ""
@@ -56,6 +55,7 @@ msgstr ""
 
 #. module: account_customer_wallet
 #: model:ir.model.fields,field_description:account_customer_wallet.field_account_payment__customer_wallet_balance
+#: model:ir.model.fields,field_description:account_customer_wallet.field_account_payment_register__customer_wallet_balance
 #: model:ir.model.fields,field_description:account_customer_wallet.field_res_partner__customer_wallet_balance
 #: model:ir.model.fields,field_description:account_customer_wallet.field_res_users__customer_wallet_balance
 msgid "Customer Wallet Balance"
@@ -69,7 +69,19 @@ msgstr ""
 #. module: account_customer_wallet
 #: model:ir.model.fields,field_description:account_customer_wallet.field_account_journal__is_customer_wallet_journal
 #: model:ir.model.fields,field_description:account_customer_wallet.field_account_payment__is_customer_wallet_journal
+#: model:ir.model.fields,field_description:account_customer_wallet.field_account_payment_register__is_customer_wallet_journal
 msgid "Customer Wallet Journal"
+msgstr ""
+
+#. module: account_customer_wallet
+#: model:ir.actions.act_window,name:account_customer_wallet.action_res_partner_wallet
+#: model:ir.ui.menu,name:account_customer_wallet.menu_res_partner_wallet
+msgid "Customer Wallets"
+msgstr ""
+
+#. module: account_customer_wallet
+#: model_terms:ir.ui.view,arch_db:account_customer_wallet.view_res_partner_filter
+msgid "Distinct Customer Wallets"
 msgstr ""
 
 #. module: account_customer_wallet
@@ -103,6 +115,11 @@ msgid "Product"
 msgstr ""
 
 #. module: account_customer_wallet
+#: model:ir.model,name:account_customer_wallet.model_account_payment_register
+msgid "Register Payment"
+msgstr ""
+
+#. module: account_customer_wallet
 #: model:ir.model.fields,help:account_customer_wallet.field_res_config_settings__customer_wallet_account_id
 msgid "The account where all wallet transactions will be recorded"
 msgstr ""
@@ -110,12 +127,18 @@ msgstr ""
 #. module: account_customer_wallet
 #. odoo-python
 #: code:addons/account_customer_wallet/models/account_payment.py:0
+#: code:addons/account_customer_wallet/models/account_payment.py:0
 #, python-format
 msgid ""
 "There is not enough balance in the customer's wallet to perform this payment. \n"
 " - Customer : %(partner)s\n"
 " - Customer Wallet : %(balance)s\n"
 " - Amount Payment : %(amount)s"
+msgstr ""
+
+#. module: account_customer_wallet
+#: model_terms:ir.ui.view,arch_db:account_customer_wallet.view_res_partner_tree
+msgid "Total"
 msgstr ""
 
 #. module: account_customer_wallet
@@ -132,4 +155,10 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_customer_wallet.field_product_template__is_customer_wallet_product
 #: model:product.template,name:account_customer_wallet.product_wallet_demo_product_template
 msgid "Wallet Product"
+msgstr ""
+
+#. module: account_customer_wallet
+#: model_terms:ir.ui.view,arch_db:account_customer_wallet.view_account_payment_form
+#: model_terms:ir.ui.view,arch_db:account_customer_wallet.view_account_payment_register_form
+msgid "You can select the customer account journal for this customer."
 msgstr ""

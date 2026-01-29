@@ -1,12 +1,12 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* pos_customer_wallet
+# 	* pos_customer_wallet
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0\n"
+"Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: <>\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -14,24 +14,27 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: pos_customer_wallet
-#. openerp-web
-#: code:addons/pos_customer_wallet/static/src/js/screens.js:65
+#. odoo-javascript
+#: code:addons/pos_customer_wallet/static/src/js/Screens/PaymentScreen/PaymentScreen.esm.js:0
 #, python-format
-msgid "' without selecting a customer. Please select a customer or remove the order line(s)."
+msgid ""
+"' without selecting a customer. Please select a customer or remove the order"
+" line(s)."
 msgstr ""
 
 #. module: pos_customer_wallet
-#. openerp-web
-#: code:addons/pos_customer_wallet/static/src/js/screens.js:63
+#. odoo-javascript
+#: code:addons/pos_customer_wallet/static/src/js/Screens/PaymentScreen/PaymentScreen.esm.js:0
 #, python-format
 msgid "Cannot sell the product '"
 msgstr ""
 
 #. module: pos_customer_wallet
-#. openerp-web
-#: code:addons/pos_customer_wallet/static/src/js/screens.js:48
+#. odoo-javascript
+#: code:addons/pos_customer_wallet/static/src/js/Screens/PaymentScreen/PaymentScreen.esm.js:0
 #, python-format
-msgid "Cannot use customer wallet payment method without selecting a customer.\n"
+msgid ""
+"Cannot use customer wallet payment method without selecting a customer.\n"
 "\n"
 " Please select a customer or use a different payment method."
 msgstr ""
@@ -42,26 +45,28 @@ msgid "Contact"
 msgstr ""
 
 #. module: pos_customer_wallet
-#. openerp-web
-#: code:addons/pos_customer_wallet/static/src/js/screens.js:135
-#: code:addons/pos_customer_wallet/static/src/xml/pos.xml:10
-#: code:addons/pos_customer_wallet/static/src/xml/pos.xml:71
-#: code:addons/pos_customer_wallet/static/src/xml/pos.xml:85
+#. odoo-javascript
+#: code:addons/pos_customer_wallet/static/src/xml/Screens/PartnerListScreen/PartnerDetailsEdit.xml:0
+#: model:pos.payment.method,name:pos_customer_wallet.customer_wallet_payment_method
+#, python-format
+msgid "Customer Wallet"
+msgstr ""
+
+#. module: pos_customer_wallet
+#. odoo-javascript
+#: code:addons/pos_customer_wallet/static/src/xml/Screens/ReceiptScreen/OrderReceipt.xml:0
 #, python-format
 msgid "Customer Wallet Balance"
 msgstr ""
 
 #. module: pos_customer_wallet
-#. openerp-web
-#: code:addons/pos_customer_wallet/static/src/xml/pos.xml:43
-#: code:addons/pos_customer_wallet/static/src/xml/pos.xml:57
-#, python-format
-msgid "Customer Wallet Balance:"
+#: model:ir.model.fields,field_description:pos_customer_wallet.field_pos_payment_method__is_customer_wallet_method
+msgid "Customer Wallet Journal"
 msgstr ""
 
 #. module: pos_customer_wallet
-#. openerp-web
-#: code:addons/pos_customer_wallet/static/src/js/screens.js:74
+#. odoo-javascript
+#: code:addons/pos_customer_wallet/static/src/js/Screens/PaymentScreen/PaymentScreen.esm.js:0
 #, python-format
 msgid "Customer wallet balance not sufficient"
 msgstr ""
@@ -77,9 +82,9 @@ msgid "Minimum Wallet Amount"
 msgstr ""
 
 #. module: pos_customer_wallet
-#. openerp-web
-#: code:addons/pos_customer_wallet/static/src/js/screens.js:47
-#: code:addons/pos_customer_wallet/static/src/js/screens.js:61
+#. odoo-javascript
+#: code:addons/pos_customer_wallet/static/src/js/Screens/PaymentScreen/PaymentScreen.esm.js:0
+#: code:addons/pos_customer_wallet/static/src/js/Screens/PaymentScreen/PaymentScreen.esm.js:0
 #, python-format
 msgid "No customer selected"
 msgstr ""
@@ -90,9 +95,26 @@ msgid "Point of Sale Configuration"
 msgstr ""
 
 #. module: pos_customer_wallet
-#. openerp-web
-#: code:addons/pos_customer_wallet/static/src/js/screens.js:75
-#, python-format
-msgid "There is not enough balance in the customer's wallet to perform this order."
+#: model:ir.model,name:pos_customer_wallet.model_pos_payment_method
+msgid "Point of Sale Payment Methods"
 msgstr ""
 
+#. module: pos_customer_wallet
+#: model:ir.model,name:pos_customer_wallet.model_pos_session
+msgid "Point of Sale Session"
+msgstr ""
+
+#. module: pos_customer_wallet
+#. odoo-javascript
+#: code:addons/pos_customer_wallet/static/src/js/Screens/PaymentScreen/PaymentScreen.esm.js:0
+#, python-format
+msgid ""
+"There is not enough balance in the customer's wallet to perform this order."
+msgstr ""
+
+#. module: pos_customer_wallet
+#. odoo-javascript
+#: code:addons/pos_customer_wallet/static/src/xml/Screens/PartnerListScreen/PartnerListScreen.xml:0
+#, python-format
+msgid "Wallet"
+msgstr ""
