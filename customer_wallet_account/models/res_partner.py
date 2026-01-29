@@ -97,11 +97,12 @@ class Partner(models.Model):
         # and is not necessary for most partners
         for partner in self.filtered(lambda x: x.parent_id or x.child_ids):
             all_partner_families[partner] = partner.get_all_partners_in_family()
-            all_partner_ids |= set(all_partner_families[partner])
 
         for partner in self.filtered(lambda x: not x.parent_id and not x.child_ids):
             all_partner_families[partner] = [partner.id]
-            all_partner_ids |= set(all_partner_families[partner])
+
+        for val in all_partner_families.values():
+            all_partner_ids |= set(val)
 
         all_totals = self.get_wallet_balance_all(all_partner_ids, wallet_account_id)
 
