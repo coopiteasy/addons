@@ -51,7 +51,7 @@
         <field name="name">Customer Wallets</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">res.partner</field>
-        <field name="view_mode">tree</field>
+        <field name="view_mode">tree,kanban,form,activity</field>
         <field name="view_id" ref="view_res_partner_tree" />
         <field name="context">{
             'search_default_customer_wallet_balance_nonzero': 1,
