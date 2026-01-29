@@ -14,7 +14,7 @@
         <field name="split_transactions" eval="True" />
         <field
             name="outstanding_account_id"
-            eval="ref('customer_wallet_account.account_customer_wallet_account_demo')"
+            eval="ref('customer_wallet_account.account_account_customer_wallet_demo')"
         />
    </record>
 

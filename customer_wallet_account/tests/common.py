@@ -24,7 +24,7 @@ class TestBalance(TransactionCase):
         )
         cls.sale_product = template.product_variant_id
         cls.customer_wallet_account = cls.env.ref(
-            "customer_wallet_account.customer_wallet_account_account_demo"
+            "customer_wallet_account.account_account_customer_wallet_demo"
         )
         cls.sale_account = cls.env["account.account"].search(
             [

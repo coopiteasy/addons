@@ -1,0 +1,108 @@
+#. module: customer_wallet_portal
+#. odoo-python
+#: code:addons/customer_wallet_portal/controllers/main.py:0
+#, python-format
+msgid "April"
+msgstr ""
+
+#. module: customer_wallet_portal
+#. odoo-python
+#: code:addons/customer_wallet_portal/controllers/main.py:0
+#, python-format
+msgid "August"
+msgstr ""
+
+#. module: customer_wallet_portal
+#: model:ir.model,name:customer_wallet_portal.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: customer_wallet_portal
+#: model_terms:ir.ui.view,arch_db:customer_wallet_portal.portal_my_home
+msgid "Customer Wallet"
+msgstr ""
+
+#. module: customer_wallet_portal
+#: model_terms:ir.ui.view,arch_db:customer_wallet_portal.portal_my_home
+msgid "Customer wallet balance:"
+msgstr ""
+
+#. module: customer_wallet_portal
+#. odoo-python
+#: code:addons/customer_wallet_portal/controllers/main.py:0
+#, python-format
+msgid "December"
+msgstr ""
+
+#. module: customer_wallet_portal
+#. odoo-python
+#: code:addons/customer_wallet_portal/controllers/main.py:0
+#, python-format
+msgid "February"
+msgstr ""
+
+#. module: customer_wallet_portal
+#. odoo-python
+#: code:addons/customer_wallet_portal/controllers/main.py:0
+#, python-format
+msgid "January"
+msgstr ""
+
+#. module: customer_wallet_portal
+#. odoo-python
+#: code:addons/customer_wallet_portal/controllers/main.py:0
+#, python-format
+msgid "July"
+msgstr ""
+
+#. module: customer_wallet_portal
+#. odoo-python
+#: code:addons/customer_wallet_portal/controllers/main.py:0
+#, python-format
+msgid "June"
+msgstr ""
+
+#. module: customer_wallet_portal
+#. odoo-python
+#: code:addons/customer_wallet_portal/controllers/main.py:0
+#, python-format
+msgid "March"
+msgstr ""
+
+#. module: customer_wallet_portal
+#. odoo-python
+#: code:addons/customer_wallet_portal/controllers/main.py:0
+#, python-format
+msgid "May"
+msgstr ""
+
+#. module: customer_wallet_portal
+#: model_terms:ir.ui.view,arch_db:customer_wallet_portal.portal_my_home
+msgid "Month"
+msgstr ""
+
+#. module: customer_wallet_portal
+#. odoo-python
+#: code:addons/customer_wallet_portal/controllers/main.py:0
+#, python-format
+msgid "November"
+msgstr ""
+
+#. module: customer_wallet_portal
+#. odoo-python
+#: code:addons/customer_wallet_portal/controllers/main.py:0
+#, python-format
+msgid "October"
+msgstr ""
+
+#. module: customer_wallet_portal
+#. odoo-python
+#: code:addons/customer_wallet_portal/controllers/main.py:0
+#, python-format
+msgid "September"
+msgstr ""
+
+#. module: customer_wallet_portal
+#: model_terms:ir.ui.view,arch_db:customer_wallet_portal.portal_my_home
+msgid "Total expenses"
+msgstr ""

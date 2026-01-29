@@ -5,7 +5,7 @@ from random import randint
 
 from odoo import fields
 
-from odoo.addons.account_customer_wallet.tests.common import TestBalance
+from odoo.addons.customer_wallet_account.tests.common import TestBalance
 
 
 class TestPosBalance(TestBalance):

@@ -56,6 +56,7 @@ msgstr "Contact"
 #. module: customer_wallet_pos
 #. odoo-javascript
 #: code:addons/customer_wallet_pos/static/src/xml/Screens/PartnerListScreen/PartnerDetailsEdit.xml:0
+#, python-format
 msgid "Customer Wallet"
 msgstr "Compte client"
 
