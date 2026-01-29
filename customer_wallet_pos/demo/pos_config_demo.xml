@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    SPDX-FileCopyrightText: 2023 Coop IT Easy SC
+    SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<odoo>
+
+   <record id="point_of_sale.pos_config_main" model="pos.config">
+         <field
+            name="payment_method_ids"
+            eval="[Command.link(ref('customer_wallet_pos.customer_wallet_payment_method'))]"
+        />
+   </record>
+
+</odoo>

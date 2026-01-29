@@ -1,10 +1,10 @@
 # Copyright 2022 Coop IT Easy SC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from .common import TestBalance
+from .common import TestCommon
 
 
-class TestSearch(TestBalance):
+class TestSearch(TestCommon):
     def test_search_balance_all_zero(self):
         """On a virgin database, all balances are zero."""
         all_partners = self.env["res.partner"].search([])

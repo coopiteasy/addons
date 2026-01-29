@@ -1,9 +1,9 @@
 # Copyright 2022 Coop IT Easy SC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from collections import defaultdict
+import datetime
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 from odoo.tools.safe_eval import safe_eval
 
 
@@ -11,17 +11,19 @@ class Partner(models.Model):
     _inherit = "res.partner"
 
     customer_wallet_balance = fields.Monetary(
-        compute="_compute_customer_wallet_balance",
-        readonly=True,
-        recursive=True,
+        compute="_compute_customer_wallet",
         search="_search_customer_wallet_balance",
-        default=0,
+        recursive=True,
     )
     account_move_line_ids = fields.One2many(
         comodel_name="account.move.line",
         inverse_name="partner_id",
         readonly=True,
     )
+
+    has_customer_wallet = fields.Boolean(compute="_compute_customer_wallet")
+
+    customer_wallet_data = fields.Text(compute="_compute_customer_wallet")
 
     def get_topmost_parent_id(self):
         self.ensure_one()
@@ -37,38 +39,35 @@ class Partner(models.Model):
             .ids
         )
 
-    def get_wallet_balance_account_move_line(self, all_partner_ids, wallet_account_id):
-        pre_result = defaultdict(float)
-        for line in (
-            self.env["account.move.line"]
-            .sudo()
-            .search(
-                [
-                    ("partner_id", "in", list(all_partner_ids)),
-                    # Check state
-                    ("parent_state", "=", "posted"),
-                    # FIXME: This should ideally be something like
-                    # `("account_id", "=", partner.customer_wallet_account_id)`,
-                    # but that may not be possible.
-                    ("account_id", "=", wallet_account_id.id),
-                ]
-            )
-        ):
-            pre_result[line.partner_id.id] += line.balance
-        return [
-            {"partner_id": partner_id, "total": total}
-            for partner_id, total in pre_result.items()
-        ]
+    def get_wallet_balance_details(self, all_partner_ids, wallet_account_id):
+        # We use sudo for account.move.line
+        # to avoid access error, if user is not member of accouting groups
 
-    def get_wallet_balance_all(self, all_partner_ids, wallet_account_id):
-        # Overload in other modules (like customer_wallet_pos)
-        return [
-            self.get_wallet_balance_account_move_line(
-                all_partner_ids, wallet_account_id
-            )
+        result = {partner_id: [] for partner_id in all_partner_ids}
+        domain = [
+            ("partner_id", "in", list(all_partner_ids)),
+            ("parent_state", "=", "posted"),
+            ("account_id", "=", wallet_account_id.id),
         ]
+        _fields = ["date", "create_date", "balance", "partner_id", "move_id"]
 
-    def _customer_wallet_balance_depends(self):
+        for line in self.env["account.move.line"].sudo().search_read(domain, _fields):
+            result[line["partner_id"][0]].append(
+                {
+                    "model": "account.move.line",
+                    "partner_id": line["partner_id"][0],
+                    "datetime": datetime.datetime(
+                        line["date"].year, line["date"].month, line["date"].day
+                    ),
+                    "create_date": line["create_date"],
+                    "amount": -line["balance"],
+                    "reference": line["move_id"][1],
+                }
+            )
+
+        return result
+
+    def _customer_wallet_depends(self):
         return [
             "account_move_line_ids",
             "account_move_line_ids.account_id",
@@ -80,9 +79,9 @@ class Partner(models.Model):
             "parent_id.customer_wallet_balance",
         ]
 
-    @api.depends(lambda self: self._customer_wallet_balance_depends())
+    @api.depends(lambda self: self._customer_wallet_depends())
     @api.depends_context("company")
-    def _compute_customer_wallet_balance(self):
+    def _compute_customer_wallet(self):
         wallet_account_id = self.env.company.customer_wallet_account_id
         if not wallet_account_id or not self.ids:
             # Always assign a value in a compute method.
@@ -104,17 +103,21 @@ class Partner(models.Model):
         for val in all_partner_families.values():
             all_partner_ids |= set(val)
 
-        all_totals = self.get_wallet_balance_all(all_partner_ids, wallet_account_id)
+        all_totals = self.get_wallet_balance_details(all_partner_ids, wallet_account_id)
 
         for partner, child_ids in all_partner_families.items():
-            wallet_balance = 0.0
-            for totals in all_totals:
-                wallet_balance += sum(
-                    -total["total"]
-                    for total in totals
-                    if total["partner_id"] in child_ids
-                )
-            partner.customer_wallet_balance = wallet_balance
+            lines = []
+            for partner_id in child_ids:
+                lines += all_totals.get(partner_id)
+
+            partner.customer_wallet_balance = sum(line["amount"] for line in lines)
+            lines.sort(key=lambda x: (x["datetime"], x["create_date"]))
+            balance = 0
+            for line in lines:
+                balance += line["amount"]
+                line["balance"] = balance
+            partner.has_customer_wallet = len(lines)
+            partner.customer_wallet_data = str(lines)
 
     def _search_customer_wallet_balance(self, operator, value):
         # This is a complete and utter hack. Don't do what I did.
@@ -132,6 +135,21 @@ class Partner(models.Model):
             )
             if filtered:
                 return [("id", "in", [partner.id for partner in filtered])]
+            return []
         else:
             # TODO maybe
             raise NotImplementedError()
+
+    def action_view_customer_wallet_details(self):
+        self.ensure_one()
+        return {
+            "name": _("Customer Wallet Details"),
+            "view_mode": "form",
+            "res_model": "customer.wallet.detail.wizard",
+            "view_id": self.env.ref(
+                "customer_wallet_account.view_customer_wallet_detail_wizard_form"
+            ).id,
+            "type": "ir.actions.act_window",
+            "target": "new",
+            "context": {"default_partner_id": self.id},
+        }

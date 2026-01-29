@@ -3,10 +3,10 @@
 
 from odoo.exceptions import UserError
 
-from .common import TestBalance
+from .common import TestCommon
 
 
-class TestAccountBalance(TestBalance):
+class TestBalance(TestCommon):
     def test_balance_zero(self):
         """When doing nothing, a partner's balance is zero."""
         self.assertEqual(self.partner.customer_wallet_balance, 0)

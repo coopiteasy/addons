@@ -4,7 +4,7 @@
 from odoo.tests.common import TransactionCase
 
 
-class TestBalance(TransactionCase):
+class TestCommon(TransactionCase):
     @classmethod
     def setUpClass(cls, *args, **kwargs):
         super().setUpClass(*args, **kwargs)
