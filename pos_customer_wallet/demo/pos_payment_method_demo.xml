@@ -9,12 +9,12 @@
          <field name="name">Customer Wallet</field>
          <field
             name="journal_id"
-            eval="ref('account_customer_wallet.account_journal_customer_wallet_demo')"
+            eval="ref('customer_wallet_account.account_journal_customer_wallet_demo')"
         />
         <field name="split_transactions" eval="True" />
         <field
             name="outstanding_account_id"
-            eval="ref('account_customer_wallet.account_account_customer_wallet_demo')"
+            eval="ref('customer_wallet_account.account_customer_wallet_account_demo')"
         />
    </record>
 

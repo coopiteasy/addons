@@ -4,7 +4,7 @@
    <record id="base.main_company" model="res.company">
             <field
             name="customer_wallet_account_id"
-            ref="account_customer_wallet.account_account_customer_wallet_demo"
+            ref="customer_wallet_account.customer_wallet_account_account_demo"
         />
    </record>
 
