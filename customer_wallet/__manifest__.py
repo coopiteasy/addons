@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
-    "name": "Account Customer Wallet",
+    "name": "Customer Wallet",
     "summary": """
         Allow customers to pay using a wallet which is tracked by the company.""",
     "version": "16.0.1.0.1",

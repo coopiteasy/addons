@@ -15,7 +15,7 @@ class ResPartner(models.Model):
         spent using the customer wallet for every month.
         """
         self.ensure_one()
-        # Like in account_customer_wallet, search against all partners in family.
+        # Like in customer_wallet, search against all partners in family.
         all_partners_in_family = self.get_all_partners_in_family()
         wallet_account_id = self.env.company.customer_wallet_account_id
         move_lines = self.env["account.move.line"].search(

@@ -24,7 +24,7 @@ class TestBalance(TransactionCase):
         )
         cls.sale_product = template.product_variant_id
         cls.customer_wallet_account = cls.env.ref(
-            "account_customer_wallet.account_account_customer_wallet_demo"
+            "customer_wallet.account_account_customer_wallet_demo"
         )
         cls.sale_account = cls.env["account.account"].search(
             [
@@ -37,13 +37,13 @@ class TestBalance(TransactionCase):
             limit=1,
         )
         cls.customer_wallet_journal = cls.env.ref(
-            "account_customer_wallet.account_journal_customer_wallet_demo"
+            "customer_wallet.account_journal_customer_wallet_demo"
         )
         cls.sale_journal = cls.env["account.journal"].search(
             [("type", "=", "sale")], limit=1
         )
         cls.payment_method = cls.env.ref("account.account_payment_method_manual_in")
-        cls.wallet_product = cls.env.ref("account_customer_wallet.product_wallet_demo")
+        cls.wallet_product = cls.env.ref("customer_wallet.product_wallet_demo")
         cls.cash_account = cls.env["account.account"].search(
             [("account_type", "=", "asset_cash")], limit=1
         )

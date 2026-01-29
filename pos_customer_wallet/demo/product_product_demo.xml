@@ -4,7 +4,7 @@
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).-->
 <odoo>
 
-    <record id="account_customer_wallet.product_wallet_demo" model="product.product">
+    <record id="customer_wallet.product_wallet_demo" model="product.product">
         <field name="available_in_pos" eval="True" />
     </record>
 

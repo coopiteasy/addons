@@ -14,7 +14,7 @@
     "application": False,
     "depends": [
         "point_of_sale",
-        "account_customer_wallet",
+        "customer_wallet",
     ],
     "excludes": [],
     "assets": {
