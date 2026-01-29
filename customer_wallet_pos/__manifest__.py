@@ -27,6 +27,7 @@
     "data": [],
     "demo": [
         "demo/pos_payment_method_demo.xml",
+        "demo/pos_config_demo.xml",
         "demo/product_product_demo.xml",
     ],
 }

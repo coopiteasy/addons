@@ -1,76 +1,49 @@
 # SPDX-FileCopyrightText: 2023 Coop IT Easy SC
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
-
-from collections import defaultdict
-
+from odoo import http
 from odoo.http import request
-from odoo.tools.translate import _
+from odoo.tools import format_amount
+from odoo.tools.misc import format_date
+from odoo.tools.safe_eval import datetime, safe_eval
 
 from odoo.addons.portal.controllers.portal import CustomerPortal
 
 
-def translate_month(number):
-    MONTHS = {
-        1: _("January"),
-        2: _("February"),
-        3: _("March"),
-        4: _("April"),
-        5: _("May"),
-        6: _("June"),
-        7: _("July"),
-        8: _("August"),
-        9: _("September"),
-        10: _("October"),
-        11: _("November"),
-        12: _("December"),
-    }
-    return MONTHS[number]
-
-
-def sums_of_years(per_month):
-    """Given a dictionary `(year, month): value`, return a dictionary `year:
-    new_value`, where `new_value` is the aggregate of all the months for that
-    year.
-    """
-    result = defaultdict(int)
-    for key, value in per_month.items():
-        result[key[0]] += value
-    return dict(result)
-
-
 class CustomerWalletAmountPortal(CustomerPortal):
-    def _prepare_portal_layout_values(self):
-        values = super(CustomerWalletAmountPortal, self)._prepare_portal_layout_values()
-        user = request.env.user
-        partner_id = user.partner_id
+    def _prepare_home_portal_values(self, counters):
+        values = super()._prepare_home_portal_values(counters)
+        if "wallet_balance_formated" in counters:
+            partner = request.env["res.users"].browse(request.uid).partner_id
+            values["wallet_balance_formated"] = format_amount(
+                request.env, partner.customer_wallet_balance, partner.currency_id
+            )
+        return values
 
-        per_month = partner_id.customer_wallet_payments_per_month()
-        per_year = sums_of_years(per_month)
+    @http.route(
+        ["/my/wallet", "/my/wallet/page/<int:page>"],
+        type="http",
+        auth="user",
+        website=True,
+    )
+    def portal_my_wallet(
+        self, page=1, date_begin=None, date_end=None, sortby=None, filterby=None, **kw
+    ):
+        # Note: Pager not implemented for the time being
+        partner = request.env["res.users"].browse(request.uid).partner_id
 
-        ordered = []
-        years = set()
-        for key, value in sorted(per_month.items(), reverse=True):
-            year = key[0]
-            month = key[1]
-            if year not in years:
-                ordered.append(
-                    {
-                        "year_month": (year, None),
-                        "month": str(year),
-                        "amount": per_year[year],
-                    }
-                )
-                years.add(year)
-            ordered.append(
-                {
-                    "year_month": (year, month),
-                    "month": f"{translate_month(month)} {year}",
-                    "amount": value,
-                }
+        wallet_lines = safe_eval(partner.customer_wallet_data, {"datetime": datetime})
+        wallet_lines.sort(key=lambda x: (x["datetime"], x["create_date"]), reverse=True)
+        for wallet_line in wallet_lines:
+            wallet_line["datetime_formated"] = format_date(
+                request.env, wallet_line["datetime"]
+            )
+            wallet_line["amount_formated"] = format_amount(
+                request.env, wallet_line["amount"], partner.currency_id
+            )
+            wallet_line["balance_formated"] = format_amount(
+                request.env, wallet_line["balance"], partner.currency_id
             )
 
-        values["customer_wallet_payments_per_month"] = ordered
-        values["company_currency"] = request.env.company.currency_id
-        values["customer_wallet_balance"] = partner_id.customer_wallet_balance
-        return values
+        values = {"page_name": "wallet", "wallet_lines": wallet_lines}
+        return request.render("customer_wallet_portal.portal_my_wallet", values)

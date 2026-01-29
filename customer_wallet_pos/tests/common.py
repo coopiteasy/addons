@@ -5,10 +5,10 @@ from random import randint
 
 from odoo import fields
 
-from odoo.addons.customer_wallet_account.tests.common import TestBalance
+from odoo.addons.customer_wallet_account.tests.common import TestCommon
 
 
-class TestPosBalance(TestBalance):
+class TestPosCommon(TestCommon):
     @classmethod
     def setUpClass(cls, *args, **kwargs):
         super().setUpClass(*args, **kwargs)

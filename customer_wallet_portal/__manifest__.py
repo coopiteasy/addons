@@ -17,14 +17,7 @@
         "portal",
         "customer_wallet_account",
     ],
-    "excludes": [],
     "data": [
         "views/portal_templates.xml",
     ],
-    "demo": [],
-    "assets": {
-        "web.assets_frontend": [
-            "customer_wallet_portal/static/src/css/customer_wallet_portal.css"
-        ],
-    },
 }
