@@ -14,7 +14,7 @@ class TestPosBalance(TestBalance):
         super().setUpClass(*args, **kwargs)
 
         cls.customer_wallet_payment_method = cls.env.ref(
-            "pos_customer_wallet.customer_wallet_payment_method"
+            "customer_wallet_pos.customer_wallet_payment_method"
         )
         cls.cash_payment_method = cls.env["pos.payment.method"].search(
             [("is_cash_count", "=", True)], limit=1

@@ -19,9 +19,9 @@
     "excludes": [],
     "assets": {
         "point_of_sale.assets": [
-            "pos_customer_wallet/static/src/css/pos.css",
-            "pos_customer_wallet/static/src/js/**/*.js",
-            "pos_customer_wallet/static/src/xml/**/*.xml",
+            "customer_wallet_pos/static/src/css/pos.css",
+            "customer_wallet_pos/static/src/js/**/*.js",
+            "customer_wallet_pos/static/src/xml/**/*.xml",
         ],
     },
     "data": [],
