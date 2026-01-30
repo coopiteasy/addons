@@ -24,6 +24,7 @@
         "views/res_partner_views.xml",
         "wizards/account_payment_register_views.xml",
         "wizards/customer_wallet_detail_wizard_views.xml",
+        "wizards/customer_wallet_redistribute_views.xml",
     ],
     "demo": [
         "demo/account_account_demo.xml",
