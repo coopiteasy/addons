@@ -66,8 +66,15 @@
                     type="object"
                     name="action_view_customer_wallet_details"
                     string="Details"
-                    class="float-end btn-secondary"
+                    class="btn-secondary"
                     attrs="{'invisible': [('has_customer_wallet', '=', False)]}"
+                />
+                <button
+                    type="object"
+                    name="action_view_customer_wallet_redistribute"
+                    string="Redistribute"
+                    class="btn-secondary"
+                    attrs="{'invisible': [('customer_wallet_balance', '&lt;=', 0.0)]}"
                 />
             </field>
         </field>

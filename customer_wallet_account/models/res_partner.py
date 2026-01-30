@@ -146,9 +146,17 @@ class Partner(models.Model):
             "name": _("Customer Wallet Details"),
             "view_mode": "form",
             "res_model": "customer.wallet.detail.wizard",
-            "view_id": self.env.ref(
-                "customer_wallet_account.view_customer_wallet_detail_wizard_form"
-            ).id,
+            "type": "ir.actions.act_window",
+            "target": "new",
+            "context": {"default_partner_id": self.id},
+        }
+
+    def action_view_customer_wallet_redistribute(self):
+        self.ensure_one()
+        return {
+            "name": _("Redistribute Customer Wallet"),
+            "view_mode": "form",
+            "res_model": "customer.wallet.redistribute.wizard",
             "type": "ir.actions.act_window",
             "target": "new",
             "context": {"default_partner_id": self.id},
