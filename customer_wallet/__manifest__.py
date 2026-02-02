@@ -8,7 +8,8 @@
     "version": "16.0.1.0.1",
     "category": "Accounting & Finance",
     "website": "https://github.com/coopiteasy/addons",
-    "author": "Coop IT Easy SC,GRAP",
+    "author": "Coop IT Easy SC, GRAP",
+    "maintainers": ["carmenbianca", "legalsylvain"],
     "license": "AGPL-3",
     "application": False,
     "depends": [

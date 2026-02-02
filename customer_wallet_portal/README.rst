@@ -63,6 +63,7 @@ Authors
 ~~~~~~~
 
 * Coop IT Easy SC
+* GRAP
 
 Contributors
 ~~~~~~~~~~~~
@@ -71,16 +72,23 @@ Contributors
 
   * Carmen Bianca BAKKER
 
+* `GRAP <https://www.grap.coop/>`_:
+
+  * Sylvain LE GAL
+
 Maintainers
 ~~~~~~~~~~~
 
 .. |maintainer-carmenbianca| image:: https://github.com/carmenbianca.png?size=40px
     :target: https://github.com/carmenbianca
     :alt: carmenbianca
+.. |maintainer-legalsylvain| image:: https://github.com/legalsylvain.png?size=40px
+    :target: https://github.com/legalsylvain
+    :alt: legalsylvain
 
-Current maintainer:
+Current maintainers:
 
-|maintainer-carmenbianca| 
+|maintainer-carmenbianca| |maintainer-legalsylvain| 
 
 This module is part of the `coopiteasy/addons <https://github.com/coopiteasy/addons/tree/16.0/customer_wallet_portal>`_ project on GitHub.
 

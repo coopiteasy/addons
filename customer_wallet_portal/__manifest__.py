@@ -9,8 +9,8 @@
     "version": "16.0.1.0.0",
     "category": "Website",
     "website": "https://github.com/coopiteasy/addons",
-    "author": "Coop IT Easy SC",
-    "maintainers": ["carmenbianca"],
+    "author": "Coop IT Easy SC, GRAP",
+    "maintainers": ["carmenbianca", "legalsylvain"],
     "license": "AGPL-3",
     "application": False,
     "depends": [
