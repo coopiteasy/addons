@@ -15,7 +15,7 @@
     "auto_install": True,
     "depends": [
         "point_of_sale",
-        "customer_wallet_account",
+        "customer_wallet",
     ],
     "excludes": [],
     "assets": {

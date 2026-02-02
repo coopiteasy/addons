@@ -15,7 +15,7 @@
     "application": False,
     "depends": [
         "portal",
-        "customer_wallet_account",
+        "customer_wallet",
     ],
     "data": [
         "views/portal_templates.xml",
