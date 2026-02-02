@@ -12,6 +12,7 @@
     "maintainers": ["carmenbianca"],
     "license": "AGPL-3",
     "application": False,
+    "auto_install": True,
     "depends": [
         "point_of_sale",
         "customer_wallet",
