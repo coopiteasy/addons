@@ -24,6 +24,9 @@ Customer Wallet
 
 Allow customers to pay using a wallet which is tracked by the company.
 
+A wallet is a cash advance provided by the customer,
+which can be used to make purchases at a later date.
+
 **Table of contents**
 
 .. contents::
@@ -40,6 +43,8 @@ Setting this up requires a few careful steps:
 
   .. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet/static/description/configure_account_account.png
 
+In France, the account generally used will be "4197" - "Clients – Autres avoirs".
+
 - Create a journal (Customer Wallet). Enable the 'Customer Wallet Journal'
   toggle, set the Bank Account to the previously created account, and in the
   payment methods (both incoming and outgoing), set the Outstanding Receipts and
@@ -54,8 +59,11 @@ Setting this up requires a few careful steps:
   .. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet/static/description/configure_res_config_settings.png
 
 - (Optional) Create a product (Wallet Product), and enable the Wallet Product
-  toggle. Set the income and expense account will be automatically the Customer
+  toggle. The income and expense account will be automatically the Customer
   wallet account previously created.
+
+  .. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet/static/description/configure_product_template.png
+
 
 Usage
 =====
@@ -86,7 +94,7 @@ You can also see all the Customer Wallets:
 
 **Debit Customer Wallet**
 
-You can then mark a customer invoice as paid, using the the account journal 'Customer Wallet'.
+You can then mark a customer invoice as paid, using the account journal 'Customer Wallet'.
 
 A message is present in the payment wizard.
 

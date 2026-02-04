@@ -22,7 +22,7 @@
                                 options="{'currency_field': 'currency_id'}"
                             />
                         </span>
-                        <span class="o_stat_text">Customer Wallet</span>
+                        <span class="o_stat_text">Wallet</span>
                     </div>
                 </button>
             </button>

@@ -14,9 +14,50 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: customer_wallet
+#: model_terms:ir.ui.view,arch_db:customer_wallet.view_partner_form
+msgid "<span class=\"o_stat_text\">Wallet</span>"
+msgstr ""
+
+#. module: customer_wallet
 #: model:ir.model.fields,field_description:customer_wallet.field_res_partner__account_move_line_ids
 #: model:ir.model.fields,field_description:customer_wallet.field_res_users__account_move_line_ids
 msgid "Account Move Line"
+msgstr ""
+
+#. module: customer_wallet
+#. odoo-python
+#: code:addons/customer_wallet/wizards/customer_wallet_detail_wizard.py:0
+#, python-format
+msgid "Amount"
+msgstr ""
+
+#. module: customer_wallet
+#: model:ir.model.fields,field_description:customer_wallet.field_customer_wallet_redistribute_wizard__amount
+msgid "Amount to distribute"
+msgstr ""
+
+#. module: customer_wallet
+#: model:ir.model.fields,field_description:customer_wallet.field_customer_wallet_redistribute_wizard_line__amount
+msgid "Amount to receive"
+msgstr ""
+
+#. module: customer_wallet
+#. odoo-python
+#: code:addons/customer_wallet/wizards/customer_wallet_detail_wizard.py:0
+#: model:ir.model.fields,field_description:customer_wallet.field_customer_wallet_detail_wizard__customer_wallet_balance
+#: model:ir.model.fields,field_description:customer_wallet.field_customer_wallet_redistribute_wizard__customer_wallet_balance
+#, python-format
+msgid "Balance"
+msgstr ""
+
+#. module: customer_wallet
+#: model_terms:ir.ui.view,arch_db:customer_wallet.view_customer_wallet_redistribute_wizard_form
+msgid "Beneficiaries"
+msgstr ""
+
+#. module: customer_wallet
+#: model_terms:ir.ui.view,arch_db:customer_wallet.view_customer_wallet_redistribute_wizard_form
+msgid "Cancel"
 msgstr ""
 
 #. module: customer_wallet
@@ -31,6 +72,11 @@ msgid "Companies"
 msgstr ""
 
 #. module: customer_wallet
+#: model:ir.model.fields,field_description:customer_wallet.field_customer_wallet_redistribute_wizard__company_id
+msgid "Company"
+msgstr ""
+
+#. module: customer_wallet
 #: model:ir.model,name:customer_wallet.model_res_config_settings
 msgid "Config Settings"
 msgstr ""
@@ -41,9 +87,29 @@ msgid "Contact"
 msgstr ""
 
 #. module: customer_wallet
+#: model:ir.model.fields,field_description:customer_wallet.field_customer_wallet_detail_wizard__create_uid
+#: model:ir.model.fields,field_description:customer_wallet.field_customer_wallet_redistribute_wizard__create_uid
+#: model:ir.model.fields,field_description:customer_wallet.field_customer_wallet_redistribute_wizard_line__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: customer_wallet
+#: model:ir.model.fields,field_description:customer_wallet.field_customer_wallet_detail_wizard__create_date
+#: model:ir.model.fields,field_description:customer_wallet.field_customer_wallet_redistribute_wizard__create_date
+#: model:ir.model.fields,field_description:customer_wallet.field_customer_wallet_redistribute_wizard_line__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: customer_wallet
+#: model:ir.model.fields,field_description:customer_wallet.field_customer_wallet_detail_wizard__currency_id
+#: model:ir.model.fields,field_description:customer_wallet.field_customer_wallet_redistribute_wizard__currency_id
+#: model:ir.model.fields,field_description:customer_wallet.field_customer_wallet_redistribute_wizard_line__currency_id
+msgid "Currency"
+msgstr ""
+
+#. module: customer_wallet
 #: model:account.account,name:customer_wallet.account_account_customer_wallet_demo
 #: model:account.journal,name:customer_wallet.account_journal_customer_wallet_demo
-#: model_terms:ir.ui.view,arch_db:customer_wallet.view_partner_form
 msgid "Customer Wallet"
 msgstr ""
 
@@ -67,10 +133,59 @@ msgid "Customer Wallet Balance Not Zero"
 msgstr ""
 
 #. module: customer_wallet
+#: model:ir.model.fields,field_description:customer_wallet.field_customer_wallet_detail_wizard__customer_wallet_data
+#: model:ir.model.fields,field_description:customer_wallet.field_res_partner__customer_wallet_data
+#: model:ir.model.fields,field_description:customer_wallet.field_res_users__customer_wallet_data
+msgid "Customer Wallet Data"
+msgstr ""
+
+#. module: customer_wallet
+#: model:ir.model,name:customer_wallet.model_customer_wallet_detail_wizard
+msgid "Customer Wallet Detail Wizard"
+msgstr ""
+
+#. module: customer_wallet
+#. odoo-python
+#: code:addons/customer_wallet/models/res_partner.py:0
+#, python-format
+msgid "Customer Wallet Details"
+msgstr ""
+
+#. module: customer_wallet
 #: model:ir.model.fields,field_description:customer_wallet.field_account_journal__is_customer_wallet_journal
 #: model:ir.model.fields,field_description:customer_wallet.field_account_payment__is_customer_wallet_journal
 #: model:ir.model.fields,field_description:customer_wallet.field_account_payment_register__is_customer_wallet_journal
 msgid "Customer Wallet Journal"
+msgstr ""
+
+#. module: customer_wallet
+#: model:ir.model,name:customer_wallet.model_customer_wallet_redistribute_wizard
+msgid "Customer Wallet Redistribute Wizard"
+msgstr ""
+
+#. module: customer_wallet
+#: model:ir.model,name:customer_wallet.model_customer_wallet_redistribute_wizard_line
+msgid "Customer Wallet Redistribute Wizard Line"
+msgstr ""
+
+#. module: customer_wallet
+#. odoo-python
+#: code:addons/customer_wallet/wizards/customer_wallet_redistribute_wizard.py:0
+#, python-format
+msgid "Customer Wallet Redistribution"
+msgstr ""
+
+#. module: customer_wallet
+#: model:ir.model.fields,field_description:customer_wallet.field_customer_wallet_redistribute_wizard__journal_id
+#: model:ir.model.fields,field_description:customer_wallet.field_res_company__customer_wallet_redistribution_journal_id
+msgid "Customer Wallet Redistribution Journal"
+msgstr ""
+
+#. module: customer_wallet
+#. odoo-python
+#: code:addons/customer_wallet/wizards/customer_wallet_redistribute_wizard.py:0
+#, python-format
+msgid "Customer Wallet. Receipt from %(partner_name)s"
 msgstr ""
 
 #. module: customer_wallet
@@ -80,8 +195,45 @@ msgid "Customer Wallets"
 msgstr ""
 
 #. module: customer_wallet
+#. odoo-python
+#: code:addons/customer_wallet/wizards/customer_wallet_detail_wizard.py:0
+#, python-format
+msgid "Date"
+msgstr ""
+
+#. module: customer_wallet
+#: model:ir.model.fields,field_description:customer_wallet.field_customer_wallet_detail_wizard__detail
+msgid "Detail"
+msgstr ""
+
+#. module: customer_wallet
+#: model_terms:ir.ui.view,arch_db:customer_wallet.view_res_partner_tree
+msgid "Details"
+msgstr ""
+
+#. module: customer_wallet
+#: model:ir.model.fields,field_description:customer_wallet.field_customer_wallet_detail_wizard__display_name
+#: model:ir.model.fields,field_description:customer_wallet.field_customer_wallet_redistribute_wizard__display_name
+#: model:ir.model.fields,field_description:customer_wallet.field_customer_wallet_redistribute_wizard_line__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: customer_wallet
 #: model_terms:ir.ui.view,arch_db:customer_wallet.view_res_partner_filter
 msgid "Distinct Customer Wallets"
+msgstr ""
+
+#. module: customer_wallet
+#: model:ir.model.fields,field_description:customer_wallet.field_res_partner__has_customer_wallet
+#: model:ir.model.fields,field_description:customer_wallet.field_res_users__has_customer_wallet
+msgid "Has Customer Wallet"
+msgstr ""
+
+#. module: customer_wallet
+#: model:ir.model.fields,field_description:customer_wallet.field_customer_wallet_detail_wizard__id
+#: model:ir.model.fields,field_description:customer_wallet.field_customer_wallet_redistribute_wizard__id
+#: model:ir.model.fields,field_description:customer_wallet.field_customer_wallet_redistribute_wizard_line__id
+msgid "ID"
 msgstr ""
 
 #. module: customer_wallet
@@ -95,13 +247,46 @@ msgid "Journal"
 msgstr ""
 
 #. module: customer_wallet
+#: model:ir.model.fields,field_description:customer_wallet.field_customer_wallet_detail_wizard____last_update
+#: model:ir.model.fields,field_description:customer_wallet.field_customer_wallet_redistribute_wizard____last_update
+#: model:ir.model.fields,field_description:customer_wallet.field_customer_wallet_redistribute_wizard_line____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: customer_wallet
+#: model:ir.model.fields,field_description:customer_wallet.field_customer_wallet_detail_wizard__write_uid
+#: model:ir.model.fields,field_description:customer_wallet.field_customer_wallet_redistribute_wizard__write_uid
+#: model:ir.model.fields,field_description:customer_wallet.field_customer_wallet_redistribute_wizard_line__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: customer_wallet
+#: model:ir.model.fields,field_description:customer_wallet.field_customer_wallet_detail_wizard__write_date
+#: model:ir.model.fields,field_description:customer_wallet.field_customer_wallet_redistribute_wizard__write_date
+#: model:ir.model.fields,field_description:customer_wallet.field_customer_wallet_redistribute_wizard_line__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: customer_wallet
 #: model_terms:ir.ui.view,arch_db:customer_wallet.res_config_settings_view_form
 msgid "Let customers pay from a wallet account"
 msgstr ""
 
 #. module: customer_wallet
+#: model:ir.model.fields,field_description:customer_wallet.field_customer_wallet_redistribute_wizard__line_ids
+msgid "Line"
+msgstr ""
+
+#. module: customer_wallet
 #: model:ir.model.fields,field_description:customer_wallet.field_account_journal__minimum_wallet_amount
 msgid "Minimum Wallet Amount"
+msgstr ""
+
+#. module: customer_wallet
+#: model:ir.model.fields,field_description:customer_wallet.field_customer_wallet_detail_wizard__partner_id
+#: model:ir.model.fields,field_description:customer_wallet.field_customer_wallet_redistribute_wizard__partner_id
+#: model:ir.model.fields,field_description:customer_wallet.field_customer_wallet_redistribute_wizard_line__partner_id
+msgid "Partner"
 msgstr ""
 
 #. module: customer_wallet
@@ -112,6 +297,26 @@ msgstr ""
 #. module: customer_wallet
 #: model:ir.model,name:customer_wallet.model_product_template
 msgid "Product"
+msgstr ""
+
+#. module: customer_wallet
+#: model_terms:ir.ui.view,arch_db:customer_wallet.view_customer_wallet_redistribute_wizard_form
+#: model_terms:ir.ui.view,arch_db:customer_wallet.view_res_partner_tree
+msgid "Redistribute"
+msgstr ""
+
+#. module: customer_wallet
+#. odoo-python
+#: code:addons/customer_wallet/models/res_partner.py:0
+#, python-format
+msgid "Redistribute Customer Wallet"
+msgstr ""
+
+#. module: customer_wallet
+#. odoo-python
+#: code:addons/customer_wallet/wizards/customer_wallet_detail_wizard.py:0
+#, python-format
+msgid "Reference"
 msgstr ""
 
 #. module: customer_wallet
@@ -126,7 +331,29 @@ msgstr ""
 
 #. module: customer_wallet
 #. odoo-python
-#: code:addons/customer_wallet/models/account_payment.py:0
+#: code:addons/customer_wallet/wizards/customer_wallet_redistribute_wizard.py:0
+#, python-format
+msgid ""
+"The amount to be redistributed (%(amount)s) is different from the sum of the"
+" amounts (%(total_amount)s)."
+msgstr ""
+
+#. module: customer_wallet
+#. odoo-python
+#: code:addons/customer_wallet/wizards/customer_wallet_redistribute_wizard.py:0
+#, python-format
+msgid "The amount to redistribute should be strictly positive."
+msgstr ""
+
+#. module: customer_wallet
+#. odoo-python
+#: code:addons/customer_wallet/wizards/customer_wallet_redistribute_wizard.py:0
+#, python-format
+msgid "The redistributor customer is included in the list of beneficiaries."
+msgstr ""
+
+#. module: customer_wallet
+#. odoo-python
 #: code:addons/customer_wallet/models/account_payment.py:0
 #, python-format
 msgid ""
@@ -137,6 +364,7 @@ msgid ""
 msgstr ""
 
 #. module: customer_wallet
+#: model_terms:ir.ui.view,arch_db:customer_wallet.view_customer_wallet_redistribute_wizard_form
 #: model_terms:ir.ui.view,arch_db:customer_wallet.view_res_partner_tree
 msgid "Total"
 msgstr ""
@@ -158,7 +386,19 @@ msgid "Wallet Product"
 msgstr ""
 
 #. module: customer_wallet
+#: model:ir.model.fields,field_description:customer_wallet.field_customer_wallet_redistribute_wizard_line__wizard_id
+msgid "Wizard"
+msgstr ""
+
+#. module: customer_wallet
 #: model_terms:ir.ui.view,arch_db:customer_wallet.view_account_payment_form
 #: model_terms:ir.ui.view,arch_db:customer_wallet.view_account_payment_register_form
 msgid "You can select the customer account journal for this customer."
+msgstr ""
+
+#. module: customer_wallet
+#. odoo-python
+#: code:addons/customer_wallet/wizards/customer_wallet_redistribute_wizard.py:0
+#, python-format
+msgid "you cannot select the same beneficiary twice."
 msgstr ""

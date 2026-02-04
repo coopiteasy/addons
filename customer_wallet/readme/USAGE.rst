@@ -24,7 +24,7 @@ You can also see all the Customer Wallets:
 
 **Debit Customer Wallet**
 
-You can then mark a customer invoice as paid, using the the account journal 'Customer Wallet'.
+You can then mark a customer invoice as paid, using the account journal 'Customer Wallet'.
 
 A message is present in the payment wizard.
 
