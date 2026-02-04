@@ -43,7 +43,7 @@ msgid ""
 "\n"
 " Please select a customer or use a different payment method."
 msgstr ""
-"Vous ne pouvez pas utiliser un moyen de paiement de type compte client sans "
+"Vous ne pouvez pas utiliser un moyen de paiement de type porte-monnaie client sans "
 "sélectionner un client.\n"
 "\n"
 " Veuillez sélectionner un client ou changer de moyen de paiement."
@@ -55,39 +55,32 @@ msgstr "Contact"
 
 #. module: customer_wallet_pos
 #. odoo-javascript
-#: code:addons/customer_wallet_pos/static/src/xml/Screens/PartnerListScreen/PartnerDetailsEdit.xml:0
-#, python-format
-msgid "Customer Wallet"
-msgstr "Compte client"
-
-#. module: customer_wallet_pos
-#. odoo-javascript
 #: code:addons/customer_wallet_pos/static/src/xml/Screens/ReceiptScreen/OrderReceipt.xml:0
 #, python-format
 msgid "Customer Wallet Balance"
-msgstr "Solde de compte client"
+msgstr "Solde du porte-monnaie client"
 
 #. module: customer_wallet_pos
 #: model:ir.model.fields,field_description:customer_wallet_pos.field_pos_payment_method__is_customer_wallet_method
 msgid "Customer Wallet Journal"
-msgstr "Journal de compte client"
+msgstr "Journal de porte-monnaie client"
 
 #. module: customer_wallet_pos
 #. odoo-javascript
 #: code:addons/customer_wallet_pos/static/src/js/Screens/PaymentScreen/PaymentScreen.esm.js:0
 #, python-format
 msgid "Customer wallet balance not sufficient"
-msgstr "Le solde du compte client n'est pas suffisant"
+msgstr "Le solde du porte-monnaie client n'est pas suffisant"
 
 #. module: customer_wallet_pos
 #: model:ir.model.fields,field_description:customer_wallet_pos.field_pos_config__is_enabled_customer_wallet
 msgid "Is Customer Wallet Enabled"
-msgstr "Compte client activé"
+msgstr "Porte-monnaie client activé"
 
 #. module: customer_wallet_pos
 #: model:ir.model.fields,field_description:customer_wallet_pos.field_pos_config__minimum_wallet_amount
 msgid "Minimum Wallet Amount"
-msgstr "Montant minimum du compte client"
+msgstr "Montant minimum du porte-monnaie client"
 
 #. module: customer_wallet_pos
 #. odoo-javascript
@@ -117,11 +110,12 @@ msgstr "Session du point de vente"
 #, python-format
 msgid ""
 "There is not enough balance in the customer's wallet to perform this order."
-msgstr "Le solde du compte client est insuffisant pour réaliser cette vente."
+msgstr "Le solde du porte-monnaie client est insuffisant pour réaliser cette vente."
 
 #. module: customer_wallet_pos
 #. odoo-javascript
+#: code:addons/customer_wallet_pos/static/src/xml/Screens/PartnerListScreen/PartnerDetailsEdit.xml:0
 #: code:addons/customer_wallet_pos/static/src/xml/Screens/PartnerListScreen/PartnerListScreen.xml:0
 #, python-format
 msgid "Wallet"
-msgstr "Compte client"
+msgstr "Porte-monnaie"

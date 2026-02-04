@@ -14,7 +14,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     >
         <xpath expr="//div[hasclass('partner-details-right')]" position="inside">
             <div class="partner-detail">
-                <span class="label">Customer Wallet</span>
+                <span class="label">Wallet</span>
                 <span
                     class="detail"
                     t-esc="env.pos.format_currency(props.partner.customer_wallet_balance)"
