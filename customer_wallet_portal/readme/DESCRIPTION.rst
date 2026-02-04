@@ -1,1 +1,1 @@
-My Home displays expenditures using customer wallet.
+My Home displays customer wallet amount and details.
