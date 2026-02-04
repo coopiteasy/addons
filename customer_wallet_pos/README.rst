@@ -41,7 +41,7 @@ Setting this up requires a few careful steps:
     - toggle 'Identify Customer' on
     - set the outstanding account to the Customer Wallet account.
 
-  .. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet_pos/static/description/configure_pos_payment_method.png
+  .. figure:: https://raw.githubusercontent.com/grap/coopiteasy-addons/16.0-mig-pos_customer_wallet-SLG-2026/customer_wallet_pos/static/description/configure_pos_payment_method.png
 
 - (Optional) If you want to have the possibility to credit wallet,
   in the point of sale, make sure the Customer Wallet product is available
@@ -56,11 +56,11 @@ Usage
 - (Optionally) add products.
 - add the customer wallet product and adapt quantity.
 
-  .. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet_pos/static/description/pos_credit_wallet_pos_order.png
+  .. figure:: https://raw.githubusercontent.com/grap/coopiteasy-addons/16.0-mig-pos_customer_wallet-SLG-2026/customer_wallet_pos/static/description/pos_credit_wallet_pos_order.png
 
 in the payment screen, you can see the new wallet amount, once the order will be paid.
 
-  .. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet_pos/static/description/pos_credit_wallet_payment.png
+  .. figure:: https://raw.githubusercontent.com/grap/coopiteasy-addons/16.0-mig-pos_customer_wallet-SLG-2026/customer_wallet_pos/static/description/pos_credit_wallet_payment.png
 
 
  **Debit Customer Wallet**
@@ -70,18 +70,18 @@ in the payment screen, you can see the new wallet amount, once the order will be
 in the payment screen, you can now select the wallet payment method to mark
 the order as paid.
 
-  .. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet_pos/static/description/pos_debit_wallet_payment.png
+  .. figure:: https://raw.githubusercontent.com/grap/coopiteasy-addons/16.0-mig-pos_customer_wallet-SLG-2026/customer_wallet_pos/static/description/pos_debit_wallet_payment.png
 
 
  **Amount display on ticket**
 
-  .. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet_pos/static/description/pos_ticket.png
+  .. figure:: https://raw.githubusercontent.com/grap/coopiteasy-addons/16.0-mig-pos_customer_wallet-SLG-2026/customer_wallet_pos/static/description/pos_ticket.png
 
  **See Customer Wallets**
 
 A new column is available on customer list screen, to see 
 
-  .. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet_pos/static/description/pos_customer_wallet_list.png
+  .. figure:: https://raw.githubusercontent.com/grap/coopiteasy-addons/16.0-mig-pos_customer_wallet-SLG-2026/customer_wallet_pos/static/description/pos_customer_wallet_list.png
 
 Changelog
 =========

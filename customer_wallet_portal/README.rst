@@ -36,11 +36,11 @@ Usage
 
 A new section is available that shows the customer wallet amount.
 
-  .. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet_portal/static/description/portal_home.png
+  .. figure:: https://raw.githubusercontent.com/grap/coopiteasy-addons/16.0-mig-pos_customer_wallet-SLG-2026/customer_wallet_portal/static/description/portal_home.png
 
 If user click on the new item, he can see the details of all the moves.
 
-  .. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet_portal/static/description/portal_wallet_detail.png
+  .. figure:: https://raw.githubusercontent.com/grap/coopiteasy-addons/16.0-mig-pos_customer_wallet-SLG-2026/customer_wallet_portal/static/description/portal_wallet_detail.png
 
 Bug Tracker
 ===========
