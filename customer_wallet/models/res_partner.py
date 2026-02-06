@@ -85,7 +85,7 @@ class Partner(models.Model):
         wallet_account_id = self.env.company.customer_wallet_account_id
         if not wallet_account_id or not self.ids:
             # Always assign a value in a compute method.
-            self.write(
+            self.update(
                 {
                     "customer_wallet_balance": 0.0,
                     "customer_wallet_data": str([]),
