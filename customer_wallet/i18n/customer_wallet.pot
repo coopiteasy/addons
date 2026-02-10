@@ -357,10 +357,11 @@ msgstr ""
 #: code:addons/customer_wallet/models/account_payment.py:0
 #, python-format
 msgid ""
-"There is not enough balance in the customer's wallet to perform this payment. \n"
-" - Customer : %(partner)s\n"
-" - Customer Wallet : %(balance)s\n"
-" - Amount Payment : %(amount)s"
+"There is not enough balance in the customer's wallet to perform this payment.\n"
+" - Customer: %(partner)s\n"
+" - Customer Wallet: %(balance)s\n"
+" - Amount Payment: %(amount)s\n"
+" - Minimum Wallet Amount: %(minimum)s"
 msgstr ""
 
 #. module: customer_wallet
