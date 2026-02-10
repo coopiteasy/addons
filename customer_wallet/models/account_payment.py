@@ -36,18 +36,21 @@ class AccountPayment(models.Model):
                 and (payment.customer_wallet_balance - payment.amount)
                 < payment.journal_id.minimum_wallet_amount
             ):
+                _format = payment.currency_id.format
                 raise UserError(
                     _(
                         "There is not enough balance in the customer's wallet"
                         " to perform this payment. \n"
                         " - Customer : %(partner)s\n"
                         " - Customer Wallet : %(balance)s\n"
-                        " - Amount Payment : %(amount)s"
+                        " - Amount Payment : %(amount)s\n"
+                        " - Minimum Wallet Amount: %(minimum)s"
                     )
                     % {
                         "partner": payment.partner_id.display_name,
-                        "balance": payment.customer_wallet_balance,
-                        "amount": payment.amount,
+                        "balance": _format(payment.customer_wallet_balance),
+                        "amount": _format(payment.amount),
+                        "minimum": _format(payment.journal_id.minimum_wallet_amount),
                     }
                 )
         return super().action_post()
