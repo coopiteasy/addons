@@ -24,6 +24,11 @@ class PosSession(models.Model):
         result["search_params"]["fields"].append("customer_wallet_balance")
         return result
 
+    def _create_account_move(self, *args, **kwargs):
+        return super(
+            PosSession, self.with_context(customer_wallet_do_not_check=True)
+        )._create_account_move(*args, **kwargs)
+
     # This function is called as part of closing the session. We need to add
     # some extra behaviour because, after closing, only a single
     # account.move.line is created against the Customer Wallet account on the
