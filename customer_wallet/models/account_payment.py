@@ -23,6 +23,12 @@ class AccountPayment(models.Model):
         wallet_payments = self.filtered(
             lambda x: x.journal_id.is_customer_wallet_journal
         )
+        # In some cases, we dont want to check if the minimum amount is reached
+        # Use Case : we pay with wallet in the Pos, then we change the minimum amount
+        # then we want to close the Pos Session:
+        # Closing the pos session should not be blocked.
+        if self.env.context.get("customer_wallet_do_not_check", False):
+            return super().action_post()
 
         for payment in wallet_payments:
             if (
