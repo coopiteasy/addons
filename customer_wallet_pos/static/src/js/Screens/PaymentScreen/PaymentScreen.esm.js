@@ -66,6 +66,16 @@ const WalletPaymentScreen = (PaymentScreen_) =>
                 return;
             }
 
+            if (payment_lines_qty > 0 && product_lines_qty > 0) {
+                this.showPopup("ErrorPopup", {
+                    title: this.env._t("Customer Wallet: Credit and Debit"),
+                    body: this.env._t(
+                        "You can not credit and debit a customer wallet in the same order."
+                    ),
+                });
+                return;
+            }
+
             await super.validateOrder(...arguments);
         }
 

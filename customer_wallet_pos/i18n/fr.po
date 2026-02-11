@@ -74,6 +74,13 @@ msgstr "Journal de porte-monnaie client"
 #. odoo-javascript
 #: code:addons/customer_wallet_pos/static/src/js/Screens/PaymentScreen/PaymentScreen.esm.js:0
 #, python-format
+msgid "Customer Wallet: Credit and Debit"
+msgstr "Porte-monnaie client : Crédit et débit"
+
+#. module: customer_wallet_pos
+#. odoo-javascript
+#: code:addons/customer_wallet_pos/static/src/js/Screens/PaymentScreen/PaymentScreen.esm.js:0
+#, python-format
 msgid "Customer wallet balance not sufficient"
 msgstr "Le solde du porte-monnaie client n'est pas suffisant"
 
@@ -125,3 +132,12 @@ msgstr ""
 #, python-format
 msgid "Wallet"
 msgstr "Porte-monnaie"
+
+#. module: customer_wallet_pos
+#. odoo-javascript
+#: code:addons/customer_wallet_pos/static/src/js/Screens/PaymentScreen/PaymentScreen.esm.js:0
+#, python-format
+msgid "You can not credit and debit a customer wallet in the same order."
+msgstr ""
+"Vous ne pouvez pas débiter et créditer un porte-monnaie client dans la même "
+"vente"

@@ -65,6 +65,13 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/customer_wallet_pos/static/src/js/Screens/PaymentScreen/PaymentScreen.esm.js:0
 #, python-format
+msgid "Customer Wallet: Credit and Debit"
+msgstr ""
+
+#. module: customer_wallet_pos
+#. odoo-javascript
+#: code:addons/customer_wallet_pos/static/src/js/Screens/PaymentScreen/PaymentScreen.esm.js:0
+#, python-format
 msgid "Customer wallet balance not sufficient"
 msgstr ""
 
@@ -115,4 +122,11 @@ msgstr ""
 #: code:addons/customer_wallet_pos/static/src/xml/Screens/PartnerListScreen/PartnerListScreen.xml:0
 #, python-format
 msgid "Wallet"
+msgstr ""
+
+#. module: customer_wallet_pos
+#. odoo-javascript
+#: code:addons/customer_wallet_pos/static/src/js/Screens/PaymentScreen/PaymentScreen.esm.js:0
+#, python-format
+msgid "You can not credit and debit a customer wallet in the same order."
 msgstr ""
