@@ -43,8 +43,8 @@ msgid ""
 "\n"
 " Please select a customer or use a different payment method."
 msgstr ""
-"Vous ne pouvez pas utiliser un moyen de paiement de type porte-monnaie client sans "
-"sélectionner un client.\n"
+"Vous ne pouvez pas utiliser un moyen de paiement de type porte-monnaie "
+"client sans sélectionner un client.\n"
 "\n"
 " Veuillez sélectionner un client ou changer de moyen de paiement."
 
@@ -52,6 +52,12 @@ msgstr ""
 #: model:ir.model,name:customer_wallet_pos.model_res_partner
 msgid "Contact"
 msgstr "Contact"
+
+#. module: customer_wallet_pos
+#. odoo-javascript
+#: code:addons/customer_wallet_pos/static/src/js/Screens/PaymentScreen/PaymentScreen.esm.js:0
+msgid "Customer Wallet : Credit and Debit"
+msgstr "Porte-monnaie client: Crédit et débit"
 
 #. module: customer_wallet_pos
 #. odoo-javascript
@@ -110,7 +116,8 @@ msgstr "Session du point de vente"
 #, python-format
 msgid ""
 "There is not enough balance in the customer's wallet to perform this order."
-msgstr "Le solde du porte-monnaie client est insuffisant pour réaliser cette vente."
+msgstr ""
+"Le solde du porte-monnaie client est insuffisant pour réaliser cette vente."
 
 #. module: customer_wallet_pos
 #. odoo-javascript
@@ -119,3 +126,10 @@ msgstr "Le solde du porte-monnaie client est insuffisant pour réaliser cette ve
 #, python-format
 msgid "Wallet"
 msgstr "Porte-monnaie"
+
+#. module: customer_wallet_pos
+#. odoo-javascript
+#: code:addons/customer_wallet_pos/static/src/js/Screens/PaymentScreen/PaymentScreen.esm.js:0
+#, python-format
+msgid "You can not credit and debit a customer wallet in the same order."
+msgstr "Vous ne pouvez pas débiter et créditer un porte-monnaie client dans la même vente"
