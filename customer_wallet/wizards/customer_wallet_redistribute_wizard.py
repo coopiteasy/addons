@@ -5,7 +5,7 @@ from odoo import Command, _, api, fields, models
 from odoo.exceptions import UserError
 
 
-class CustomerWalletDetailWizard(models.TransientModel):
+class CustomerWalletRedistributeWizard(models.TransientModel):
     _name = "customer.wallet.redistribute.wizard"
     _description = "Customer Wallet Redistribute Wizard"
 
@@ -19,8 +19,8 @@ class CustomerWalletDetailWizard(models.TransientModel):
     journal_id = fields.Many2one(
         required=True,
         comodel_name="account.journal",
-        related="company_id.customer_wallet_redistribution_journal_id",
-        readonly=False,
+        default=lambda x: x._default_journal_id(),
+        domain=[("type", "in", ["cash", "bank", "general"])],
     )
 
     currency_id = fields.Many2one(
@@ -46,6 +46,9 @@ class CustomerWalletDetailWizard(models.TransientModel):
 
     def _default_company_id(self):
         return self.env.company
+
+    def _default_journal_id(self):
+        return self.env.company.customer_wallet_redistribution_journal_id
 
     @api.depends("partner_id")
     def _compute_amount(self):
