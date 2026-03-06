@@ -1,0 +1,31 @@
+/*
+ * SPDX-FileCopyrightText: 2022 Coop IT Easy SC
+ *
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
+
+.wallet-balance-container {
+    display: inline-block;
+    width: 50%;
+    box-sizing: border-box;
+    padding: 1rem;
+    padding-top: 1rem;
+    padding-left: 1rem;
+    float: right;
+}
+
+.wallet-balance {
+    text-align: center;
+    font-size: 28px;
+    color: #43996e;
+    text-shadow: 0px 2px white, 0px 2px 2px rgba(0, 0, 0, 0.27);
+}
+.new-wallet-balance {
+    font-size: 18px;
+    color: #aaa;
+}
+
+.payment-name {
+    display: flex;
+    align-items: center;
+}

@@ -10,7 +10,14 @@ class ProductTemplate(models.Model):
 
     is_customer_wallet_product = fields.Boolean(
         string="Wallet Product",
-        help="Check this box if this product is used to credit"
-        " customer wallets. Important note : you should set the"
-        " the same income and expense account as the journal wallet.",
+        help="Check this box if this product is used to credit" " customer wallets.",
     )
+
+    def _get_product_accounts(self):
+        if self.is_customer_wallet_product:
+            company = self.company_id or self.env.company
+            return {
+                "income": company.customer_wallet_account_id,
+                "expense": company.customer_wallet_account_id,
+            }
+        return super()._get_product_accounts()
