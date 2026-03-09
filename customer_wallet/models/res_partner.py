@@ -20,9 +20,7 @@ class Partner(models.Model):
         inverse_name="partner_id",
         readonly=True,
     )
-
     has_customer_wallet = fields.Boolean(compute="_compute_customer_wallet")
-
     customer_wallet_data = fields.Text(compute="_compute_customer_wallet")
 
     def get_topmost_parent_id(self):
