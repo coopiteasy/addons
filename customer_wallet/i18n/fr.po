@@ -286,7 +286,7 @@ msgstr "Montant minimum du porte-monnaie client"
 #: model:ir.model.fields,field_description:customer_wallet.field_customer_wallet_redistribute_wizard__partner_id
 #: model:ir.model.fields,field_description:customer_wallet.field_customer_wallet_redistribute_wizard_line__partner_id
 msgid "Partner"
-msgstr "partenaire"
+msgstr "Partenaire"
 
 #. module: customer_wallet
 #: model:ir.model,name:customer_wallet.model_account_payment
