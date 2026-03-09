@@ -328,7 +328,7 @@ msgstr "Enregistrer un paiement"
 msgid "The account where all wallet transactions will be recorded"
 msgstr ""
 "Le compte dans lequel toutes les transactions de porte-monnaie client seront "
-"enregistrés"
+"enregistrées"
 
 #. module: customer_wallet
 #. odoo-python
