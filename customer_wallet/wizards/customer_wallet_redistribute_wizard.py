@@ -11,18 +11,6 @@ class CustomerWalletRedistributeWizard(models.TransientModel):
 
     partner_id = fields.Many2one(required=True, comodel_name="res.partner")
 
-    company_id = fields.Many2one(
-        comodel_name="res.company",
-        default=lambda x: x._default_company_id(),
-    )
-
-    journal_id = fields.Many2one(
-        required=True,
-        comodel_name="account.journal",
-        default=lambda x: x._default_journal_id(),
-        domain=[("type", "in", ["cash", "bank", "general"])],
-    )
-
     currency_id = fields.Many2one(
         comodel_name="res.currency", related="partner_id.currency_id"
     )
@@ -43,9 +31,6 @@ class CustomerWalletRedistributeWizard(models.TransientModel):
         comodel_name="customer.wallet.redistribute.wizard.line",
         inverse_name="wizard_id",
     )
-
-    def _default_company_id(self):
-        return self.env.company
 
     def _default_journal_id(self):
         return self.env.company.customer_wallet_redistribution_journal_id
@@ -86,6 +71,17 @@ class CustomerWalletRedistributeWizard(models.TransientModel):
                 )
             )
 
+        journals = self.env["account.journal"].search(
+            [
+                ("company_id", "=", self.env.company.id),
+                ("is_customer_wallet_journal", "=", True),
+            ]
+        )
+        if not journals:
+            raise UserError(
+                _("There no 'Wallet' journal defined. Please configure one first.")
+            )
+
         line_vals = [
             Command.create(
                 {
@@ -112,7 +108,7 @@ class CustomerWalletRedistributeWizard(models.TransientModel):
         move = self.env["account.move"].create(
             {
                 "line_ids": line_vals,
-                "journal_id": self.journal_id.id,
+                "journal_id": journals[0].id,
             }
         )
         move.action_post()

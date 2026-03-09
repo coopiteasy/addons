@@ -14,7 +14,6 @@
                         options="{'currency_field': 'currency_id'}"
                     />
                     <field name="amount" />
-                    <field name="journal_id" />
                     <field name="line_ids" string="Beneficiaries">
                         <tree editable="bottom">
                             <field name="partner_id" />
