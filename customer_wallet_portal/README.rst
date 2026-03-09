@@ -44,7 +44,7 @@ A new section is available that shows the customer wallet amount.
 
 If user click on the new item, he can see the details of all the moves.
 
-  .. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet_portal/static/description/portal_wallet_detail.png
+.. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet_portal/static/description/portal_wallet_detail.png
 
 Known issues / Roadmap
 ======================
@@ -74,11 +74,8 @@ Contributors
 ~~~~~~~~~~~~
 
 * `Coop IT Easy SC <https://coopiteasy.be>`_:
-
   * Carmen Bianca BAKKER
-
 * `GRAP <https://www.grap.coop/>`_:
-
   * Sylvain LE GAL
 
 Maintainers

@@ -6,4 +6,4 @@ A new section is available that shows the customer wallet amount.
 
 If user click on the new item, he can see the details of all the moves.
 
-  .. figure:: ../static/description/portal_wallet_detail.png
+.. figure:: ../static/description/portal_wallet_detail.png
