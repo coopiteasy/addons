@@ -6,10 +6,6 @@
             name="customer_wallet_account_id"
             ref="customer_wallet.account_account_customer_wallet_demo"
         />
-      <field
-            name="customer_wallet_redistribution_journal_id"
-            ref="customer_wallet.account_journal_customer_wallet_redistribution_demo"
-        />
    </record>
 
 </odoo>

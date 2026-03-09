@@ -17,11 +17,6 @@ class Company(models.Model):
         string="Customer Wallet Account",
     )
 
-    customer_wallet_redistribution_journal_id = fields.Many2one(
-        comodel_name="account.journal",
-        string="Customer Wallet Redistribution Journal",
-    )
-
     @api.depends("customer_wallet_account_id")
     def _compute_is_enabled_customer_wallet(self):
         for company in self:
