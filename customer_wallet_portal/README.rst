@@ -46,6 +46,11 @@ If user click on the new item, he can see the details of all the moves.
 
   .. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet_portal/static/description/portal_wallet_detail.png
 
+Known issues / Roadmap
+======================
+
+* We could implement a paging feature if some customers have a lot of wallet moves.
+
 Bug Tracker
 ===========
 
