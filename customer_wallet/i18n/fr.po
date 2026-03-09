@@ -346,7 +346,7 @@ msgstr ""
 #: code:addons/customer_wallet/wizards/customer_wallet_redistribute_wizard.py:0
 #, python-format
 msgid "The amount to redistribute should be strictly positive."
-msgstr "Le montant a redistribuer doit être strictement positif."
+msgstr "Le montant à redistribuer doit être strictement positif."
 
 #. module: customer_wallet
 #. odoo-python
