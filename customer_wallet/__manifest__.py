@@ -6,7 +6,7 @@
     "summary": """
         Allow customers to pay using a wallet which is tracked by the company.""",
     "version": "16.0.1.0.1",
-    "category": "Accounting & Finance",
+    "category": "Accounting/Accounting",
     "website": "https://github.com/coopiteasy/addons",
     "author": "Coop IT Easy SC, GRAP",
     "maintainers": ["carmenbianca", "legalsylvain"],
