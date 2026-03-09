@@ -13,9 +13,9 @@ from odoo.addons.portal.controllers.portal import CustomerPortal
 class CustomerWalletAmountPortal(CustomerPortal):
     def _prepare_home_portal_values(self, counters):
         values = super()._prepare_home_portal_values(counters)
-        if "wallet_balance_formated" in counters:
+        if "wallet_balance_formatted" in counters:
             partner = request.env["res.users"].browse(request.uid).partner_id
-            values["wallet_balance_formated"] = format_amount(
+            values["wallet_balance_formatted"] = format_amount(
                 request.env, partner.customer_wallet_balance, partner.currency_id
             )
         return values
@@ -35,13 +35,13 @@ class CustomerWalletAmountPortal(CustomerPortal):
         wallet_lines = safe_eval(partner.customer_wallet_data, {"datetime": datetime})
         wallet_lines.sort(key=lambda x: (x["datetime"], x["create_date"]), reverse=True)
         for wallet_line in wallet_lines:
-            wallet_line["datetime_formated"] = format_date(
+            wallet_line["datetime_formatted"] = format_date(
                 request.env, wallet_line["datetime"]
             )
-            wallet_line["amount_formated"] = format_amount(
+            wallet_line["amount_formatted"] = format_amount(
                 request.env, wallet_line["amount"], partner.currency_id
             )
-            wallet_line["balance_formated"] = format_amount(
+            wallet_line["balance_formatted"] = format_amount(
                 request.env, wallet_line["balance"], partner.currency_id
             )
 

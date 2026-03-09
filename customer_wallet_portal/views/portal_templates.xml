@@ -10,7 +10,7 @@
             <t t-call="portal.portal_docs_entry">
                 <t t-set="title">Wallet Balance</t>
                 <t t-set="url" t-value="'/my/wallet'" />
-                <t t-set="placeholder_count" t-value="'wallet_balance_formated'" />
+                <t t-set="placeholder_count" t-value="'wallet_balance_formatted'" />
             </t>
         </xpath>
     </template>
@@ -48,9 +48,9 @@
                 <tbody>
                     <t t-foreach="wallet_lines" t-as="wallet_line">
                         <tr>
-                            <td><t t-esc="wallet_line['datetime_formated']" /></td>
-                            <td><t t-esc="wallet_line['amount_formated']" /></td>
-                            <td><t t-esc="wallet_line['balance_formated']" /></td>
+                            <td><t t-esc="wallet_line['datetime_formatted']" /></td>
+                            <td><t t-esc="wallet_line['amount_formatted']" /></td>
+                            <td><t t-esc="wallet_line['balance_formatted']" /></td>
                             <td><t t-esc="wallet_line['reference']" /></td>
                             <td>
                                 <t t-if="wallet_line['model'] != 'account.move.line'">
