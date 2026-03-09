@@ -1,3 +1,7 @@
+.. image:: https://odoo-community.org/readme-banner-image
+   :target: https://odoo-community.org/get-involved?utm_source=readme
+   :alt: Odoo Community Association
+
 =======================
 Account Customer Wallet
 =======================
@@ -13,7 +17,7 @@ Account Customer Wallet
 .. |badge1| image:: https://img.shields.io/badge/maturity-Beta-yellow.png
     :target: https://odoo-community.org/page/development-status
     :alt: Beta
-.. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
+.. |badge2| image:: https://img.shields.io/badge/license-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-coopiteasy%2Faddons-lightgray.png?logo=github
@@ -41,7 +45,7 @@ Setting this up requires a few careful steps:
 
 - Create an account (Customer Wallet) that is a liability.
 
-  .. figure:: https://raw.githubusercontent.com/grap/coopiteasy-addons/16.0-mig-pos_customer_wallet-SLG-2026/customer_wallet/static/description/configure_account_account.png
+  .. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet/static/description/configure_account_account.png
 
 In France, the account generally used will be "4197" - "Clients – Autres avoirs".
 
@@ -51,18 +55,18 @@ In France, the account generally used will be "4197" - "Clients – Autres avoir
   Outstanding Payments accounts to the previously created account. You may need
   to toggle the visibility of these fields in the tables.
 
-  .. figure:: https://raw.githubusercontent.com/grap/coopiteasy-addons/16.0-mig-pos_customer_wallet-SLG-2026/customer_wallet/static/description/configure_account_journal.png
+  .. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet/static/description/configure_account_journal.png
 
 - In the Invoicing settings, set the Customer Wallet Account to the previously
   created account.
 
-  .. figure:: https://raw.githubusercontent.com/grap/coopiteasy-addons/16.0-mig-pos_customer_wallet-SLG-2026/customer_wallet/static/description/configure_res_config_settings.png
+  .. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet/static/description/configure_res_config_settings.png
 
 - (Optional) Create a product (Wallet Product), and enable the Wallet Product
   toggle. The income and expense account will be automatically the Customer
   wallet account previously created.
 
-  .. figure:: https://raw.githubusercontent.com/grap/coopiteasy-addons/16.0-mig-pos_customer_wallet-SLG-2026/customer_wallet/static/description/configure_product_template.png
+  .. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet/static/description/configure_product_template.png
 
 
 Usage
@@ -74,7 +78,7 @@ Usage
 - Select the Customer Wallet Product and put an amount
 - confirm the invoice
 
-  .. figure:: https://raw.githubusercontent.com/grap/coopiteasy-addons/16.0-mig-pos_customer_wallet-SLG-2026/customer_wallet/static/description/invoice_form_wallet_sale.png
+  .. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet/static/description/invoice_form_wallet_sale.png
 
 As a result, the customer has now a credit amount in his customer wallet.
 
@@ -84,13 +88,13 @@ You can then check Customer Wallet amount on the partner form.
 
 - Open the 'Sale & Purchase' Tab
 
-  .. figure:: https://raw.githubusercontent.com/grap/coopiteasy-addons/16.0-mig-pos_customer_wallet-SLG-2026/customer_wallet/static/description/partner_form_wallet_amount.png
+  .. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet/static/description/partner_form_wallet_amount.png
 
 You can also see all the Customer Wallets:
 
 - Click on 'Accounting > Customers > Customer Wallets'
 
-  .. figure:: https://raw.githubusercontent.com/grap/coopiteasy-addons/16.0-mig-pos_customer_wallet-SLG-2026/customer_wallet/static/description/partner_tree_wallet_amount.png
+  .. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet/static/description/partner_tree_wallet_amount.png
 
 **Debit Customer Wallet**
 
@@ -98,7 +102,7 @@ You can then mark a customer invoice as paid, using the account journal 'Custome
 
 A message is present in the payment wizard.
 
-  .. figure:: https://raw.githubusercontent.com/grap/coopiteasy-addons/16.0-mig-pos_customer_wallet-SLG-2026/customer_wallet/static/description/payment_form.png
+  .. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet/static/description/payment_form.png
 
 Changelog
 =========
