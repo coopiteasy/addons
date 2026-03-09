@@ -55,10 +55,9 @@ Setting this up requires a few careful steps:
   created account.
   .. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet/static/description/configure_res_config_settings.png
 - (Optional) Create a product (Wallet Product), and enable the Wallet Product
-  toggle. The income and expense account will be automatically the Customer
-  wallet account previously created.
+  toggle. The income and expense accounts will be automatically set to the Customer
+  Wallet Account previously created.
   .. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet/static/description/configure_product_template.png
-  
 
 Usage
 =====
