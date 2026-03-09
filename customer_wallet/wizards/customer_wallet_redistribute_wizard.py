@@ -115,12 +115,10 @@ class CustomerWalletRedistributeWizard(models.TransientModel):
         action = self.env["ir.actions.actions"]._for_xml_id(
             "account.action_move_journal_line"
         )
-        action["res_id"] = move.id
-        form_view = [(self.env.ref("account.view_move_form").id, "form")]
-        if "views" in action:
-            action["views"] = form_view + [
-                (state, view) for state, view in action["views"] if view != "form"
-            ]
-        else:
-            action["views"] = form_view
+        action.update(
+            {
+                "res_id": move.id,
+                "views": [(self.env.ref("account.view_move_form").id, "form")],
+            }
+        )
         return action
