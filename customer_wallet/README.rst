@@ -2,9 +2,9 @@
    :target: https://odoo-community.org/get-involved?utm_source=readme
    :alt: Odoo Community Association
 
-=======================
-Account Customer Wallet
-=======================
+===============
+Customer Wallet
+===============
 
 .. 
    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -103,6 +103,13 @@ You can then mark a customer invoice as paid, using the account journal 'Custome
 A message is present in the payment wizard.
 
   .. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet/static/description/payment_form.png
+
+Known issues / Roadmap
+======================
+
+* Improve demo / test data for accountings items.
+  See: complete reflection
+  https://github.com/coopiteasy/addons/pull/397#discussion_r2894692265
 
 Changelog
 =========
