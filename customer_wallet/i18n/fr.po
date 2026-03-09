@@ -51,7 +51,7 @@ msgstr "Montant à recevoir"
 #: model:ir.model.fields,field_description:customer_wallet.field_customer_wallet_redistribute_wizard__customer_wallet_balance
 #, python-format
 msgid "Balance"
-msgstr "Balance"
+msgstr "Solde"
 
 #. module: customer_wallet
 #: model_terms:ir.ui.view,arch_db:customer_wallet.view_customer_wallet_redistribute_wizard_form
