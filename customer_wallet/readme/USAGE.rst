@@ -28,4 +28,4 @@ You can then mark a customer invoice as paid, using the account journal 'Custome
 
 A message is present in the payment wizard.
 
-  .. figure:: ../static/description/payment_form.png
+.. figure:: ../static/description/payment_form.png
