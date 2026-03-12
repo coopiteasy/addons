@@ -55,6 +55,10 @@
         <field name="inherit_id" ref="base.view_partner_tree" />
         <field name="mode">primary</field>
         <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute name="create">0</attribute>
+                <attribute name="import">0</attribute>
+            </xpath>
             <field name="vat" position="after">
                 <field name="has_customer_wallet" invisible="1" />
                 <field
