@@ -21,7 +21,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
-[customer_wallet_account](customer_wallet_account/) | 16.0.1.0.1 |  | Allow customers to pay using a wallet which is tracked by the company.
+[account_customer_wallet](account_customer_wallet/) | 16.0.1.0.1 |  | Allow customers to pay using a wallet which is tracked by the company.
 [account_invoice_provider_reference](account_invoice_provider_reference/) | 16.0.1.0.0 |  | Invoice Provider Reference
 [account_move_payment_mode_sepa](account_move_payment_mode_sepa/) | 16.0.1.0.0 | <a href='https://github.com/victor-champonnois'><img src='https://github.com/victor-champonnois.png' width='32' height='32' style='border-radius:50%;' alt='victor-champonnois'/></a> | Account Move Payment Mode SEPA
 [account_peppol_backport_multi_sender](account_peppol_backport_multi_sender/) | 16.0.1.0.2 |  | Allow multiple companies with the same Peppol address to send Peppol documents
@@ -41,7 +41,7 @@ addon | version | maintainers | summary
 [partner_contact_type_default](partner_contact_type_default/) | 16.0.1.0.0 | <a href='https://github.com/carmenbianca'><img src='https://github.com/carmenbianca.png' width='32' height='32' style='border-radius:50%;' alt='carmenbianca'/></a> | Set 'contact' as default type when creating a partner as a contact of another partner.
 [payment_sepa_dd](payment_sepa_dd/) | 16.0.1.0.4 | <a href='https://github.com/remytms'><img src='https://github.com/remytms.png' width='32' height='32' style='border-radius:50%;' alt='remytms'/></a> | Pay via SEPA Direct Debit
 [payment_sepa_dd_payment_mode](payment_sepa_dd_payment_mode/) | 16.0.1.0.0 | <a href='https://github.com/remytms'><img src='https://github.com/remytms.png' width='32' height='32' style='border-radius:50%;' alt='remytms'/></a> | Manage payment mode with payment_sepa_dd
-[customer_wallet_portal](customer_wallet_portal/) | 16.0.1.0.0 | <a href='https://github.com/carmenbianca'><img src='https://github.com/carmenbianca.png' width='32' height='32' style='border-radius:50%;' alt='carmenbianca'/></a> | My Home displays expenditures using customer wallet
+[portal_customer_wallet](portal_customer_wallet/) | 16.0.1.0.0 | <a href='https://github.com/carmenbianca'><img src='https://github.com/carmenbianca.png' width='32' height='32' style='border-radius:50%;' alt='carmenbianca'/></a> | My Home displays expenditures using customer wallet
 [pos_solidarity_rounding](pos_solidarity_rounding/) | 16.0.1.0.0 | <a href='https://github.com/carmenbianca'><img src='https://github.com/carmenbianca.png' width='32' height='32' style='border-radius:50%;' alt='carmenbianca'/></a> | Round POS payments up for willing customers as a gesture of solidarity.
 [pos_solidarity_rounding_portal](pos_solidarity_rounding_portal/) | 16.0.1.0.0 | <a href='https://github.com/carmenbianca'><img src='https://github.com/carmenbianca.png' width='32' height='32' style='border-radius:50%;' alt='carmenbianca'/></a> | Allow registered users to change their solidarity rounding configuration in the account settings.
 [product_contract_payment_mode](product_contract_payment_mode/) | 16.0.1.0.0 | <a href='https://github.com/remytms'><img src='https://github.com/remytms.png' width='32' height='32' style='border-radius:50%;' alt='remytms'/></a> | Create contract with right payment mode
