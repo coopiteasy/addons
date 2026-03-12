@@ -1,7 +1,8 @@
 # Copyright (C) 2022-Today: GRAP (http://www.grap.coop)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import fields, models
+from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
 
 
 class CustomerWalletDetailWizardLine(models.TransientModel):
@@ -24,3 +25,14 @@ class CustomerWalletDetailWizardLine(models.TransientModel):
         string="Amount to receive",
         required=True,
     )
+
+    @api.constrains("amount")
+    def check_amount(self):
+        for line in self:
+            if line.amount < 0.0:
+                raise ValidationError(
+                    _(
+                        "Only positive amount is allowed. Incorrect value %(amount)s",
+                        amount=line.amount,
+                    )
+                )

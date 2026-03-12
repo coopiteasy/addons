@@ -1,7 +1,7 @@
 # Copyright (C) 2022-Today: GRAP (http://www.grap.coop)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import Command, _, api, fields, models
+from odoo import Command, _, fields, models
 from odoo.exceptions import UserError
 
 
@@ -20,56 +20,15 @@ class CustomerWalletRedistributeWizard(models.TransientModel):
         string="Balance",
     )
 
-    amount = fields.Monetary(
-        compute="_compute_amount",
-        readonly=False,
-        string="Amount to distribute",
-        required=True,
-    )
-
     line_ids = fields.One2many(
         comodel_name="customer.wallet.redistribute.wizard.line",
         inverse_name="wizard_id",
     )
 
-    def _default_journal_id(self):
-        return self.env.company.customer_wallet_redistribution_journal_id
-
-    @api.depends("partner_id")
-    def _compute_amount(self):
-        for wizard in self:
-            wizard.amount = wizard.partner_id.customer_wallet_balance
-
     def button_redistribute(self):
         self.ensure_one()
 
         wallet_account_id = self.env.company.customer_wallet_account_id.id
-        total_amount = sum(self.mapped("line_ids.amount"))
-
-        if self.amount <= 0:
-            raise UserError(
-                _("The amount to redistribute should be strictly positive.")
-            )
-
-        if self.amount != total_amount:
-            raise UserError(
-                _(
-                    "The amount to be redistributed (%(amount)s) is"
-                    " different from the sum of the amounts (%(total_amount)s).",
-                    amount=self.amount,
-                    total_amount=total_amount,
-                )
-            )
-
-        if len(self.line_ids.partner_id) != len(self.line_ids):
-            raise UserError(_("you cannot select the same beneficiary twice."))
-
-        if self.partner_id.id in self.mapped("line_ids.partner_id").ids:
-            raise UserError(
-                _(
-                    "The redistributor customer is included in the list of beneficiaries."
-                )
-            )
 
         journals = self.env["account.journal"].search(
             [
@@ -81,11 +40,38 @@ class CustomerWalletRedistributeWizard(models.TransientModel):
             raise UserError(
                 _("There no 'Wallet' journal defined. Please configure one first.")
             )
+        wallet_journal = journals[0]
+
+        total_amount = sum(self.mapped("line_ids.amount"))
+        if (
+            self.customer_wallet_balance - total_amount
+        ) < wallet_journal.minimum_wallet_amount:
+            raise UserError(
+                _(
+                    "The new balance (%(new_balance)s) is"
+                    " lower than the minimum defined in the journal (%(minimum_amount)s).",
+                    new_balance=self.self.customer_wallet_balance - total_amount,
+                    minimum_amount=wallet_journal.minimum_wallet_amount,
+                )
+            )
+
+        if not len(self.line_ids):
+            raise UserError(_("Please set one or many lines."))
+
+        if len(self.line_ids.partner_id) != len(self.line_ids):
+            raise UserError(_("you cannot select the same beneficiary twice."))
+
+        if self.partner_id.id in self.mapped("line_ids.partner_id").ids:
+            raise UserError(
+                _(
+                    "The redistributor customer is included in the list of beneficiaries."
+                )
+            )
 
         line_vals = [
             Command.create(
                 {
-                    "debit": self.amount,
+                    "debit": total_amount,
                     "partner_id": self.partner_id.id,
                     "account_id": wallet_account_id,
                     "name": _("Customer Wallet Redistribution"),
@@ -108,7 +94,7 @@ class CustomerWalletRedistributeWizard(models.TransientModel):
         move = self.env["account.move"].create(
             {
                 "line_ids": line_vals,
-                "journal_id": journals[0].id,
+                "journal_id": wallet_journal.id,
             }
         )
         move.action_post()
