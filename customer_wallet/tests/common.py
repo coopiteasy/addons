@@ -1,6 +1,7 @@
 # Copyright 2022 Coop IT Easy SC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
+from odoo import Command
 from odoo.tests.common import TransactionCase
 
 
@@ -57,19 +58,15 @@ class TestCommon(TransactionCase):
             {
                 "journal_id": self.customer_wallet_journal.id,
                 "line_ids": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "debit": debit,
                             "credit": credit,
                             "partner_id": partner.id,
                             "account_id": self.customer_wallet_account.id,
-                        },
+                        }
                     ),
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "debit": credit,
                             "credit": debit,
@@ -92,9 +89,7 @@ class TestCommon(TransactionCase):
                 "move_type": invoice_type,
                 "partner_id": partner.id,
                 "line_ids": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "name": "Invoice line",
                             "quantity": 1,
