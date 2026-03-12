@@ -6,7 +6,26 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="account.partner_view_buttons" />
         <field name="arch" type="xml">
+            <xpath expr="//sheet" position="before">
+                <header>
+                    <field name="has_customer_wallet" invisible="1" />
 
+                    <button
+                        type="object"
+                        name="action_view_customer_wallet_details"
+                        string="Wallet Details"
+                        class="btn-secondary"
+                        attrs="{'invisible': [('has_customer_wallet', '=', False)]}"
+                    />
+                    <button
+                        type="object"
+                        name="action_view_customer_wallet_redistribute"
+                        string="Redistribute Wallet"
+                        class="btn-secondary"
+                        attrs="{'invisible': [('customer_wallet_balance', '&lt;=', 0.0)]}"
+                    />
+                </header>
+            </xpath>
             <button name="action_view_partner_invoices" position="after">
                 <button
                     type="object"
