@@ -61,7 +61,7 @@ class CustomerWalletRedistributeWizard(models.TransientModel):
                 )
             )
 
-        if len(self.mapped("line_ids.partner_id").ids) != len(self.mapped("line_ids")):
+        if len(self.line_ids.partner_id) != len(self.line_ids):
             raise UserError(_("you cannot select the same beneficiary twice."))
 
         if self.partner_id.id in self.mapped("line_ids.partner_id").ids:
