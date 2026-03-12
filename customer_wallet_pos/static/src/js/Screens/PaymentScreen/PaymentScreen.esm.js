@@ -18,13 +18,13 @@ const WalletPaymentScreen = (OriginalPaymentScreen) =>
          * @returns {Boolean} Whether the order is valid.
          */
         async validateOrder() {
-            var partner = this.currentOrder.get_partner();
-            var [payment_wallet_amount, payment_lines_qty] =
+            const partner = this.currentOrder.get_partner();
+            const [payment_wallet_amount, payment_lines_qty] =
                 this.get_amount_debit_with_customer_wallet_journal();
-            var [product_wallet_amount, product_lines_qty] =
+            const [product_wallet_amount, product_lines_qty] =
                 this.get_amount_credit_with_customer_wallet_product();
 
-            var wallet_amount = payment_wallet_amount - product_wallet_amount;
+            const wallet_amount = payment_wallet_amount - product_wallet_amount;
 
             if (!partner) {
                 if (payment_lines_qty > 0) {
@@ -37,8 +37,8 @@ const WalletPaymentScreen = (OriginalPaymentScreen) =>
                     return;
                 }
                 if (product_lines_qty > 0) {
-                    var wallet_product_names = [];
-                    var wallet_products = this.find_customer_wallet_products();
+                    const wallet_product_names = [];
+                    const wallet_products = this.find_customer_wallet_products();
                     wallet_products.forEach(function (product) {
                         wallet_product_names.push(product.display_name);
                     });
@@ -83,13 +83,13 @@ const WalletPaymentScreen = (OriginalPaymentScreen) =>
          * of the current customer, if defined.
          */
         async _finalizeValidation() {
-            var partner = this.currentOrder.get_partner();
+            const partner = this.currentOrder.get_partner();
             if (partner) {
-                var payment_wallet_amount =
+                const payment_wallet_amount =
                     this.get_amount_debit_with_customer_wallet_journal()[0];
-                var product_wallet_amount =
+                const product_wallet_amount =
                     this.get_amount_credit_with_customer_wallet_product()[0];
-                var wallet_amount = payment_wallet_amount - product_wallet_amount;
+                const wallet_amount = payment_wallet_amount - product_wallet_amount;
                 partner.customer_wallet_balance -= wallet_amount;
             }
 
@@ -110,11 +110,11 @@ const WalletPaymentScreen = (OriginalPaymentScreen) =>
          * @returns {Number} New balance.
          */
         get new_wallet_amount() {
-            var partner = this.currentOrder.get_partner();
+            const partner = this.currentOrder.get_partner();
             if (partner) {
-                var payment_wallet_amount =
+                const payment_wallet_amount =
                     this.get_amount_debit_with_customer_wallet_journal()[0];
-                var product_wallet_amount =
+                const product_wallet_amount =
                     this.get_amount_credit_with_customer_wallet_product()[0];
                 return (
                     partner.customer_wallet_balance -
@@ -133,7 +133,7 @@ const WalletPaymentScreen = (OriginalPaymentScreen) =>
          */
         find_customer_wallet_payment_method() {
             // This is fairly naive.
-            for (var i = 0; i < this.payment_methods_from_config.length; i++) {
+            for (let i = 0; i < this.payment_methods_from_config.length; i++) {
                 if (this.payment_methods_from_config[i].is_customer_wallet_method) {
                     return this.payment_methods_from_config[i];
                 }
@@ -148,7 +148,7 @@ const WalletPaymentScreen = (OriginalPaymentScreen) =>
          * products.
          */
         find_customer_wallet_products() {
-            var wallet_products = [];
+            const wallet_products = [];
             for (const value of Object.values(this.env.pos.db.product_by_id)) {
                 if (value.is_customer_wallet_product) {
                     wallet_products.push(value);
@@ -165,10 +165,10 @@ const WalletPaymentScreen = (OriginalPaymentScreen) =>
          * element is the number of payment lines.
          */
         get_amount_debit_with_customer_wallet_journal() {
-            var order = this.currentOrder;
-            var method = this.find_customer_wallet_payment_method();
-            var wallet_amount = 0;
-            var lines_qty = 0;
+            const order = this.currentOrder;
+            const method = this.find_customer_wallet_payment_method();
+            let wallet_amount = 0;
+            let lines_qty = 0;
             order.paymentlines.forEach((item) => {
                 if (item.payment_method === method) {
                     wallet_amount += item.amount;
@@ -186,14 +186,14 @@ const WalletPaymentScreen = (OriginalPaymentScreen) =>
          * is the number of order lines.
          */
         get_amount_credit_with_customer_wallet_product() {
-            var order = this.currentOrder;
-            var wallet_product_ids = [];
-            var wallet_products = this.find_customer_wallet_products();
+            const order = this.currentOrder;
+            const wallet_product_ids = [];
+            const wallet_products = this.find_customer_wallet_products();
             wallet_products.forEach(function (product) {
                 wallet_product_ids.push(product.id);
             });
-            var wallet_amount = 0;
-            var lines_qty = 0;
+            let wallet_amount = 0;
+            let lines_qty = 0;
 
             order.orderlines.forEach((orderline) => {
                 if (wallet_product_ids.includes(orderline.product.id)) {

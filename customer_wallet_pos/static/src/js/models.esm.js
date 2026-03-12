@@ -9,7 +9,7 @@ import Registries from "point_of_sale.Registries";
 const WalletOrder = (OriginalOrder) =>
     class extends OriginalOrder {
         export_for_printing() {
-            var json = super.export_for_printing(...arguments);
+            const json = super.export_for_printing(...arguments);
             json.customer_wallet_balance = this.partner
                 ? this.partner.customer_wallet_balance
                 : 0;
