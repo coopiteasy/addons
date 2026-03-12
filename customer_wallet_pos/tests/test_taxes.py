@@ -39,17 +39,13 @@ class TestPosTaxes(TestPosCommon):
                     "amount_type": "percent",
                     "include_base_amount": include_base_amount,
                     "invoice_repartition_line_ids": [
-                        (
-                            0,
-                            0,
+                        Command.create(
                             {
                                 "repartition_type": "base",
                                 "tag_ids": [Command.set(cls.tax_tag_invoice_base.ids)],
                             },
                         ),
-                        (
-                            0,
-                            0,
+                        Command.create(
                             {
                                 "repartition_type": "tax",
                                 "account_id": cls.tax_received_account.id,
@@ -58,17 +54,13 @@ class TestPosTaxes(TestPosCommon):
                         ),
                     ],
                     "refund_repartition_line_ids": [
-                        (
-                            0,
-                            0,
+                        Command.create(
                             {
                                 "repartition_type": "base",
                                 "tag_ids": [Command.set(cls.tax_tag_refund_base.ids)],
                             },
                         ),
-                        (
-                            0,
-                            0,
+                        Command.create(
                             {
                                 "repartition_type": "tax",
                                 "account_id": cls.tax_received_account.id,

@@ -3,7 +3,7 @@
 
 from random import randint
 
-from odoo import fields
+from odoo import Command, fields
 
 from odoo.addons.customer_wallet.tests.common import TestCommon
 
@@ -62,9 +62,7 @@ class TestPosCommon(TestCommon):
                 "name": "Test pricelist",
                 "currency_id": self.env.company.currency_id.id,
                 "item_ids": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "applied_on": "3_global",
                             "compute_price": "formula",
@@ -110,9 +108,7 @@ class TestPosCommon(TestCommon):
                 "amount_tax": taxes_paid,
                 "amount_return": 0,
                 "lines": [
-                    [
-                        0,
-                        0,
+                    Command.create(
                         {
                             "qty": 1,
                             "price_unit": amount,
@@ -127,18 +123,16 @@ class TestPosCommon(TestCommon):
                             "id": randint(1000, 1000000),
                             "pack_lot_ids": [],
                         },
-                    ]
+                    )
                 ],
                 "statement_ids": [
-                    [
-                        0,
-                        0,
+                    Command.create(
                         {
                             "name": fields.Datetime.to_string(fields.Datetime.now()),
                             "payment_method_id": payment_method.id,
                             "amount": with_taxes,
                         },
-                    ]
+                    )
                 ],
                 "pos_session_id": pos_session.id,
                 "pricelist_id": pos_session.config_id.pricelist_id.id,
