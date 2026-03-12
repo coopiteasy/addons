@@ -28,13 +28,7 @@ class TestCommon(TransactionCase):
             "customer_wallet.account_account_customer_wallet_demo"
         )
         cls.sale_account = cls.env["account.account"].search(
-            [
-                (
-                    "account_type",
-                    "=",
-                    "income",
-                )
-            ],
+            [("account_type", "=", "income")],
             limit=1,
         )
         cls.customer_wallet_journal = cls.env.ref(
