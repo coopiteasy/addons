@@ -65,7 +65,7 @@ class CustomerWalletRedistributeWizard(models.TransientModel):
             raise UserError(_("Please set one or many lines."))
 
         if len(self.line_ids.partner_id) != len(self.line_ids):
-            raise UserError(_("you cannot select the same beneficiary twice."))
+            raise UserError(_("You cannot select the same beneficiary twice."))
 
         if self.partner_id in self.line_ids.partner_id:
             raise UserError(
