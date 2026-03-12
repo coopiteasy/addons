@@ -33,7 +33,6 @@ msgstr ""
 "inline\">Comptabilisation en cours</span>\n"
 "                                    </span>"
 
-
 #. module: customer_wallet_portal
 #: model_terms:ir.ui.view,arch_db:customer_wallet_portal.portal_my_wallet
 msgid "Amount"
