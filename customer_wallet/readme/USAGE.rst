@@ -2,7 +2,7 @@
 
 - Create a new customer invoice
 - Select the Customer Wallet Product and put an amount
-- confirm the invoice
+- Confirm the invoice
 
   .. figure:: ../static/description/invoice_form_wallet_sale.png
 
