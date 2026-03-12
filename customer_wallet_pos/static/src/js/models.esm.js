@@ -6,8 +6,8 @@
 import {Order} from "point_of_sale.models";
 import Registries from "point_of_sale.Registries";
 
-const WalletOrder = (Order_) =>
-    class extends Order_ {
+const WalletOrder = (OriginalOrder) =>
+    class extends OriginalOrder {
         export_for_printing() {
             var json = super.export_for_printing(...arguments);
             json.customer_wallet_balance = this.partner

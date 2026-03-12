@@ -7,9 +7,8 @@ import PaymentScreen from "point_of_sale.PaymentScreen";
 
 import Registries from "point_of_sale.Registries";
 
-const WalletPaymentScreen = (PaymentScreen_) =>
-    class extends PaymentScreen_ {
-        /* eslint-disable no-unused-vars */
+const WalletPaymentScreen = (OriginalPaymentScreen) =>
+    class extends OriginalPaymentScreen {
         /**
          * Overload function.
          *
