@@ -7,20 +7,17 @@ import PaymentScreen from "point_of_sale.PaymentScreen";
 
 import Registries from "point_of_sale.Registries";
 
-const WalletPaymentScreen = (PaymentScreen_) =>
-    class extends PaymentScreen_ {
-        /* eslint-disable no-unused-vars */
+const WalletPaymentScreen = (OriginalPaymentScreen) =>
+    class extends OriginalPaymentScreen {
         /**
          * Overload function.
          *
          * - If wallet journal is selected, check if customer is selected.
          * - if wallet journal is selected, check if wallet amount is sufficient.
          *
-         * @param {Boolean} isForceValidate - Passed to super.
          * @returns {Boolean} Whether the order is valid.
          */
-        async validateOrder(isForceValidate) {
-            /* eslint-enable no-unused-vars */
+        async validateOrder() {
             var partner = this.currentOrder.get_partner();
             var [payment_wallet_amount, payment_lines_qty] =
                 this.get_amount_debit_with_customer_wallet_journal();
