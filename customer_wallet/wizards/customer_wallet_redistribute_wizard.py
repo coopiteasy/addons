@@ -3,6 +3,7 @@
 
 from odoo import Command, _, fields, models
 from odoo.exceptions import UserError
+from odoo.tools import format_amount
 
 
 class CustomerWalletRedistributeWizard(models.TransientModel):
@@ -50,8 +51,13 @@ class CustomerWalletRedistributeWizard(models.TransientModel):
                 _(
                     "The new balance (%(new_balance)s) is"
                     " lower than the minimum defined in the journal (%(minimum_amount)s).",
-                    new_balance=self.self.customer_wallet_balance - total_amount,
-                    minimum_amount=wallet_journal.minimum_wallet_amount,
+                    new_balance=format_amount(
+                        self.self.customer_wallet_balance - total_amount,
+                        self.currency_id,
+                    ),
+                    minimum_amount=format_amount(
+                        wallet_journal.minimum_wallet_amount, self.currency_id
+                    ),
                 )
             )
 

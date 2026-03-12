@@ -66,7 +66,7 @@ Usage
 
 - Create a new customer invoice
 - Select the Customer Wallet Product and put an amount
-- confirm the invoice
+- Confirm the invoice
 
   .. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet/static/description/invoice_form_wallet_sale.png
 
@@ -92,7 +92,7 @@ You can then mark a customer invoice as paid, using the account journal 'Custome
 
 A message is present in the payment wizard.
 
-  .. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet/static/description/payment_form.png
+.. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet/static/description/payment_form.png
 
 Known issues / Roadmap
 ======================

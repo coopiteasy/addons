@@ -3,6 +3,7 @@
 
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
+from odoo.tools import format_amount
 
 
 class CustomerWalletDetailWizardLine(models.TransientModel):
@@ -33,6 +34,6 @@ class CustomerWalletDetailWizardLine(models.TransientModel):
                 raise ValidationError(
                     _(
                         "Only positive amount is allowed. Incorrect value %(amount)s",
-                        amount=line.amount,
+                        amount=format_amount(line.amount, self.wizard_id.currency_id),
                     )
                 )
