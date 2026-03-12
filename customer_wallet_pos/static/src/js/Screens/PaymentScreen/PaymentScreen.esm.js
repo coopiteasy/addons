@@ -9,6 +9,7 @@ import Registries from "point_of_sale.Registries";
 
 const WalletPaymentScreen = (OriginalPaymentScreen) =>
     class extends OriginalPaymentScreen {
+        /* eslint-disable no-unused-vars */
         /**
          * Overload function.
          *
