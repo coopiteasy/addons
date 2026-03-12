@@ -35,11 +35,6 @@ msgid "Amount"
 msgstr "Montant"
 
 #. module: customer_wallet
-#: model:ir.model.fields,field_description:customer_wallet.field_customer_wallet_redistribute_wizard__amount
-msgid "Amount to distribute"
-msgstr "Montant à distribuer"
-
-#. module: customer_wallet
 #: model:ir.model.fields,field_description:customer_wallet.field_customer_wallet_redistribute_wizard_line__amount
 msgid "Amount to receive"
 msgstr "Montant à recevoir"
@@ -75,11 +70,6 @@ msgstr ""
 #: model:ir.model,name:customer_wallet.model_res_company
 msgid "Companies"
 msgstr "Sociétés"
-
-#. module: customer_wallet
-#: model:ir.model.fields,field_description:customer_wallet.field_customer_wallet_redistribute_wizard__company_id
-msgid "Company"
-msgstr "Société"
 
 #. module: customer_wallet
 #: model:ir.model,name:customer_wallet.model_res_config_settings
@@ -173,12 +163,6 @@ msgstr "Ligne d'assistant de redistribution de porte-monnaie client"
 #, python-format
 msgid "Customer Wallet Redistribution"
 msgstr "Redistribution de porte-monnaie client"
-
-#. module: customer_wallet
-#: model:ir.model.fields,field_description:customer_wallet.field_customer_wallet_redistribute_wizard__journal_id
-#: model:ir.model.fields,field_description:customer_wallet.field_res_company__customer_wallet_redistribution_journal_id
-msgid "Customer Wallet Redistribution Journal"
-msgstr "Journal de redistribution de porte-monnaie client"
 
 #. module: customer_wallet
 #. odoo-python
@@ -282,6 +266,13 @@ msgid "Minimum Wallet Amount"
 msgstr "Montant minimum du porte-monnaie client"
 
 #. module: customer_wallet
+#. odoo-python
+#: code:addons/customer_wallet/wizards/customer_wallet_redistribute_wizard_line.py:0
+#, python-format
+msgid "Only positive amount is allowed. Incorrect value %(amount)s"
+msgstr "Un montant positif est accepté seulement. Valeur incorrecte : %(amount)s"
+
+#. module: customer_wallet
 #: model:ir.model.fields,field_description:customer_wallet.field_customer_wallet_detail_wizard__partner_id
 #: model:ir.model.fields,field_description:customer_wallet.field_customer_wallet_redistribute_wizard__partner_id
 #: model:ir.model.fields,field_description:customer_wallet.field_customer_wallet_redistribute_wizard_line__partner_id
@@ -292,6 +283,13 @@ msgstr "Partenaire"
 #: model:ir.model,name:customer_wallet.model_account_payment
 msgid "Payments"
 msgstr "Paiements"
+
+#. module: customer_wallet
+#. odoo-python
+#: code:addons/customer_wallet/wizards/customer_wallet_redistribute_wizard.py:0
+#, python-format
+msgid "Please set one or many lines."
+msgstr "Veuillez définir une ou plusieurs lignes."
 
 #. module: customer_wallet
 #: model:ir.model,name:customer_wallet.model_product_template
@@ -310,6 +308,11 @@ msgstr "Redistribuer"
 #, python-format
 msgid "Redistribute Customer Wallet"
 msgstr "Redistribuer le porte-monnaie clients"
+
+#. module: customer_wallet
+#: model_terms:ir.ui.view,arch_db:customer_wallet.view_partner_form
+msgid "Redistribute Wallet"
+msgstr "Redistribuer le porte-monnaie client"
 
 #. module: customer_wallet
 #. odoo-python
@@ -335,18 +338,10 @@ msgstr ""
 #: code:addons/customer_wallet/wizards/customer_wallet_redistribute_wizard.py:0
 #, python-format
 msgid ""
-"The amount to be redistributed (%(amount)s) is different from the sum of the "
-"amounts (%(total_amount)s)."
-msgstr ""
-"Le montant à redistribuer (%(amount)s) est différent de la somme des "
-"montants (%(total_amount)s)."
-
-#. module: customer_wallet
-#. odoo-python
-#: code:addons/customer_wallet/wizards/customer_wallet_redistribute_wizard.py:0
-#, python-format
-msgid "The amount to redistribute should be strictly positive."
-msgstr "Le montant à redistribuer doit être strictement positif."
+"The new balance (%(new_balance)s) is lower than the minimum defined in the "
+"journal (%(minimum_amount)s)."
+msgstr "Le nouveau solde (%(new_balance)s) est plus bas que le minimum"
+" défini dans le journal (%(minimum_amount)s)."
 
 #. module: customer_wallet
 #. odoo-python
@@ -358,6 +353,7 @@ msgstr "Le client redistributeur est dans la liste des bénéficiaires."
 #. module: customer_wallet
 #. odoo-python
 #: code:addons/customer_wallet/models/account_payment.py:0
+#, python-format
 msgid ""
 "There is not enough balance in the customer's wallet to perform this "
 "payment. \n"
@@ -373,6 +369,12 @@ msgstr ""
 " - Montant du paiement : %(amount)s\n"
 " - Montant minimum : %(minimum)s"
 
+#. module: customer_wallet
+#. odoo-python
+#: code:addons/customer_wallet/wizards/customer_wallet_redistribute_wizard.py:0
+#, python-format
+msgid "There no 'Wallet' journal defined. Please configure one first."
+msgstr "Il n'y a pas de journal de porte-monnaie défini. Veuillez en configurer un au préalable."
 
 #. module: customer_wallet
 #: model_terms:ir.ui.view,arch_db:customer_wallet.view_customer_wallet_redistribute_wizard_form
@@ -391,6 +393,11 @@ msgstr ""
 "acceptez que le solde d'un porte-monnaie client soit négatif. Cela peut être "
 "utile si le montant d'une vente est légèrement supérieur au solde du porte-"
 "monnaie client, pour éviter d'encaisser le client pour une petite somme."
+
+#. module: customer_wallet
+#: model_terms:ir.ui.view,arch_db:customer_wallet.view_partner_form
+msgid "Wallet Details"
+msgstr "Détails du porte-monnaie client"
 
 #. module: customer_wallet
 #: model:ir.model.fields,field_description:customer_wallet.field_product_product__is_customer_wallet_product
@@ -412,13 +419,7 @@ msgstr ""
 "Vous pouvez sélectionner le journal de porte-monnaie client pour ce client."
 
 #. module: customer_wallet
-#: model_terms:ir.ui.view,arch_db:customer_wallet.view_customer_wallet_redistribute_wizard_form
-msgid "or"
-msgstr "or"
-
-#. module: customer_wallet
 #. odoo-python
 #: code:addons/customer_wallet/wizards/customer_wallet_redistribute_wizard.py:0
-#, python-format
-msgid "you cannot select the same beneficiary twice."
+msgid "You cannot select the same beneficiary twice."
 msgstr "Vous ne pouvez pas sélectionner deux fois le même bénéficiaire."
