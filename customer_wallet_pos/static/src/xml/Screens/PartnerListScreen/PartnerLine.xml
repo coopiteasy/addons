@@ -16,7 +16,7 @@
                 class="partner-line-wallet"
                 t-if="env.pos.config.is_enabled_customer_wallet"
             >
-                <span t-if="props.partner.customer_wallet_balance != '0'">
+                <span t-if="props.partner.customer_wallet_balance != 0.0">
                     <t
                         t-esc="env.pos.format_currency(props.partner.customer_wallet_balance)"
                     />
