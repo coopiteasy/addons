@@ -13,7 +13,6 @@
                         widget="monetary"
                         options="{'currency_field': 'currency_id'}"
                     />
-                    <field name="amount" />
                     <field name="line_ids" string="Beneficiaries">
                         <tree editable="bottom">
                             <field name="partner_id" />

@@ -28,7 +28,6 @@ class TestRedistributeWizard(TestCommon):
 
     def _redistribute(self, amount, redistribution_configuration):
         wizard = self.RedistributeWizard.create({"partner_id": self.partner.id})
-        wizard.amount = amount
         for line in redistribution_configuration:
             self.RedistributeWizardLine.create(
                 {"wizard_id": wizard.id, "partner_id": line[0].id, "amount": line[1]}
