@@ -5,9 +5,9 @@
 -->
 <odoo>
 
-   <record id="customer_wallet_payment_method" model="pos.payment.method">
-         <field name="name">Customer Wallet</field>
-         <field
+    <record id="customer_wallet_payment_method" model="pos.payment.method">
+        <field name="name">Customer Wallet</field>
+        <field
             name="journal_id"
             eval="ref('account_customer_wallet.account_journal_customer_wallet_demo')"
         />
@@ -16,6 +16,6 @@
             name="outstanding_account_id"
             eval="ref('account_customer_wallet.account_account_customer_wallet_demo')"
         />
-   </record>
+    </record>
 
 </odoo>
