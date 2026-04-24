@@ -41,73 +41,73 @@ Configuration
 
 Setting this up requires a few careful steps:
 
-- Make sure your user has access to all accounting features.
+1. Make sure your user has access to all accounting features.
+2. Create an account (Customer Wallet) that is a liability.
 
-- Create an account (Customer Wallet) that is a liability.
+   .. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet/static/description/configure_account_account.png
 
-  .. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet/static/description/configure_account_account.png
+   In France, the account generally used will be "4197" - "Clients – Autres
+   avoirs".
+3. Create a journal (Customer Wallet) of type “Bank”. Enable the “Customer
+   Wallet Journal” toggle, set the Bank Account to the previously created
+   account, and in the payment methods (both incoming and outgoing), set the
+   Outstanding Receipts and Outstanding Payments accounts to the previously
+   created account. You may need to toggle the visibility of these fields in
+   the tables.
 
-In France, the account generally used will be "4197" - "Clients – Autres avoirs".
+   .. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet/static/description/configure_account_journal.png
+4. In the Invoicing settings, set the Customer Wallet Account to the previously
+   created account.
 
-- Create a journal (Customer Wallet). Enable the 'Customer Wallet Journal'
-  toggle, set the Bank Account to the previously created account, and in the
-  payment methods (both incoming and outgoing), set the Outstanding Receipts and
-  Outstanding Payments accounts to the previously created account. You may need
-  to toggle the visibility of these fields in the tables.
+   .. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet/static/description/configure_res_config_settings.png
+5. (Optional) Create a product (Wallet Product), and enable the Wallet Product
+   toggle. The income and expense accounts will be automatically set to the
+   Customer Wallet Account previously created.
 
-  .. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet/static/description/configure_account_journal.png
-
-- In the Invoicing settings, set the Customer Wallet Account to the previously
-  created account.
-
-  .. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet/static/description/configure_res_config_settings.png
-
-- (Optional) Create a product (Wallet Product), and enable the Wallet Product
-  toggle. The income and expense account will be automatically the Customer
-  wallet account previously created.
-
-  .. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet/static/description/configure_product_template.png
-
+   .. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet/static/description/configure_product_template.png
 
 Usage
 =====
 
-**Credit Customer Wallet**
+Credit Customer Wallet
+~~~~~~~~~~~~~~~~~~~~~~
 
-- Create a new customer invoice
-- Select the Customer Wallet Product and put an amount
-- confirm the invoice
+To credit a Customer Wallet:
 
-  .. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet/static/description/invoice_form_wallet_sale.png
+1. Create a new customer invoice.
+2. Select the Customer Wallet Product and put an amount.
+3. Confirm the invoice.
+
+   .. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet/static/description/invoice_form_wallet_sale.png
 
 As a result, the customer has now a credit amount in his customer wallet.
 
-You can then check Customer Wallet amount on the partner form.
+You can then check the Customer Wallet amount on the partner form:
 
-- Select your customer
+1. Select the customer.
+2. Open the **Sale & Purchase** tab.
 
-- Open the 'Sale & Purchase' Tab
+   .. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet/static/description/partner_form_wallet_amount.png
 
-  .. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet/static/description/partner_form_wallet_amount.png
+To see all the Customer Wallets, go to **Accounting > Customers > Customer
+Wallets**.
 
-You can also see all the Customer Wallets:
+   .. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet/static/description/partner_tree_wallet_amount.png
 
-- Click on 'Accounting > Customers > Customer Wallets'
+Debit Customer Wallet
+~~~~~~~~~~~~~~~~~~~~~
 
-  .. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet/static/description/partner_tree_wallet_amount.png
-
-**Debit Customer Wallet**
-
-You can then mark a customer invoice as paid, using the account journal 'Customer Wallet'.
+To debit a Customer Wallet, you can mark a customer invoice as paid using the
+"Customer Wallet" account journal.
 
 A message is present in the payment wizard.
 
-  .. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet/static/description/payment_form.png
+.. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet/static/description/payment_form.png
 
 Known issues / Roadmap
 ======================
 
-* Improve demo / test data for accountings items.
+* Improve demo / test data for accounting items.
   See: complete reflection
   https://github.com/coopiteasy/addons/pull/397#discussion_r2894692265
 
@@ -123,6 +123,8 @@ Changelog
 
 
 12.0.1.1.0 (2022-06-23)
+~~~~~~~~~~~~~~~~~~~~~~~
+
 **Features**
 
 - Make ``customer_wallet_balance`` searchable, and add a filter for non-zero
@@ -157,7 +159,6 @@ Contributors
 * `GRAP <https://www.grap.coop/>`_:
 
   * Sylvain LE GAL
-
 
 Maintainers
 ~~~~~~~~~~~

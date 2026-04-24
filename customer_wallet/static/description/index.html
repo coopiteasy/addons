@@ -382,17 +382,22 @@ which can be used to make purchases at a later date.</p>
 <div class="contents local topic" id="contents">
 <ul class="simple">
 <li><a class="reference internal" href="#configuration" id="toc-entry-1">Configuration</a></li>
-<li><a class="reference internal" href="#usage" id="toc-entry-2">Usage</a></li>
-<li><a class="reference internal" href="#known-issues-roadmap" id="toc-entry-3">Known issues / Roadmap</a></li>
-<li><a class="reference internal" href="#changelog" id="toc-entry-4">Changelog</a><ul>
-<li><a class="reference internal" href="#section-1" id="toc-entry-5">12.0.1.2.0 (2022-07-08)</a></li>
+<li><a class="reference internal" href="#usage" id="toc-entry-2">Usage</a><ul>
+<li><a class="reference internal" href="#credit-customer-wallet" id="toc-entry-3">Credit Customer Wallet</a></li>
+<li><a class="reference internal" href="#debit-customer-wallet" id="toc-entry-4">Debit Customer Wallet</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#bug-tracker" id="toc-entry-6">Bug Tracker</a></li>
-<li><a class="reference internal" href="#credits" id="toc-entry-7">Credits</a><ul>
-<li><a class="reference internal" href="#authors" id="toc-entry-8">Authors</a></li>
-<li><a class="reference internal" href="#contributors" id="toc-entry-9">Contributors</a></li>
-<li><a class="reference internal" href="#maintainers" id="toc-entry-10">Maintainers</a></li>
+<li><a class="reference internal" href="#known-issues-roadmap" id="toc-entry-5">Known issues / Roadmap</a></li>
+<li><a class="reference internal" href="#changelog" id="toc-entry-6">Changelog</a><ul>
+<li><a class="reference internal" href="#section-1" id="toc-entry-7">12.0.1.2.0 (2022-07-08)</a></li>
+<li><a class="reference internal" href="#section-2" id="toc-entry-8">12.0.1.1.0 (2022-06-23)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#bug-tracker" id="toc-entry-9">Bug Tracker</a></li>
+<li><a class="reference internal" href="#credits" id="toc-entry-10">Credits</a><ul>
+<li><a class="reference internal" href="#authors" id="toc-entry-11">Authors</a></li>
+<li><a class="reference internal" href="#contributors" id="toc-entry-12">Contributors</a></li>
+<li><a class="reference internal" href="#maintainers" id="toc-entry-13">Maintainers</a></li>
 </ul>
 </li>
 </ul>
@@ -400,22 +405,22 @@ which can be used to make purchases at a later date.</p>
 <div class="section" id="configuration">
 <h2><a class="toc-backref" href="#toc-entry-1">Configuration</a></h2>
 <p>Setting this up requires a few careful steps:</p>
-<ul>
+<ol class="arabic">
 <li><p class="first">Make sure your user has access to all accounting features.</p>
 </li>
 <li><p class="first">Create an account (Customer Wallet) that is a liability.</p>
 <div class="figure">
 <img alt="https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet/static/description/configure_account_account.png" src="https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet/static/description/configure_account_account.png" />
 </div>
+<p>In France, the account generally used will be “4197” - “Clients – Autres
+avoirs”.</p>
 </li>
-</ul>
-<p>In France, the account generally used will be “4197” - “Clients – Autres avoirs”.</p>
-<ul>
-<li><p class="first">Create a journal (Customer Wallet). Enable the ‘Customer Wallet Journal’
-toggle, set the Bank Account to the previously created account, and in the
-payment methods (both incoming and outgoing), set the Outstanding Receipts and
-Outstanding Payments accounts to the previously created account. You may need
-to toggle the visibility of these fields in the tables.</p>
+<li><p class="first">Create a journal (Customer Wallet) of type “Bank”. Enable the “Customer
+Wallet Journal” toggle, set the Bank Account to the previously created
+account, and in the payment methods (both incoming and outgoing), set the
+Outstanding Receipts and Outstanding Payments accounts to the previously
+created account. You may need to toggle the visibility of these fields in
+the tables.</p>
 <div class="figure">
 <img alt="https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet/static/description/configure_account_journal.png" src="https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet/static/description/configure_account_journal.png" />
 </div>
@@ -427,74 +432,79 @@ created account.</p>
 </div>
 </li>
 <li><p class="first">(Optional) Create a product (Wallet Product), and enable the Wallet Product
-toggle. The income and expense account will be automatically the Customer
-wallet account previously created.</p>
+toggle. The income and expense accounts will be automatically set to the
+Customer Wallet Account previously created.</p>
 <div class="figure">
 <img alt="https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet/static/description/configure_product_template.png" src="https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet/static/description/configure_product_template.png" />
 </div>
 </li>
-</ul>
+</ol>
 </div>
 <div class="section" id="usage">
 <h2><a class="toc-backref" href="#toc-entry-2">Usage</a></h2>
-<p><strong>Credit Customer Wallet</strong></p>
-<ul>
-<li><p class="first">Create a new customer invoice</p>
+<div class="section" id="credit-customer-wallet">
+<h3><a class="toc-backref" href="#toc-entry-3">Credit Customer Wallet</a></h3>
+<p>To credit a Customer Wallet:</p>
+<ol class="arabic">
+<li><p class="first">Create a new customer invoice.</p>
 </li>
-<li><p class="first">Select the Customer Wallet Product and put an amount</p>
+<li><p class="first">Select the Customer Wallet Product and put an amount.</p>
 </li>
-<li><p class="first">confirm the invoice</p>
+<li><p class="first">Confirm the invoice.</p>
 <div class="figure">
 <img alt="https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet/static/description/invoice_form_wallet_sale.png" src="https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet/static/description/invoice_form_wallet_sale.png" />
 </div>
 </li>
-</ul>
+</ol>
 <p>As a result, the customer has now a credit amount in his customer wallet.</p>
-<p>You can then check Customer Wallet amount on the partner form.</p>
-<ul>
-<li><p class="first">Select your customer</p>
+<p>You can then check the Customer Wallet amount on the partner form:</p>
+<ol class="arabic">
+<li><p class="first">Select the customer.</p>
 </li>
-<li><p class="first">Open the ‘Sale &amp; Purchase’ Tab</p>
+<li><p class="first">Open the <strong>Sale &amp; Purchase</strong> tab.</p>
 <div class="figure">
 <img alt="https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet/static/description/partner_form_wallet_amount.png" src="https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet/static/description/partner_form_wallet_amount.png" />
 </div>
 </li>
-</ul>
-<p>You can also see all the Customer Wallets:</p>
-<ul>
-<li><p class="first">Click on ‘Accounting &gt; Customers &gt; Customer Wallets’</p>
+</ol>
+<p>To see all the Customer Wallets, go to <strong>Accounting &gt; Customers &gt; Customer
+Wallets</strong>.</p>
+<blockquote>
 <div class="figure">
 <img alt="https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet/static/description/partner_tree_wallet_amount.png" src="https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet/static/description/partner_tree_wallet_amount.png" />
 </div>
-</li>
-</ul>
-<p><strong>Debit Customer Wallet</strong></p>
-<p>You can then mark a customer invoice as paid, using the account journal ‘Customer Wallet’.</p>
+</blockquote>
+</div>
+<div class="section" id="debit-customer-wallet">
+<h3><a class="toc-backref" href="#toc-entry-4">Debit Customer Wallet</a></h3>
+<p>To debit a Customer Wallet, you can mark a customer invoice as paid using the
+“Customer Wallet” account journal.</p>
 <p>A message is present in the payment wizard.</p>
-<blockquote>
 <div class="figure">
 <img alt="https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet/static/description/payment_form.png" src="https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet/static/description/payment_form.png" />
 </div>
-</blockquote>
+</div>
 </div>
 <div class="section" id="known-issues-roadmap">
-<h2><a class="toc-backref" href="#toc-entry-3">Known issues / Roadmap</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-5">Known issues / Roadmap</a></h2>
 <ul class="simple">
-<li>Improve demo / test data for accountings items.
+<li>Improve demo / test data for accounting items.
 See: complete reflection
 <a class="reference external" href="https://github.com/coopiteasy/addons/pull/397#discussion_r2894692265">https://github.com/coopiteasy/addons/pull/397#discussion_r2894692265</a></li>
 </ul>
 </div>
 <div class="section" id="changelog">
-<h2><a class="toc-backref" href="#toc-entry-4">Changelog</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-6">Changelog</a></h2>
 <div class="section" id="section-1">
-<h3><a class="toc-backref" href="#toc-entry-5">12.0.1.2.0 (2022-07-08)</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-7">12.0.1.2.0 (2022-07-08)</a></h3>
 <p><strong>Misc</strong></p>
 <ul class="simple">
 <li><a class="reference external" href="https://github.com/coopiteasy/addons/issues/237">#237</a></li>
 </ul>
-<p>12.0.1.1.0 (2022-06-23)
-<strong>Features</strong></p>
+</div>
+<div class="section" id="section-2">
+<h3><a class="toc-backref" href="#toc-entry-8">12.0.1.1.0 (2022-06-23)</a></h3>
+<p><strong>Features</strong></p>
 <ul class="simple">
 <li>Make <tt class="docutils literal">customer_wallet_balance</tt> searchable, and add a filter for non-zero
 balances. (<a class="reference external" href="https://github.com/coopiteasy/addons/issues/235">#235</a>)</li>
@@ -502,7 +512,7 @@ balances. (<a class="reference external" href="https://github.com/coopiteasy/add
 </div>
 </div>
 <div class="section" id="bug-tracker">
-<h2><a class="toc-backref" href="#toc-entry-6">Bug Tracker</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-9">Bug Tracker</a></h2>
 <p>Bugs are tracked on <a class="reference external" href="https://github.com/coopiteasy/addons/issues">GitHub Issues</a>.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
@@ -510,16 +520,16 @@ If you spotted it first, help us to smash it by providing a detailed and welcome
 <p>Do not contact contributors directly about support or help with technical issues.</p>
 </div>
 <div class="section" id="credits">
-<h2><a class="toc-backref" href="#toc-entry-7">Credits</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-10">Credits</a></h2>
 <div class="section" id="authors">
-<h3><a class="toc-backref" href="#toc-entry-8">Authors</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-11">Authors</a></h3>
 <ul class="simple">
 <li>Coop IT Easy SC</li>
 <li>GRAP</li>
 </ul>
 </div>
 <div class="section" id="contributors">
-<h3><a class="toc-backref" href="#toc-entry-9">Contributors</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-12">Contributors</a></h3>
 <ul class="simple">
 <li><a class="reference external" href="https://coopiteasy.be">Coop IT Easy SC</a>:<ul>
 <li>Carmen Bianca Bakker</li>
@@ -532,7 +542,7 @@ If you spotted it first, help us to smash it by providing a detailed and welcome
 </ul>
 </div>
 <div class="section" id="maintainers">
-<h3><a class="toc-backref" href="#toc-entry-10">Maintainers</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-13">Maintainers</a></h3>
 <p>Current maintainers:</p>
 <p><a class="reference external image-reference" href="https://github.com/carmenbianca"><img alt="carmenbianca" src="https://github.com/carmenbianca.png?size=40px" /></a> <a class="reference external image-reference" href="https://github.com/legalsylvain"><img alt="legalsylvain" src="https://github.com/legalsylvain.png?size=40px" /></a></p>
 <p>This module is part of the <a class="reference external" href="https://github.com/coopiteasy/addons/tree/16.0/customer_wallet">coopiteasy/addons</a> project on GitHub.</p>

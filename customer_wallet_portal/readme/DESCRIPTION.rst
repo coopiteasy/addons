@@ -1,1 +1,1 @@
-My Home displays customer wallet amount and details.
+Display customer wallet amount and details on the customer portal.

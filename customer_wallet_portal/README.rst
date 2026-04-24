@@ -26,7 +26,7 @@ Portal Customer Wallet
 
 |badge1| |badge2| |badge3|
 
-My Home displays customer wallet amount and details.
+Display customer wallet amount and details on the customer portal.
 
 **Table of contents**
 
@@ -36,15 +36,14 @@ My Home displays customer wallet amount and details.
 Usage
 =====
 
-* Go your portal home page.
+On the portal home page, a new section is available that shows the customer
+wallet amount.
 
-A new section is available that shows the customer wallet amount.
+.. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet_portal/static/description/portal_home.png
 
-  .. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet_portal/static/description/portal_home.png
+If the user clicks on the new item, they can see the details of all the moves.
 
-If user click on the new item, he can see the details of all the moves.
-
-  .. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet_portal/static/description/portal_wallet_detail.png
+.. figure:: https://raw.githubusercontent.com/coopiteasy/addons/16.0/customer_wallet_portal/static/description/portal_wallet_detail.png
 
 Known issues / Roadmap
 ======================

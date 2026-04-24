@@ -1,32 +1,38 @@
-**Credit Customer Wallet**
+Credit Customer Wallet
+~~~~~~~~~~~~~~~~~~~~~~
 
-- create a new order and select a customer.
-- (Optionally) add products.
-- add the customer wallet product and adapt quantity.
+To credit a Customer Wallet:
 
-  .. figure:: ../static/description/pos_credit_wallet_pos_order.png
+1. Create a new order and select a customer.
+2. (Optionally) Add products.
+3. Add the customer wallet product and adjust quantity or price.
 
-in the payment screen, you can see the new wallet amount, once the order will be paid.
+.. figure:: ../static/description/pos_credit_wallet_pos_order.png
 
-  .. figure:: ../static/description/pos_credit_wallet_payment.png
+On the payment screen, you can see the balance the customer wallet will have once the payment is made.
 
+.. figure:: ../static/description/pos_credit_wallet_payment.png
 
- **Debit Customer Wallet**
+Debit Customer Wallet
+~~~~~~~~~~~~~~~~~~~~~
 
-- create a new order, select a customer and products.
+To debit a Customer Wallet:
 
-in the payment screen, you can now select the wallet payment method to mark
-the order as paid.
+1. Create a new order, select a customer and products.
+2. On the payment screen, select the wallet payment method to mark the order as
+   paid.
 
-  .. figure:: ../static/description/pos_debit_wallet_payment.png
+.. figure:: ../static/description/pos_debit_wallet_payment.png
 
+Balance Display on Receipt
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
- **Amount display on ticket**
+.. figure:: ../static/description/pos_ticket.png
 
-  .. figure:: ../static/description/pos_ticket.png
+Display Customer Wallets
+~~~~~~~~~~~~~~~~~~~~~~~~
 
- **See Customer Wallets**
+A new column is available on the customer list screen, displaying the wallet
+balance for each customer.
 
-A new column is available on customer list screen, to see 
-
-  .. figure:: ../static/description/pos_customer_wallet_list.png
+.. figure:: ../static/description/pos_customer_wallet_list.png
