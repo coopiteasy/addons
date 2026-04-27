@@ -26,9 +26,13 @@
                         name="button_redistribute"
                         string="Redistribute"
                         type="object"
-                        class="oe_highlight"
+                        class="btn btn-primary"
                     />
-                    <button string="Cancel" class="oe_link" special="cancel" />
+                    <button
+                        string="Cancel"
+                        class="btn btn-secondary"
+                        special="cancel"
+                    />
                 </footer>
             </form>
         </field>

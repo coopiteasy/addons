@@ -6,15 +6,18 @@
         <field name="arch" type="xml">
             <form>
                 <group>
-                      <field name="partner_id" />
-                      <field name="currency_id" invisible="1" />
-                      <field
+                    <field name="partner_id" />
+                    <field name="currency_id" invisible="1" />
+                    <field
                         name="customer_wallet_balance"
                         widget="monetary"
                         options="{'currency_field': 'currency_id'}"
                     />
                     <field name="detail" widget="html" />
                 </group>
+                <footer>
+                    <button string="Close" class="btn btn-primary" special="cancel" />
+                </footer>
             </form>
         </field>
     </record>

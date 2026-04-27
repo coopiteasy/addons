@@ -67,6 +67,11 @@ msgstr ""
 "client."
 
 #. module: customer_wallet
+#: model_terms:ir.ui.view,arch_db:customer_wallet.view_customer_wallet_detail_wizard_form
+msgid "Close"
+msgstr "Fermer"
+
+#. module: customer_wallet
 #: model:ir.model,name:customer_wallet.model_res_company
 msgid "Companies"
 msgstr "Sociétés"
