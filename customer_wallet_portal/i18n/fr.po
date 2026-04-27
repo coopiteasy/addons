@@ -41,7 +41,7 @@ msgstr "Montant"
 #. module: customer_wallet_portal
 #: model_terms:ir.ui.view,arch_db:customer_wallet_portal.portal_my_wallet
 msgid "Balance"
-msgstr "Balance"
+msgstr "Solde"
 
 #. module: customer_wallet_portal
 #: model_terms:ir.ui.view,arch_db:customer_wallet_portal.portal_my_wallet
@@ -56,7 +56,7 @@ msgstr "Réf."
 #. module: customer_wallet_portal
 #: model_terms:ir.ui.view,arch_db:customer_wallet_portal.portal_my_wallet
 msgid "State"
-msgstr "Etat"
+msgstr "État"
 
 #. module: customer_wallet_portal
 #: model_terms:ir.ui.view,arch_db:customer_wallet_portal.portal_my_wallet
@@ -71,4 +71,4 @@ msgstr "Porte-monnaie"
 #. module: customer_wallet_portal
 #: model_terms:ir.ui.view,arch_db:customer_wallet_portal.portal_my_home
 msgid "Wallet Balance"
-msgstr "Balance du porte-monnaie"
+msgstr "Solde du porte-monnaie"
