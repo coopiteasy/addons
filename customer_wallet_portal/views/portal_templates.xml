@@ -32,9 +32,6 @@
 
     <template id="portal_my_wallet" name="My Wallet">
         <t t-call="portal.portal_layout">
-            <t t-if="not wallet_lines">
-                <p>There are currently no moves in your wallet.</p>
-            </t>
             <t t-if="wallet_lines" t-call="portal.portal_table">
                 <thead>
                     <tr class="active">
@@ -48,10 +45,14 @@
                 <tbody>
                     <t t-foreach="wallet_lines" t-as="wallet_line">
                         <tr>
-                            <td><t t-esc="wallet_line['datetime_formatted']" /></td>
-                            <td><t t-esc="wallet_line['amount_formatted']" /></td>
-                            <td><t t-esc="wallet_line['balance_formatted']" /></td>
-                            <td><t t-esc="wallet_line['reference']" /></td>
+                            <td><t t-out="wallet_line['datetime_formatted']" /></td>
+                            <td class="text-end"><t
+                                    t-out="wallet_line['amount_formatted']"
+                                /></td>
+                            <td class="text-end"><t
+                                    t-out="wallet_line['balance_formatted']"
+                                /></td>
+                            <td><t t-out="wallet_line['reference']" /></td>
                             <td>
                                 <t t-if="wallet_line['model'] != 'account.move.line'">
                                     <span class="badge rounded-pill text-bg-info">
@@ -65,6 +66,9 @@
                         </tr>
                     </t>
                 </tbody>
+            </t>
+            <t t-else="">
+                <p>There are currently no moves in your wallet.</p>
             </t>
         </t>
     </template>
