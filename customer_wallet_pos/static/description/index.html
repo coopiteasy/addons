@@ -389,15 +389,19 @@ screen. The value in grey is the projected balance after the order is completed.
 <li><a class="reference internal" href="#display-customer-wallets" id="toc-entry-6">Display Customer Wallets</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#changelog" id="toc-entry-7">Changelog</a><ul>
-<li><a class="reference internal" href="#section-1" id="toc-entry-8">12.0.1.1.0 (2022-07-08)</a></li>
+<li><a class="reference internal" href="#known-issues-roadmap" id="toc-entry-7">Known issues / Roadmap</a><ul>
+<li><a class="reference internal" href="#sequence-of-operations" id="toc-entry-8">Sequence of Operations</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#bug-tracker" id="toc-entry-9">Bug Tracker</a></li>
-<li><a class="reference internal" href="#credits" id="toc-entry-10">Credits</a><ul>
-<li><a class="reference internal" href="#authors" id="toc-entry-11">Authors</a></li>
-<li><a class="reference internal" href="#contributors" id="toc-entry-12">Contributors</a></li>
-<li><a class="reference internal" href="#maintainers" id="toc-entry-13">Maintainers</a></li>
+<li><a class="reference internal" href="#changelog" id="toc-entry-9">Changelog</a><ul>
+<li><a class="reference internal" href="#section-1" id="toc-entry-10">12.0.1.1.0 (2022-07-08)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#bug-tracker" id="toc-entry-11">Bug Tracker</a></li>
+<li><a class="reference internal" href="#credits" id="toc-entry-12">Credits</a><ul>
+<li><a class="reference internal" href="#authors" id="toc-entry-13">Authors</a></li>
+<li><a class="reference internal" href="#contributors" id="toc-entry-14">Contributors</a></li>
+<li><a class="reference internal" href="#maintainers" id="toc-entry-15">Maintainers</a></li>
 </ul>
 </li>
 </ul>
@@ -467,10 +471,21 @@ balance for each customer.</p>
 </div>
 </div>
 </div>
+<div class="section" id="known-issues-roadmap">
+<h2><a class="toc-backref" href="#toc-entry-7">Known issues / Roadmap</a></h2>
+<div class="section" id="sequence-of-operations">
+<h3><a class="toc-backref" href="#toc-entry-8">Sequence of Operations</a></h3>
+<p>The exact sequence in which Customer Wallet operations done in the same PoS session are done is not stored and cannot be correctly recomputed.
+For example, if a customer first credits their wallet in one order, then uses their wallet to pay for another order, these operations may appear in a different sequence when displaying the wallet details, possibly yielding a (falsely) negative balance at some point.</p>
+<p>This is because all <tt class="docutils literal">account.move.line</tt> records of a PoS session are created when closing the session and have thus the same value for their <tt class="docutils literal">date</tt> and <tt class="docutils literal">create_date</tt> fields.
+Although <tt class="docutils literal">pos.order</tt> records have a <tt class="docutils literal">date_order</tt> field which is of type <tt class="docutils literal">Datetime</tt>, there is no link between <tt class="docutils literal">account.move.line</tt> and <tt class="docutils literal">pos.order</tt> records, so it cannot be retrieved.
+Moreover, as some <tt class="docutils literal">account.move.line</tt> records (specific to Customer Wallet operations) are deleted and others created when closing the PoS session, the <tt class="docutils literal">id</tt> field cannot be used as a sorting field either.</p>
+</div>
+</div>
 <div class="section" id="changelog">
-<h2><a class="toc-backref" href="#toc-entry-7">Changelog</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-9">Changelog</a></h2>
 <div class="section" id="section-1">
-<h3><a class="toc-backref" href="#toc-entry-8">12.0.1.1.0 (2022-07-08)</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-10">12.0.1.1.0 (2022-07-08)</a></h3>
 <p><strong>Features</strong></p>
 <ul class="simple">
 <li>Customer wallet balance is now displayed on tickets. (<a class="reference external" href="https://github.com/coopiteasy/addons/issues/237">#237</a>)</li>
@@ -478,7 +493,7 @@ balance for each customer.</p>
 </div>
 </div>
 <div class="section" id="bug-tracker">
-<h2><a class="toc-backref" href="#toc-entry-9">Bug Tracker</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-11">Bug Tracker</a></h2>
 <p>Bugs are tracked on <a class="reference external" href="https://github.com/coopiteasy/addons/issues">GitHub Issues</a>.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
@@ -486,16 +501,16 @@ If you spotted it first, help us to smash it by providing a detailed and welcome
 <p>Do not contact contributors directly about support or help with technical issues.</p>
 </div>
 <div class="section" id="credits">
-<h2><a class="toc-backref" href="#toc-entry-10">Credits</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-12">Credits</a></h2>
 <div class="section" id="authors">
-<h3><a class="toc-backref" href="#toc-entry-11">Authors</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-13">Authors</a></h3>
 <ul class="simple">
 <li>Coop IT Easy SC</li>
 <li>GRAP</li>
 </ul>
 </div>
 <div class="section" id="contributors">
-<h3><a class="toc-backref" href="#toc-entry-12">Contributors</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-14">Contributors</a></h3>
 <ul class="simple">
 <li><a class="reference external" href="https://coopiteasy.be">Coop IT Easy SC</a>:<ul>
 <li>Carmen Bianca Bakker</li>
@@ -509,7 +524,7 @@ If you spotted it first, help us to smash it by providing a detailed and welcome
 </ul>
 </div>
 <div class="section" id="maintainers">
-<h3><a class="toc-backref" href="#toc-entry-13">Maintainers</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-15">Maintainers</a></h3>
 <p>Current maintainers:</p>
 <p><a class="reference external image-reference" href="https://github.com/carmenbianca"><img alt="carmenbianca" src="https://github.com/carmenbianca.png?size=40px" /></a> <a class="reference external image-reference" href="https://github.com/legalsylvain"><img alt="legalsylvain" src="https://github.com/legalsylvain.png?size=40px" /></a></p>
 <p>This module is part of the <a class="reference external" href="https://github.com/coopiteasy/addons/tree/16.0/customer_wallet_pos">coopiteasy/addons</a> project on GitHub.</p>
