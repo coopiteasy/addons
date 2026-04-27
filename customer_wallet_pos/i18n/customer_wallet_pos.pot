@@ -17,16 +17,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/customer_wallet_pos/static/src/js/Screens/PaymentScreen/PaymentScreen.esm.js:0
 #, python-format
-msgid ""
-"' without selecting a customer. Please select a customer or remove the order"
-" line(s)."
-msgstr ""
-
-#. module: customer_wallet_pos
-#. odoo-javascript
-#: code:addons/customer_wallet_pos/static/src/js/Screens/PaymentScreen/PaymentScreen.esm.js:0
-#, python-format
-msgid "Cannot sell the product '"
+msgid "Cannot sell the following products without selecting a customer:"
 msgstr ""
 
 #. module: customer_wallet_pos
@@ -34,9 +25,7 @@ msgstr ""
 #: code:addons/customer_wallet_pos/static/src/js/Screens/PaymentScreen/PaymentScreen.esm.js:0
 #, python-format
 msgid ""
-"Cannot use customer wallet payment method without selecting a customer.\n"
-"\n"
-" Please select a customer or use a different payment method."
+"Cannot use a customer wallet payment method without selecting a customer."
 msgstr ""
 
 #. module: customer_wallet_pos
@@ -91,6 +80,20 @@ msgstr ""
 #: code:addons/customer_wallet_pos/static/src/js/Screens/PaymentScreen/PaymentScreen.esm.js:0
 #, python-format
 msgid "No customer selected"
+msgstr ""
+
+#. module: customer_wallet_pos
+#. odoo-javascript
+#: code:addons/customer_wallet_pos/static/src/js/Screens/PaymentScreen/PaymentScreen.esm.js:0
+#, python-format
+msgid "Please select a customer or remove the order lines."
+msgstr ""
+
+#. module: customer_wallet_pos
+#. odoo-javascript
+#: code:addons/customer_wallet_pos/static/src/js/Screens/PaymentScreen/PaymentScreen.esm.js:0
+#, python-format
+msgid "Please select a customer or use a different payment method."
 msgstr ""
 
 #. module: customer_wallet_pos

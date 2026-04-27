@@ -30,25 +30,33 @@ const WalletPaymentScreen = (OriginalPaymentScreen) =>
                 if (payment_lines_qty > 0) {
                     this.showPopup("ErrorPopup", {
                         title: this.env._t("No customer selected"),
-                        body: this.env._t(
-                            "Cannot use customer wallet payment method without selecting a customer.\n\n Please select a customer or use a different payment method."
-                        ),
+                        body:
+                            this.env._t(
+                                "Cannot use a customer wallet payment method without selecting a customer."
+                            ) +
+                            "\n\n" +
+                            this.env._t(
+                                "Please select a customer or use a different payment method."
+                            ),
                     });
                     return;
                 }
                 if (product_lines_qty > 0) {
-                    const wallet_product_names = [];
-                    const wallet_products = this.find_customer_wallet_products();
-                    wallet_products.forEach(function (product) {
-                        wallet_product_names.push(product.display_name);
-                    });
+                    const wallet_product_names =
+                        this.find_customer_wallet_products().map(
+                            (product) => product.display_name
+                        );
                     this.showPopup("ErrorPopup", {
                         title: this.env._t("No customer selected"),
                         body:
-                            this.env._t("Cannot sell the product '") +
-                            wallet_product_names.join(",") +
                             this.env._t(
-                                "' without selecting a customer. Please select a customer or remove the order line(s)."
+                                "Cannot sell the following products without selecting a customer:"
+                            ) +
+                            " " +
+                            wallet_product_names.join(", ") +
+                            "\n\n" +
+                            this.env._t(
+                                "Please select a customer or remove the order lines."
                             ),
                     });
                     return;

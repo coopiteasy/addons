@@ -20,33 +20,20 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/customer_wallet_pos/static/src/js/Screens/PaymentScreen/PaymentScreen.esm.js:0
 #, python-format
-msgid ""
-"' without selecting a customer. Please select a customer or remove the order "
-"line(s)."
+msgid "Cannot sell the following products without selecting a customer:"
 msgstr ""
-"' sans sélectionner un client. Veuillez sélectionner un client ou retirer la "
-"ou les lignes de ventes."
-
-#. module: customer_wallet_pos
-#. odoo-javascript
-#: code:addons/customer_wallet_pos/static/src/js/Screens/PaymentScreen/PaymentScreen.esm.js:0
-#, python-format
-msgid "Cannot sell the product '"
-msgstr "Vous ne pouvez pas vendre le produit '"
+"Les produits suivants ne peuvent pas être vendus sans sélectionner un "
+"client :"
 
 #. module: customer_wallet_pos
 #. odoo-javascript
 #: code:addons/customer_wallet_pos/static/src/js/Screens/PaymentScreen/PaymentScreen.esm.js:0
 #, python-format
 msgid ""
-"Cannot use customer wallet payment method without selecting a customer.\n"
-"\n"
-" Please select a customer or use a different payment method."
+"Cannot use a customer wallet payment method without selecting a customer."
 msgstr ""
-"Vous ne pouvez pas utiliser un moyen de paiement de type porte-monnaie "
-"client sans sélectionner un client.\n"
-"\n"
-" Veuillez sélectionner un client ou changer de moyen de paiement."
+"Un moyen de paiement de type porte-monnaie client ne peut pas être utilisé "
+"sans sélectionner un client."
 
 #. module: customer_wallet_pos
 #: model:ir.model,name:customer_wallet_pos.model_res_partner
@@ -100,6 +87,20 @@ msgstr "Montant minimum du porte-monnaie client"
 #, python-format
 msgid "No customer selected"
 msgstr "Aucun client sélectionné"
+
+#. module: customer_wallet_pos
+#. odoo-javascript
+#: code:addons/customer_wallet_pos/static/src/js/Screens/PaymentScreen/PaymentScreen.esm.js:0
+#, python-format
+msgid "Please select a customer or remove the order lines."
+msgstr "Veuillez sélectionner un client ou retirer les lignes de vente."
+
+#. module: customer_wallet_pos
+#. odoo-javascript
+#: code:addons/customer_wallet_pos/static/src/js/Screens/PaymentScreen/PaymentScreen.esm.js:0
+#, python-format
+msgid "Please select a customer or use a different payment method."
+msgstr "Veuillez sélectionner un client ou changer de moyen de paiement."
 
 #. module: customer_wallet_pos
 #: model:ir.model,name:customer_wallet_pos.model_pos_config
