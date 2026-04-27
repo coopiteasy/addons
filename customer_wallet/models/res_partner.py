@@ -7,7 +7,7 @@ from odoo import _, api, fields, models
 from odoo.tools.safe_eval import safe_eval
 
 
-class Partner(models.Model):
+class ResPartner(models.Model):
     _inherit = "res.partner"
 
     customer_wallet_balance = fields.Monetary(
@@ -20,9 +20,7 @@ class Partner(models.Model):
         inverse_name="partner_id",
         readonly=True,
     )
-
     has_customer_wallet = fields.Boolean(compute="_compute_customer_wallet")
-
     customer_wallet_data = fields.Text(compute="_compute_customer_wallet")
 
     def get_topmost_parent_id(self):
@@ -41,7 +39,7 @@ class Partner(models.Model):
 
     def get_wallet_balance_details(self, all_partner_ids, wallet_account_id):
         # We use sudo for account.move.line
-        # to avoid access error, if user is not member of accouting groups
+        # to avoid access error, if user is not member of accounting groups
 
         result = {partner_id: [] for partner_id in all_partner_ids}
         domain = [

@@ -10,7 +10,6 @@ class AccountJournal(models.Model):
     is_customer_wallet_journal = fields.Boolean(
         string="Customer Wallet Journal", default=False
     )
-
     minimum_wallet_amount = fields.Monetary(
         default=0.0,
         help="Usually 0. You can enter a negative value,"

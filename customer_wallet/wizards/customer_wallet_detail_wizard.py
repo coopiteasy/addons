@@ -12,18 +12,14 @@ class CustomerWalletDetailWizard(models.TransientModel):
     _description = "Customer Wallet Detail Wizard"
 
     partner_id = fields.Many2one(required=True, comodel_name="res.partner")
-
     currency_id = fields.Many2one(
         comodel_name="res.currency", related="partner_id.currency_id"
     )
-
     customer_wallet_balance = fields.Monetary(
         related="partner_id.customer_wallet_balance",
         string="Balance",
     )
-
     customer_wallet_data = fields.Text(related="partner_id.customer_wallet_data")
-
     detail = fields.Html(compute="_compute_detail_html", sanitize=False)
 
     @api.depends("partner_id")

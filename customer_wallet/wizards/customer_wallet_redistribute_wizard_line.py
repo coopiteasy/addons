@@ -6,7 +6,7 @@ from odoo.exceptions import ValidationError
 from odoo.tools import format_amount
 
 
-class CustomerWalletDetailWizardLine(models.TransientModel):
+class CustomerWalletRedistributeWizardLine(models.TransientModel):
     _name = "customer.wallet.redistribute.wizard.line"
     _description = "Customer Wallet Redistribute Wizard Line"
 
@@ -15,13 +15,10 @@ class CustomerWalletDetailWizardLine(models.TransientModel):
         comodel_name="customer.wallet.redistribute.wizard",
         ondelete="cascade",
     )
-
     partner_id = fields.Many2one(required=True, comodel_name="res.partner")
-
     currency_id = fields.Many2one(
         comodel_name="res.currency", related="partner_id.currency_id"
     )
-
     amount = fields.Monetary(
         string="Amount to receive",
         required=True,

@@ -11,16 +11,13 @@ class CustomerWalletRedistributeWizard(models.TransientModel):
     _description = "Customer Wallet Redistribute Wizard"
 
     partner_id = fields.Many2one(required=True, comodel_name="res.partner")
-
     currency_id = fields.Many2one(
         comodel_name="res.currency", related="partner_id.currency_id"
     )
-
     customer_wallet_balance = fields.Monetary(
         related="partner_id.customer_wallet_balance",
         string="Balance",
     )
-
     line_ids = fields.One2many(
         comodel_name="customer.wallet.redistribute.wizard.line",
         inverse_name="wizard_id",

@@ -12,7 +12,6 @@ class AccountPayment(models.Model):
     is_customer_wallet_journal = fields.Boolean(
         related="journal_id.is_customer_wallet_journal",
     )
-
     customer_wallet_balance = fields.Monetary(
         string="Customer Wallet Balance",
         currency_field="currency_id",

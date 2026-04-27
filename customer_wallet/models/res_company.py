@@ -4,7 +4,7 @@
 from odoo import api, fields, models
 
 
-class Company(models.Model):
+class ResCompany(models.Model):
     _inherit = "res.company"
 
     is_enabled_customer_wallet = fields.Boolean(

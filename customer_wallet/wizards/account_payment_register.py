@@ -5,13 +5,12 @@
 from odoo import fields, models
 
 
-class AccountPayment(models.TransientModel):
+class AccountPaymentRegister(models.TransientModel):
     _inherit = "account.payment.register"
 
     is_customer_wallet_journal = fields.Boolean(
         related="journal_id.is_customer_wallet_journal",
     )
-
     customer_wallet_balance = fields.Monetary(
         string="Customer Wallet Balance",
         currency_field="currency_id",
