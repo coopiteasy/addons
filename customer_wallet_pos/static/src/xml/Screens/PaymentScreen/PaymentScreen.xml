@@ -19,12 +19,12 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                         <t t-if="currentOrder.get_partner()">
                             <span class="current-wallet-balance">
                                 <t
-                                    t-esc="env.pos.format_currency(currentOrder.get_partner().customer_wallet_balance)"
+                                    t-out="env.pos.format_currency(currentOrder.get_partner().customer_wallet_balance)"
                                 />
                             </span>
                             <span class="new-wallet-balance">
                                 (<t
-                                    t-esc="env.pos.format_currency(new_wallet_amount)"
+                                    t-out="env.pos.format_currency(new_wallet_amount)"
                                 />)
                             </span>
                         </t>
@@ -33,4 +33,5 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             </t>
         </xpath>
     </t>
+
 </templates>

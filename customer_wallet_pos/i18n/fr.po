@@ -121,9 +121,9 @@ msgstr "Session du point de vente"
 #: code:addons/customer_wallet_pos/static/src/js/Screens/PaymentScreen/PaymentScreen.esm.js:0
 #, python-format
 msgid ""
-"There is not enough balance in the customer's wallet to perform this order."
+"There is not enough balance in the customer's wallet to validate this order."
 msgstr ""
-"Le solde du porte-monnaie client est insuffisant pour réaliser cette vente."
+"Le solde du porte-monnaie client est insuffisant pour valider cette vente."
 
 #. module: customer_wallet_pos
 #. odoo-javascript
@@ -137,7 +137,7 @@ msgstr "Porte-monnaie"
 #. odoo-javascript
 #: code:addons/customer_wallet_pos/static/src/js/Screens/PaymentScreen/PaymentScreen.esm.js:0
 #, python-format
-msgid "You can not credit and debit a customer wallet in the same order."
+msgid "You cannot credit and debit a customer wallet in the same order."
 msgstr ""
 "Vous ne pouvez pas débiter et créditer un porte-monnaie client dans la même "
 "vente"

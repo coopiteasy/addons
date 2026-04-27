@@ -17,7 +17,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                 <span class="label">Wallet</span>
                 <span
                     class="detail"
-                    t-esc="env.pos.format_currency(props.partner.customer_wallet_balance)"
+                    t-out="env.pos.format_currency(props.partner.customer_wallet_balance)"
                 />
             </div>
         </xpath>

@@ -57,7 +57,7 @@ const WalletPaymentScreen = (OriginalPaymentScreen) =>
                 this.showPopup("ErrorPopup", {
                     title: this.env._t("Customer wallet balance not sufficient"),
                     body: this.env._t(
-                        "There is not enough balance in the customer's wallet to perform this order."
+                        "There is not enough balance in the customer's wallet to validate this order."
                     ),
                 });
                 return;
@@ -67,13 +67,13 @@ const WalletPaymentScreen = (OriginalPaymentScreen) =>
                 this.showPopup("ErrorPopup", {
                     title: this.env._t("Customer Wallet: Credit and Debit"),
                     body: this.env._t(
-                        "You can not credit and debit a customer wallet in the same order."
+                        "You cannot credit and debit a customer wallet in the same order."
                     ),
                 });
                 return;
             }
 
-            await super.validateOrder(...arguments);
+            return super.validateOrder(...arguments);
         }
 
         /**
@@ -132,13 +132,11 @@ const WalletPaymentScreen = (OriginalPaymentScreen) =>
          * wallet journal. The first match is returned.
          */
         find_customer_wallet_payment_method() {
-            // This is fairly naive.
-            for (let i = 0; i < this.payment_methods_from_config.length; i++) {
-                if (this.payment_methods_from_config[i].is_customer_wallet_method) {
-                    return this.payment_methods_from_config[i];
-                }
-            }
-            return null;
+            return (
+                this.payment_methods_from_config.find(
+                    (c) => c.is_customer_wallet_method
+                ) || null
+            );
         }
 
         /**
@@ -148,13 +146,9 @@ const WalletPaymentScreen = (OriginalPaymentScreen) =>
          * products.
          */
         find_customer_wallet_products() {
-            const wallet_products = [];
-            for (const value of Object.values(this.env.pos.db.product_by_id)) {
-                if (value.is_customer_wallet_product) {
-                    wallet_products.push(value);
-                }
-            }
-            return wallet_products;
+            return Object.values(this.env.pos.db.product_by_id).filter(
+                (p) => p.is_customer_wallet_product
+            );
         }
 
         /**
@@ -165,17 +159,12 @@ const WalletPaymentScreen = (OriginalPaymentScreen) =>
          * element is the number of payment lines.
          */
         get_amount_debit_with_customer_wallet_journal() {
-            const order = this.currentOrder;
             const method = this.find_customer_wallet_payment_method();
-            let wallet_amount = 0;
-            let lines_qty = 0;
-            order.paymentlines.forEach((item) => {
-                if (item.payment_method === method) {
-                    wallet_amount += item.amount;
-                    lines_qty += 1;
-                }
-            });
-            return [wallet_amount, lines_qty];
+            const lines = this.currentOrder.paymentlines.filter(
+                (line) => line.payment_method === method
+            );
+            const wallet_amount = lines.reduce((sum, line) => sum + line.amount, 0);
+            return [wallet_amount, lines.length];
         }
 
         /**
@@ -186,23 +175,17 @@ const WalletPaymentScreen = (OriginalPaymentScreen) =>
          * is the number of order lines.
          */
         get_amount_credit_with_customer_wallet_product() {
-            const order = this.currentOrder;
-            const wallet_product_ids = [];
-            const wallet_products = this.find_customer_wallet_products();
-            wallet_products.forEach(function (product) {
-                wallet_product_ids.push(product.id);
-            });
-            let wallet_amount = 0;
-            let lines_qty = 0;
-
-            order.orderlines.forEach((orderline) => {
-                if (wallet_product_ids.includes(orderline.product.id)) {
-                    wallet_amount += orderline.get_price_without_tax();
-                    lines_qty += 1;
-                }
-            });
-
-            return [wallet_amount, lines_qty];
+            const wallet_product_ids = this.find_customer_wallet_products().map(
+                (p) => p.id
+            );
+            const lines = this.currentOrder.orderlines.filter((line) =>
+                wallet_product_ids.includes(line.product.id)
+            );
+            const wallet_amount = lines.reduce(
+                (sum, line) => sum + line.get_price_without_tax(),
+                0
+            );
+            return [wallet_amount, lines.length];
         }
     };
 

@@ -113,7 +113,7 @@ msgstr ""
 #: code:addons/customer_wallet_pos/static/src/js/Screens/PaymentScreen/PaymentScreen.esm.js:0
 #, python-format
 msgid ""
-"There is not enough balance in the customer's wallet to perform this order."
+"There is not enough balance in the customer's wallet to validate this order."
 msgstr ""
 
 #. module: customer_wallet_pos
@@ -128,5 +128,5 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/customer_wallet_pos/static/src/js/Screens/PaymentScreen/PaymentScreen.esm.js:0
 #, python-format
-msgid "You can not credit and debit a customer wallet in the same order."
+msgid "You cannot credit and debit a customer wallet in the same order."
 msgstr ""

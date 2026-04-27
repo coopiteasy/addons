@@ -16,7 +16,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             <div class="customer-wallet-balance">
                 Customer Wallet Balance
                 <span
-                    t-esc="env.pos.format_currency(receipt.customer_wallet_balance)"
+                    t-out="env.pos.format_currency(receipt.customer_wallet_balance)"
                     class="pos-receipt-right-align"
                 />
             </div>
