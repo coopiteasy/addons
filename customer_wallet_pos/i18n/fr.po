@@ -1,0 +1,144 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#   * customer_wallet_pos
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-02-28 23:07+0000\n"
+"PO-Revision-Date: 2023-02-28 23:07+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: customer_wallet_pos
+#. odoo-javascript
+#: code:addons/customer_wallet_pos/static/src/js/Screens/PaymentScreen/PaymentScreen.esm.js:0
+#, python-format
+msgid "Cannot sell the following products without selecting a customer:"
+msgstr ""
+"Les produits suivants ne peuvent pas être vendus sans sélectionner un "
+"client :"
+
+#. module: customer_wallet_pos
+#. odoo-javascript
+#: code:addons/customer_wallet_pos/static/src/js/Screens/PaymentScreen/PaymentScreen.esm.js:0
+#, python-format
+msgid ""
+"Cannot use a customer wallet payment method without selecting a customer."
+msgstr ""
+"Un moyen de paiement de type porte-monnaie client ne peut pas être utilisé "
+"sans sélectionner un client."
+
+#. module: customer_wallet_pos
+#: model:ir.model,name:customer_wallet_pos.model_res_partner
+msgid "Contact"
+msgstr "Contact"
+
+#. module: customer_wallet_pos
+#: model:pos.payment.method,name:customer_wallet_pos.customer_wallet_payment_method
+msgid "Customer Wallet"
+msgstr "Compte client"
+
+#. module: customer_wallet_pos
+#. odoo-javascript
+#: code:addons/customer_wallet_pos/static/src/xml/Screens/ReceiptScreen/OrderReceipt.xml:0
+#, python-format
+msgid "Customer Wallet Balance"
+msgstr "Solde du porte-monnaie client"
+
+#. module: customer_wallet_pos
+#: model:ir.model.fields,field_description:customer_wallet_pos.field_pos_payment_method__is_customer_wallet_method
+msgid "Customer Wallet Journal"
+msgstr "Journal de porte-monnaie client"
+
+#. module: customer_wallet_pos
+#. odoo-javascript
+#: code:addons/customer_wallet_pos/static/src/js/Screens/PaymentScreen/PaymentScreen.esm.js:0
+#, python-format
+msgid "Customer Wallet: Credit and Debit"
+msgstr "Porte-monnaie client : Crédit et débit"
+
+#. module: customer_wallet_pos
+#. odoo-javascript
+#: code:addons/customer_wallet_pos/static/src/js/Screens/PaymentScreen/PaymentScreen.esm.js:0
+#, python-format
+msgid "Customer wallet balance not sufficient"
+msgstr "Le solde du porte-monnaie client n'est pas suffisant"
+
+#. module: customer_wallet_pos
+#: model:ir.model.fields,field_description:customer_wallet_pos.field_pos_config__is_enabled_customer_wallet
+msgid "Is Customer Wallet Enabled"
+msgstr "Porte-monnaie client activé"
+
+#. module: customer_wallet_pos
+#: model:ir.model.fields,field_description:customer_wallet_pos.field_pos_config__minimum_wallet_amount
+msgid "Minimum Wallet Amount"
+msgstr "Montant minimum du porte-monnaie client"
+
+#. module: customer_wallet_pos
+#. odoo-javascript
+#: code:addons/customer_wallet_pos/static/src/js/Screens/PaymentScreen/PaymentScreen.esm.js:0
+#, python-format
+msgid "No customer selected"
+msgstr "Aucun client sélectionné"
+
+#. module: customer_wallet_pos
+#. odoo-javascript
+#: code:addons/customer_wallet_pos/static/src/js/Screens/PaymentScreen/PaymentScreen.esm.js:0
+#, python-format
+msgid "Please select a customer or remove the order lines."
+msgstr "Veuillez sélectionner un client ou retirer les lignes de vente."
+
+#. module: customer_wallet_pos
+#. odoo-javascript
+#: code:addons/customer_wallet_pos/static/src/js/Screens/PaymentScreen/PaymentScreen.esm.js:0
+#, python-format
+msgid "Please select a customer or use a different payment method."
+msgstr "Veuillez sélectionner un client ou changer de moyen de paiement."
+
+#. module: customer_wallet_pos
+#: model:ir.model,name:customer_wallet_pos.model_pos_config
+msgid "Point of Sale Configuration"
+msgstr "Paramétrage du point de vente"
+
+#. module: customer_wallet_pos
+#: model:ir.model,name:customer_wallet_pos.model_pos_payment_method
+msgid "Point of Sale Payment Methods"
+msgstr "Méthode de paiment du point de vente"
+
+#. module: customer_wallet_pos
+#: model:ir.model,name:customer_wallet_pos.model_pos_session
+msgid "Point of Sale Session"
+msgstr "Session du point de vente"
+
+#. module: customer_wallet_pos
+#. odoo-javascript
+#: code:addons/customer_wallet_pos/static/src/js/Screens/PaymentScreen/PaymentScreen.esm.js:0
+#, python-format
+msgid ""
+"There is not enough balance in the customer's wallet to validate this order."
+msgstr ""
+"Le solde du porte-monnaie client est insuffisant pour valider cette vente."
+
+#. module: customer_wallet_pos
+#. odoo-javascript
+#: code:addons/customer_wallet_pos/static/src/xml/Screens/PartnerListScreen/PartnerDetailsEdit.xml:0
+#: code:addons/customer_wallet_pos/static/src/xml/Screens/PartnerListScreen/PartnerListScreen.xml:0
+#, python-format
+msgid "Wallet"
+msgstr "Porte-monnaie"
+
+#. module: customer_wallet_pos
+#. odoo-javascript
+#: code:addons/customer_wallet_pos/static/src/js/Screens/PaymentScreen/PaymentScreen.esm.js:0
+#, python-format
+msgid "You cannot credit and debit a customer wallet in the same order."
+msgstr ""
+"Vous ne pouvez pas débiter et créditer un porte-monnaie client dans la même "
+"vente"

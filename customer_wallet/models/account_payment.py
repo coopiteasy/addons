@@ -1,0 +1,61 @@
+# Copyright (C) 2022-Today: GRAP (http://www.grap.coop)
+# @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+
+from odoo import _, fields, models
+from odoo.exceptions import UserError
+
+
+class AccountPayment(models.Model):
+    _inherit = "account.payment"
+
+    is_customer_wallet_journal = fields.Boolean(
+        related="journal_id.is_customer_wallet_journal",
+    )
+    customer_wallet_balance = fields.Monetary(
+        string="Customer Wallet Balance",
+        currency_field="currency_id",
+        related="partner_id.customer_wallet_balance",
+    )
+
+    def action_post(self):
+        wallet_payments = self.filtered(
+            lambda x: x.journal_id.is_customer_wallet_journal
+        )
+        # In some cases, we dont want to check if the minimum amount is reached
+        # Use Case : we pay with wallet in the Pos, then we change the minimum amount
+        # then we want to close the Pos Session:
+        # Closing the pos session should not be blocked.
+        if self.env.context.get("customer_wallet_do_not_check", False):
+            return super().action_post()
+
+        for payment in wallet_payments:
+            if (
+                payment.partner_id
+                # TODO: The below statement may not actually be true. In any
+                # case, payments that increase the the balance SHOULD always be
+                # allowed. We need to figure out exactly how to identify these
+                # types of payments.
+                # Inbound payments increase the balance; always allow this.
+                # and payment.payment_type == "outbound"
+                and (payment.customer_wallet_balance - payment.amount)
+                < payment.journal_id.minimum_wallet_amount
+            ):
+                _format = payment.currency_id.format
+                raise UserError(
+                    _(
+                        "There is not enough balance in the customer's wallet"
+                        " to perform this payment.\n"
+                        " - Customer: %(partner)s\n"
+                        " - Customer Wallet: %(balance)s\n"
+                        " - Amount Payment: %(amount)s\n"
+                        " - Minimum Wallet Amount: %(minimum)s"
+                    )
+                    % {
+                        "partner": payment.partner_id.display_name,
+                        "balance": _format(payment.customer_wallet_balance),
+                        "amount": _format(payment.amount),
+                        "minimum": _format(payment.journal_id.minimum_wallet_amount),
+                    }
+                )
+        return super().action_post()

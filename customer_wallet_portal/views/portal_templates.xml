@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="portal_my_home"
+        inherit_id="portal.portal_my_home"
+        customize_show="True"
+        priority="10"
+    >
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Wallet Balance</t>
+                <t t-set="url" t-value="'/my/wallet'" />
+                <t t-set="placeholder_count" t-value="'wallet_balance_formatted'" />
+            </t>
+        </xpath>
+    </template>
+
+    <template
+        id="portal_my_home_menu_wallet"
+        inherit_id="portal.portal_breadcrumbs"
+        priority="30"
+    >
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li
+                t-if="page_name == 'wallet'"
+                t-attf-class="breadcrumb-item #{'active '}"
+            >
+                Wallet
+            </li>
+        </xpath>
+    </template>
+
+    <template id="portal_my_wallet" name="My Wallet">
+        <t t-call="portal.portal_layout">
+            <t t-if="wallet_lines" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th>Date</th>
+                        <th class="text-end">Amount</th>
+                        <th class="text-end">Balance</th>
+                        <th>Ref.</th>
+                        <th>State</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="wallet_lines" t-as="wallet_line">
+                        <tr>
+                            <td><t t-out="wallet_line['datetime_formatted']" /></td>
+                            <td class="text-end"><t
+                                    t-out="wallet_line['amount_formatted']"
+                                /></td>
+                            <td class="text-end"><t
+                                    t-out="wallet_line['balance_formatted']"
+                                /></td>
+                            <td><t t-out="wallet_line['reference']" /></td>
+                            <td>
+                                <t t-if="wallet_line['model'] != 'account.move.line'">
+                                    <span class="badge rounded-pill text-bg-info">
+                                        <i class="fa fa-fw fa-clock-o" role="img" />
+                                        <span
+                                            class="d-none d-md-inline"
+                                        >Accounting in Progress</span>
+                                    </span>
+                                </t>
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </t>
+            <t t-else="">
+                <p>There are currently no moves in your wallet.</p>
+            </t>
+        </t>
+    </template>
+
+</odoo>

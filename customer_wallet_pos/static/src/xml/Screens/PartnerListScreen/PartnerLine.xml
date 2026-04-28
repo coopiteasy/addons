@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+    Copyright (C) 2026-Today GRAP (http://www.grap.coop)
+    License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
+-->
+<templates id="template" xml:space="preserve">
+
+    <t
+        t-name="PartnerLine"
+        t-inherit="point_of_sale.PartnerLine"
+        t-inherit-mode="extension"
+        owl="1"
+    >
+        <xpath expr="//button[hasclass('edit-partner-button')]/.." position="before">
+            <td
+                class="partner-line-wallet"
+                t-if="env.pos.config.is_enabled_customer_wallet"
+            >
+                <span t-if="props.partner.customer_wallet_balance != 0.0">
+                    <t
+                        t-out="env.pos.format_currency(props.partner.customer_wallet_balance)"
+                    />
+                </span>
+            </td>
+        </xpath>
+
+    </t>
+
+</templates>

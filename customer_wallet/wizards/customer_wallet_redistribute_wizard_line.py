@@ -1,0 +1,36 @@
+# Copyright (C) 2022-Today: GRAP (http://www.grap.coop)
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+
+from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
+from odoo.tools import format_amount
+
+
+class CustomerWalletRedistributeWizardLine(models.TransientModel):
+    _name = "customer.wallet.redistribute.wizard.line"
+    _description = "Customer Wallet Redistribute Wizard Line"
+
+    wizard_id = fields.Many2one(
+        required=True,
+        comodel_name="customer.wallet.redistribute.wizard",
+        ondelete="cascade",
+    )
+    partner_id = fields.Many2one(required=True, comodel_name="res.partner")
+    currency_id = fields.Many2one(
+        comodel_name="res.currency", related="partner_id.currency_id"
+    )
+    amount = fields.Monetary(
+        string="Amount to receive",
+        required=True,
+    )
+
+    @api.constrains("amount")
+    def check_amount(self):
+        for line in self:
+            if line.amount < 0.0:
+                raise ValidationError(
+                    _(
+                        "Only positive amount is allowed. Incorrect value %(amount)s",
+                        amount=format_amount(line.amount, self.wizard_id.currency_id),
+                    )
+                )

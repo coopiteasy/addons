@@ -1,0 +1,201 @@
+/** @odoo-module alias=customer_wallet_pos.PaymentScreen **/
+// SPDX-FileCopyrightText: 2022 Coop IT Easy SC
+//
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
+import PaymentScreen from "point_of_sale.PaymentScreen";
+
+import Registries from "point_of_sale.Registries";
+
+const WalletPaymentScreen = (OriginalPaymentScreen) =>
+    class extends OriginalPaymentScreen {
+        /**
+         * Overload function.
+         *
+         * - If wallet journal is selected, check if customer is selected.
+         * - if wallet journal is selected, check if wallet amount is sufficient.
+         *
+         * @returns {Boolean} Whether the order is valid.
+         */
+        async validateOrder() {
+            const partner = this.currentOrder.get_partner();
+            const [payment_wallet_amount, payment_lines_qty] =
+                this.get_amount_debit_with_customer_wallet_journal();
+            const [product_wallet_amount, product_lines_qty] =
+                this.get_amount_credit_with_customer_wallet_product();
+
+            const wallet_amount = payment_wallet_amount - product_wallet_amount;
+
+            if (!partner) {
+                if (payment_lines_qty > 0) {
+                    this.showPopup("ErrorPopup", {
+                        title: this.env._t("No customer selected"),
+                        body:
+                            this.env._t(
+                                "Cannot use a customer wallet payment method without selecting a customer."
+                            ) +
+                            "\n\n" +
+                            this.env._t(
+                                "Please select a customer or use a different payment method."
+                            ),
+                    });
+                    return;
+                }
+                if (product_lines_qty > 0) {
+                    const wallet_product_names =
+                        this.find_customer_wallet_products().map(
+                            (product) => product.display_name
+                        );
+                    this.showPopup("ErrorPopup", {
+                        title: this.env._t("No customer selected"),
+                        body:
+                            this.env._t(
+                                "Cannot sell the following products without selecting a customer:"
+                            ) +
+                            " " +
+                            wallet_product_names.join(", ") +
+                            "\n\n" +
+                            this.env._t(
+                                "Please select a customer or remove the order lines."
+                            ),
+                    });
+                    return;
+                }
+            } else if (this.is_balance_above_minimum(partner, wallet_amount)) {
+                this.showPopup("ErrorPopup", {
+                    title: this.env._t("Customer wallet balance not sufficient"),
+                    body: this.env._t(
+                        "There is not enough balance in the customer's wallet to validate this order."
+                    ),
+                });
+                return;
+            }
+
+            if (payment_lines_qty > 0 && product_lines_qty > 0) {
+                this.showPopup("ErrorPopup", {
+                    title: this.env._t("Customer Wallet: Credit and Debit"),
+                    body: this.env._t(
+                        "You cannot credit and debit a customer wallet in the same order."
+                    ),
+                });
+                return;
+            }
+
+            return super.validateOrder(...arguments);
+        }
+
+        /**
+         * Overload function.
+         *
+         * Once the order is validated, update the wallet amount
+         * of the current customer, if defined.
+         */
+        async _finalizeValidation() {
+            const partner = this.currentOrder.get_partner();
+            if (partner) {
+                const payment_wallet_amount =
+                    this.get_amount_debit_with_customer_wallet_journal()[0];
+                const product_wallet_amount =
+                    this.get_amount_credit_with_customer_wallet_product()[0];
+                const wallet_amount = payment_wallet_amount - product_wallet_amount;
+                partner.customer_wallet_balance -= wallet_amount;
+            }
+
+            await super._finalizeValidation();
+        }
+
+        is_balance_above_minimum(client, wallet_amount) {
+            return (
+                client.customer_wallet_balance - wallet_amount <=
+                this.env.pos.config.minimum_wallet_amount - 0.00001
+            );
+        }
+
+        /**
+         * Calculate the balance of the customer wallet after completing this
+         * order.
+         *
+         * @returns {Number} New balance.
+         */
+        get new_wallet_amount() {
+            const partner = this.currentOrder.get_partner();
+            if (partner) {
+                const payment_wallet_amount =
+                    this.get_amount_debit_with_customer_wallet_journal()[0];
+                const product_wallet_amount =
+                    this.get_amount_credit_with_customer_wallet_product()[0];
+                return (
+                    partner.customer_wallet_balance -
+                    payment_wallet_amount +
+                    product_wallet_amount
+                );
+            }
+            return false;
+        }
+
+        /**
+         * Return the payment method of the wallet journal, if exists.
+         *
+         * @returns A payment method which has a customer
+         * wallet journal. The first match is returned.
+         */
+        find_customer_wallet_payment_method() {
+            return (
+                this.payment_methods_from_config.find(
+                    (c) => c.is_customer_wallet_method
+                ) || null
+            );
+        }
+
+        /**
+         * Return the wallet products, if exist.
+         *
+         * @returns {list} A list of products which are marked as wallet
+         * products.
+         */
+        find_customer_wallet_products() {
+            return Object.values(this.env.pos.db.product_by_id).filter(
+                (p) => p.is_customer_wallet_product
+            );
+        }
+
+        /**
+         * Return the payment amount with wallet payment method.
+         *
+         * @returns {list} A list of two elements. The first element is the
+         * balance of payment done with wallet payment method. The second
+         * element is the number of payment lines.
+         */
+        get_amount_debit_with_customer_wallet_journal() {
+            const method = this.find_customer_wallet_payment_method();
+            const lines = this.currentOrder.paymentlines.filter(
+                (line) => line.payment_method === method
+            );
+            const wallet_amount = lines.reduce((sum, line) => sum + line.amount, 0);
+            return [wallet_amount, lines.length];
+        }
+
+        /**
+         * Return the amount credited by wallet products.
+         *
+         * @returns {list} A list of two elements. The first element is the
+         * balance of order lines done with wallet product. The second element
+         * is the number of order lines.
+         */
+        get_amount_credit_with_customer_wallet_product() {
+            const wallet_product_ids = this.find_customer_wallet_products().map(
+                (p) => p.id
+            );
+            const lines = this.currentOrder.orderlines.filter((line) =>
+                wallet_product_ids.includes(line.product.id)
+            );
+            const wallet_amount = lines.reduce(
+                (sum, line) => sum + line.get_price_without_tax(),
+                0
+            );
+            return [wallet_amount, lines.length];
+        }
+    };
+
+Registries.Component.extend(PaymentScreen, WalletPaymentScreen);
+export default WalletPaymentScreen;
