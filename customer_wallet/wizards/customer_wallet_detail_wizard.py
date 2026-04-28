@@ -3,7 +3,7 @@
 # flake8: noqa
 
 from odoo import _, api, fields, models
-from odoo.tools import format_amount
+from odoo.tools import format_amount, format_date
 from odoo.tools.safe_eval import datetime, safe_eval
 
 
@@ -35,12 +35,11 @@ class CustomerWalletDetailWizard(models.TransientModel):
             for line in lines:
                 line_details += f"""
                     <tr>
-                        <td>{line["datetime"]}</td>
+                        <td>{format_date(self.env, line["datetime"])}</td>
                         <td>{format_amount(self.env, line["amount"], self.currency_id)}</td>
                         <td>{format_amount(self.env, line["balance"], self.currency_id)}</td>
                         <td>{line["reference"]}</td>
                     </tr>
-
                 """
 
             if line_details:
