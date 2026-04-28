@@ -142,6 +142,7 @@ Contributors
 
   * Carmen Bianca Bakker
   * Rémy Taymans
+  * hugues de keyzer
 
 * `GRAP <https://www.grap.coop/>`_:
 
