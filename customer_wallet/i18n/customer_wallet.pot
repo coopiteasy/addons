@@ -355,6 +355,14 @@ msgstr ""
 
 #. module: customer_wallet
 #. odoo-python
+#: code:addons/customer_wallet/wizards/customer_wallet_redistribute_wizard.py:0
+#, python-format
+msgid ""
+"There is no Customer Wallet journal defined. Please configure one first."
+msgstr ""
+
+#. module: customer_wallet
+#. odoo-python
 #: code:addons/customer_wallet/models/account_payment.py:0
 #, python-format
 msgid ""
@@ -363,13 +371,6 @@ msgid ""
 " - Customer Wallet: %(balance)s\n"
 " - Amount Payment: %(amount)s\n"
 " - Minimum Wallet Amount: %(minimum)s"
-msgstr ""
-
-#. module: customer_wallet
-#. odoo-python
-#: code:addons/customer_wallet/wizards/customer_wallet_redistribute_wizard.py:0
-#, python-format
-msgid "There no 'Wallet' journal defined. Please configure one first."
 msgstr ""
 
 #. module: customer_wallet

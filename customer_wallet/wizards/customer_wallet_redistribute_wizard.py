@@ -36,7 +36,10 @@ class CustomerWalletRedistributeWizard(models.TransientModel):
         )
         if not journals:
             raise UserError(
-                _("There no 'Wallet' journal defined. Please configure one first.")
+                _(
+                    "There is no Customer Wallet journal defined. "
+                    "Please configure one first."
+                )
             )
         wallet_journal = journals[0]
 

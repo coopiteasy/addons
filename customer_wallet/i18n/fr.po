@@ -365,6 +365,16 @@ msgstr "Le client redistributeur est dans la liste des bénéficiaires."
 
 #. module: customer_wallet
 #. odoo-python
+#: code:addons/customer_wallet/wizards/customer_wallet_redistribute_wizard.py:0
+#, python-format
+msgid ""
+"There is no Customer Wallet journal defined. Please configure one first."
+msgstr ""
+"Il n'y a pas de journal de porte-monnaie client défini. Veuillez en "
+"configurer un au préalable."
+
+#. module: customer_wallet
+#. odoo-python
 #: code:addons/customer_wallet/models/account_payment.py:0
 #, python-format
 msgid ""
@@ -381,13 +391,6 @@ msgstr ""
 " - Solde du porte-monnaie client : %(balance)s\n"
 " - Montant du paiement : %(amount)s\n"
 " - Montant minimum : %(minimum)s"
-
-#. module: customer_wallet
-#. odoo-python
-#: code:addons/customer_wallet/wizards/customer_wallet_redistribute_wizard.py:0
-#, python-format
-msgid "There no 'Wallet' journal defined. Please configure one first."
-msgstr "Il n'y a pas de journal de porte-monnaie défini. Veuillez en configurer un au préalable."
 
 #. module: customer_wallet
 #: model_terms:ir.ui.view,arch_db:customer_wallet.view_customer_wallet_redistribute_wizard_form
