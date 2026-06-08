@@ -14,7 +14,7 @@
         "product",
         "sale_management",  # deposit management
         "uom_extra_data",  # mL
-        "website_sale",
+        "website_sale_delivery",
     ],
     "data": [
         "data/portion_attributes.xml",
