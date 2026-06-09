@@ -10,15 +10,13 @@ class ProductScaleGroup(models.Model):
     _name = "product.scale.group"
     _description = "Product Scale Group"
 
-    name = fields.Char(string="Name", required=True)
-    active = fields.Boolean(string="Active", default=True)
+    name = fields.Char(required=True)
+    active = fields.Boolean(default=True)
     external_identity = fields.Char(string="External ID", required=True)
     company_id = fields.Many2one(
         comodel_name="res.company",
         string="Company",
-        default=lambda self: self.env["res.company"]._company_default_get(
-            "product.template"
-        ),
+        default=lambda self: self.env.company,
         index=True,
     )
     scale_system_id = fields.Many2one(
@@ -35,7 +33,6 @@ class ProductScaleGroup(models.Model):
         string="Products Quantity", compute="_compute_product_qty"
     )
 
-    @api.multi
     def send_all_to_scale_create(self):
         for scale_group in self:
             (
@@ -44,7 +41,6 @@ class ProductScaleGroup(models.Model):
                 ).send_scale_create()
             )
 
-    @api.multi
     def send_all_to_scale_write(self):
         for scale_group in self:
             (
@@ -53,12 +49,10 @@ class ProductScaleGroup(models.Model):
                 ).send_scale_write()
             )
 
-    @api.multi
     def send_all_to_scale_unlink(self):
         for scale_group in self:
             scale_group.product_ids.send_scale_unlink()
 
-    @api.multi
     @api.depends("product_ids")
     def _compute_product_qty(self):
         for group in self:

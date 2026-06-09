@@ -2,3 +2,4 @@ git+https://github.com/coopiteasy/odoo-peppol-backport@16.0#subdirectory=setup/a
 git+https://github.com/coopiteasy/odoo-peppol-backport@16.0-imp-backport_18_registration#subdirectory=setup/account_peppol_backport
 git+https://github.com/coopiteasy/odoo-peppol-backport@16.0#subdirectory=setup/account_peppol_partner
 git+https://github.com/beescoop/obeesdoo@16.0#subdirectory=setup/product_main_supplier
+git+https://github.com/beescoop/obeesdoo.git@16.0#subdirectory=setup/product_scale_label

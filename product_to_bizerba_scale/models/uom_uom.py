@@ -10,4 +10,4 @@ from odoo import fields, models
 class Uom(models.Model):
     _inherit = "uom.uom"
 
-    scale_type = fields.Char(string="Scale Type")
+    scale_type = fields.Char()

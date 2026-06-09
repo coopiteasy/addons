@@ -431,7 +431,7 @@
         <field name="name">Main Image</field>
         <field name="sequence">32</field>
         <field name="type">product_image</field>
-        <field name="field_id" ref="product.field_product_template__image" />
+        <field name="field_id" ref="product.field_product_template__image_256" />
         <field name="suffix">.PNG</field>
         <field name="delimiter">#</field>
     </record>

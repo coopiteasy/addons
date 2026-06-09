@@ -25,22 +25,19 @@ class ProductScaleSystem(models.Model):
                     values.append(product_line.field_id.id)
             system.field_ids = values
 
-    name = fields.Char(string="Name", required=True)
+    name = fields.Char(required=True)
     company_id = fields.Many2one(
         comodel_name="res.company",
         string="Company",
-        default=lambda self: self.env["res.company"]._company_default_get(
-            "product.template"
-        ),
+        default=lambda self: self.env.company,
         index=True,
     )
-    active = fields.Boolean(string="Active", default=True)
+    active = fields.Boolean(default=True)
     ftp_url = fields.Char(string="FTP Server URL", default="xxx.xxx.xxx.xxx")
     ftp_login = fields.Char(string="FTP Login")
     ftp_password = fields.Char(string="FTP Password")
     encoding = fields.Selection(
         selection=_ENCODING_SELECTION,
-        string="Encoding",
         default="iso-8859-1",
         required=True,
     )
@@ -51,19 +48,17 @@ class ProductScaleSystem(models.Model):
         string="Relative Path for Product Images", default="/", required=True
     )
     product_text_file_pattern = fields.Char(
-        string="Product Text File Pattern",
         required=True,
         default="product.csv",
         help="Pattern of the Product file. Use % to include dated information. "
-        "Ref: https://docs.python.org/2/library/time.html#time.strftime",
+        "Ref: https://docs.python.org/3/library/time.html#time.strftime",
     )
     external_text_file_pattern = fields.Char(
-        string="External Text File Pattern",
         required=True,
         default="external_text.csv",
         help="Pattern of the External Text file. Use % to include dated "
         "information. "
-        "Ref: https://docs.python.org/2/library/time.html#time.strftime",
+        "Ref: https://docs.python.org/3/library/time.html#time.strftime",
     )
     product_line_ids = fields.One2many(
         comodel_name="product.scale.system.product.line",

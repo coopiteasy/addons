@@ -7,45 +7,39 @@
 
 from odoo import api, fields, models
 
-from odoo.addons import decimal_precision as dp
-
-# TODO: scale_category is defined in beesdoo_product but this module do
-#       not depend on it. Find a way to configure these fields.
-ADDITIONAL_FIELDS = ["list_price", "scale_category", "image_medium"]
+# scale_category is defined in product_scale_label. this is why this module
+# depends on it.
+ADDITIONAL_FIELDS = ["list_price", "scale_category", "image_1920"]
 
 
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
     scale_group_id = fields.Many2one(
-        comodel_name="product.scale.group", string="Scale Group"
+        comodel_name="product.scale.group", string="Product Scale Group"
     )
-    scale_sequence = fields.Integer(string="Scale Sequence")
+    scale_sequence = fields.Integer()
     scale_tare_weight = fields.Float(
-        digits=dp.get_precision("Stock Weight"),
-        string="Scale Tare Weight",
-        help="Set here Constant tare weight"
-        " for the given product. This tare will be substracted when"
-        " the product is weighted. Usefull only for weightable product.\n"
-        "The tare is defined with kg uom.",
+        digits="Stock Weight",
+        help="Constant tare weight of the product. This tare will be "
+        "substracted when the product is weighted. Useful for weighable "
+        "products only.\n"
+        "The tare is defined with kg UoM.",
     )
 
     # View Section
-    @api.multi
     def send_scale_create(self):
         for product in self:
             # TODO: Should check if the product has a scale group
             product._send_to_scale_bizerba("create", True)
         return True
 
-    @api.multi
     def send_scale_write(self):
         for product in self:
             # TODO: Should check if the product has a scale group
             product._send_to_scale_bizerba("write", True)
         return True
 
-    @api.multi
     def send_scale_unlink(self):
         for product in self:
             # TODO: Should check if the product has a scale group
@@ -99,14 +93,14 @@ class ProductTemplate(models.Model):
         )
 
     # Overload Section
-    @api.model
-    def create(self, vals):
-        product = super(ProductTemplate, self).create(vals)
-        if product.is_in_scale():
-            product._send_to_scale_bizerba("create")
-        return product
+    @api.model_create_multi
+    def create(self, vals_list):
+        products = super().create(vals_list)
+        for product in products:
+            if product.is_in_scale():
+                product._send_to_scale_bizerba("create")
+        return products
 
-    @api.multi
     def write(self, vals):
         deferred = {}
         for product in self:
@@ -122,7 +116,7 @@ class ProductTemplate(models.Model):
                 # If scale_group has change, product must be updated.
                 if (
                     "scale_group_id" in vals
-                    and vals["scale_group_id"] != product.scale_group_id
+                    and vals["scale_group_id"] != product.scale_group_id.id
                 ):
                     # Remove it from previous group
                     product._send_to_scale_bizerba("unlink")
@@ -133,7 +127,7 @@ class ProductTemplate(models.Model):
                 # in the scale system after the write: delete it.
                 deferred[product.id] = "unlink"
 
-        res = super(ProductTemplate, self).write(vals)
+        res = super().write(vals)
 
         for product_id, action in deferred.items():
             product = self.browse(product_id)
@@ -141,9 +135,8 @@ class ProductTemplate(models.Model):
 
         return res
 
-    @api.multi
     def unlink(self):
         for product in self:
             if product.is_in_scale():
-                self._send_to_scale_bizerba("unlink")
-        return super(ProductTemplate, self).unlink()
+                product._send_to_scale_bizerba("unlink")
+        return super().unlink()

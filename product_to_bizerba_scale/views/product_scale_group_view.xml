@@ -3,7 +3,7 @@
     <record id="view_product_scale_group_tree" model="ir.ui.view">
         <field name="model">product.scale.group</field>
         <field name="arch" type="xml">
-            <tree name="scale_groups" string="Scale Groups">
+            <tree name="scale_groups">
                 <field name="name" />
                 <field name="product_qty" />
             </tree>
@@ -13,7 +13,7 @@
     <record id="view_product_scale_group_form" model="ir.ui.view">
         <field name="model">product.scale.group</field>
         <field name="arch" type="xml">
-            <form name="scale_group" string="Scale Group" version="7.0">
+            <form name="scale_group" string="Product Scale Group">
                 <header>
                     <button
                         name="send_all_to_scale_create"
@@ -37,48 +37,30 @@
                 <sheet>
                     <group>
                         <group>
-                            <div class="oe_title">
-                                <label for="name" class="oe_edit_only" />
-                                <h1>
-                                    <field name="name" />
-                                </h1>
-                                <label for="external_identity" />
-                                <h2>
-                                    <field name="external_identity" />
-                                </h2>
-                            </div>
+                            <h1 colspan="2">
+                                <field name="name" />
+                            </h1>
+                            <field name="external_identity" />
                         </group>
                         <group>
-                            <group>
-                                <field name="scale_system_id" />
-                                <field
-                                    name="company_id"
-                                    groups="base.group_multi_company"
-                                />
-                                <field name="active" />
-                                <field name="product_qty" />
-                            </group>
+                            <field name="scale_system_id" />
+                            <field
+                                name="company_id"
+                                groups="base.group_multi_company"
+                            />
+                            <field name="active" />
+                            <field name="product_qty" />
                         </group>
                     </group>
-                    <notebook>
-                        <page name="products" string="Products">
-                            <group>
-                                <separator
-                                    name="products"
-                                    string="Products"
-                                    colspan="4"
-                                />
-                                <field name="product_ids" nolabel="1">
-                                    <tree editable="bottom">
-                                        <field name="scale_sequence" />
-                                        <field name="name" />
-                                        <field name="list_price" />
-                                        <field name="uom_id" />
-                                    </tree>
-                                </field>
-                            </group>
-                        </page>
-                    </notebook>
+                    <separator name="products" string="Products" />
+                    <field name="product_ids">
+                        <tree editable="bottom">
+                            <field name="scale_sequence" />
+                            <field name="name" />
+                            <field name="list_price" />
+                            <field name="uom_id" />
+                        </tree>
+                    </field>
                 </sheet>
             </form>
 

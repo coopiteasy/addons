@@ -19,14 +19,14 @@ class ProductScaleSystemProductLine(models.Model):
         ("external_text", "External Text Field"),
         ("constant", "Constant Value"),
         ("external_constant", "External Constant Text Value"),
-        ("many2one", "Many2One Field"),
-        ("many2many", "Many2Many Field"),
+        ("many2one", "Many2one Field"),
+        ("many2many", "Many2many Field"),
         ("product_image", "Product Image"),
     ]
 
     scale_system_id = fields.Many2one(
         comodel_name="product.scale.system",
-        inverse_name="Scale System",
+        string="Scale System",
         required=True,
         ondelete="cascade",
         index=True,
@@ -35,9 +35,9 @@ class ProductScaleSystemProductLine(models.Model):
         related="scale_system_id.company_id", string="Company", store=True
     )
     code = fields.Char(string="Bizerba Code", required=True)
-    name = fields.Char(string="Name", required=True)
-    sequence = fields.Integer(string="Sequence", required=True, default=10)
-    type = fields.Selection(selection=_TYPE_SELECTION, string="Type")
+    name = fields.Char(required=True)
+    sequence = fields.Integer(required=True, default=10)
+    type = fields.Selection(selection=_TYPE_SELECTION)
     field_id = fields.Many2one(
         comodel_name="ir.model.fields",
         string="Product Field",
@@ -54,13 +54,11 @@ class ProductScaleSystemProductLine(models.Model):
     )
 
     x2many_range = fields.Integer(
-        string="range of the x2Many Fields",
+        string="Range of the x2Many Fields",
         help="Used if type is 'Many2Many Field', to mention the range of the "
-        "field  to send. Begin by 0. (used for "
-        "exemple for product logos) ",
+        "field to send. Begin by 0. (used for exemple for product logos) ",
     )
     constant_value = fields.Char(
-        string="Constant Value",
         help="Used if type is 'constant', to always send the same value.",
     )
     multiline_length = fields.Integer(
@@ -80,7 +78,6 @@ class ProductScaleSystemProductLine(models.Model):
 
     # TODO Improve. Set contrains.
     suffix = fields.Char(
-        string="Suffix",
         help="Used if type is 'External Text Field', to indicate how to "
         "suffix the field.\nMake sure to have a uniq "
         "value by Scale System, and all with the same size.\n\nUsed if type "
@@ -88,7 +85,6 @@ class ProductScaleSystemProductLine(models.Model):
         "of the file. Exemple : '_01.jpg'. ",
     )
     numeric_coefficient = fields.Float(
-        string="Numeric Coefficient",
         help="Used if type is 'Numeric Field', to mention which coefficient "
         "numeric field should be multiplied.",
         default=1,

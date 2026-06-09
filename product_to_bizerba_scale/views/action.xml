@@ -4,15 +4,13 @@
         <field name="name">Scale Systems</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">product.scale.system</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
 
     <record id="action_product_scale_group" model="ir.actions.act_window">
-        <field name="name">Scale Groups</field>
+        <field name="name">Product Scale Groups</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">product.scale.group</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
 
@@ -20,7 +18,6 @@
         <field name="name">Logs</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">product.scale.log</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
 </odoo>

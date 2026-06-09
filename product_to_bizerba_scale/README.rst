@@ -1,3 +1,7 @@
+.. image:: https://odoo-community.org/readme-banner-image
+   :target: https://odoo-community.org/get-involved?utm_source=readme
+   :alt: Odoo Community Association
+
 ========================
 Product to Bizerba Scale
 ========================
@@ -13,11 +17,11 @@ Product to Bizerba Scale
 .. |badge1| image:: https://img.shields.io/badge/maturity-Beta-yellow.png
     :target: https://odoo-community.org/page/development-status
     :alt: Beta
-.. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
+.. |badge2| image:: https://img.shields.io/badge/license-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-coopiteasy%2Faddons-lightgray.png?logo=github
-    :target: https://github.com/coopiteasy/addons/tree/12.0/product_to_bizerba_scale
+    :target: https://github.com/coopiteasy/addons/tree/16.0/product_to_bizerba_scale
     :alt: coopiteasy/addons
 
 |badge1| |badge2| |badge3|
@@ -29,26 +33,34 @@ Synchronize Odoo database with Bizerba Scales
 .. contents::
    :local:
 
-Usage
-=====
+Configuration
+=============
 
-Configuration via Sales > Configuration :
+Configuration via Point of Sale > Configuration:
 
-\1) Scale Systems > a scale system : FTP Connexion
+1. Scale Systems > a scale system: FTP Connexion
 
-- FTP Server URL
-- FTP Login
-- FTP Password
-- Relative Path for CSV
-- Relative Path for Product Images
+   * FTP Server URL
+   * FTP Login
+   * FTP Password
+   * Relative Path for CSV
+   * Relative Path for Product Images
 
-\2) Scale Groups > a scale group
+2. Scale Groups > a scale group
 
-- Lists products belonging to the scale group
+   * Lists products belonging to the scale group
 
-\3) Logs
+3. Logs
 
-- Automatically sent if "Send to Scale" CRON is active (debug mode, via Settings > Technical > Automation > Scheduled Actions)
+   * Automatically sent if "Send to Scale" CRON is active (debug mode, via Settings > Technical > Automation > Scheduled Actions)
+
+Changelog
+=========
+
+This module comes originally from the ``product_to_scale_bizerba`` module created by Grap (see `here <https://github.com/grap/odoo-addons-misc/tree/61a19ddad8a523daf2dadbe63979f4c8eff1acd5/product_to_scale_bizerba>`_).
+It was forked from `this commit <https://github.com/grap/odoo-addons-misc/commit/c4facba56329a065694b4f4820360f1e55cffa6a>`_.
+The original module continued to evolve and is now available `here <https://github.com/grap/grap-odoo-business/commits/12.0/product_to_scale_bizerba>`_.
+Another version exists `here <https://github.com/AwesomeFoodCoops/odoo-production/tree/12.0/product_to_scale_bizerba>`_ (12.0) and `here <https://github.com/AwesomeFoodCoops/odoo-production/tree/9.0/louve_addons/product_to_scale_bizerba>`_ (9.0).
 
 Bug Tracker
 ===========
@@ -56,7 +68,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/coopiteasy/addons/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/coopiteasy/addons/issues/new?body=module:%20product_to_bizerba_scale%0Aversion:%2012.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/coopiteasy/addons/issues/new?body=module:%20product_to_bizerba_scale%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -72,14 +84,19 @@ Authors
 Contributors
 ~~~~~~~~~~~~
 
-* Sylvain LE GAL (https://www.twitter.com/legalsylvain)
-* Houssine BAKKALI <houssine@coopiteasy.be>
-* Rémy TAYMANS <remy@coopiteasy.be>
-* Vincent VAN ROSSEM <vincent@coopiteasy.be>
+* `Grap <https://grap.coop>`_:
+
+  * Sylvain Le Gal
+
+* `Coop IT Easy SC <https://coopiteasy.be>`_:
+
+  * Houssine Bakkali
+  * Rémy Taymans
+  * Vincent Van Rossem
 
 Maintainers
 ~~~~~~~~~~~
 
-This module is part of the `coopiteasy/addons <https://github.com/coopiteasy/addons/tree/12.0/product_to_bizerba_scale>`_ project on GitHub.
+This module is part of the `coopiteasy/addons <https://github.com/coopiteasy/addons/tree/16.0/product_to_bizerba_scale>`_ project on GitHub.
 
 You are welcome to contribute.
