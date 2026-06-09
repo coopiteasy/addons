@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="product_template_only_form_view" model="ir.ui.view">
+        <field name="name">container_meals.product_template_only_form_view</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='options']" position="inside">
+                <div>
+                    <field name="is_meal" />
+                    <label for="is_meal" />
+                </div>
+                <div>
+                    <field name="is_container" />
+                    <label for="is_container" />
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_template_form_view" model="ir.ui.view">
+        <field name="name">container_meals.product_template_form_view</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view" />
+        <field name="arch" type="xml">
+            <field name="type" position="before">
+                <field name="is_meal" invisible="True" />
+                <field name="is_container" invisible="True" />
+            </field>
+            <xpath expr="//group[@name='group_general']" position="after">
+                <group
+                    name="group_container"
+                    attrs="{'invisible':[('is_container','=',False)]}"
+                >
+                    <label for="container_volume" />
+                    <div class="o_row">
+                        <field name="container_volume" />
+                        <span><field name="container_uom_name" /></span>
+                    </div>
+                </group>
+                <group
+                    name="group_containers"
+                    attrs="{'invisible':[('is_meal','=',False)]}"
+                >
+                    <label for="container_1_volume" />
+                    <div class="o_row">
+                        <field name="container_1_volume" />
+                        <span><field name="container_uom_name" /></span>
+                    </div>
+                    <label for="container_2_volume" />
+                    <div class="o_row">
+                        <field name="container_2_volume" />
+                        <span><field name="container_uom_name" /></span>
+                    </div>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

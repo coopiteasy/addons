@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="name">container_meals.view_partner_form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='internal_notes']" position="before">
+                <page
+                    name="deposits"
+                    string="Deposits"
+                    attrs="{'invisible':[('is_customer','=',False)]}"
+                >
+                    <group name="container_deposits">
+                        <field name="current_deposit" widget="monetary" readonly="1" />
+                    </group>
+                    <!--
+                    readonly needs to be false on this field to have the table be
+                    editable at all, but we don't want any field other than not_returned
+                    to be editable, hence the massive readonly repeats going on
+                    -->
+                    <field name="deposit_related_order_line_ids" readonly="0">
+                        <tree create="false" delete="false" editable="top">
+                            <field name="order_id" readonly="1" />
+                            <field name="product_id" readonly="1" />
+                            <field name="product_uom_qty" readonly="1" />
+                            <field name="price_unit" readonly="1" />
+                            <field name="price_total" readonly="1" />
+                            <field name="not_returned" readonly="0" />
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
