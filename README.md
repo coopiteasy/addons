@@ -26,6 +26,7 @@ addon | version | maintainers | summary
 [account_peppol_backport_multi_sender](account_peppol_backport_multi_sender/) | 16.0.1.0.2 |  | Allow multiple companies with the same Peppol address to send Peppol documents
 [board_signature](board_signature/) | 16.0.1.0.0 | <a href='https://github.com/mihien'><img src='https://github.com/mihien.png' width='32' height='32' style='border-radius:50%;' alt='mihien'/></a> | Adds board representative's name, function and signature to companies
 [company_today](company_today/) | 16.0.1.0.0 |  | Store today's date on the company model.
+[container_meals](container_meals/) | 16.0.1.0.0 |  | Deliver meals in containers
 [contract_delivery_address](contract_delivery_address/) | 16.0.1.0.0 |  | Add contact's default delivery address to contract
 [contract_sale_no_generation](contract_sale_no_generation/) | 16.0.1.0.0 | <a href='https://github.com/mihien'><img src='https://github.com/mihien.png' width='32' height='32' style='border-radius:50%;' alt='mihien'/></a> | Add a type of contract that will not generate invoices
 [customer_wallet](customer_wallet/) | 16.0.1.0.0 | <a href='https://github.com/carmenbianca'><img src='https://github.com/carmenbianca.png' width='32' height='32' style='border-radius:50%;' alt='carmenbianca'/></a> <a href='https://github.com/legalsylvain'><img src='https://github.com/legalsylvain.png' width='32' height='32' style='border-radius:50%;' alt='legalsylvain'/></a> | Allow customers to pay using a wallet which is tracked by the company.
