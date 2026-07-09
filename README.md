@@ -68,7 +68,7 @@ addon | version | maintainers | summary
 [pos_self_service_print_zpl](pos_self_service_print_zpl/) | 12.0.1.0.0 |  | POS Self-Service Print ZPL from browser
 [pos_solidarity_rounding](pos_solidarity_rounding/) | 12.0.1.0.0 | <a href='https://github.com/carmenbianca'><img src='https://github.com/carmenbianca.png' width='32' height='32' style='border-radius:50%;' alt='carmenbianca'/></a> | Round POS payments up for willing customers as a gesture of solidarity.
 [pos_solidarity_rounding_portal](pos_solidarity_rounding_portal/) | 12.0.1.0.0 | <a href='https://github.com/carmenbianca'><img src='https://github.com/carmenbianca.png' width='32' height='32' style='border-radius:50%;' alt='carmenbianca'/></a> | Allow registered users to change their solidarity rounding configuration in the account settings.
-[product_label_report](product_label_report/) | 12.0.1.0.0 |  | This module allows to show the print barcode and name of the product.
+[product_label_report](product_label_report/) | 12.0.1.0.1 |  | This module allows to show the print barcode and name of the product.
 [product_to_bizerba_scale](product_to_bizerba_scale/) | 12.0.1.0.0 |  | This module merges product_to_scale_bizerba and product_to_scale_bizerba_extended into one.
 [purchase_invoice_status](purchase_invoice_status/) | 12.0.1.0.0 |  | Add invoice status on purchase orders
 [purchase_order_line_auto_import](purchase_order_line_auto_import/) | 12.0.1.0.0 |  | This module allows to create automatically line with the product and minimal quantities when selecting the partner.
