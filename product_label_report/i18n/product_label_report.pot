@@ -34,11 +34,6 @@ msgid "Product Labels 8x3"
 msgstr ""
 
 #. module: product_label_report
-#: model:ir.actions.report,name:product_label_report.report_product_template_label
-msgid "Products Labels"
-msgstr ""
-
-#. module: product_label_report
 #: model:ir.actions.report,name:product_label_report.product_template_label_repeat_10x4
 msgid "Same Product Labels 10x4"
 msgstr ""
