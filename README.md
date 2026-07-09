@@ -49,7 +49,7 @@ addon | version | maintainers | summary
 [product_contract_payment_mode](product_contract_payment_mode/) | 16.0.1.0.0 | <a href='https://github.com/remytms'><img src='https://github.com/remytms.png' width='32' height='32' style='border-radius:50%;' alt='remytms'/></a> | Create contract with right payment mode
 [product_contract_sale_generation](product_contract_sale_generation/) | 16.0.1.0.1 |  | Prevent loop between product_contract and contract_sale_generation
 [product_contract_storable](product_contract_storable/) | 16.0.1.0.0 |  | Allow product contract to be of type other than services
-[product_label_report](product_label_report/) | 16.0.1.0.0 |  | This module allows to show the print barcode and name of the product.
+[product_label_report](product_label_report/) | 16.0.1.0.1 |  | This module allows to show the print barcode and name of the product.
 [product_margin_classification_unit_price](product_margin_classification_unit_price/) | 16.0.1.0.0 | <a href='https://github.com/victor-champonnois'><img src='https://github.com/victor-champonnois.png' width='32' height='32' style='border-radius:50%;' alt='victor-champonnois'/></a> | Product Margin Classfication Unit Price
 [purchase_quick_usability](purchase_quick_usability/) | 16.0.1.0.0 |  | Add minimum quantity and purchase UoM fields to purchase order products quick add view
 [purchase_supplier_free_shipping_threshold](purchase_supplier_free_shipping_threshold/) | 16.0.1.0.0 | <a href='https://github.com/victor-champonnois'><img src='https://github.com/victor-champonnois.png' width='32' height='32' style='border-radius:50%;' alt='victor-champonnois'/></a> | Free Shipping Threshold On Suppliers
