@@ -74,17 +74,4 @@
         file="product_label_report.product_label.xml"
     />
 
-
-
-
-  <report
-        id="report_product_template_label"
-        string="Products Labels"
-        model="product.template"
-        report_type="qweb-pdf"
-        paperformat="paperformat_a4_nomargin"
-        name="product_label_report.report_producttemplatelabel"
-        file="product_label_report.product_template_templates.xml"
-    />
-
 </odoo>
