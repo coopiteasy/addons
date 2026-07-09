@@ -113,9 +113,9 @@
 }
 
 .height-13 {
-    height: 107px;
-    min-height: 107px;
-    max-height: 107px;
+    height: 108px;
+    min-height: 108px;
+    max-height: 108px;
     margin-top: 0;
     margin-bottom: 0;
 }
