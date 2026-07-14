@@ -1,0 +1,36 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* stop_auto_subscribe_partners
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-07-02 10:28+0000\n"
+"PO-Revision-Date: 2016-07-02 10:28+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: stop_auto_subscribe_partners
+#: model:ir.ui.view,arch_db:stop_auto_subscribe_partners.res_config_settings_view_form
+msgid "Auto Emails and Auto Subscribe"
+msgstr "Auto-E-Mails und Auto-Abonnements"
+
+#. module: stop_auto_subscribe_partners
+#: model:ir.ui.view,arch_db:stop_auto_subscribe_partners.res_config_settings_view_form
+msgid "Stop Auto Emails and Auto Subscribe"
+msgstr "Stoppen Sie Auto-E-Mails und Auto-Abonnements"
+
+#. module: stop_auto_subscribe_partners
+#: model:ir.ui.view,arch_db:stop_auto_subscribe_partners.res_config_settings_view_form
+msgid "By default, new users will be in Auto Subscribe."
+msgstr "Standardmäßig sind neue Benutzer in Auto-Abonnements enthalten."
+
+#. module: stop_auto_subscribe_partners
+#: model:ir.ui.view,arch_db:stop_auto_subscribe_partners.res_config_settings_view_form
+msgid "Stop"
+msgstr "Halt"
