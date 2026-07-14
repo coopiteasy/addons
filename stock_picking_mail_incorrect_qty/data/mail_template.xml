@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Mail template are declared in a NOUPDATE block
+         so users can freely customize/delete them -->
+    <data noupdate="1">
+        <record id="mail_template_incorrect_delivery" model="mail.template">
+            <field name="name">Incorrect Delivery</field>
+            <field name="email_from">${object.company_id.email|safe}</field>
+            <field name="subject">Incorrect Delivery (${object.name})</field>
+            <field name="partner_to">${object.owner_id.id|safe}</field>
+            <field name="model_id" ref="model_stock_picking" />
+            <field name="auto_delete" eval="True" />
+            <field name="lang">${ctx.get("lang")}</field>
+            <field name="body_html" type="html">
+<div>
+    <p>One or several products in <a
+                            href="${object.form_view_url()}"
+                        >${object.name}</a> were received in incorrect amounts.</p>
+
+    % if object.zero_received_move_ids:
+    <p>Zero received:</p>
+    <ul>
+        % for move in object.zero_received_move_ids:
+            <li
+                        >${move.name} --- Received ${move.quantity_done} out of expected ${move.reserved_availability}</li>
+        % endfor
+    </ul>
+    % endif
+
+    % if object.zero_expected_move_ids:
+    <p>Received, but expected zero:</p>
+    <ul>
+        % for move in object.zero_expected_move_ids:
+            <li
+                        >${move.name} --- Received ${move.quantity_done} out of expected ${move.reserved_availability}</li>
+        % endfor
+    </ul>
+    % endif
+
+    % if object.too_few_received_move_ids:
+    <p>Received too few:</p>
+    <ul>
+        % for move in object.too_few_received_move_ids:
+            <li
+                        >${move.name} --- Received ${move.quantity_done} out of expected ${move.reserved_availability}</li>
+        % endfor
+    </ul>
+    % endif
+
+    % if object.too_many_received_move_ids:
+    <p>Received too many:</p>
+    <ul>
+        % for move in object.too_many_received_move_ids:
+            <li
+                        >${move.name} --- Received ${move.quantity_done} out of expected ${move.reserved_availability}</li>
+        % endfor
+    </ul>
+    % endif
+
+    <p>Please follow up accordingly.</p>
+</div>
+            </field>
+        </record>
+    </data>
+</odoo>
