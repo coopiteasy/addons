@@ -108,12 +108,6 @@ msgid "Currency"
 msgstr "Devise"
 
 #. module: customer_wallet
-#: model:account.account,name:customer_wallet.account_account_customer_wallet_demo
-#: model:account.journal,name:customer_wallet.account_journal_customer_wallet_demo
-msgid "Customer Wallet"
-msgstr "Porte-monnaie client"
-
-#. module: customer_wallet
 #: model:ir.model.fields,field_description:customer_wallet.field_res_company__customer_wallet_account_id
 #: model:ir.model.fields,field_description:customer_wallet.field_res_config_settings__customer_wallet_account_id
 msgid "Customer Wallet Account"
