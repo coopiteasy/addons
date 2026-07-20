@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<odoo>
+
+	<record id="module_cie_infra_access" model="ir.module.category">
+		<field name="name">Infrastructure</field>
+	</record>
+
+	<!-- cie_infra user group-->
+	<record id="cie_infra_usergroup" model="res.groups">
+		<field name="name">User</field>
+		<field name="category_id"
+			ref="module_cie_infra_access"/>
+		<field name="implied_ids"
+			eval="[(4, ref('base.group_user'))]"/>
+	</record>
+
+	<!-- cie_infra manager group-->
+	<record id="cie_infra_managergroup" model="res.groups">
+		<field name="name">Manager</field>
+		<field name="category_id"
+			ref="module_cie_infra_access" />
+		<field name="implied_ids"
+			eval="[(4, ref('cie_infra.cie_infra_usergroup'))]"/>
+		<field name="users"
+			eval="[(4, ref('base.user_root')),(4, ref('base.user_admin'))]"/>
+	</record>
+
+
+
+</odoo>

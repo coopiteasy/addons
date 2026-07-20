@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="server_list_template" name="Server List">
+        <div id="wrap" class="container">
+            <h1>Server</h1>
+            <t t-foreach="servers" t-as="server">
+                <div class="row">
+                    <span t-field="server.name"/>
+                    <span t-field="server.ipv4"/>
+                    <span t-field="server.ipv6"/>
+                    <span t-field="server.datacenter_info"/>
+                    <span t-field="server.ovh_address"/>
+                    <span t-field="server.cie_address"/>
+                    <span t-field="server.note"/>
+                    <span t-field="server.datacenter_id"/>
+                    <span t-field="server.shortname_ids"/>
+                    <span t-field="server.instance_ids"/>
+                </div>
+            </t>
+        </div>
+    </template>
+</odoo>
