@@ -23,6 +23,7 @@ class SaleOrder(models.Model):
     )
 
     def _recompute_prices(self):
+        self._remove_containers()
         # Apply product prices from pricelists and discounts
         result = super()._recompute_prices()
         # Containers should be added afterward because:
@@ -160,14 +161,20 @@ class SaleOrder(models.Model):
         values = super()._cart_update(product_id, line_id, add_qty, set_qty, **kwargs)
         return values
 
+    def _compute_amount_total_without_delivery(self):
+        amount_total = super()._compute_amount_total_without_delivery()
+        container_cost = sum(
+            [
+                line.price_total
+                for line in self.order_line
+                if line.is_container or line.is_container_deposit
+            ]
+        )
+        return amount_total - container_cost
+
     def _remove_containers(self):
         self.ensure_one()
-        deposit_product = self.env[
-            "ir.config_parameter"
-        ].get_container_deposit_product_id()
-
         lines_to_remove = self.order_line.filtered(
-            lambda line: line.product_id.is_container
-            or line.product_id == deposit_product
+            lambda line: line.is_container or line.is_container_deposit
         )
         lines_to_remove.unlink()

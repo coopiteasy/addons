@@ -236,3 +236,36 @@ class TestSaleOrder(common.TestCommonSaleOrder):
         )
         self.assertTrue(container_line)
         self.assertEqual(container_line.product_uom_qty, 1)
+
+    def test_delivery_fees(self):
+        """
+        Test that the delivery fees don't take the price of the containers
+        into account.
+        """
+        carrier = self.env["delivery.carrier"].create(
+            {
+                "name": "test delivery carrier",
+                "product_id": self.ref("delivery.product_product_delivery"),
+                "fixed_price": 5,
+                "free_over": True,
+                "amount": 15,
+            }
+        )
+        cart = self.sale_order._cart_update(
+            product_id=self.salad_product_adult.id, line_id=None, add_qty=1, set_qty=0
+        )
+        self.sale_order.add_containers()
+        delivery = carrier.rate_shipment(self.sale_order)
+        # the delivery should not be free because even if the order costs 23.8
+        # in total (with the containers), the price of the meal is only 13.8,
+        # so it does not exceed 15.
+        self.assertEqual(delivery["price"], 5)
+        cart = self.sale_order._cart_update(
+            product_id=self.salad_product_adult.id,
+            line_id=cart["line_id"],
+            add_qty=1,
+            set_qty=0,
+        )
+        delivery = carrier.rate_shipment(self.sale_order)
+        # with 2 meals, the price exceeds 15, so the delivery should be free.
+        self.assertEqual(delivery["price"], 0)

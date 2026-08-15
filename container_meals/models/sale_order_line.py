@@ -11,6 +11,7 @@ class SaleOrderLine(models.Model):
 
     not_returned = fields.Integer(default=0)
     is_container = fields.Boolean(related="product_id.is_container")
+    is_container_deposit = fields.Boolean(compute="_compute_is_container_deposit")
 
     @api.constrains("not_returned", "product_uom_qty")
     def _check_not_returned(self):
@@ -23,3 +24,11 @@ class SaleOrderLine(models.Model):
                 raise ValidationError(
                     _("'Not Returned' may not be higher than Quantity.")
                 )
+
+    @api.depends("product_id")
+    def _compute_is_container_deposit(self):
+        deposit_product = self.env[
+            "ir.config_parameter"
+        ].get_container_deposit_product_id()
+        for line in self:
+            line.is_container_deposit = line.product_id == deposit_product
