@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+SPDX-FileCopyrightText: 2022 Coop IT Easy SC
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<odoo>
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="name">pos_customer_wallet_partner_is_user.view_partner_form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="account_customer_wallet.view_partner_form" />
+        <field name="arch" type="xml">
+            <field name="customer_wallet_balance" position="before">
+                <field name="is_customer_wallet_user" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_res_partner_filter" model="ir.ui.view">
+        <field
+            name="name"
+        >pos_customer_wallet_partner_is_user.partner.search.form</field>
+        <field name="model">res.partner</field>
+        <field
+            name="inherit_id"
+            ref="account_customer_wallet.view_res_partner_filter"
+        />
+        <field name="arch" type="xml">
+            <xpath
+                expr="filter[@name='customer_wallet_balance_nonzero']"
+                position="before"
+            >
+                <filter
+                    name="is_customer_wallet_user"
+                    string="Is Customer Wallet User"
+                    domain="[('is_customer_wallet_user', '=', True)]"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>
