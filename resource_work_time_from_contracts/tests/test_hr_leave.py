@@ -12,8 +12,7 @@ class TestHrLeave(TestWorkTimeBase):
         self.leave_type = self.env["hr.leave.type"].create(
             {
                 "name": "Dummy leave type",
-                "allocation_type": "no",
-                "validity_start": "2020-10-24",
+                "requires_allocation": "no",
             }
         )
 
@@ -49,7 +48,7 @@ class TestHrLeave(TestWorkTimeBase):
                 "request_date_to": "2021-10-27",
             }
         )
-        leave._onchange_request_parameters()
+        leave._compute_date_from_to()
         self.assertEqual(
             leave.date_from,
             self.to_utc_datetime(2021, 10, 25, 13, 30).replace(tzinfo=None),
@@ -103,7 +102,7 @@ class TestHrLeave(TestWorkTimeBase):
                 "request_date_to": "2021-10-27",
             }
         )
-        leave._onchange_request_parameters()
+        leave._compute_date_from_to()
         self.assertEqual(
             leave.date_from,
             self.to_utc_datetime(2021, 10, 20, 13, 30).replace(tzinfo=None),
@@ -156,7 +155,7 @@ class TestHrLeave(TestWorkTimeBase):
                 "request_date_to": "2021-10-25",
             }
         )
-        leave._onchange_request_parameters()
+        leave._compute_date_from_to()
         self.assertEqual(
             leave.date_from, self.to_utc_datetime(2021, 10, 21).replace(tzinfo=None)
         )
@@ -178,7 +177,7 @@ class TestHrLeave(TestWorkTimeBase):
                 "request_date_to": "2021-10-27",
             }
         )
-        leave._onchange_request_parameters()
+        leave._compute_date_from_to()
         self.assertEqual(
             leave.date_from,
             self.to_utc_datetime(2021, 10, 25, 8, 42).replace(tzinfo=None),
@@ -201,7 +200,7 @@ class TestHrLeave(TestWorkTimeBase):
                 "request_date_to": "2021-10-27",
             }
         )
-        leave._onchange_request_parameters()
+        leave._compute_date_from_to()
         self.assertEqual(
             leave.date_from, self.to_utc_datetime(2021, 10, 25).replace(tzinfo=None)
         )
@@ -231,7 +230,7 @@ class TestHrLeave(TestWorkTimeBase):
                 "request_date_to": "2021-10-27",
             }
         )
-        leave._onchange_request_parameters()
+        leave._compute_date_from_to()
         self.assertEqual(
             leave.date_from, self.to_utc_datetime(2021, 10, 25).replace(tzinfo=None)
         )

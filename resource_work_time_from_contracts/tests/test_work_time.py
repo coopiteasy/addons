@@ -185,7 +185,7 @@ class TestWorkTime(TestWorkTimeBase):
         )
         # On Tuesday morning, work when ignoring leaves.
         self.assertEqual(
-            self.employee1.list_normal_work_time_per_day(
+            self.employee1.list_attendance_time_per_day(
                 self.local_datetime(2021, 10, 19, 8, 42),
                 self.local_datetime(2021, 10, 19, 12, 30),
             ),
@@ -204,7 +204,7 @@ class TestWorkTime(TestWorkTimeBase):
             ],
         )
         self.assertEqual(
-            self.employee1.list_normal_work_time_per_day(
+            self.employee1.list_attendance_time_per_day(
                 self.local_datetime(2021, 10, 19, 13, 30),
                 self.local_datetime(2021, 10, 19, 17, 18),
             ),
@@ -224,7 +224,7 @@ class TestWorkTime(TestWorkTimeBase):
         )
         # On all of Tuesday, work the entire day ignoring leaves.
         self.assertEqual(
-            self.employee1.list_normal_work_time_per_day(
+            self.employee1.list_attendance_time_per_day(
                 self.local_datetime(2021, 10, 19, 8, 42),
                 self.local_datetime(2021, 10, 19, 17, 18),
             ),
@@ -266,7 +266,7 @@ class TestWorkTime(TestWorkTimeBase):
             ],
         )
         self.assertEqual(
-            self.employee1.list_normal_work_time_per_day(
+            self.employee1.list_attendance_time_per_day(
                 self.local_datetime(2021, 10, 19, 8, 42),
                 self.local_datetime(2021, 10, 19, 12, 30),
             ),
@@ -284,7 +284,7 @@ class TestWorkTime(TestWorkTimeBase):
             ],
         )
         self.assertEqual(
-            self.employee1.list_normal_work_time_per_day(
+            self.employee1.list_attendance_time_per_day(
                 self.to_utc_datetime(2021, 10, 19, 8, 42),
                 self.to_utc_datetime(2021, 10, 19, 12, 30),
             ),
@@ -302,7 +302,7 @@ class TestWorkTime(TestWorkTimeBase):
             ],
         )
         self.assertEqual(
-            self.employee1.list_normal_work_time_per_day(
+            self.employee1.list_attendance_time_per_day(
                 self.to_utc_datetime(2021, 10, 19, 8, 42).replace(tzinfo=None),
                 self.to_utc_datetime(2021, 10, 19, 12, 30).replace(tzinfo=None),
             ),
@@ -324,7 +324,7 @@ class TestWorkTime(TestWorkTimeBase):
             ],
         )
         self.assertEqual(
-            self.employee1.list_normal_work_time_per_day(
+            self.employee1.list_attendance_time_per_day(
                 self.to_utc_datetime(2021, 10, 19, 8, 42).astimezone(
                     timezone(timedelta(hours=23))
                 ),

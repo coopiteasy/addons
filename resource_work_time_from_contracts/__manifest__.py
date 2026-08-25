@@ -20,5 +20,4 @@
         "views/hr_employee.xml",
         "views/resource_resource.xml",
     ],
-    "post_load": "post_load_hook",
 }
