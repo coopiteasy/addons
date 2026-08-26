@@ -5,7 +5,6 @@ from odoo import fields, models
 
 
 class ResourceCalendarLeaves(models.Model):
-
     _inherit = "resource.calendar.leaves"
 
     # force this field to be equal to the resource_calendar_id of the resource
@@ -16,6 +15,5 @@ class ResourceCalendarLeaves(models.Model):
     calendar_id = fields.Many2one(
         "resource.calendar",
         related="resource_id.calendar_id",
-        readonly=True,
         store=True,
     )

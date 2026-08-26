@@ -3,6 +3,8 @@
 
 from datetime import timedelta, timezone
 
+from odoo.tests.common import users
+
 from .test_work_time_base import TestWorkTimeBase
 
 
@@ -126,7 +128,7 @@ class TestWorkDaysData(TestWorkTimeBase):
                 "wage": 0.0,
                 "resource_calendar_id": self.morning_calendar.id,
                 "date_start": "2020-10-24",
-                "date_end": "2021-10-25",
+                "date_end": "2021-10-26",
             }
         )
         self.env["hr.contract"].create(
@@ -135,6 +137,98 @@ class TestWorkDaysData(TestWorkTimeBase):
                 "employee_id": self.employee1.id,
                 "wage": 0.0,
                 "resource_calendar_id": self.four_fifths_calendar.id,
+                "date_start": "2020-10-24",
+            }
+        )
+        # 4.5 days because on the 2021-10-25 (monday), only one day is counted
+        # because the morning attendances overlap and only the total time is
+        # counted. 0.5 comes from the morning of 2021-10-26 (tuesday).
+        self.assertEqual(
+            self._get_employee_work_days(),
+            {
+                "days": 4.5,
+                "hours": 34.2,
+            },
+        )
+
+    def test_short_days(self):
+        """
+        Shorter days should be counted as a full days.
+        """
+        calendar = self.env["resource.calendar"].create(
+            {"name": "4 * 4.47", "attendance_ids": False}
+        )
+        for day in range(4):
+            self.env["resource.calendar.attendance"].create(
+                {
+                    "name": "Attendance",
+                    "dayofweek": str(day),
+                    "hour_from": 10,
+                    "hour_to": 14.75,
+                    "calendar_id": calendar.id,
+                }
+            )
+        calendar._onchange_hours_per_day()
+        self.env["hr.contract"].create(
+            {
+                "name": "Contract 1",
+                "employee_id": self.employee1.id,
+                "wage": 0.0,
+                "resource_calendar_id": calendar.id,
+                "date_start": "2020-10-24",
+            }
+        )
+        self.assertEqual(
+            self._get_employee_work_days(),
+            {
+                "days": 4,
+                "hours": 19,
+            },
+        )
+
+    def test_irregular_days(self):
+        """
+        Half days in contracts should be counted as a half days.
+        """
+        calendar = self.env["resource.calendar"].create(
+            {"name": "Nine tenth", "attendance_ids": False}
+        )
+        for day in (0, 2, 3, 4):
+            self.env["resource.calendar.attendance"].create(
+                {
+                    "name": "Attendance",
+                    "dayofweek": str(day),
+                    "hour_from": 8.7,
+                    "hour_to": 12.5,
+                    "calendar_id": calendar.id,
+                }
+            )
+            self.env["resource.calendar.attendance"].create(
+                {
+                    "name": "Attendance",
+                    "dayofweek": str(day),
+                    "hour_from": 13.5,
+                    "hour_to": 17.3,
+                    "calendar_id": calendar.id,
+                }
+            )
+        self.env["resource.calendar.attendance"].create(
+            {
+                "name": "Attendance",
+                "dayofweek": "1",
+                "hour_from": 8.7,
+                "hour_to": 12.5,
+                "calendar_id": calendar.id,
+            }
+        )
+        # this must be forced to set the default day length.
+        calendar.hours_per_day = 7.6
+        self.env["hr.contract"].create(
+            {
+                "name": "Contract 1",
+                "employee_id": self.employee1.id,
+                "wage": 0.0,
+                "resource_calendar_id": calendar.id,
                 "date_start": "2020-10-24",
             }
         )
@@ -204,7 +298,7 @@ class TestWorkDaysData(TestWorkTimeBase):
                 self.local_datetime(2021, 10, 25),
                 self.local_datetime(2021, 11, 1),
                 compute_leaves=False,
-            ),
+            )[self.employee1.id],
             {
                 "days": 5.0,
                 "hours": 38.0,
@@ -214,7 +308,7 @@ class TestWorkDaysData(TestWorkTimeBase):
             self.employee1._get_work_days_data_batch(
                 self.local_datetime(2021, 10, 26, 8, 42),
                 self.local_datetime(2021, 10, 26, 12, 30),
-            ),
+            )[self.employee1.id],
             {
                 "days": 0.0,
                 "hours": 0.0,
@@ -225,7 +319,7 @@ class TestWorkDaysData(TestWorkTimeBase):
                 self.local_datetime(2021, 10, 26, 8, 42),
                 self.local_datetime(2021, 10, 26, 12, 30),
                 compute_leaves=False,
-            ),
+            )[self.employee1.id],
             {
                 "days": 0.5,
                 "hours": 3.8,
@@ -235,7 +329,7 @@ class TestWorkDaysData(TestWorkTimeBase):
             self.employee1._get_work_days_data_batch(
                 self.local_datetime(2021, 10, 26, 13, 30),
                 self.local_datetime(2021, 10, 26, 17, 18),
-            ),
+            )[self.employee1.id],
             {
                 "days": 0.5,
                 "hours": 3.8,
@@ -246,7 +340,7 @@ class TestWorkDaysData(TestWorkTimeBase):
                 self.local_datetime(2021, 10, 26, 13, 30),
                 self.local_datetime(2021, 10, 26, 17, 18),
                 compute_leaves=False,
-            ),
+            )[self.employee1.id],
             {
                 "days": 0.5,
                 "hours": 3.8,
@@ -256,7 +350,7 @@ class TestWorkDaysData(TestWorkTimeBase):
             self.employee1._get_work_days_data_batch(
                 self.local_datetime(2021, 10, 27, 8, 42),
                 self.local_datetime(2021, 10, 27, 17, 18),
-            ),
+            )[self.employee1.id],
             {
                 "days": 0.5,
                 "hours": 3.8,
@@ -267,7 +361,7 @@ class TestWorkDaysData(TestWorkTimeBase):
                 self.local_datetime(2021, 10, 27, 8, 42),
                 self.local_datetime(2021, 10, 27, 17, 18),
                 compute_leaves=False,
-            ),
+            )[self.employee1.id],
             {
                 "days": 1.0,
                 "hours": 7.6,
@@ -291,7 +385,7 @@ class TestWorkDaysData(TestWorkTimeBase):
             self.employee1._get_work_days_data_batch(
                 self.local_datetime(2021, 10, 26, 8, 42),
                 self.local_datetime(2021, 10, 26, 8, 48),
-            ),
+            )[self.employee1.id],
             {
                 "days": 0.0,
                 "hours": 0.1,
@@ -301,7 +395,7 @@ class TestWorkDaysData(TestWorkTimeBase):
             self.employee1._get_work_days_data_batch(
                 self.local_datetime(2021, 10, 26, 8, 42),
                 self.local_datetime(2021, 10, 26, 9, 6),
-            ),
+            )[self.employee1.id],
             {
                 "days": 0.0625,
                 "hours": 0.4,
@@ -311,7 +405,7 @@ class TestWorkDaysData(TestWorkTimeBase):
             self.employee1._get_work_days_data_batch(
                 self.local_datetime(2021, 10, 26, 8, 42),
                 self.local_datetime(2021, 10, 26, 9, 18),
-            ),
+            )[self.employee1.id],
             {
                 "days": 0.0625,
                 "hours": 0.6,
@@ -321,7 +415,7 @@ class TestWorkDaysData(TestWorkTimeBase):
             self.employee1._get_work_days_data_batch(
                 self.local_datetime(2021, 10, 26, 8, 42),
                 self.local_datetime(2021, 10, 26, 9, 36),
-            ),
+            )[self.employee1.id],
             {
                 "days": 0.125,
                 "hours": 0.9,
@@ -355,7 +449,7 @@ class TestWorkDaysData(TestWorkTimeBase):
             self.employee1._get_work_days_data_batch(
                 self.local_datetime(2021, 10, 26, 8, 42),
                 self.local_datetime(2021, 10, 26, 12, 30),
-            ),
+            )[self.employee1.id],
             {
                 "days": 0.375,
                 "hours": 3.0,
@@ -366,7 +460,7 @@ class TestWorkDaysData(TestWorkTimeBase):
                 self.local_datetime(2021, 10, 26, 8, 42),
                 self.local_datetime(2021, 10, 26, 12, 30),
                 compute_leaves=False,
-            ),
+            )[self.employee1.id],
             {
                 "days": 0.5,
                 "hours": 3.8,
@@ -376,7 +470,7 @@ class TestWorkDaysData(TestWorkTimeBase):
             self.employee1._get_work_days_data_batch(
                 self.to_utc_datetime(2021, 10, 26, 8, 42),
                 self.to_utc_datetime(2021, 10, 26, 12, 30),
-            ),
+            )[self.employee1.id],
             {
                 "days": 0.375,
                 "hours": 3.0,
@@ -387,7 +481,7 @@ class TestWorkDaysData(TestWorkTimeBase):
                 self.to_utc_datetime(2021, 10, 26, 8, 42),
                 self.to_utc_datetime(2021, 10, 26, 12, 30),
                 compute_leaves=False,
-            ),
+            )[self.employee1.id],
             {
                 "days": 0.5,
                 "hours": 3.8,
@@ -397,7 +491,7 @@ class TestWorkDaysData(TestWorkTimeBase):
             self.employee1._get_work_days_data_batch(
                 self.to_utc_datetime(2021, 10, 26, 8, 42).replace(tzinfo=None),
                 self.to_utc_datetime(2021, 10, 26, 12, 30).replace(tzinfo=None),
-            ),
+            )[self.employee1.id],
             {
                 "days": 0.375,
                 "hours": 3.0,
@@ -408,7 +502,7 @@ class TestWorkDaysData(TestWorkTimeBase):
                 self.to_utc_datetime(2021, 10, 26, 8, 42).replace(tzinfo=None),
                 self.to_utc_datetime(2021, 10, 26, 12, 30).replace(tzinfo=None),
                 compute_leaves=False,
-            ),
+            )[self.employee1.id],
             {
                 "days": 0.5,
                 "hours": 3.8,
@@ -422,7 +516,7 @@ class TestWorkDaysData(TestWorkTimeBase):
                 self.to_utc_datetime(2021, 10, 26, 12, 30).astimezone(
                     timezone(timedelta(hours=-23))
                 ),
-            ),
+            )[self.employee1.id],
             {
                 "days": 0.375,
                 "hours": 3.0,
@@ -437,14 +531,43 @@ class TestWorkDaysData(TestWorkTimeBase):
                     timezone(timedelta(hours=-23))
                 ),
                 compute_leaves=False,
-            ),
+            )[self.employee1.id],
             {
                 "days": 0.5,
                 "hours": 3.8,
             },
         )
 
+    @users("user1")
+    def test_access_rights(self):
+        """
+        Should be able to be run from an employee user with no access rights
+        to contracts.
+        """
+        # here sudo() is needed only to create the contract.
+        self.env["hr.contract"].sudo().create(
+            {
+                "name": "Contract 1",
+                "employee_id": self.employee1.id,
+                "wage": 0.0,
+                "resource_calendar_id": self.full_time_calendar.id,
+                "date_start": "2020-10-24",
+            }
+        )
+        # this is needed to reload the record, otherwise it has superuser
+        # access rights.
+        self.employee1 = self.env["hr.employee"].browse(self.employee1.id)
+        self.assertEqual(
+            self._get_employee_work_days(),
+            {
+                "days": 5.0,
+                "hours": 38.0,
+            },
+        )
+
     def _get_employee_work_days(self):
         from_datetime = self.local_datetime(2021, 10, 25)
         to_datetime = from_datetime + timedelta(days=7)
-        return self.employee1._get_work_days_data_batch(from_datetime, to_datetime)
+        return self.employee1._get_work_days_data_batch(from_datetime, to_datetime)[
+            self.employee1.id
+        ]

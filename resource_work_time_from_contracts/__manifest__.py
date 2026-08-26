@@ -14,10 +14,10 @@
     "category": "Human Resources",
     "depends": [
         "hr_contract",
+        "hr_holidays",
     ],
     "data": [
         "views/hr_employee.xml",
         "views/resource_resource.xml",
     ],
-    "demo": [],
 }
