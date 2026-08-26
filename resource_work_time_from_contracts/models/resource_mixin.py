@@ -54,23 +54,28 @@ class ResourceMixin(models.AbstractModel):
         from_datetime, to_datetime = self._localize_datetimes(
             from_datetime, to_datetime
         )
-        attendance_intervals = self._get_attendance_intervals(
-            from_datetime.replace(hour=0, minute=0, second=0, microsecond=0),
-            to_datetime.replace(hour=0, minute=0, second=0, microsecond=0)
-            + datetime.timedelta(days=1),
-        )
-        attendance_time_per_day = dict(
-            self._expected_attendance_per_day_from_intervals(attendance_intervals)
-        )
-        if compute_leaves:
-            work_time_per_day = self.list_work_time_per_day(
-                from_datetime, to_datetime, calendar=None, domain=domain
+        result = {}
+        for record in self:
+            attendance_intervals = record._get_attendance_intervals(
+                from_datetime.replace(hour=0, minute=0, second=0, microsecond=0),
+                to_datetime.replace(hour=0, minute=0, second=0, microsecond=0)
+                + datetime.timedelta(days=1),
             )
-        else:
-            work_time_per_day = self.list_attendance_time_per_day(
-                from_datetime, to_datetime
+            attendance_time_per_day = dict(
+                record._expected_attendance_per_day_from_intervals(attendance_intervals)
             )
-        return self._sum_work_days_data(work_time_per_day, attendance_time_per_day)
+            if compute_leaves:
+                work_time_per_day = record.list_work_time_per_day(
+                    from_datetime, to_datetime, calendar=None, domain=domain
+                )
+            else:
+                work_time_per_day = record.list_attendance_time_per_day(
+                    from_datetime, to_datetime
+                )
+            result[record.id] = record._sum_work_days_data(
+                work_time_per_day, attendance_time_per_day
+            )
+        return result
 
     def list_work_time_per_day(
         self,
@@ -178,7 +183,7 @@ class ResourceMixin(models.AbstractModel):
         # same value, but in case of overlapping calendars with different
         # values, it will compute the average value.
         hours_per_day = defaultdict(list)
-        for start, stop, attendances in intervals:
+        for start, _stop, attendances in intervals:
             # matching intervals can have multiple attendances.
             for attendance in attendances:
                 hours_per_day[start.date()].append(attendance.calendar_id.hours_per_day)
@@ -256,7 +261,7 @@ class ResourceMixin(models.AbstractModel):
         Return a list of tuples of the form (date, hours).
         """
         result = defaultdict(float)
-        for start, stop, meta in intervals:
+        for start, stop, _meta in intervals:
             result[start.date()] += (stop - start).total_seconds() / 3600
         return sorted(result.items())
 
@@ -285,9 +290,9 @@ class ResourceMixin(models.AbstractModel):
         Return the attendance intervals for the provided resource.calendar,
         ignoring leaves.
         """
-        return calendar._attendance_intervals(
+        return calendar._attendance_intervals_batch(
             from_datetime, to_datetime, self.resource_id
-        )
+        )[self.resource_id.id]
 
     def _get_attendance_intervals_of_contracts(
         self, contracts, from_datetime, to_datetime

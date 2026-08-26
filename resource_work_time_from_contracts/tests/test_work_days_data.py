@@ -298,7 +298,7 @@ class TestWorkDaysData(TestWorkTimeBase):
                 self.local_datetime(2021, 10, 25),
                 self.local_datetime(2021, 11, 1),
                 compute_leaves=False,
-            ),
+            )[self.employee1.id],
             {
                 "days": 5.0,
                 "hours": 38.0,
@@ -308,7 +308,7 @@ class TestWorkDaysData(TestWorkTimeBase):
             self.employee1._get_work_days_data_batch(
                 self.local_datetime(2021, 10, 26, 8, 42),
                 self.local_datetime(2021, 10, 26, 12, 30),
-            ),
+            )[self.employee1.id],
             {
                 "days": 0.0,
                 "hours": 0.0,
@@ -319,7 +319,7 @@ class TestWorkDaysData(TestWorkTimeBase):
                 self.local_datetime(2021, 10, 26, 8, 42),
                 self.local_datetime(2021, 10, 26, 12, 30),
                 compute_leaves=False,
-            ),
+            )[self.employee1.id],
             {
                 "days": 0.5,
                 "hours": 3.8,
@@ -329,7 +329,7 @@ class TestWorkDaysData(TestWorkTimeBase):
             self.employee1._get_work_days_data_batch(
                 self.local_datetime(2021, 10, 26, 13, 30),
                 self.local_datetime(2021, 10, 26, 17, 18),
-            ),
+            )[self.employee1.id],
             {
                 "days": 0.5,
                 "hours": 3.8,
@@ -340,7 +340,7 @@ class TestWorkDaysData(TestWorkTimeBase):
                 self.local_datetime(2021, 10, 26, 13, 30),
                 self.local_datetime(2021, 10, 26, 17, 18),
                 compute_leaves=False,
-            ),
+            )[self.employee1.id],
             {
                 "days": 0.5,
                 "hours": 3.8,
@@ -350,7 +350,7 @@ class TestWorkDaysData(TestWorkTimeBase):
             self.employee1._get_work_days_data_batch(
                 self.local_datetime(2021, 10, 27, 8, 42),
                 self.local_datetime(2021, 10, 27, 17, 18),
-            ),
+            )[self.employee1.id],
             {
                 "days": 0.5,
                 "hours": 3.8,
@@ -361,7 +361,7 @@ class TestWorkDaysData(TestWorkTimeBase):
                 self.local_datetime(2021, 10, 27, 8, 42),
                 self.local_datetime(2021, 10, 27, 17, 18),
                 compute_leaves=False,
-            ),
+            )[self.employee1.id],
             {
                 "days": 1.0,
                 "hours": 7.6,
@@ -385,7 +385,7 @@ class TestWorkDaysData(TestWorkTimeBase):
             self.employee1._get_work_days_data_batch(
                 self.local_datetime(2021, 10, 26, 8, 42),
                 self.local_datetime(2021, 10, 26, 8, 48),
-            ),
+            )[self.employee1.id],
             {
                 "days": 0.0,
                 "hours": 0.1,
@@ -395,7 +395,7 @@ class TestWorkDaysData(TestWorkTimeBase):
             self.employee1._get_work_days_data_batch(
                 self.local_datetime(2021, 10, 26, 8, 42),
                 self.local_datetime(2021, 10, 26, 9, 6),
-            ),
+            )[self.employee1.id],
             {
                 "days": 0.0625,
                 "hours": 0.4,
@@ -405,7 +405,7 @@ class TestWorkDaysData(TestWorkTimeBase):
             self.employee1._get_work_days_data_batch(
                 self.local_datetime(2021, 10, 26, 8, 42),
                 self.local_datetime(2021, 10, 26, 9, 18),
-            ),
+            )[self.employee1.id],
             {
                 "days": 0.0625,
                 "hours": 0.6,
@@ -415,7 +415,7 @@ class TestWorkDaysData(TestWorkTimeBase):
             self.employee1._get_work_days_data_batch(
                 self.local_datetime(2021, 10, 26, 8, 42),
                 self.local_datetime(2021, 10, 26, 9, 36),
-            ),
+            )[self.employee1.id],
             {
                 "days": 0.125,
                 "hours": 0.9,
@@ -449,7 +449,7 @@ class TestWorkDaysData(TestWorkTimeBase):
             self.employee1._get_work_days_data_batch(
                 self.local_datetime(2021, 10, 26, 8, 42),
                 self.local_datetime(2021, 10, 26, 12, 30),
-            ),
+            )[self.employee1.id],
             {
                 "days": 0.375,
                 "hours": 3.0,
@@ -460,7 +460,7 @@ class TestWorkDaysData(TestWorkTimeBase):
                 self.local_datetime(2021, 10, 26, 8, 42),
                 self.local_datetime(2021, 10, 26, 12, 30),
                 compute_leaves=False,
-            ),
+            )[self.employee1.id],
             {
                 "days": 0.5,
                 "hours": 3.8,
@@ -470,7 +470,7 @@ class TestWorkDaysData(TestWorkTimeBase):
             self.employee1._get_work_days_data_batch(
                 self.to_utc_datetime(2021, 10, 26, 8, 42),
                 self.to_utc_datetime(2021, 10, 26, 12, 30),
-            ),
+            )[self.employee1.id],
             {
                 "days": 0.375,
                 "hours": 3.0,
@@ -481,7 +481,7 @@ class TestWorkDaysData(TestWorkTimeBase):
                 self.to_utc_datetime(2021, 10, 26, 8, 42),
                 self.to_utc_datetime(2021, 10, 26, 12, 30),
                 compute_leaves=False,
-            ),
+            )[self.employee1.id],
             {
                 "days": 0.5,
                 "hours": 3.8,
@@ -491,7 +491,7 @@ class TestWorkDaysData(TestWorkTimeBase):
             self.employee1._get_work_days_data_batch(
                 self.to_utc_datetime(2021, 10, 26, 8, 42).replace(tzinfo=None),
                 self.to_utc_datetime(2021, 10, 26, 12, 30).replace(tzinfo=None),
-            ),
+            )[self.employee1.id],
             {
                 "days": 0.375,
                 "hours": 3.0,
@@ -502,7 +502,7 @@ class TestWorkDaysData(TestWorkTimeBase):
                 self.to_utc_datetime(2021, 10, 26, 8, 42).replace(tzinfo=None),
                 self.to_utc_datetime(2021, 10, 26, 12, 30).replace(tzinfo=None),
                 compute_leaves=False,
-            ),
+            )[self.employee1.id],
             {
                 "days": 0.5,
                 "hours": 3.8,
@@ -516,7 +516,7 @@ class TestWorkDaysData(TestWorkTimeBase):
                 self.to_utc_datetime(2021, 10, 26, 12, 30).astimezone(
                     timezone(timedelta(hours=-23))
                 ),
-            ),
+            )[self.employee1.id],
             {
                 "days": 0.375,
                 "hours": 3.0,
@@ -531,7 +531,7 @@ class TestWorkDaysData(TestWorkTimeBase):
                     timezone(timedelta(hours=-23))
                 ),
                 compute_leaves=False,
-            ),
+            )[self.employee1.id],
             {
                 "days": 0.5,
                 "hours": 3.8,
@@ -568,4 +568,6 @@ class TestWorkDaysData(TestWorkTimeBase):
     def _get_employee_work_days(self):
         from_datetime = self.local_datetime(2021, 10, 25)
         to_datetime = from_datetime + timedelta(days=7)
-        return self.employee1._get_work_days_data_batch(from_datetime, to_datetime)
+        return self.employee1._get_work_days_data_batch(from_datetime, to_datetime)[
+            self.employee1.id
+        ]

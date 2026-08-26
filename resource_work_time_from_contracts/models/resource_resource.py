@@ -10,7 +10,13 @@ class ResourceResource(models.Model):
     # force this field to be equal to the resource_calendar_id of the company.
     calendar_id = fields.Many2one(
         "resource.calendar",
+        # this is to prevent the warning:
+        # odoo.fields: Redundant default on resource.resource.calendar_id
+        # (coming from odoo.fields.Field.setup_related()). this is because
+        # company_id has the default value: lambda self: self.env.company, and
+        # with this argument, this fields gets an automatic default value of
+        # lambda self: self.env.company.resource_calendar_id.
+        default=None,
         related="company_id.resource_calendar_id",
-        readonly=True,
         store=True,
     )

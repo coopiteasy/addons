@@ -15,6 +15,5 @@ class ResourceCalendarLeaves(models.Model):
     calendar_id = fields.Many2one(
         "resource.calendar",
         related="resource_id.calendar_id",
-        readonly=True,
         store=True,
     )
