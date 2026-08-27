@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_product_scale_log_tree" model="ir.ui.view">
+        <field name="model">product.scale.log</field>
+        <field name="arch" type="xml">
+            <tree name="scale_log" create="false" decoration-muted="sent == True">
+                <field name="log_date" />
+                <field name="sent" />
+                <field name="last_send_date" />
+                <field name="scale_system_id" />
+                <field name="product_id" />
+                <field name="action" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_product_scale_log_form" model="ir.ui.view">
+        <field name="model">product.scale.log</field>
+        <field name="arch" type="xml">
+            <form name="scale_log" string="Scale Log">
+                <header>
+                    <button name="send_log" string="Send to FTP Server" type="object" />
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="log_date" />
+                            <field name="sent" />
+                            <field name="last_send_date" />
+                        </group>
+                        <group>
+                            <field name="scale_system_id" />
+                            <field name="product_id" />
+                            <field name="action" />
+                            <field name="send_product_image" />
+                        </group>
+                    </group>
+                    <group>
+                        <field name="product_text" />
+                        <field name="external_text_display" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>
