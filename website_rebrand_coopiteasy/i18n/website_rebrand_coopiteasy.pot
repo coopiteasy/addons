@@ -1,6 +1,5 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* website_rebrand_coopiteasy
 #
 msgid ""
 msgstr ""
@@ -12,25 +11,3 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-
-#. module: website_rebrand_coopiteasy
-#: model_terms:ir.ui.view,arch_db:website_rebrand_coopiteasy.brand_promotion
-msgid ""
-",\n"
-"                provided by"
-msgstr ""
-
-#. module: website_rebrand_coopiteasy
-#: model_terms:ir.ui.view,arch_db:website_rebrand_coopiteasy.brand_promotion
-msgid "Coop IT Easy"
-msgstr ""
-
-#. module: website_rebrand_coopiteasy
-#: model_terms:ir.ui.view,arch_db:website_rebrand_coopiteasy.brand_promotion
-msgid "OCA"
-msgstr ""
-
-#. module: website_rebrand_coopiteasy
-#: model_terms:ir.ui.view,arch_db:website_rebrand_coopiteasy.brand_promotion
-msgid "Odoo"
-msgstr ""
