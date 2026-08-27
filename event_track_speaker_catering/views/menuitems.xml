@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record model="ir.actions.act_window" id="action_event_speaker_meal_date">
+        <field name="name">Meals</field>
+        <field name="res_model">event.track.speaker.meal.date</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem
+        id="menu_event_speaker"
+        name="Track Speakers Meals"
+        sequence="40"
+        action="action_event_speaker_meal_date"
+        parent="event.menu_event_configuration"
+        groups="event.group_event_registration_desk"
+    />
+</odoo>

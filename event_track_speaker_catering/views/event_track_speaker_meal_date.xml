@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_event_track_speaker_meal_date_tree" model="ir.ui.view">
+        <field name="name">event.track.speaker.meal.date.tree</field>
+        <field name="model">event.track.speaker.meal.date</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="date" />
+                <field name="quantity" />
+                <field name="speaker_id" />
+                <field name="event_id" />
+            </tree>
+        </field>
+    </record>
+    <record id="view_event_track_speaker_meal_date_search" model="ir.ui.view">
+        <field name="name">event.track.speaker.meal.date.search</field>
+        <field name="model">event.track.speaker.meal.date</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="speaker_id" />
+                <field name="event_id" />
+                <field name="date" />
+                <field name="quantity" />
+                <filter
+                    string="My Speakers"
+                    name="my_speakers"
+                    domain="[('speaker_id.track_ids.user_id', '=', uid)]"
+                />
+                <separator />
+                <separator />
+                <group expand="0" name="group_by" string="Group By">
+                    <filter
+                        name="event_id"
+                        string="Event"
+                        context="{'group_by' : 'event_id'}"
+                    />
+                    <filter
+                        name="speaker_id"
+                        string="Speaker"
+                        context="{'group_by' : 'speaker_id'}"
+                    />
+                    <filter name="date" string="Date" context="{'group_by' : 'date'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+</odoo>
