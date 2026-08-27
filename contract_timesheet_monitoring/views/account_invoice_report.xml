@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2020 Tecnativa - Víctor Martínez
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+        <xpath
+            expr="//table[@name='invoice_line_table']/thead/tr/th[@name='th_quantity']"
+            position="after"
+        >
+            <th name="th_time_spent" class="text-right">Time Spent</th>
+        </xpath>
+        <xpath expr="//span[@t-field='line.quantity']" position="after">
+            <th
+                name="td_time_spent"
+                class="text-center"
+                decoration-danger="line.time_spent &gt; line.quantity"
+            >
+                <span
+                    t-field="line.time_spent"
+                    t-attf-class="#{'text-danger' if line.time_spent &gt; line.quantity else 'text-success'}"
+                />
+            </th>
+        </xpath>
+
+
+    </template>
+</odoo>
