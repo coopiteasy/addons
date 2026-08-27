@@ -1,0 +1,1 @@
+- set cost and prices fields as fields.Monetary
