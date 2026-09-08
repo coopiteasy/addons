@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="fieldservice.model_fsm_order" model="ir.model">
+        <field name="website_form_key">create_fsm_order</field>
+        <field
+            name="website_form_default_field_id"
+            ref="fieldservice.field_fsm_order__description"
+        />
+        <field name="website_form_access">True</field>
+        <field name="website_form_label">Create a new order</field>
+    </record>
+
+    <function model="ir.model.fields" name="formbuilder_whitelist">
+        <value>fsm.order</value>
+        <value
+            eval="[
+             'social_beneficiary_partner_id',
+             'location_street',
+             'location_street2',
+             'location_city',
+             'location_state_id',
+             'location_zip',
+             'location_country_id',
+             'scheduled_date_start',
+             'scheduled_duration',
+             'type',
+             'description',
+             ]"
+        />
+    </function>
+</odoo>
