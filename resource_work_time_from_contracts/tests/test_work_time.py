@@ -3,6 +3,8 @@
 
 from datetime import date, timedelta, timezone
 
+from odoo.tests.common import users
+
 from .test_work_time_base import TestWorkTimeBase
 
 
@@ -183,7 +185,7 @@ class TestWorkTime(TestWorkTimeBase):
         )
         # On Tuesday morning, work when ignoring leaves.
         self.assertEqual(
-            self.employee1.list_normal_work_time_per_day(
+            self.employee1.list_attendance_time_per_day(
                 self.local_datetime(2021, 10, 19, 8, 42),
                 self.local_datetime(2021, 10, 19, 12, 30),
             ),
@@ -202,7 +204,7 @@ class TestWorkTime(TestWorkTimeBase):
             ],
         )
         self.assertEqual(
-            self.employee1.list_normal_work_time_per_day(
+            self.employee1.list_attendance_time_per_day(
                 self.local_datetime(2021, 10, 19, 13, 30),
                 self.local_datetime(2021, 10, 19, 17, 18),
             ),
@@ -222,7 +224,7 @@ class TestWorkTime(TestWorkTimeBase):
         )
         # On all of Tuesday, work the entire day ignoring leaves.
         self.assertEqual(
-            self.employee1.list_normal_work_time_per_day(
+            self.employee1.list_attendance_time_per_day(
                 self.local_datetime(2021, 10, 19, 8, 42),
                 self.local_datetime(2021, 10, 19, 17, 18),
             ),
@@ -264,7 +266,7 @@ class TestWorkTime(TestWorkTimeBase):
             ],
         )
         self.assertEqual(
-            self.employee1.list_normal_work_time_per_day(
+            self.employee1.list_attendance_time_per_day(
                 self.local_datetime(2021, 10, 19, 8, 42),
                 self.local_datetime(2021, 10, 19, 12, 30),
             ),
@@ -282,7 +284,7 @@ class TestWorkTime(TestWorkTimeBase):
             ],
         )
         self.assertEqual(
-            self.employee1.list_normal_work_time_per_day(
+            self.employee1.list_attendance_time_per_day(
                 self.to_utc_datetime(2021, 10, 19, 8, 42),
                 self.to_utc_datetime(2021, 10, 19, 12, 30),
             ),
@@ -300,7 +302,7 @@ class TestWorkTime(TestWorkTimeBase):
             ],
         )
         self.assertEqual(
-            self.employee1.list_normal_work_time_per_day(
+            self.employee1.list_attendance_time_per_day(
                 self.to_utc_datetime(2021, 10, 19, 8, 42).replace(tzinfo=None),
                 self.to_utc_datetime(2021, 10, 19, 12, 30).replace(tzinfo=None),
             ),
@@ -322,7 +324,7 @@ class TestWorkTime(TestWorkTimeBase):
             ],
         )
         self.assertEqual(
-            self.employee1.list_normal_work_time_per_day(
+            self.employee1.list_attendance_time_per_day(
                 self.to_utc_datetime(2021, 10, 19, 8, 42).astimezone(
                     timezone(timedelta(hours=23))
                 ),
@@ -332,6 +334,33 @@ class TestWorkTime(TestWorkTimeBase):
             ),
             [
                 (date(2021, 10, 19), 3.8),
+            ],
+        )
+
+    @users("user1")
+    def test_access_rights(self):
+        """
+        Should be able to be run from an employee user with no access rights
+        to contracts.
+        """
+        # here sudo() is needed only to create the contract.
+        self.env["hr.contract"].sudo().create(
+            {
+                "name": "Contract 1",
+                "employee_id": self.employee1.id,
+                "wage": 0.0,
+                "resource_calendar_id": self.full_time_calendar.id,
+                "date_start": "2020-10-18",
+            }
+        )
+        # this is needed to reload the record, otherwise it has superuser
+        # access rights.
+        self.employee1 = self.env["hr.employee"].browse(self.employee1.id)
+        self.assertEqual(
+            self._get_employee_work_time(),
+            [
+                (date(2021, 10, 19), 7.6),
+                (date(2021, 10, 20), 7.6),
             ],
         )
 
