@@ -11,7 +11,7 @@ from pytz import timezone, utc
 from odoo import models
 from odoo.tools import float_utils
 
-from odoo.addons.resource.models.resource import ROUNDING_FACTOR, Intervals
+from odoo.addons.resource.models.resource import Intervals
 
 DAY_ROUNDING_MODE_PARAM = "resource_work_time_from_contracts.day_rounding_mode"
 DAY_ROUNDING_GRANULARITY_PARAM = (
@@ -199,12 +199,10 @@ class ResourceMixin(models.AbstractModel):
         """
 
         def round_day_default(work_time, attendance_time):
-            # this is the same rounding computation as in
-            # resource.resource_mixin.get_work_days_data().
-            return (
-                float_utils.round(ROUNDING_FACTOR * work_time / attendance_time)
-                / ROUNDING_FACTOR
-            )
+            # by default, there is no rounding per day, only on the total
+            # number of days (see resource.calendar._get_days_data()). the
+            # rounding on the total is done in _sum_work_days_data().
+            return work_time / attendance_time
 
         def round_day_round(work_time, attendance_time):
             return (
@@ -252,6 +250,11 @@ class ResourceMixin(models.AbstractModel):
             attendance_time = attendance_time_per_day[day]
             num_days += round_day(work_time, attendance_time)
             num_hours += work_time
+        # this is the same rounding as in resource.calendar._get_days_data(),
+        # except that that function uses float_utils.float_round(), which has
+        # precision problems: for example, it gives results like
+        # 0.11800000000000001. built-in round() doesn't have this problem.
+        num_days = round(num_days, 3)
         return {"days": num_days, "hours": num_hours}
 
     def _sum_hours_per_date_from_intervals(self, intervals):

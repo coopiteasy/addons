@@ -370,7 +370,7 @@ class TestWorkDaysData(TestWorkTimeBase):
 
     def test_precision(self):
         """
-        Days should be rounded to the 1/16th.
+        The total number of days should be rounded to 0.001.
         """
         self.env["hr.contract"].create(
             {
@@ -387,7 +387,7 @@ class TestWorkDaysData(TestWorkTimeBase):
                 self.local_datetime(2021, 10, 26, 8, 48),
             )[self.employee1.id],
             {
-                "days": 0.0,
+                "days": 0.013,
                 "hours": 0.1,
             },
         )
@@ -397,7 +397,7 @@ class TestWorkDaysData(TestWorkTimeBase):
                 self.local_datetime(2021, 10, 26, 9, 6),
             )[self.employee1.id],
             {
-                "days": 0.0625,
+                "days": 0.053,
                 "hours": 0.4,
             },
         )
@@ -407,7 +407,7 @@ class TestWorkDaysData(TestWorkTimeBase):
                 self.local_datetime(2021, 10, 26, 9, 18),
             )[self.employee1.id],
             {
-                "days": 0.0625,
+                "days": 0.079,
                 "hours": 0.6,
             },
         )
@@ -417,8 +417,19 @@ class TestWorkDaysData(TestWorkTimeBase):
                 self.local_datetime(2021, 10, 26, 9, 36),
             )[self.employee1.id],
             {
-                "days": 0.125,
+                "days": 0.118,
                 "hours": 0.9,
+            },
+        )
+        # check that individual days are not rounded, but only the total
+        self.assertEqual(
+            self.employee1._get_work_days_data_batch(
+                self.local_datetime(2021, 10, 26, 17, 17, 51),
+                self.local_datetime(2021, 10, 27, 8, 42, 9),
+            )[self.employee1.id],
+            {
+                "days": 0.001,
+                "hours": 0.005,
             },
         )
 
@@ -451,7 +462,7 @@ class TestWorkDaysData(TestWorkTimeBase):
                 self.local_datetime(2021, 10, 26, 12, 30),
             )[self.employee1.id],
             {
-                "days": 0.375,
+                "days": 0.395,
                 "hours": 3.0,
             },
         )
@@ -472,7 +483,7 @@ class TestWorkDaysData(TestWorkTimeBase):
                 self.to_utc_datetime(2021, 10, 26, 12, 30),
             )[self.employee1.id],
             {
-                "days": 0.375,
+                "days": 0.395,
                 "hours": 3.0,
             },
         )
@@ -493,7 +504,7 @@ class TestWorkDaysData(TestWorkTimeBase):
                 self.to_utc_datetime(2021, 10, 26, 12, 30).replace(tzinfo=None),
             )[self.employee1.id],
             {
-                "days": 0.375,
+                "days": 0.395,
                 "hours": 3.0,
             },
         )
@@ -518,7 +529,7 @@ class TestWorkDaysData(TestWorkTimeBase):
                 ),
             )[self.employee1.id],
             {
-                "days": 0.375,
+                "days": 0.395,
                 "hours": 3.0,
             },
         )
