@@ -45,3 +45,12 @@ class SaleOrder(models.Model):
             .get_param("sale_order_volume.pallet_volume")
             or 0
         )
+
+    @api.model
+    def get_default_pallet_weight(self):
+        return (
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("sale_order_volume.pallet_weight")
+            or 0
+        )
