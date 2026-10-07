@@ -4,4 +4,8 @@
         <field name="key">sale_order_volume.pallet_volume</field>
         <field name="value" type="float">1.75</field>
     </record>
+    <record id="pallet_weight" model="ir.config_parameter">
+        <field name="key">sale_order_volume.pallet_weight</field>
+        <field name="value" type="float">20.0</field>
+    </record>
 </odoo>
