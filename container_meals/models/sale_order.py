@@ -161,16 +161,18 @@ class SaleOrder(models.Model):
         values = super()._cart_update(product_id, line_id, add_qty, set_qty, **kwargs)
         return values
 
-    def _compute_amount_total_without_delivery(self):
-        amount_total = super()._compute_amount_total_without_delivery()
-        container_cost = sum(
+    def _get_container_cost(self):
+        return sum(
             [
                 line.price_total
                 for line in self.order_line
                 if line.is_container or line.is_container_deposit
             ]
         )
-        return amount_total - container_cost
+
+    def _compute_amount_total_without_delivery(self):
+        amount_total = super()._compute_amount_total_without_delivery()
+        return amount_total - self._get_container_cost()
 
     def _remove_containers(self):
         self.ensure_one()

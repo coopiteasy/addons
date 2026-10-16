@@ -1,3 +1,4 @@
+from . import delivery_carrier
 from . import ir_config_parameter
 from . import product_product
 from . import product_template
