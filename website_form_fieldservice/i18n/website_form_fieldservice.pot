@@ -1,0 +1,159 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* website_form_fieldservice
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-07 13:00+0000\n"
+"PO-Revision-Date: 2026-09-07 13:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_form_fieldservice
+#: model_terms:ir.ui.view,arch_db:website_form_fieldservice.fsm_order_form
+msgid ""
+"<span class=\"o_form_label o_td_label o_address_type\" name=\"address_name\">\n"
+"                    <span>Address</span>\n"
+"                </span>"
+msgstr ""
+
+#. module: website_form_fieldservice
+#. odoo-javascript
+#: code:addons/website_form_fieldservice/static/src/js/website_fsm_order_editor.esm.js:0
+#: model:ir.model.fields,field_description:website_form_fieldservice.field_fsm_order__social_beneficiary_partner_id
+msgid "Beneficiary"
+msgstr ""
+
+#. module: website_form_fieldservice
+#. odoo-javascript
+#: code:addons/website_form_fieldservice/static/src/js/website_fsm_order_editor.esm.js:0
+#: model_terms:ir.ui.view,arch_db:website_form_fieldservice.fsm_order_form
+msgid "City"
+msgstr ""
+
+#. module: website_form_fieldservice
+#. odoo-javascript
+#: code:addons/website_form_fieldservice/static/src/js/website_fsm_order_editor.esm.js:0
+#: model:ir.model.fields,field_description:website_form_fieldservice.field_fsm_order__location_country_id
+#: model_terms:ir.ui.view,arch_db:website_form_fieldservice.fsm_order_form
+msgid "Country"
+msgstr ""
+
+#. module: website_form_fieldservice
+#: model:ir.model.fields,field_description:website_form_fieldservice.field_fsm_order__location_country_code
+msgid "Country Code"
+msgstr ""
+
+#. module: website_form_fieldservice
+#. odoo-javascript
+#: code:addons/website_form_fieldservice/static/src/js/website_fsm_order_editor.esm.js:0
+msgid "Description"
+msgstr ""
+
+#. module: website_form_fieldservice
+#: model:ir.model,name:website_form_fieldservice.model_fsm_order
+msgid "Field Service Order"
+msgstr ""
+
+#. module: website_form_fieldservice
+#: model:ir.model.fields,field_description:website_form_fieldservice.field_fsm_order__location_city
+msgid "Location City"
+msgstr ""
+
+#. module: website_form_fieldservice
+#: model:ir.model.fields,field_description:website_form_fieldservice.field_fsm_order__location_street
+msgid "Location Street"
+msgstr ""
+
+#. module: website_form_fieldservice
+#: model:ir.model.fields,field_description:website_form_fieldservice.field_fsm_order__location_street2
+msgid "Location Street2"
+msgstr ""
+
+#. module: website_form_fieldservice
+#: model:ir.model.fields,field_description:website_form_fieldservice.field_fsm_order__location_zip
+msgid "Location Zip"
+msgstr ""
+
+#. module: website_form_fieldservice
+#: model:ir.model.fields,field_description:website_form_fieldservice.field_fsm_order__social_partner_partner_id
+msgid "Partner"
+msgstr ""
+
+#. module: website_form_fieldservice
+#. odoo-javascript
+#: code:addons/website_form_fieldservice/static/src/js/website_fsm_order_editor.esm.js:0
+msgid "Resolution"
+msgstr ""
+
+#. module: website_form_fieldservice
+#. odoo-javascript
+#: code:addons/website_form_fieldservice/static/src/js/website_fsm_order_editor.esm.js:0
+msgid "Scheduled Date Start"
+msgstr ""
+
+#. module: website_form_fieldservice
+#. odoo-javascript
+#: code:addons/website_form_fieldservice/static/src/js/website_fsm_order_editor.esm.js:0
+msgid "Scheduled Duration In Hours"
+msgstr ""
+
+#. module: website_form_fieldservice
+#. odoo-javascript
+#: code:addons/website_form_fieldservice/static/src/js/website_fsm_order_editor.esm.js:0
+#: model:ir.model.fields,field_description:website_form_fieldservice.field_fsm_order__location_state_id
+#: model_terms:ir.ui.view,arch_db:website_form_fieldservice.fsm_order_form
+msgid "State"
+msgstr ""
+
+#. module: website_form_fieldservice
+#. odoo-javascript
+#: code:addons/website_form_fieldservice/static/src/js/website_fsm_order_editor.esm.js:0
+msgid "Street"
+msgstr ""
+
+#. module: website_form_fieldservice
+#. odoo-javascript
+#: code:addons/website_form_fieldservice/static/src/js/website_fsm_order_editor.esm.js:0
+msgid "Street 2"
+msgstr ""
+
+#. module: website_form_fieldservice
+#: model_terms:ir.ui.view,arch_db:website_form_fieldservice.fsm_order_form
+msgid "Street 2..."
+msgstr ""
+
+#. module: website_form_fieldservice
+#: model_terms:ir.ui.view,arch_db:website_form_fieldservice.fsm_order_form
+msgid "Street..."
+msgstr ""
+
+#. module: website_form_fieldservice
+#: model:ir.model.fields,help:website_form_fieldservice.field_fsm_order__location_country_code
+msgid ""
+"The ISO country code in two chars. \n"
+"You can use this field for quick search."
+msgstr ""
+
+#. module: website_form_fieldservice
+#. odoo-javascript
+#: code:addons/website_form_fieldservice/static/src/js/website_fsm_order_editor.esm.js:0
+msgid "Type"
+msgstr ""
+
+#. module: website_form_fieldservice
+#: model_terms:ir.ui.view,arch_db:website_form_fieldservice.fsm_order_form
+msgid "ZIP"
+msgstr ""
+
+#. module: website_form_fieldservice
+#. odoo-javascript
+#: code:addons/website_form_fieldservice/static/src/js/website_fsm_order_editor.esm.js:0
+msgid "Zip"
+msgstr ""
