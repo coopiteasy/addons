@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="fsm_order_form" model="ir.ui.view">
+        <field name="name">fsm.order.form.inherit</field>
+        <field name="model">fsm.order</field>
+        <field name="inherit_id" ref="fieldservice.fsm_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//sheet//field[@name='priority']" position="after">
+                <span
+                    class="o_form_label o_td_label o_address_type"
+                    name="address_name"
+                >
+                    <span>Address</span>
+                </span>
+                <div class="o_address_format">
+                    <field
+                        name="street"
+                        placeholder="Street..."
+                        class="o_address_street"
+                        readonly="True"
+                    />
+                    <field
+                        name="street2"
+                        placeholder="Street 2..."
+                        class="o_address_street"
+                        readonly="True"
+                    />
+                    <field
+                        name="city"
+                        placeholder="City"
+                        class="o_address_city"
+                        readonly="True"
+                    />
+                    <field name="state_name" class="o_address_state" />
+                    <field
+                        name="zip"
+                        placeholder="ZIP"
+                        class="o_address_zip"
+                        readonly="True"
+                    />
+                    <div
+                        name="partner_address_country"
+                        class="d-flex justify-content-between"
+                    >
+                        <field
+                            name="country_name"
+                            placeholder="Country"
+                            class="o_address_country"
+                            readonly="True"
+                        />
+                    </div>
+                </div>
+            </xpath>
+            <xpath expr="//sheet//field[@name='company_id']" position="after">
+                <field name="social_beneficiary_partner_id" />
+                <field name="social_partner_partner_id" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

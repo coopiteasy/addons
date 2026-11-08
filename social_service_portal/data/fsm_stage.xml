@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+SPDX-FileCopyrightText: 2026 Coop IT Easy SC
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<odoo noupdate="1">
+    <record id="fsm_stage_assigned" model="fsm.stage">
+        <field name="name">Assigned</field>
+        <field name="sequence">20</field>
+        <field name="is_default">False</field>
+        <field name="stage_type">order</field>
+        <field name="custom_color">#EE7C36</field>
+    </record>
+</odoo>

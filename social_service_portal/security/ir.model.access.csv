@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_fsm_order_social_volunteer,fsm.order.social.volunteer,fieldservice.model_fsm_order,social_service_portal.group_portal_social_volunteer,1,0,0,0
+access_fsm_order_social_partner,fsm.order.social.partner,fieldservice.model_fsm_order,group_portal_social_partner,1,0,0,0
+access_fsm_stage_social_volunteer,fsm.stage.social.volunteer,fieldservice.model_fsm_stage,social_service_portal.group_portal_social_volunteer,1,0,0,0
+access_fsm_stage_social_partner,fsm.stage.social.partner,fieldservice.model_fsm_stage,group_portal_social_partner,1,0,0,0
+access_fsm_order_type_social_volunteer,fsm.order.type.social.volunteer,fieldservice.model_fsm_order_type,social_service_portal.group_portal_social_volunteer,1,0,0,0
+access_fsm_order_type_social_partner,fsm.order.type.social.partner,fieldservice.model_fsm_order_type,group_portal_social_partner,1,0,0,0
