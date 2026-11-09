@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<odoo>
+    <template
+        id="portal_my_fsm_orders"
+        name="My Work Orders: social service"
+        inherit_id="fieldservice_portal.portal_my_fsm_orders"
+    >
+        <xpath expr="//tr[hasclass('active')]/th[3]" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//tr[hasclass('active')]/th[4]" position="after">
+            <th>Beneficiary</th>
+            <th>Assigned To</th>
+        </xpath>
+        <xpath
+            expr="//t[@t-out='fsm_order.sudo().location_id.display_name']/.."
+            position="attributes"
+        >
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//t[@t-out='fsm_order.type.name']/.." position="after">
+            <td>
+                <t
+                    t-out="fsm_order.sudo().social_beneficiary_partner_id.display_name"
+                />
+            </td>
+            <td>
+                <t t-out="fsm_order.sudo().person_id.display_name" />
+            </td>
+        </xpath>
+    </template>
+</odoo>

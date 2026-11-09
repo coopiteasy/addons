@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+SPDX-FileCopyrightText: 2026 Coop IT Easy SC
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<odoo>
+    <record id="group_portal_social_partner" model="res.groups">
+        <field name="name">Partner Portal Group</field>
+        <field name="category_id" ref="base.module_category_website" />
+        <field
+            name="comment"
+        >Group to restrict access to pages only to partners with the social_type social_partner.</field>
+    </record>
+
+    <record id="group_portal_social_volunteer" model="res.groups">
+        <field name="name">Volunteer Portal Group</field>
+        <field name="category_id" ref="base.module_category_website" />
+        <field
+            name="comment"
+        >Group for social service volunteers to access field service orders in the portal.</field>
+    </record>
+
+    <record id="fsm_order_rule_social_volunteer" model="ir.rule">
+        <field name="name">Social Service Volunteer Orders</field>
+        <field name="model_id" ref="fieldservice.model_fsm_order" />
+        <field
+            name="domain_force"
+        >['|', ('person_id', '=', False), ('person_id.partner_id', '=', user.partner_id.id)]</field>
+        <field name="groups" eval="[(4, ref('group_portal_social_volunteer'))]" />
+    </record>
+
+    <record id="fsm_order_rule_social_partner" model="ir.rule">
+        <field name="name">Social Service Partner Orders</field>
+        <field name="model_id" ref="fieldservice.model_fsm_order" />
+        <field
+            name="domain_force"
+        >[('social_partner_partner_id', '=', user.partner_id.id)]</field>
+        <field name="groups" eval="[(4, ref('group_portal_social_partner'))]" />
+    </record>
+</odoo>
